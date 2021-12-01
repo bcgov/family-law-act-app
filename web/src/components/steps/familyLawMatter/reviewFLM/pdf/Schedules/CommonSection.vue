@@ -121,12 +121,35 @@
             </section>
         </div>
 
+        <div class="print-block mt-0">
+            <div style="margin-top:1rem;"><b>Filing location</b></div>            
+<!-- <5> -->
+            <section>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
+                <div style="margin-left:1rem;">
+                    <i>Select only one of the options below</i>
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text="where my existing case with the same party/parties is located"/> 
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
+                        text="closest to where I live because my case does not involve a child-related issue"/>
+                    <check-box  
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="permitted by court order"/>                    
+                </div>
+            </section>
+        </div>
+
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Initial requirements</b></div>
-<!-- <5> -->
+<!-- <6> -->
             <section> 
                 I am filing my application in:
-                <check-box style="margin:0 0 0 1rem;" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
+                <check-box style="margin:0 0 0 1rem;" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you <span style='text-decoration: underline;'>completed or participated in</span>, or if <span style='text-decoration: underline;'>you were granted an exemption</span> from completing or participating in, the following: <br/>Select all options that apply.</i>"/>
                 <div style="margin:0 0 0 2.75rem;">
                     <check-box  :check="locationInfo.earlyResolutionRegistry?'yes':''" text="needs assessment"/>
                     <check-box  :check="locationInfo.earlyResolutionRegistry?'yes':''" text="parenting education program"/>
@@ -134,13 +157,12 @@
                 </div>
                 <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.familyJusticeRegistry?'yes':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
                 <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.educationRegistry?'yes':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.none?'yes':''" text="none of the above "/>
             </section>
         </div>
 
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Make an application</b></div>
-<!-- <6> -->
+<!-- <7> -->
             <section>
                 <b style="margin-left:0.25rem">I am applying for a court order about the following family law matter(s):</b>
                 <div style="margin-left:1rem;">
@@ -171,39 +193,44 @@
 
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Existing written agreements or court orders</b></div>
-<!-- <7> -->
+<!-- <8> -->
             <section>
                 <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
                 <div style="margin-left:1rem">
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
-                    <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
+                    <i style="display:block">If yes, attach a copy of the agreement(s) or order(s) to your application</i>
                 </div>
             </section>
         </div>
 
- <!-- <8> -->
+ <!-- <9> -->
         <section> 
-            <div style="display:inline; margin-left:0.25rem">There is an existing court order protecting one of the parties, the child(ren), or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition and other criminal order</div>            
+            <div style="display:inline; margin-left:0.25rem">
+                There is an existing court order, agreement or plan protecting one of the parties or the child(ren), or
+                restraining contact between the parties, including a protection order, an order, agreement or plan involving
+                child protection services, or a peace bond, restraining order, bail condition or other criminal order
+            </div>            
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>
-                <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
+                <i style="display:block">If yes, attach a copy of the order(s), agreement(s) or plan(s) to your application</i>
             </div>
         </section>  
 
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Relationship between the parties</b></div>
-<!-- <9> -->
+<!-- <10> -->
             <section>
-                <div style="display:inline; margin-left:0.25rem">The parties are: </div> 
+                <div style="display:inline; margin-left:0.25rem">The parties are: </div>
+                <i style="display:block;margin-left:1.5rem" >Describe how you and the other party/parties are related for the purposes of this family law application</i> 
                 <div class="answer">         
                     <span style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</span>
                 </div>
             </section>
         </div>
 
-<!-- <10> -->
+<!-- <11> -->
         <section>
             <div style="display:inline; margin-left:0.25rem">I am or have been spouses, or live or have lived together in a marriage-like relationship, with the other party </div>          
             <div>
@@ -224,7 +251,7 @@
 
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Identification of child(ren)</b></div>
-<!-- <11> -->
+<!-- <12> -->
             <section>
                 <i style="display:inline; margin-left:0.25rem">Select only one of the options below and complete the required information</i>          
                 <div style="margin-left:1.5rem">
@@ -247,7 +274,7 @@
             </section>
         </div>
 
-<!-- <12> -->
+<!-- <13> -->
         <section>
             <div style="margin:0 0 0 .5rem;display:inline;">
                 <check-box inline="inline" boxMargin="0" style="display:inline;" :check="childBestInterestAcknowledmentCheck?'yes':''" text=""/>
@@ -258,7 +285,7 @@
        
         <div class="print-block">
             <div style="margin-top:1rem;"><b>About us</b></div>
-<!-- <13> -->
+<!-- <14> -->
             <section>
                 <i style="display:inline; margin-left:0.25rem">You may choose to complete this section or leave this section blank</i>
                 <div style="margin-left:.5rem; text-indent:0rem;">I would like to share the following information with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of my family, including, if the child is an Indigenous child, the child’s Indigenous identity:</div>
@@ -320,6 +347,7 @@ export default class CommonSection extends Vue {
     childrenInfo = []
     childBestInterestAcknowledmentCheck = false;
     culturalInfo = '';  
+    filingLocationReason = '';
     
    
     mounted(){
@@ -337,6 +365,10 @@ export default class CommonSection extends Vue {
     ]   
 
     public extractInfo(){ 
+
+        if (this.result.filingLocationSurvey?.filingLocationReason) {
+            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
+        }
         
         this.existingOrders = this.getExistingOrdersInfo();
         this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();

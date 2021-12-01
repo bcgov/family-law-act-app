@@ -9,12 +9,12 @@
             <div style="text-align:center;"><b>This is Schedule 7 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to be appointed as a guardian of a child or children identified in section 11 of this application. </i>
+                <i>Complete this schedule only if you are making an application to be appointed as a guardian of a child or children identified in section 12 of this application. </i>
             </div>
 
 <!-- <1> -->
             <section class="resetquestion"> 
-                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I am applying to be appointed as a guardian of the following child(ren) identified in section 11 of"/>
+                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I am applying to be appointed as a guardian of the following child(ren) identified in section 12 of"/>
                 <div style="margin:0 0 0 2.5rem; display:inline;">this application:</div>
                 <div style="margin: 0 0 1rem 3.5rem;">
                     <i>List the name of each child you want to be appointed as a guardian of</i>

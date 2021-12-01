@@ -288,6 +288,27 @@ export default class Schedule10 extends Vue {
                 cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
                 
             }
+        } else {
+            existingSpousalSupportInfo.orderInfo = {
+
+                changes: {
+                    myfin: false,
+                    opfin: false,
+                    myEmp: false,
+                    opEmp: false,
+                    houseHold: false,
+                    newInfo: false,                   
+                    other: false
+                },
+
+                newInfo:     '',
+                houseHold:   '',
+                myEmp:       '',
+                opEmp:       '',
+                otherChange: '',
+                change: false,
+                cancel: false
+            }
         }
 
         if (this.result.aboutExistingSpousalSupportOrderSurvey){

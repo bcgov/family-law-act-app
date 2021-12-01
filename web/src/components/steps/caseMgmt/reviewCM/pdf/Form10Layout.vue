@@ -146,18 +146,50 @@
         </div>   
 
          <!-- <For registery> -->
-        <div class="print-block">
-            <div style="margin:0.25rem 0 0 1rem; font-size: 9pt;"><i>For registry use only</i></div>
+        <div class="print-block">            
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                <div style="text-indent:4px; margin:0 0 0.5rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only - if applicable</i></div>
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+                <div style="margin:0.5rem 0 0 0.25rem;">
+                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
+                    <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
+                </div>    
             </div>
-            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>
+                NOTICE TO PARTIES: If you do not attend court on the date and time scheduled for the court appearance, 
+                the court may make an order in your absence. You may also choose to file a written response in reply to the
+                application in Form 19 Written Response to Application.
+            </b></div>
         </div>
 
+        <div class="print-block mt-0">
+            <div style="margin-top:1rem;"><b>Filing location</b></div>            
 <!-- <7> -->
+            <section>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
+                <div style="margin-left:1rem;">
+                    <i>Select only one of the options below</i>
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text="where my existing case with the same party/parties is located"/> 
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
+                        text="closest to where I live because my case does not involve a child-related issue"/>
+                    <check-box  
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="permitted by court order"/>                    
+                </div>
+            </section>
+        </div>
+
+<!-- <8> -->
         <div class="print-block"> 
             <section>
                 <div style="display:inline; margin-left:0.25rem;"> I am applying for the following case management order(s): </div>
@@ -175,7 +207,7 @@
                                                                     the service of a document"/>
                     <check-box  :check="form10Info.caseList.includes('changeRequirement')?'yes':''" text="waiving or modifying any other requirement under these rules, including a time limit set under these rules or a time limit set by
                                                                     an order or direction, even after the time limit has expired"/>
-                    <check-box  :check="form10Info.caseList.includes('remoteAttendance')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video"/>
+                    <check-box  :check="form10Info.caseList.includes('remoteAttendance')?'yes':''" text="allowing a person to attend a court appearance using a different method of attendance"/>
                     <check-box  :check="form10Info.caseList.includes('adjourningAppearance')?'yes':''" text="adjourning a court appearance"/>
                     <check-box  :check="form10Info.caseList.includes('rule112')?'yes':''" text="respecting the conduct of a party or management of a case"/>
                     <check-box  :check="form10Info.caseList.includes('section211')?'yes':''" text="relating to a report under section 211 <i>[orders respecting reports]</i> of the Family Law Act, including requiring that a person who
@@ -191,7 +223,7 @@
             </section>
         </div>
 
-<!-- <8> -->
+<!-- <9> -->
         <div class="print-block mt-0">
             <section>
                 <div style="display:inline; margin:0 0 0 0.05rem">                    
@@ -206,7 +238,7 @@
             </section>
         </div>
 
-<!-- <9> -->
+<!-- <10> -->
         <div class="print-block">
             <section>
                 <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
@@ -231,7 +263,7 @@
             </section>
         </div> 
 
-<!-- <10> -->
+<!-- <11> -->
         <div class="print-block mt-0">            
 
             <section>
@@ -298,6 +330,7 @@ export default class Form10Layout extends Vue {
     childRelatedType: string = '';   
     childrenInfo: childrenInfoSurveyInfoType[] = []; 
     form10Info = {} as form10DataInfoType;  
+    filingLocationReason = ''; 
     
     childrenFields=[
         {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
@@ -316,6 +349,10 @@ export default class Form10Layout extends Vue {
         this.childrenInfo = this.getChildrenInfo(); 
         this.locationInfo = this.getLocationInfo();
         this.form10Info = this.getForm10Info();
+
+        if (this.result.filingLocationSurvey?.filingLocationReason) {
+            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
+        }
     } 
     
     public getLocationInfo(){
