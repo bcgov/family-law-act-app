@@ -343,19 +343,26 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			
 			requiredDocuments.push("Any exhibits referenced in your application");
 			
-			if( questions.poFilingLocationSurvey?.ExistingFamilyCase =="y" ||
-			    questions.backgroundSurvey?.existingPOOrders=="y" ||
-				questions.backgroundSurvey?.ExistingOrders=="y" 
-			){
-				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");//TODO
+			if( questions.poFilingLocationSurvey?.ExistingFamilyCase =="y" ||			    
+				(questions.backgroundSurvey?.ExistingOrders=="y" && 
+				questions.backgroundSurvey?.PartiesHasOtherChilderen=="y" &&
+				questions.backgroundSurvey?.allOtherChilderen.length > 0)){
+				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+			}
+
+			if( questions.backgroundSurvey?.existingPOOrders=="y"){
+				requiredDocuments.push("Copy of your existing written agreement(s), court order(s) or plan(s)");
 			}
 		}
 	}
 
 	if(type == 'familyLawMatter'){	
 
-		if(questions.flmBackgroundSurvey?.existingPOOrders == "y"|| questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
-		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");//TODO
+		if(questions.flmBackgroundSurvey?.existingPOOrders == "y")
+		  	requiredDocuments.push("Copy of your existing written agreement(s), court order(s) or plan(s)");
+
+		if(questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
+		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 			
 		if(Vue.filter('FLMform4Required')())		
 			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
