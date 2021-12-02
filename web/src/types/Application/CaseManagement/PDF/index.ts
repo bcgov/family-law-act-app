@@ -17,11 +17,9 @@ export interface schedule1DataInfoType {
     eventTypeComment?:string;
     eventDate: string; 
     eventTime: string;
+    attendanceMethod: string;
     attendanceType: string;
-    attendanceTypeComment?: string;
-    phoneNumber?: string;
-    directLine?: boolean;
-    understandPhoneRequirements?: boolean;
+    attendanceTypeComment?: string;   
     documentsSubmitted?: boolean;
     virtualAttendanceReason?: string;
 }
