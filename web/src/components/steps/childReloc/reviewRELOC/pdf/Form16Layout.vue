@@ -6,11 +6,11 @@
         <div  class="form-header-reloc">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:11pt;"><b>Application for Order</b></div>
-                <div style="font-size:11pt;"><b>Prohibiting the Relocation of a Child</b></div>
-                <div style="font-size:9pt;"><b>FORM 16</b></div>
-                <div style="font-size:8pt;">Provincial Court Family Rules</div>
-                <div style="font-size:8pt;">Rule 80</div>
+                <div style="font-size:13pt;"><b>Application for Order</b></div>
+                <div style="font-size:13pt;"><b>Prohibiting the Relocation of a Child</b></div>
+                <div style="font-size:10pt;"><b>FORM 16</b></div>
+                <div>Provincial Court Family Rules</div>
+                <div>Rule 80</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -54,7 +54,7 @@
             </table>
         </section>
 
-       
+        <div style="margin-top: 1rem;"></div>       
 
 <!-- <2> -->
         <section>
@@ -71,7 +71,7 @@
             </div>                              
         </section>
 
-        
+        <div style="margin-top: 1rem;"></div>        
 
 <!-- <3> -->
         <div class="print-block">
@@ -185,16 +185,30 @@
             </section>
         </div> 
 
+        <div style="margin-top: 1rem;"></div>
+
 <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For registry use only</i></div>
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only</i></div>
+                
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+                <div style="margin:0.5rem 0 0 0.25rem;">
+                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
+                    <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
+                </div>
             </div>
-            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;">
+                <b>
+                    NOTE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court
+                    appearance, the court may make an order in your absence. You may also choose to file a written response in
+                    reply to the application in Form 19 Written Response to Application.
+                </b>
+            </div>
             <div style="margin:0.2rem 0 0 1rem; font-size: 9pt;"> The court must be satisfied that:
                 <ol class='resetcounteralpha'>
                     <li class='bracketalpha'>the proposed relocation is being made in good faith,</li>
@@ -208,10 +222,32 @@
 
         <div class="print-block mt-5"></div>
 
-        <div style="text-align:left;"><b>ABOUT THE ORDER</b></div>
-
-
+        <div class="print-block mt-0">            
 <!-- <4> -->
+            <section>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
+                <div style="margin-left:1rem;">
+                    <i>Select only one of the options below</i>
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text="where my existing case with the same party/parties is located"/> 
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
+                        text="closest to where I live because my case does not involve a child-related issue"/>
+                    <check-box  
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="permitted by court order"/>                    
+                </div>
+            </section>
+        </div>
+
+        <div style="text-align:left; margin-top: 1rem;"><b>ABOUT THE ORDER</b></div>
+
+
+<!-- <5> -->
         <section>
             <check-box 
                 inline="inline" 
@@ -222,7 +258,7 @@
         </section>
 
 
-<!-- <5> -->
+<!-- <6> -->
         <div class="print-block">
             <section>
                 <div style="display:inline; margin-left:0.25rem; font-size: 9pt;">This application is about the following child(ren) that I am a guardian of:</div>          
@@ -244,7 +280,7 @@
         </div>   
 
 
-<!-- <6> -->
+<!-- <7> -->
         <section>
             <check-box 
                 inline="inline" 
@@ -257,7 +293,7 @@
         </section> 
 
 
-<!-- <7> --> 
+<!-- <8> --> 
         <section>
             <check-box 
                 inline="inline" 
@@ -284,7 +320,7 @@
         </section>
 
 
-<!-- <8> -->
+<!-- <9> -->
         <div class="print-block">            
             <section>
                
@@ -315,7 +351,7 @@
         </div>   
 
 
-<!-- <9> -->
+<!-- <10> -->
         <div class="print-block">            
             <section> 
                 <div style="margin:0 0 0 0.4rem; display: inline; font-size: 9pt;">
@@ -373,7 +409,8 @@ export default class Form16Layout extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
     relocInfo = {} as relocationOfChildInformationDataInfoType;
 
-    existingFileNumber = ''
+    existingFileNumber = '';
+    filingLocationReason = '';
     childrenInfo = [{fullName:'', dob:'', currentSituation:'' }];  
     
     childrenFields=[
@@ -404,7 +441,13 @@ export default class Form16Layout extends Vue {
         this.yourInfo = this.getYourInfo();
         this.relocInfo = this.getRelocInfo();
         this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);
-    } 
+        
+        if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
+            this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
+        } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
+            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
+        }
+   } 
     
     public getChildrenInfo(){
 

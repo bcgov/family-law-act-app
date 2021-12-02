@@ -194,22 +194,59 @@
 
         <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For registry use only</i></div>
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only</i></div>
+                
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+                <div style="margin:0.5rem 0 0 0.25rem;">
+                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
+                    <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
+                </div>
             </div>
-            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div 
+                style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;">
+                <b>
+                    NOTE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court
+                    appearance, the court may make an order in your absence. You may also choose to file a written response in
+                    reply to the application in Form 19 Written Response to Application.
+                </b>
+            </div>
         </div>
 
         <div class="print-block mt-5"></div>
 
-        <div style="text-align:left;"><b>ABOUT THE PRIORITY PARENTING MATTER</b></div>
+        <div class="print-block mt-5"></div>
 
-
+        <div class="print-block mt-0">            
 <!-- <4> -->
+            <section>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
+                <div style="margin-left:1rem;">
+                    <i>Select only one of the options below</i>
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text="where my existing case with the same party/parties is located"/> 
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
+                        text="closest to where I live because my case does not involve a child-related issue"/>
+                    <check-box  
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="permitted by court order"/>                    
+                </div>
+            </section>
+        </div>
+
+        <div style="text-align:left; margin-top: 1rem;"><b>ABOUT THE PRIORITY PARENTING MATTER</b></div>
+
+
+<!-- <5> -->
         <section>
             <check-box 
                 inline="inline" 
@@ -228,11 +265,22 @@
                 <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
                 <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
                 <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
+                <check-box  
+                    :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" 
+                    text="applying for an order under section 45 [orders respecting parenting arrangements] or 51 [order respecting guardianship]
+                        of the Family Law Act in one of the following circumstances:<ol style='list-style-type: lower-roman'><li>the child to whom the order relates has been removed 
+                        under section 30 [removal of child], 36 [interim supervision order no longer protects the child] or 42 
+                        [enforcement of supervision order after the protection hearing] of the Child, Family and Community 
+                        Service Act and a director under that Act has advised that the order will allow for a child to be 
+                        returned to the applicant;</li><li>a director under the Child, Family and Community Service Act has 
+                        advised that the child to whom the order relates will be removed under section 30, 36 or 42 of that 
+                        Act unless the order is made;</li></ol><b>[complete and attach schedule 1]<br/>[if you are applying 
+                        for guardianship of a child, also complete and attach schedule 2]</b>"/>
             </div>                  
         </section>
 
 
-<!-- <5> -->
+<!-- <6> -->
         <div class="print-block">
             <section>
                 <div style="display:inline; margin-left:0.25rem;font-size: 9pt; ">This application is about the following child(ren):</div>          
@@ -254,7 +302,7 @@
         </div>   
 
 
-<!-- <6> --> 
+<!-- <7> --> 
         <div class="print-block">            
             <section>               
                 <div style="display:inline; margin-left:0.25rem;font-size: 9pt;">There is an existing written agreement or court order about the child(ren) concerning parenting arrangements, child support, contact with a child, or guardianship:
@@ -266,13 +314,13 @@
         </div>   
 
 
-<!-- <7> --> 
+<!-- <8> --> 
         <div class="print-block">            
             <section>
                 <div style="display:inline; margin-left:0.1rem;font-size: 9pt;">
                     I know the following information about any court proceeding that is pending or that has been initiated
-                    about parenting arrangements, contact with a child or guardianship of a child who is the subject of this
-                    application:
+                    about parenting arrangements, contact with a child, guardianship of a child, or protection of a child 
+                    who is the subject of this application:
                 </div>
                 <i style="text-indent:0; margin:0 0 0 0rem; display: block;font-size: 9pt;">If there is no pending or ongoing court proceeding, that you know of, in this court or another court or
                 jurisdiction, you may leave this section blank</i>
@@ -285,7 +333,7 @@
         </div> 
 
 
-<!-- <8> -->      
+<!-- <9> -->      
         <div class="print-block">            
             <section>
                 <div style="display:inline; margin-left:0.25rem;font-size: 9pt;">
@@ -301,7 +349,7 @@
         </div> 
 
 
-<!-- <9> -->
+<!-- <10> -->
         <div class="print-block">            
             <section>
                 <div style="display:inline; margin-left:0.25rem;font-size: 9pt;">
@@ -322,8 +370,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -364,7 +410,8 @@ export default class Form15Layout extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
     ppmInfo = {} as priorityParentingInformationDataInfoType;
     
-    existingFileNumber = ''
+    existingFileNumber = '';
+    filingLocationReason = '';
     
     childrenInfo: childrenInfoSurveyInfoType[] = [];
 
@@ -397,6 +444,12 @@ export default class Form15Layout extends Vue {
         this.yourInfo = this.getYourInfo();
         this.ppmInfo = this.getPpmInfo();
         this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);        
+
+        if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
+            this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
+        } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
+            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
+        }
     }       
     
     public getChildrenInfo() {
