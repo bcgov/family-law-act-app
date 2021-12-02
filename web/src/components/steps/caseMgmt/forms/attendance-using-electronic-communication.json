@@ -1,9 +1,9 @@
 {
-  "title": "Attendance Using Electronic Communication",
+  "title": "Attendance Using Another Method of Attendance",
   "pages": [
     {
-      "name": "Attendance Using Electronic Communication",
-      "description": "You can ask for an order that allows you, your lawyer, or both of you to attend a court appearance by telephone, video, or another electronic communication method.",
+      "name": "Attendance Using Another Method of Attendance",
+      "description": "You can ask for an order that allows you, your lawyer, or both of you to attend a court appearance using a different method of attendance, including in-person, by telephone, video, or other electronic means, other than what is scheduled.",
       "elements": [
         {
           "type": "panel",
@@ -13,7 +13,7 @@
               "type": "multiplecommentcheckbox",
               "name": "attendessList",
               "isRequired": true,
-              "title": "Who needs to attend the court appearance by telephone, video or other electronic means?",
+              "title": "Who needs to attend the court appearance using another method of attendance?",
               "description": "Select all options that apply.",
               "choices": [
                 {
@@ -69,14 +69,25 @@
               "description":"This information can be found on the filed application or the notice from the court."
             },
             {
+              "type": "comment",
+              "name": "attendanceMethod",
+              "description": "For example, in-person, telephone, video, or MS Teams. Use whatever wording is on the application or notice from the court. There may be more than one method of attendance. If there is, add each one in the field below. Separate them with a comma.",
+              "title": "What method of attendance is the court appearance scheduled for?",
+              "isRequired": true
+            },
+            {
               "type": "radiogroup",
               "name": "attendanceType",
               "isRequired": true,
               "title": "How do you want to attend the court appearance?",
-              "description": "The court can arrange an appearance by telephone or by video using MS Teams. If you want to attend by another electronic method, including a different video platform, please indicate your preference below. Your order or additional documents will include instructions for receiving or making the telephone call or attending by video if the court approves your order.<br><br>Note: The court may not be able to accommodate a request for a different video platform.<br><br>Select only one option.",
+              "description": "The court can arrange an appearance in person, by telephone or video using MS Teams. If you want to attend by another electronic method, including a different video conference platform, please indicate your preference below. Your order or additional documents will include instructions for receiving or making the telephone call or attending by video if the court approves your order.<br><br>Note: The court may not be able to accommodate a request for a different video conference platform. You may want to contact the court registry to check before making this application.<br><br>Select only one option.",
               "hasOther": true,
-              "otherText": "By other electronic method (specify):",
+              "otherText": "By other means of electronic communication (specify):",
               "choices": [
+                {
+                  "value": "inPerson",
+                  "text": "In person"
+                },
                 {
                   "value": "byTelephone",
                   "text": "By telephone"
@@ -91,63 +102,26 @@
         },
         {
           "type": "panel",
-          "name": "telephoneAttendancePanel",
-          "visible": false,
-          "visibleIf": "{attendanceType} = 'byTelephone'",
-          "elements": [
-            {
-              "type": "text",
-              "name": "telephoneNumber",
-              "description": "If the telephone number is outside Canada, please be sure to include the country code. If you have an extension that needs to be dialed, include that too by writing extension followed by the number.",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{attendanceType} = 'byTelephone'",
-              "title": "What telephone number would you like to be contacted at for the court appearance?"
-            },
-            {
-              "type": "yesno",
-              "name": "directPhone",
-              "description": "Will the call reach you directly or will someone need to transfer the call to you when they call the telephone number you provided.<br><br>If you select no, the person answering the phone must know the call will be coming and put it through immediately.",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{attendanceType} = 'byTelephone'",
-              "title": "Is this a direct phone line?"
-            }
-          ]
-        },
-        {
-          "type": "panel",
           "name": "electronicRequirementsPanel",          
-          "elements": [
-            {
-              "type": "html",
-              "name": "requirementDescription",
-              "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>The court has the following requirements about attending a conference or hearing using electronic communication:</div><ul style='color: #556077; font-size: 1.05em; line-height: 1.8em;'><li>a speaker phone must not be used</li><li>you must remain near the phone at all times prior to the call from the Clerk of the Court</li><li>the call must be taken in a quiet and private location</li><li>no other person may be in the room during the appearance</li><li>you may speak only when the Judge or Family Justice Manager indicates you may speak</li><li>recording of the call is strictly prohibited</li></ul>"
-            },
-            {
-              "type": "yesno",
-              "name": "understandRequirements",
-              "title": "Do you understand the requirements and agree to comply with them?",
-              "isRequired": true
-            },
+          "elements": [            
             {
               "type": "yesno",
               "name": "submittedDocuments",
-              "description": "Because you won’t be at the court appearance in person, the court wants to know if you have given whatever documents you may plan to use or reference during the court appearance to the other party. You should also make sure the court has a copy of those same documents.",
+              "description": "The court wants to know if you have given whatever documents you may plan to use or reference during the court appearance to the other party. If you are asking to attend the court appearance using any method other than in person, you should also make sure the court has a copy of those same documents.",
               "title": "Have any documents you may want to refer to in court been submitted to the court registry and received by the other party?",
               "isRequired": true
             },
             {
               "type": "comment",
               "name": "attendanceTypeReason",
-              "description": "Normally, everyone attends in person at a court appearance. It is usually easier to communicate and exchange information when everyone is together in one place. Explain why you and/or your lawyer is not able to be in court in person for the court appearance. You do not need to use any special wording. The key is to be clear about why you want the court to give permission to attend using electronic communication.",
-              "title": "Why are you, or your lawyer, not able to attend court in person?",
+              "description": "Explain why you and/or your lawyer need to attend the court appearance by another method of attendance. You do not need to use any special wording. The key is to be clear about why you want the court to give permission to attend using another method of attendance.",
+              "title": "Why do you, or your lawyer, need to attend the court appearance by another method of attendance?",
               "isRequired": true
             }
           ]
         }
       ],
-      "title": "Attendance Using Electronic Communication"
+      "title": "Attendance Using Another Method of Attendance"
     }
   ],
   "showQuestionNumbers": "off",

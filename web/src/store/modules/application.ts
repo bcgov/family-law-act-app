@@ -805,7 +805,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "8";
         p.name = "AttendanceUsingElectronicCommunication";
-        p.label = "Attendance Using Electronic Communication";
+        p.label = "Attendance Using Another Method of Attendance";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);

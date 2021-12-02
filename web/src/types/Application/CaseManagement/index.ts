@@ -111,12 +111,10 @@ export interface attendanceUsingElectronicCommunicationSurveyDataInfoType {
     attendessList: string[];
     appearanceType: string;
     appearanceTypeComment?:string;
-    appearanceSchedule: string;    
+    appearanceSchedule: string;
+    attendanceMethod: string;    
     attendanceType: string;
     attendanceTypeComment?: string;
-    telephoneNumber?: string;
-    directPhone?: string;
-    understandRequirements?: string;
     submittedDocuments?: string;
     attendanceTypeReason?: string;
 }

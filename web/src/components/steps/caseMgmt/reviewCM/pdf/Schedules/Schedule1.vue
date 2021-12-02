@@ -38,13 +38,13 @@
             <div style="margin:1rem 0 0.5rem 1.0rem;">
                 <underline-form style="text-indent:1px;display:inline-block;" textwidth="9rem" beforetext="Scheduled for" hint="mmm/dd/yyyy" :text="scheduleInfo.eventDate"/>                
                 <underline-form style="text-indent:3px;display:inline-block;" textwidth="5rem" beforetext="at" hint="HH:MM" :text="scheduleInfo.eventTime"/> 
-                <underline-form style="text-indent:3px;display:inline-block;" textwidth="12rem" beforetext="by" hint="method of attendance" :text="(scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:scheduleInfo.attendanceType"/> 
+                <underline-form style="text-indent:3px;display:inline-block;" textwidth="12rem" beforetext="by" hint="method of attendance" :text="scheduleInfo.attendanceMethod"/> 
             </div>
             
             <div style="margin:1.25rem 0 0 1.1rem;">By another method of attendance as follows:</div>
             <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
                 <div></div>
-                <check-box marginLeft="2.75rem" class="marginleft" checkbox="" boxMargin="0" :check="scheduleInfo.attendanceType == 'byTelephone'?'yes':''" text="in person"/>
+                <check-box marginLeft="2.75rem" class="marginleft" checkbox="" boxMargin="0" :check="scheduleInfo.attendanceType == 'inPerson'?'yes':''" text="in person"/>
                 <check-box marginLeft="2.75rem" class="marginleft" checkbox="" boxMargin="0" :check="scheduleInfo.attendanceType == 'byTelephone'?'yes':''" text="telephone"/>
                 <check-box marginLeft="2.75rem" class="marginleft" checkbox="" boxMargin="0" :check="scheduleInfo.attendanceType == 'byVideo'?'yes':''" text="video conference"/>
                 <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="scheduleInfo.attendanceType == 'other'?'yes':''" text="other means of electronic communication <i>(specify):</i>"/>
@@ -129,21 +129,22 @@ export default class Schedule1 extends Vue {
             virtualAttendanceInfo.eventTypeComment = (virtualAttendanceData.appearanceType == 'other')? virtualAttendanceData.appearanceTypeComment:'';
             virtualAttendanceInfo.eventDate = Vue.filter('beautify-date-blank')(virtualAttendanceData.appearanceSchedule);
             virtualAttendanceInfo.eventTime = Vue.filter('convert-time24to12')(Vue.filter('beautify-time')(virtualAttendanceData.appearanceSchedule));
+            virtualAttendanceInfo.attendanceMethod = virtualAttendanceData.attendanceMethod;
             virtualAttendanceInfo.attendanceType = virtualAttendanceData.attendanceType;
             if (virtualAttendanceData.attendanceType == 'byTelephone'){
-                virtualAttendanceInfo.phoneNumber = virtualAttendanceData.telephoneNumber;
-                virtualAttendanceInfo.directLine = virtualAttendanceData.directPhone == 'y'; 
+                // virtualAttendanceInfo.phoneNumber = virtualAttendanceData.telephoneNumber;
+                // virtualAttendanceInfo.directLine = virtualAttendanceData.directPhone == 'y'; 
                 virtualAttendanceInfo.attendanceTypeComment = '';
             }else if(virtualAttendanceData.attendanceType == 'byVideo'){
-                virtualAttendanceInfo.phoneNumber = '';
+                // virtualAttendanceInfo.phoneNumber = '';
                 virtualAttendanceInfo.attendanceTypeComment ='By video using MS Teams'; 
                 virtualAttendanceInfo.attendanceType = 'other'; 
             } 
             else {
-                virtualAttendanceInfo.phoneNumber = '';
+                // virtualAttendanceInfo.phoneNumber = '';
                 virtualAttendanceInfo.attendanceTypeComment = (virtualAttendanceData.attendanceType == 'other')?virtualAttendanceData.attendanceTypeComment:'';                
             }
-            virtualAttendanceInfo.understandPhoneRequirements = virtualAttendanceData.understandRequirements == 'y';
+            //virtualAttendanceInfo.understandPhoneRequirements = virtualAttendanceData.understandRequirements == 'y';
             virtualAttendanceInfo.documentsSubmitted = virtualAttendanceData.submittedDocuments == 'y';
             virtualAttendanceInfo.virtualAttendanceReason = virtualAttendanceData.attendanceTypeReason;
         }
