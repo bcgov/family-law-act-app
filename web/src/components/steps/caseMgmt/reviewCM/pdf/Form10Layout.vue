@@ -152,9 +152,6 @@
                 </div>            
             </section>
 
-            
-        
-
          <!-- <For registery> -->
                  
             <div style="margin:2rem 0 0 1rem; width:96.37%; border:1px solid; font-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
@@ -360,7 +357,9 @@ export default class Form10Layout extends Vue {
         this.locationInfo = this.getLocationInfo();
         this.form10Info = this.getForm10Info();
 
-        if (this.result.filingLocationSurvey?.filingLocationReason) {
+        if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
+            this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
+        } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
             this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
         }
     } 

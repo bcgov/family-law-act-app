@@ -404,7 +404,9 @@ export default class Form1Layout extends Vue {
 
     public extractInfo(){        
         
-        if (this.result.filingLocationSurvey?.filingLocationReason) {
+        if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
+            this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
+        } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
             this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
         }
 
