@@ -3,6 +3,8 @@
   
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <form-15-layout v-bind:result="result"/>
+        <schedule-1     v-bind:result="result"  v-if="selectedSchedules.includes('schedule1')" />
+        <schedule-2     v-bind:result="result"  v-if="selectedSchedules.includes('schedule2')" />
     </b-card>
 </div>
 </template>
@@ -15,14 +17,19 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import Form15Layout from "./Form15Layout.vue";
+import Schedule1 from "./Schedule1.vue";
+import Schedule2 from "./Schedule2.vue";
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 import moment from 'moment';
+import { priorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
 
 @Component({
     components:{        
-        Form15Layout
+        Form15Layout,
+        Schedule1,
+        Schedule2
     }
 })
 
@@ -40,7 +47,8 @@ export default class Form15 extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getPPMResultData();       
+        this.result = this.getPPMResultData(); 
+        this.selectedSchedules = this.getSchedulesInfo();      
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
@@ -101,6 +109,32 @@ export default class Form15 extends Vue {
         Vue.filter('extractRequiredDocuments')(result, 'priorityParenting')
 
         return result;
+    }
+
+     public getSchedulesInfo(){       
+        
+        let schedules: string[] = [];       
+        //TODO: once survey changes are in place, change this accordingly
+        if(this.result.ppmQuestionnaireSurvey && this.result.priorityParentingMatterOrderSurvey) {
+            const ppmType: string[] = this.result.ppmQuestionnaireSurvey;
+            const ppmOrderData: priorityParentingMatterOrderSurveyDataInfoType = this.result.priorityParentingMatterOrderSurvey;
+            
+                 
+            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk == 'y') && 
+                (ppmOrderData.confirmMedicalRisk?.includes('applyPPM'))){
+                    schedules.push('schedule1');
+                }
+
+            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk == 'y') && 
+                (ppmOrderData.confirmMedicalRisk?.includes('applyPPM'))){
+                    schedules.push('schedule2');
+                }            
+        }
+
+        //test
+        schedules = ['schedule1', 'schedule2']
+
+        return schedules;
     }
 }
 </script>

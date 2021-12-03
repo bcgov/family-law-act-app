@@ -351,7 +351,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			}
 
 			if( questions.backgroundSurvey?.existingPOOrders=="y"){
-				requiredDocuments.push("Copy of your existing written agreement(s), court order(s) or plan(s)");
+				requiredDocuments.push("Copy of your existing protection related written agreement(s), court order(s) or plan(s)");
 			}
 		}
 	}
@@ -359,7 +359,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	if(type == 'familyLawMatter'){	
 
 		if(questions.flmBackgroundSurvey?.existingPOOrders == "y")
-		  	requiredDocuments.push("Copy of your existing written agreement(s), court order(s) or plan(s)");
+		  	requiredDocuments.push("Copy of your existing protection related written agreement(s), court order(s) or plan(s)");
 
 		if(questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
 		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
