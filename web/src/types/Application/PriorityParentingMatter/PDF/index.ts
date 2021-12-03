@@ -17,3 +17,39 @@ export interface priorityParentingOtherPartyDataInfoType {
     contactInfo: contactInfoType;
     lawyer: string;
 }
+
+export interface schedule1DataInfoType {
+    parentNames: string[];
+    scheduleCompletionDate: string;
+    partyNames: string[];
+    beenAdvised: boolean;
+    courtProceedingExists: boolean;
+    proceedingLocation?: string;
+    proceedingFileNumber?: string;
+    nextCFCSADate?: string;
+    allowChildReturn?: boolean;
+    infoShared?: string;
+}
+
+export interface schedule2DataInfoType {
+    isFirstNations: string;
+    understandFirstNationsService?: boolean;
+    ancestryType?: string[];
+    understandFileForm5?: boolean;
+    initiatedCriminalCheck?: boolean;
+    filingRequiredDocs?: boolean;
+    fileConsent?:boolean;
+    fileRequest?:boolean;
+}
+
+export interface priorityParentingInfoProviderDataInfoType {
+    name: nameInfoType;     
+    address: addressInfoType;
+    contactInfo: contactInfoType;    
+}
+
+export interface priorityParentingDirectorDataInfoType {
+    name: nameInfoType;     
+    address: addressInfoType;
+    contactInfo: contactInfoType;    
+}
