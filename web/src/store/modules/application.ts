@@ -928,11 +928,28 @@ class Application extends VuexModule {
         p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
-        s.pages.push(p);        
+        s.pages.push(p);     
+        
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PpmIndigenousAncestryOfChild";
+        p.label = "Indigenous Ancestry of Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //______ Additional Documents
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PpmAdditionalDocuments";
+        p.label = "Additional Documents";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "7";
         p.name = "ReviewYourAnswersPPM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -940,7 +957,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "6";
+        p.key = "8";
         p.name = "PreviewFormsPPM";
         p.label = "Preview Forms";
         p.active = false;

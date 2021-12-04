@@ -107,6 +107,7 @@ export default class FilingOptions extends Vue {
     public allowEfiling(){
         const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
         const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
+        const stepPPM = this.$store.state.Application.steps[this.stPgNo.PPM._StepNo]
         const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
 
         const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
@@ -124,6 +125,9 @@ export default class FilingOptions extends Vue {
             (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            
             (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n") ||
             (stepCM.active    && stepCM.pages[this.stPgNo.CM.RecognizingAnOrderFromOutsideBc].active && stepCM.result?.recognizingAnOrderFromOutsideBcSurvey?.data?.outsideBcOrder == 'y') ||
+            (stepPPM.active   && stepPPM.pages[this.stPgNo.PPM.PpmAdditionalDocuments].active && stepPPM.result?.ppmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            
+            (stepPPM.active   && stepPPM.pages[this.stPgNo.PPM.PpmAdditionalDocuments].active && stepPPM.result?.ppmAdditionalDocumentsSurvey?.data?.criminalChecked == "n") ||
+            
             (stepENFRC.active && stepENFRC.pages[this.stPgNo.ENFRC.EnforceAgreementOrOrder].active && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.enforceOrder == "n" && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.filedOrder == "n" && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.existingType == "courtOrder")
         )
                 this.survey.setVariable('efilingAllowed','n')

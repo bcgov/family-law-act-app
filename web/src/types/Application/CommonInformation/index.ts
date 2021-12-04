@@ -162,3 +162,17 @@ export interface otherPartyCommonConfirmationSurveyInfoType {
   currentStep?: number | string;
   currentPage?: number | string;
 }
+
+export interface indigenousAncestryOfChildDataInfoType {
+  indigenousChild?: string;
+  indigenousAncestry?: string[];
+  ServeAcknowledgement?: string;
+}
+
+export interface indigenousAncestryOfChildSurveyInfoType {
+  data: indigenousAncestryOfChildDataInfoType;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number | string;
+  currentPage?: number | string;
+}

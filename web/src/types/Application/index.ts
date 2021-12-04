@@ -1,13 +1,13 @@
 import { requiredDocumentsInfoType } from "../Common";
-import { nameInfoType, filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, safetyCheckSurveyInfoType, yourInformationSurveyInfoType, noticeSurveyInfoType, filingOptionsSurveyInfoType, otherPartyCommonConfirmationSurveyInfoType } from "./CommonInformation";
+import { nameInfoType, filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, safetyCheckSurveyInfoType, yourInformationSurveyInfoType, noticeSurveyInfoType, filingOptionsSurveyInfoType, otherPartyCommonConfirmationSurveyInfoType, indigenousAncestryOfChildSurveyInfoType } from "./CommonInformation";
 import { childDetailsSurveyInfoType, flmAdditionalDocumentsSurveyInfoType, flmBackgroundSurveyInfoType, flmQuestionnaireSurveyInfoType } from "./FamilyLawMatter";
 import { aboutChildSupportChangesSurveyInfoType, aboutChildSupportOrderSurveyInfoType, aboutExistingChildSupportSurveyInfoType, calculatingChildSupportSurveyInfoType, childSupportCurrentArrangementsSurveyInfoType, incomeAndEarningPotentialSurveyInfoType, childSupportOrderAgreementSurveyInfoType, childSupportSurveyInfoType, specialAndExtraordinaryExpensesSurveyInfoType, undueHardshipSurveyInfoType, unpaidChildSupportSurveyInfoType } from "./FamilyLawMatter/ChildSupport";
 import { aboutContactWithChildOrderSurveyInfoType, contactWithChildOrderSurveyInfoType, contactWithChildBestInterestsOfChildSurveyInfoType, contactWithChildSurveyInfoType } from "./FamilyLawMatter/ContactWithChild";
-import { guardianOfChildBestInterestsOfChildSurveyInfoType, guardianOfChildSurveyInfoType, indigenousAncestryOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
+import { guardianOfChildBestInterestsOfChildSurveyInfoType, guardianOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
 import { aboutParentingArrangementsSurveyInfoType, otherParentingArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestsOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
 import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrderSurveyInfoType, calculatingSpousalSupportSurveyInfoType, existingSpousalSupportAgreementSurveyInfoType, existingSpousalSupportFinalOrderSurveyInfoType, existingSpousalSupportOrderAgreementSurveyInfoType, spousalSupportIncomeAndEarningPotentialSurveyInfoType, spousalSupportSurveyInfoType, unpaidSpousalSupportSurveyInfoType } from "./FamilyLawMatter/SpousalSupport";
 import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
-import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType } from "./PriorityParentingMatter";
+import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType, ppmAdditionalDocumentsSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
 import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
 import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpensesSurveyInfoType, detrermineArrearsSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
@@ -180,6 +180,9 @@ export interface stepInfoType {
     ppmBackgroundSurvey?: ppmBackgroundDataSurveyInfoType;
     aboutPriorityParentingMatterOrderSurvey?: aboutPriorityParentingMatterOrderSurveyInfoType;
 
+    ppmIndigenousAncestryOfChildSurvey?: indigenousAncestryOfChildSurveyInfoType;
+    ppmAdditionalDocumentsSurvey?: ppmAdditionalDocumentsSurveyInfoType;
+
     //__Step 6 RELOCATION OF CHILD
     relocQuestionnaireSurvey?: relocQuestionnaireSurveyInfoType;
     relocChildrenInfoSurvey?: relocChildrenInfoSurveyInfoType;
@@ -207,9 +210,4 @@ export interface stepInfoType {
     priorityParenting?: boolean; 
     childReloc?: boolean;
     agreementEnfrc?: boolean;
-  } 
-
-
-
-
-
+  }

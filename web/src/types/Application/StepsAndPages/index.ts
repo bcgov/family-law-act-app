@@ -145,6 +145,8 @@ export interface PPMstPgTypes{
     PpmBackground: number;
     PpmChildrenInfo: number;
     AboutPriorityParentingMatterOrder: number;
+    PpmIndigenousAncestryOfChild: number;
+    PpmAdditionalDocuments: number;
     ReviewYourAnswersPPM: number;
     PreviewFormsPPM: number;  
 }

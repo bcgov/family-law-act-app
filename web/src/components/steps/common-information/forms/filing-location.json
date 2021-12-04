@@ -29,6 +29,13 @@
                      "body": "If you have a Family Law file open with different parties, select no. You will need to open a new court file. You must follow the rules about which registry to use if you do not have an existing case with the same parties. The next questions will help you determine the correct court location, it may be the same one your case with other parties is already at."
                   },
                   {
+                     "type": "helptext",
+                     "name": "ExistingChildProtectionFAQ",
+                     "title": "If I have a Child Protection file open in Provincial Court, should I include that?",
+                     "titleLocation": "hidden",
+                     "body": "No, the court files are separate for child protection cases and family law cases. If you don’t also have an existing family law file, you will need to open a new court file. Select no."
+                  },
+                  {
                      "type": "dropdown",
                      "name": "ExistingCourt",
                      "visible": false,

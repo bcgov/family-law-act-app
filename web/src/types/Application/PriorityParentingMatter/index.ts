@@ -79,5 +79,21 @@ export interface priorityParentingMatterOrderSurveyDataInfoType {
     confirmWrongfulReturn?: string[];
     confirmNoReturnRisk?: string[];
     confirmWrongfulInBC?: string[];
+    ///add new ones
+}
+
+export interface ppmAdditionalDocsDataInfoType {
+    isFilingAdditionalDocs?: string;
+    criminalChecked?: string;
+    unableFileForms?: string[];
+    fileApplicationFAQ?: boolean;
+}
+
+export interface ppmAdditionalDocumentsSurveyInfoType {
+    data: ppmAdditionalDocsDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
