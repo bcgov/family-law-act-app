@@ -35,11 +35,7 @@ export default class PpmAdditionalDocuments extends Vue {
     public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
-    public steps!: stepInfoType[];
-
-    
-
-    
+    public steps!: stepInfoType[];    
 
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
@@ -66,8 +62,8 @@ export default class PpmAdditionalDocuments extends Vue {
     }
 
     mounted(){
-        this.getFLMResultData()
-        this.getRequiredDocuments()
+        this.getPPMResultData();
+        this.getRequiredDocuments();
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -84,7 +80,7 @@ export default class PpmAdditionalDocuments extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
+            Vue.filter('surveyChanged')('priorityParenting')
 
             this.determineCaseMgntNeeded();
         })
@@ -111,7 +107,7 @@ export default class PpmAdditionalDocuments extends Vue {
         
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));       
         this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
-        let descriptionHtml = "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:<br><br><ul>";
+        let descriptionHtml = "Based on your answers, you must file the following additional documents with your Application About a Priority Parenting Matter:<br><br><ul>";
         for (const doc of this.requiredDocumentLists){
     
             if(doc.includes('Form 5'))
@@ -143,38 +139,34 @@ export default class PpmAdditionalDocuments extends Vue {
 
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
-        if(this.requiredDocuments?.familyLawMatter?.required){
-            this.requiredDocumentLists = this.requiredDocuments.familyLawMatter.required
+        if(this.requiredDocuments?.priorityParenting?.required){
+            this.requiredDocumentLists = this.requiredDocuments.priorityParenting.required
             this.isRequiredDocument = true
         }       
     }
 
-    public getFLMResultData() {         
-        const steps = [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]
-
+    public getPPMResultData() {         
+        
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of steps){
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.PPM._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])
                     result[stepResultInx]=stepResults[stepResultInx].data; 
             }
-        }
-
-        const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
-
-        const childBestInterestAck = {childBestInterestAcknowledgement: stepFLM.result.childBestInterestAcknowledgement};
-        Object.assign(result, result, childBestInterestAck);
+        }        
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;
+       
         if(applicationLocation)
             Object.assign(result, result,{applicationLocation: applicationLocation}); 
         else
             Object.assign(result, result,{applicationLocation: userLocation});
-        
 
-        Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
+        Vue.filter('extractRequiredDocuments')(result, 'priorityParenting')
+
+        return result;
     }    
 
     public onPrev() {

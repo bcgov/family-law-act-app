@@ -11,7 +11,7 @@
                   {
                   "type": "html",
                   "name": "additionalDocsExplanation",
-                  "html": "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:"
+                  "html": "Based on your answers, you must file the following additional documents with your Application About a Priority Parenting Matter:"
                   },
                   {
                      "type": "yesno",
@@ -32,7 +32,7 @@
                      "name": "unableFileForms",
                      "visible": false,
                      "visibleIf": "{isFilingAdditionalDocs} = 'n'",
-                     "title": "Select each form you will be unable to file with your Application About a Family Law Matter?",                    
+                     "title": "Select each form you will be unable to file with your Application About a Priority Parenting Matter?",                    
                      "isRequired": true,
                      "choices": [
                         "Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>",
@@ -62,7 +62,7 @@
                      "titleLocation":"hidden",
                      "visible": false,
                      "visibleIf": "({criminalChecked} = 'n') or ({isFilingAdditionalDocs} = 'n')",
-                     "title": "You may still be allowed to file your application without the required additional documents or requirements listed above, but you will need permission from the court to do so. To get permission, you must complete an Application for Case Management Order Without Notice or Attendance Form 11.<br>The Application for Case Management Order Without Notice or Attendance Form 11 must be submitted with your Application About a Family Law Matter."
+                     "title": "You may still be allowed to file your application without the required additional documents or requirements listed above, but you will need permission from the court to do so. To get permission, you must complete an Application for Case Management Order Without Notice or Attendance Form 11.<br>The Application for Case Management Order Without Notice or Attendance Form 11 must be submitted with your Application About a Priority Parenting Matter."
                   }                                  
                ]
             }            

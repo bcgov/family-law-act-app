@@ -32,10 +32,6 @@ export default class PpmIndigenousAncestryOfChild extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];   
 
-    
-
-    
-
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
@@ -65,7 +61,7 @@ export default class PpmIndigenousAncestryOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
+            Vue.filter('surveyChanged')('priorityParenting')
         })
     }
     

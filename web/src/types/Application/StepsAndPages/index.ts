@@ -10,6 +10,7 @@ export interface stepsAndPagesNumberInfoType{
     PPM: PPMstPgTypes
     RELOC: RELOCstPgTypes;
     ENFRC: ENFRCstPgTypes;
+    CONNECT: CONNECTstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -175,6 +176,12 @@ export interface ENFRCstPgTypes{
     PreviewForm27ENFRC: number;
     PreviewForm28ENFRC: number;
     PreviewForm29ENFRC : number;   
+}
+
+export interface CONNECTstPgTypes{
+    _StepNo: number;
+    
+    ReviewAndConnect: number;   
 }
 
 export interface SUBMITstPgTypes{

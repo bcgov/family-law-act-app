@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.4.1";
+    const CURRENT_VERSION: string = "1.2.4.2";
     //__________________________
     //___________________________
     //___________________________
@@ -202,6 +202,8 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
 		store.commit("Application/setCommonStepResults",{data:{'supportingDocumentForm4':supportingDocumentForm4}}); 
 	}
+
+	//TODO:may need for ppm
 	
 	Vue.nextTick(()=>{
 		Vue.filter('FLMformsRequired')();
@@ -324,6 +326,45 @@ Vue.filter('FLMformsRequired', function(){
 		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
 })
 
+Vue.filter('PPMform4Required', function(){
+	const stepPPMnum = store.state.Application.stPgNo.PPM._StepNo
+
+	const form4Pages = store.state.Application.supportingDocumentForm4
+	if(store.state.Application.supportingDocumentForm4?.length>0){
+		for(const page of form4Pages){
+			if(store.state.Application.steps[stepPPMnum].pages[page].active)
+			{
+				return true
+			}
+		}				
+	}
+	return false
+})
+
+Vue.filter('PPMform5Required', function(){
+	const stepPPMnum = store.state.Application.stPgNo.PPM._StepNo
+	
+	const results = store.state.Application.steps[stepPPMnum].result
+	if( results?.ppmQuestionnaireSurvey?.data?.includes("childServices") &&
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved && 
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved == 'y' &&	
+		results?.priorityParentingMatterOrderSurvey?.data?.confirmChildServices?.includes('applyPPM')
+		){
+			return true
+		}
+	else  return false
+})
+
+Vue.filter('PPMformsRequired', function(){
+	const additionalDocumentsStep = store.state.Application.stPgNo.PPM._StepNo
+	const additionalDocumentsPage = store.state.Application.stPgNo.PPM.PpmAdditionalDocuments
+
+	if(Vue.filter('PPMform4Required')() || Vue.filter('PPMform5Required')() ) 
+		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: true });
+	else
+		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
+})
+
 Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	const requiredDocuments: string[] = [];
@@ -386,12 +427,28 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		
 		if( questions.flmQuestionnaireSurvey?.includes("guardianOfChild") &&
 			(questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  )
-				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
+				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.<br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government website at www.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing.")
 	}
 
 	if(type == 'priorityParenting'){
 		if(questions.ppmBackgroundSurvey?.ExistingOrdersFLM == "y")
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+		if(Vue.filter('PPMform4Required')())		
+			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
+
+		if(Vue.filter('PPMform5Required')()){		
+			requiredDocuments.push("Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)");		
+			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
+			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form");		
+		}
+
+		//REMINDERS
+		if( questions.ppmQuestionnaireSurvey?.includes("childServices") &&
+			(questions.ppmIndigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || 
+			questions.ppmIndigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  ){
+				reminderDocuments.push("You must serve the director under Child, Family and Community Service Act with notice of this application. The director can be served in any of the ways provided for in Question 5 of Schedule 1 (that was completed by the Director)");
+				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government website at www.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing.");
+			}				
 	}
 
 	if(type == 'childReloc'){

@@ -79,7 +79,9 @@ export interface priorityParentingMatterOrderSurveyDataInfoType {
     confirmWrongfulReturn?: string[];
     confirmNoReturnRisk?: string[];
     confirmWrongfulInBC?: string[];
-    ///add new ones
+    childRemoved?: string;
+    confirmChildServicesPathway?: string[];
+    confirmChildServices?: string[];
 }
 
 export interface ppmAdditionalDocsDataInfoType {
