@@ -119,20 +119,18 @@ export default class Form15 extends Vue {
             const ppmType: string[] = this.result.ppmQuestionnaireSurvey;
             const ppmOrderData: priorityParentingMatterOrderSurveyDataInfoType = this.result.priorityParentingMatterOrderSurvey;
             
+            const childServices = (ppmType.includes('childServices')) && (ppmOrderData.childRemoved == 'y') && 
+                (ppmOrderData.confirmChildServices?.includes('applyPPM'))
                  
-            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk == 'y') && 
-                (ppmOrderData.confirmMedicalRisk?.includes('applyPPM'))){
-                    schedules.push('schedule1');
-                }
-
-            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk == 'y') && 
-                (ppmOrderData.confirmMedicalRisk?.includes('applyPPM'))){
+            if (childServices){
+                schedules.push('schedule1');
+                if (ppmOrderData.confirmChildServicesPathway.includes('applyGuardianship')){
                     schedules.push('schedule2');
-                }            
-        }
+                }
+            }
 
-        //test
-        schedules = ['schedule1', 'schedule2']
+                     
+        }       
 
         return schedules;
     }

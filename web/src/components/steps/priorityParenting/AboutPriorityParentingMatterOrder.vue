@@ -31,11 +31,7 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: stepInfoType[];    
-
-    
-
-    
+    public steps!: stepInfoType[];     
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -105,6 +101,8 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
         const interjurisdictional = (ppmType.includes('interjurisdictional') && data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm?.includes('applyPPM'));
         const wrongfulRemoval = (ppmType.includes('wrongfulRemoval') && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC?.includes('applyPPM'));
         const returnOfChild = (ppmType.includes('returnOfChild') && data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn?.includes('applyPPM'));
+        const childServices = (ppmType.includes('childServices') && data.childRemoved == 'y') && (data.confirmChildServices?.includes('applyPPM'));
+
 
         if (medical) {
             listOfIssues.push('<li>because a guardian has given, refused or withdrawn consent to medical, dental or other health-related treatment for a child and delay will result in risk to the child’s health</li>');
@@ -136,6 +134,10 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
 
         if (returnOfChild) {
             listOfIssues.push('<li>relating to the return of a child alleged to have been wrongfully removed or retained under the 1980 Hague Convention</li>')
+        }
+
+        if (childServices) {
+            listOfIssues.push('<li>relating to parenting arrangements or guardianship of a child who has been removed or is at risk of being removed by the Director</li>')
         }
        
         if (listOfIssues?.length == 1){            

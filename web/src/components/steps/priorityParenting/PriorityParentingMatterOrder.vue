@@ -1,6 +1,48 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" :disableNext="PPMList.length<1">
         <survey v-bind:survey="survey"></survey>
+
+        <b-modal size="xl" v-model="showPopup" header-class="bg-white" no-close-on-backdrop hide-header>
+            
+            <div class="m-3">
+               
+                <p>There is another form that you must complete when you are applying for guardianship of a child.
+                    It is called <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa733.pdf?forcedownload=true"
+                                    target='blank'>Guardianship Affidavit Form 5</a>. Before you can complete the affidavit, 
+                    you must complete the following background checks referenced in the form:</p>
+                <ul>
+                    <li>
+                        a Ministry of Children and Family Development record check
+                    </li>
+                    <li>
+                        a protection order record check from the Protection Order Registry, and
+                    </li>
+                    <li>
+                        a criminal record check                       
+                    </li>                    
+                </ul>
+                <p>To get a criminal record check, ask at the police station or RCMP detachment in your community.</p>
+                <p>To get the Ministry of Children and Family Development and Protection Order Registry record checks, you must fill out:</p>
+                 <ul>
+                    <li>
+                        a <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true"
+                        target='blank'>Consent for Child Protection Record Check</a>, and
+                    </li>
+                    <li>
+                        a <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true"
+                        target='blank'>Request for Protection Order Registry Search</a>.
+                    </li>                                      
+                </ul>
+                <p>
+                    I understand that I am required to file a Guardianship Affidavit in Form 5 as described in 
+                    <a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section26" target='blank'>Rule 26</a> before 
+                    the court can make a final order about guardianship.
+                </p>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="success" @click="closePopup">I understand</b-button>
+            </template>            
+        </b-modal>
     </page-base>
 </template>
 
@@ -15,7 +57,7 @@ import * as _ from 'underscore';
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { togglePages } from '@/components/utils/TogglePages';
+import { togglePages, toggleStep } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -37,11 +79,7 @@ export default class PriorityParentingMatterOrder extends Vue {
     public steps!: stepInfoType[]; 
     
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
-    
-
-    
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -51,6 +89,7 @@ export default class PriorityParentingMatterOrder extends Vue {
     currentPage =0;
     PPMpages = [];
     PPMList = [];
+    showPopup = false;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -77,6 +116,20 @@ export default class PriorityParentingMatterOrder extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('priorityParenting') 
             togglePages(this.PPMpages, this.isChildDetailsRequired(), this.stPgNo.PPM._StepNo);
+        
+            this.setPages();
+
+            if(options.name == "confirmChildServicesPathway" && options.value?.includes("applyGuardianship")){                
+                this.showPopup = true;    
+                
+                togglePages([this.stPgNo.PPM.PpmIndigenousAncestryOfChild, this.stPgNo.PPM.PpmAdditionalDocuments], true, this.currentStep);
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.stPgNo.PPM.PpmIndigenousAncestryOfChild].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.PPM.PpmIndigenousAncestryOfChild, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.stPgNo.PPM.PpmAdditionalDocuments].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.PPM.PpmAdditionalDocuments, 50, false);
+
+            }        
+        
         })
     }
     
@@ -88,14 +141,29 @@ export default class PriorityParentingMatterOrder extends Vue {
         if (this.step.result?.priorityParentingMatterOrderSurvey?.data) {
             this.survey.data = this.step.result.priorityParentingMatterOrderSurvey.data; 
             togglePages(this.PPMpages, this.isChildDetailsRequired(), this.stPgNo.PPM._StepNo);
-        
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);        
         }
+
+        this.setPages();
 
         if (this.step.result?.ppmQuestionnaireSurvey?.data) {
             const selectedPriorityParentingMatters = this.step.result.ppmQuestionnaireSurvey.data;
             this.determineIssues(selectedPriorityParentingMatters);            
         }                
+    }
+
+    public setPages(){ 
+        
+        if(!this.step.result.ppmQuestionnaireSurvey.data.includes('childServices') ||
+            !this.survey.data?.confirmChildServicesPathway?.includes("applyGuardianship") ||
+            this.survey.data?.childRemoved == 'n'){
+            togglePages([this.stPgNo.PPM.PpmAdditionalDocuments, this.stPgNo.PPM.PpmIndigenousAncestryOfChild], false, this.currentStep);
+            toggleStep(this.stPgNo.CONNECT._StepNo, false);
+        }
+    }
+
+    public closePopup(){
+        this.showPopup = false;
     }
 
     public determineIssues(selectedPriorityParentingMatters){
@@ -107,6 +175,7 @@ export default class PriorityParentingMatterOrder extends Vue {
         this.survey.setVariable("interjurisdictional", selectedPriorityParentingMatters.includes('interjurisdictional'));
         this.survey.setVariable("wrongfulRemoval", selectedPriorityParentingMatters.includes('wrongfulRemoval'));
         this.survey.setVariable("returnOfChild", selectedPriorityParentingMatters.includes('returnOfChild'));
+        this.survey.setVariable("childServices", selectedPriorityParentingMatters.includes('childServices'));
     }
 
     public isChildDetailsRequired() {
@@ -117,18 +186,19 @@ export default class PriorityParentingMatterOrder extends Vue {
 
         if (this.survey.data) {  
 
-           const data = this.survey.data;
-                  
-           const medical = (ppmType.includes('medical')) && (data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk?.includes('applyPPM'));
-           const passport = (ppmType.includes('passport')) && (data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk?.includes('applyPPM'));
-           const travel = (ppmType.includes('travel')) && (data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied?.includes('applyPPM'));
-           const locationChange = (ppmType.includes('locationChange')) && (data.existingParentingArrangements == 'n') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship?.includes('applyPPM'));
-           const preventRemoval = (ppmType.includes('preventRemoval')) && (data.noReturnRisk == 'y') && (data.confirmNoReturnRisk?.includes('applyPPM')); 
-           const interjurisdictional = (ppmType.includes('interjurisdictional')) && (data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm?.includes('applyPPM'));
-           const wrongfulRemoval = (ppmType.includes('wrongfulRemoval')) && (data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC?.includes('applyPPM'));
-           const returnOfChild = (ppmType.includes('returnOfChild')) && (data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn?.includes('applyPPM'));
+            const data = this.survey.data;
+                    
+            const medical = (ppmType.includes('medical')) && (data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk?.includes('applyPPM'));
+            const passport = (ppmType.includes('passport')) && (data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk?.includes('applyPPM'));
+            const travel = (ppmType.includes('travel')) && (data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied?.includes('applyPPM'));
+            const locationChange = (ppmType.includes('locationChange')) && (data.existingParentingArrangements == 'n') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship?.includes('applyPPM'));
+            const preventRemoval = (ppmType.includes('preventRemoval')) && (data.noReturnRisk == 'y') && (data.confirmNoReturnRisk?.includes('applyPPM')); 
+            const interjurisdictional = (ppmType.includes('interjurisdictional')) && (data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm?.includes('applyPPM'));
+            const wrongfulRemoval = (ppmType.includes('wrongfulRemoval')) && (data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC?.includes('applyPPM'));
+            const returnOfChild = (ppmType.includes('returnOfChild')) && (data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn?.includes('applyPPM'));
+            const childServices = (ppmType.includes('childServices')) && (data.childRemoved == 'y') && (data.confirmChildServices?.includes('applyPPM'));
 
-           isChildDetailsRequired = medical || passport || travel || locationChange || preventRemoval || interjurisdictional || wrongfulRemoval || returnOfChild;
+           isChildDetailsRequired = medical || passport || travel || locationChange || preventRemoval || interjurisdictional || wrongfulRemoval || returnOfChild || childServices;
            
            this.PPMList = [];
            if (medical){
@@ -154,6 +224,9 @@ export default class PriorityParentingMatterOrder extends Vue {
            }
            if (returnOfChild){
                this.PPMList.push('returnOfChild');
+           }
+           if (childServices){
+               this.PPMList.push('childServices');
            }
         }
 
@@ -183,6 +256,7 @@ export default class PriorityParentingMatterOrder extends Vue {
             if(form=='interjurisdictional') result+='-Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
             if(form=='wrongfulRemoval')     result+='-Wrongful removal of a child in BC'+'\n';
             if(form=='returnOfChild')       result+='-Preventing the removal of a child'+'\n';
+            if(form=='childServices')       result+='-Parenting arrangements or guardianship of a child who has been removed or is at risk of being removed by the Director'+'\n';
         }
         return result;
     }     
@@ -195,6 +269,12 @@ export default class PriorityParentingMatterOrder extends Vue {
             togglePages(allPages, false, this.stPgNo.PPM._StepNo); 
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.PPM._StepNo, currentPage: this.stPgNo.PPM.PpmQuestionnaire });        
             Vue.filter('setSurveyProgress')(null, this.stPgNo.PPM._StepNo, this.stPgNo.PPM.PpmQuestionnaire, 50, true);
+        }
+
+        if (this.PPMList.includes('childServices')){
+            toggleStep(this.stPgNo.CONNECT._StepNo, true);
+        } else {
+            toggleStep(this.stPgNo.CONNECT._StepNo, false);
         }
 
         const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getPriorityParentingMatterNames()}]        

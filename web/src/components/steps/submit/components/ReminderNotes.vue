@@ -6,7 +6,7 @@
         <ul class="mt-3" v-for="requiredDocument,index in requiredDocumentLists" :key="index" >
             <li v-if="requiredDocument.reminder.length>0" class="mb-2 h4"> For the {{requiredDocument.name}} Application:
                 <ul class="mt-3" v-for="reminder,inx in requiredDocument.reminder" :key="inx">
-                    <li class="mb-2 font-weight-normal">{{reminder}}</li>
+                    <li class="mb-2 font-weight-normal" v-html="reminder" >{{reminder}}</li>
                 </ul>
             </li>                        
         </ul> 

@@ -528,6 +528,89 @@
               "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
             }
           ]
+        },
+        {
+          "type": "panel",
+          "name": "ChildServicesPanel",
+          "description": "</br>Sometimes a Family Law Act order about parenting arrangements (including parenting time or parental responsibilities) or guardianship of a child can allow a child to be returned or prevent the removal of a child under the Child, Family and Community Service Act.</br></br>If a director under the Ministry of Children and Family Development is involved with the child, you may be eligible for help from the Parents Legal Centre (PLC). Call PLC at 1-888-522-2752 to find out if you qualify for a free lawyer and an advocate. If you already have a lawyer working with you on your child protection issue, Parents Legal Centres can't help you.</br></br>For more information about Parents Legal Centres visit their website at <a href='https://family.legalaid.bc.ca/visit/parents-legal-centre' target='blank'>https://family.legalaid.bc.ca/visit/parents-legal-centre</a>.",
+          "visible": false,
+          "visibleIf": "({childServices})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "childRemoved",
+              "visible": false,
+              "visibleIf": "({childServices})",
+              "isRequired": true,
+              "title": "Is one of the following statements true:<ul><li>The child has been removed under section <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01#section30' target='_blank'>30</a>, <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01#section36' target='_blank'>36</a> or <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01#section42' target='_blank'>42</a> of the Child, Family and Community Service Act and a `director` under that Act has advised that the priority parenting matter order I am applying for will allow for the child to be returned to me</li><li>A `director` under the Child, Family and Community Service Act has advised that the child will be removed under section <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01#section30' target='_blank'>30</a>, <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01#section36' target='_blank'>36</a> or <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01#section42' target='_blank'>42</a> of that Act unless the priority parenting matter order is made</li></ul>",
+              "description": "Note: A `director` under the <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01'>Child, Family and Community Service Act</a> will be required to complete part of the form that gets filed with the court. On their part of the form they will be asked to tell the court that they have been told you are applying for this priority parenting matter order and that they believe if the order is made it will likely allow the child to be returned or prevent the removal of the child."
+            },
+            {
+              "type": "helptext",
+              "name": "childRemovedFAQ",
+              "title": "I’m not sure. How can I find out?",
+              "titleLocation": "hidden",
+              "body": "If a director under the Child, Family and Community Service Act is involved with the child, you can contact the child welfare worker who is working with the child.</br></br>If you don’t know how to reach the child welfare worker, contact the Provincial Centralized Screening team at any time for assistance at 1-800-663-9122 or 604-660-4927 (Lower Mainland and outside BC).</br></br>If the child is not involved with child protection services or the order will not allow the child to be returned or prevent the removal of the child, you can apply for parenting arrangements or guardianship of a child using the family law matter pathway. Go back to Step 1 and select Family Law Matter. "
+            },
+            {
+              "type": "helptext",
+              "name": "childRemovedFAQLegalAdvice",
+              "title": "I’m not sure. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community<br/><br/><b>Parents Legal Centre:</b> If a director under the Child, Family and Community Service Act is involved with the child, you may be eligible for help from the Parents Legal Centre (PLC). Call PLC at 1-888-522-2752 to find out if you qualify for a free lawyer and an advocate. If you already have a lawyer working with you on your child protection issue, Parents Legal Centres can't help you.</br></br>For more information about Parents Legal Centres visit their website at <a target='_blank' href='https://family.legalaid.bc.ca/visit/parents-legal-centre'>https://family.legalaid.bc.ca/visit/parents-legal-centre</a>."
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmChildServicesPathway",
+              "visible": false,
+              "visibleIf": "({childServices}) and ({childRemoved} = 'y')",
+              "title": "I am applying for:",
+              "description": "If you are not a guardian of the child and you need an order about parenting arrangements, you must also apply for guardianship of the child.</br>Select all that apply.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "<b>Parenting Arrangements</b></br><div style='margin:0 0 0.5rem 1.75rem;'>Parenting arrangements are how each guardian will parent their child, including each guardian’s `parental responsibilities` for decision making about a child and the `parenting time` each guardian spends with a child. Parental responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting arrangements is what is in the best interests of the child.",
+                  "value": "applyParentingArrangements"
+                },
+                {
+                  "text": "<b>Guardianship of a child</b></br><div style='margin:0 0 0 1.75rem;'>Guardianship is who is responsible for a child. Only guardians have parental responsibilities and parenting time with a child. An agreement or order about parenting arrangements can say a child’s guardians share parental responsibilities or parenting time. Or it can say one guardian is responsible for more of the parenting decisions and has more of the parenting time with the child.</br>Anyone who wants to become a guardian can apply, including a parent who is not a guardian or anyone else (even if they are not related to the child). If you are applying under section 51 of the Family Law Act to become a guardian of a child who has been removed or is at risk of removal by the Director under section 30, section 36 or section 42 of the Child, Family and Community Service Act you can apply as a priority parenting matter but you must still meet the requirements under section 51 of the Family Law Act.",
+                  "value": "applyGuardianship"
+                }
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmChildServices",
+              "visible": false,
+              "visibleIf": "({childServices}) and ({childRemoved} = 'y')",
+              "title": "Please confirm you are applying for an order about parenting arrangements or guardianship of a child as a priority parenting matter because the order will allow the child to be returned to the person applying for the order or prevent the child from being removed under the Child, Family and Community Service Act.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order as a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesChildServicesInfo",
+              "visible": false,
+              "visibleIf": "{childRemoved} = 'y' and ({confirmChildServicesPathway} notempty) ",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements, including the allocation of parental responsibilities, or guardianship of a child by selecting Family Law Matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noChildServicesInfo",
+              "visible": false,
+              "visibleIf": "{childRemoved} = 'n'",
+              "title": "This is a priority parenting matter only if the order about parenting arrangements or guardianship of a child will allow the child to be returned to the person applying for the order or prevent the child from being removed under the Child, Family and Community Service Act. If you require an order about parenting arrangements or guardianship of a child, you can apply for an order by selecting Family Law Matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
         }
       ],
       "title": "Priority Parenting Matter"

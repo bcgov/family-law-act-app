@@ -245,10 +245,6 @@ export default class EnfrcQuestionnaire extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
 
-    
-
-    
-
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 

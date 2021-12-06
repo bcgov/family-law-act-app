@@ -22,18 +22,18 @@
             <i>These questions will help the court make a decision about guardianship of a child.</i>
         </div>         
         <section>               
-            <div style="display:inline; margin-left:0.25rem;">There is an existing written agreement or court order about the child(ren) concerning parenting arrangements, child support, contact with a child, or guardianship:
+            <div style="display:inline; margin-left:0.25rem;">Is the child or children Indigenous?
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="(scheduleInfo.isFirstNations == 'yes')?'yes':''"  text="Yes"/>                        
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="(scheduleInfo.isFirstNations == 'no')?'yes':''" text="No"/> 
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="(scheduleInfo.isFirstNations == 'unknown')?'yes':''" text="Unknown"/> 
             </div>               
             <div style="margin:0 0 0 1rem; display: block;"><i>If yes,</i> please select the option(s) below that best describe(s) the child(ren)’s Indigenous ancestry</div>            
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('nnn')?'yes':''" text="First Nation"/>
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('nn')?'yes':''" text="Nisga'a"/>
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('nn')?'yes':''" text="Treaty First Nation"/>
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('nn')?'yes':''" 
+            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('First Nation')?'yes':''" text="First Nation"/>
+            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('Nisg̲a’a')?'yes':''" text="Nisga'a"/>
+            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('Treaty First Nation')?'yes':''" text="Treaty First Nation"/>
+            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous')?'yes':''" 
                 text="the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('lll')?'yes':''" 
+            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous')?'yes':''" 
                 text="the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/> 
         </section>
 
@@ -190,9 +190,48 @@ export default class Schedule2 extends Vue {
 
     public getSchedule2Info() {
 
-        let schedule2Info = {} as schedule2DataInfoType;      
-
+        let schedule2Info = {} as schedule2DataInfoType; 
         schedule2Info.ancestryType = [];
+        schedule2Info.understandFileForm5 = true;
+
+        if (this.result?.ppmIndigenousAncestryOfChildSurvey){
+            const ancestryData = this.result?.ppmIndigenousAncestryOfChildSurvey;
+            schedule2Info.isFirstNations = ancestryData.indigenousChild
+            if (schedule2Info.isFirstNations == 'yes'){
+                schedule2Info.ancestryType = ancestryData.indigenousAncestry;
+                if (schedule2Info.ancestryType.includes('Nisg̲a’a') || schedule2Info.ancestryType.includes('Treaty First Nation')){
+                    schedule2Info.understandFirstNationsService = ancestryData.ServeAcknowledgement && ancestryData.ServeAcknowledgement == "I acknowledge";
+                }
+            }            
+        }
+
+        if (this.result?.ppmAdditionalDocumentsSurvey){
+            const ppmAdditionalDocData = this.result.ppmAdditionalDocumentsSurvey;
+            schedule2Info.initiatedCriminalCheck = ppmAdditionalDocData.criminalChecked == 'y';
+            schedule2Info.filingRequiredDocs = ppmAdditionalDocData.isFilingAdditionalDocs == 'y';
+            if (ppmAdditionalDocData.isFilingAdditionalDocs == 'n' && ppmAdditionalDocData.unableFileForms){
+
+                schedule2Info.fileRequest = !ppmAdditionalDocData.unableFileForms.includes("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form");
+                schedule2Info.fileConsent = !ppmAdditionalDocData.unableFileForms.includes("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
+
+            } else if (ppmAdditionalDocData.isFilingAdditionalDocs == 'y'){
+
+                schedule2Info.fileRequest = true;
+                schedule2Info.fileConsent = true;
+            }
+
+            schedule2Info.filingRequiredDocs = ppmAdditionalDocData.isFilingAdditionalDocs == 'y' || 
+                                               (ppmAdditionalDocData.isFilingAdditionalDocs == 'n' && 
+                                               (schedule2Info.fileConsent || schedule2Info.fileRequest))
+
+                                               
+
+        }
+
+
+        
+
+
 
         // if (this.result?.attendanceUsingElectronicCommunicationSurvey){
         //     const virtualAttendanceData: attendanceUsingElectronicCommunicationSurveyDataInfoType = this.result.attendanceUsingElectronicCommunicationSurvey;
