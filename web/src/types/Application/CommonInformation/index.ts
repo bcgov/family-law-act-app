@@ -72,6 +72,8 @@ export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
   ExistingFileNumber?: string;
   MetEarlyResolutionRequirements?:string;  
   filingLocationReason?: string;
+  ExistingFMEPCase?:string;
+  ExistingFMEPNumber?: string;  
   earlyResolutionRegistry?: boolean;
   familyJusticeRegistry?: boolean;
   familyEducationProgram?: boolean;

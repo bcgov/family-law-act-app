@@ -1,7 +1,37 @@
 <template>
     <b-card no-body bg-variant="white" border-variant="white">        
  
-        <p style="font-weight: 700;">
+        <div v-if="applicationName.includes('Priority Parenting')" style="font-weight: 700;">
+            Step {{instructionsStep}}.             
+            Arrange for service of the Application {{applicationName}} on 
+            <div style="margin:0 0 0 3rem;">
+                
+                <check-box
+                    boxMargin="0" 
+                    shiftmark=0                    
+                    style="margin:0.5rem 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="on each other party"/>
+                
+                <check-box                     
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="margin:0.5rem 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="on the Director under the Child, Family and Community Service Act if you are applying for a priority parenting matter order because the child has been removed or at risk of being removed by the Director"/>
+                
+                <check-box
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="margin:0.5rem 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="on the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs if the child is a Nisga’a or Treaty First Nation child and the application is for guardianship of the child"/>
+                
+            </div>  
+        </div>  
+        
+        
+        <p v-else style="font-weight: 700;">
             Step {{instructionsStep}}.             
             Arrange for service of the Application {{applicationName}} on each other party
         </p>  
@@ -42,7 +72,7 @@
             
         </ul>
 
-        <p style="margin-left:1.25rem;">
+        <p>
             A party's address for service is the address they have provided to the court. 
             A party who does not have an address for service must be served by leaving a copy of 
             the application documents directly with the person (this is called personal service). 
@@ -63,14 +93,38 @@
             </ul>
         </div>
 
+        <div v-if="applicationName.includes('Priority Parenting')">
+            <p>
+                The Director under the <i>Child, Family and Community Service Act</i> 
+                can be served in any of the ways provided for in Question 5 of Schedule 1.
+            </p>
+
+            <p>
+                Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm 
+                how they should be served with notice of the application. For an alphabetical 
+                listing of First Nations including information about the First Nation(s) and 
+                contact information where available, visit the BC Government website at 
+                <a 
+                    href="http://www.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing"
+                    target="_blank">
+                    www.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing
+                </a>. 
+            </p>  
+        </div>
+
     </b-card>    
 </template>
 
 <script lang="ts">
     
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 
-@Component
+@Component({
+    components:{
+        CheckBox
+    }
+})
 export default class ArrangeForServiceCmPpmRelocEnfrcInstructions extends Vue {    
 
     @Prop({required: true})

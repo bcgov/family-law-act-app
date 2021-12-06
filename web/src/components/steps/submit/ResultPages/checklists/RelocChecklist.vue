@@ -181,9 +181,20 @@
            
             <p>
                 A judge can make decisions based only on the information presented by the parties 
-                as evidence. Your evidence includes your appliction, any additional affidavit(s), 
+                as evidence. Your evidence includes your application, any additional affidavit(s), 
                 and spoken evidence provided in court.
             </p>
+
+            <p style="margin:0.5rem 0 0.5rem 0;">
+                If you can’t attend court using the method of attendance set out 
+                in your application for the court appearance, you can request 
+                the court’s permission to attend using a different method of 
+                attendance by filing an 
+                <a 
+                    target="_blank"
+                    href="https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178">
+                    Application for Case Management Order without Notice or Attendance Form 11</a>.
+            </p> 
             
         </div>
 
