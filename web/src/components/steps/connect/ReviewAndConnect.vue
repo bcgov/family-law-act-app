@@ -2,8 +2,7 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         
         <h2 class="mt-4">Review and Connect</h2>
-        <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">            
-            
+        <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3"> 
             
             <h3 class="mt-1">To prepare the application for filing:</h3>
 
@@ -41,10 +40,10 @@
                 <p>
                     Click Next to choose your filing options and prepare your documents for filing.
                 </p>
+
             </b-card>
 
         </b-card>
-
         
     </page-base>
 </template>
@@ -56,13 +55,6 @@ import { stepInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
 import Tooltip from "@/components/survey/Tooltip.vue";
 
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
-import "@/store/modules/common";
-import { locationsInfoType } from '@/types/Common';
-const commonState = namespace("Common");
 
 @Component({
     components:{
@@ -77,49 +69,19 @@ export default class ReviewAndConnect extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @commonState.State
-    public locationsInfo!: locationsInfoType[];
-
-    @applicationState.State
-    public types!: string[];    
-
-    error= "";
     currentStep =0;
-    currentPage =0;
-   
-    includesPO = false;    
-
-    showGetHelpForPDF = false;
-    applicantLocation = {} as locationsInfoType;
-    filingLocation = {} as locationsInfoType;      
+    currentPage =0;   
 
     mounted(){
-
-        this.includesPO = this.types.includes("Protection Order") || this.types.includes("New Protection Order") || this.types.includes("Change Protection Order") || this.types.includes("Terminate Protection Order")
-
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         let progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
         
         if(progress==0) progress=50;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);       
 
-        let location = this.$store.state.Application.applicationLocation
-        if(!location) location = this.$store.state.Common.userLocation
-        
-        this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
-           
-        if (this.applicantLocation["filingLocation"]){
-            this.filingLocation = this.locationsInfo.filter(loc => {if (loc.id == this.applicantLocation["filingLocation"]) return true})[0]
-        } else {
-            this.filingLocation = this.applicantLocation;
-        }
-
-    }  
-    
-    public downloaded(){
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
-    }
+    } 
 
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
@@ -128,10 +90,6 @@ export default class ReviewAndConnect extends Vue {
     public onNext() {
         Vue.prototype.$UpdateGotoNextStepPage()     
     }
-
-    public navigateToGuide(){
-        Vue.filter('scrollToLocation')("pdf-guide");
-    }  
 
 }
 </script>

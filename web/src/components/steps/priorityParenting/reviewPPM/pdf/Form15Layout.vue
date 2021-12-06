@@ -266,7 +266,7 @@
                 <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
                 <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
                 <check-box  
-                    :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" 
+                    :check="ppmInfo.ppmList.includes('childServices')?'yes':''" 
                     text="applying for an order under section 45 [orders respecting parenting arrangements] or 51 [order respecting guardianship]
                         of the Family Law Act in one of the following circumstances:<ol style='list-style-type: lower-roman'><li>the child to whom the order relates has been removed 
                         under section 30 [removal of child], 36 [interim supervision order no longer protects the child] or 42 
@@ -573,6 +573,10 @@ export default class Form15Layout extends Vue {
             if ((ppmType.includes('returnOfChild')) && (ppmOrderData.wrongfulReturn == 'y') && 
                 (ppmOrderData.confirmWrongfulReturn?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('returnOfChild');
+                }
+            if ((ppmType.includes('childServices')) && (ppmOrderData.childRemoved == 'y') && 
+                (ppmOrderData.confirmChildServices?.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('childServices');
                 }
         }
         return ppmInformation;

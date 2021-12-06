@@ -51,7 +51,7 @@
                     The parent(s) of the child(ren) is/are:
                 </div>
 
-                <div v-if="true" class="answerbox">PLACEHOLDER</div>
+                <div v-if="true" class="answerbox">?????</div>
                 <div v-else style="margin-bottom:3rem;"></div>        
             
             </section>                
@@ -188,17 +188,17 @@
                             :check="scheduleInfo.courtProceedingExists?'yes':''" text="Yes - Court Location:"/>
                         <div style="display:inline;" >
                             <span style="text-decoration: underline; margin:0 0.75rem 0 0.25rem">
-                                {{scheduleInfo.proceedingLocation}}uuuuu
+                                {{scheduleInfo.proceedingLocation}}???????
                             </span>
 
                             File Number:
                             <span style="text-decoration: underline; margin:0 0.75rem 0 0.25rem">
-                                {{scheduleInfo.proceedingFileNumber}}uuuuu
+                                {{scheduleInfo.proceedingFileNumber}}?????
                             </span> 
                            
                             Date of next CFCSA proceeding:
                             <span style="text-decoration: underline; margin:0 0.75rem 0 0.25rem">
-                                {{scheduleInfo.nextCFCSADate}}uuuuu
+                                {{scheduleInfo.nextCFCSADate}}?????
                             </span>
 
                         </div>
@@ -308,56 +308,39 @@ export default class Schedule1 extends Vue {
 
         let schedule1Info = {} as schedule1DataInfoType;      
 
-        // if (this.result?.attendanceUsingElectronicCommunicationSurvey){
-        //     const virtualAttendanceData: attendanceUsingElectronicCommunicationSurveyDataInfoType = this.result.attendanceUsingElectronicCommunicationSurvey;
-        //     virtualAttendanceInfo.attendees =  virtualAttendanceData.attendessList?.['checked'];
-        //     virtualAttendanceInfo.lawyerName = virtualAttendanceData.attendessList?.['checked']?.includes('lawyer')? (virtualAttendanceData.attendessList['lawyerComment']): '';
-        //     virtualAttendanceInfo.eventType =  virtualAttendanceData.appearanceType;
-        //     virtualAttendanceInfo.eventTypeComment = (virtualAttendanceData.appearanceType == 'other')? virtualAttendanceData.appearanceTypeComment:'';
-        //     virtualAttendanceInfo.eventDate = Vue.filter('beautify-date-blank')(virtualAttendanceData.appearanceSchedule);
-        //     virtualAttendanceInfo.eventTime = Vue.filter('convert-time24to12')(Vue.filter('beautify-time')(virtualAttendanceData.appearanceSchedule));
-        //     virtualAttendanceInfo.attendanceMethod = virtualAttendanceData.attendanceMethod;
-        //     virtualAttendanceInfo.attendanceType = virtualAttendanceData.attendanceType;
-        //     if (virtualAttendanceData.attendanceType == 'byTelephone'){
-        //         // virtualAttendanceInfo.phoneNumber = virtualAttendanceData.telephoneNumber;
-        //         // virtualAttendanceInfo.directLine = virtualAttendanceData.directPhone == 'y'; 
-        //         virtualAttendanceInfo.attendanceTypeComment = '';
-        //     }else if(virtualAttendanceData.attendanceType == 'byVideo'){
-        //         // virtualAttendanceInfo.phoneNumber = '';
-        //         virtualAttendanceInfo.attendanceTypeComment ='By video using MS Teams'; 
-        //         virtualAttendanceInfo.attendanceType = 'other'; 
-        //     } 
-        //     else {
-        //         // virtualAttendanceInfo.phoneNumber = '';
-        //         virtualAttendanceInfo.attendanceTypeComment = (virtualAttendanceData.attendanceType == 'other')?virtualAttendanceData.attendanceTypeComment:'';                
-        //     }
-        //     //virtualAttendanceInfo.understandPhoneRequirements = virtualAttendanceData.understandRequirements == 'y';
-        //     virtualAttendanceInfo.documentsSubmitted = virtualAttendanceData.submittedDocuments == 'y';
-        //     virtualAttendanceInfo.virtualAttendanceReason = virtualAttendanceData.attendanceTypeReason;
-        // }
+        if (this.result?.ppmBackgroundSurvey){
+            const backgroundData = this.result.ppmBackgroundSurvey;
+            schedule1Info.courtProceedingExists = backgroundData.existingCourtProceeding == 'y';
+        }
+
+        if (this.result?.priorityParentingMatterOrderSurvey){
+
+            const ppmOrderData = this.result.priorityParentingMatterOrderSurvey;
+            schedule1Info.allowChildReturn = ppmOrderData.confirmChildServices.includes('applyPPM');        
+        }
       
         return schedule1Info;
     }
 
     public getChildrenInfo(){
-
-        // this.childRelatedType = this.result?.cmChildrenInfoSurvey?.childRelatedType? this.result.cmChildrenInfoSurvey.childRelatedType :'';
-
+        console.log(this.result)
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        // const childData: cmChildrenInfoSurveyDataInfoType[] = this.result?.cmChildrenInfoSurvey?.childData? this.result.cmChildrenInfoSurvey.childData: [];
+        const childData = this.result.ppmChildrenInfoSurvey;
         
-        // if(this.childRelatedType == 'A party to the case and the case involves a child-related issue'){
-        //     for (const child of childData){            
-        //         childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        //         childInfo.fullName = Vue.filter('getFullName')(child.name);
-        //         childInfo.dob = Vue.filter('beautify-date')(child.dob);            
-        //         childrenInfo.push(childInfo)
-        //     }        
-        // }
-        // else
+        if(childData.length > 0){
+            for (const child of childData) {            
+                childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+                childInfo.fullName = Vue.filter('getFullName')(child.name);
+                childInfo.dob = Vue.filter('beautify-date')(child.dob);
+                childInfo.myRelationship = child.relation;
+                childInfo.otherPartyRelationship = child.opRelation;
+                childrenInfo.push(childInfo)
+            }   
+        } else {
             childrenInfo.push({fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''});
-          
+        }
+            
 
         return childrenInfo;
     }
