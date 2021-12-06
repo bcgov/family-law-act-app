@@ -41,41 +41,28 @@
 
 <!-- <2> -->
         <div class="print-block">
-            <section>               
-                <div style="display:inline; margin-left:0.25rem;">
-                    <i>Complete the following statement only if the child is a Nisga’a child or a Treaty First Nation child</i>
-                   <div style="display:inline-block; margin-left:1.75rem;">
-                        <check-box 
-                            class="marginleft" 
-                            marginLeft="1.75rem"
-                            inline="inline" 
-                            boxMargin="0" 
-                            style="display:inline;" 
-                            shift="7" 
-                            :check="scheduleInfo.understandFirstNationsService?'yes':''" 
-                            text="I acknowledge that I must serve the Nisga'a Lisims Government or the Treaty First Nation to which the
-                                child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/> 
-                    </div>                   
-                </div>  
+            <section>
+                <i style="display:inline; margin:0 0 0 0.5rem;">Complete the following statement only if the child is a Nisg̲a’a child or a Treaty First Nation child</i>
+                <div style="margin:0 0 0 1.35rem;">
+                    <check-box 
+                        :check="scheduleInfo.understandFirstNationsService?'yes':''" 
+                        text="I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
+                </div>
             </section>
         </div>
 
         <div style="margin-top: 1rem;"></div>
 
 <!-- <3> -->
-        <div class="print-block">  
+        <div class="print-block">
             <section>
-                <check-box
-                    class="marginleft"
-                    marginLeft="1.25rem" 
+                <check-box 
                     inline="inline" 
                     boxMargin="0" 
-                    style="margin:0 0.5rem 0 0.5rem; display:inline"
+                    style="margin:0 0 0 0.5rem;display:inline;" 
                     :check="scheduleInfo.understandFileForm5?'yes':''" 
-                    text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/> 
-                <div style="margin:0 0 0 1.5rem;display:inline;" >
-                    before the court can make a final order about guardianship
-                </div>
+                    text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
+                <div style="margin:0 0 0 2rem; display:inline;">before the court can make a final order about guardianship</div>
             </section>
         </div>
 
@@ -83,70 +70,34 @@
 
 <!-- <4> -->
 
-        <div class="print-block"> 
+        <div class="print-block">           
+
             <section>
-                <check-box
-                    class="marginleft" 
-                    marginLeft="1.25rem"
-                    inline="inline"
-                    boxMargin="0rem"                    
-                    style="margin:0 0.5rem 0 0.5rem;display:inline;" 
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline;" 
                     :check="scheduleInfo.initiatedCriminalCheck?'yes':''" 
-                    text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in "/>
-                <div style="margin-left: 1.5rem;display:inline;" >
-                    Form 5
-                </div>
+                    text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
+                <div style="margin:0 0 0 2rem; display:inline;">Form 5</div>
             </section>
         </div>        
 
         <div style="margin-top: 1rem;"></div>
 
 <!-- <5> -->
-        <div class="print-block">            
-            <section>               
-                <div style="display:inline; margin:0 0.5rem 0 0.25rem; ">
-                    <i>Select only one of the options below</i>
+        <div class="print-block"> 
+            <section>
+                <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
+                <div style="margin:0 0 0 1rem;">                     
+                    <check-box  :check="scheduleInfo.filingRequiredDocs?'yes':''" text="I am filing the following required documents along with this application"/>
                 </div>
-                <div style="display:block; margin-left:1.5rem;">
-                    <check-box 
-                        class="marginleft" 
-                        inline="inline" 
-                        boxMargin="0" 
-                        style="display:block;" 
-                        shift="10" 
-                        :check="scheduleInfo.filingRequiredDocs?'yes':''" 
-                        text="I am filing the following required documents along with this application"/>
-                    <div style="margin-left: 2rem;">
-                        <check-box 
-                        class="marginleft" 
-                        inline="inline" 
-                        boxMargin="0" 
-                        style="display:block;" 
-                        shift="10" 
-                        :check="scheduleInfo.fileConsent?'yes':''" 
-                        text="a Consent for Child Protection Record Check in Form 5 under the Family Law Act Regulation"/>
-                        <check-box 
-                        class="marginleft" 
-                        inline="inline" 
-                        boxMargin="0" 
-                        style="display:block;" 
-                        shift="10" 
-                        :check="scheduleInfo.fileRequest?'yes':''" 
-                        text="a request, in the form provided by the registry, to search the protection order registry"/>
-
-                    </div>                  
-
-                    <check-box 
-                        class="marginleft" 
-                        inline="inline" 
-                        boxMargin="0" 
-                        style="display:block;" 
-                        shift="10" 
-                        marginLeft="1.75rem" 
-                        :check="!scheduleInfo.filingRequiredDocs?'yes':''"  
-                        text="I am not able to complete the required documents at this time. I am filing an Application for Case
-                            Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that
-                            this application be filed with the additional documents."/>
+                <div style="margin:0 0 0 3rem;">
+                   <check-box  :check="scheduleInfo.fileConsent?'yes':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
+                   <check-box  :check="scheduleInfo.fileRequest?'yes':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
+                </div>
+                <div style="margin:0.5rem 0 0 1rem;">                     
+                    <check-box  :check="!scheduleInfo.filingRequiredDocs?'yes':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
                 </div>
             </section>
         </div>
@@ -158,9 +109,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
-import { priorityParentingDirectorDataInfoType, priorityParentingInfoProviderDataInfoType, schedule2DataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
-import { childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import { schedule2DataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
 
 @Component({
     components:{
@@ -184,8 +134,7 @@ export default class Schedule2 extends Vue {
     } 
 
     public extractInfo(){
-        this.scheduleInfo = this.getSchedule2Info();
-        
+        this.scheduleInfo = this.getSchedule2Info();        
     }
 
     public getSchedule2Info() {
@@ -223,111 +172,9 @@ export default class Schedule2 extends Vue {
             schedule2Info.filingRequiredDocs = ppmAdditionalDocData.isFilingAdditionalDocs == 'y' || 
                                                (ppmAdditionalDocData.isFilingAdditionalDocs == 'n' && 
                                                (schedule2Info.fileConsent || schedule2Info.fileRequest))
-
-                                               
-
         }
-
-
-        
-
-
-
-        // if (this.result?.attendanceUsingElectronicCommunicationSurvey){
-        //     const virtualAttendanceData: attendanceUsingElectronicCommunicationSurveyDataInfoType = this.result.attendanceUsingElectronicCommunicationSurvey;
-        //     virtualAttendanceInfo.attendees =  virtualAttendanceData.attendessList?.['checked'];
-        //     virtualAttendanceInfo.lawyerName = virtualAttendanceData.attendessList?.['checked']?.includes('lawyer')? (virtualAttendanceData.attendessList['lawyerComment']): '';
-        //     virtualAttendanceInfo.eventType =  virtualAttendanceData.appearanceType;
-        //     virtualAttendanceInfo.eventTypeComment = (virtualAttendanceData.appearanceType == 'other')? virtualAttendanceData.appearanceTypeComment:'';
-        //     virtualAttendanceInfo.eventDate = Vue.filter('beautify-date-blank')(virtualAttendanceData.appearanceSchedule);
-        //     virtualAttendanceInfo.eventTime = Vue.filter('convert-time24to12')(Vue.filter('beautify-time')(virtualAttendanceData.appearanceSchedule));
-        //     virtualAttendanceInfo.attendanceMethod = virtualAttendanceData.attendanceMethod;
-        //     virtualAttendanceInfo.attendanceType = virtualAttendanceData.attendanceType;
-        //     if (virtualAttendanceData.attendanceType == 'byTelephone'){
-        //         // virtualAttendanceInfo.phoneNumber = virtualAttendanceData.telephoneNumber;
-        //         // virtualAttendanceInfo.directLine = virtualAttendanceData.directPhone == 'y'; 
-        //         virtualAttendanceInfo.attendanceTypeComment = '';
-        //     }else if(virtualAttendanceData.attendanceType == 'byVideo'){
-        //         // virtualAttendanceInfo.phoneNumber = '';
-        //         virtualAttendanceInfo.attendanceTypeComment ='By video using MS Teams'; 
-        //         virtualAttendanceInfo.attendanceType = 'other'; 
-        //     } 
-        //     else {
-        //         // virtualAttendanceInfo.phoneNumber = '';
-        //         virtualAttendanceInfo.attendanceTypeComment = (virtualAttendanceData.attendanceType == 'other')?virtualAttendanceData.attendanceTypeComment:'';                
-        //     }
-        //     //virtualAttendanceInfo.understandPhoneRequirements = virtualAttendanceData.understandRequirements == 'y';
-        //     virtualAttendanceInfo.documentsSubmitted = virtualAttendanceData.submittedDocuments == 'y';
-        //     virtualAttendanceInfo.virtualAttendanceReason = virtualAttendanceData.attendanceTypeReason;
-        // }
       
         return schedule2Info;
-    }
-
-    public getChildrenInfo(){
-
-        // this.childRelatedType = this.result?.cmChildrenInfoSurvey?.childRelatedType? this.result.cmChildrenInfoSurvey.childRelatedType :'';
-
-        const childrenInfo: childrenInfoSurveyInfoType[] = [];
-        let childInfo = {} as childrenInfoSurveyInfoType;
-        // const childData: cmChildrenInfoSurveyDataInfoType[] = this.result?.cmChildrenInfoSurvey?.childData? this.result.cmChildrenInfoSurvey.childData: [];
-        
-        // if(this.childRelatedType == 'A party to the case and the case involves a child-related issue'){
-        //     for (const child of childData){            
-        //         childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        //         childInfo.fullName = Vue.filter('getFullName')(child.name);
-        //         childInfo.dob = Vue.filter('beautify-date')(child.dob);            
-        //         childrenInfo.push(childInfo)
-        //     }        
-        // }
-        // else
-            childrenInfo.push({fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''});
-          
-
-        return childrenInfo;
-    }
-
-    public getInfoProviderInfo(){
-
-        // this.childRelatedType = this.result?.cmChildrenInfoSurvey?.childRelatedType? this.result.cmChildrenInfoSurvey.childRelatedType :'';
-
-        let providerInfo = {} as priorityParentingInfoProviderDataInfoType;
-        // const childData: cmChildrenInfoSurveyDataInfoType[] = this.result?.cmChildrenInfoSurvey?.childData? this.result.cmChildrenInfoSurvey.childData: [];
-        
-        // if(this.childRelatedType == 'A party to the case and the case involves a child-related issue'){
-        //     for (const child of childData){            
-        //         childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        //         childInfo.fullName = Vue.filter('getFullName')(child.name);
-        //         childInfo.dob = Vue.filter('beautify-date')(child.dob);            
-        //         childrenInfo.push(childInfo)
-        //     }        
-        // }
-        // else
-            
-
-        return providerInfo;
-    }
-
-    public getDirectorInfo(){
-
-        // this.childRelatedType = this.result?.cmChildrenInfoSurvey?.childRelatedType? this.result.cmChildrenInfoSurvey.childRelatedType :'';
-
-        let directorInfo = {} as priorityParentingDirectorDataInfoType;
-       
-        // const childData: cmChildrenInfoSurveyDataInfoType[] = this.result?.cmChildrenInfoSurvey?.childData? this.result.cmChildrenInfoSurvey.childData: [];
-        
-        // if(this.childRelatedType == 'A party to the case and the case involves a child-related issue'){
-        //     for (const child of childData){            
-        //         childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        //         childInfo.fullName = Vue.filter('getFullName')(child.name);
-        //         childInfo.dob = Vue.filter('beautify-date')(child.dob);            
-        //         childrenInfo.push(childInfo)
-        //     }        
-        // }
-        // else
-            
-
-        return directorInfo;
     }
 
 }

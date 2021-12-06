@@ -11,7 +11,7 @@
             fontSize: '1.0em'}">
             <div :style="{transform:'translate('+shiftmark+'px,-4px)'}" v-html="getCheck()"/>
         </div> 
-        <div :style="{display:'inline-block', margin:'0 0 0 1.75rem', textIndent: 0 }" v-html="text">{{text}}</div>
+        <div :style="{display:'inline-block', marginLeft: marginLeft, textIndent: 0 }" v-html="text">{{text}}</div>
     </div>
 
 </template>
@@ -39,6 +39,9 @@ export default class CheckBox extends Vue {
 
     @Prop({default: '-1rem'})
     boxMargin!: string;
+
+    @Prop({default: '1.75rem'})
+    marginLeft!: string;
 
     @Prop({default: 'checkbox'})
     checkbox!: string;
