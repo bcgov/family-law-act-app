@@ -267,8 +267,12 @@ export default class FilingLocation extends Vue {
             || this.steps[0].result?.selectedForms?.includes("priorityParenting")
             || this.steps[0].result?.selectedForms?.includes("childReloc")){
 
-                this.survey.setValue('RequiresReasonInfo',true);
-                
+                this.survey.setValue('RequiresReasonInfo',true);                
+        }        
+        if(this.steps[0].result?.selectedForms?.includes("agreementEnfrc")){
+            this.survey.setValue('RequiresFMEPInfo',true);                
+        } else {
+           this.survey.setValue('RequiresFMEPInfo',false); 
         }
 
         this.messageForLocation();

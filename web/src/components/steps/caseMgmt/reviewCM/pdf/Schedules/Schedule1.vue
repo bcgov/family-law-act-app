@@ -130,21 +130,8 @@ export default class Schedule1 extends Vue {
             virtualAttendanceInfo.eventDate = Vue.filter('beautify-date-blank')(virtualAttendanceData.appearanceSchedule);
             virtualAttendanceInfo.eventTime = Vue.filter('convert-time24to12')(Vue.filter('beautify-time')(virtualAttendanceData.appearanceSchedule));
             virtualAttendanceInfo.attendanceMethod = virtualAttendanceData.attendanceMethod;
-            virtualAttendanceInfo.attendanceType = virtualAttendanceData.attendanceType;
-            if (virtualAttendanceData.attendanceType == 'byTelephone'){
-                // virtualAttendanceInfo.phoneNumber = virtualAttendanceData.telephoneNumber;
-                // virtualAttendanceInfo.directLine = virtualAttendanceData.directPhone == 'y'; 
-                virtualAttendanceInfo.attendanceTypeComment = '';
-            }else if(virtualAttendanceData.attendanceType == 'byVideo'){
-                // virtualAttendanceInfo.phoneNumber = '';
-                virtualAttendanceInfo.attendanceTypeComment ='By video using MS Teams'; 
-                virtualAttendanceInfo.attendanceType = 'other'; 
-            } 
-            else {
-                // virtualAttendanceInfo.phoneNumber = '';
-                virtualAttendanceInfo.attendanceTypeComment = (virtualAttendanceData.attendanceType == 'other')?virtualAttendanceData.attendanceTypeComment:'';                
-            }
-            //virtualAttendanceInfo.understandPhoneRequirements = virtualAttendanceData.understandRequirements == 'y';
+            virtualAttendanceInfo.attendanceType = virtualAttendanceData.attendanceType;            
+            virtualAttendanceInfo.attendanceTypeComment = (virtualAttendanceData.attendanceType == 'other')?virtualAttendanceData.attendanceTypeComment:'';                
             virtualAttendanceInfo.documentsSubmitted = virtualAttendanceData.submittedDocuments == 'y';
             virtualAttendanceInfo.virtualAttendanceReason = virtualAttendanceData.attendanceTypeReason;
         }

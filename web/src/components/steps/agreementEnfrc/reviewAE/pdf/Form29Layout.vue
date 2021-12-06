@@ -16,7 +16,7 @@
                     :items="[
                             {name:'REGISTRY LOCATION:', value:result.applicationLocation},
                             {name:'COURT FILE NUMBER:', value:existingFileNumber},
-                            {name:'FMEP NUMBER:', value:''}]"
+                            {name:'FMEP NUMBER:', value:fmepNumber}]"
                     :fields="[
                             {key:'name',tdClass:'border-dark text-center align-middle'},
                             {key:'value',tdClass:'border-dark text-center align-middle'},
@@ -352,6 +352,7 @@ export default class Form29Layout extends Vue {
     form29Info = {} as form29InformationDataInfoType;
     
     existingFileNumber = ''; 
+    fmepNumber = '';
 
     mounted(){
         this.dataReady = false;
@@ -371,7 +372,13 @@ export default class Form29Layout extends Vue {
         this.yourInfo = this.getYourInfo();
         this.form29Info = this.getForm29Info();
         this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);
+        this.fmepNumber = this.getFmepInfo(this.result.filingLocationSurvey);
     } 
+
+
+    public getFmepInfo(locationData){
+        return locationData?.ExistingFMEPCase  && locationData?.ExistingFMEPCase =='y' && locationData.ExistingFMEPNumber? locationData.ExistingFMEPNumber:'';        
+    }
 
     public getYourInfo(){           
 
