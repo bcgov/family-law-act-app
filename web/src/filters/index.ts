@@ -201,12 +201,14 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		supportingDocumentForm4.push(currentPage)
 		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
 		store.commit("Application/setCommonStepResults",{data:{'supportingDocumentForm4':supportingDocumentForm4}}); 
-	}
-
-	//TODO:may need for ppm
+	}	
 	
 	Vue.nextTick(()=>{
 		Vue.filter('FLMformsRequired')();
+	});
+
+	Vue.nextTick(()=>{
+		Vue.filter('PPMformsRequired')();
 	});
 
 	let pageName = survey.currentPage.title;
@@ -326,28 +328,28 @@ Vue.filter('FLMformsRequired', function(){
 		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
 })
 
-Vue.filter('PPMform4Required', function(){
-	const stepPPMnum = store.state.Application.stPgNo.PPM._StepNo
-
-	const form4Pages = store.state.Application.supportingDocumentForm4
-	if(store.state.Application.supportingDocumentForm4?.length>0){
-		for(const page of form4Pages){
-			if(store.state.Application.steps[stepPPMnum].pages[page].active)
-			{
-				return true
-			}
-		}				
-	}
-	return false
-})
-
 Vue.filter('PPMform5Required', function(){
 	const stepPPMnum = store.state.Application.stPgNo.PPM._StepNo
 	
 	const results = store.state.Application.steps[stepPPMnum].result
 	if( results?.ppmQuestionnaireSurvey?.data?.includes("childServices") &&
 		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved && 
-		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved == 'y' &&	
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved == 'y' &&
+		results?.priorityParentingMatterOrderSurvey?.data?.confirmChildServicesPathway.includes('applyGuardianship') &&	
+		results?.priorityParentingMatterOrderSurvey?.data?.confirmChildServices?.includes('applyPPM')
+		){
+			return true
+		}
+	else  return false
+})
+
+Vue.filter('PPMschedule1Required', function(){
+	const stepPPMnum = store.state.Application.stPgNo.PPM._StepNo
+	
+	const results = store.state.Application.steps[stepPPMnum].result
+	if( results?.ppmQuestionnaireSurvey?.data?.includes("childServices") &&
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved && 
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved == 'y' &&			
 		results?.priorityParentingMatterOrderSurvey?.data?.confirmChildServices?.includes('applyPPM')
 		){
 			return true
@@ -359,7 +361,7 @@ Vue.filter('PPMformsRequired', function(){
 	const additionalDocumentsStep = store.state.Application.stPgNo.PPM._StepNo
 	const additionalDocumentsPage = store.state.Application.stPgNo.PPM.PpmAdditionalDocuments
 
-	if(Vue.filter('PPMform4Required')() || Vue.filter('PPMform5Required')() ) 
+	if(Vue.filter('PPMform5Required')() ) 
 		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: true });
 	else
 		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
@@ -433,15 +435,16 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	if(type == 'priorityParenting'){
 		if(questions.ppmBackgroundSurvey?.ExistingOrdersFLM == "y")
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
-		if(Vue.filter('PPMform4Required')())		
-			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
-
-		if(Vue.filter('PPMform5Required')()){		
+		
+		if(Vue.filter('PPMschedule1Required')()){		
 			requiredDocuments.push("Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)");		
+		}
+		
+		if(Vue.filter('PPMform5Required')()){		
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form");		
 		}
-
+		
 		//REMINDERS
 		if( questions.ppmQuestionnaireSurvey?.includes("childServices") &&
 			(questions.ppmIndigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || 

@@ -301,8 +301,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
-import CheckBox from "./Schedules/components/CheckBox.vue"
-import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue"
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { cmLocationInfoDataInfoType, caseManagementOtherPartyDataInfoType, form10DataInfoType } from '@/types/Application/CaseManagement/PDF';
@@ -312,8 +311,7 @@ import { getYourInformationResults } from '@/components/utils/PopulateForms/Popu
 @Component({
     components:{
         UnderlineForm,
-        CheckBox,
-        OrderedCheckBox        
+        CheckBox       
     }
 })
 

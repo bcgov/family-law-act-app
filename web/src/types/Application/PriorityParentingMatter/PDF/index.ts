@@ -18,19 +18,6 @@ export interface priorityParentingOtherPartyDataInfoType {
     lawyer: string;
 }
 
-export interface schedule1DataInfoType {
-    parentNames: string[];
-    scheduleCompletionDate: string;
-    partyNames: string[];
-    beenAdvised: boolean;
-    courtProceedingExists: boolean;
-    proceedingLocation?: string;
-    proceedingFileNumber?: string;
-    nextCFCSADate?: string;
-    allowChildReturn?: boolean;
-    infoShared?: string;
-}
-
 export interface schedule2DataInfoType {
     isFirstNations: string;
     understandFirstNationsService?: boolean;

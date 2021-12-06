@@ -91,5 +91,10 @@ export default class ReviewAndConnect extends Vue {
         Vue.prototype.$UpdateGotoNextStepPage()     
     }
 
+    beforeDestroy() {
+        const progress = 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+    }
+
 }
 </script>

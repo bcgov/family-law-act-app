@@ -29,8 +29,8 @@
 
 <!-- <1> -->
         <section>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
-                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+                <underline-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+                <underline-form marginTop="-22px" style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
                 <div style="text-indent:5px;display:inline; line-height:1.5rem;"> . My contact information and address for service of court documents by the other party and the court are:</div>
                 <table class="fullsize" style="margin:1rem 0 1rem 0;">
                     <tr style="border:1px solid #414142" >
@@ -74,8 +74,8 @@
 <!-- <3> -->
         <section> 
             <div v-for="(otherParty,inx) in otherPartyInfo" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party's name is" hint="full name of the other party" :italicHint="false" :text="otherParty.name | getFullName"/>
-                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". Their date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
+                <underline-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party's name is" hint="full name of the other party" :italicHint="false" :text="otherParty.name | getFullName"/>
+                <underline-form marginTop="-22px" style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". Their date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
                 <div style="text-indent:5px;display:inline; line-height:1.5rem;"> . Their contact information, as I know it, is:</div>
                 <table class="fullsize" style="margin:1rem 0 1rem 0;">
                     <tr style="border:1px solid #313132">
@@ -119,12 +119,12 @@
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; padding:0.5rem;font-family:BCSans">
                 <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only</i></div>
                 
-                <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="20.5rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
+                <underline-form marginTop="-22px" style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="20.5rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
+                <underline-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
+                <underline-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
                 <div style="margin:0.5rem 0 0 0.25rem;">
-                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
+                    <underline-form marginTop="-22px" style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
                     <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
                     <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
                 </div>
@@ -140,8 +140,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { addressInfoType, contactInfoType } from '@/types/Application/CommonInformation';

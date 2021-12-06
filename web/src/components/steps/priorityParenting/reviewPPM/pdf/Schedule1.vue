@@ -51,7 +51,7 @@
                     The parent(s) of the child(ren) is/are:
                 </div>
 
-                <div v-if="true" class="answerbox">?????</div>
+                <div v-if="false" class="answerbox"></div>
                 <div v-else style="margin-bottom:3rem;"></div>        
             
             </section>                
@@ -71,21 +71,21 @@
                             <td colspan="3">
                                 Name: 
                                 <div class="answer">
-                                    {{infoProvider.name | getFullName}}
+                                    
                                 </div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">          
-                            <td colspan="3">Address: <div class="answer"> {{infoProvider.address?infoProvider.address.street:''}} </div> </td>
+                            <td colspan="3">Address: <div class="answer">  </div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td  >City: <div class="answer">{{infoProvider.address?infoProvider.address.city:''}}</div> </td>
-                        <td style="padding-left:50px">Province: <div class="answer">{{infoProvider.address?infoProvider.address.state:''}}</div> </td>
-                            <td>Postal Code: <div class="answer">{{infoProvider.address?infoProvider.address.postcode:''}}</div> </td>
+                            <td  >City: <div class="answer"></div> </td>
+                        <td style="padding-left:50px">Province: <div class="answer"></div> </td>
+                            <td>Postal Code: <div class="answer"></div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{infoProvider.contactInfo?infoProvider.contactInfo.email:''}}</div> </td>
-                            <td>Telephone: <div class="answer">{{infoProvider.contactInfo?infoProvider.contactInfo.phone:''}}</div> </td>
+                            <td colspan="2">Email: <div class="answer"></div> </td>
+                            <td>Telephone: <div class="answer"></div> </td>
                         </tr>
                     </table>
                 </div>
@@ -104,7 +104,7 @@
                         beforetext="This schedule is being completed on:" 
                         hint="" 
                         :italicHint="false" 
-                        :text="scheduleInfo.scheduleCompletionDate | beautify-date"/>
+                        text=""/>
                 </div>
             </section>
         </div>
@@ -124,21 +124,21 @@
                             <td colspan="3">
                                 Name: 
                                 <div class="answer">
-                                    {{director.name | getFullName}}
+                                    
                                 </div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">          
-                            <td colspan="3">Address: <div class="answer"> {{director.address?director.address.street:''}} </div> </td>
+                            <td colspan="3">Address: <div class="answer">  </div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td  >City: <div class="answer">{{director.address?director.address.city:''}}</div> </td>
-                        <td style="padding-left:50px">Province: <div class="answer">{{director.address?director.address.state:''}}</div> </td>
-                            <td>Postal Code: <div class="answer">{{director.address?director.address.postcode:''}}</div> </td>
+                            <td  >City: <div class="answer"></div> </td>
+                        <td style="padding-left:50px">Province: <div class="answer"></div> </td>
+                            <td>Postal Code: <div class="answer"></div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{director.contactInfo?director.contactInfo.email:''}}</div> </td>
-                            <td>Telephone: <div class="answer">{{director.contactInfo?director.contactInfo.phone:''}}</div> </td>
+                            <td colspan="2">Email: <div class="answer"></div> </td>
+                            <td>Telephone: <div class="answer"></div> </td>
                         </tr>
                     </table>
                 </div>
@@ -156,12 +156,21 @@
                     inline="inline"
                     boxMargin="0rem"                    
                     style="margin:0 0 0 0.5rem;display:inline;" 
-                    :check="true?'yes':''" 
+                    marginLeft="1.5rem"
+                    :check="false?'yes':''"
                     text="I have been advised that"/>
                       
                 <div style="display:inline;" >
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block;" 
+                        textwidth="14rem" 
+                        beforetext="This schedule is being completed on:" 
+                        hint="" 
+                        :italicHint="false" 
+                        text=""/>
+
                     <span style="text-decoration: underline; margin:0 0.5rem 0 0.5rem">
-                        {{scheduleInfo.partyNames}}uuuuu
+                        
                     </span>
                     is applying for a priority parenting matter order under section 45
                     [orders respecting parenting arrangements] or 51 [order respecting
@@ -185,20 +194,19 @@
                             boxMargin="0" 
                             style="display:inline;" 
                             shift="10" 
-                            :check="scheduleInfo.courtProceedingExists?'yes':''" text="Yes - Court Location:"/>
+                            :check="false?'yes':''" text="Yes - Court Location:"/>
                         <div style="display:inline;" >
                             <span style="text-decoration: underline; margin:0 0.75rem 0 0.25rem">
-                                {{scheduleInfo.proceedingLocation}}???????
                             </span>
 
                             File Number:
                             <span style="text-decoration: underline; margin:0 0.75rem 0 0.25rem">
-                                {{scheduleInfo.proceedingFileNumber}}?????
+                                
                             </span> 
                            
                             Date of next CFCSA proceeding:
                             <span style="text-decoration: underline; margin:0 0.75rem 0 0.25rem">
-                                {{scheduleInfo.nextCFCSADate}}?????
+                                
                             </span>
 
                         </div>
@@ -211,7 +219,7 @@
                         style="display:inline;" 
                         shift="-7" 
                         marginLeft="0.75rem" 
-                        :check="!scheduleInfo.courtProceedingExists?'yes':''"  text="No"/>                                  
+                        :check="false?'yes':''"  text="No"/>                                  
                      
                 </div>                             
           
@@ -227,8 +235,8 @@
                     applicant or prevent the removal of the child(ren) under the <i>Child, Family and Community Service Act</i>.
                 </div>
                 <div style="display:inline-block; margin-left:1.5rem;">
-                    <check-box class="marginleft" inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="scheduleInfo.allowChildReturn?'yes':''"  text="Yes"/>                                  
-                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="8" marginLeft="1.75rem" :check="!scheduleInfo.allowChildReturn?'yes':''" text="No"/> 
+                    <check-box class="marginleft" inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="false?'yes':''"  text="Yes"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="8" marginLeft="1.75rem" :check="false?'yes':''" text="No"/> 
                 </div>                             
           
             </section>
@@ -249,7 +257,7 @@
                     </i>
                 </div>
 
-                <div v-if="scheduleInfo.infoShared" class="answerbox">{{scheduleInfo.infoShared}}</div>
+                <div v-if="false" class="answerbox"></div>
                 <div v-else style="margin-bottom:3rem;"></div>        
           
             </section>
@@ -263,8 +271,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
-import { priorityParentingDirectorDataInfoType, priorityParentingInfoProviderDataInfoType, schedule1DataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 
 @Component({
@@ -279,16 +286,13 @@ export default class Schedule1 extends Vue {
     @Prop({required:true})
     result!: any;
 
-    dataReady = false;
-    scheduleInfo = {} as schedule1DataInfoType; 
-    infoProvider = {} as priorityParentingInfoProviderDataInfoType; 
-    director = {} as priorityParentingDirectorDataInfoType;
+    dataReady = false;    
 
     childrenInfo: childrenInfoSurveyInfoType[] = [];
 
     childrenFields=[
-        {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"fullName",               label:"Child's full name",                       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",     tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
     ] 
    
     mounted(){
@@ -297,95 +301,18 @@ export default class Schedule1 extends Vue {
         this.dataReady = true;
     } 
 
-    public extractInfo(){
-        this.scheduleInfo = this.getScheduleOneInfo();
-        this.childrenInfo = this.getChildrenInfo();
-        this.infoProvider = this.getInfoProviderInfo();
-        this.director = this.getDirectorInfo();        
+    public extractInfo(){       
+        this.childrenInfo = this.getChildrenInfo();           
     }
 
-    public getScheduleOneInfo() {
-
-        let schedule1Info = {} as schedule1DataInfoType;      
-
-        if (this.result?.ppmBackgroundSurvey){
-            const backgroundData = this.result.ppmBackgroundSurvey;
-            schedule1Info.courtProceedingExists = backgroundData.existingCourtProceeding == 'y';
-        }
-
-        if (this.result?.priorityParentingMatterOrderSurvey){
-
-            const ppmOrderData = this.result.priorityParentingMatterOrderSurvey;
-            schedule1Info.allowChildReturn = ppmOrderData.confirmChildServices.includes('applyPPM');        
-        }
-      
-        return schedule1Info;
-    }
-
-    public getChildrenInfo(){
-        console.log(this.result)
-        const childrenInfo: childrenInfoSurveyInfoType[] = [];
-        let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.ppmChildrenInfoSurvey;
-        
-        if(childData.length > 0){
-            for (const child of childData) {            
-                childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-                childInfo.fullName = Vue.filter('getFullName')(child.name);
-                childInfo.dob = Vue.filter('beautify-date')(child.dob);
-                childInfo.myRelationship = child.relation;
-                childInfo.otherPartyRelationship = child.opRelation;
-                childrenInfo.push(childInfo)
-            }   
-        } else {
-            childrenInfo.push({fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''});
-        }
+    public getChildrenInfo(){        
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];     
+        const child = {} as childrenInfoSurveyInfoType;
+        childrenInfo.push(child)   
+        childrenInfo.push({fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''});      
             
 
         return childrenInfo;
-    }
-
-    public getInfoProviderInfo(){
-
-        // this.childRelatedType = this.result?.cmChildrenInfoSurvey?.childRelatedType? this.result.cmChildrenInfoSurvey.childRelatedType :'';
-
-        let providerInfo = {} as priorityParentingInfoProviderDataInfoType;
-        // const childData: cmChildrenInfoSurveyDataInfoType[] = this.result?.cmChildrenInfoSurvey?.childData? this.result.cmChildrenInfoSurvey.childData: [];
-        
-        // if(this.childRelatedType == 'A party to the case and the case involves a child-related issue'){
-        //     for (const child of childData){            
-        //         childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        //         childInfo.fullName = Vue.filter('getFullName')(child.name);
-        //         childInfo.dob = Vue.filter('beautify-date')(child.dob);            
-        //         childrenInfo.push(childInfo)
-        //     }        
-        // }
-        // else
-            
-
-        return providerInfo;
-    }
-
-    public getDirectorInfo(){
-
-        // this.childRelatedType = this.result?.cmChildrenInfoSurvey?.childRelatedType? this.result.cmChildrenInfoSurvey.childRelatedType :'';
-
-        let directorInfo = {} as priorityParentingDirectorDataInfoType;
-       
-        // const childData: cmChildrenInfoSurveyDataInfoType[] = this.result?.cmChildrenInfoSurvey?.childData? this.result.cmChildrenInfoSurvey.childData: [];
-        
-        // if(this.childRelatedType == 'A party to the case and the case involves a child-related issue'){
-        //     for (const child of childData){            
-        //         childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        //         childInfo.fullName = Vue.filter('getFullName')(child.name);
-        //         childInfo.dob = Vue.filter('beautify-date')(child.dob);            
-        //         childrenInfo.push(childInfo)
-        //     }        
-        // }
-        // else
-            
-
-        return directorInfo;
     }
 
 }

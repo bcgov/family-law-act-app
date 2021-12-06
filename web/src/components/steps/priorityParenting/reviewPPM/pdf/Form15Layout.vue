@@ -217,11 +217,9 @@
             </div>
         </div>
 
-        <div class="print-block mt-5"></div>
+            
 
-        <div class="print-block mt-5"></div>
-
-        <div class="print-block mt-0">            
+        <div class="print-block mt-2">            
 <!-- <4> -->
             <section>
                 <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
@@ -243,41 +241,44 @@
             </section>
         </div>
 
-        <div style="text-align:left; margin-top: 1rem;"><b>ABOUT THE PRIORITY PARENTING MATTER</b></div>
+        <div class="print-block">
+
+            <div style="text-align:left; margin-top: 1rem;"><b>ABOUT THE PRIORITY PARENTING MATTER</b></div>
 
 
 <!-- <5> -->
-        <section>
-            <check-box 
-                inline="inline" 
-                boxMargin="0" 
-                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                :check="true?'yes':''" 
-                text="I am applying for an order about the following priority parenting matter(s):"/>
+            <section>
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="I am applying for an order about the following priority parenting matter(s):"/>
 
-            <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
-                <i>Select all options that apply</i>
-                <check-box  :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
-                <check-box  :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
-                <check-box  :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
-                <check-box  :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
-                <check-box  :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
-                <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
-                <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
-                <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
-                <check-box  
-                    :check="ppmInfo.ppmList.includes('childServices')?'yes':''" 
-                    text="applying for an order under section 45 [orders respecting parenting arrangements] or 51 [order respecting guardianship]
-                        of the Family Law Act in one of the following circumstances:<ol style='list-style-type: lower-roman'><li>the child to whom the order relates has been removed 
-                        under section 30 [removal of child], 36 [interim supervision order no longer protects the child] or 42 
-                        [enforcement of supervision order after the protection hearing] of the Child, Family and Community 
-                        Service Act and a director under that Act has advised that the order will allow for a child to be 
-                        returned to the applicant;</li><li>a director under the Child, Family and Community Service Act has 
-                        advised that the child to whom the order relates will be removed under section 30, 36 or 42 of that 
-                        Act unless the order is made;</li></ol><b>[complete and attach schedule 1]<br/>[if you are applying 
-                        for guardianship of a child, also complete and attach schedule 2]</b>"/>
-            </div>                  
-        </section>
+                <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
+                    <i>Select all options that apply</i>
+                    <check-box  :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
+                    <check-box  
+                        :check="ppmInfo.ppmList.includes('childServices')?'yes':''" 
+                        text="applying for an order under section 45 [orders respecting parenting arrangements] or 51 [order respecting guardianship]
+                            of the Family Law Act in one of the following circumstances:<ol style='list-style-type: lower-roman'><li>the child to whom the order relates has been removed 
+                            under section 30 [removal of child], 36 [interim supervision order no longer protects the child] or 42 
+                            [enforcement of supervision order after the protection hearing] of the Child, Family and Community 
+                            Service Act and a director under that Act has advised that the order will allow for a child to be 
+                            returned to the applicant;</li><li>a director under the Child, Family and Community Service Act has 
+                            advised that the child to whom the order relates will be removed under section 30, 36 or 42 of that 
+                            Act unless the order is made;</li></ol><b>[complete and attach schedule 1]<br/>[if you are applying 
+                            for guardianship of a child, also complete and attach schedule 2]</b>"/>
+                </div>                  
+            </section>
+        </div>
 
 
 <!-- <6> -->
@@ -376,7 +377,6 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue"
 import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
@@ -386,8 +386,7 @@ import { getYourInformationResults, getLocationInfo } from '@/components/utils/P
 @Component({
     components:{
         UnderlineForm,
-        CheckBox,
-        OrderedCheckBox        
+        CheckBox        
     }
 })
 

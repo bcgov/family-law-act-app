@@ -111,10 +111,10 @@ export default class Form15 extends Vue {
         return result;
     }
 
-     public getSchedulesInfo(){       
+    public getSchedulesInfo(){       
         
         let schedules: string[] = [];       
-        //TODO: once survey changes are in place, change this accordingly
+        
         if(this.result.ppmQuestionnaireSurvey && this.result.priorityParentingMatterOrderSurvey) {
             const ppmType: string[] = this.result.ppmQuestionnaireSurvey;
             const ppmOrderData: priorityParentingMatterOrderSurveyDataInfoType = this.result.priorityParentingMatterOrderSurvey;
@@ -123,13 +123,11 @@ export default class Form15 extends Vue {
                 (ppmOrderData.confirmChildServices?.includes('applyPPM'))
                  
             if (childServices){
-                schedules.push('schedule1');
+                //schedules.push('schedule1');
                 if (ppmOrderData.confirmChildServicesPathway.includes('applyGuardianship')){
                     schedules.push('schedule2');
                 }
-            }
-
-                     
+            }                     
         }       
 
         return schedules;
