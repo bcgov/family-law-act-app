@@ -165,6 +165,16 @@
             <p class="mb-2">
                 Your safety plan should include going to and from the courthouse.
             </p>
+            <p style="margin:0.5rem 0 0.5rem 0;">
+                If you can’t attend court using the method of attendance set out 
+                in your application for the court appearance, you can request 
+                the court’s permission to attend using a different method of 
+                attendance by filing an 
+                <a 
+                    target="_blank"
+                    href="https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178">
+                    Application for Case Management Order without Notice or Attendance Form 11</a>.
+            </p> 
             <b>Once a protection order is made</b>
             <p class="mb-2">
                 An order takes effect at the time it is made unless ordered otherwise. That means that the person identified in the protection order must follow the conditions of the order from the moment the judge makes the order in court.
