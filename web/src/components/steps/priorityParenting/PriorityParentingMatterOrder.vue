@@ -115,14 +115,14 @@ export default class PriorityParentingMatterOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('priorityParenting') 
+
             togglePages(this.PPMpages, this.isChildDetailsRequired(), this.stPgNo.PPM._StepNo);
         
             this.setPages();
 
             if(options.name == "confirmChildServicesPathway" && options.value?.includes("applyGuardianship")){                
-                this.showPopup = true;    
-                
-                togglePages([this.stPgNo.PPM.PpmIndigenousAncestryOfChild, this.stPgNo.PPM.PpmAdditionalDocuments], true, this.currentStep);
+                this.showPopup = true;                 
+
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.stPgNo.PPM.PpmIndigenousAncestryOfChild].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.PPM.PpmIndigenousAncestryOfChild, 50, false);
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.stPgNo.PPM.PpmAdditionalDocuments].progress==100)
@@ -152,13 +152,15 @@ export default class PriorityParentingMatterOrder extends Vue {
         }                
     }
 
-    public setPages(){ 
-        
-        if(!this.step.result.ppmQuestionnaireSurvey.data.includes('childServices') ||
-            !this.survey.data?.confirmChildServicesPathway?.includes("applyGuardianship") ||
-            this.survey.data?.childRemoved == 'n'){
+    public setPages(){         
+        if(this.step.result.ppmQuestionnaireSurvey.data.includes('childServices') &&
+            this.survey.data?.confirmChildServicesPathway?.includes("applyGuardianship") &&
+            this.survey.data?.childRemoved == 'y' &&
+            this.survey.data?.confirmChildServices?.includes('applyPPM')){
+                togglePages([this.stPgNo.PPM.PpmAdditionalDocuments, this.stPgNo.PPM.PpmIndigenousAncestryOfChild], true, this.currentStep);           
+            
+        } else {
             togglePages([this.stPgNo.PPM.PpmAdditionalDocuments, this.stPgNo.PPM.PpmIndigenousAncestryOfChild], false, this.currentStep);
-            toggleStep(this.stPgNo.CONNECT._StepNo, false);
         }
     }
 
@@ -271,11 +273,11 @@ export default class PriorityParentingMatterOrder extends Vue {
             Vue.filter('setSurveyProgress')(null, this.stPgNo.PPM._StepNo, this.stPgNo.PPM.PpmQuestionnaire, 50, true);
         }
 
-        if (this.PPMList.includes('childServices')){
-            toggleStep(this.stPgNo.CONNECT._StepNo, true);
-        } else {
-            toggleStep(this.stPgNo.CONNECT._StepNo, false);
-        }
+        // if (this.PPMList.includes('childServices')){
+        //     toggleStep(this.stPgNo.CONNECT._StepNo, true);
+        // } else {
+        //     toggleStep(this.stPgNo.CONNECT._StepNo, false);
+        // }
 
         const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getPriorityParentingMatterNames()}]        
         this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.PPMList, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.stPgNo.PPM.PpmQuestionnaire}}});      
@@ -283,6 +285,7 @@ export default class PriorityParentingMatterOrder extends Vue {
     
     beforeDestroy() {        
         this.modifyPpmQuestionnaire();
+        this.setPages();
         this.UpdateStepResultData({step:this.step, data: {priorityParentingMatterOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }

@@ -180,7 +180,7 @@
                         id="documentType"
                         v-model="fileType"
                         :state = "selectedDocumentTypeState?null:false">
-                        <b-form-select-option v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
+                        <b-form-select-option :class="docType.type == ppmSchedule1FileType.type?'font-weight-bold':''" v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
                     </b-form-select>
                 </b-form-group> 
             </b-card>
@@ -211,7 +211,7 @@
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
-    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
+    import { documentTypesJsonInfoType, locationsInfoType, requiredDocumentsInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
 
@@ -255,6 +255,9 @@
         @applicationState.State
         public supportingDocuments!: any;
 
+        @applicationState.State
+        public requiredDocuments!: requiredDocumentsInfoType;
+
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
 
@@ -290,6 +293,7 @@
         selectedSupportingDocumentState = true;
         fileType = "";
         fileTypes: documentTypesJsonInfoType[] = [];
+        ppmSchedule1FileType = {description: 'Schedule 1 completed by a director', type: 'Merge With Form15'};
 
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
@@ -338,6 +342,7 @@
             if (files && files[0]) 
             {
                 this.supportingFile = files;
+                this.handlePpmSchedule1();
                 this.showTypeOfDocuments= true;
             }
         } 
@@ -355,6 +360,7 @@
             if (event.target.files && event.target.files[0]) 
             {
                 this.supportingFile = event.target.files;
+                this.handlePpmSchedule1();
                 this.showTypeOfDocuments= true;
             }
         }
@@ -466,6 +472,22 @@
                     const el = document.getElementById('drop-area');
                     if(el) el.scrollIntoView();
                 })
+            }
+        }
+
+        public handlePpmSchedule1(){
+
+            const scheduleOneText = "Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)";
+            const index = this.fileTypes.findIndex(fileType => fileType.type == this.ppmSchedule1FileType.type);
+
+            if (this.requiredDocuments?.priorityParenting?.required?.includes(scheduleOneText) && index == -1){
+
+                this.fileTypes.unshift(this.ppmSchedule1FileType);
+
+            } else if(!this.requiredDocuments?.priorityParenting?.required?.includes(scheduleOneText) && index != -1) {                
+                                
+                this.fileTypes.splice(index, 1);
+                           
             }
         }
 
