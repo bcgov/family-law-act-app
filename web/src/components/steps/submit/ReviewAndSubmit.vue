@@ -151,7 +151,7 @@
                         variant="success">
                             <span class="fa fa-paper-plane btn-icon-left"/>
                             Proceed to Submit
-                    </b-button>
+                    </b-button>                    
                     
                 </div>
             </b-card>
@@ -294,6 +294,7 @@
         fileType = "";
         fileTypes: documentTypesJsonInfoType[] = [];
         ppmSchedule1FileType = {description: 'Schedule 1 completed by a director', type: 'Merge With Form15'};
+        scheduleOneText = "Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)";
 
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
@@ -373,12 +374,27 @@
             Vue.prototype.$UpdateGotoNextStepPage()
         }        
 
-        public onSubmit() {            
-            this.eFile()              
+        public onSubmit() {                     
+            
+            if (this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText)){
+
+                const index = this.supportingDocuments.findIndex(doc => doc.documentType == this.ppmSchedule1FileType.type);
+
+                if (index == -1){
+                    this.error = 'You should include: Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)'
+                } else {
+                    this.eFile();
+                }
+
+            } else {
+                this.eFile();
+            }
+                       
         }
 
         public eFile() {
             
+            this.error = "";
             const bodyFormData = new FormData();
             const docType = []
             const lastFileTypes = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
@@ -476,15 +492,14 @@
         }
 
         public handlePpmSchedule1(){
-
-            const scheduleOneText = "Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)";
+            
             const index = this.fileTypes.findIndex(fileType => fileType.type == this.ppmSchedule1FileType.type);
 
-            if (this.requiredDocuments?.priorityParenting?.required?.includes(scheduleOneText) && index == -1){
+            if (this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText) && index == -1){
 
                 this.fileTypes.unshift(this.ppmSchedule1FileType);
 
-            } else if(!this.requiredDocuments?.priorityParenting?.required?.includes(scheduleOneText) && index != -1) {                
+            } else if(!this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText) && index != -1) {                
                                 
                 this.fileTypes.splice(index, 1);
                            
