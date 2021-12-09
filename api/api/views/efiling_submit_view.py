@@ -1,5 +1,7 @@
 import hashlib
 import logging
+from PyPDF2 import PdfFileReader, PdfFileWriter
+from io import BytesIO
 import json
 import uuid
 from collections import Counter
@@ -100,6 +102,46 @@ class EFilingSubmitView(generics.GenericAPIView):
             )
         return outgoing_documents
 
+    def _merge_sch1_with_form15(self, outgoing_documents, pdf_files, image_files, rotations):
+        output = PdfFileWriter()
+        non_AXP_doc =  [x for x in outgoing_documents if x["type"]!="AXP"]
+        AXP_doc = next(x for x in outgoing_documents if x["type"]=="AXP")
+        
+        output = self._add_pdf_to_output(output, AXP_doc["file_data"])
+
+        if len(image_files) > 0:
+            rotations = rotations
+            imagedata = rotate_images_and_convert_pdf(image_files, rotations)
+            output = self._add_pdf_to_output(output, imagedata)
+
+        for file in pdf_files:
+            data = file.read()
+            output = self._add_pdf_to_output(output, data)       
+        
+        in_memory = BytesIO()
+        output.write(in_memory)
+        in_memory.seek(0)
+        pdf_content = in_memory.read()
+
+        non_AXP_doc.append(
+            {
+                "type": AXP_doc["type"],
+                "name": AXP_doc["name"],
+                "file_data": pdf_content,
+                "data": AXP_doc["data"],
+                "md5": hashlib.md5( pdf_content).hexdigest(),
+            }
+        )
+
+        return non_AXP_doc
+       
+    def _add_pdf_to_output(self, output, data_bytes):
+        pdf_bytes = BytesIO(data_bytes)
+        read_pdf = PdfFileReader(pdf_bytes)
+        for pgno in range(0, read_pdf.getNumPages()):            
+            output.addPage(read_pdf.getPage(pgno))
+        return output
+
     def _process_incoming_files_and_documents(
         self, application, application_steps, incoming_documents, incoming_files
     ):
@@ -107,11 +149,19 @@ class EFilingSubmitView(generics.GenericAPIView):
         for incoming_document in incoming_documents:
             if "files" not in incoming_document:
                 continue
+            
             file_indexes = incoming_document["files"]
             files = [incoming_files[index] for index in file_indexes]
+
             # 1 PDF and 2 JPG for example, we need to split into 2 PDFs.
             pdf_files = [x for x in files if x.name.endswith(".pdf")]
             image_files = [x for x in files if not x.name.endswith(".pdf")]
+
+            if ("type" in incoming_document and incoming_document["type"] == "Merge With Form15"):                
+                outgoing_documents = self._merge_sch1_with_form15( outgoing_documents, pdf_files, image_files, incoming_document["rotations"] )
+                continue
+
+            
             for file in pdf_files:
                 data = file.read()
                 file_name = file.name

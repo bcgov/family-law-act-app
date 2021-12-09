@@ -174,7 +174,7 @@
         <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
             <b-card style="border-radius:10px" class="bg-light">
                 <h1 class="text-center bg-primary text-white" style="border-radius:10px; width:35rem; margin:0 auto; padding:1rem 0;">Specify the Type of Document(s)</h1>
-                <div v-if="supportingFile" class="h3 my-4 text-center"><div class="mb-3"> File Name(s): </div> <span v-for="(file,inx) in supportingFile" :key="inx" style="display:block;" class="my-2  p-0 h3 text-danger"> {{file.name}} </span> </div>
+                <div v-if="supportingFile" class="h3 my-4 text-center"><div class="mb-3"> File Name(s): </div> <span v-for="(file,inx) in supportingFile" :key="inx" style="display:block;" class="my-2  p-0 h3 text-success"> {{file["name"]}} </span> </div>
                 <b-form-group style="width:30rem; margin: 2rem auto;"> 
                     <b-form-select
                         id="documentType"
