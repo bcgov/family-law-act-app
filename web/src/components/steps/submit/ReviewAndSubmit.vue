@@ -151,7 +151,7 @@
                         variant="success">
                             <span class="fa fa-paper-plane btn-icon-left"/>
                             Proceed to Submit
-                    </b-button>
+                    </b-button>                    
                     
                 </div>
             </b-card>
@@ -174,13 +174,13 @@
         <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
             <b-card style="border-radius:10px" class="bg-light">
                 <h1 class="text-center bg-primary text-white" style="border-radius:10px; width:35rem; margin:0 auto; padding:1rem 0;">Specify the Type of Document(s)</h1>
-                <div v-if="supportingFile" class="h3 my-4 text-center"><div class="mb-3"> File Name(s): </div> <span v-for="(file,inx) in supportingFile" :key="inx" style="display:block;" class="my-2  p-0 h3 text-danger"> {{file.name}} </span> </div>
+                <div v-if="supportingFile" class="h3 my-4 text-center"><div class="mb-3"> File Name(s): </div> <span v-for="(file,inx) in supportingFile" :key="inx" style="display:block;" class="my-2  p-0 h3 text-success"> {{file["name"]}} </span> </div>
                 <b-form-group style="width:30rem; margin: 2rem auto;"> 
                     <b-form-select
                         id="documentType"
                         v-model="fileType"
                         :state = "selectedDocumentTypeState?null:false">
-                        <b-form-select-option v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
+                        <b-form-select-option :class="docType.type == ppmSchedule1FileType.type?'font-weight-bold':''" v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
                     </b-form-select>
                 </b-form-group> 
             </b-card>
@@ -211,7 +211,7 @@
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
-    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
+    import { documentTypesJsonInfoType, locationsInfoType, requiredDocumentsInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
 
@@ -255,6 +255,9 @@
         @applicationState.State
         public supportingDocuments!: any;
 
+        @applicationState.State
+        public requiredDocuments!: requiredDocumentsInfoType;
+
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
 
@@ -290,6 +293,8 @@
         selectedSupportingDocumentState = true;
         fileType = "";
         fileTypes: documentTypesJsonInfoType[] = [];
+        ppmSchedule1FileType = {description: 'Schedule 1 completed by a director', type: 'Merge With Form15'};
+        scheduleOneText = "Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)";
 
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
@@ -338,6 +343,7 @@
             if (files && files[0]) 
             {
                 this.supportingFile = files;
+                this.handlePpmSchedule1();
                 this.showTypeOfDocuments= true;
             }
         } 
@@ -355,6 +361,7 @@
             if (event.target.files && event.target.files[0]) 
             {
                 this.supportingFile = event.target.files;
+                this.handlePpmSchedule1();
                 this.showTypeOfDocuments= true;
             }
         }
@@ -367,12 +374,27 @@
             Vue.prototype.$UpdateGotoNextStepPage()
         }        
 
-        public onSubmit() {            
-            this.eFile()              
+        public onSubmit() {                     
+            
+            if (this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText)){
+
+                const index = this.supportingDocuments.findIndex(doc => doc.documentType == this.ppmSchedule1FileType.type);
+
+                if (index == -1){
+                    this.error = 'You should include: Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)'
+                } else {
+                    this.eFile();
+                }
+
+            } else {
+                this.eFile();
+            }
+                       
         }
 
         public eFile() {
             
+            this.error = "";
             const bodyFormData = new FormData();
             const docType = []
             const lastFileTypes = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
@@ -466,6 +488,21 @@
                     const el = document.getElementById('drop-area');
                     if(el) el.scrollIntoView();
                 })
+            }
+        }
+
+        public handlePpmSchedule1(){
+            
+            const index = this.fileTypes.findIndex(fileType => fileType.type == this.ppmSchedule1FileType.type);
+
+            if (this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText) && index == -1){
+
+                this.fileTypes.unshift(this.ppmSchedule1FileType);
+
+            } else if(!this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText) && index != -1) {                
+                                
+                this.fileTypes.splice(index, 1);
+                           
             }
         }
 

@@ -260,6 +260,7 @@ export default class GettingStarted extends Vue {
             toggleStep(this.stPgNo.FLM._StepNo,   selectedForms.includes("familyLawMatter"));
             toggleStep(this.stPgNo.CM._StepNo,    selectedForms.includes("caseMgmt"));
             toggleStep(this.stPgNo.PPM._StepNo,   selectedForms.includes("priorityParenting"));
+            toggleStep(this.stPgNo.CONNECT._StepNo, false);
             toggleStep(this.stPgNo.RELOC._StepNo, selectedForms.includes("childReloc"));
             toggleStep(this.stPgNo.ENFRC._StepNo, selectedForms.includes("agreementEnfrc"));
 
