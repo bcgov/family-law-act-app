@@ -40,8 +40,8 @@
                                     <p style="font-weight: bold;">1. Register or Login</p>
                                     <p class="mb-3">
                                         To use the Online FLA Assistant you will need to set up a Basic BCeID account.
-                                        If you do not currently have Basic BCeID account you can register for one by 
-                                        clicking the New User button below.
+                                        If you do not currently have a Basic BCeID account you can register for one 
+                                        by clicking the Register button below.
                                     </p>
                                
                                     <p style="font-weight: bold;">2. Answer Questions</p>
