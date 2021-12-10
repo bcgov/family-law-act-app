@@ -20,7 +20,7 @@
                     <b-button 
                         style="float:right; margin: 0.25rem 1rem; padding: 0.375rem 0.45rem;"                  
                         v-on:click.prevent="downloadSchedule1()"
-                        variant="success">
+                        :variant="isSch1Downloaded? 'success':'danger'">
                             <span class="fa fa-print btn-icon-left"/>
                             Download to Print
                     </b-button>
@@ -121,9 +121,10 @@ export default class ReviewAndConnect extends Vue {
     currentStep =0;
     currentPage =0;   
     showGetHelpForPDF = false;
+    isSch1Downloaded = false;
 
     mounted(){
-        
+        this.isSch1Downloaded = false;
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         let progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
@@ -134,8 +135,28 @@ export default class ReviewAndConnect extends Vue {
     } 
 
     public downloadSchedule1(){
-        window.location.href = "https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa722.pdf?forcedownload=true"
+        const pdf_name='pfa722-schedule1'
+        const url = '/print-fillable-pdf?name='+pdf_name
+        const options = {
+            responseType: "blob",
+            headers: {
+            "Content-Type": "application/json",
+            }
+        }
+        this.$http.get(url, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = pdf_name+".pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000); 
+            this.isSch1Downloaded = true;
 
+        },err => {
+            console.error(err);
+        });
     }
 
     public onPrev() {
