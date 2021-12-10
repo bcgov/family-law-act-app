@@ -429,7 +429,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		
 		if( questions.flmQuestionnaireSurvey?.includes("guardianOfChild") &&
 			(questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  )
-				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='www.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
+				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
 		}
 
 	if(type == 'priorityParenting'){
@@ -450,8 +450,8 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			(questions.ppmIndigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || 
 			questions.ppmIndigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  ){
 				reminderDocuments.push("You must serve the director under Child, Family and Community Service Act with notice of this application. The director can be served in any of the ways provided for in Question 5 of Schedule 1 (that was completed by the Director).");
-				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='www.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
-			}				
+				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
+		}				
 	}
 
 	if(type == 'childReloc'){
