@@ -437,7 +437,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 		
 		if(Vue.filter('PPMschedule1Required')()){		
-			requiredDocuments.push("Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)");		
+			requiredDocuments.push("Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)<ul class='mt-3' style='line-height: 1.5; list-style-type:circle;'><li>When you upload your completed Schedule 1, you will need to select from the drop list of document types – Schedule 1, completed by the Director from the top of the drop list. Once uploaded, the Schedule 1 will be attached to your Application About a Priority Parenting Matter when you click the Proceed to Submit button.</li></ul>");		
 		}
 		
 		if(Vue.filter('PPMform5Required')()){		

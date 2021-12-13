@@ -178,6 +178,7 @@ export default class LandingPage extends Vue {
             this.isLoggedIn = false;
             this.pageReady = true;
         } 
+        console.log('Welcome to FLAAP, version: '+ Vue.filter('get-current-version')())
     }
   
     public navigate(userType) {

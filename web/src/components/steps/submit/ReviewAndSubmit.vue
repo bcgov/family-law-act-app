@@ -294,8 +294,7 @@
         fileType = "";
         fileTypes: documentTypesJsonInfoType[] = [];
         ppmSchedule1FileType = {description: 'Schedule 1 completed by a director', type: 'Merge With Form15'};
-        scheduleOneText = "Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)";
-
+        scheduleOneText = "Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)<ul class='mt-3' style='line-height: 1.5; list-style-type:circle;'><li>When you upload your completed Schedule 1, you will need to select from the drop list of document types – Schedule 1, completed by the Director from the top of the drop list. Once uploaded, the Schedule 1 will be attached to your Application About a Priority Parenting Matter when you click the Proceed to Submit button.</li></ul>";
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
             { key: 'fileType', label: 'File Type',tdClass:'align-middle'},
