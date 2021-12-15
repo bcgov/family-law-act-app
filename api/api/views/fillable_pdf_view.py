@@ -28,11 +28,10 @@ class FillablePdfView(generics.GenericAPIView):
 
         output = PdfFileWriter()
         filepath = os.getcwd()+'/api/fillable_pdfs/'+pdf_name+'.pdf' 
-        #TODO  
-        print(filepath)
+        
         try:
             read_pdf = PdfFileReader(filepath, 'rb')
-        except:
+        except OSError:
             return HttpResponseNotFound("File "+pdf_name+".pdf Not Found")
 
         output.cloneReaderDocumentRoot(read_pdf)
