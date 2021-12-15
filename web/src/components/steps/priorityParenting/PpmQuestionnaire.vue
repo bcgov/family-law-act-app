@@ -91,6 +91,20 @@
                             </div>                        
                         </b-form-checkbox>
                     </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="childServices">
+                            <div>
+                                Parenting arrangements or guardianship of a child who has been 
+                                removed or is at risk of being removed by the <tooltip title="Director" :index="0"/> under the
+                                <a 
+                                    target="_blank"
+                                    href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01">
+                                    Child, Family and Community Service Act
+                                </a>
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
                
                 </b-form-checkbox-group>
             </b-form-group>
@@ -139,10 +153,6 @@ export default class PpmQuestionnaire extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
-
-    
-
-    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -216,6 +226,12 @@ export default class PpmQuestionnaire extends Vue {
                 if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutPriorityParentingMatterOrder].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutPriorityParentingMatterOrder, 50, false);
 
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.PpmIndigenousAncestryOfChild].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.PpmIndigenousAncestryOfChild, 50, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.PpmAdditionalDocuments].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.PpmAdditionalDocuments, 50, false);
+
             
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersPPM, 0, false);
                 
@@ -262,6 +278,7 @@ export default class PpmQuestionnaire extends Vue {
             if(form=='interjurisdictional')    result+='-Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
             if(form=='wrongfulRemoval')         result+='-Wrongful removal of a child in BC'+'\n';
             if(form=='returnOfChild')          result+='-Preventing the removal of a child'+'\n';
+            if(form=='childServices')          result+='-Parenting arrangements or guardianship of a child who has been removed or is at risk of being removed by the Director'+'\n';
         }
         return result;
     }

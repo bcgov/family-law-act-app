@@ -226,7 +226,7 @@ export default class FlmQuestionnaire extends Vue {
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 50, false);
 
         } else {
-            togglePages([p.FlmBackground], false, this.currentStep);
+            togglePages([p.FlmBackground], true, this.currentStep);
             togglePages([p.FlmAdditionalDocuments], false, this.currentStep);
             togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);
         }   

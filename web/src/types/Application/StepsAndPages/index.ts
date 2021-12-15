@@ -10,6 +10,7 @@ export interface stepsAndPagesNumberInfoType{
     PPM: PPMstPgTypes
     RELOC: RELOCstPgTypes;
     ENFRC: ENFRCstPgTypes;
+    CONNECT: CONNECTstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -145,6 +146,8 @@ export interface PPMstPgTypes{
     PpmBackground: number;
     PpmChildrenInfo: number;
     AboutPriorityParentingMatterOrder: number;
+    PpmIndigenousAncestryOfChild: number;
+    PpmAdditionalDocuments: number;
     ReviewYourAnswersPPM: number;
     PreviewFormsPPM: number;  
 }
@@ -173,6 +176,12 @@ export interface ENFRCstPgTypes{
     PreviewForm27ENFRC: number;
     PreviewForm28ENFRC: number;
     PreviewForm29ENFRC : number;   
+}
+
+export interface CONNECTstPgTypes{
+    _StepNo: number;
+    
+    ReviewAndConnect: number;   
 }
 
 export interface SUBMITstPgTypes{

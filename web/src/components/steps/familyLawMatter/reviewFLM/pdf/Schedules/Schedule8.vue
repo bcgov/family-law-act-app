@@ -8,7 +8,7 @@
             <div style="text-align:center;"><b>This is Schedule 8 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to cancel the guardianship of a child or children identified in section 11 of this application.</i>
+                <i>Complete this schedule only if you are making an application to cancel the guardianship of a child or children identified in section 12 of this application.</i>
             </div>
 
             

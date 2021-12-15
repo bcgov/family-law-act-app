@@ -43,6 +43,9 @@ export default class FormList extends Vue {
     @Prop({required: true})
     currentPage!: number;
 
+    @Prop({default: false})
+    ppmOnly!: boolean;
+
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
@@ -50,10 +53,7 @@ export default class FormList extends Vue {
     public generatedForms!: string[];
 
     @applicationState.State
-    public pathwayCompleted!: pathwayCompletedInfoType;
-
-    @applicationState.Action
-    public UpdateGeneratedForms!: (newGeneratedForms) => void
+    public pathwayCompleted!: pathwayCompletedInfoType;    
 
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
@@ -92,26 +92,34 @@ export default class FormList extends Vue {
     public initFormsTitle(){
 
         for(const form of this.formsListTemplate)        
-        {
+        {            
             if(this.pathwayCompleted[form.appName]){
 
-                if(form.name=='P1' && !this.isForm1()) continue
+                if (this.ppmOnly && form.name=='P15'){                    
 
-                if(form.name=='P3' && this.isForm1()) continue
+                    this.formsList.push(form);
 
-                if(form.name=='P10' && !whichCaseMgmtForm().includes("P10")) continue
-                if(form.name=='P11' && !whichCaseMgmtForm().includes("P11")) continue
+                } else if (!this.ppmOnly) {
 
-                if(form.name=='P26' && !whichAgreementEnfrcForm().includes("P26")) continue
-                if(form.name=='P27' && !whichAgreementEnfrcForm().includes("P27")) continue
-                if(form.name=='P28' && !whichAgreementEnfrcForm().includes("P28")) continue
-                if(form.name=='P29' && !whichAgreementEnfrcForm().includes("P29")) continue
+                    if(form.name=='P1' && !this.isForm1()) continue
+
+                    if(form.name=='P3' && this.isForm1()) continue
+
+                    if(form.name=='P10' && !whichCaseMgmtForm().includes("P10")) continue
+                    if(form.name=='P11' && !whichCaseMgmtForm().includes("P11")) continue
+
+                    if(form.name=='P26' && !whichAgreementEnfrcForm().includes("P26")) continue
+                    if(form.name=='P27' && !whichAgreementEnfrcForm().includes("P27")) continue
+                    if(form.name=='P28' && !whichAgreementEnfrcForm().includes("P28")) continue
+                    if(form.name=='P29' && !whichAgreementEnfrcForm().includes("P29")) continue
 
 
-                if(this.generatedForms?.includes(form.name))
-                    form.color = "success"
+                    if(this.generatedForms?.includes(form.name))
+                        form.color = "success"
 
-                this.formsList.push(form);
+                    this.formsList.push(form);
+                }
+                
             }                           
         }
         this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});

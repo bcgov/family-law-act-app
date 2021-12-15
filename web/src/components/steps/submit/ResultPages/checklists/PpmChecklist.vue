@@ -182,6 +182,31 @@
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
                     check="" 
                     text="Step 4: Serve the Application about Priority Parenting Matter on each other party"/>               
+            </div>
+
+            <div style="margin:0 0 0 3rem;">
+                
+                <check-box
+                    boxMargin="0" 
+                    shiftmark=0                    
+                    style="margin:0.5rem 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="on each other party"/>
+                
+                <check-box                     
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="margin:0.5rem 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="on the Director under the Child, Family and Community Service Act if you are applying for a priority parenting matter order because the child has been removed or at risk of being removed by the Director"/>
+                
+                <check-box
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="margin:0.5rem 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="on the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs if the child is a Nisga’a or Treaty First Nation child and the application is for guardianship of the child"/>
+                
             </div>  
 
             <p>
@@ -228,7 +253,24 @@
                 personal service). Personal service means an adult person who is at least 19, 
                 other than you, must hand-deliver the documents directly to the person being 
                 served. A party cannot personally serve a document on the other party.
-            </p>           
+            </p>     
+
+            <p>
+                The Director under the <i>Child, Family and Community Service Act</i> 
+                can be served in any of the ways provided for in Question 5 of Schedule 1.
+            </p>
+
+            <p>
+                Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm 
+                how they should be served with notice of the application. For an alphabetical 
+                listing of First Nations including information about the First Nation(s) and 
+                contact information where available, visit the BC Government website at 
+                <a 
+                    href="http://www.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing"
+                    target="_blank">
+                    www.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing
+                </a>. 
+            </p>      
 
             <p>
                 The court may need proof you had the documents personally served. The person 
@@ -259,7 +301,18 @@
             <p>
                 A judge can make decisions based only on the information presented by the parties as evidence. 
                 Your evidence includes your application, any additional affidavit(s), and spoken evidence provided in court.
-            </p>            
+            </p>    
+
+            <p style="margin:0.5rem 0 0.5rem 0;">
+                If you can’t attend court using the method of attendance set out 
+                in your application for the court appearance, you can request 
+                the court’s permission to attend using a different method of 
+                attendance by filing an 
+                <a 
+                    target="_blank"
+                    href="https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178">
+                    Application for Case Management Order without Notice or Attendance Form 11</a>.
+            </p>         
 
         </div>
 

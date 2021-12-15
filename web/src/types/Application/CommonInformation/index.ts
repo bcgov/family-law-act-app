@@ -70,8 +70,10 @@ export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
   ExplanationCourtLocation?: boolean;
   ExistingCourt?: string;
   ExistingFileNumber?: string;
-  MetEarlyResolutionRequirements?:string;
-  registryLocationReason?: string;
+  MetEarlyResolutionRequirements?:string;  
+  filingLocationReason?: string;
+  ExistingFMEPCase?:string;
+  ExistingFMEPNumber?: string;  
   earlyResolutionRegistry?: boolean;
   familyJusticeRegistry?: boolean;
   familyEducationProgram?: boolean;
@@ -157,6 +159,20 @@ export interface filingOptionsSurveyInfoType {
 
 export interface otherPartyCommonConfirmationSurveyInfoType {
   data: {confirmation: string};
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number | string;
+  currentPage?: number | string;
+}
+
+export interface indigenousAncestryOfChildDataInfoType {
+  indigenousChild?: string;
+  indigenousAncestry?: string[];
+  ServeAcknowledgement?: string;
+}
+
+export interface indigenousAncestryOfChildSurveyInfoType {
+  data: indigenousAncestryOfChildDataInfoType;
   questions?: questionInfoType[];
   pageName?: string;
   currentStep?: number | string;

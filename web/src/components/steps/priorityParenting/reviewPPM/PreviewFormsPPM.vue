@@ -15,6 +15,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import { toggleStep } from '@/components/utils/TogglePages';
+import { priorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
 
 @Component({
     components:{       
@@ -25,11 +27,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 export default class PreviewFormsPpm extends Vue {
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
-    
-
-    
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     currentStep = 0;
     currentPage = 0;
@@ -47,6 +45,7 @@ export default class PreviewFormsPpm extends Vue {
     }   
 
     public EnableNext(){
+        this.determineReviewConnectStepRequired();
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
         this.disableNext=false;        
     }
@@ -60,7 +59,7 @@ export default class PreviewFormsPpm extends Vue {
     }
 
     public checkErrorOnPages(steps){
-
+        //TODO: may need to add for connect step/page
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]
@@ -75,6 +74,25 @@ export default class PreviewFormsPpm extends Vue {
             }            
         }
         return true;        
+    }
+
+    public determineReviewConnectStepRequired(){
+
+        let ppmType = [];
+        if(this.$store.state.Application.steps[this.stPgNo.PPM._StepNo].result?.ppmQuestionnaireSurvey?.data )
+            ppmType = this.$store.state.Application.steps[this.stPgNo.PPM._StepNo].result.ppmQuestionnaireSurvey.data;
+        
+        let ppmOrder = {} as priorityParentingMatterOrderSurveyDataInfoType;
+        if(this.$store.state.Application.steps[this.stPgNo.PPM._StepNo].result?.priorityParentingMatterOrderSurvey.data )
+            ppmOrder = this.$store.state.Application.steps[this.stPgNo.PPM._StepNo].result?.priorityParentingMatterOrderSurvey.data;        
+
+
+        if (ppmType.includes('childServices') && (ppmOrder.childRemoved == 'y') && (ppmOrder.confirmChildServices?.includes('applyPPM'))){
+            toggleStep(this.stPgNo.CONNECT._StepNo, true);
+        } else {
+            toggleStep(this.stPgNo.CONNECT._StepNo, false);
+        }
+
     }
 
     beforeDestroy() {

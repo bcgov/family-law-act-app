@@ -88,11 +88,7 @@ export default class FilingLocation extends Vue {
     public steps!: stepInfoType[];
 
     @applicationState.State
-    public types!: string[];
-
-    
-
-    
+    public types!: string[];    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -160,11 +156,19 @@ export default class FilingLocation extends Vue {
                 for(const FLMpage in allFLMPages)
                     if(this.$store.state.Application.steps[p._StepNo].pages[FLMpage].progress==100)
                         Vue.filter('setSurveyProgress')(null, p._StepNo, FLMpage, 50, false); 
+
+                if (options.value){
+                    this.survey.setValue("selectedExistingCourt",  true);
+                } else {
+                    this.survey.setValue("selectedExistingCourt",  false);    
+                }
             }
             //reset step FLM currentpage to 0
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
         })   
     }
+
+
 
     public determineRegistry(location){
         this.form1Enabled = false;
@@ -199,19 +203,19 @@ export default class FilingLocation extends Vue {
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
         
-        this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
-        this.surveyJsonCopy.pages[0].elements[0].elements[7]["choices"] = [];
+        this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"] = [];
+        this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"] = [];
         
         for(const location of this.locationsInfo){            
-            this.surveyJsonCopy.pages[0].elements[0].elements[7]["choices"].push(location["name"])
-            this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"].push(location["name"])
+            this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push(location["name"])
+            this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"].push(location["name"])
         }
 
         if(this.steps[0].result?.selectedForms?.includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
-            this.surveyJsonCopy.pages[0].elements[0].elements[3].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[4].readOnly = true;
-            this.surveyJsonCopy.pages[0].elements[0].elements[7].readOnly = true;
+            this.surveyJsonCopy.pages[0].elements[0].elements[5].readOnly = true;
+            this.surveyJsonCopy.pages[0].elements[0].elements[8].readOnly = true;
             this.editButton = true
         }
     }
@@ -225,8 +229,12 @@ export default class FilingLocation extends Vue {
             this.survey.data = this.step.result.filingLocationSurvey.data;
             
             if (this.survey.data?.ExistingCourt){
-                this.saveApplicationLocation(this.survey.data.ExistingCourt);                
-            }
+                this.saveApplicationLocation(this.survey.data.ExistingCourt);  
+                this.survey.setValue("selectedExistingCourt",  true);
+            } else {
+                this.survey.setValue("selectedExistingCourt",  false);    
+            }              
+            
         }
 
         this.survey.setVariable("editButton",this.editButton);       
@@ -252,6 +260,19 @@ export default class FilingLocation extends Vue {
 
             
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
+        }
+
+        if(this.steps[0].result?.selectedForms?.includes("familyLawMatter")
+            || this.steps[0].result?.selectedForms?.includes("caseMgmt")
+            || this.steps[0].result?.selectedForms?.includes("priorityParenting")
+            || this.steps[0].result?.selectedForms?.includes("childReloc")){
+
+                this.survey.setValue('RequiresReasonInfo',true);                
+        }        
+        if(this.steps[0].result?.selectedForms?.includes("agreementEnfrc")){
+            this.survey.setValue('RequiresFMEPInfo',true);                
+        } else {
+           this.survey.setValue('RequiresFMEPInfo',false); 
         }
 
         this.messageForLocation();

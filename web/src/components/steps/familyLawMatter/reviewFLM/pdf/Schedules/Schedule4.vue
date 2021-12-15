@@ -9,7 +9,7 @@
             <div style="text-align:center;"><b>This is Schedule 4 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about child support, or to set aside or replace all or part of an existing agreement about child support, for the child or children identified in section 11 of this application.</i>
+                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about child support, or to set aside or replace all or part of an existing agreement about child support, for the child or children identified in section 12 of this application.</i>
             </div>
 
 <!-- <1> -->
@@ -172,7 +172,7 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Child support payments may start or end on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made or the start date of a new job</i>
                     <div style="margin:0 0 3rem 1.1rem;">
-                        <underline-form style="display:inline; text-indent:0px;" textwidth="18.5rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" :text="exChSupInfo.abtOrg.startDate | beautify-date-blank"/>
+                        <underline-form style="display:inline; text-indent:0px;" textwidth="18.5rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" :text="exChSupInfo.abtOrg.startDate"/>
                         <div style="display:inline; margin:0 0 0 0.5rem;">because:</div>
                         <div v-if="exChSupInfo.abtOrg.startReason" 
                             class="answerbox">{{exChSupInfo.abtOrg.startReason}}</div>
@@ -304,7 +304,7 @@ export default class Schedule4 extends Vue {
             const aboutChildSupportChanges = this.result.aboutChildSupportChangesSurvey;
             const changeCondition =  (existingChildSupportInfo?.abtEx?.['replaceAgrmnt'] || existingChildSupportInfo?.abtEx?.['changeOrdr'])
             const orgSituationList = (changeCondition && aboutChildSupportChanges.listOfSituations)? aboutChildSupportChanges.listOfSituations:[]
-            const orderStartCondition = aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?aboutChildSupportChanges.orderStartingDate.startingDate:aboutChildSupportChanges.orderStartingDate.otherComment;
+            const orderStartCondition = aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?Vue.filter('beautify-date')(aboutChildSupportChanges.orderStartingDate.startingDate):aboutChildSupportChanges.orderStartingDate.otherComment;
             existingChildSupportInfo.abtOrg = {                
                 newOrderDesc: changeCondition ?  aboutChildSupportChanges.orderDescription:'',
                 startDate:   (changeCondition && aboutChildSupportChanges.orderStartingDate)? orderStartCondition:'',

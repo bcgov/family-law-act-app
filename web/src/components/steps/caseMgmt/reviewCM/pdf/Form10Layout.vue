@@ -3,13 +3,13 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header">
+        <div  class="form-header-cmo">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:11pt;"><b>Application for Case Management Order</b></div>
-                <div style="font-size:9pt;"><b>Form 10</b></div>
-                <div style="font-size:8pt;">Provincial Court Family Rules</div>
-                <div style="font-size:8pt;">Rules 54, 55, 64, 83, and 159</div>
+                <div style="font-size:13pt;"><b>Application for Case Management Order</b></div>
+                <div style="font-size:10pt;"><b>Form 10</b></div>
+                <div>Provincial Court Family Rules</div>
+                <div>Rules 54, 55, 64, 83, and 159</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -22,7 +22,7 @@
                             <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
+                            <div style="font-size:8pt !important; color:#000;">{{data.value}}</div>                                           
                         </template>
                 </b-table>                
             </div>
@@ -52,6 +52,8 @@
                 </tr>
             </table>
         </section>
+
+        <div style="margin-top: 1.5rem;"></div>
         
 <!-- <2> -->        
         <section>
@@ -68,6 +70,8 @@
                 allows the application to be made without notice or with less than 7 days' notice."
             </div>
         </section>
+
+        <div style="margin-top: 1.5rem;"></div>
 
 <!-- <3> -->
         <div class="print-block">
@@ -86,6 +90,8 @@
             </section>
         </div> 
 
+        <div style="margin-top: 1.5rem;"></div>
+
 <!-- <4> -->
         <div class="print-block mt-0">
             <section>
@@ -99,6 +105,8 @@
                 </div>                
             </section>
         </div>
+
+        <div style="margin-top: 1.5rem;"></div>
 
 <!-- <5> -->
         <div class="print-block mt-0">
@@ -137,27 +145,58 @@
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="!form10Info.contactedOP?'yes':''" text="No"/> 
                 </div>
                               
-                <div style=" margin-left:1.0rem;">
+                <div style="margin-left:1.0rem;">
                     <i>If yes, have they have agreed to a date and time for the court appearance?</i>                
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="form10Info.contactedOP && form10Info.oPAgreed?'yes':''"  text="Yes"/>                        
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="form10Info.contactedOP && !form10Info.oPAgreed?'yes':''" text="No"/> 
                 </div>            
             </section>
-        </div>   
 
          <!-- <For registery> -->
-        <div class="print-block">
-            <div style="margin:0.25rem 0 0 1rem; font-size: 9pt;"><i>For registry use only</i></div>
-            <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                 
+            <div style="margin:2rem 0 0 1rem; width:96.37%; border:1px solid; font-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only - if applicable</i></div>
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+                <div style="margin:0.5rem 0 0 0.25rem;">
+                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
+                    <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
+                </div>    
             </div>
-            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:1.5rem 0 0 1rem; font-family:BCSans; font-size:12pt;"><b>
+                NOTICE TO PARTIES: If you do not attend court on the date and time scheduled for the court appearance, 
+                the court may make an order in your absence. You may also choose to file a written response in reply to the
+                application in Form 19 Written Response to Application.
+            </b></div>
         </div>
 
+        <div class="print-block mt-0">
+            <div style="margin-top:1rem;"><b>Filing location</b></div>            
 <!-- <7> -->
+            <section>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
+                <div style="margin-left:1rem;">
+                    <i>Select only one of the options below</i>
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text="where my existing case with the same party/parties is located"/> 
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
+                        text="closest to where I live because my case does not involve a child-related issue"/>
+                    <check-box  
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="permitted by court order"/>                    
+                </div>
+            </section>
+        </div>
+
+<!-- <8> -->
         <div class="print-block"> 
             <section>
                 <div style="display:inline; margin-left:0.25rem;"> I am applying for the following case management order(s): </div>
@@ -175,7 +214,7 @@
                                                                     the service of a document"/>
                     <check-box  :check="form10Info.caseList.includes('changeRequirement')?'yes':''" text="waiving or modifying any other requirement under these rules, including a time limit set under these rules or a time limit set by
                                                                     an order or direction, even after the time limit has expired"/>
-                    <check-box  :check="form10Info.caseList.includes('remoteAttendance')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video"/>
+                    <check-box  :check="form10Info.caseList.includes('remoteAttendance')?'yes':''" text="allowing a person to attend a court appearance using a different method of attendance"/>
                     <check-box  :check="form10Info.caseList.includes('adjourningAppearance')?'yes':''" text="adjourning a court appearance"/>
                     <check-box  :check="form10Info.caseList.includes('rule112')?'yes':''" text="respecting the conduct of a party or management of a case"/>
                     <check-box  :check="form10Info.caseList.includes('section211')?'yes':''" text="relating to a report under section 211 <i>[orders respecting reports]</i> of the Family Law Act, including requiring that a person who
@@ -191,7 +230,7 @@
             </section>
         </div>
 
-<!-- <8> -->
+<!-- <9> -->
         <div class="print-block mt-0">
             <section>
                 <div style="display:inline; margin:0 0 0 0.05rem">                    
@@ -206,7 +245,7 @@
             </section>
         </div>
 
-<!-- <9> -->
+<!-- <10> -->
         <div class="print-block">
             <section>
                 <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
@@ -231,7 +270,7 @@
             </section>
         </div> 
 
-<!-- <10> -->
+<!-- <11> -->
         <div class="print-block mt-0">            
 
             <section>
@@ -262,8 +301,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
-import CheckBox from "./Schedules/components/CheckBox.vue"
-import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue"
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { cmLocationInfoDataInfoType, caseManagementOtherPartyDataInfoType, form10DataInfoType } from '@/types/Application/CaseManagement/PDF';
@@ -273,8 +311,7 @@ import { getYourInformationResults } from '@/components/utils/PopulateForms/Popu
 @Component({
     components:{
         UnderlineForm,
-        CheckBox,
-        OrderedCheckBox        
+        CheckBox       
     }
 })
 
@@ -298,6 +335,7 @@ export default class Form10Layout extends Vue {
     childRelatedType: string = '';   
     childrenInfo: childrenInfoSurveyInfoType[] = []; 
     form10Info = {} as form10DataInfoType;  
+    filingLocationReason = ''; 
     
     childrenFields=[
         {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
@@ -316,6 +354,12 @@ export default class Form10Layout extends Vue {
         this.childrenInfo = this.getChildrenInfo(); 
         this.locationInfo = this.getLocationInfo();
         this.form10Info = this.getForm10Info();
+
+        if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
+            this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
+        } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
+            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
+        }
     } 
     
     public getLocationInfo(){

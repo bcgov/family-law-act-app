@@ -5,6 +5,9 @@
         <ppm-children-info                     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmChildrenInfo"/>  
         <ppm-background                        v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmBackground"/>  
         <about-priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.AboutPriorityParentingMatterOrder"/>
+        <ppm-indigenous-ancestry-of-child      v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmIndigenousAncestryOfChild"/>
+        <ppm-additional-documents              v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmAdditionalDocuments"/>
+        
         <review-your-answers-ppm               v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.ReviewYourAnswersPPM"/>
         <preview-forms-ppm                     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PreviewFormsPPM"/>
             
@@ -21,6 +24,8 @@ import PriorityParentingMatterOrder from "./PriorityParentingMatterOrder.vue"
 import PpmBackground from "./PpmBackground.vue";
 import PpmChildrenInfo from "./childInfo/PpmChildrenInfo.vue";
 import AboutPriorityParentingMatterOrder from "./AboutPriorityParentingMatterOrder.vue"
+import PpmIndigenousAncestryOfChild from "./PpmIndigenousAncestryOfChild.vue";
+import PpmAdditionalDocuments from "./PpmAdditionalDocuments.vue"
 
 import ReviewYourAnswersPpm from "./reviewPPM/ReviewYourAnswersPPM.vue"
 import PreviewFormsPpm from "./reviewPPM/PreviewFormsPPM.vue"
@@ -38,7 +43,9 @@ const applicationState = namespace("Application");
         PriorityParentingMatterOrder,
         PpmBackground, 
         PpmChildrenInfo,
-        AboutPriorityParentingMatterOrder,      
+        AboutPriorityParentingMatterOrder,   
+        PpmIndigenousAncestryOfChild, 
+        PpmAdditionalDocuments,  
         ReviewYourAnswersPpm,
         PreviewFormsPpm
     }

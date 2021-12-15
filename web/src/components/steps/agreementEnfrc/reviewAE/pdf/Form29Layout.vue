@@ -13,8 +13,14 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
+                    :items="[
+                            {name:'REGISTRY LOCATION:', value:result.applicationLocation},
+                            {name:'COURT FILE NUMBER:', value:existingFileNumber},
+                            {name:'FMEP NUMBER:', value:fmepNumber}]"
+                    :fields="[
+                            {key:'name',tdClass:'border-dark text-center align-middle'},
+                            {key:'value',tdClass:'border-dark text-center align-middle'},
+                            {key:'value',tdClass:'border-dark text-center align-middle'}]"
                     small
                     bordered
                     thead-class="d-none">
@@ -72,7 +78,7 @@
         
 
 <!-- <3> -->
-        <div class="print-block" style="margin-top:1rem;">
+        <div class="print-block" style="margin:1rem 0 2rem 0;">
             <section> 
                 <div style="display:inline; font-size: 9pt;">
                     <underline-form 
@@ -186,14 +192,26 @@
 
         <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For registry use only</i></div>
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only</i></div>
+                
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="(date)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="(time)" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+                <div style="margin:0.5rem 0 0 0.25rem;">
+                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
+                    <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
+                </div> 
             </div>
-            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div 
+                style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;">
+                <b>NOTE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court
+                    appearance, the court may make an order in your absence. You may also choose to file a written response in
+                    reply to the application in Form 19 Written Response to Application.
+                </b>
+            </div>
         </div>
 
         <div class="print-block mt-5"></div>
@@ -334,6 +352,7 @@ export default class Form29Layout extends Vue {
     form29Info = {} as form29InformationDataInfoType;
     
     existingFileNumber = ''; 
+    fmepNumber = '';
 
     mounted(){
         this.dataReady = false;
@@ -353,7 +372,13 @@ export default class Form29Layout extends Vue {
         this.yourInfo = this.getYourInfo();
         this.form29Info = this.getForm29Info();
         this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);
+        this.fmepNumber = this.getFmepInfo(this.result.filingLocationSurvey);
     } 
+
+
+    public getFmepInfo(locationData){
+        return locationData?.ExistingFMEPCase  && locationData?.ExistingFMEPCase =='y' && locationData.ExistingFMEPNumber? locationData.ExistingFMEPNumber:'';        
+    }
 
     public getYourInfo(){           
 

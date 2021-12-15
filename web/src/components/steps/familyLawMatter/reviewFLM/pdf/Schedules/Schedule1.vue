@@ -7,7 +7,7 @@
             <div style="text-align:center;"><b> This is Schedule 1 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are a guardian of a child or, are applying to be appointed as a guardian of a child, making a new application about parenting arrangements for a child or children identified in section 11 of this application. 
+                <i>Complete this schedule only if you are a guardian of a child or, are applying to be appointed as a guardian of a child, and you are making a new application about parenting arrangements for a child or children identified in section 12 of this application. 
                 Parenting arrangements include how each guardian of a child will parent their child(ren) together, including each guardian’s responsibilities for decision making about a child, and the time each guardian spends with a child.</i>
             </div>
 <!-- <1> -->

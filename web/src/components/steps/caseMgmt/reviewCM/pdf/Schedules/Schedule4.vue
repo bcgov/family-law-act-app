@@ -57,7 +57,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue"
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule4DataInfoType } from '@/types/Application/CaseManagement/PDF';
 
 @Component({

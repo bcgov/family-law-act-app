@@ -18,7 +18,7 @@
                 <div v-if="isPrintStep(step)" class="step separate"></div>
                 <div class="step-header">
                     <div class="header-icon">
-                        <i v-bind:class="['fa', step.icon]"></i>
+                        <i v-bind:class="[step.icon]"></i>
                     </div>
                     <div class="header-text">
                         <div class="text-step">

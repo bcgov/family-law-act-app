@@ -73,7 +73,7 @@ class Application extends VuexModule {
         s.id = "0";
         s.name = "GETSTART";
         s.label = "Get Started";
-        s.icon = "fa-rocket";
+        s.icon = "fa fa-rocket";
         s.lastUpdate = null;    
         s.type = "getInformationStep";
         s.pages = new Array<pageInfoType>();
@@ -112,7 +112,7 @@ class Application extends VuexModule {
         s.id = "1";
         s.name = "PO";
         s.label = "Protection Order";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepPO";
         s.pages = new Array<pageInfoType>();
@@ -247,7 +247,7 @@ class Application extends VuexModule {
         s.id = "2";
         s.name = "COMMON";
         s.label = "Your Information";
-        s.icon = "fa-users";
+        s.icon = "fa fa-users";
         s.lastUpdate = null;
         s.type = "commonInformationStep";
         s.pages = new Array<pageInfoType>();
@@ -304,7 +304,7 @@ class Application extends VuexModule {
         s.id = "3";
         s.name = "RFLM";
         s.label = "Reply to Family Law Matter";
-        s.icon = "fa-reply-all";
+        s.icon = "fa fa-reply-all";
         s.lastUpdate = null;    
         s.type = "stepRFLM";
         s.pages = new Array<pageInfoType>();
@@ -329,7 +329,7 @@ class Application extends VuexModule {
         s.id = "4";
         s.name = "WR";
         s.label = "Written Response to Application";
-        s.icon = "fa-pencil";
+        s.icon = "fa fa-pencil";
         s.lastUpdate = null;    
         s.type = "stepWR";
         s.pages = new Array<pageInfoType>();
@@ -354,7 +354,7 @@ class Application extends VuexModule {
         s.id = "5";
         s.name = "CA";
         s.label = "Reply to Counter Application";
-        s.icon = "fa-reply";
+        s.icon = "fa fa-reply";
         s.lastUpdate = null;    
         s.type = "stepCA";
         s.pages = new Array<pageInfoType>();
@@ -378,7 +378,7 @@ class Application extends VuexModule {
         s.id = "6";
         s.name = "FLM";
         s.label = "Family Law Matter";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepFlm";
         s.pages = new Array<pageInfoType>();
@@ -732,7 +732,7 @@ class Application extends VuexModule {
         s.id = "7";
         s.name = "CM";
         s.label = "Case Management";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepCm";
         s.pages = new Array<pageInfoType>();
@@ -805,7 +805,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "8";
         p.name = "AttendanceUsingElectronicCommunication";
-        p.label = "Attendance Using Electronic Communication";
+        p.label = "Attendance Using Another Method of Attendance";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -884,7 +884,7 @@ class Application extends VuexModule {
         s.id = "8";
         s.name = "PPM";
         s.label = "Priority parenting matter";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepPpm";
         s.pages = new Array<pageInfoType>();
@@ -928,11 +928,28 @@ class Application extends VuexModule {
         p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
-        s.pages.push(p);        
+        s.pages.push(p);     
+        
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PpmIndigenousAncestryOfChild";
+        p.label = "Indigenous Ancestry of Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //______ Additional Documents
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PpmAdditionalDocuments";
+        p.label = "Additional Documents";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "7";
         p.name = "ReviewYourAnswersPPM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -940,7 +957,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "6";
+        p.key = "8";
         p.name = "PreviewFormsPPM";
         p.label = "Preview Forms";
         p.active = false;
@@ -955,7 +972,7 @@ class Application extends VuexModule {
         s.id = "9";
         s.name = "RELOC";
         s.label = "Relocation of a child";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepReloc";
         s.pages = new Array<pageInfoType>();
@@ -1011,7 +1028,7 @@ class Application extends VuexModule {
         s.id = "10";
         s.name = "ENFRC";
         s.label = "Enforcement";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepEnfrc";
         s.pages = new Array<pageInfoType>();
@@ -1109,14 +1126,38 @@ class Application extends VuexModule {
         this.steps.push(s);
 
         //Enforcement STOP
+        //Connect START  
+        s = {} as stepInfoType;
+        s.active = false;
+        s.id = "11";
+        s.name = "CONNECT";
+        s.label = "Review and Connect";
+        s.icon = "fas fa-user-friends";
+        s.lastUpdate = null;
+        s.type = "connect";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+    
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "ReviewAndConnect";
+        p.label = "Review and Connect";
+        p.active = true;
+        p.progress = 0;
+    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Connect STOP
         //Submit START
         s = {} as stepInfoType;
 
         s.active = false;
-        s.id = "11";
+        s.id = "12";
         s.name = "SUBMIT";
         s.label = "Review and File";
-        s.icon = "fa-paper-plane";
+        s.icon = "fa fa-paper-plane";
         s.lastUpdate = null;
         s.type = "submit";
         s.pages = new Array<pageInfoType>();
@@ -1548,7 +1589,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

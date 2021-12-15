@@ -8,7 +8,7 @@ import {FLA_Types} from './applicationTypes'
 
 import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
-import {EarlyResolutionsRegistries, FamilyJusticeRegistries, ParentingEducationRegistries} from './locationRegistries';
+import {EarlyResolutionsRegistries, FamilyJusticeRegistries} from './locationRegistries';
 
 
 
@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.3.0";
+    const CURRENT_VERSION: string = "1.2.4.3";
     //__________________________
     //___________________________
     //___________________________
@@ -201,10 +201,14 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		supportingDocumentForm4.push(currentPage)
 		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
 		store.commit("Application/setCommonStepResults",{data:{'supportingDocumentForm4':supportingDocumentForm4}}); 
-	}
+	}	
 	
 	Vue.nextTick(()=>{
 		Vue.filter('FLMformsRequired')();
+	});
+
+	Vue.nextTick(()=>{
+		Vue.filter('PPMformsRequired')();
 	});
 
 	let pageName = survey.currentPage.title;
@@ -324,6 +328,45 @@ Vue.filter('FLMformsRequired', function(){
 		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
 })
 
+Vue.filter('PPMform5Required', function(){
+	const stepPPMnum = store.state.Application.stPgNo.PPM._StepNo
+	
+	const results = store.state.Application.steps[stepPPMnum].result
+	if( results?.ppmQuestionnaireSurvey?.data?.includes("childServices") &&
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved && 
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved == 'y' &&
+		results?.priorityParentingMatterOrderSurvey?.data?.confirmChildServicesPathway.includes('applyGuardianship') &&	
+		results?.priorityParentingMatterOrderSurvey?.data?.confirmChildServices?.includes('applyPPM')
+		){
+			return true
+		}
+	else  return false
+})
+
+Vue.filter('PPMschedule1Required', function(){
+	const stepPPMnum = store.state.Application.stPgNo.PPM._StepNo
+	
+	const results = store.state.Application.steps[stepPPMnum].result
+	if( results?.ppmQuestionnaireSurvey?.data?.includes("childServices") &&
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved && 
+		results?.priorityParentingMatterOrderSurvey?.data?.childRemoved == 'y' &&			
+		results?.priorityParentingMatterOrderSurvey?.data?.confirmChildServices?.includes('applyPPM')
+		){
+			return true
+		}
+	else  return false
+})
+
+Vue.filter('PPMformsRequired', function(){
+	const additionalDocumentsStep = store.state.Application.stPgNo.PPM._StepNo
+	const additionalDocumentsPage = store.state.Application.stPgNo.PPM.PpmAdditionalDocuments
+
+	if(Vue.filter('PPMform5Required')() ) 
+		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: true });
+	else
+		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
+})
+
 Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	const requiredDocuments: string[] = [];
@@ -343,18 +386,25 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			
 			requiredDocuments.push("Any exhibits referenced in your application");
 			
-			if( questions.poFilingLocationSurvey?.ExistingFamilyCase =="y" ||
-			    questions.backgroundSurvey?.existingPOOrders=="y" ||
-				questions.backgroundSurvey?.ExistingOrders=="y" 
-			){
+			if( questions.poFilingLocationSurvey?.ExistingFamilyCase =="y" ||			    
+				(questions.backgroundSurvey?.ExistingOrders=="y" && 
+				questions.backgroundSurvey?.PartiesHasOtherChilderen=="y" &&
+				questions.backgroundSurvey?.allOtherChilderen.length > 0)){
 				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+			}
+
+			if( questions.backgroundSurvey?.existingPOOrders=="y"){
+				requiredDocuments.push("Copy of your existing protection related written agreement(s), court order(s) or plan(s)");
 			}
 		}
 	}
 
 	if(type == 'familyLawMatter'){	
 
-		if(questions.flmBackgroundSurvey?.existingPOOrders == "y"|| questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
+		if(questions.flmBackgroundSurvey?.existingPOOrders == "y")
+		  	requiredDocuments.push("Copy of your existing protection related written agreement(s), court order(s) or plan(s)");
+
+		if(questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
 		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 			
 		if(Vue.filter('FLMform4Required')())		
@@ -379,12 +429,29 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		
 		if( questions.flmQuestionnaireSurvey?.includes("guardianOfChild") &&
 			(questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  )
-				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
-	}
+				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
+		}
 
 	if(type == 'priorityParenting'){
 		if(questions.ppmBackgroundSurvey?.ExistingOrdersFLM == "y")
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+		
+		if(Vue.filter('PPMschedule1Required')()){		
+			requiredDocuments.push("Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)<ul class='mt-3' style='line-height: 1.5; list-style-type:circle;'><li>When you upload your completed Schedule 1, you will need to select from the drop list of document types – Schedule 1, completed by the Director from the top of the drop list. Once uploaded, the Schedule 1 will be attached to your Application About a Priority Parenting Matter when you click the Proceed to Submit button.</li></ul>");		
+		}
+		
+		if(Vue.filter('PPMform5Required')()){		
+			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
+			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form");		
+		}
+		
+		//REMINDERS
+		if( questions.ppmQuestionnaireSurvey?.includes("childServices") &&
+			(questions.ppmIndigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || 
+			questions.ppmIndigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  ){
+				reminderDocuments.push("You must serve the director under Child, Family and Community Service Act with notice of this application. The director can be served in any of the ways provided for in Question 5 of Schedule 1 (that was completed by the Director).");
+				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
+		}				
 	}
 
 	if(type == 'childReloc'){
@@ -611,15 +678,16 @@ Vue.filter('surveyChanged', function(type: string) {
 	}	
 })
 
-Vue.filter('includedInRegistries', function(locationName: string, registryType: string) {
-
+Vue.filter('includedInRegistries', function(locationName: string, registryType: string) {	
 	
 	const locationsInfo = store.state.Common.locationsInfo;
 	const location = locationsInfo.filter(locationInfo => locationInfo.name == locationName)[0];
 	
 	if (!location) return false;
 
-	if (registryType == 'parenting-education' && ParentingEducationRegistries.includes(location.id)){
+	if (registryType == 'parenting-education' 
+			&& !EarlyResolutionsRegistries.includes(location.id)
+			&& !FamilyJusticeRegistries.includes(location.id)){
 		return true;
 	} else if (registryType == 'early-resolutions' && EarlyResolutionsRegistries.includes(location.id)){
 		return true;
@@ -698,10 +766,11 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
-			`.form-header-po{display:block; margin:0 0 3.25rem 0;}`+
+			`.form-header-po{display:block; margin:0 0 6.25rem 0;}`+
 			`.form-header-ppm{display:block; margin:0 0 5.25rem 0;}`+
 			`.form-header-cm{display:block; margin:0 0 7rem 0;}`+
-			`.form-header-reloc{display:block; margin:0 0 5.25rem 0;}`+
+			`.form-header-cmo{display:block; margin:0 0 6rem 0;}`+
+			`.form-header-reloc{display:block; margin:0 0 6.25rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+

@@ -17,9 +17,9 @@
         </div>
 
         <div>
-            <underline-form style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="yourInfo.name | getFullName"/>
-            <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hint="occupation" :text="yourInfo.occupation"/>
-            <underline-form style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="serviceAddress | getFullAddress"/>
+            <underline-form marginTop="-22px" style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="yourInfo.name | getFullName"/>
+            <underline-form marginTop="-22px" style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hint="occupation" :text="yourInfo.occupation"/>
+            <underline-form marginTop="-22px" style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="serviceAddress | getFullAddress"/>
             <div style="text-indent:1px;display:inline;"> ,</div>
         </div>
 
@@ -76,8 +76,8 @@
 
             <div  style="margin:0.25rem 0 0 2rem;">
                 <check-box inline="inline" boxMargin="0" style="display:inline;" :check="hasAnotherAdult?'yes':''" text=" Other <i>(specify):</i>"/>               
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext=""  hint="full name of other person to be protected"   :text="applicantNeedsProtection == 'n'? (anotherAdult.nameFull ): ''"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="11rem" beforetext="," hint="date of birth of other person (mmm/dd/yyyy)" :text="applicantNeedsProtection == 'n'?(anotherAdult.dobBeauty ): '' "/>
+                <underline-form marginTop="-22px" style="text-indent:1px;display:inline-block;" textwidth="18.5rem" beforetext="Name: "  hint="full name of other person to be protected"   :text="applicantNeedsProtection == 'n'? (anotherAdult.nameFull ): ''"/>
+                <underline-form marginTop="-22px" style="text-indent:1px;display:inline-block;" textwidth="5.25rem" beforetext="Date of birth: " hint="(mmm/dd/yyyy)" :text="applicantNeedsProtection == 'n'?(anotherAdult.dobBeauty ): '' "/>
                 <div style="text-indent:-18px;display:block;margin-top:0.5rem;"> Explain why you are applying for the other person:</div>
                 <div v-if="applicantNeedsProtection == 'n'" class="answerbox"> {{anotherAdult.reason}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>
@@ -89,12 +89,7 @@
                     person they need protection from.
                 </b>
             </div>
-        </section>
-
-    
-
-
-
+        </section> 
 
         <div class="new-page" />
 <!-- <Page 3> --> 
@@ -111,7 +106,7 @@
                 <check-box  :check="noGo.places.includes('Workplace')?'yes':''" text="Place of Employment"/>
                 <check-box  :check="noGo.places.includes('ChildCareFacility')?'yes':''" text="Child care facility"/>
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="noGo.places.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="noGo.otherComment"/>
+                <underline-form marginTop="-22px" style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="noGo.otherComment"/>
             </div>
         </section>
 
@@ -126,7 +121,7 @@
                 <check-box  :check="noContact.reasonForComm.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
                 <check-box  :check="noContact.reasonForComm.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="noContact.reasonForComm.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="noContact.otherComment"/>
+                <underline-form marginTop="-22px" style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="noContact.otherComment"/>
             </div>
         </section>
 
@@ -198,7 +193,7 @@
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
                 
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="removePerson.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="removePerson.needPoliceComment"/>
+                <underline-form marginTop="-22px" style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="removePerson.needPoliceComment"/>
                 
             </div>
         </section>
@@ -219,7 +214,7 @@
             The protected party is or has been spouses, or lives or has lived together in a marriage-like relationship, with the other party
             <div style="margin:0 0 0 1rem;">
                 <i>Specify which protected adult if there is more than one:</i>
-                <underline-form style="text-indent:3px;display:inline-block;" textwidth="20.25rem" beforetext="" hint="name of protected party" :text="backgroundSurvey.protectedSpouse" />
+                <underline-form marginTop="-22px" style="text-indent:3px;display:inline-block;" textwidth="20.25rem" beforetext="" hint="name of protected party" :text="backgroundSurvey.protectedSpouse" />
             </div>
             <div style="margin:0 0 0 0.35rem;">
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.married == 'y'?'yes':''" text="Yes"/>
@@ -228,8 +223,8 @@
             <div style="margin:0 0 0 1rem;">
                 <i>If yes, please complete all options below that apply to the parties</i>
                 <div style="margin:0 0 0 0;">
-                    <underline-form style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" beforetext="Date on which the parties began to live together in a marriage-like relationship:" hint="date (mmm/dd/yyyy)" :text="backgroundSurvey.liveTogetherDate" />
-                    <underline-form style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="10rem" beforetext="Date of marriage:" hint="date of marriage (mmm/dd/yyyy)" :text="backgroundSurvey.marriageDate" />
+                    <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" beforetext="Date on which the parties began to live together in a marriage-like relationship:" hint="date (mmm/dd/yyyy)" :text="backgroundSurvey.liveTogetherDate" />
+                    <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="10rem" beforetext="Date of marriage:" hint="date of marriage (mmm/dd/yyyy)" :text="backgroundSurvey.marriageDate" />
                 
                     <div style="margin:0.2rem 0 0 2.15rem;">
                         <div style="display:inline-block;">The protected party currently shares a residence with the other party</div>
@@ -238,7 +233,7 @@
                         <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.seperated == 'Unknown'?'yes':''" text="Unknown"/>                                           
                     </div> 
                     <i style="margin:0.2rem 0 0 1.15rem;display:block;">Spouses may be separated while continuing to live in the same residence</i>
-                    <underline-form style="margin-top:0.2rem; text-indent:1px;display:block;" textwidth="10rem" beforetext="If yes, the parties separated on" hint="date of separation (mmm/dd/yyyy)" :text="backgroundSurvey.separationDate" />
+                    <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:1px;display:block;" textwidth="10rem" beforetext="If yes, the parties separated on" hint="date of separation (mmm/dd/yyyy)" :text="backgroundSurvey.separationDate" />
                 </div>
             </div>
         </section> 
@@ -321,10 +316,17 @@
         <div style="margin-top:1rem;"></div>
 <!-- <18> -->
         <section>
-            <div style="display:inline;margin-left:.5rem;">There is an existing court order protecting one of the parties, the children, or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition or other criminal orders</div>
+            <div style="display:inline;margin-left:.5rem;">
+                There is an existing court order, agreement or plan protecting one of the parties or the 
+                child(ren), or restraining contact between the parties, including a protection order, 
+                an order, agreement or plan involving child protection services, or a peace bond, restraining 
+                order, bail condition or other criminal order
+            </div>
+            <div style="display:block; margin-left:.5rem;">
             <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.existingPOOrders == 'y'?'yes':''" text="Yes"/>
             <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.existingPOOrders == 'n'?'yes':''" text="No"/>                       
-            <i style="text-indent:0rem;display:block;margin-left:.02rem;">If yes, attach a copy of the order(s) to your application</i>            
+            </div>
+            <i style="text-indent:0rem;display:block;margin-left:.02rem;">If yes, attach a copy of the order(s), agreement(s), or plan(s) to your application</i>            
         </section>
 
 
@@ -403,38 +405,39 @@
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
-        <div style="margin-top:1rem;"></div>
+        <!-- <div style="margin-top:1rem;"></div> -->
 <!-- <25> -->
-        <section>            
-            <div style="display:inline; margin-left:.15rem;">
-               Describe any recent incidents of Family Violence against the protected party and any child(ren).
-            </div>
-            <div style="margin:0.5rem 0 0 1.5rem;">
-                Includes:
-                <ul style="text-indent:0rem; font-style:italic;">
-                    <li>How the other party made the protected party and/or the child(ren) feel unsafe (describe examples of the other party’s behaviour that made you afraid)</li>
-                    <li>A description of the incident(s) (write as much detail as possible)</li>
-                    <li>Who was involved (include the police if they were involved at any time)</li>
-                    <li>Who witnessed it</li>
-                    <li>Any exposure the child or children have had to family violence or abuse</li>
-                    <li>Any injuries or trauma from the incident</li>
-                    <li>Any doctor’s notes, police reports or photos (you must refer to them here as exhibits and make copies of them for the court)</li>
-                </ul>
-                <div v-if="yourStory.recentIncidents" class="answerbox"> {{yourStory.recentIncidents}}</div>
-                <div v-else style="margin-bottom:2rem;"></div>
-            </div>
-        </section>
+        <div class="print-block">
+            <section>            
+                <div style="display:inline; margin-left:.15rem;">
+                Describe any recent incidents of Family Violence against the protected party and any child(ren).
+                </div>
+                <div style="margin:0.5rem 0 0 1.5rem;">
+                    Includes:
+                    <ul style="text-indent:0rem; font-style:italic;">
+                        <li>How the other party made the protected party and/or the child(ren) feel unsafe (describe examples of the other party’s behaviour that made you afraid)</li>
+                        <li>A description of the incident(s) (write as much detail as possible)</li>
+                        <li>Who was involved (include the police if they were involved at any time)</li>
+                        <li>Who witnessed it</li>
+                        <li>Any exposure the child or children have had to family violence or abuse</li>
+                        <li>Any injuries or trauma from the incident</li>
+                        <li>Any doctor’s notes, police reports or photos (you must refer to them here as exhibits and make copies of them for the court)</li>
+                    </ul>
+                    <div v-if="yourStory.recentIncidents" class="answerbox"> {{yourStory.recentIncidents}}</div>
+                    <div v-else style="margin-bottom:2rem;"></div>
+                </div>
+            </section>
 
 <!-- <SWEAR > -->
-        <div class="print-block">
-            <div style="margin:3rem 0 0 0">Sworn or affirmed before me</div>
+        
+            <div style="margin:1rem 0 0 0">Sworn or affirmed before me</div>
 
             <div style="margin:0.5rem 0 0 0">
-                <underline-form style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem" beforetext="at" hint="city" text="" />                        
+                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem" beforetext="at" hint="city" text="" />                        
                 <div style="margin-top:0.2rem; text-indent:3px;display:inline;"> , British Columbia </div>
             </div>
             <div style="margin:.5rem 0 0 0">
-                <underline-form style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="on" hint="date (mmm/dd/yyyy)" text="" />
+                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="on" hint="date (mmm/dd/yyyy)" text="" />
             </div>
 
             <div style="margin:2rem 0 0 0">
@@ -452,8 +455,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { contactInfoType, addressInfoType } from '@/types/Application/CommonInformation';

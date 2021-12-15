@@ -17,3 +17,26 @@ export interface priorityParentingOtherPartyDataInfoType {
     contactInfo: contactInfoType;
     lawyer: string;
 }
+
+export interface schedule2DataInfoType {
+    isFirstNations: string;
+    understandFirstNationsService?: boolean;
+    ancestryType?: string[];
+    understandFileForm5?: boolean;
+    initiatedCriminalCheck?: boolean;
+    filingRequiredDocs?: boolean;
+    fileConsent?:boolean;
+    fileRequest?:boolean;
+}
+
+export interface priorityParentingInfoProviderDataInfoType {
+    name: nameInfoType;     
+    address: addressInfoType;
+    contactInfo: contactInfoType;    
+}
+
+export interface priorityParentingDirectorDataInfoType {
+    name: nameInfoType;     
+    address: addressInfoType;
+    contactInfo: contactInfoType;    
+}

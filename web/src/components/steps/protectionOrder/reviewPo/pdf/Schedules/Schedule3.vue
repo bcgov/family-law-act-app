@@ -17,7 +17,7 @@
 <!-- <1> -->
         <section class="resetquestion">
             <check-box inline="inline" boxMargin="0" checkbox="" style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
-            <underline-form style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="aboutOrder.dateOfPO | beautify-date"/>
+            <underline-form marginTop="-22px" style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="aboutOrder.dateOfPO | beautify-date"/>
             <div style="display:inline; margin-left:0.5rem;">that I am applying to have terminated.</div>
         </section>
 
@@ -43,7 +43,7 @@
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
                 <check-box  :check="aboutOrder.kindOfParty.includes('protectedParty')?'yes':''" text="protected party"/>
-                <check-box  :check="aboutOrder.kindOfParty.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box  :check="aboutOrder.kindOfParty.includes('parentGuardian')?'yes':''" text="parent or guardian of a protected party"/>
                 <check-box  :check="aboutOrder.kindOfParty.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
             </div>
         </section>
@@ -63,8 +63,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule3AboutOrderInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
