@@ -16,7 +16,6 @@ import logging
 import sys
 from django.urls import path, include
 from django.conf import settings
-from django.conf.urls import url
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.schemas import SchemaGenerator
@@ -50,7 +49,7 @@ class SwaggerSchemaView(APIView):
 urlpatterns = [
     # Swagger documentation
     # url(r'^$', SwaggerSchemaView.as_view()),
-    url(r"^accept-terms$", AcceptTermsView.as_view()),
+    #url(r"^accept-terms$", AcceptTermsView.as_view()),
     path("app/<int:pk>/", ApplicationView.as_view()),
     path("app-list/", ApplicationListView.as_view()),
     path("app/", ApplicationView.as_view()),
