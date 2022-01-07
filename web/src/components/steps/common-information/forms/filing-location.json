@@ -1,0 +1,195 @@
+{
+   "pages": [
+      {
+         "name": "Filing Location",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "ExistingFamilyCasePanel",
+               "elements": [
+                  {
+                     "type": "yesno",
+                     "name": "ExistingFamilyCase",
+                     "isRequired": true,
+                     "title": "Is there already a Family Law file open between the same parties in the Provincial Court of British Columbia?",
+                     "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "ExistingFamilyCaseFAQ1",
+                     "title": "If I have a Family Law file open in the Supreme Court of British Columbia, should I include that?",
+                     "titleLocation": "hidden",
+                     "body": "No, the file numbers are different between Provincial and Supreme Court. If you already have a Provincial Court file number, you will want to make sure that this document gets filed with the same file number."
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "ExistingFamilyCaseFAQ2",
+                     "title": "What if I already have a Family Law file open with different parties?",
+                     "titleLocation": "hidden",
+                     "body": "If you have a Family Law file open with different parties, select no. You will need to open a new court file. You must follow the rules about which registry to use if you do not have an existing case with the same parties. The next questions will help you determine the correct court location, it may be the same one your case with other parties is already at."
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "ExistingChildProtectionFAQ",
+                     "title": "If I have a Child Protection file open in Provincial Court, should I include that?",
+                     "titleLocation": "hidden",
+                     "body": "No, the court files are separate for child protection cases and family law cases. If you don’t also have an existing family law file, you will need to open a new court file. Select no."
+                  },
+                  {
+                     "type": "dropdown",
+                     "name": "ExistingCourt",
+                     "visible": false,
+                     "visibleIf": "{ExistingFamilyCase} = 'y'",
+                     "isRequired": true,
+                     "title": "Court Location",
+                     "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
+                     "choices": []
+                  },
+                  {
+                     "type": "text",
+                     "name": "ExistingFileNumber",
+                     "visible": false,
+                     "visibleIf": "{ExistingFamilyCase} = 'y'",
+                     "startWithNewLine": false,
+                     "title": "File Number",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationExistingFamilyCase",
+                     "visible": false,
+                     "visibleIf": "{ExistingFamilyCase} = 'y'",
+                     "title": "<b>Note: You must file any new application at the court registry where your existing case is filed.</b> If you want your case moved to another court registry, you must get a court order to transfer the file. You can apply for this case management order by selecting the case management option in the first step of this service.",
+                     "titleLocation": "hidden"
+                  },                 
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationCourtLocation",
+                     "visible": false,
+                     "visibleIf": "{ExistingFamilyCase} = 'n'",
+                     "title": "You must file your application at the court location:<ul><li>closest to where the child lives most of the time, if your case involves a child-related issue, or</li><li>closest to where you live, if your case does not involve a child-related issue</li></ul>Select the court location where you will be filing:",
+                     "titleLocation": "hidden",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "dropdown",
+                     "name": "ExistingCourt",                     
+                     "visible": false,
+                     "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
+                     "isRequired": true,
+                     "title": "Court Location",
+                     "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
+                     "choices": []
+                  },
+                  {
+                     "type": "custombutton",
+                     "name": "editLocation",
+                     "title": " ",
+                     "buttonText": "Edit Location Information ",
+                     "textClass":"bg-warning text-dark",
+                     "visible": false,
+                     "visibleIf": "{editButton}"
+                  },
+                  {
+                     "type": "radiogroup",
+                     "name": "filingLocationReason",
+                     "title": "Please select the reason you have chosen {registryLocation} as your filing location.",
+                     "isRequired": true,
+                     "visible": false,
+                     "visibleIf": "{RequiresReasonInfo} and {ExistingFamilyCase} = 'n' and {selectedExistingCourt}",
+                     "choices": [
+                        "It is the court location closest to where the child lives, because my case involves a child-related issue",
+                        "It is the court location closest to where I live because my case does not involve a child-related issue",
+                        "The court made an order that allows me to"
+                     ]
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "CourtLocationFAQ1",
+                     "title": "There is more than one close court location, how do I know which court location is closest?",
+                     "titleLocation": "hidden",
+                     "visible": false,
+                     "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
+                     "body": "You can find a map of the court locations and addresses <a href=\"https://www.provincialcourt.bc.ca/locations-contacts\" target=\"_blank\">here</a>. If two locations are both close, you can decide which is closest for filing your application. If the other party doesn’t agree, they can ask the court to transfer the file to the other location. It will then be up to the court to decide where the file is located."
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "CourtLocationFAQ2",
+                     "title": "What if the child lives equally in two different locations?",
+                     "titleLocation": "hidden",
+                     "visible": false,
+                     "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
+                     "body": "If the child lives equally in two different locations closest to two different court locations, you will need to decide where you want to file your application. The rule about which court registry to use for filing an application is meant to ensure all applications are filed in the same registry and that the location is fair to the parties. Think about your family and which location is the most fair for everyone. If the other party doesn’t agree the registry you choose is the closest, they can ask the court to transfer the file to another location. It will then be up to the court to decide where the file is located."
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "ExistingFMEPCase",
+                     "visible": false,
+                     "visibleIf": "{RequiresFMEPInfo} and ({ExplanationCourtLocation}>0 or {selectedExistingCourt})",
+                     "isRequired": true,
+                     "title": "Is your order or agreement filed with the Director of Maintenance Enforcement to help with collecting child or spousal support?"
+                  },
+                  {
+                     "type": "text",
+                     "name": "ExistingFMEPNumber",
+                     "visible": false,
+                     "visibleIf": "{RequiresFMEPInfo} and {ExistingFMEPCase} = 'y'",                     
+                     "title": "What is your FMEP Number?"                     
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationFMEPNumber",
+                     "visible": false,
+                     "visibleIf": "{RequiresFMEPInfo} and {ExistingFMEPCase} = 'y'",
+                     "title": "Your FMEP Number is the file number assigned by the Family Maintenance Enforcement Program. If you do not have an FMEP Number or do not know your FMEP Number, you can skip this question by clicking Next below.",
+                     "titleLocation": "hidden"                     
+                  },
+                  {
+                     "type": "panel",
+                     "name": "VictoriaSurreyPanel",
+                     "visible": false,
+                     "visibleIf": "{victoriaSurrey}",
+                     "elements": [
+                        {
+                           "type": "infotext",
+                           "name": "registriesExplanation",
+                           "title": "You are filing your application in an <a href='https://www2.gov.bc.ca/gov/content?id=065CC36FFE804085B96DF218DAB22AF3' target='_blank'>early resolution registry</a>. Before filing your Application About a Family Law Matter, you must meet the following early resolution requirements:<br><ul><li>Participation in an individual `needs assessment` meeting with a family justice counsellor</li><li>Completion of a <a href='https://www2.gov.bc.ca/gov/content?id=991A99470F9B4576B6BD3E97CB649B2A' target='_blank'>Parenting After Separation</a> online course, if applicable</li><li>Participation in a `Consensual dispute resolution` session, if appropriate</li></ul><br>You have met these requirements if you have participated in a needs assessment, parenting education course and consensual dispute resolution OR if you were exempt by the family justice counsellor or the court from participating in any of these.<br><br>If you do not resolve all issues during the early resolution process, either party can make an application to the Provincial Court for a court order by filing an Application About a Family Law Matter.",
+                           "titleLocation": "hidden",
+                           "messageStyle": "inline"
+                        },
+                        {
+                           "type": "yesno",
+                           "name": "MetEarlyResolutionRequirements",
+                           "isRequired": true,
+                           "visible": false,
+                           "visibleIf": "{victoriaSurrey}",
+                           "title": "Have you already met the early resolution requirements?"
+                        },
+                        {
+                           "type": "infotext",
+                           "name": "MetEarlyResolutionRequirementsExplanation",
+                           "title": "Be sure to let the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> where you attended for your needs assessment know you are planning to file your application. They will send the court registry proof of your participation or exemption in the early resolution requirements so that you can file your application.",
+                           "titleLocation": "hidden",
+                           "visible": false,
+                           "visibleIf": "{MetEarlyResolutionRequirements} = 'y'"
+                        },
+                        {
+                           "type": "infotext",
+                           "name": "NotMetEarlyResolutionRequirementsExplanation",
+                           "title": "The first step to resolving a family law matter at an early resolution registry is to complete the Notice to Resolve a Family Matter form, provide a copy to the other party, and contact the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> to complete your early resolution requirements. We’ll help you to complete and file your form.",
+                           "titleLocation": "hidden",
+                           "messageStyle": "inline",
+                           "visible": false,
+                           "visibleIf": "{MetEarlyResolutionRequirements} = 'n'"
+                        }                        
+                     ]
+                  }
+               ]
+            }
+         ],
+         "title": "Filing Location"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

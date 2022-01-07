@@ -1,22 +1,33 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base  v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
+        <b-card style="background-color: #f6e4e6; margin:4rem 0;" v-if="!allCompleted">
+            The survey has some incomplete pages ( Forms have not been reviewed, Required questions left unanswered, ... ).
+            <div style="width:18rem;margin:1rem auto"> 
+                <b-button class="ml-5" variant="primary" @click="checkErrorOnPages"> Navigate to the Error Page </b-button>
+            </div>
+        </b-card>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import _ from 'underscore';
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary"
 import surveyJson from "./forms/filingOptions.json";
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import PageBase from "../PageBase.vue";
+import PageBase from "@/components/steps/PageBase.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import "@/store/modules/common";
+const commonState = namespace("Common");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -29,18 +40,28 @@ export default class FilingOptions extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    @commonState.State
+    public efilingStreams!: string[];
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public allCompleted!: boolean;
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
+
+    @Watch('allCompleted')
+    statusChanged(newVal) 
+    {       
+        this.determineSelectedFilingType()       
+    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -50,8 +71,7 @@ export default class FilingOptions extends Vue {
     mounted(){
         this.initializeSurvey();
         this.addSurveyListener();
-        this.reloadPageInformation()
-        //console.log(this.step)
+        this.reloadPageInformation();
     }
 
     public initializeSurvey(){
@@ -63,70 +83,114 @@ export default class FilingOptions extends Vue {
     }
 
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result["filingOptions"]){
-            this.survey.data = this.step.result["filingOptions"];
-        }
-       
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.filingOptionsSurvey){
+            this.survey.data = this.step.result.filingOptionsSurvey;
+        }
+       
+       this.allowEfiling();
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         
+        this.determineSelectedFilingType();        
     }
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);
-            // console.log(options)
             this.resetReviewSteps()
-            if(this.survey.data.selectedFilingType == 'byemail'){
-                this.togglePages([0,1,3,5], true);
-                this.togglePages([2,4], false);
-            }else if(this.survey.data.selectedFilingType == 'inperson'){
-                this.togglePages([0,1,2,5], true);
-                this.togglePages([3,4], false);
-            }else if(this.survey.data.selectedFilingType == 'byefiling'){
-                this.togglePages([0,1,4], true);
-                this.togglePages([2,3,5], false);
-            }
+            this.determineSelectedFilingType()
         })
     }
 
-    public togglePages(pageArr, activeIndicator) {
-        //this.activateStep(activeIndicator);
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.step.id,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
+    public allowEfiling(){
+        const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
+        const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
+        const stepPPM = this.$store.state.Application.steps[this.stPgNo.PPM._StepNo]
+        const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
+
+        const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
+
+        let disableEfilingForStreams = false;
+        
+        for(const form of selectedForms)
+            if(!this.efilingStreams?.includes(Vue.filter('getPathwayFamilyType')(form))){
+                disableEfilingForStreams = true;
+                break;
+            }                        
+
+        if (
+            disableEfilingForStreams || 
+            (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            
+            (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n") ||
+            (stepCM.active    && stepCM.pages[this.stPgNo.CM.RecognizingAnOrderFromOutsideBc].active && stepCM.result?.recognizingAnOrderFromOutsideBcSurvey?.data?.outsideBcOrder == 'y') ||
+            (stepPPM.active   && stepPPM.pages[this.stPgNo.PPM.PpmAdditionalDocuments].active && stepPPM.result?.ppmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            
+            (stepPPM.active   && stepPPM.pages[this.stPgNo.PPM.PpmAdditionalDocuments].active && stepPPM.result?.ppmAdditionalDocumentsSurvey?.data?.criminalChecked == "n") ||
+            
+            (stepENFRC.active && stepENFRC.pages[this.stPgNo.ENFRC.EnforceAgreementOrOrder].active && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.enforceOrder == "n" && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.filedOrder == "n" && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.existingType == "courtOrder")
+        )
+                this.survey.setVariable('efilingAllowed','n')
+        else 
+                this.survey.setVariable('efilingAllowed','y')
+    }
+
+    public determineSelectedFilingType(){
+        const p = this.stPgNo.SUBMIT
+
+        if(this.allCompleted && this.survey.data.selectedFilingType == 'byemail'){
+            togglePages([p.ReviewAndSave, p.NextSteps], true, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSubmit], false, this.currentStep);
+        }else if(this.allCompleted && this.survey.data.selectedFilingType == 'inperson'){
+            togglePages([p.ReviewAndPrint, p.NextSteps], true, this.currentStep);
+            togglePages([p.ReviewAndSave, p.ReviewAndSubmit], false, this.currentStep);
+        }else if(this.allCompleted && this.survey.data.selectedFilingType == 'byefiling'){
+            togglePages([p.ReviewAndSubmit], true, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false, this.currentStep);
+        }else{
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false, this.currentStep);
         }
     }
 
     public resetReviewSteps(){
-        for(let i=2; i<=5; i++)
-            this.$store.commit("Application/setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
+        const p = this.stPgNo.SUBMIT
+        for(const pageIndex of [p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps])
+            this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:pageIndex, progress:0 });
     }
     
+    public checkErrorOnPages(){
+
+        const stepsArr = _.range(0, Object.keys(this.stPgNo).length)  
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
+        for(const stepIndex of stepsArr){
+            const step = this.$store.state.Application.steps[stepIndex]
+            if(step.active){
+                for(const page of step.pages){
+                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
+                        return false;
+                    }
+                }
+            }            
+        }
+        return true;        
+    }
+
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
+        this.UpdateStepResultData({step:this.step, data: {filingOptionsSurvey: this.survey.data}})
     }
 }
 </script>

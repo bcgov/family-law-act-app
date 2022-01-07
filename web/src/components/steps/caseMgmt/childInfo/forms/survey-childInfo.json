@@ -1,0 +1,27 @@
+{
+    "title": "Child(ren) Information",
+    "pages": [
+        {
+            "name": "Child(ren) Information",
+            "description": "Please enter the details of each child in the fields below.",
+            "elements": [
+                {
+                    "type": "personname",
+                    "name": "childName",
+                    "title": "What is the name of the child?",
+                    "isRequired": true,
+                    "defaultSubstitution": "{ChildName}"
+                },
+                {
+                    "type": "text",
+                    "name": "childDateOfBirth",
+                    "title": "What is the child's date of birth?",
+                    "isRequired": true,
+                    "inputType": "date"
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

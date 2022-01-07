@@ -1,0 +1,85 @@
+{
+  "title": "Unpaid spousal support",
+  "pages": [
+    {
+      "name": "Unpaid spousal support",
+      "description": "Past spousal support payments that have not been made are called arrears. If you are making an application when there is already an order or agreement about spousal support, the court needs to know if there is any unpaid amount.<br><br>The court can reduce or cancel arrears if there is a good reason to. The court can also make an order about how the arrears will be paid, including setting up a payment schedule.",
+      "elements": [
+        {
+          "type": "yesno",
+          "name": "unpaid",
+          "title": "As of {currentDate}, are there any past spousal support payments that have not been paid?",
+          "isRequired": true
+        },
+        {
+          "type": "panel",
+          "name": "unpaidPanel",
+          "visible": false,
+          "visibleIf": "{unpaid} == 'y'",
+          "elements": [
+            {
+              "type": "textbeforeinputnumber",
+              "name": "unPaidAmount",
+              "title":"What is the amount of unpaid spousal support you believe is still owing? $",
+              "titleLocation":"hidden",
+              "bodyText":"What is the amount of unpaid spousal support you believe is still owing? $", 
+              "inputWidth": "9rem",
+              "textClass" : "sv_main sv_q_title font-weight-bold",
+              "visible": false,
+              "visibleIf": "{unpaid} == 'y'",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "applyToReduce",
+              "title": "Do you want to apply to reduce the amount of unpaid spousal support owing?",
+              "visible": false,
+              "visibleIf": "{unpaid} == 'y'",
+              "isRequired": true
+            },
+            {
+              "type": "textbeforeinputnumber",
+              "name": "reduceAmount",
+              "title":"What amount do you want it reduced to? $",
+              "titleLocation":"hidden",
+              "bodyText":"What amount do you want it reduced to? $", 
+              "inputWidth": "9rem",
+              "textClass" : "sv_main sv_q_title font-weight-bold",
+              "visible": false,
+              "visibleIf": "{applyToReduce} == 'y'", 
+              "isRequired": true
+            },           
+            {
+              "type": "comment",
+              "name": "whyReduceAmount",
+              "title": "Why have you chosen this amount?",
+              "visible": false,
+              "visibleIf": "{applyToReduce} == 'y'",
+              "isRequired": true
+            },
+            {
+              "type": "advancedradiogroup",
+              "name": "paymentSchedule",
+              "title":"How do you want the remaining unpaid spousal support to be paid?",
+              "description": "Select each option that applies and complete the required information.",
+              "visible": false,
+              "visibleIf": "{unpaid} == 'y'",                     
+              "radioOutputValues":"{monthly},{Lump Sum}",
+              "inputNames":"{monthlyAmount}",
+              "inputTypes":"{number}",
+              "inputWidths":"{9rem}",                  
+              "textBeforeInputs":"{At a monthly Rate},{};{In a lump sum (all at once)}",              
+              "radioMargins":"0 0 0.2rem 0",
+              "radioTextMargins":"-0.6rem 0 0 0",
+              "hasOther": true,
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Unpaid spousal support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

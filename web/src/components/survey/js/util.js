@@ -23,7 +23,7 @@
       }
     }
   
-    TooltipMgr = function() {
+    var TooltipMgr = function() {
       this.init();
     }
     TooltipMgr.prototype = {
@@ -42,7 +42,7 @@
             open = function(evt) { tip.show(); skip(evt); }.bind(this),
             close = function() { tip.hide(); return false; };
         target.addEventListener('click', open);
-        //target.addEventListener('mouseout', close);
+       
       },
       addEvents: function() {
         document.addEventListener('mousedown', function(evt) {
@@ -59,7 +59,7 @@
       tooltipMgr.register(target, content, params);
     }
   
-    Tooltip = function(target, content, params) {
+    var Tooltip = function(target, content, params) {
       this.init(target, content, params);
     }
     Tooltip.prototype = {

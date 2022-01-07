@@ -1,0 +1,40 @@
+{
+  "title": "Best interests of the Child",
+  "pages": [
+    {
+      "name": "Best Interests of the Child",
+      "description": "The <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests' target='blank'>best interests of the child</a> is a test that the court uses to make decisions about children. Before making a decision, both parents and courts must consider the child's physical, psychological and emotional safety, security and well-being. You must always think about the best interests of the child when you are asking the court for decisions about them.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ChildBestInterestPanel",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "childBestInterestAcknowledgement",
+              "title": "I understand that I must consider the child(ren)'s best interests with respect to each order about the child I am asking the court to make.",
+              "titleLocation": "hidden",
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "I understand",
+                  "text": "<b style='color: #556077; font-size: 1.35em; line-height: 1.2;'>I understand that I must consider the child(ren)'s best interests with respect to each order about the child I am asking the court to make.</b>"
+                }
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "childBestInterestDescription",
+              "title": "Please explain why you believe it is in the {childWording}’s best interests to prohibit the proposed relocation.",
+              "description": "You do not need to use any special wording. The key is to be clear about what information you know.",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Best Interests of the Child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

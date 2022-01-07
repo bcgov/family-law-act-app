@@ -14,6 +14,11 @@ framework.
 
 """
 import os
+import logging
+
+class NoHealthFilter(logging.Filter):
+    def filter(self, record):
+        return record.getMessage().find('GET /health/') == -1
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api.settings")
 
@@ -23,6 +28,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-# Apply WSGI middleware here.
-# from helloworld.wsgi import HelloWorldApplication
-# application = HelloWorldApplication(application)
+if __name__ != "__main__":
+    gunicorn_logger = logging.getLogger("gunicorn.access")
+    gunicorn_logger.addFilter(NoHealthFilter())

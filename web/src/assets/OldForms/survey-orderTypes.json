@@ -23,7 +23,7 @@
               "text": "Case Management<br>&nbsp;"
             },
             {
-              "value": "priotityParenting",
+              "value": "priorityParenting",
               "text": "Priority Parenting Matters<br>&nbsp;"
             },
             {
@@ -32,7 +32,7 @@
             },
             {
               "value": "agreementEnfrc",
-              "text": "Enforcement of agreements and court orders<br>&nbsp;"
+              "text": "Enforcement<br>&nbsp;"
             }
           ]
         }

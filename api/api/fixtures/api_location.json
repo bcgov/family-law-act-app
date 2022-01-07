@@ -1,0 +1,1046 @@
+[
+{
+    "model": "api.location",
+    "pk": 1,
+    "fields": {
+        "location_code": "5871",
+        "name": "100 Mile House",
+        "email": "Office15231@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5971"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 2,
+    "fields": {
+        "location_code": "3561",
+        "name": "Abbotsford",
+        "email": "CSBAbbotsford.CourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 3,
+    "fields": {
+        "location_code": "5671",
+        "name": "Alexis Creek",
+        "email": "Office15231@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5971"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 4,
+    "fields": {
+        "location_code": "5681",
+        "name": "Anahim Lake",
+        "email": "Office15231@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5971"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 5,
+    "fields": {
+        "location_code": "4671",
+        "name": "Ashcroft",
+        "email": "KamloopsCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4781"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 87,
+    "fields": {
+        "location_code": "5691",
+        "name": "Atlin",
+        "email": "Office15228@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5771"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 6,
+    "fields": {
+        "location_code": "2007",
+        "name": "Bella Bella",
+        "email": "CSBRCS@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "2045"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 7,
+    "fields": {
+        "location_code": "2008",
+        "name": "Bella Coola",
+        "email": "CSBRCS@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "2045"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 8,
+    "fields": {
+        "location_code": "5701",
+        "name": "Burns Lake",
+        "email": "Office15219@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 9,
+    "fields": {
+        "location_code": "1031",
+        "name": "Campbell River",
+        "email": "JAGCSBCampbellRiverCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 10,
+    "fields": {
+        "location_code": "4681",
+        "name": "Castlegar",
+        "email": "NelsonCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4871"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 11,
+    "fields": {
+        "location_code": "4691",
+        "name": "Chase",
+        "email": "KamloopsCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4781"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 12,
+    "fields": {
+        "location_code": "5721",
+        "name": "Chetwynd",
+        "email": "office15226@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5731"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 13,
+    "fields": {
+        "location_code": "3521",
+        "name": "Chilliwack",
+        "email": "JAGCSBChilliwackCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 14,
+    "fields": {
+        "location_code": "4701",
+        "name": "Clearwater",
+        "email": "KamloopsCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4781"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 15,
+    "fields": {
+        "location_code": "1041",
+        "name": "Courtenay",
+        "email": "CourtenayRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 16,
+    "fields": {
+        "location_code": "4711",
+        "name": "Cranbrook",
+        "email": "JAGCSBCranbrookCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 17,
+    "fields": {
+        "location_code": "4721",
+        "name": "Creston",
+        "email": "JAGCSBCranbrookCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4711"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 18,
+    "fields": {
+        "location_code": "5731",
+        "name": "Dawson Creek",
+        "email": "office15226@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 19,
+    "fields": {
+        "location_code": "5741",
+        "name": "Dease Lake",
+        "email": "Office15222@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5951"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 20,
+    "fields": {
+        "location_code": "1051",
+        "name": "Duncan",
+        "email": "JAGCSBDuncanCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 21,
+    "fields": {
+        "location_code": "4731",
+        "name": "Fernie",
+        "email": "JAGCSBCranbrookCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4711"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 22,
+    "fields": {
+        "location_code": "5751",
+        "name": "Fort Nelson",
+        "email": "Office15229@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 23,
+    "fields": {
+        "location_code": "5761",
+        "name": "Fort St. James",
+        "email": "Office15214@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5891"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 24,
+    "fields": {
+        "location_code": "5771",
+        "name": "Fort St. John",
+        "email": "Office15228@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 25,
+    "fields": {
+        "location_code": "5781",
+        "name": "Fraser Lake",
+        "email": "Office15214@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5891"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 26,
+    "fields": {
+        "location_code": "1061",
+        "name": "Ganges",
+        "email": "JAGCSBDuncanCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "1051"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 27,
+    "fields": {
+        "location_code": "4741",
+        "name": "Golden",
+        "email": "GoldenCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 28,
+    "fields": {
+        "location_code": "1071",
+        "name": "Gold River",
+        "email": "JAGCSBCampbellRiverCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "1031"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 29,
+    "fields": {
+        "location_code": "5711",
+        "name": "Good Hope Lake",
+        "email": "Office15228@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5771"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 30,
+    "fields": {
+        "location_code": "4751",
+        "name": "Grand Forks",
+        "email": "VCRosslandCrt@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4921"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 31,
+    "fields": {
+        "location_code": "5861",
+        "name": "Hazelton",
+        "email": "Office15224@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5931"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 32,
+    "fields": {
+        "location_code": "5791",
+        "name": "Houston",
+        "email": "Office15224@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5931"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 33,
+    "fields": {
+        "location_code": "5801",
+        "name": "Hudson's Hope",
+        "email": "Office15228@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5771"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 34,
+    "fields": {
+        "location_code": "4771",
+        "name": "Invermere",
+        "email": "JAGCSBCranbrookCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4711"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 35,
+    "fields": {
+        "location_code": "4781",
+        "name": "Kamloops",
+        "email": "KamloopsCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 36,
+    "fields": {
+        "location_code": "4801",
+        "name": "Kelowna",
+        "email": "KelownaCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 37,
+    "fields": {
+        "location_code": "5811",
+        "name": "Kitimat",
+        "email": "Office15222@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5951"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 38,
+    "fields": {
+        "location_code": "2009",
+        "name": "Klemtu",
+        "email": "CSBRCS@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "2045"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 39,
+    "fields": {
+        "location_code": "5775",
+        "name": "Kwadacha",
+        "email": "Office15214@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5891"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 40,
+    "fields": {
+        "location_code": "4821",
+        "name": "Lillooet",
+        "email": "KamloopsCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4781"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 41,
+    "fields": {
+        "location_code": "5821",
+        "name": "Lower Post",
+        "email": "Office15228@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5771"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 42,
+    "fields": {
+        "location_code": "5831",
+        "name": "Mackenzie",
+        "email": "Office15216@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 43,
+    "fields": {
+        "location_code": "5841",
+        "name": "Masset",
+        "email": "Office15220@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5901"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 44,
+    "fields": {
+        "location_code": "5845",
+        "name": "McBride",
+        "email": "Office15215@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5959"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 45,
+    "fields": {
+        "location_code": "4851",
+        "name": "Merritt",
+        "email": "KamloopsCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 46,
+    "fields": {
+        "location_code": "4861",
+        "name": "Nakusp",
+        "email": "NelsonCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 47,
+    "fields": {
+        "location_code": "1091",
+        "name": "Nanaimo",
+        "email": "Nanaimo.Registry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 48,
+    "fields": {
+        "location_code": "4871",
+        "name": "Nelson",
+        "email": "NelsonCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 49,
+    "fields": {
+        "location_code": "5851",
+        "name": "New Aiyansh",
+        "email": "Office15222@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5951"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 50,
+    "fields": {
+        "location_code": "3581",
+        "name": "New Westminster",
+        "email": "JAGCSBNWestminsterCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 51,
+    "fields": {
+        "location_code": "2011",
+        "name": "North Vancouver",
+        "email": "NorthVancouverRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 52,
+    "fields": {
+        "location_code": "2021",
+        "name": "Pemberton",
+        "email": "NorthVancouverRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "2011"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 53,
+    "fields": {
+        "location_code": "4891",
+        "name": "Penticton",
+        "email": "PentictonCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 54,
+    "fields": {
+        "location_code": "1121",
+        "name": "Port Alberni",
+        "email": "PortAlberniRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 55,
+    "fields": {
+        "location_code": "3531",
+        "name": "Port Coquitlam",
+        "email": "CSBPortCoquitlam.CourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 56,
+    "fields": {
+        "location_code": "1141",
+        "name": "Port Hardy",
+        "email": "porthardycourtregistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 57,
+    "fields": {
+        "location_code": "1145",
+        "name": "Powell River",
+        "email": "JAGCSBPowellRiverCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 58,
+    "fields": {
+        "location_code": "5891",
+        "name": "Prince George",
+        "email": "Office15214@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 59,
+    "fields": {
+        "location_code": "5901",
+        "name": "Prince Rupert",
+        "email": "Office15220@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 60,
+    "fields": {
+        "location_code": "4901",
+        "name": "Princeton",
+        "email": "PentictonCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4891"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 61,
+    "fields": {
+        "location_code": "5911",
+        "name": "Queen Charlotte",
+        "email": "Office15220@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5901"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 62,
+    "fields": {
+        "location_code": "5921",
+        "name": "Quesnel",
+        "email": "Office15230@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 63,
+    "fields": {
+        "location_code": "4911",
+        "name": "Revelstoke",
+        "email": "JAGCSBSalmonArmScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4941"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 64,
+    "fields": {
+        "location_code": "2025",
+        "name": "Richmond",
+        "email": "RichmondCourtRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 65,
+    "fields": {
+        "location_code": "2045",
+        "name": "Robson Square Provincial Court",
+        "email": "CSBRCS@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 66,
+    "fields": {
+        "location_code": "4921",
+        "name": "Rossland",
+        "email": "VCRosslandCrt@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 67,
+    "fields": {
+        "location_code": "4941",
+        "name": "Salmon Arm",
+        "email": "JAGCSBSalmonArmScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 68,
+    "fields": {
+        "location_code": "2031",
+        "name": "Sechelt",
+        "email": "SecheltRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 69,
+    "fields": {
+        "location_code": "1151",
+        "name": "Sidney",
+        "email": "Victoria.CourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "1201"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 70,
+    "fields": {
+        "location_code": "5931",
+        "name": "Smithers",
+        "email": "Office15224@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 71,
+    "fields": {
+        "location_code": "4951",
+        "name": "Sparwood",
+        "email": "JAGCSBCranbrookCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "4711"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 72,
+    "fields": {
+        "location_code": "5941",
+        "name": "Stewart",
+        "email": "Office15222@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5951"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 73,
+    "fields": {
+        "location_code": "3585",
+        "name": "Surrey",
+        "email": "CSBSurreyProvincialCourt.CriminalRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 74,
+    "fields": {
+        "location_code": "1171",
+        "name": "Tahsis",
+        "email": "JAGCSBCampbellRiverCourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "1031"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 75,
+    "fields": {
+        "location_code": "5951",
+        "name": "Terrace",
+        "email": "Office15222@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 76,
+    "fields": {
+        "location_code": "1181",
+        "name": "Tofino",
+        "email": "PortAlberniRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "1121"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 77,
+    "fields": {
+        "location_code": "5805",
+        "name": "Tsay Keh Dene (Ingenika)",
+        "email": "Office15214@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5891"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 78,
+    "fields": {
+        "location_code": "5955",
+        "name": "Tumbler Ridge",
+        "email": "office15226@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5731"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 79,
+    "fields": {
+        "location_code": "1191",
+        "name": "Ucluelet",
+        "email": "PortAlberniRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "1121"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 80,
+    "fields": {
+        "location_code": "5959",
+        "name": "Valemount",
+        "email": "Office15215@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 81,
+    "fields": {
+        "location_code": "2040",
+        "name": "Vancouver Provincial Court",
+        "email": "222MainCS@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 82,
+    "fields": {
+        "location_code": "5961",
+        "name": "Vanderhoof",
+        "email": "Office15214@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5891"
+    }
+},
+{
+    "model": "api.location",
+    "pk": 83,
+    "fields": {
+        "location_code": "4971",
+        "name": "Vernon",
+        "email": "JAGCSBVernonScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 84,
+    "fields": {
+        "location_code": "1201",
+        "name": "Victoria",
+        "email": "Victoria.CourtScheduling@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 85,
+    "fields": {
+        "location_code": "1211",
+        "name": "Western Communities",
+        "email": "WesternCommunitiesRegistry@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+},
+{
+    "model": "api.location",
+    "pk": 86,
+    "fields": {
+        "location_code": "5971",
+        "name": "Williams Lake",
+        "email": "Office15231@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": ""
+    }
+}
+]

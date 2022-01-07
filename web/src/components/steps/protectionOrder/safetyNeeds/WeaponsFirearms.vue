@@ -1,14 +1,14 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary"
 import surveyJson from "./forms/weaponsFirearms.json";
 
 import PageBase from "../../PageBase.vue";
@@ -29,25 +29,19 @@ export default class WeaponsFirearms extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
-    
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -56,6 +50,7 @@ export default class WeaponsFirearms extends Vue {
 
     mounted(){
         this.initializeSurvey();
+        this.addSurveyListener();
         this.reloadPageInformation();
     }
 
@@ -67,49 +62,43 @@ export default class WeaponsFirearms extends Vue {
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
 
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('protectionOrder')
+        })
+    }
 
     public reloadPageInformation() {
-
-        if (this.step.result && this.step.result['weaponsSurvey']){
-            this.survey.data = this.step.result['weaponsSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
-        } 
-
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.weaponsFirearmsSurvey){
+            this.survey.data = this.step.result.weaponsFirearmsSurvey.data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
+        } 
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
        
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
-    }
-  
+    }  
     
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
-    }
-
-    public onComplete() {
-        //console.log('Weapons Completed')
-        this.$store.commit("Application/setAllCompleted", true);
     }
 
     beforeDestroy() {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
        
-        this.UpdateStepResultData({step:this.step, data: {weaponsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
+        this.UpdateStepResultData({step:this.step, data: {weaponsFirearmsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/common";
-</style>

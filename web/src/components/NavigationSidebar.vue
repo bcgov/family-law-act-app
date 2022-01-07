@@ -18,7 +18,7 @@
                 <div v-if="isPrintStep(step)" class="step separate"></div>
                 <div class="step-header">
                     <div class="header-icon">
-                        <i v-bind:class="['fa', step.icon]"></i>
+                        <i v-bind:class="[step.icon]"></i>
                     </div>
                     <div class="header-text">
                         <div class="text-step">
@@ -59,102 +59,64 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch} from 'vue-property-decorator';
-import moment from 'moment-timezone';
+import { Component, Vue} from 'vue-property-decorator';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component
 export default class NavigationSidebar extends Vue {
     
     @applicationState.State
-    public currentStep!: Number;
+    public currentStep!: number;
+    
+    @applicationState.State
+    public allCompleted!: boolean
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     error = "";
     updateSidebar = 0;
 
-    // @Watch('currentStep')
-    // pageIndexChange(newVal) 
-    // {
-    //     console.log('step changed in sidebar')
-    //     console.log(newVal);  
-    //     this.updateSidebar++;      
-    // }
-
-    public  onSelectStep(event) {
-        // const currIndex = this.$store.state.Application.currentStep;
-        // const curr = document.getElementById(this.getStepId(currIndex));
-        // const currChildGroup = document.getElementById(this.getStepGroupId(currIndex));
+    public onSelectStep(event) {
+    
         const next = event.currentTarget;
         const nextIndex = parseInt(next.getAttribute("index"));
-        // const nextChildGroup = document.getElementById(this.getStepGroupId(nextIndex));
-
-        // if(!this.isStepTouched(nextIndex)) return
-
-        // if (curr == next) {
-        //     // same choice.
-        //     next.classList.add("current");
-        //     nextChildGroup.style.display = "block";
-        // } else {
-        //     next.classList.add("current");
-        //     nextChildGroup.style.display = "block";
-
-        //     curr.classList.remove("current");
-        //     currChildGroup.style.display = "none";
-        // }
+        
+        if(nextIndex == this.stPgNo.SUBMIT._StepNo && !this.allCompleted){
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: this.stPgNo.SUBMIT.FilingOptions });
+        }
         
         this.$store.commit("Application/setCurrentStep", nextIndex);
-        // const currPageIndex = this.getNavigation()[nextIndex].currentPage;
-        // const currPage = document.getElementById(this.getStepPageId(nextIndex, currPageIndex));
-        // //console.log("now step")
-        // currPage.className="current";
-        Vue.nextTick().then(()=>{this.saveChanges();});
+        Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
-
-
-    //TODO: This is where the step is selected
+   
     public onSelectPage(event) {
         const currStepIndex = this.$store.state.Application.currentStep;
-        //const currPageIndex = this.getNavigation()[currStepIndex].currentPage;
-        //const currPage = document.getElementById(this.getStepPageId(currStepIndex, currPageIndex));
         const nextPage = event.currentTarget;
         const nextPageIndex = parseInt(nextPage.getAttribute("index"));
 
         if(this.$store.state.Application.steps[currStepIndex].pages[nextPageIndex].progress == 0) return
 
-
-        // if (currPage == nextPage) {
-        //     // same choice; do nothing
-        // } else {
-        //     Vue.nextTick().then(()=>{
-        //         //console.log("now page")
-        //         nextPage.classList.add("current");
-
-        //         if (currPage !== null) {
-        //         currPage.classList.remove("current");
-        //         }
-        //     })
-        // }
-
         this.$store.commit("Application/setCurrentStepPage", {currentStep: currStepIndex, currentPage: nextPageIndex });
-        Vue.nextTick().then(()=>{this.saveChanges();});
+        Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
 
-    public getNavigation() {
-        const steps = this.$store.state.Application.steps;
-        return steps;
+    public getNavigation() {       
+        return this.$store.state.Application.steps;
     }
 
     public getStepDisplayNumber(stepIndex) {
         const steps = this.getNavigation();
-        let stepDisplayNumber = stepIndex + 1;  // convert 0-based index number to 1-based display number
+        let stepDisplayNumber = Number(stepIndex) + 1;  // convert 0-based index number to 1-based display number
 
         for (let i = stepIndex - 1; i >= 0; i--) {
             if (!steps[i].active) {
             // adjust display number
-            stepDisplayNumber--;
+                stepDisplayNumber--;
             }
         }
 
@@ -163,10 +125,6 @@ export default class NavigationSidebar extends Vue {
 
     public isCurrentStep(stepIndex) {
         return this.$store.state.Application.currentStep == stepIndex;
-    }
-
-    public isAllCompleted() {
-        return this.$store.state.Application.allCompleted;
     }
 
     public getStepId(stepIndex) {
@@ -184,34 +142,10 @@ export default class NavigationSidebar extends Vue {
     public isPrintStep(step) {
         return step.type=='print';
     }
-
-    public saveChanges() {
-        const lastUpdated = moment().format();
-        this.$store.commit("Application/setLastUpdated", lastUpdated);
-        const application = this.$store.state.Application;      
-        const applicationId = application.id;      
-        
-        const header = {
-            responseType: "json",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        } 
-
-        this.$http.put("/app/"+ applicationId + "/", application, header)
-        .then(res => {
-            //console.log(res.data); 
-            this.error = "";
-        }, err => {
-            console.error(err);
-            this.error = err;
-        });        
-    }
     
     public isStepTouched(nextStepIndex){
         const selectedStep = this.$store.state.Application.steps[nextStepIndex];
         for(const page of selectedStep.pages){
-            //console.log(page.progress)
             if(page.progress > 0) return true;
         }
         return false
@@ -221,7 +155,7 @@ export default class NavigationSidebar extends Vue {
         return this.$store.state.Application.steps[stepIndex].pages[pageIndex].progress
     }
 
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -408,36 +342,35 @@ $step-header-hover-color: #efefef;
     }
     &.current {
         .step-header {
-        background: $gov-gold;
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        width: 100%;
-        padding: 1em 1em;
-        .header-icon {
-            border-color: $gov-white;
-            color: $gov-white;
-        }
-        .header-text {
-            color: $gov-white;
+            background: $gov-gold;
             display: flex;
-            flex-flow: column nowrap;
-            color: $link-current-color;
-        }
+            list-style-type: none;
+            margin: 0;
+            width: 100%;
+            padding: 1em 1em;
+            .header-icon {
+                border-color: $gov-white;
+                color: $gov-white;
+            }
+            .header-text {
+                color: $gov-white;
+                display: flex;
+                flex-flow: column nowrap;
+            }
         }
     }
     &.separate {
         margin-top: 2em;
         margin-right: 3em;
         &::before {
-        display: block;
-        content: " ";
-        margin: 0 1.5em;
-        position: relative;
-        top: -0.75em;
-        height: 1px;
-        background: #25b;
-        width: 100%;
+            display: block;
+            content: " ";
+            margin: 0 1.5em;
+            position: relative;
+            top: -0.75em;
+            height: 1px;
+            background: #25b;
+            width: 100%;
         }
     }
 }

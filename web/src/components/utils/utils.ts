@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance } from "axios";
+import Axios from "axios";
 import Vue from "vue";
 
 export const SessionManager = {
@@ -24,6 +24,8 @@ export const SessionManager = {
             const userId = response.data.user_id;
             const loginUrl = response.data.login_uri;
             const userLocation = response.data.location;
+            const efilingEnabled = response.data.efiling_enabled;
+            const efilingStreams = response.data.efiling_streams? response.data.efiling_streams.split(","): [];
             if (userId) {
                 const universalId = response.data.universal_id;
                 if (!universalId) {
@@ -32,7 +34,9 @@ export const SessionManager = {
                 const userName = response.data.display_name || response.data.first_name + " " + response.data.last_name;
                 store.commit("Application/setUserName", userName);
                 store.commit("Common/setUserId", userId);
-                store.commit("Common/setUserLocation",userLocation)
+                store.commit("Common/setUserLocation",userLocation);
+                store.commit("Common/setEfilingEnabled", efilingEnabled);
+                store.commit("Common/setEfilingStreams", efilingStreams);                 
             }
             return { userId, loginUrl };
         }

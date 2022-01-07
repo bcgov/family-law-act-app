@@ -1,12 +1,14 @@
 <template>
     <div class="customtooltip">
-        {{title}}
-        <b-badge
-            :id="title+index"
-            class="custombadge">?
-        </b-badge>
+        <div style="display:inline" :id="title+index">
+            {{title}}
+            <b-badge
+                
+                class="custombadge">?
+            </b-badge>
+        </div>
 
-        <b-tooltip :target="title+index" placement="right">
+        <b-tooltip :target="title+index" :placement="placement">
             <div style="text-align: justify;" v-html="description"/>
         </b-tooltip>
             
@@ -29,13 +31,14 @@
         @Prop({required: true})
         index!: string;
 
+        @Prop({required: false, default:'right'})
+        placement!: string;
+
         description = ''
 
         mounted()
         {
             this.description = glossaryJson[this.title.toLowerCase()]
-            //console.log(glossaryJson)
-            //console.log(this.description)
         }
 
    
@@ -75,9 +78,5 @@
         /* font-family: BCSans, "Noto Sans", Verdana, Arial, sans serif; */
 
     } 
-
-    
-    
-
 
 </style>

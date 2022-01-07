@@ -1,0 +1,67 @@
+{
+  "title": "About the Order - Enforcement",
+  "pages": [
+    {
+      "name": "About the Order - Enforcement",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "aboutOrderPanel",
+          "elements": [
+            {
+              "type": "infotexttitle",
+              "name": "aboutOrderDescription1",
+              "title": "",
+              "body": "You need to tell the court and the other party what order you want the court to make.</br></br>If you are not sure about what enforcement options are available to you or what order the court can make, you may want to talk to a lawyer or <a href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA' target='_blank'>family justice counsellor</a>, or check out the following resources:</br></br></ul><li>the <a href='http://www.leg.bc.ca/39th4th/1st_read/gov16-1.htm#section41' target='_blank'>Family Law Act</a><ul><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section61' target='_blank'>section 61</a> <i>[denial of parenting time or contact]</i></li><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section63' target='_blank'>section 63</a> <i>[failure to exercise parenting time or contact]</i></li><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section213' target='_blank'>section 213</a> <i>[enforcing orders respecting disclosure]</i></li><li><a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section228'>section 228</a> <i>[enforcing orders respecting conduct]</i></li><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section230' target='_blank'>section 230</a> <i>[enforcing orders generally]</i></li><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section231' target='_blank'>section 231</a> <i>[extraordinary remedies]</i></li></ul></li><li>Legal Aid BC’s family <a target='_blank' href='https://family.legalaid.bc.ca/bc-legal-system/court-orders/enforce-order-or-agreement-made-bc'>website</a></li><li><a target='_blank' href='https://wiki.clicklaw.bc.ca/index.php/Enforcing_Orders_in_Family_Matters'>Clicklaw</a></li></ul>",
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
+            },
+            {
+              "type": "comment",
+              "name": "orderDescription",
+              "isRequired": true,
+              "title": "Please provide the details of the order you are asking the court to make:",
+              "description": "You do not need to use any special wording. The key is to be clear about what you are asking the court to order. Include how you want to see the order or agreement enforced or the remedy or order you are applying for.</br></br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='blank'>Family Law Act Picklist</a> includes commonly used order terms that might be helpful. "
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "comment",
+              "name": "applicationFacts",
+              "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include:<ul><li>why you are making this application</li><li>how the other party has failed to follow the order or agreement, if applicable</li><li>why the court should make the order you are applying for.</li></ul>",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "!({includesForeign})",              
+              "title": "The `facts` on which this application is based are as follows:"
+            },
+            {
+              "type": "comment",
+              "name": "applicationFacts",
+              "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include:<ul><li>why you are making this application</li><li>how the other party has failed to follow the order or agreement, if applicable</li><li>why the court should make the order you are applying for.</li></ul></br>If you are applying to set aside the registration of a foreign order under the Interjurisdiction Support Orders Act, the British Columbia court may set aside the registration if it determines under <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02029_01#section19'>section 19</a> of the Act that:<ul><li>a party to the foreign order did not have proper notice or a reasonable opportunity to be heard in the proceeding in which the foreign order was made,</li><li>the foreign order is contrary to the public policy of British Columbia, or</li><li>the court or administrative body that made the foreign order did not have the jurisdiction to make the order.</li></ul></br>Please include the reason why you believe the court should set aside the registration of the foreign order and the facts that support it.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{includesForeign}", 
+              "title": "The `facts` on which this application is based are as follows:"
+            },
+            {
+              "type": "infotexttitle",
+              "name": "aboutOrderDescription2",
+              "title": "",
+              "body": "Note: A judge can make decisions based only on the information presented by the parties as evidence. Evidence is presented in writing in an affidavit or as spoken evidence provided in court.</br></br>If you choose to, you can prepare an <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true' target='_blank'>Affidavit – General Form 45</a>. If you do not wish to prepare an affidavit, be prepared to give evidence in court. The facts you set out in your application can help guide your evidence in court and a judge may ask you to swear or affirm that the facts set out in this application are true.",
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
+            }
+          ]
+        }
+      ],
+      "title": "About the Order - Enforcement"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

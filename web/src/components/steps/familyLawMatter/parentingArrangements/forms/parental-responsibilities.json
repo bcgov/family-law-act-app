@@ -1,0 +1,75 @@
+{
+  "title": "Parental responsibilities",
+  "pages": [
+    {
+      "name": "Parental responsibilities",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "parentalResponsibilitiesDescription",
+          "title": "Guardians make decisions about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child’s legal and financial interests. These are examples of parental responsibilities. Guardians share parental responsibilities unless they have a court order or agreement that says otherwise.<br><br><a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/what-does-it-mean-to-be-a-guardian\" target=\"blank\">Parental responsibilities</a> may be shared with the <b>guardians cooperating</b> to make decisions jointly, exercised by <b>only one guardian</b>, or divided between <b>more than one guardian</b> with each having parental responsibilities over different decisions. You must carefully consider what is best for the child.<br><br>If there is more than one guardian for a child, an agreement or court order can help to make it clear who has certain parenting responsibilities and when.<br><br>The Family Law Act provides a list of `parental responsibilities` .",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "NewApplicantParentingResponsibilitiesPanel",
+          "visible": false,
+          "visibleIf": "!({existing})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "parentalResponsibilitiesOrder",
+              "title": "Are you applying for an order about parental responsibilities?",
+              "visible": false,
+              "visibleIf": "!({existing})",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ParentingResponsibilityApplicationPanel",
+          "visible": false,
+          "visibleIf": "(!({existing})) and ({parentalResponsibilitiesOrder} = 'y')",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "allResponsibilitiesOrder",
+              "description": "If you get a court order that gives you all parental responsibilities for a child, it means that you get to make all decisions about a child and have full responsibility for a child. The child may have another guardian but the other guardian will not have parental responsibility for the child.",
+              "title": "Are you applying for an order that gives you all parental responsibilities for a child?",
+              "visible": false,
+              "visibleIf": "(!({existing})) and ({parentalResponsibilitiesOrder} = 'y')",
+              "isRequired": true
+            },
+            {
+              "type": "checkbox",
+              "name": "childrenRequestedResponsibilities",
+              "title": "Select each child you are requesting all parental responsibilities for:",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{allResponsibilitiesOrder} = 'y'",
+              "choices": [
+                "child1",
+                "child2"
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "ExplainResponsibilities",
+              "title": "You are not requesting all parental responsibilities. Explain the order you want about how parental responsibilities are to be exercised by the guardians.",
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how parental responsibilities apply to each child.<br><br>Talk to a lawyer if you need help figuring out how parental responsibilities should be set up for your family.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({allResponsibilitiesOrder} = 'y' and (!({allChildrenSelected}))) or ({allResponsibilitiesOrder} = 'n')"
+            }
+          ]
+        }
+        
+      ],
+      "title": "Parental Responsibilities"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

@@ -1,13 +1,12 @@
 import LandingPage from "@/components/home/LandingPage.vue";
-import ServiceLocator from "@/components/home/ServiceLocator.vue";
 import ResultPage from "@/components/steps/submit/ResultPage.vue";
 import AvailableServices from "@/components/home/AvailableServices.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import TermsConditions from "@/components/status/TermsConditions.vue"
 import { SessionManager } from "@/components/utils/utils";
-import VueResource from 'vue-resource'
-import store from "@/store"
+import VueResource from 'vue-resource';
+import store from "@/store";
 
 
 async function authGuard(to: any, from: any, next: any) {
@@ -26,13 +25,7 @@ const routes = [
   {
     path: "/apply-for-family-order",
     component: LandingPage
-  },
-  {
-    path: "/serviceLocator",
-    name: "service-locator",
-    beforeEnter: authGuard,
-    component: ServiceLocator,
-  },
+  },  
   {
     path: "/availableServices",
     name: "available-services",

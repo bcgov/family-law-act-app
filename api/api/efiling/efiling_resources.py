@@ -6,6 +6,7 @@ from django.conf import settings
 
 from django.core.cache import cache
 from .efiling_hub_caller_base import EFilingHubCallerBase
+from api.efiling.exceptions import KeycloakTokenError
 
 logger = logging.getLogger(__name__)
 
@@ -18,9 +19,8 @@ class EFilingResources(EFilingHubCallerBase):
         EFilingHubCallerBase.__init__(self)
 
     def _get_api(self, url, headers):
-        if not self.access_token:
-            if not self._get_token():
-                raise Exception("EFHResources - Unable to get API Token")
+        if not self.access_token and not self._get_token():
+            raise KeycloakTokenError("EFH - Unable to get API Token")
 
         for try_number in range(1):
             if try_number > 0:
@@ -31,7 +31,7 @@ class EFilingResources(EFilingHubCallerBase):
                 "EFHResources - Get API %d %s", response.status_code, response.text
             )
             if response.status_code != 401:
-                return response
+                break
         return response
 
     def get_document_types(self):
@@ -46,12 +46,12 @@ class EFilingResources(EFilingHubCallerBase):
         return None
 
     def get_courts(
-        self,
+        self
     ):
         if cache.get("courts"):
             return cache.get("courts")
 
-        url = f"{self.api_base_url}/courts?courtLevel=P"
+        url = f"{self.api_base_url}/courts?courtLevel={self.court_level}"
         response = self._get_api(url, headers={})
 
         if response.status_code == 200:
@@ -59,13 +59,15 @@ class EFilingResources(EFilingHubCallerBase):
             locations = {}
 
             for location in cso_locations["courts"]:
-                city = location["address"]["cityName"]
-                locations[city] = {
+                name = location["name"]
+                locations[name] = {
                     "address_1": location["address"]["addressLine1"],
                     "address_2": location["address"]["addressLine2"],
                     "address_3": location["address"]["addressLine3"],
                     "postal": location["address"]["postalCode"],
-                    "location_id": location["identifierCode"],
+                    "city": location["address"]["cityName"],
+                    "province": location["address"]["provinceName"],
+                    "location_code": location["identifierCode"],
                 }
             cache.set("courts", locations)
             return locations

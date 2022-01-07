@@ -1,0 +1,14 @@
+name: OWASP SCAN
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+        - name: OWASP ZAP Baseline Scan
+          uses: zaproxy/action-baseline@v0.4.0
+          with:
+            token: ""
+            target: ${{ secrets.OWASP_SCAN_URL }}

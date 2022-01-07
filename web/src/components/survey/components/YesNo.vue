@@ -5,7 +5,9 @@
         <input
           type="radio"
           :name="question.name + '_' + question.id"
+          :data-test-id="question.name + '_' + opt.value"
           :value="opt.value"
+          :disabled="disabled"
           :checked="value == opt.value"
           @click="checkValue(opt.value, $event.target.checked)"
         />
@@ -13,6 +15,7 @@
           class="survey-yesno-button"
           tabindex="0"
           role="button"
+          :data-test-id="question.name + '_' + opt.value"
           :id="opt.value === 'y' ? question.inputId : null"
           @keydown.space.prevent="setValue(opt.value)"
           >{{ opt.label }}</span
@@ -36,7 +39,8 @@ export default {
         { label: "No", value: "n", button: null, input: null }
       ],
       titleHtml: null,
-      value: this.question.value
+      value: this.question.value,
+      disabled: this.question.readOnly
     };
   },
   methods: {
@@ -56,5 +60,5 @@ export default {
       this.value = q.value;
     };
   }
-};
+}
 </script>

@@ -5,7 +5,9 @@
         <label class="survey-sublabel" :for="field.id">{{ field.label }}</label>
         <input
           class="form-control"
+          :disabled="readOnly"
           :id="field.id"
+          :data-test-id="field.name"
           v-model="pendingValue[field.name]"
         />
         <p v-if="field.desc" class="survey-desc small">{{ field.desc }}</p>
@@ -25,7 +27,8 @@ export default {
     return {
       fields: this.makeFields(),
       pendingValue: Object.assign({}, this.question.value),
-      value: this.question.value
+      value: this.question.value,
+      readOnly: this.question.readOnly
     };
   },
   watch: {
@@ -48,7 +51,7 @@ export default {
   methods: {
     makeFields() {
       const q = this.question;
-      const fields = [
+      return [
         {
           name: "first",
           label: q.labelFirstName || "First Name",
@@ -68,7 +71,7 @@ export default {
           desc: q.descLastName
         }
       ];
-      return fields;
+      
     }
   },
   mounted() {
@@ -78,5 +81,5 @@ export default {
       this.value = q.value;
     };
   }
-};
+}
 </script>

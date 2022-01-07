@@ -1,20 +1,27 @@
 import hashlib
 import logging
+from PyPDF2 import PdfFileReader, PdfFileWriter
+from io import BytesIO
 import json
 import uuid
-from django.utils import timezone
+from collections import Counter
+from django.conf import settings
 from django.http import JsonResponse, HttpResponse
+from django.utils import timezone
+from numpy import unique
+from api.models import PreparedPdf
 from rest_framework import permissions, generics
 from api.efiling import EFilingPackaging, EFilingParsing, EFilingSubmission
 from api.models import EFilingSubmission as EFilingSubmissionModel
 from api.utils import (
     convert_document_to_multi_part,
     get_application_for_user,
-    get_protection_order_content,
     is_valid_json,
 )
 from core.pdf import rotate_images_and_convert_pdf
 from core.utils.json_message_response import JsonMessageResponse
+from django.http.response import Http404
+from rest_framework.exceptions import NotFound
 
 logger = logging.getLogger(__name__)
 
@@ -52,39 +59,134 @@ class EFilingSubmitView(generics.GenericAPIView):
                 return JsonMessageResponse("Wrong file format.", status=400)
         return None
 
+    def _unique_file_names(self, request_files):
+        file_names =  [file.name.split('.')[0] for file in request_files]
+        dup = dict(Counter(file_names))
+        l_uniq = unique(file_names)
+        unique_names = [key if i == 0 else key + str(i+1) for key in l_uniq for i in range(dup[key])]
+        for i, unique_name in enumerate(unique_names):
+            request_files[i].name = f"{unique_name}.{request_files[i].name.split('.')[1]}"
+        return request_files
+
     """ This inserts our generated file, iterates over files and converts to PDF if necessary. """
 
-    def _process_incoming_files_and_documents(
-        self, po_pdf_content, po_json, incoming_documents, incoming_files
-    ):
-        outgoing_documents = [
-            {
-                "type": "POR",
-                "name": "fpo_generated.pdf",
-                "file_data": po_pdf_content,
-                "data": po_json,
-                "md5": hashlib.md5(po_pdf_content).hexdigest(),
-            }
-        ]
-        for incoming_document in incoming_documents:
-            file_indexes = incoming_document["files"]
-            files = [incoming_files[index] for index in file_indexes]
-            if files[0].name.endswith(".pdf"):
-                data = files[0].read()
-                file_name = files[0].name
-            else:
-                rotations = incoming_document["rotations"]
-                data = rotate_images_and_convert_pdf(files, rotations)
-                file_name = f"{files[0].name.split('.')[0]}.pdf"
+    def _get_pdf_content(self, application, application_steps):
+        outgoing_documents = []
+        for existing_orders in application_steps[0]["result"]["existingOrders"]:
+            document_type = existing_orders["type"]
+            try:
+                prepared_pdf = PreparedPdf.objects.get(
+                    application_id=application.id, pdf_type=f"{document_type}"
+                )
+            except PreparedPdf.DoesNotExist:
+                raise NotFound(
+                    detail=f"Missing document type {document_type} from database."
+                )
+            pdf_content = settings.ENCRYPTOR.decrypt(
+                prepared_pdf.key_id, prepared_pdf.data
+            )
+            document_json = json.loads(
+                settings.ENCRYPTOR.decrypt(
+                    prepared_pdf.key_id, prepared_pdf.json_data
+                ).decode("utf-8")
+            )
+            document_json.update({"applicationId": application.id})
             outgoing_documents.append(
                 {
-                    "type": incoming_document["type"],
-                    "name": file_name,
-                    "file_data": data,
-                    "data": "",
-                    "md5": hashlib.md5(data).hexdigest(),
+                    "type": f"{document_type}",
+                    "name": f"{document_type}_generated.pdf",
+                    "file_data": pdf_content,
+                    "data": document_json,
+                    "md5": hashlib.md5(pdf_content).hexdigest(),
                 }
             )
+        return outgoing_documents
+
+    def _merge_sch1_with_form15(self, outgoing_documents, pdf_files, image_files, rotations):
+        output = PdfFileWriter()
+        non_AXP_doc =  [x for x in outgoing_documents if x["type"]!="AXP"]
+        AXP_doc = next(x for x in outgoing_documents if x["type"]=="AXP")
+        
+        output = self._add_pdf_to_output(output, AXP_doc["file_data"])
+
+        if len(image_files) > 0:
+            rotations = rotations
+            imagedata = rotate_images_and_convert_pdf(image_files, rotations)
+            output = self._add_pdf_to_output(output, imagedata)
+
+        for file in pdf_files:
+            data = file.read()
+            output = self._add_pdf_to_output(output, data)       
+        
+        in_memory = BytesIO()
+        output.write(in_memory)
+        in_memory.seek(0)
+        pdf_content = in_memory.read()
+
+        non_AXP_doc.append(
+            {
+                "type": AXP_doc["type"],
+                "name": AXP_doc["name"],
+                "file_data": pdf_content,
+                "data": AXP_doc["data"],
+                "md5": hashlib.md5( pdf_content).hexdigest(),
+            }
+        )
+
+        return non_AXP_doc
+       
+    def _add_pdf_to_output(self, output, data_bytes):
+        pdf_bytes = BytesIO(data_bytes)
+        read_pdf = PdfFileReader(pdf_bytes)
+        for pgno in range(0, read_pdf.getNumPages()):            
+            output.addPage(read_pdf.getPage(pgno))
+        return output
+
+    def _process_incoming_files_and_documents(
+        self, application, application_steps, incoming_documents, incoming_files
+    ):
+        outgoing_documents = self._get_pdf_content(application, application_steps)
+        for incoming_document in incoming_documents:
+            if "files" not in incoming_document:
+                continue
+            
+            file_indexes = incoming_document["files"]
+            files = [incoming_files[index] for index in file_indexes]
+
+            # 1 PDF and 2 JPG for example, we need to split into 2 PDFs.
+            pdf_files = [x for x in files if x.name.endswith(".pdf")]
+            image_files = [x for x in files if not x.name.endswith(".pdf")]
+
+            if ("type" in incoming_document and incoming_document["type"] == "Merge With Form15"):                
+                outgoing_documents = self._merge_sch1_with_form15( outgoing_documents, pdf_files, image_files, incoming_document["rotations"] )
+                continue
+
+            
+            for file in pdf_files:
+                data = file.read()
+                file_name = file.name
+                outgoing_documents.append(
+                    {
+                        "type": incoming_document["type"],
+                        "name": file_name,
+                        "file_data": data,
+                        "data": "",
+                        "md5": hashlib.md5(data).hexdigest(),
+                    }
+                )
+            if len(image_files) > 0:
+                rotations = incoming_document["rotations"]
+                data = rotate_images_and_convert_pdf(image_files, rotations)
+                file_name = f"{image_files[0].name.split('.')[0]}.pdf"
+                outgoing_documents.append(
+                    {
+                        "type": incoming_document["type"],
+                        "name": file_name,
+                        "file_data": data,
+                        "data": "",
+                        "md5": hashlib.md5(data).hexdigest(),
+                    }
+                )
         return outgoing_documents
 
     def put(self, request, application_id):
@@ -114,20 +216,26 @@ class EFilingSubmitView(generics.GenericAPIView):
         if validations_errors:
             return validations_errors
 
+        # Unique names.
+        request_files = self._unique_file_names(request_files)
+
         application = get_application_for_user(application_id, request.user.id)
-        if application.prepared_pdf_id is None:
-            return JsonMessageResponse("PO PDF is not generated.", status=400)
+        application_steps = json.loads(
+            settings.ENCRYPTOR.decrypt(application.key_id, application.steps).decode(
+                "utf-8"
+            )
+        )
 
         # Data conversion.
         incoming_documents = json.loads(documents_string)
-        po_pdf_content, po_json = get_protection_order_content(application)
+
         outgoing_documents = self._process_incoming_files_and_documents(
-            po_pdf_content, po_json, incoming_documents, request_files
+            application, application_steps, incoming_documents, request_files
         )
         del request_files
 
         data = self.efiling_parsing.convert_data_for_efiling(
-            request, application, outgoing_documents
+            request, application, application_steps, outgoing_documents
         )
 
         # EFiling upload document.

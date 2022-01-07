@@ -25,6 +25,11 @@ docker exec -it fla_api_1 /bin/bash
 python3 manage.py runserver 0.0.0.0:8000
 ```
 
+The database is bare after docker build. Run the following script within the container to add data.
+```bash
+./loadFixtures
+```
+
 Make sure the port is open within the _docker-compose.yml_ file.
 
 ## Development Deployment Environment

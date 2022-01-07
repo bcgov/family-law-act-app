@@ -1,0 +1,71 @@
+{
+  "title": "Undue hardship",
+  "pages": [
+    {
+      "name": "Undue hardship",
+      "description":"Sometimes the amount of child support determined under the <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/2017/look-rech.aspx' target='_blank'>Federal Child Support Guidelines</a>, when combined with other circumstances, may create undue hardship for a person or their child. Either parent can claim undue hardship.<br><br>The court can make a child support order for an amount different from the <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/2017/look-rech.aspx' target='_blank'>Federal Child Support Guidelines</a>. A party can ask if they believe paying or receiving the guideline table amount would make them suffer financially to an excessive amount because of specific circumstances, including if:<ul><li>You have an unusual or excessive amount of debt you incurred to support the family prior to separation or to earn a living</li><li>You have unusually high expenses to exercise parenting time or contact with a child, for example travel costs</li><li>You have a legal duty to support another person, such as an ill or disabled person or a former spouse</li><li>You have a legal duty to support a dependent child from another relationship</li></ul>If you claim undue hardship, you must show the court that paying or receiving the guideline table amount would cause undue hardship for you or the child and that your household standard of living is lower than that of the other parent.",         
+      "elements": [
+        {
+          "type": "panel",
+          "name": "incomePanel",             
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "changeAmount",
+              "title":"Are you applying for an order to change the guideline amount payable because it would cause you undue hardship?",
+              "isRequired": true              
+            },
+            {
+              "type": "helptext",
+              "name": "FAQamountdifference",
+              "title": "The other party would be paying me child support, can I apply for undue hardship?",
+              "body": "Yes, if you believe receiving the guideline table amount would make you or the child suffer financially to an excessive amount, you can claim undue hardship and apply for a different amount to be payable. You will be required to prove undue hardship and that your household standard of living is lower than that of the other parent.",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "checkbox",
+              "name": "hardshipReasons",
+              "visible":"false",
+              "visibleIf":"{changeAmount} == 'y'",
+              "title":"Please select the reason why you are claiming undue hardship.",
+              "description": "You can select more than one option if applicable.",
+              "isRequired": true,
+              "hasOther":true,
+              "otherText":"I have other undue hardship circumstances: Please specify",              
+              "choices": [ 
+                {
+                  "value": "excessive amount of debt",
+                  "text": "I have an unusual or excessive amount of debt you incurred to support the family prior to separation or to earn a living"
+                },
+                {
+                  "value": "high expenses",
+                  "text": "I have unusually high expenses to exercise parenting time or contact with a child, for example travel costs"
+                }, 
+                {
+                  "value": "support another person",
+                  "text": "I have a legal duty to support another person, such as an ill or disabled person or a former spouse"
+                },
+                {
+                  "value": "support a dependent child",
+                  "text": "I have a legal duty to support a dependent child from another relationship"
+                }           
+              ]             
+            },
+            {
+              "type": "infotext",
+              "name": "parentFileForm4Info2",
+              "visible":false,
+              "visibleIf":"{changeAmount} == 'y'",
+              "title": "You are required to file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
+              "titleLocation":"hidden",
+              "messageStyle": "info"
+            }              
+          ]
+        }
+      ],
+      "title": "Undue Hardship"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

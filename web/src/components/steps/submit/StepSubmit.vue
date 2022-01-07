@@ -1,11 +1,10 @@
 <template>
-    <step-base v-bind:step="step">
-        <review-your-answers v-bind:step="step" v-if="step.currentPage == 0"/>
-        <filing-options v-bind:step="step" v-if="step.currentPage == 1"/>
-        <review-and-print v-bind:step="step" v-if="step.currentPage == 2"/>
-        <review-and-save v-bind:step="step" v-if="step.currentPage == 3"/>
-        <review-and-submit v-bind:step="step" v-if="step.currentPage == 4"/>
-        <next-steps v-bind:step="step" v-if="step.currentPage == 5"/>
+    <step-base v-bind:step="step">        
+        <filing-options    v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.FilingOptions"/>
+        <review-and-print  v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndPrint"/>
+        <review-and-save   v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndSave"/>
+        <review-and-submit v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndSubmit"/>
+        <next-steps        v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.NextSteps"/>
     </step-base>
 </template>
 
@@ -13,19 +12,23 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     
     import { stepInfoType } from "@/types/Application";
-    import StepBase from "../StepBase.vue";
-    import NextSteps from "./NextSteps.vue";
+    import StepBase from "@/components/steps/StepBase.vue";
+    
     import FilingOptions from "./FilingOptions.vue"
-
     import ReviewAndPrint from "./ReviewAndPrint.vue"
     import ReviewAndSave from "./ReviewAndSave.vue"
     import ReviewAndSubmit from "./ReviewAndSubmit.vue"
-    import ReviewYourAnswers from "./ReviewYourAnswers.vue"
+    import NextSteps from "./NextSteps.vue";
+
+    import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
+    import { namespace } from "vuex-class";   
+    import "@/store/modules/application";
+    const applicationState = namespace("Application");
 
     @Component({
         components:{
             StepBase,
-            ReviewYourAnswers,
             FilingOptions,
             ReviewAndPrint,
             ReviewAndSave,
@@ -34,15 +37,19 @@
         }
     })
 
-    export default class submit extends Vue {
+    export default class StepSubmit extends Vue {
         
         @Prop({required: true})
         step!: stepInfoType;
+
+        @applicationState.State
+        public stPgNo!: stepsAndPagesNumberInfoType;
+
         
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "src/styles/survey";
 </style>

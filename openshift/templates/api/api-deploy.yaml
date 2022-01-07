@@ -183,6 +183,12 @@ objects:
                 httpGet:
                   path: /health/
                   port: 8080
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                      - /bin/sleep
+                      - '20'
               env:
                 - name: DATABASE_SERVICE_NAME
                   value: ${DATABASE_SERVICE_NAME}
@@ -211,6 +217,8 @@ objects:
                   value: ${DJANGO_DEBUG}
                 - name: PDF_SERVICE_URL
                   value: ${PDF_SERVICE_URL}
+                - name: EFILING_ENABLED
+                  value: ${EFILING_ENABLED}
                 - name: OIDC_RP_PROVIDER_ENDPOINT
                   valueFrom:
                     secretKeyRef:
@@ -380,6 +388,11 @@ parameters:
     generate: expression
     from: "[a-zA-Z0-9]{32}"
 
+  - name: EFILING_ENABLED
+    displayName: EFILING Enable
+    description: EFILING Enable
+    required: false
+    value: "false"
   - name: EFILING_HUB_KEYCLOAK_BASE_URL
     displayName: EFILING authentication url
     description: EFILING authentication url

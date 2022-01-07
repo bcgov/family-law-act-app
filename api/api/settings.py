@@ -13,7 +13,6 @@ from corsheaders.defaults import default_headers
 
 from core import database
 from core.encryption import Encryptor
-from core.utils.filter_logging_requests import filter_logging_requests
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -71,7 +70,6 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 ROOT_URLCONF = "core.urls"
 
-# CORS_URLS_REGEX = r"^/api/v1/.*$"
 CORS_URLS_REGEX = r"^.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -139,11 +137,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = os.getenv("WEB_BASE_HREF", "/apply-for-family-order/")  + "/api/static/"
+DEFAULT_BASE_URL = "/apply-for-family-order/"
+
+STATIC_URL = os.getenv("WEB_BASE_HREF", DEFAULT_BASE_URL)  + "/api/static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
@@ -159,11 +160,6 @@ LOGGING = {
         "require_debug_false":
         {
             "()": "django.utils.log.RequireDebugFalse"
-        },
-        "filter_logging_requests":
-        {
-            "()": "django.utils.log.CallbackFilter",
-            "callback": filter_logging_requests
         }
     },
     "formatters": {
@@ -179,7 +175,6 @@ LOGGING = {
         "console_handler": {
             "class": "logging.StreamHandler",
             "level": "DEBUG",
-            "filters": ["filter_logging_requests"],
             "formatter": "verbose",
         }
     },
@@ -207,7 +202,6 @@ OIDC_ENABLED = False
 # Settings for django-oidc-rp
 OIDC_RP_PROVIDER_ENDPOINT = os.getenv(
     "OIDC_RP_PROVIDER_ENDPOINT",
-    # FIXME no default here
     "https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w",
 )
 
@@ -232,10 +226,10 @@ if OIDC_RP_PROVIDER_ENDPOINT:
     OIDC_RP_PROVIDER_SIGNATURE_ALG = "RS256"
     OIDC_RP_SCOPES = "openid profile email"  # address phone
     OIDC_RP_ID_TOKEN_INCLUDE_USERINFO = True
-    OIDC_RP_AUTHENTICATION_FAILURE_REDIRECT_URI = os.getenv("OIDC_RP_FAILURE_URI", "/apply-for-family-order/")
+    OIDC_RP_AUTHENTICATION_FAILURE_REDIRECT_URI = os.getenv("OIDC_RP_FAILURE_URI", DEFAULT_BASE_URL)
     OIDC_RP_USER_DETAILS_HANDLER = "core.auth.sync_keycloak_user"
     OIDC_RP_AUTHENTICATION_REDIRECT_URI = (
-        os.getenv("OIDC_RP_AUTHENTICATION_REDIRECT_URI", "/apply-for-family-order/")
+        os.getenv("OIDC_RP_AUTHENTICATION_REDIRECT_URI", DEFAULT_BASE_URL)
     )
     OIDC_RP_KC_IDP_HINT = os.getenv("OIDC_RP_KC_IDP_HINT")
 
@@ -257,6 +251,9 @@ REST_FRAMEWORK = {
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Efiling
+EFILING_ENABLED = os.environ.get("EFILING_ENABLED", "false").lower() == "true"
+EFILING_STREAMS = os.environ.get("EFILING_STREAMS", "")
+EFILING_EARLY_ADOPTER_STREAMS = os.environ.get("EFILING_EARLY_ADOPTER_STREAMS", "")
 EFILING_APP_NAME = os.environ.get("EFILING_APP_NAME", "Family Law Act App")
 EFILING_COURT_LEVEL = os.environ.get("EFILING_COURT_LEVEL", "P")
 EFILING_COURT_CLASS = os.environ.get("EFILING_COURT_CLASS", "F")  # https://bcgov.github.io/jag-file-submission/#/data?id=court-classification
@@ -268,6 +265,6 @@ EFILING_HUB_KEYCLOAK_REALM = os.environ.get("EFILING_HUB_KEYCLOAK_REALM", "")
 EFILING_HUB_KEYCLOAK_SECRET = os.environ.get("EFILING_HUB_KEYCLOAK_SECRET", "")
 
 ENCRYPTOR = Encryptor("DATA_SECURITY_KEY")
-FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/apply-for-family-order/")
-LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/apply-for-family-order/")
+FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", DEFAULT_BASE_URL)
+LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", DEFAULT_BASE_URL)
 SITEMINDER_LOGOFF_URL = os.getenv("SITEMINDER_LOGOFF_URL", "https://logontest.gov.bc.ca/clp-cgi/logoff.cgi")

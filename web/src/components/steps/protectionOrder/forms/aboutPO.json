@@ -1,116 +1,144 @@
 {
     "title": "Provincial Court Family Law Act Protection Order",
     "pages": [
-     {
-      "name": "About Protection Order",
-      "elements": [
-       {
-        "type": "panel",
-        "name": "aboutPOPanel",
-        "elements": [
-         {
-          "type": "text",
-          "name": "dateOfPO",
-          "visibleIf": "{userPreferredService} = 'changePO'",
-          "title": "On what date was the Protection Order you want changed made?",
-          "isRequired": true,
-          "inputType": "date"
-         },
-         {
-          "type": "text",
-          "name": "terminateDateOfPO",
-          "visibleIf": "{userPreferredService} = 'terminatePO'",
-          "title": "On what date was the Protection Order you want terminated made?",
-          "isRequired": true,
-          "inputType": "date"
-         },
-         {
-          "type": "yesno",
-          "name": "inCourtForPO",
-          "title": "Were you in court when the Protection Order was made?",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "whyNotInCourt",
-          "isRequired": true,
-          "visibleIf": "{inCourtForPO} = \"n\"",
-          "title": "Please explain why you were not in Court"
-         },
-         {
-          "type": "checkbox",
-          "name": "kindofPartyIbPO",
-          "title": "In the Protection Order I am:",
-          "description": "*Select all options that apply:",
-          "isRequired": true,
-          "choices": [
-           {
-            "value": "protectedParty",
-            "text": "Protected Party"
-           },
-           {
-            "value": "restrainedParty",
-            "text": "Restrained Party"
-           },
-           {
-            "value": "parentGuardian",
-            "text": "Parent/Guardian of protected party"
-           }
-          ]
-         },
-         {
-          "type": "comment",
-          "name": "whatChangesNeeded",
-          "visibleIf": "{userPreferredService} = 'changePO'",
-          "title": "What changes are you asking for?",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "whyChangesNeeded",
-          "visibleIf": "{userPreferredService} = 'changePO'",
-          "title": "Why do you want these changes?",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "whyTerminatePO",
-          "visibleIf": "{userPreferredService} = 'terminatePO'",
-          "title": "Why do you want the order terminated?",
-          "isRequired": true
-         },
-         {
-          "type": "checkbox",
-          "name": "changePOattachment",
-          "visibleIf": "{userPreferredService} = 'changePO'",
-          "title": "You need to attach a copy of the existing protection order when submitting this form.",
-          "isRequired": true,
-          "choices": [
-           {
-            "value": "confirmed",
-            "text": "I will attach a copy of the existing protection order made on {dateOfPO}."
-           }
-          ]
-         },
-         {
-          "type": "checkbox",
-          "name": "terminatePOattachment",
-          "visibleIf": "{userPreferredService} = 'terminatePO'",
-          "title": "You need to attach a copy of the existing protection order when submitting this form.",
-          "isRequired": true,
-          "choices": [
-           {
-            "value": "confirmed",
-            "text": "I will attach a copy of the existing protection order made on {terminateDateOfPO} that I am asking to have terminated."
-           }
-          ]
-         }
-        ]
-       }
-      ],
-      "title": "About Protection Order"
-     }
+        {
+            "name": "About Protection Order",
+            "elements": [
+                {
+                    "type": "panel",
+                    "name": "aboutPOPanel",
+                    "elements": [
+                        {
+                            "type": "text",
+                            "name": "dateOfPO",
+                            "visibleIf": "{userPreferredService} = 'changePO'",
+                            "title": "On what date was the Protection Order you want changed made?",
+                            "isRequired": true,
+                            "inputType": "date"
+                        },
+                        {
+                            "type": "text",
+                            "name": "terminateDateOfPO",
+                            "visibleIf": "{userPreferredService} = 'terminatePO'",
+                            "title": "On what date was the Protection Order you want terminated made?",
+                            "isRequired": true,
+                            "inputType": "date"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "existingCaseInfo",
+                            "title": "Please provide the following information about your family law case:",
+                            "messageStyle": "inline",
+                            "titleLocation": "hidden"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "existingCaseHelp",
+                            "title": "Your court location and file number can be found on the top right corner of the Protection Order.",
+                            "titleLocation": "hidden"
+                        },
+                        {
+                            "type": "dropdown",
+                            "name": "ExistingCourt",
+                            "isRequired": true,
+                            "title": "Court Location",
+                            "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
+                            "choices": []
+                        },
+                        {
+                            "type": "text",
+                            "name": "ExistingFileNumber",
+                            "startWithNewLine": false,
+                            "title": "File Number",
+                            "isRequired": true
+                        },
+                        {
+                            "type": "yesno",
+                            "name": "inCourtForPO",
+                            "title": "Were you in court when the Protection Order was made?",
+                            "isRequired": true
+                        },
+                        {
+                            "type": "comment",
+                            "name": "whyNotInCourt",
+                            "isRequired": true,
+                            "visibleIf": "{inCourtForPO} = \"n\"",
+                            "title": "Please explain why you were not in Court"
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "kindofPartyIbPO",
+                            "title": "In the Protection Order I am:",
+                            "description": "*Select all options that apply:",
+                            "isRequired": true,
+                            "choices": [
+                                {
+                                    "value": "protectedParty",
+                                    "text": "Protected Party"
+                                },
+                                {
+                                    "value": "restrainedParty",
+                                    "text": "Restrained Party"
+                                },
+                                {
+                                    "value": "parentGuardian",
+                                    "text": "Parent/Guardian of protected party"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "comment",
+                            "name": "whatChangesNeeded",
+                            "visibleIf": "{userPreferredService} = 'changePO'",
+                            "title": "What changes are you asking for?",
+                            "isRequired": true
+                        },
+                        {
+                            "type": "comment",
+                            "name": "whyChangesNeeded",
+                            "visibleIf": "{userPreferredService} = 'changePO'",
+                            "title": "Why do you want these changes?",
+                            "isRequired": true
+                        },
+                        {
+                            "type": "comment",
+                            "name": "whyTerminatePO",
+                            "visibleIf": "{userPreferredService} = 'terminatePO'",
+                            "title": "Why do you want the order terminated?",
+                            "isRequired": true
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "changePOattachment",
+                            "visibleIf": "{userPreferredService} = 'changePO'",
+                            "title": "You need to attach a copy of the existing protection order when submitting this form.",
+                            "isRequired": true,
+                            "choices": [
+                                {
+                                    "value": "confirmed",
+                                    "text": "I will attach a copy of the existing protection order made on {dateOfPO}."
+                                }
+                            ]
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "terminatePOattachment",
+                            "visibleIf": "{userPreferredService} = 'terminatePO'",
+                            "title": "You need to attach a copy of the existing protection order when submitting this form.",
+                            "isRequired": true,
+                            "choices": [
+                                {
+                                    "value": "confirmed",
+                                    "text": "I will attach a copy of the existing protection order made on {terminateDateOfPO} that I am asking to have terminated."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "title": "About Protection Order"
+        }
     ],
     "showQuestionNumbers": "off",
     "requiredText": ""
-   }
+}

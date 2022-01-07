@@ -1,7 +1,8 @@
 <template>
     <step-base v-bind:step="step">
-        <getting-started v-bind:step="step" v-if="step.currentPage == 0"></getting-started>
-        <po-questionnaire v-bind:step="step" v-if="step.currentPage == 1"></po-questionnaire>
+        <select-activity v-bind:step="step" v-if="step.currentPage == stPgNo.GETSTART.SelectActivity" />
+        <reply-to-application v-bind:step="step" v-if="step.currentPage == stPgNo.GETSTART.ReplyToApplication" />
+        <getting-started v-bind:step="step" v-if="step.currentPage == stPgNo.GETSTART.GettingStarted" />        
     </step-base>
 </template>
 
@@ -10,29 +11,32 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
   
 import StepBase from "../StepBase.vue";
 import GettingStarted from "./GettingStarted.vue";
+import SelectActivity from "./SelectActivity.vue";
+import ReplyToApplication from "./ReplyToApplication.vue";
 import { stepInfoType } from "@/types/Application";
-import PoQuestionnaire from "./Questionnaire.vue";
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
 @Component({
     components:{
         StepBase,
-        GettingStarted,
-        PoQuestionnaire
+        SelectActivity,
+        ReplyToApplication,
+        GettingStarted
     }
 })
 
-export default class GetStarted extends Vue {
+export default class GetStartedStep extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
 
-    forms = []
-    selectedForms = []
-};
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;   
+   
+}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>
