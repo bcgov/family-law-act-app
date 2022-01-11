@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.4.3";
+    const CURRENT_VERSION: string = "1.2.4.5";
     //__________________________
     //___________________________
     //___________________________
@@ -584,6 +584,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	function getStepDetails(typeName){	
 		
 		const stepPO = store.state.Application.stPgNo.PO;
+		const stepWR = store.state.Application.stPgNo.WR;
 		const stepFLM = store.state.Application.stPgNo.FLM;
 		const stepPPM = store.state.Application.stPgNo.PPM;
 		const stepRELOC = store.state.Application.stPgNo.RELOC;
@@ -598,8 +599,11 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepPO._StepNo; 
 			reviewPage = stepPO.ReviewYourAnswers; 
 			previewPages = [stepPO.PreviewForms];
-		}
-		else if(typeName == 'familyLawMatter'){
+		} else if(typeName == 'writtenResponse'){
+			step = stepWR._StepNo; 
+			reviewPage = stepWR.ReviewYourAnswersWR; 
+			previewPages = [stepWR.PreviewFormsWR];	
+		} else if(typeName == 'familyLawMatter'){
 			step = stepFLM._StepNo; 
 			reviewPage = stepFLM.ReviewYourAnswersFLM; 
 			previewPages = [stepFLM.PreviewFormsFLM];	
@@ -645,12 +649,13 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
+	const noPOstepsTypes = ['writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
 	
 	if(type == 'allExPO'){
         
 		let pathwayCompleted = {} as pathwayCompletedInfoType;
 		pathwayCompleted = store.state.Application.pathwayCompleted			        
+		pathwayCompleted.writtenResponse = false;
 		pathwayCompleted.familyLawMatter = false;        
 		pathwayCompleted.caseMgmt = false;       
 		pathwayCompleted.priorityParenting = false;       

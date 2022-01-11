@@ -337,9 +337,41 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "WrittenResponseApplication";
-        p.label = "Written Response to Application";
+        p.name = "WrReplyingToApplication";
+        p.label = "Replying to Application";
         p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AgreeDisagree";
+        p.label = "Agree or Disagree";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "AboutWrittenResponseOrder";
+        p.label = "About the order";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersWR";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsWR";
+        p.label = "Preview Forms";
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
  

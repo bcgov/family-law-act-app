@@ -9,15 +9,7 @@
                         a reply to. You can find the name of the form and form number on the top 
                         left corner of the first page.
                     </p>
-                </div>
-                <!-- <div>
-                    <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
-                        <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Where can I get legal assistance? 
-                        <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
-                        <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
-                    </div>
-                    <legal-assistance-faq v-if="showLegalAssistance"/>
-                </div> -->
+                </div>                
                 <div>
                     <b-form-group>
                         <b-form-checkbox-group
@@ -131,10 +123,10 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
 import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
-import { pathwayCompletedInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import {resetProgressOfAllPages} from '@/components/utils/StepsAndPages/StepAndPageFunctions'
-import { toggleStep} from '@/components/utils/TogglePages';
+import { togglePages, toggleStep, toggleSteps} from '@/components/utils/TogglePages';
 import {resetAllPathwaysCompeleted} from '@/components/utils/Pathways/PathwayFunctions'
 
 import { namespace } from "vuex-class";   
@@ -219,7 +211,7 @@ export default class ReplyToApplication extends Vue {
         }
       
         this.UpdateApplicationType(Array.from(new Set(applicationTypes)));        
-        this.setSteps(selectedReplyApplications);
+        this.setSteps(selectedReplyApplications);        
 
         resetAllPathwaysCompeleted();
         resetProgressOfAllPages([], [this.stPgNo.GETSTART._StepNo]);
@@ -250,8 +242,10 @@ export default class ReplyToApplication extends Vue {
             const replyCounterApplication = selectedReplyApplications.includes("replyCounterApplication");
                        
             toggleStep(this.stPgNo.RFLM._StepNo, replyFlm);
-            toggleStep(this.stPgNo.WR._StepNo, writtenResponse);
+            toggleSteps([this.stPgNo.COMMON._StepNo, this.stPgNo.WR._StepNo, this.stPgNo.SUBMIT._StepNo], writtenResponse);
             toggleStep(this.stPgNo.CA._StepNo, replyCounterApplication);
+
+            togglePages([this.stPgNo.COMMON.SafetyCheck, this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], writtenResponse, this.stPgNo.COMMON._StepNo)
 
             this.selectedReplyForms =[];
             if(replyFlm) this.selectedReplyForms.push("replyFlm")

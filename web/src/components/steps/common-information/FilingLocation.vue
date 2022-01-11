@@ -218,6 +218,13 @@ export default class FilingLocation extends Vue {
             this.surveyJsonCopy.pages[0].elements[0].elements[8].readOnly = true;
             this.editButton = true
         }
+
+        if(this.steps[0].result?.selectedReplyForms?.includes("writtenResponse")){
+            this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
+           
+        }
+
+
     }
 
     public reloadPageInformation() {
@@ -260,6 +267,10 @@ export default class FilingLocation extends Vue {
 
             
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
+        }
+
+        if(this.steps[0].result?.selectedReplyForms?.includes("writtenResponse")){
+            this.survey.setValue('ExistingFamilyCase','y');
         }
 
         if(this.steps[0].result?.selectedForms?.includes("familyLawMatter")

@@ -1,6 +1,11 @@
 <template>
     <step-base v-bind:step="step">
-        <written-response-application v-bind:step="step" v-if="step.currentPage == stPgNo.WR.WrittenResponseApplication"/> 
+        <wr-replying-to-application   v-bind:step="step" v-if="step.currentPage == stPgNo.WR.WrReplyingToApplication"/> 
+        <agree-disagree               v-bind:step="step" v-if="step.currentPage == stPgNo.WR.AgreeDisagree"/>
+        <about-written-response-order v-bind:step="step" v-if="step.currentPage == stPgNo.WR.AboutWrittenResponseOrder"/>
+    
+        <review-your-answers-wr       v-bind:step="step" v-if="step.currentPage == stPgNo.WR.ReviewYourAnswersWR"/>
+        <preview-forms-wr             v-bind:step="step" v-if="step.currentPage == stPgNo.WR.PreviewFormsWR"/>
     </step-base>
 </template>
 
@@ -12,7 +17,12 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import StepBase from "../StepBase.vue";
-import WrittenResponseApplication from "./WrittenResponseApplication.vue";
+import WrReplyingToApplication from "./WrReplyingToApplication.vue";
+import AgreeDisagree from "./AgreeDisagree.vue";
+import AboutWrittenResponseOrder from "./AboutWrittenResponseOrder.vue";
+
+import ReviewYourAnswersWR from "./reviewWR/ReviewYourAnswersWR.vue"
+import PreviewFormsWR from "./reviewWR/PreviewFormsWR.vue"
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import { stepInfoType } from "@/types/Application";
@@ -20,7 +30,11 @@ import { stepInfoType } from "@/types/Application";
 @Component({
     components:{
         StepBase,  
-        WrittenResponseApplication      
+        WrReplyingToApplication,
+        AgreeDisagree,
+        AboutWrittenResponseOrder,
+        ReviewYourAnswersWR,
+        PreviewFormsWR      
     }
 })
 export default class WrittenResponseStep extends Vue {

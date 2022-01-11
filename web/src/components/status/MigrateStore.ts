@@ -106,12 +106,27 @@ export class MigrateStore{
             result.selectedForms = [];
             const pathwayCompleted = this.resetPathwayCompleted();
             result.pathwayCompleted = pathwayCompleted;
+            
+            if (correspondingStep?.result?.selectedForms){
 
-            for(const selectedform of correspondingStep.result.selectedForms){                
-                if(pathwayCompleted[selectedform] == false){   // push only of pathway still exist in the new version                 
-                    result.selectedForms.push(selectedform)
+                for(const selectedform of correspondingStep.result.selectedForms){                
+                    if(pathwayCompleted[selectedform] == false){   // push only if pathway still exist in the new version                 
+                        result.selectedForms.push(selectedform)
+                    }
                 }
+
             }
+
+            if (correspondingStep?.result?.selectedReplyForms){
+
+                for(const selectedReplyform of correspondingStep.result.selectedReplyForms){                
+                    if(pathwayCompleted[selectedReplyform] == false){   // push only if pathway still exist in the new version                 
+                        result.selectedReplyForms.push(selectedReplyform)
+                    }
+                }
+
+            }
+            
 
             // migrate selected Activity
             result.selectedActivity = []

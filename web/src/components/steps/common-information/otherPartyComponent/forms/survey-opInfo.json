@@ -15,7 +15,7 @@
                     "type": "yesno",
                     "name": "doYouKnowDOB",
                     "visible": false,
-                    "visibleIf": "!({csOnly})",
+                    "visibleIf": "!({onlyFullNameRequired})",
                     "title": "Do you know {OtherPartyName}'s exact date of birth?",
                     "isRequired": true
                 },
@@ -23,7 +23,7 @@
                     "type": "text",
                     "name": "otherPartyDOB",
                     "visible": false,
-                    "visibleIf": "({doYouKnowDOB} = \"y\") and !({csOnly})",
+                    "visibleIf": "({doYouKnowDOB} = \"y\") and !({onlyFullNameRequired})",
                     "title": "Date of Birth",
                     "inputType": "date",
                     "isRequired": true
@@ -38,27 +38,27 @@
                             "title": "When did you and {OtherPartyName} begin to live together in a marriage-like relationship?",
                             "isRequired": true,
                             "inputType": "date",
-                            "visibleIf":"!({csOnly})"
+                            "visibleIf":"!({onlyFullNameRequired})"
                         },
                         {
                             "type": "helptext",
                             "name": "marriageStartDateFAQ",
                             "title": "How do I determine the start date?",
-                            "visibleIf":"!({csOnly})",
+                            "visibleIf":"!({onlyFullNameRequired})",
                             "titleLocation": "hidden",
                             "body": "Under the law, the start date of a spousal relationship is the day two individuals begin living together in a marriage-like relationship, or the day they were married, whichever is first. The start date of a spousal relationship determines when rights or responsibilities start under the Family Law Act, particularly respecting property division.\n<br>\n<br>\nWhat do I do if I can't remember the exact date? \nIf you cannot remember the exact date then enter:\n<ul>\n<li>the last day of that month in which you decided to live in a marriage like relationship, and;</li>\n<li>year</li>\n</ul>"
                         },
                         {
                             "type": "yesno",
                             "name": "isLegallyMarried",
-                            "visibleIf":"!({csOnly})",
+                            "visibleIf":"!({onlyFullNameRequired})",
                             "title": "Are you (or were you) legally married to {OtherPartyName}?",
                             "isRequired": true
                         },
                         {
                             "type": "text",
                             "name": "dateOfMarriage",
-                            "visibleIf": "!({csOnly}) and ({isLegallyMarried} = 'y')",
+                            "visibleIf": "!({onlyFullNameRequired}) and ({isLegallyMarried} = 'y')",
                             "title": "When were you married?",
                             "isRequired": true,
                             "inputType": "date"
@@ -66,7 +66,7 @@
                         {
                             "type": "yesno",
                             "name": "isSeperatedOtherParty",
-                            "visibleIf": "!({csOnly})",
+                            "visibleIf": "!({onlyFullNameRequired})",
                             "title": "Are you and {OtherPartyName} now separated?",
                             "description": "Under section 3(4) of the Family Law Act, you may be separated despite continuing to live in the same residence.",
                             "isRequired": true
@@ -74,7 +74,7 @@
                         {
                             "type": "text",
                             "name": "dateOfSeparation",
-                            "visibleIf": "!({csOnly}) and {isSeperatedOtherParty} = \"y\"",
+                            "visibleIf": "!({onlyFullNameRequired}) and {isSeperatedOtherParty} = \"y\"",
                             "title": "When did you separate?",
                             "isRequired": true,
                             "inputType": "date"
@@ -88,21 +88,21 @@
                     "name": "otherPartyLawyer",
                     "title": "<div style = 'font-size: 1.0em; font-weight: bold; margin: 2rem 0 -1rem 0'> Lawyer (if applicable):</b>",                
                     "visible": false,
-                    "visibleIf": "!({csOnly})",
+                    "visibleIf": "!({onlyFullNameRequired})",
                     "rows": 1
                 },
                 {
                     "type": "address",
                     "name": "otherPartyAddress",
                     "visible": false,
-                    "visibleIf": "!({csOnly})",
+                    "visibleIf": "!({onlyFullNameRequired})",
                     "title": "Please provide the following address information for {OtherPartyName}."
                 },
                 {
                     "type": "helptext",
                     "name": "question4",
                     "visible": false,
-                    "visibleIf": "!({csOnly})",
+                    "visibleIf": "!({onlyFullNameRequired})",
                     "title": "What if I don't have contact information for the other party?",
                     "titleLocation": "hidden",
                     "body": "If you don't have contact information, you can leave any part of this section blank.  Provide as much information as you do have.  \n<br>\nYou will still be required to arrange for service of court documents on the other party but you don't always need a physical address to do that.  You might know a place where the person goes regularly like a gym or a coffee shop.\n<br>\n<br>\nYou also have options to apply to the court for an order allowing you to serve the other party in another way or the court registry can work with you to make a search request for information about where the other party may be located."
@@ -111,7 +111,7 @@
                     "type": "contactinfo",
                     "name": "otherPartyContact",
                     "visible": false,
-                    "visibleIf": "!({csOnly})",
+                    "visibleIf": "!({onlyFullNameRequired})",
                     "title": "Please provide contact information for {OtherPartyName}."
                 }
             ]

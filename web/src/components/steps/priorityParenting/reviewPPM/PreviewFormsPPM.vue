@@ -59,7 +59,7 @@ export default class PreviewFormsPpm extends Vue {
     }
 
     public checkErrorOnPages(steps){
-        //TODO: may need to add for connect step/page
+        
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]

@@ -67,9 +67,9 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">Other Party Name</th>
-                                    <th v-if="!cmOnly" scope="col">Birthdate</th>
-                                    <th v-if="!cmOnly" scope="col">Address Information</th>
-                                    <th v-if="!cmOnly" scope="col">Contact Information</th>
+                                    <th v-if="!onlyFullNameRequired" scope="col">Birthdate</th>
+                                    <th v-if="!onlyFullNameRequired" scope="col">Address Information</th>
+                                    <th v-if="!onlyFullNameRequired" scope="col">Contact Information</th>
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -77,9 +77,9 @@
                                     <div></div>
                                     <tr v-for="op in otherPartyData" :key="op.id">
                                     <td>{{op.name.first}} {{op.name.middle}} {{op.name.last}}</td>
-                                    <td v-if="!cmOnly">{{op.dob | beautify-date}}</td>
-                                    <td v-if="!cmOnly">{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
-                                    <td v-if="!cmOnly">{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
+                                    <td v-if="!onlyFullNameRequired">{{op.dob | beautify-date}}</td>
+                                    <td v-if="!onlyFullNameRequired">{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
+                                    <td v-if="!onlyFullNameRequired">{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
                                     <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(op)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -146,9 +146,8 @@ export default class OtherPartyCommon extends Vue {
     @applicationState.State
     public types!: string[]
 
-    
-
-    
+    @applicationState.State
+    public steps!: stepInfoType[];    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -172,8 +171,11 @@ export default class OtherPartyCommon extends Vue {
     showServeNoticeInfo = false;
     showTable = true;
     popInfo = false;
-
+    selectedForms = [];
+    selectedReplyForms = [];
     cmOnly = false;
+    wrOnly = false;
+    onlyFullNameRequired = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
@@ -191,15 +193,35 @@ export default class OtherPartyCommon extends Vue {
     }
 
     mounted(){
+        
         this.dataReady = false;
         this.confirmed = false;
+        this.cmOnly = false;
+        this.wrOnly = false;
 
         this.tableIsEmpty = this.otherPartyData.length == 0 ;
                 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        this.cmOnly = (this.types?.length == 1 && this.types.includes("Case Management")); 
+        this.selectedForms = (this.steps[0].result?.selectedForms?.length > 0)?this.steps[0].result.selectedForms:[];
+        this.selectedReplyForms = (this.steps[0].result?.selectedReplyForms?.length > 0)?this.steps[0].result.selectedReplyForms:[];
+
+        this.cmOnly = (this.selectedForms.length == 1 && this.selectedForms.includes("caseMgmt")); 
+
+        //TODO: use this when other reply pathways have been added: this.wrOnly = (this.selectedReplyForms.length == 1 && this.selectedReplyForms.includes("writtenResponse"));
+        this.wrOnly = (this.selectedReplyForms.includes("writtenResponse"));
+        
+        if (this.selectedForms.length > 0){
+            if (this.selectedReplyForms.length > 0){
+                this.onlyFullNameRequired = this.cmOnly && this.wrOnly
+            } else {
+                this.onlyFullNameRequired = this.cmOnly;
+            }
+        } else {
+            this.onlyFullNameRequired = this.wrOnly;
+        }
+        
 
         if(this.step.result?.otherPartyCommonConfirmationSurvey?.data?.confirmation == 'Confirmed'){
             this.confirmed = true
