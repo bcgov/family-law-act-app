@@ -363,7 +363,7 @@ class Application extends VuexModule {
         p.key = "3";
         p.name = "ReviewYourAnswersWR";
         p.label = "Review Your Answers";
-        p.active = false;
+        p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 

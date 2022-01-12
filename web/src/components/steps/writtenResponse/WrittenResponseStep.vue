@@ -4,8 +4,8 @@
         <agree-disagree               v-bind:step="step" v-if="step.currentPage == stPgNo.WR.AgreeDisagree"/>
         <about-written-response-order v-bind:step="step" v-if="step.currentPage == stPgNo.WR.AboutWrittenResponseOrder"/>
     
-        <review-your-answers-wr       v-bind:step="step" v-if="step.currentPage == stPgNo.WR.ReviewYourAnswersWR"/>
-        <preview-forms-wr             v-bind:step="step" v-if="step.currentPage == stPgNo.WR.PreviewFormsWR"/>
+        <review-your-answers-w-r       v-bind:step="step" v-if="step.currentPage == stPgNo.WR.ReviewYourAnswersWR"/>
+        <preview-forms-w-r             v-bind:step="step" v-if="step.currentPage == stPgNo.WR.PreviewFormsWR"/>
     </step-base>
 </template>
 

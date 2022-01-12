@@ -1,0 +1,63 @@
+{
+  "title": "Agree or Disagree",
+  "pages": [
+    {
+      "name": "Agree or Disagree",
+      "description": "{description}",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "AgreeOrDisagreePanel",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "agreeDisagree",
+              "title": "Select each of the following statements that are true about the application you were served:",
+              "description": "You may select one or both options.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "agree",
+                  "text": "I agree to all or part of the orders requested in the application."
+                },
+                {
+                  "value": "disagree",
+                  "text": "I do not agree to all or part of the orders requested in the application."
+                }
+              ]
+            },
+            {
+              "type": "helptext",
+              "name": "FAQ",
+              "title": "What if I want an order about something else?",
+              "titleLocation": "hidden",
+              "body": "It is not uncommon to need a different, but maybe related, order after being served with an application.</br></br>To ask for an order about something else, you will need to file your own application to bring the issue before the court. You can complete and file the application using this service by selecting Apply for an Order in Step 1 – Getting Started and then select each option you want to ask the court for an order about under the Apply for an Order sub-step.</br></br>You can also try to resolve the issue out of court. Click on Get Help along the top banner of this service for information and resources about where to resolve a family issue out of court."
+            },
+            {
+              "type": "comment",
+              "name": "agreeDetails",
+              "visible": false,
+              "visibleIf": "{agreeDisagree} contains 'agree'",
+              "description": "You do not need to use any special wording. Try to be clear about what order or part of the order you agree to.",
+              "isRequired": true,
+              "title": "Please provide the details of the order or part of the order that you agree to."
+            },
+            {
+              "type": "comment",
+              "name": "disAgreeDetails",
+              "visible": false,
+              "visibleIf": "{agreeDisagree} contains 'disagree'",
+              "description": "You do not need to use any special wording. The key is to be clear about what order or part of the order you do not agree to and your reason why you do not agree.",
+              "isRequired": true,
+              "title": "Please provide the details of the order or part of the order that you do not agree to and explain why you do not agree."
+            }
+            
+          ]
+        }
+      ],
+      "title": "Agree or Disagree"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

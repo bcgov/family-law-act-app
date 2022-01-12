@@ -104,6 +104,7 @@ export class MigrateStore{
             if(correspondingStep.result.protectedChildName) result.protectedChildName = correspondingStep.result.protectedChildName;
 
             result.selectedForms = [];
+            result.selectedReplyForms = [];
             const pathwayCompleted = this.resetPathwayCompleted();
             result.pathwayCompleted = pathwayCompleted;
             
