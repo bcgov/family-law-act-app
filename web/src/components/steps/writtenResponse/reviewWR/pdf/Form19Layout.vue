@@ -301,14 +301,20 @@ export default class Form19Layout extends Vue {
 
         if (this.result.wrReplyingToApplicationSurvey) {
             const wrReplyingToApplicationData: wrReplyingToApplicationSurveyDataInfoType = this.result.wrReplyingToApplicationSurvey;
-            const applicants = wrReplyingToApplicationData.partiesMakingApplication;
-            const index = applicants.indexOf("other");
-            if (index > -1){                
-                applicants.splice(index, 1);
-                if (wrReplyingToApplicationData.partiesMakingApplicationComment){
-                    applicants.push(wrReplyingToApplicationData.partiesMakingApplicationComment)
+            const applicants = [];
+
+            for (const applicant of wrReplyingToApplicationData.partiesMakingApplication){
+
+                if (applicant == "other"){
+                    if (wrReplyingToApplicationData.partiesMakingApplicationComment){
+                        applicants.push(wrReplyingToApplicationData.partiesMakingApplicationComment)
+                    }
+                } else {
+                    applicants.push(applicant)
+
                 }
             }
+            
             wrInformation.otherPartiesList = applicants.join(', ');
         }
 

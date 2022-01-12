@@ -34,12 +34,16 @@
               "type": "comment",
               "name": "orderDescription",
               "isRequired": true,
+              "visible": false,
+              "visibleIf": "{requiredChanges} = 'y'",
               "title": "Please provide the details of the order you are asking the court to make:",
               "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.</br></br>Remember that you can only ask for orders about the same issue that is before the court, for example, case management, enforcement, protection order terms, etc., or changes to the proposed order in the application you are replying to.</br></br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='blank'>Family Law Act Picklist</a> includes commonly used order terms that might be helpful. "
             },
             {
               "type": "helptext",
               "name": "FAQLegalAdvice",
+              "visible": false,
+              "visibleIf": "{requiredChanges} = 'y'",
               "title": "I’m not sure what order I need. Where can I get legal assistance?",
               "titleLocation": "hidden",
               "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
@@ -49,6 +53,8 @@
               "name": "applicationFacts",
               "description": "Give a short summary of the facts you want the court to consider when they are making a decision about the application. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order.<br/><br/>If you disagree with the order the other person/party is asking for, what facts support the court not making the order? If you have also proposed another order, what facts support making a different order instead?",
               "isRequired": true,
+              "visible": false,
+              "visibleIf": "{requiredChanges} = 'y'",
               "title": "The `facts` on which this written response is based are as follows:"
             }
           ]
