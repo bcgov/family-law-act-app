@@ -2,10 +2,10 @@
 <div v-if="dataReady">    
   
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-        <form-15-layout v-bind:result="result"/>
-        <schedule-1     v-bind:result="result"  v-if="selectedSchedules.includes('schedule1')" />
+        <form-15-layout v-bind:result="result"/>        
         <schedule-2     v-bind:result="result"  v-if="selectedSchedules.includes('schedule2')" />
     </b-card>
+    
 </div>
 </template>
 
@@ -17,7 +17,6 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import Form15Layout from "./Form15Layout.vue";
-import Schedule1 from "./Schedule1.vue";
 import Schedule2 from "./Schedule2.vue";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
@@ -28,7 +27,6 @@ import { priorityParentingMatterOrderSurveyDataInfoType } from '@/types/Applicat
 @Component({
     components:{        
         Form15Layout,
-        Schedule1,
         Schedule2
     }
 })
@@ -122,8 +120,7 @@ export default class Form15 extends Vue {
             const childServices = (ppmType.includes('childServices')) && (ppmOrderData.childRemoved == 'y') && 
                 (ppmOrderData.confirmChildServices?.includes('applyPPM'))
                  
-            if (childServices){
-                //schedules.push('schedule1');
+            if (childServices){               
                 if (ppmOrderData.confirmChildServicesPathway.includes('applyGuardianship')){
                     schedules.push('schedule2');
                 }

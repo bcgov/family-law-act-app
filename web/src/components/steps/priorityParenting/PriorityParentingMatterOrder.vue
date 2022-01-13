@@ -57,7 +57,7 @@ import * as _ from 'underscore';
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { togglePages, toggleStep } from '@/components/utils/TogglePages';
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -271,13 +271,7 @@ export default class PriorityParentingMatterOrder extends Vue {
             togglePages(allPages, false, this.stPgNo.PPM._StepNo); 
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.PPM._StepNo, currentPage: this.stPgNo.PPM.PpmQuestionnaire });        
             Vue.filter('setSurveyProgress')(null, this.stPgNo.PPM._StepNo, this.stPgNo.PPM.PpmQuestionnaire, 50, true);
-        }
-
-        // if (this.PPMList.includes('childServices')){
-        //     toggleStep(this.stPgNo.CONNECT._StepNo, true);
-        // } else {
-        //     toggleStep(this.stPgNo.CONNECT._StepNo, false);
-        // }
+        }       
 
         const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getPriorityParentingMatterNames()}]        
         this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.PPMList, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.stPgNo.PPM.PpmQuestionnaire}}});      
