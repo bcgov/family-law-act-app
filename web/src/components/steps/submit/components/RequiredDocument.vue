@@ -53,6 +53,7 @@ import GetHelpScanning from "../helpPages/GetHelpScanning.vue"
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { requiredDocumentsInfoType } from '@/types/Common';
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -71,6 +72,9 @@ export default class RequiredDocument extends Vue {
     @applicationState.State
     public requiredDocuments!: requiredDocumentsInfoType;
 
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType; 
+
     showGetHelpScanning = false;
     isRequiredDocument = false;
     requiredDocumentLists = [];
@@ -84,7 +88,7 @@ export default class RequiredDocument extends Vue {
         this.requiredDocumentLists = [];
         this.isRequiredDocument = false;
         for (const [key, value] of Object.entries(this.requiredDocuments)){           
-            if(key && value &&  (this.$store.state.Application.steps[0].result?.selectedForms?.includes(key) || this.$store.state.Application.steps[0].result?.selectedForms?.includes(key.slice(0,-2)))){
+            if(key && value &&  (this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key) || this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key.slice(0,-2)))){
                 const name = Vue.filter('getFullOrderName')(key, '');
                 const vowelCondituion = ['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a';
                 this.requiredDocumentLists.push({

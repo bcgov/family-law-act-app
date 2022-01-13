@@ -211,7 +211,7 @@ export default class FilingLocation extends Vue {
             this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"].push(location["name"])
         }
 
-        if(this.steps[0].result?.selectedForms?.includes("protectionOrder")){
+        if(this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[4].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[5].readOnly = true;
@@ -219,12 +219,10 @@ export default class FilingLocation extends Vue {
             this.editButton = true
         }
 
-        if(this.steps[0].result?.selectedReplyForms?.includes("writtenResponse")){
+        if(this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.includes("writtenResponse")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
            
         }
-
-
     }
 
     public reloadPageInformation() {
@@ -240,15 +238,17 @@ export default class FilingLocation extends Vue {
                 this.survey.setValue("selectedExistingCourt",  true);
             } else {
                 this.survey.setValue("selectedExistingCourt",  false);    
-            }              
+            }             
             
         }
 
         this.survey.setVariable("editButton",this.editButton);       
         
         const stepPO = this.steps[this.stPgNo.PO._StepNo]
+        const selectedForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        const selectedReplyForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
 
-        if(this.steps[0].result?.selectedForms?.includes("protectionOrder")){
+        if(selectedForms.includes("protectionOrder")){
             
             if( stepPO.result?.poFilingLocationSurvey?.data && stepPO.result?.poQuestionnaireSurvey?.data?.orderType == 'needPO')
             {
@@ -273,14 +273,14 @@ export default class FilingLocation extends Vue {
             this.survey.setValue('ExistingFamilyCase','y');
         }
 
-        if(this.steps[0].result?.selectedForms?.includes("familyLawMatter")
-            || this.steps[0].result?.selectedForms?.includes("caseMgmt")
-            || this.steps[0].result?.selectedForms?.includes("priorityParenting")
-            || this.steps[0].result?.selectedForms?.includes("childReloc")){
+        if(selectedForms.includes("familyLawMatter")
+            || selectedForms.includes("caseMgmt")
+            || selectedForms.includes("priorityParenting")
+            || selectedForms.includes("childReloc")){
 
                 this.survey.setValue('RequiresReasonInfo',true);                
         }        
-        if(this.steps[0].result?.selectedForms?.includes("agreementEnfrc")){
+        if(selectedForms.includes("agreementEnfrc")){
             this.survey.setValue('RequiresFMEPInfo',true);                
         } else {
            this.survey.setValue('RequiresFMEPInfo',false); 
@@ -335,8 +335,9 @@ export default class FilingLocation extends Vue {
     }  
 
     public setExistingFileNumber(){
+        //TODO: include reply forms too
         let newExistingOrders = [];
-        const selectedForms = this.$store.state.Application.steps[0].result? this.$store.state.Application.steps[0].result.selectedForms: []
+        const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms: []
         
         for(const selectedForm of selectedForms){
         
@@ -348,6 +349,21 @@ export default class FilingLocation extends Vue {
         
             const fileNumber = this.survey.data?.ExistingFamilyCase == "y"? this.survey.data.ExistingFileNumber: ''
             newExistingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
+        }
+
+        const selectedReplyForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms: []
+        
+        for(const selectedReplyForm of selectedReplyForms){
+        
+            let fileType = Vue.filter('getPathwayPdfType')(selectedReplyForm);   
+            //TODO: remove once other reply pathways have been added
+            if (fileType == "WRA"){
+                const fileNumber = this.survey.data.ExistingFileNumber;
+                newExistingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber}); 
+
+            }
+        
+                                
         }
         
         this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});

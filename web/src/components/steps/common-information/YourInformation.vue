@@ -38,11 +38,7 @@ export default class YourInformation extends Vue {
     public steps!: stepInfoType[];
 
     @applicationState.State
-    public types!: string[]
-
-    
-
-    
+    public types!: string[];    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -116,7 +112,7 @@ export default class YourInformation extends Vue {
 
         const stepPO = this.steps[this.stPgNo.PO._StepNo]
 
-        if(this.steps[0].result?.selectedForms.includes("protectionOrder") && stepPO.result?.yourinformationPOSurvey?.data){
+        if(this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes("protectionOrder") && stepPO.result?.yourinformationPOSurvey?.data){
                 
             this.survey.setValue('ApplicantDOB',stepPO.result.yourinformationPOSurvey.data.ApplicantDOB);
             this.survey.setValue('ApplicantName',stepPO.result.yourinformationPOSurvey.data.ApplicantName);
@@ -128,7 +124,7 @@ export default class YourInformation extends Vue {
     public adjustSurveyForPersonalInfo(){
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
 
-        if(this.steps[0].result?.selectedForms?.includes("protectionOrder")){
+        if(this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[1].readOnly = true;
             this.editButton = true;

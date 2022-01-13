@@ -239,7 +239,7 @@ export default class Form19Layout extends Vue {
     existingFileNumber = '';
     filingLocationReason = '';  
     
-    applicationLists: string[] = [];
+    
     otherParties: string[] = [];
     otherPartyInfo = [];
     

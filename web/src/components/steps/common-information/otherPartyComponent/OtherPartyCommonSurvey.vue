@@ -23,6 +23,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary"
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepInfoType } from '@/types/Application';
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component
@@ -33,6 +34,9 @@ export default class OtherPartyCommonSurvey extends Vue {
 
     @applicationState.State
     public steps!: stepInfoType[];  
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -98,8 +102,8 @@ export default class OtherPartyCommonSurvey extends Vue {
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
 
-        this.selectedForms = (this.steps[0].result?.selectedForms?.length > 0)?this.steps[0].result.selectedForms:[];
-        this.selectedReplyForms = (this.steps[0].result?.selectedReplyForms?.length > 0)?this.steps[0].result.selectedReplyForms:[];
+        this.selectedForms = (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        this.selectedReplyForms = (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
 
         this.cmOnly = (this.selectedForms.length == 1 && this.selectedForms.includes("caseMgmt")); 
 

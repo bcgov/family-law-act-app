@@ -206,12 +206,12 @@ export default class GettingStarted extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.steps[0].result?.selectedForms) {
-            this.selected = this.steps[0].result.selectedForms;
+        if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms) {
+            this.selected = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
         }
 
-        if (this.steps[0].result?.selectedReplyForms) {
-            this.selectedReplyForms = this.steps[0].result.selectedReplyForms;
+        if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms) {
+            this.selectedReplyForms = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms;
         }
         
         this.returningUser = (this.$store.state.Application.userType == 'returning');        
@@ -228,8 +228,9 @@ export default class GettingStarted extends Vue {
         
         const applicationTypes = [];       
         
-        if (this.steps[0].result?.selectedActivity?.includes('replyToApplication') && this.steps[0].result?.selectedReplyApplications){
-            for (const replyForm of this.steps[0].result?.selectedReplyApplications){                    
+        if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity?.includes('replyToApplication') 
+                && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyApplications){
+            for (const replyForm of this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyApplications){                    
                 applicationTypes.push(Vue.filter('getFullOrderName')(replyForm, ''));
             }
         } 
