@@ -43,8 +43,7 @@
             <b-table
                 :items="childrenItem"
                 :fields="childrenFields"
-                class="mt-2"
-                style="font-family:BCSans;"
+                class="mt-2"                
                 small
                 bordered>                    
                     <template v-slot:cell()="data">
@@ -63,7 +62,6 @@
                 :items="sharingAdultItem"
                 :fields="sharingAdultFields"
                 class="mt-2"
-                style="font-family:BCSans;"
                 small
                 bordered>                    
                     <template v-slot:cell()="data">
@@ -83,7 +81,7 @@
                 <div v-else style="margin-bottom:3rem;"></div>
             </div>
 
-            <div style="text-indent:0px;margin:1rem 0 0 0;font-family:BCSans;">
+            <div style="text-indent:0px;margin:1rem 0 0 0;">
                 <b>
                     The person(s) identified in the section above is/are referred to as the protected party/parties. The other party is the
                     person they need protection from.
@@ -199,7 +197,7 @@
         </section>
 
         <div style="margin-top:3rem;"><b> YOUR STORY</b></div>
-        <div style="margin-top:0rem;font-family:BCSans;"><b>Relationship between parties</b></div>
+        <div style="margin-top:0rem;"><b>Relationship between parties</b></div>
 <!-- <11> -->
         <section>
             The protection party and the other party are:
@@ -208,7 +206,7 @@
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
-        <div style="margin-top:1rem;font-family:BCSans;"><b><i> * If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).</i></b></div>
+        <div style="margin-top:1rem;"><b><i> * If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).</i></b></div>
 <!-- <12> -->
         <section> 
             The protected party is or has been spouses, or lives or has lived together in a marriage-like relationship, with the other party
@@ -238,7 +236,7 @@
             </div>
         </section> 
 
-        <div style="margin-top:2rem;font-family:BCSans;"><b>Children</b></div>
+        <div style="margin-top:2rem;"><b>Children</b></div>
 <!-- <13> -->
         <section>
             <i style="display:inline;margin-left:0.5rem;">Select whichever option is correct and complete the required information</i>
@@ -250,8 +248,7 @@
             <b-table
                 :items="otherChildrenItem"
                 :fields="otherChildrenFields"
-                class="mt-2"
-                style="font-family:BCSans;"
+                class="mt-2"               
                 small
                 bordered>                    
                     <template v-slot:cell()="data">
@@ -279,7 +276,7 @@
             </div>  
         </section> 
 
-        <div style="margin-top:2rem;font-family:BCSans;"><b>About my family</b></div>
+        <div style="margin-top:2rem;"><b>About my family</b></div>
 <!-- <15> -->
         <section>
             <i style="display:inline;margin-left:0.5rem;">You may choose to complete this section or leave this section blank</i>
@@ -289,7 +286,7 @@
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
-       <div style="margin-top:2rem;font-family:BCSans;"><b>Other information</b></div>
+       <div style="margin-top:2rem;"><b>Other information</b></div>
 <!-- <16> -->
         <section>
             <div style="display:inline;margin-left:.5rem;">I have concerns about the mental health of the protected party and/or the other party</div>
@@ -405,7 +402,6 @@
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
-        <!-- <div style="margin-top:1rem;"></div> -->
 <!-- <25> -->
         <div class="print-block">
             <section>            

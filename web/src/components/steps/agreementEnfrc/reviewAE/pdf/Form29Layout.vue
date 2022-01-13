@@ -206,7 +206,7 @@
                 </div> 
             </div>
             <div 
-                style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;">
+                style="margin:0.5rem 0 0 1rem; font-size:9pt;">
                 <b>NOTE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court
                     appearance, the court may make an order in your absence. You may also choose to file a written response in
                     reply to the application in Form 19 Written Response to Application.

@@ -166,7 +166,7 @@
                     <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
                 </div>    
             </div>
-            <div style="margin:1.5rem 0 0 1rem; font-family:BCSans; font-size:12pt;"><b>
+            <div style="margin:1.5rem 0 0 1rem; font-size:12pt;"><b>
                 NOTICE TO PARTIES: If you do not attend court on the date and time scheduled for the court appearance, 
                 the court may make an order in your absence. You may also choose to file a written response in reply to the
                 application in Form 19 Written Response to Application.
