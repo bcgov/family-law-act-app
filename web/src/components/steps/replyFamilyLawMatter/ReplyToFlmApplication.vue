@@ -75,7 +75,6 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import { namespace } from "vuex-class"; 
-import * as _ from 'underscore';  
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 

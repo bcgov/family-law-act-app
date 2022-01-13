@@ -22,6 +22,8 @@ import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepInfoType } from '@/types/Application';
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component
@@ -31,10 +33,13 @@ export default class OtherPartyCommonSurvey extends Vue {
     editRowProp!: Object;
 
     @applicationState.State
-    public applicantName!: nameInfoType;
+    public steps!: stepInfoType[];  
 
     @applicationState.State
-    public types!: string[];
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public applicantName!: nameInfoType;
 
     @applicationState.Action
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
@@ -44,6 +49,13 @@ export default class OtherPartyCommonSurvey extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
     currentPage =0;
+
+    selectedForms = [];
+    selectedReplyForms = [];
+
+    cmOnly = false;
+    wrOnly = false;
+    onlyFullNameRequired = false;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -80,6 +92,9 @@ export default class OtherPartyCommonSurvey extends Vue {
     }
     
     public reloadPageInformation() {
+
+        this.cmOnly = false;
+        this.wrOnly = false;
        
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
@@ -87,11 +102,25 @@ export default class OtherPartyCommonSurvey extends Vue {
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
 
-        if (this.types?.length == 1 && this.types[0] == "Case Management") {
-            this.survey.setVariable("csOnly", true);
+        this.selectedForms = (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        this.selectedReplyForms = (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
+
+        this.cmOnly = (this.selectedForms.length == 1 && this.selectedForms.includes("caseMgmt")); 
+
+        //TODO: use this when other reply pathways have been added: this.wrOnly = (this.selectedReplyForms.length == 1 && this.selectedReplyForms.includes("writtenResponse"));
+        this.wrOnly = (this.selectedReplyForms.includes("writtenResponse"));
+        
+        if (this.selectedForms.length > 0){
+            if (this.selectedReplyForms.length > 0){
+                this.onlyFullNameRequired = this.cmOnly && this.wrOnly
+            } else {
+                this.onlyFullNameRequired = this.cmOnly;
+            }
         } else {
-            this.survey.setVariable("csOnly", false);
-        }        
+            this.onlyFullNameRequired = this.wrOnly;
+        }
+        
+        this.survey.setVariable("onlyFullNameRequired", this.onlyFullNameRequired);
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;     

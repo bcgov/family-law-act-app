@@ -186,7 +186,8 @@ export default class GettingStarted extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
   
-    selected = []
+    selected = [];
+    selectedReplyForms = [];
     returningUser = false
     showLegalAssistance = false
     preparationInfo = false
@@ -205,8 +206,12 @@ export default class GettingStarted extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.steps[0].result?.selectedForms) {
-            this.selected = this.steps[0].result.selectedForms;
+        if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms) {
+            this.selected = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
+        }
+
+        if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms) {
+            this.selectedReplyForms = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms;
         }
         
         this.returningUser = (this.$store.state.Application.userType == 'returning');        
@@ -223,8 +228,9 @@ export default class GettingStarted extends Vue {
         
         const applicationTypes = [];       
         
-        if (this.steps[0].result?.selectedActivity?.includes('replyToApplication') && this.steps[0].result?.selectedReplyApplications){
-            for (const replyForm of this.steps[0].result?.selectedReplyApplications){                    
+        if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity?.includes('replyToApplication') 
+                && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyApplications){
+            for (const replyForm of this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyApplications){                    
                 applicationTypes.push(Vue.filter('getFullOrderName')(replyForm, ''));
             }
         } 
@@ -251,7 +257,7 @@ export default class GettingStarted extends Vue {
 
     public setSteps(selectedForms) {
         
-       if (selectedForms !== undefined) {            
+       if (selectedForms !== undefined && this.selectedReplyForms !== undefined) {            
     
             const poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
             const poIncluded = selectedForms.includes("protectionOrder");           
@@ -264,15 +270,17 @@ export default class GettingStarted extends Vue {
             toggleStep(this.stPgNo.RELOC._StepNo, selectedForms.includes("childReloc"));
             toggleStep(this.stPgNo.ENFRC._StepNo, selectedForms.includes("agreementEnfrc"));
 
-            toggleStep(this.stPgNo.SUBMIT._StepNo, selectedForms.length>0);//Review And Submit
+            toggleStep(this.stPgNo.SUBMIT._StepNo, (selectedForms.length>0 || this.selectedReplyForms.includes("writtenResponse")));//Review And Submit
             
-            toggleStep(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc") || selectedForms.includes("caseMgmt") || selectedForms.includes("agreementEnfrc"));//Common Your Information
+            toggleStep(this.stPgNo.COMMON._StepNo, this.selectedReplyForms.includes("writtenResponse") || selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc") || selectedForms.includes("caseMgmt") || selectedForms.includes("agreementEnfrc"));//Common Your Information
             togglePages([this.stPgNo.COMMON.SafetyCheck], !poIncluded, this.stPgNo.COMMON._StepNo);//Safety Check
             togglePages([this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"), this.stPgNo.COMMON._StepNo);//Notice
             
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.COMMON._StepNo, currentPage: (poIncluded? this.stPgNo.COMMON.YourInformation:this.stPgNo.COMMON.SafetyCheck) });//correct Safety Check page in sidebar
-            togglePages([this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], selectedForms.length>0 && !poOnly, this.stPgNo.COMMON._StepNo);//Your Information, Other Party, Filing Location    
+            togglePages([this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], (selectedForms.length>0 && !poOnly) || this.selectedReplyForms.includes("writtenResponse"), this.stPgNo.COMMON._StepNo);//Your Information, Other Party, Filing Location    
         }
+
+
     }
 
     public onPrev() {

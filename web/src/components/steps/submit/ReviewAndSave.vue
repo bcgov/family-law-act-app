@@ -102,6 +102,7 @@ const applicationState = namespace("Application");
 
 import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const commonState = namespace("Common");
 
 @Component({
@@ -121,9 +122,8 @@ export default class ReviewAndSave extends Vue {
     @commonState.State
     public locationsInfo!: locationsInfoType[];
 
-    
-
-    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     currentStep =0;
     currentPage =0;
@@ -147,7 +147,7 @@ export default class ReviewAndSave extends Vue {
 
         this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
 
-        if(this.$store.state.Application.steps[0].result?.selectedForms?.includes('protectionOrder'))  
+        if(this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes('protectionOrder'))  
             this.hasPOselected =  true;
     } 
 

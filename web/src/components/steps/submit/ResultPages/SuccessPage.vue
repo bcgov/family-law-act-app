@@ -277,9 +277,15 @@ export default class SuccessPage extends Vue {
 
             let pathways: string[] = [];
 
+            const selectedForms = stepGETSTART?.selectedForms?stepGETSTART.selectedForms:[];
+
+            const selectedReplyForms = stepGETSTART?.selectedReplyForms?stepGETSTART.selectedReplyForms:[];
+
             if (stepGETSTART?.selectedForms){
                 pathways = stepGETSTART.selectedForms;
             }
+            
+            pathways = selectedForms.concat(selectedReplyForms);
 
             const includesFlm = pathways.includes('familyLawMatter');
             const includesEnfrc = pathways.includes('agreementEnfrc');

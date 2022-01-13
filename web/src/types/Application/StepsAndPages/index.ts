@@ -61,7 +61,12 @@ export interface RFLMstPgTypes{
 export interface WRstPgTypes{
     _StepNo: number;  
 
-    WrittenResponseApplication: number;   
+    WrReplyingToApplication: number;  
+    AgreeDisagree: number;
+    AboutWrittenResponseOrder: number; 
+
+    ReviewYourAnswersWR: number;
+    PreviewFormsWR: number;
 }
 
 export interface CAstPgTypes{

@@ -11,6 +11,7 @@ import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyI
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
 import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
 import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpensesSurveyInfoType, detrermineArrearsSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
+import { aboutWrittenResponseOrderSurveyInfoType, agreeDisagreeSurveyInfoType, wrReplyingToApplicationSurveyInfoType } from "./WrittenResponse";
 
 
 //This is what our database saves.
@@ -105,9 +106,14 @@ export interface stepInfoType {
     noticeSurvey?: noticeSurveyInfoType;
     
     otherPartyCommonConfirmationSurvey? : otherPartyCommonConfirmationSurveyInfoType;
+
+    //_____Step 3   WR_____________
+    wrReplyingToApplicationSurvey?: wrReplyingToApplicationSurveyInfoType;
+    agreeDisagreeSurvey?: agreeDisagreeSurveyInfoType;
+    aboutWrittenResponseOrderSurvey?: aboutWrittenResponseOrderSurveyInfoType;   
     
 
-    //__Step 3 FLM
+    //__Step 4 FLM
     flmQuestionnaireSurvey?: flmQuestionnaireSurveyInfoType;
     flmBackgroundSurvey?: flmBackgroundSurveyInfoType;
     childrenInfoSurvey?: childDetailsSurveyInfoType;
@@ -154,7 +160,7 @@ export interface stepInfoType {
     spousalSupportIncomeAndEarningPotentialSurvey?: spousalSupportIncomeAndEarningPotentialSurveyInfoType;
     unpaidSpousalSupportSurvey?: unpaidSpousalSupportSurveyInfoType;
 
-    //__Step 4 CASE MANAGEMENT
+    //__Step 5 CASE MANAGEMENT
 
     cmQuestionnaireSurvey?: cmQuestionnaireSurveyInfoType;
     otherPersonsSurvey?: otherPersonsSurveyInfoType;
@@ -173,7 +179,7 @@ export interface stepInfoType {
     recognizingAnOrderFromOutsideBcSurvey?: recognizingAnOrderFromOutsideBcSurveyInfoType;
     contactInformationOtherPartySurvey?: contactInformationOtherPartySurveyInfoType;   
 
-    //__Step 5 PRIORITY PARENTING
+    //__Step 6 PRIORITY PARENTING
     ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;
     priorityParentingMatterOrderSurvey?: priorityParentingMatterOrderSurveyInfoType;
     ppmChildrenInfoSurvey?: ppmChildrenInfoSurveyInfoType;
@@ -183,12 +189,12 @@ export interface stepInfoType {
     ppmIndigenousAncestryOfChildSurvey?: indigenousAncestryOfChildSurveyInfoType;
     ppmAdditionalDocumentsSurvey?: ppmAdditionalDocumentsSurveyInfoType;
 
-    //__Step 6 RELOCATION OF CHILD
+    //__Step 7 RELOCATION OF CHILD
     relocQuestionnaireSurvey?: relocQuestionnaireSurveyInfoType;
     relocChildrenInfoSurvey?: relocChildrenInfoSurveyInfoType;
     relocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
 
-    //__Step 7 AGREEMENT ENFORCEMENT
+    //__Step 8 AGREEMENT ENFORCEMENT
     enfrcQuestionnaireSurvey?: enfrcQuestionnaireSurveySurveyInfoType;
     determineAnAmountOwingForExpensesSurvey?: determineAnAmountOwingForExpensesSurveyInfoType;
     enforceAgreementOrOrderSurvey?: enforceAgreementOrOrderSurveyInfoType;
@@ -196,7 +202,7 @@ export interface stepInfoType {
     detrermineArrearsSurvey?: detrermineArrearsSurveyInfoType;
     aboutTheOrderEnforcementSurvey?: aboutTheOrderEnforcementSurveyInfoType;
 
-    //__Step 8 SUBMIT
+    //__Step 9 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 

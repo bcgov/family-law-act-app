@@ -63,6 +63,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import { getWrittenResponseApplications } from '@/components/utils/ReplyPathways';
+
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 import { stepInfoType} from "@/types/Application";
 
@@ -118,6 +120,9 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{childWordingSpend}/g,'child(ren) spend(s)');
         adjQuestion = adjQuestion.replace(/{selectedChildWording}/g,'child(ren)');
         adjQuestion = adjQuestion.replace(/{firstQuestionText}/g,'');
+        adjQuestion = adjQuestion.replace(/{applicationIdentifier}/g,'application(s)');
+        adjQuestion = adjQuestion.replace(/{verb}/g,'was/were');
+        adjQuestion = adjQuestion.replace(/{applicationList}/g, getWrittenResponseApplications(this.$store.state.Application.types).join(' and '));
         return adjQuestion
     }
 
