@@ -73,18 +73,21 @@ export default class AgreeDisagree extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        const description = "In your reply to the application, you may:<ul><li>Agree to all or part of the orders requested in the application</li><li>Disagree with all or part of the orders requested in the application, stating your reason you do not agree</li><li>Propose changes to the order or another order about the same issue before the court that you would agree to</li></ul>Look at the application you were served. For each order identified, consider if you agree or disagree with it."; 
-        const poIncludedDescription = "</br></br>To reply to an application for a protection order, review the information presented in the application. The court will consider the evidence presented and will determine if a protection order should be made, and if so, what terms or conditions (list of things a person must or must not do) should be included in the order. The terms or conditions may include who a person cannot contact, places a person cannot go, restrictions on possession of weapons or firearms, directions to a police officer, and other terms or conditions the court considers necessary to protect the safety and security of the at-risk family member or to implement the order."
-        if (this.types.includes("Reply to Application About a Protection Order")){
-            this.survey.setValue('description', description + poIncludedDescription);
-        } else {
-            this.survey.setValue('description', description);
-        }
+        
 
         if ( this.step.result?.agreeDisagreeSurvey) {
             this.survey.data = this.step.result.agreeDisagreeSurvey.data;
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        }
+
+        const description = "In your reply to the application, you may:<ul><li>Agree to all or part of the orders requested in the application</li><li>Disagree with all or part of the orders requested in the application, stating your reason you do not agree</li><li>Propose changes to the order or another order about the same issue before the court that you would agree to</li></ul>Look at the application you were served. For each order identified, consider if you agree or disagree with it."; 
+        const poIncludedDescription = "</br></br>To reply to an application for a protection order, review the information presented in the application. The court will consider the evidence presented and will determine if a protection order should be made, and if so, what terms or conditions (list of things a person must or must not do) should be included in the order. The terms or conditions may include who a person cannot contact, places a person cannot go, restrictions on possession of weapons or firearms, directions to a police officer, and other terms or conditions the court considers necessary to protect the safety and security of the at-risk family member or to implement the order."
+        if (this.types.includes("Reply to Application About a Protection Order")){            
+            const desc = description + poIncludedDescription;
+            this.survey.setValue('description', desc);
+        } else {
+            this.survey.setValue('description', description);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
