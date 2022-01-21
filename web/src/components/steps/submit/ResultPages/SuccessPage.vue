@@ -135,6 +135,12 @@
                     style="color:blue; cursor:pointer;">
                     Checklist for Request to File an Order
                 </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('WRA')" 
+                    @click="checklist=true;checklistType='WRA';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Written Response to Application
+                </div>
             </div>           
 
             <div class="mt-5">
@@ -277,9 +283,15 @@ export default class SuccessPage extends Vue {
 
             let pathways: string[] = [];
 
+            const selectedForms = stepGETSTART?.selectedForms?stepGETSTART.selectedForms:[];
+
+            const selectedReplyForms = stepGETSTART?.selectedReplyForms?stepGETSTART.selectedReplyForms:[];
+
             if (stepGETSTART?.selectedForms){
                 pathways = stepGETSTART.selectedForms;
             }
+            
+            pathways = selectedForms.concat(selectedReplyForms);
 
             const includesFlm = pathways.includes('familyLawMatter');
             const includesEnfrc = pathways.includes('agreementEnfrc');
@@ -295,6 +307,10 @@ export default class SuccessPage extends Vue {
 
             if (pathways.includes('childReloc')){
                 this.applicationDocumentTypes.push('APRC')
+            }
+
+            if (pathways.includes('writtenResponse')){
+                this.applicationDocumentTypes.push('WRA')
             }
 
             if (includesFlm){

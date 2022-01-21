@@ -110,7 +110,8 @@ export default class FilingOptions extends Vue {
         const stepPPM = this.$store.state.Application.steps[this.stPgNo.PPM._StepNo]
         const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
 
-        const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
+        const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms?this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        const selectedReplyApplications = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyApplications?this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyApplications:[];
 
         let disableEfilingForStreams = false;
         
@@ -119,7 +120,13 @@ export default class FilingOptions extends Vue {
                 disableEfilingForStreams = true;
                 break;
             }                        
-
+        
+        for(const form of selectedReplyApplications)            
+            if(!this.efilingStreams?.includes(Vue.filter('getPathwayFamilyType')(form))){
+                disableEfilingForStreams = true;
+                break;
+            }
+        
         if (
             disableEfilingForStreams || 
             (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            

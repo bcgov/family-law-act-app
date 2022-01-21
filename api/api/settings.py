@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_swagger",
-    "auditable",
     "core",
     "api",
     "corsheaders",
@@ -249,6 +248,9 @@ REST_FRAMEWORK = {
     )
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Efiling
 EFILING_ENABLED = os.environ.get("EFILING_ENABLED", "false").lower() == "true"
 EFILING_STREAMS = os.environ.get("EFILING_STREAMS", "")
 EFILING_EARLY_ADOPTER_STREAMS = os.environ.get("EFILING_EARLY_ADOPTER_STREAMS", "")

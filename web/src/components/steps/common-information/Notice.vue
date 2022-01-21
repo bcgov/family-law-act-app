@@ -110,7 +110,7 @@ export default class Notice extends Vue {
             const pageNoCMQ = this.stPgNo.CM.CmQuestionnaire;
             const step = this.$store.state.Application.steps[stepNoCM];
 
-            const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
+            const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms? this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms: [];
             const selectedCaseManagement = step.result?.cmQuestionnaireSurvey?.data? step.result.cmQuestionnaireSurvey.data : [];                
 
 

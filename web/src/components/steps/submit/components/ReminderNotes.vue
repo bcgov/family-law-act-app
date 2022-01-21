@@ -19,6 +19,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { requiredDocumentsInfoType } from '@/types/Common';
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component
@@ -29,6 +30,9 @@ export default class ReminderNotes extends Vue {
 
     @applicationState.State
     public requiredDocuments!: requiredDocumentsInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     isReminder = false;
     requiredDocumentLists = [];
@@ -42,7 +46,7 @@ export default class ReminderNotes extends Vue {
         this.isReminder = false;
         for (const [key, value] of Object.entries(this.requiredDocuments)){
 
-            if(key && value && this.$store.state.Application.steps[0].result?.selectedForms?.includes(key)){
+            if(key && value && this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key)){
                 this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})            
                 if(value['reminder']?.length>0) this.isReminder = true;
             }

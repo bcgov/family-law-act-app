@@ -4,17 +4,29 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1>Other Party Information</h1>
-                    <p>In a family case, there are specific people who must be served with notice of your application.
+                    <p v-if="!replyPathwayOnly">In a family case, there are specific people who must be served with notice of your application.
                          They are the other party or parties.  It is important that each other party know that you are
                           making this application to the court and are given a chance to talk to the court. To give notice, 
                           they will need to be served with a copy of the application. 
                     </p>
                     <ul>
-                        <li>Add each party from your existing case if you already have a case with the same parties – be sure to copy the names from any filed court document</li>
-                        <li>Add each parent and/or current guardian as a party if your case involves a child</li>
-                        <li>Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
-                        <li>Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
+                        <li>Add each party from your existing case <span v-if="!replyPathwayOnly"> if you already have a case with the same parties </span>– be sure to copy the names from any filed court document</li>
+                        <li v-if="!replyPathwayOnly">Add each parent and/or current guardian as a party if your case involves a child</li>
+                        <li v-if="!replyPathwayOnly">Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
+                        <li v-if="!replyPathwayOnly">Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
+                        
                     </ul>
+
+                    <p 
+                        v-if="includesReplyPathway">
+                        If you are filing a Written Response to Application, you will need to serve each other party with a filed copy of the reply.
+                    </p>
+                    <p 
+                        v-if="includesReplyPathway">
+                        If you are filing a Reply to a Family Law Matter Application, the registry will provide a copy of the filed reply to 
+                        each other party.
+                    </p>
+                        
                     
                     <div>
                         <div class="m-4 text-primary" @click="showServeNoticeInfo= !showServeNoticeInfo" style="border-bottom:1px solid; width:19rem;">
@@ -67,9 +79,9 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">Other Party Name</th>
-                                    <th v-if="!cmOnly" scope="col">Birthdate</th>
-                                    <th v-if="!cmOnly" scope="col">Address Information</th>
-                                    <th v-if="!cmOnly" scope="col">Contact Information</th>
+                                    <th v-if="!onlyFullNameRequired" scope="col">Birthdate</th>
+                                    <th v-if="!onlyFullNameRequired" scope="col">Address Information</th>
+                                    <th v-if="!onlyFullNameRequired" scope="col">Contact Information</th>
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -77,9 +89,9 @@
                                     <div></div>
                                     <tr v-for="op in otherPartyData" :key="op.id">
                                     <td>{{op.name.first}} {{op.name.middle}} {{op.name.last}}</td>
-                                    <td v-if="!cmOnly">{{op.dob | beautify-date}}</td>
-                                    <td v-if="!cmOnly">{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
-                                    <td v-if="!cmOnly">{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
+                                    <td v-if="!onlyFullNameRequired">{{op.dob | beautify-date}}</td>
+                                    <td v-if="!onlyFullNameRequired">{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
+                                    <td v-if="!onlyFullNameRequired">{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
                                     <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(op)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -128,6 +140,7 @@ import OtherPartyPopup from "./OtherPartyPopup.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -146,9 +159,11 @@ export default class OtherPartyCommon extends Vue {
     @applicationState.State
     public types!: string[]
 
+    @applicationState.State
+    public steps!: stepInfoType[];   
     
-
-    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -172,8 +187,13 @@ export default class OtherPartyCommon extends Vue {
     showServeNoticeInfo = false;
     showTable = true;
     popInfo = false;
-
+    selectedForms = [];
+    selectedReplyForms = [];
     cmOnly = false;
+    wrOnly = false;
+    onlyFullNameRequired = false;
+    replyPathwayOnly = false;
+    includesReplyPathway = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
@@ -191,15 +211,37 @@ export default class OtherPartyCommon extends Vue {
     }
 
     mounted(){
+        
         this.dataReady = false;
         this.confirmed = false;
+        this.cmOnly = false;
+        this.wrOnly = false;
 
         this.tableIsEmpty = this.otherPartyData.length == 0 ;
                 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        this.cmOnly = (this.types?.length == 1 && this.types.includes("Case Management")); 
+        this.selectedForms = (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[0].result.selectedForms:[];
+        this.selectedReplyForms = (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[0].result.selectedReplyForms:[];
+
+        this.cmOnly = (this.selectedForms.length == 1 && this.selectedForms.includes("caseMgmt")); 
+
+        //TODO: use this when other reply pathways have been added: this.wrOnly = (this.selectedReplyForms.length == 1 && this.selectedReplyForms.includes("writtenResponse"));
+        this.wrOnly = (this.selectedReplyForms.includes("writtenResponse"));
+        this.replyPathwayOnly = this.wrOnly && this.selectedForms.length == 0;
+        this.includesReplyPathway = this.selectedReplyForms.length > 0;
+        
+        if (this.selectedForms.length > 0){
+            if (this.selectedReplyForms.length > 0){
+                this.onlyFullNameRequired = this.cmOnly && this.wrOnly
+            } else {
+                this.onlyFullNameRequired = this.cmOnly;
+            }
+        } else {
+            this.onlyFullNameRequired = this.wrOnly;
+        }
+        
 
         if(this.step.result?.otherPartyCommonConfirmationSurvey?.data?.confirmation == 'Confirmed'){
             this.confirmed = true

@@ -81,7 +81,9 @@ export default class FormList extends Vue {
             { name:'P26', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc26"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File an Agreement (Form 26)"}, 
             { name:'P27', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc27"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File a Determination of Parenting Coordinator (Form 27)"},        
             { name:'P28', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc28"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File an Order (Form 28)"},        
-            { name:'P29', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc"),       chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Application About Enforcement (Form 29)"},               
+            { name:'P29', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc"),       chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Application About Enforcement (Form 29)"}, 
+            { name:'P19', appName:'writtenResponse',   pdfType: Vue.filter('getPathwayPdfType')("replyCaseMgmt"),       chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.WR._StepNo],       color:"danger", title:"Written Response to Application (Form 19)"},              
+        
         ]
 
         this.currentStep = this.$store.state.Application.currentStep;
