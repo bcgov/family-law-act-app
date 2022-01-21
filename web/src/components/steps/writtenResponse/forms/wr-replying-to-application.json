@@ -15,7 +15,7 @@
                      "description": "Select each option that applies. You may choose more than one.",                    
                      "isRequired": true,
                      "hasOther": true,
-                     "otherText": "Other",
+                     "otherText": "Other (Provide name of other person)",
                      "choices": []
                   }, 
                   {

@@ -269,7 +269,7 @@ export default class FilingLocation extends Vue {
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
         }
 
-        if(this.steps[0].result?.selectedReplyForms?.includes("writtenResponse")){
+        if(selectedReplyForms.includes("writtenResponse")){
             this.survey.setValue('ExistingFamilyCase','y');
         }
 
@@ -335,7 +335,7 @@ export default class FilingLocation extends Vue {
     }  
 
     public setExistingFileNumber(){
-        //TODO: include reply forms too
+       
         let newExistingOrders = [];
         const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms: []
         
