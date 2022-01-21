@@ -20,11 +20,14 @@ export const FLA_Types = [
     {pathway:"agreementEnfrc28",            pdfType:"RORD", appType:"RORD",          familyType:"ENFRC", fullName:"File an Order"},
 
     {pathway:"replyFlm",                    pdfType:"RFLM",  appType:"RFLM",  familyType:"RFLM",  fullName:"Reply to Application About a Family Law Matter"},
+    
+    {pathway:"writtenResponse",             pdfType:"WRA",   appType:"WRA",   familyType:"WR",    fullName:"Written Response to Application"},    
     {pathway:"replyCaseMgmt",               pdfType:"WRA",   appType:"RCM",   familyType:"WR",    fullName:"Reply to Application for Case Management Order"},
     {pathway:"replyProtectionOrder",        pdfType:"WRA",   appType:"RPO",   familyType:"WR",    fullName:"Reply to Application About a Protection Order"},
     {pathway:"replyPriorityParenting",      pdfType:"WRA",   appType:"RPP",   familyType:"WR",    fullName:"Reply to Application About a Priority Parenting Matter"},
     {pathway:"replyChildReloc",             pdfType:"WRA",   appType:"RCR",   familyType:"WR",    fullName:"Reply to Application for Order Prohibiting the Relocation of a Child"},
     {pathway:"replyAgreementEnfrc",         pdfType:"WRA",   appType:"RAE",   familyType:"WR",    fullName:"Reply to Application About Enforcement"},
     {pathway:"replyFamilyMaintenanceEnfrc", pdfType:"WRA",   appType:"RFME",  familyType:"WR",    fullName:"Reply to Application for Order Under the Family Maintenance Enforcement Act"},
+    
     {pathway:"replyCounterApplication",     pdfType:"RCA",   appType:"RCA",   familyType:"CA",    fullName:"Reply to an Application About a Family Law Matter with Counter Application"}
 ];
