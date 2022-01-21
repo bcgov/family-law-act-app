@@ -59,7 +59,7 @@
                      "name": "ExplanationExistingFamilyCase",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'y'",
-                     "title": "<b>Note: You must file any new application at the court registry where your existing case is filed.</b> If you want your case moved to another court registry, you must get a court order to transfer the file. You can apply for this case management order by selecting the case management option in the first step of this service.",
+                     "title": "<b>Note: You must file at the court registry where your existing case is filed.</b> If you want your case moved to another court registry, you must get a court order to transfer the file. You can apply for this case management order by selecting the case management option in the first step of this service.",
                      "titleLocation": "hidden"
                   },                 
                   {

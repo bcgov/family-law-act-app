@@ -4,17 +4,29 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1>Other Party Information</h1>
-                    <p>In a family case, there are specific people who must be served with notice of your application.
+                    <p v-if="!replyPathwayOnly">In a family case, there are specific people who must be served with notice of your application.
                          They are the other party or parties.  It is important that each other party know that you are
                           making this application to the court and are given a chance to talk to the court. To give notice, 
                           they will need to be served with a copy of the application. 
                     </p>
                     <ul>
-                        <li>Add each party from your existing case if you already have a case with the same parties – be sure to copy the names from any filed court document</li>
-                        <li>Add each parent and/or current guardian as a party if your case involves a child</li>
-                        <li>Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
-                        <li>Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
+                        <li>Add each party from your existing case <span v-if="!replyPathwayOnly"> if you already have a case with the same parties </span>– be sure to copy the names from any filed court document</li>
+                        <li v-if="!replyPathwayOnly">Add each parent and/or current guardian as a party if your case involves a child</li>
+                        <li v-if="!replyPathwayOnly">Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
+                        <li v-if="!replyPathwayOnly">Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
+                        
                     </ul>
+
+                    <p 
+                        v-if="includesReplyPathway">
+                        If you are filing a Written Response to Application, you will need to serve each other party with a filed copy of the reply.
+                    </p>
+                    <p 
+                        v-if="includesReplyPathway">
+                        If you are filing a Reply to a Family Law Matter Application, the registry will provide a copy of the filed reply to 
+                        each other party.
+                    </p>
+                        
                     
                     <div>
                         <div class="m-4 text-primary" @click="showServeNoticeInfo= !showServeNoticeInfo" style="border-bottom:1px solid; width:19rem;">
@@ -180,6 +192,8 @@ export default class OtherPartyCommon extends Vue {
     cmOnly = false;
     wrOnly = false;
     onlyFullNameRequired = false;
+    replyPathwayOnly = false;
+    includesReplyPathway = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
@@ -215,6 +229,8 @@ export default class OtherPartyCommon extends Vue {
 
         //TODO: use this when other reply pathways have been added: this.wrOnly = (this.selectedReplyForms.length == 1 && this.selectedReplyForms.includes("writtenResponse"));
         this.wrOnly = (this.selectedReplyForms.includes("writtenResponse"));
+        this.replyPathwayOnly = this.wrOnly && this.selectedForms.length == 0;
+        this.includesReplyPathway = this.selectedReplyForms.length > 0;
         
         if (this.selectedForms.length > 0){
             if (this.selectedReplyForms.length > 0){
