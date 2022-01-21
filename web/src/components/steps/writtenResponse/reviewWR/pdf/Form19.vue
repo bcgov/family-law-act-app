@@ -47,7 +47,7 @@ export default class Form19 extends Vue {
     }   
            
     public onPrint() { 
-        const pdf_type = Vue.filter('getPathwayPdfType')("replyCaseMgmt")
+        const pdf_type = Vue.filter('getPathwayPdfType')("writtenResponse")
         const pdf_name = "written-response-to-application"
         const el= document.getElementById("print");
 
