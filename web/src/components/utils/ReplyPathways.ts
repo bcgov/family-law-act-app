@@ -1,6 +1,3 @@
-import store from '@/store';
-import _ from 'underscore';
-
 
 export function getWrittenResponseApplications(types) { 
     

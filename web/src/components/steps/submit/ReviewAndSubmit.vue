@@ -241,6 +241,9 @@
         public id!: string;
 
         @applicationState.State
+        public types!: string[];
+
+        @applicationState.State
         public steps!: stepInfoType[];
 
         @applicationState.State
@@ -375,7 +378,7 @@
 
         public onSubmit() {                     
             
-            if (this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText)){
+            if (this.types.includes("Priority Parenting Matter") && this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText)){
 
                 const index = this.supportingDocuments.findIndex(doc => doc.documentType == this.ppmSchedule1FileType.type);
 

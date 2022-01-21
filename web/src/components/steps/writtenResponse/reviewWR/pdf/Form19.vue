@@ -19,7 +19,6 @@ import Form19Layout from "./Form19Layout.vue";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 import moment from 'moment';
-import { priorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
 
 @Component({
     components:{        
