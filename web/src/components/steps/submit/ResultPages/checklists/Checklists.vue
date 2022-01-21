@@ -15,6 +15,7 @@
             <enfrc-checklist v-else-if="checklistType=='AFET'" :applicationId='applicationId'/>
             <enfrc-file-determination-of-parenting-coordinator-checklist v-else-if="checklistType=='RDET'" :applicationId='applicationId'/>
             <enfrc-file-order-checklist v-else-if="checklistType=='RORD'" :applicationId='applicationId'/>
+            <wr-checklist v-else-if="checklistType=='WRA'" :applicationId='applicationId'/>
         </b-card>
     </div>
 </template>
@@ -34,6 +35,7 @@ import EnfrcChecklist from "./EnfrcChecklist.vue";
 import EnfrcFileDeterminationOfParentingCoordinatorChecklist from "./EnfrcFileDeterminationOfParentingCoordinatorChecklist.vue";
 import EnfrcFileOrderChecklist from "./EnfrcFileOrderChecklist.vue";
 import EarlyResolutionsChecklist from "./EarlyResolutionsChecklist.vue";
+import WrChecklist from "./WrChecklist.vue";
 
 @Component({
     components:{        
@@ -47,7 +49,8 @@ import EarlyResolutionsChecklist from "./EarlyResolutionsChecklist.vue";
         EnfrcChecklist,
         EnfrcFileDeterminationOfParentingCoordinatorChecklist,
         EnfrcFileOrderChecklist,
-        EarlyResolutionsChecklist
+        EarlyResolutionsChecklist,
+        WrChecklist
     }
 })
 export default class Checklists extends Vue {
@@ -72,7 +75,8 @@ export default class Checklists extends Vue {
         {name:'RFA', title:'Request to File an Agreement', pdfName:'Checklist_for_Request_to_File_an_Agreement.pdf'},
         {name:'AFET', title:'Application About Enforcement', pdfName:'Checklist_for_Application_About_Enforcement.pdf'},
         {name:'RDET', title:'Request to File a Determination of Parenting Coordinator', pdfName:'Checklist_for_Request_to_File_a_Determination_of_Parenting_Coordinator.pdf'},
-        {name:'RORD', title:'Request to File an Order', pdfName:'Checklist_for_Request_to_File_an_Order.pdf'}
+        {name:'RORD', title:'Request to File an Order', pdfName:'Checklist_for_Request_to_File_an_Order.pdf'},
+        {name:'WRA', title:'Request to File an Order', pdfName:'Checklist_for_Written_Response_to_Application.pdf'}
     ]    
 
     mounted(){       

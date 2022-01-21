@@ -11,7 +11,8 @@
                   {
                      "type": "checkbox",
                      "name": "partiesMakingApplication",                     
-                     "title": "The {applicationIdentifier} about {applicationList} {verb} made by:",                    
+                     "title": "The {applicationIdentifier} about {applicationList} {verb} made by:",
+                     "description": "Select each option that applies. You may choose more than one.",                    
                      "isRequired": true,
                      "hasOther": true,
                      "otherText": "Other",
