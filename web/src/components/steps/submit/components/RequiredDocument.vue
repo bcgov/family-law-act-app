@@ -87,8 +87,10 @@ export default class RequiredDocument extends Vue {
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
         this.isRequiredDocument = false;
+        const includesOrderActivities = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        
         for (const [key, value] of Object.entries(this.requiredDocuments)){           
-            if(key && value &&  (this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key) || this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key.slice(0,-2)))){
+            if(key && value && includesOrderActivities && (this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key) || this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key.slice(0,-2)))){
                 const name = Vue.filter('getFullOrderName')(key, '');
                 const vowelCondituion = ['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a';
                 this.requiredDocumentLists.push({

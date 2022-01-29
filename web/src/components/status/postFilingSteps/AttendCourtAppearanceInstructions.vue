@@ -10,7 +10,7 @@
         <p>
             A judge can make decisions based only on the information presented 
             by the parties as evidence. Your evidence includes your application, 
-            any additional affidavit, and spoken evidence provided in court.
+            any additional affidavit(s), and spoken evidence provided in court.
         </p>       
 
         <div v-if="byConsent">
@@ -36,7 +36,11 @@
                 from them. If you have provided an email address in your address for service, they can usually 
                 let you know the results of your application by email.
             </p>            
-        </div> 
+        </div>
+
+        <p v-if="writtenResponse">
+            <b>NOTE:</b> <i>A written response is used in addition to, not in place of, attending court.</i>
+        </p>
 
         <p style="margin:0.5rem 0 0.5rem 0;">
             If you can’t attend court using the method of attendance set out 
@@ -45,8 +49,9 @@
             attendance by filing an 
             <a 
                 target="_blank"
-                href="https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178">
-                Application for Case Management Order without Notice or Attendance Form 11</a>.
+                href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true">
+                Application for Case Management Order without Notice or Attendance Form 11</a>. 
+                You can complete the form online using this service.
         </p>
 
         <p>
@@ -106,6 +111,9 @@ export default class AttendCourtAppearanceInstructions extends Vue {
 
     @Prop({required: true})
     byConsent!: boolean;
+
+    @Prop({required: true})
+    writtenResponse!: boolean;
     
 }
 </script>

@@ -85,16 +85,22 @@
                 applicationName="about Enforcement"  
             />
 
+            <arrange-for-service-wr-instructions
+                v-if="conditionArray[13]"
+                v-bind:instructionsStep="instructionsStepArray[13]"
+                applicationName="Written Response"  
+            />
 
             <proof-of-service-instructions
-                v-if="conditionArray[13]"
-                v-bind:instructionsStep="instructionsStepArray[13]"  
+                v-if="conditionArray[14]"
+                v-bind:instructionsStep="instructionsStepArray[14]"  
                 v-bind:applicationId="applicationId"/>
             
             <attend-court-appearance-instructions
-                v-if="conditionArray[14]"
-                v-bind:instructionsStep="instructionsStepArray[14]"
-                :byConsent="applicationByConsent"  
+                v-if="conditionArray[15]"
+                v-bind:instructionsStep="instructionsStepArray[15]"
+                :byConsent="applicationByConsent"
+                :writtenResponse="includesWr"  
             />
         
         </b-card>
@@ -125,6 +131,8 @@ import WaitForJudgeToReview from "./postFilingSteps/WaitForJudgeToReview.vue"
 import ServeCopyOfOrderOnOtherParty from "./postFilingSteps/ServeCopyOfOrderOnOtherParty.vue"
 import {whichCaseMgmtForm} from "@/components/steps/caseMgmt/reviewCM/RequiredForm"
 
+import ArrangeForServiceWrInstructions from "./postFilingSteps/ArrangeForServiceWrInstructions.vue"
+
 @Component({
     components:{        
         ArrangeForServiceFlmInstructions,
@@ -138,7 +146,8 @@ import {whichCaseMgmtForm} from "@/components/steps/caseMgmt/reviewCM/RequiredFo
         CompleteEarlyResolutionProcessErpInstructions,
         ArrangeForServiceCmPpmRelocEnfrcInstructions,
         WaitForJudgeToReview,
-        ServeCopyOfOrderOnOtherParty
+        ServeCopyOfOrderOnOtherParty,
+        ArrangeForServiceWrInstructions
     }
 })
 export default class Instructions extends Vue {
@@ -151,6 +160,7 @@ export default class Instructions extends Vue {
 
     applicationLocationInfo = {} as locationsInfoType;
     listOfselectedForms: string[] = [];
+    listOfselectedReplyForms: string[] = [];
     urgentPO = false;
     earlyResolution = false;
 
@@ -167,6 +177,7 @@ export default class Instructions extends Vue {
     includesEnfrc = false;
     includeCmWithoutNotice = false;
     includeCmWithNotice = false;
+    includesWr = false;
     applicationByConsent = false;
 
     error = ''
@@ -194,7 +205,7 @@ export default class Instructions extends Vue {
             const stepCOMM = this.getStepResultByName(applicationData, 'COMMON');
             const stepCM = this.getStepResultByName(applicationData, 'CM');
 
-            if (stepGETSTART?.selectedForms){
+            if (stepGETSTART?.selectedActivity.includes('applyForOrder') && stepGETSTART?.selectedForms){
                 this.listOfselectedForms = stepGETSTART.selectedForms;
             }
 
@@ -229,6 +240,11 @@ export default class Instructions extends Vue {
                 || Vue.filter('includedInRegistries')(applicationLocationName, 'family-justice')
                 );
 
+            if (stepGETSTART?.selectedActivity.includes('replyToApplication') && stepGETSTART?.selectedReplyForms){
+                this.listOfselectedReplyForms = stepGETSTART.selectedReplyForms;
+            }
+
+            this.includesWr = this.listOfselectedReplyForms.includes('writtenResponse');
 
             // //______TEMPORARY Check_________
             // //______________________________
@@ -326,23 +342,29 @@ export default class Instructions extends Vue {
         this.conditionArray[12] = this.includesEnfrc ;
         this.instructionsStepArray[12] = 0;
 
+        //arrange-for-service-wr-instructions
+        this.conditionArray[13] = this.includesWr ;
+        this.instructionsStepArray[13] = 0;
+
         //proof-of-service-instructions
-        this.conditionArray[13] =   (this.includesFlm && !this.includesPo) || 
+        this.conditionArray[14] =   (this.includesFlm && !this.includesPo) || 
                                     (this.includesPo && !this.urgentPO)    ||
                                     (this.includesCm && this.includeCmWithNotice) ||
                                     this.includesPpm ||
                                     this.includesReloc ||
-                                    this.includesEnfrc;
+                                    this.includesEnfrc || 
+                                    this.includesWr;
                                     
-        this.instructionsStepArray[13] = 0;
+        this.instructionsStepArray[14] = 0;
         
         //attend-court-appearance-instructions
-        this.conditionArray[14] = this.includesPo ||
+        this.conditionArray[15] = this.includesPo ||
                                  (this.includesCm && this.includeCmWithNotice) ||
                                   this.includesPpm ||
                                   this.includesReloc ||
-                                  this.includesEnfrc;  
-        this.instructionsStepArray[14] = 0;
+                                  this.includesEnfrc || 
+                                  this.includesWr; 
+        this.instructionsStepArray[15] = 0;
         
         let stepNum = 1;
         for(let i =0; i<this.conditionArray.length; i++){
