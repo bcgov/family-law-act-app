@@ -55,7 +55,9 @@ export interface COMMONstPgTypes{
 export interface RFLMstPgTypes{
     _StepNo: number;  
 
-    ReplyToFlmApplication: number;   
+    ReplyToFlmApplication: number;  
+    ReviewYourAnswersRFLM: number;
+    PreviewFormsRFLM: number; 
 }
 
 export interface WRstPgTypes{

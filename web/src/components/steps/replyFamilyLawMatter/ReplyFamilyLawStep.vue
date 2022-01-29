@@ -1,6 +1,8 @@
 <template>
     <step-base v-bind:step="step">
-        <reply-to-flm-application v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyToFlmApplication"/> 
+        <reply-to-flm-application v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyToFlmApplication"/>
+        <review-your-answers-reply-flm v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/> 
+        <preview-forms-reply-flm v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PreviewFormsRFLM"/> 
     </step-base>
 </template>
 
@@ -13,6 +15,7 @@ const applicationState = namespace("Application");
 
 import StepBase from "../StepBase.vue";
 import ReplyToFlmApplication from "./ReplyToFlmApplication.vue";
+import PreviewFormsReplyFlm from "./reviewReplyFLM/PreviewFormsReplyFLM.vue"
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import { stepInfoType } from "@/types/Application";
@@ -20,7 +23,8 @@ import { stepInfoType } from "@/types/Application";
 @Component({
     components:{
         StepBase,  
-        ReplyToFlmApplication      
+        ReplyToFlmApplication,
+        PreviewFormsReplyFlm  
     }
 })
 export default class ReplyFamilyLawStep extends Vue {
