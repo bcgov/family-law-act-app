@@ -163,7 +163,10 @@
             this.regForeignSupportOrder = this.getRegForeignSupportOrderStatus()
 
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
-            if( stepGETSTART.result?.selectedForms?.includes('protectionOrder') && stepPO.result?.poQuestionnaireSurvey?.data?.orderType == 'needPO')  
+
+            const includesOrderActivities = stepGETSTART.result?.selectedActivity.includes('applyForOrder');
+            
+            if( includesOrderActivities && stepGETSTART.result?.selectedForms?.includes('protectionOrder') && stepPO.result?.poQuestionnaireSurvey?.data?.orderType == 'needPO')  
                 this.hasNeedPOselected =  true;
         }
 

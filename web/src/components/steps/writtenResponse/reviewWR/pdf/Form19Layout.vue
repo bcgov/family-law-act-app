@@ -90,12 +90,7 @@
                 <div style="display:inline; font-size: 9pt;">
                     I have been given notice of the application about <i>{{wrInfo.applicationsList}}</i> made by 
                     <i>{{wrInfo.otherPartiesList}}</i> and I am completing this written response to reply to the application.
-                    
-                    <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
-                    
                 </div>
-               
-                
             </section>
         </div>
 

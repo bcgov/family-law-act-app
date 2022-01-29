@@ -211,7 +211,10 @@ export default class FilingLocation extends Vue {
             this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"].push(location["name"])
         }
 
-        if(this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes("protectionOrder")){
+        const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
+
+        if(includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[4].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[5].readOnly = true;
@@ -219,7 +222,7 @@ export default class FilingLocation extends Vue {
             this.editButton = true
         }
 
-        if(this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.includes("writtenResponse")){
+        if(includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.includes("writtenResponse")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
            
         }

@@ -206,11 +206,14 @@ export default class GettingStarted extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms) {
+        const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
+
+        if (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms) {
             this.selected = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
         }
 
-        if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms) {
+        if (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms) {
             this.selectedReplyForms = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms;
         }
         

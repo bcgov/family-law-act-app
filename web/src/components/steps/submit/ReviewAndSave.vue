@@ -147,7 +147,9 @@ export default class ReviewAndSave extends Vue {
 
         this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
 
-        if(this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes('protectionOrder'))  
+        const includesOrderActivities = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        
+        if(includesOrderActivities && this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes('protectionOrder'))  
             this.hasPOselected =  true;
     } 
 

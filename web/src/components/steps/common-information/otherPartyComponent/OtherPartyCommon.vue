@@ -20,7 +20,7 @@
                         </ul>
                     </div>
 
-                    <p v-else>Add each party from your existing case if you already have a case with the same parties – be sure to copy the names from any filed court document</p>
+                    <p v-else>Add each party from your existing case – be sure to copy the names from any filed court document</p>
                     
                     <div v-if="includesReplyPathway">
                         <p>
@@ -227,8 +227,11 @@ export default class OtherPartyCommon extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        this.selectedForms = (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[0].result.selectedForms:[];
-        this.selectedReplyForms = (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[0].result.selectedReplyForms:[];
+        const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
+
+        this.selectedForms = (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        this.selectedReplyForms = (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
 
         this.cmOnly = (this.selectedForms.length == 1 && this.selectedForms.includes("caseMgmt")); 
 
