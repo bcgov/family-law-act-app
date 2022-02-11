@@ -1,55 +1,53 @@
 import { nameInfoType, questionInfoType } from "../CommonInformation";
 import { allOtherChilderenInfoType } from "../ProtectionOrder";
 
-export interface flmQuestionnaireSurveyInfoType {
-    data: string[];
+export interface rflmQuestionnaireDataInfoType {    
+    selectedParentingArrangementsForm?: string[];  
+    selectedChildSupportForm?: string[];
+    selectedContactWithChildForm?: string[];
+    selectedGuardianshipForm?: string[];
+    selectedSpousalSupportForm?: string[]; 
+}
+
+export interface rflmQuestionnaireSurveyInfoType {
+    data: rflmQuestionnaireDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface flmBackgroundSurveyDataInfoType {
+export interface rflmCounterAppDataInfoType {
+    counter: null | string;
+    counterList?: string[];   
+}
+
+export interface rflmCounterAppSurveyInfoType {
+    data: rflmCounterAppDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface rflmBackgroundSurveyDataInfoType {
     ExistingOrdersFLM?: string;
     existingOrdersListFLM?: string[];
-    existingPOOrders: string;
-    howPartiesRelated: string;
-    werePOPartiesMarried?: string;
-    listOfSpouses?: string;
-    liveTogetherPODate?: string;
-    dateOfMarriagePO?: string;
-    isSeperated?: string;
-    separationDate?: string;
+    otherPartyAttach?: string;
+    existingPOOrdersAttached: string;    
     likeToAddCulturalExplanation: string;
-    culturalExplain?: string;
-    spouseFAQ?: boolean;
-    isSeperatedPO?: string;
-    concernForNotObeying?: string;
-    reportedConcernsToPolice?: string;
-    reportedConcernsToSW?: string;
-    riskOfViolencePO?: string; 
-    otherPartyDisobeyOrder?: string;
-    explainReasonsForConcern?: string;
-    PartiesHasOtherChilderen?: string;
-    describeCirumstancesPO?: string;
-    mentalHealthConcernPO?: string;
-    allOtherChilderen?: allOtherChilderenInfoType[];
-    describeDisobeyOrder?: string;
-    explainReasonsPO?: string;
-    ExistingOrders?: string;
-    desrcibeSWAction?: string;
-    describeActionsByPolice?: string;
+    culturalExplain?: string;    
 }
 
-export interface flmBackgroundSurveyInfoType {
-    data: flmBackgroundSurveyDataInfoType;
+export interface rflmBackgroundSurveyInfoType {
+    data: rflmBackgroundSurveyDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface childDetailsDataInfoType {
+export interface rflmChildDetailsDataInfoType {
     name: nameInfoType;
     dob: string;
     relation: string;
@@ -62,23 +60,23 @@ export interface childDetailsDataInfoType {
     id?: number;
 }
   
-export interface childDetailsSurveyInfoType {
-    data: childDetailsDataInfoType[];
+export interface rflmChildDetailsSurveyInfoType {
+    data: rflmChildDetailsDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface flmAdditionalDocsDataInfoType {
+export interface rflmAdditionalDocsDataInfoType {
     isFilingAdditionalDocs?: string;
     criminalChecked?: string;
     unableFileForms?: string[];
     fileApplicationFAQ?: boolean;
 }
 
-export interface flmAdditionalDocumentsSurveyInfoType {
-    data: flmAdditionalDocsDataInfoType;
+export interface rflmAdditionalDocumentsSurveyInfoType {
+    data: rflmAdditionalDocsDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;

@@ -4,12 +4,16 @@
 <!-- <Header> -->
         <div>
             <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 5 – CONTACT WITH A CHILD – NEW</b></div>
-            <div style="text-align:center;"><b>This is Schedule 5 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:center;"><b>SCHEDULE 15 – COUNTER APPLICATION CONTACT WITH A CHILD – NEW</b></div>
+            <div style="text-align:center;"><b>This is Schedule 15 to the Reply to an Application About a Family Law Matter with Counter Application</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are <div class="uline">not a guardian</div> of the child or children and you are making a new application about contact with the child or children identified in section 12 of this application.</i>
-                <i style="display:block">Contact with a child is the time a child spends with a person who is not their guardian. </i>
+                <i>
+                    Complete this schedule only if you are <div class="uline">not a guardian</div> of the child or children 
+                    and you are making a new counter application about contact with the child or children identified in 
+                    section 13 of the reply with counter application. Contact with a child is the time a child spends with 
+                    a person who is not their guardian.
+                </i>
             </div>
 
 <!-- <1> -->
@@ -90,7 +94,7 @@ import { schedule5DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
         CheckBox
     }
 })
-export default class Schedule5 extends Vue {
+export default class Schedule15 extends Vue {
 
     @Prop({required:true})
     result!: any;

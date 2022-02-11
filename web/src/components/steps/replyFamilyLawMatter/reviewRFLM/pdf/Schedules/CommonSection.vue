@@ -3,16 +3,16 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header">
+        <div  class="form-header-rflm">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
                 <div style="font-size:13pt;"><b>Reply to an Application</b></div>
                 <div style="font-size:13pt;"><b>About a Family Law Matter</b></div>
-                <check-box 
+                <check-box
                     inline="inline" 
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline;" 
-                    :check="true?'yes':''" 
+                    shiftmark="1" boxMargin="0" shift="1" 
+                    style="margin:0; padding:0; display:inline;" 
+                    :check="includesCounter?'yes':''" 
                     text="with counter application"/>            
                 <div style="font-size:10pt;"><b>FORM 6</b></div>
                 <div>Provincial Court Family Rules</div>
@@ -42,7 +42,11 @@
                 style="text-indent:2px;display:inline-block;" 
                 textwidth="16rem" 
                 beforetext="The Application About a Family Law Matter was filed by" 
-                hint="full name of the other party" :italicHint="false" :text="''"/>
+                hint="full name of the other party" :italicHint="false" :text="otherPartyInfo"/>
+            <div style="text-indent:5px;display:inline;">
+                 . They are the other party in this case.
+            </div>
+            
         </section>
 <!-- <2> -->
         <section>
@@ -90,13 +94,13 @@
                 <i style="display:inline; margin-left:0.25rem">Select only one of the options below</i>          
                 <div style="margin-left:1.5rem">
                     <check-box  :check="!aboutChildren?'yes':''" text="The application does not ask for any order(s) about a child or children <i>(skip ahead to section 6)</i>"/>
-                    <check-box  :check="aboutChildren?'yes':''" text="The other party correctly provided the name and date of birth of each child involved in the application"/>
-                    <check-box  :check="!aboutChildren?'yes':''" text="The following is the correct name and date of birth of each child involved in the application:"/>
+                    <check-box  :check="aboutChildren && !incorrectChildInfo?'yes':''" text="The other party correctly provided the name and date of birth of each child involved in the application"/>
+                    <check-box  :check="aboutChildren && incorrectChildInfo?'yes':''" text="The following is the correct name and date of birth of each child involved in the application:"/>
                     <i>If you have selected this option, please provide the name and date of birth of ALL the children</i>
                 </div>
                 <b-table
                     :items="childrenInfo"
-                    :fields="childrenFields"
+                    :fields="childrenCorrectionFields"
                     class="mt-2"
                     small
                     bordered>                    
@@ -128,7 +132,7 @@
                     I would like to share the following information with the court about the cultural, linguistic, religious and spiritual 
                     upbringing and heritage of my family, including, if the child is an Indigenous child, the child’s Indigenous identity:</div>
                 <div style="margin-left:.5rem; text-indent:0rem;"></div>
-                <div v-if="result.flmBackgroundSurvey.likeToAddCulturalExplanation == 'y'" class="answerbox">{{culturalInfo}}</div>
+                <div v-if="culturalInfo.length > 0" class="answerbox">{{culturalInfo}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>
             </section>  
         </div> 
@@ -190,14 +194,14 @@
             <div style="margin-top:1rem;"><b>Agreement with order(s)</b></div>
 <!-- <10> -->
             <section>
-                <b style="margin-left:0.25rem">I agree with the following order(s) applied for by the other party:</b>
+                <b style="margin-left:0.25rem">I agree with the following order(s) applied for by the other party:</b><br>
                 <i>
                     Refer to the Application About a Family Law Matter schedules as referenced below to assist in completing
                     this section.
-                </i>
+                </i><br>
                 <i>Select all options that apply</i>
                 <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Parenting arrangements</b></div>
+                    <div style="margin-top:0.5rem;"><b>Parenting arrangements</b></div>
                     <div style="margin-top:0.25rem;">Parenting arrangements – new <i>[see Schedule 1 of Application About a Family Law Matter]</i></div>
                     <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="parental responsibilities"/>
                     <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="parenting time"/>
@@ -256,7 +260,7 @@
             <div style="margin-top:1rem;"><b>Disagreement with order(s)</b></div>
 <!-- <11> -->
             <section>
-                <b style="margin-left:0.25rem">I do not agree to all or part of the following order(s) applied for by the other party:</b>
+                <b style="margin-left:0.25rem">I do not agree to all or part of the following order(s) applied for by the other party:</b><br>
                 <i>
                     Refer to the Application About a Family Law Matter schedules to assist in completing this section.
                 </i>
@@ -347,57 +351,57 @@
             </div>
 <!-- <12> -->
             <section>
-                <b style="margin-left:0.25rem">I am applying for a court order about the following family law matter(s):</b>                
+                <b style="margin-left:0.25rem">I am applying for a court order about the following family law matter(s):</b><br>                
                 <i>Select all options that apply, complete and attach the required schedule(s)</i>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Parenting arrangements</b></div>
                     <div style="margin-top:0.25rem;"></div>
                     <check-box 
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule11')?'yes':''" 
                         text="Parenting arrangements – new <i>[complete and attach Schedule 11]</i> including parental responsibilities and parenting time"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule12')?'yes':''" 
                         text="Parenting arrangements order/agreement – existing <i>[complete and attach Schedule 12]</i> including parental responsibilities and parenting time"/>
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Child support</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule13')?'yes':''" 
                         text="child support – new <i>[complete and attach Schedule 13]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule14')?'yes':''" 
                         text="child support order/agreement – existing <i>[complete and attach Schedule 14]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule15')?'yes':''" 
                         text="contact with a child – new <i>[complete and attach Schedule 15]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule16')?'yes':''" 
                         text="contact order/agreement – existing <i>[complete and attach Schedule 16]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule17')?'yes':''" 
                         text="appointing a guardian of a child <i>[complete and attach Schedule 17]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule18')?'yes':''" 
                         text="cancelling guardianship of a child <i>[complete and attach Schedule 18]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule19')?'yes':''" 
                         text="spousal support – new <i>[complete and attach Schedule 19]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="selectedSchedules.includes('schedule20')?'yes':''" 
                         text="spousal support order/agreement – existing <i>[complete and attach Schedule 20]</i>"/>                    
                 </div>                   
               
@@ -411,10 +415,10 @@
                 <i style="display:inline; margin-left:0.25rem">Select only one of the options below and complete the required information</i>          
                 <div style="margin-left:1.5rem">
                     <check-box  
-                        :check="!aboutChildren?'yes':''" 
+                        :check="!counterAboutChildren?'yes':''" 
                         text="My counter application does not ask for any order(s) about a child or children <i>(skip section 14)</i>"/>
                     <check-box  
-                        :check="aboutChildren?'yes':''" 
+                        :check="counterAboutChildren?'yes':''" 
                         text="My counter application is asking for an order(s) about the following child or children:"/>                   
                 </div>
                 <b-table
@@ -466,9 +470,9 @@ const applicationState = namespace("Application");
 import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { nameInfoType } from "@/types/Application/CommonInformation";
-import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { locationInfoDataInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { rflmBackgroundSurveyDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 
 
 @Component({
@@ -483,91 +487,110 @@ export default class CommonSection extends Vue {
     result!: any;
 
     @Prop({required:true})
-    selectedSchedules!: string[];
-    
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    selectedSchedules!: string[];  
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
     
     dataReady = false;
+    includesCounter = false;
     aboutChildren = false;
+    counterAboutChildren = false;
 
     locationInfo = {} as locationInfoDataInfoType;
 
-    otherPartyInfo=[];
+    otherPartyInfo='';
     yourInfo = {} as yourInformationInfoDataInfoType;
 
     applicantList = []
     
-    existingOrders = {} as existingOrdersInfoType;
-    
-    relationshipBetweenParties = {} as relationshipBetweenPartiesInfoType;
+    existingOrders = {} as existingOrdersInfoType;    
+   
     childrenInfo = []
     childBestInterestAcknowledmentCheck = false;
-    culturalInfo = '';  
-    filingLocationReason = '';
-    
+    incorrectChildInfo = false;
+    culturalInfo = '';
    
     mounted(){
-        // this.dataReady = false;
-        // this.extractInfo();       
+        this.dataReady = false;
+        this.extractInfo();       
         this.dataReady = true;
     }
+
+    childrenCorrectionFields=[
+        {key:"fullName",               label:"Child's full name",                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+    ]  
    
     childrenFields=[
-        {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"fullName",               label:"Child's full name",                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
         {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
         {key:"otherPartyRelationship", label:"Other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
         {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]   
 
-    public extractInfo(){ 
+    public extractInfo(){   
+        
+        console.log(this.result)       
 
-        if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
-            this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
-        } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
-            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
-        }
+        this.includesCounter = this.result.rflmCounterAppSurvey.counter == 'Yes';
         
         this.existingOrders = this.getExistingOrdersInfo();
-        this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
+        
         const childRelatedApplication = ( 
-            this.selectedSchedules?.includes('schedule1') ||
-            this.selectedSchedules?.includes('schedule2') || 
-            this.selectedSchedules?.includes('schedule3') ||
-            this.selectedSchedules?.includes('schedule4') ||
-            this.selectedSchedules?.includes('schedule5') || 
-            this.selectedSchedules?.includes('schedule6') ||
-            this.selectedSchedules?.includes('schedule7') || 
-            this.selectedSchedules?.includes('schedule8') ||
-            this.selectedSchedules?.includes('schedule11') ||
-            this.selectedSchedules?.includes('schedule12') || 
-            this.selectedSchedules?.includes('schedule13') ||
-            this.selectedSchedules?.includes('schedule14') ||
-            this.selectedSchedules?.includes('schedule15') || 
-            this.selectedSchedules?.includes('schedule16') ||
-            this.selectedSchedules?.includes('schedule17') || 
-            this.selectedSchedules?.includes('schedule18')
+            this.selectedSchedules.includes('schedule1') ||
+            this.selectedSchedules.includes('schedule2') || 
+            this.selectedSchedules.includes('schedule3') ||
+            this.selectedSchedules.includes('schedule4') ||
+            this.selectedSchedules.includes('schedule5') || 
+            this.selectedSchedules.includes('schedule6') ||
+            this.selectedSchedules.includes('schedule7') || 
+            this.selectedSchedules.includes('schedule8')
         )
-        if (childRelatedApplication && this.result.childrenInfoSurvey?.length > 0){
+
+        if (childRelatedApplication && this.result.rflmChildrenInfoSurvey?.length > 0){
             this.aboutChildren = true;
             this.childrenInfo = this.getChildrenInfo();
-            this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
+            this.childBestInterestAcknowledmentCheck = this.result.rflmChildBestInterestAcknowledgement;
+            this.incorrectChildInfo = this.result.incorrectChildInfo == 'Yes'            
         } else {
             this.aboutChildren = false;
             this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
             this.childBestInterestAcknowledmentCheck = false;
+            this.incorrectChildInfo = false;
         }
 
-        if (this.result.flmBackgroundSurvey?.culturalExplain) {
-            this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
-        }       
+        const childRelatedCounterApplication = (
+            this.selectedSchedules.includes('schedule11') ||
+            this.selectedSchedules.includes('schedule12') || 
+            this.selectedSchedules.includes('schedule13') ||
+            this.selectedSchedules.includes('schedule14') ||
+            this.selectedSchedules.includes('schedule15') || 
+            this.selectedSchedules.includes('schedule16') ||
+            this.selectedSchedules.includes('schedule17') || 
+            this.selectedSchedules.includes('schedule18')
+        )
+
+        if (childRelatedCounterApplication && this.result.rflmChildrenInfoSurvey?.length > 0){
+            this.counterAboutChildren = true;
+            this.childrenInfo = this.getChildrenInfo();
+            this.childBestInterestAcknowledmentCheck = this.result.rflmChildBestInterestAcknowledgement;            
+        } else {
+            this.counterAboutChildren = false;
+            this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
+            this.childBestInterestAcknowledmentCheck = false;
+        }
         
-        this.otherPartyInfo = this.getOtherPartyInfo()
-        this.yourInfo = this.getYourInfo()     
+
+        if (this.result.flmBackgroundSurvey?.likeToAddCulturalExplanation == 'y' && this.result.flmBackgroundSurvey?.culturalExplain){
+            this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
+        } else {
+            this.culturalInfo = '';
+        } 
+        
+        this.otherPartyInfo = this.getOtherPartyInfo();
+        this.yourInfo = this.getYourInfo();     
         this.locationInfo = this.getLocationInfo();  
     }
 
@@ -590,26 +613,12 @@ export default class CommonSection extends Vue {
         
         return locationInformation;
     }
-
-    public getRelationshipBetweenPartiesInfo(){
-
-        let relationshipInfo = {} as relationshipBetweenPartiesInfoType;
-        relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
-        relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
-        if (relationshipInfo.spouses){
-            relationshipInfo.startDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.liveTogetherPODate);
-            relationshipInfo.marriageDate =this.result.flmBackgroundSurvey.dateOfMarriagePO? Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO):'';
-            relationshipInfo.separationDate = (this.result.flmBackgroundSurvey.isSeperated == 'y')?Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate):'';
-            relationshipInfo.nameOfSpouse = this.result.flmBackgroundSurvey.listOfSpouses;
-        }
-        return relationshipInfo;
-    }
-
+    
     public getChildrenInfo(){
 
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.childrenInfoSurvey;
+        const childData = this.result.rflmChildrenInfoSurvey;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
@@ -619,21 +628,24 @@ export default class CommonSection extends Vue {
             childInfo.otherPartyRelationship = child.opRelation;
             childInfo.currentSituation = child.currentLiving;
             childrenInfo.push(childInfo)
-        }        
-
+        }    
+       
         return childrenInfo;
     }
 
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        existing.existingFlm = this.result.flmBackgroundSurvey?.ExistingOrdersFLM == 'y';
-        existing.existingPO =  this.result.flmBackgroundSurvey?.existingPOOrders == 'y';
+        if (this.result.rflmBackgroundSurvey){
+            const backgroundInfo: rflmBackgroundSurveyDataInfoType = this.result.rflmBackgroundSurvey
+            existing.existingFlm = backgroundInfo.ExistingOrdersFLM == 'y' || backgroundInfo.otherPartyAttach == 'n';
+            existing.existingPO =  backgroundInfo.existingPOOrdersAttached == 'n';
+        }        
 
         return existing;
     }
 
-    public getYourInfo(){           
+    public getYourInfo(){
 
         if(this.result?.yourInformationSurvey){
             return getYourInformationResults(this.result?.yourInformationSurvey); 
@@ -645,45 +657,22 @@ export default class CommonSection extends Vue {
     public getOtherPartyInfo(){
 
         let OpInformation = [
-            {            
-                dob: 'unknown',
-                name: {'first': '','middle': '', 'last': ''},
-                address: '',
-                contactInfo: ''
+            {  
+                name: {'first': '','middle': '', 'last': ''}                
             }               
         ];        
 
         if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];    
             for(const party of this.result.otherPartyCommonSurvey){
-                let otherParty = {            
-                    dob: '',
-                    name: {'first': '','middle': '', 'last': ''},
-                    address: '',
-                    contactInfo: '',
-                    lawyer: ''
-                }                
-
-                if (party['knowDob'] == 'y' &&  party['dob'])
-                    otherParty.dob = party['dob']
-
-                if (party['name'])
-                    otherParty.name = party['name']
-                
-                if (party['address'])
-                    otherParty.address = party['address']
-                
-                if (party['contactInfo'])
-                    otherParty.contactInfo = party['contactInfo']
-                
-                if (party.lawyer)
-                    otherParty.lawyer = party.lawyer
-                
-                OpInformation.push(otherParty)
+                if (party.name){
+                    const otherParty = Vue.filter('getFullName')(party.name)
+                    OpInformation.push(otherParty)
+                }                    
             }
         } 
 
-        return OpInformation
+        return OpInformation.join(', ')
     }    
  
 }

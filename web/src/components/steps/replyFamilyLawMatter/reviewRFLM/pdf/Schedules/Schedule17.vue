@@ -5,11 +5,14 @@
 <!-- <Header> -->
         <div>
             <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 7 – APPOINTING A GUARDIAN OF A CHILD OR CHILDREN</b></div>
-            <div style="text-align:center;"><b>This is Schedule 7 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:center;"><b>SCHEDULE 17 – COUNTER APPLICATION TO APPOINT A GUARDIAN OF A CHILD OR CHILDREN</b></div>
+            <div style="text-align:center;"><b>This is Schedule 17 to the Reply to an Application About a Family Law Matter with Counter Application</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to be appointed as a guardian of a child or children identified in section 12 of this application. </i>
+                <i>
+                    Complete this schedule only if you are making a counter application to be appointed as a guardian of a child or
+                    children identified in section 13 of the reply with counter application. 
+                </i>
             </div>
 
 <!-- <1> -->
@@ -105,7 +108,7 @@ import { schedule7DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
     }
 })
 
-export default class Schedule7 extends Vue {
+export default class Schedule17 extends Vue {
 
     @Prop({required:true})
     result!: any;

@@ -3,18 +3,27 @@
 <!-- <Header> -->
         <div v-if="dataReady">
             <div class="new-page" />
-            <div style="text-align:center;"><b> SCHEDULE 2 – PARENTING ORDER/ AGREEMENT – EXISTING</b></div>
-            <div style="text-align:center;"><b> This is Schedule 2 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:center;"><b> SCHEDULE 12 – COUNTER APPLICATION PARENTING ORDER/WRITTEN AGREEMENT – EXISTING</b></div>
+            <div style="text-align:center;"><b> This is Schedule 12 to the Reply to an Application About a Family Law Matter with Counter Application</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about parenting arrangements, or to set aside or replace all or part of an agreement about parenting arrangements, of the child or children identified in section 12 of this application.</i>
+                <i>
+                    Complete this schedule only if you are making a counter application to change or cancel all or part of an existing
+                    final order about parenting arrangements, or to set aside or replace all or part of an agreement about parenting
+                    arrangements, of the child or children identified in section 13 of the reply with counter application.
+                </i>
             </div>
 <!-- <1> -->
             <section class="resetquestion"> 
                 I am:
                 <div style="margin-left:1rem;">
-                    <check-box  :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
-                    <check-box style="width:120%;" :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                    <check-box 
+                        :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" 
+                        text="a guardian of the child(ren)"/>
+                    <check-box 
+                        style="width:120%;" 
+                        :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.applyingGuardianApplicant == 'y'?'yes':''" 
+                        text="applying to be appointed as a guardian of the child(ren)"/>
                 </div>
             </section>
 

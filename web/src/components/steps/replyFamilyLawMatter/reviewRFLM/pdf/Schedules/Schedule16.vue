@@ -5,11 +5,15 @@
 <!-- <Header> -->
         <div>
              <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 6 – CONTACT ORDER OR WRITTEN AGREEMENT – EXISTING</b></div>
-            <div style="text-align:center;"><b>This is Schedule 6 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:center;"><b>SCHEDULE 16 – COUNTER APPLICATION CONTACT ORDER OR WRITTEN AGREEMENT – EXISTING</b></div>
+            <div style="text-align:center;"><b>This is Schedule 16 to the Reply to an Application About a Family Law Matter with Counter Application</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making a new application for child support and/or special and extraordinary expenses for the child or children identified in section 12 of this application.</i>
+                <i>
+                    Complete this schedule only if you are making an application to change or cancel an existing final order about
+                    contact, or to set aside or replace all or part of an existing agreement about contact, with a child or children
+                    identified in section 13 of the reply with counter application.
+                </i>
             </div>
 
 <!-- <1> -->

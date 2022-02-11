@@ -3,18 +3,33 @@
 <!-- <Header> -->
         <div v-if="dataReady">
             <div class="new-page" />
-            <div style="text-align:center;"><b> SCHEDULE 1 – PARENTING ARRANGEMENTS – NEW</b></div>
-            <div style="text-align:center;"><b> This is Schedule 1 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:center;"><b> SCHEDULE 11 – COUNTER APPLICATION PARENTING ARRANGEMENTS – NEW</b></div>
+            <div style="text-align:center;">
+                <b> 
+                This is Schedule 11 to the Reply to an Application About a Family Law Matter with Counter Application
+                </b>
+            </div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are a guardian of a child or, are applying to be appointed as a guardian of a child, and you are making a new application about parenting arrangements for a child or children identified in section 12 of this application. 
-                Parenting arrangements include how each guardian of a child will parent their child(ren) together, including each guardian’s responsibilities for decision making about a child, and the time each guardian spends with a child.</i>
+                <i>
+                    Complete this schedule only if you are a guardian of a child making a new counter application 
+                    about parenting arrangements for a child or children identified in section 13 of the reply 
+                    with counter application.<br>
+                    Parenting arrangements include how each guardian of a child will parent their child(ren) 
+                    together, including each guardian’s responsibilities for decision making about a child, 
+                    and the time each guardian spends with a child.
+                </i>
             </div>
 <!-- <1> -->
             <section class="resetquestion"> 
                 I am:
-                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren) <br/> <i>A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with their child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of a child, or under a will if the other parent dies. A person who is not a parent can become a guardian of a child by a court order or under a will.</i>"/>
-                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                <check-box 
+                    style="margin:0 0 0 1rem;" 
+                    :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" 
+                    text="a guardian of the child(ren) <br/> <i>A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with their child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of a child, or under a will if the other parent dies. A person who is not a parent can become a guardian of a child by a court order or under a will.</i>"/>
+                <check-box 
+                    style="margin:0 0 0 1rem;" 
+                    :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
             </section>
 
             <div class="print-block">
@@ -30,10 +45,15 @@
                                 <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx"><span class="mx-3">{{child}}</span></li>
                             </ul>
                         </div>                    
-                        <check-box style="margin-top:1rem;" :check="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
-                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)?'yes':''" text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
-                        <div v-if="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
-                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)" class="answerbox">{{parentArrInfo.parentResp.expl}}</div>
+                        <check-box 
+                            style="margin-top:1rem;" 
+                            :check="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
+                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)?'yes':''" 
+                            text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
+                        <div 
+                            v-if="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
+                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)" 
+                            class="answerbox">{{parentArrInfo.parentResp.expl}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>            
                 </section>
@@ -41,7 +61,14 @@
 
             <div class="print-block">
                 <div style="margin-top:3rem;"><b>Parenting time</b></div>
-                <div><i>During parenting time, a guardian has the parental responsibility of making day-to-day decisions affecting the child and having day-to-day care, control, and supervision of the child. Complete section 3 below only if you are applying for an order about parenting time. You may leave this section blank.</i></div>
+                <div>
+                    <i>
+                        During parenting time, a guardian has the parental responsibility of making day-to-day decisions 
+                        affecting the child and having day-to-day care, control, and supervision of the child. Complete 
+                        section 3 below only if you are applying for an order about parenting time. You may leave this 
+                        section blank.
+                    </i>
+                </div>
 <!-- <3> -->
                 <section>
                     I am applying for an order about the allocation of parenting time as follows:
@@ -88,8 +115,11 @@
                 <div style="margin-top:3rem;"><b>Parenting arrangements</b></div>
 <!-- <4> -->
                 <section>
-                    <i style="display:inline; margin-left:0.25rem">Complete only if there are additional order terms you want. You may leave this section blank.</i>
+                    <i style="display:inline; margin-left:0.25rem">
+                        Complete only if there are additional order terms you want. You may leave this section blank.
+                    </i>
                     <div>
+
                         <check-box  
                             inline="inline" 
                             boxMargin="0" 
@@ -98,8 +128,7 @@
                         <div style="display:inline;">I am applying for the following other order term(s) about parenting arrangements:</div>
                         <div v-if="(parentArrInfo.parentalArr.applying && parentArrInfo.parentalArr.desc)" 
                         class="answerbox">{{parentArrInfo.parentalArr.desc}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>  
-                    
+                        <div v-else style="margin-bottom:3rem;"></div> 
                     
                     </div>                
                 </section> 

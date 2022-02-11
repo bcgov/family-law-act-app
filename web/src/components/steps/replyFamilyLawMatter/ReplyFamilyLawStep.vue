@@ -1,8 +1,12 @@
 <template>
     <step-base v-bind:step="step">
-        <reply-to-flm-application v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyToFlmApplication"/>
-        <review-your-answers-reply-flm v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/> 
-        <preview-forms-reply-flm v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PreviewFormsRFLM"/> 
+        <rflm-questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmQuestionnaire"/>
+        <rflm-counter-app v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmCounterApp"/>
+        <rflm-background v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmBackground"/>
+        <rflm-children-info v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmChildrenInfo"/>
+
+        <review-your-answers-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/>
+        <preview-forms-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PreviewFormsRFLM"/> 
     </step-base>
 </template>
 
@@ -14,8 +18,13 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import StepBase from "../StepBase.vue";
-import ReplyToFlmApplication from "./ReplyToFlmApplication.vue";
-import PreviewFormsReplyFlm from "./reviewReplyFLM/PreviewFormsReplyFLM.vue"
+import RflmQuestionnaire from "./RflmQuestionnaire.vue";
+import RflmCounterApp from "./RflmCounterApp.vue";
+import RflmBackground from "./RflmBackground.vue";
+import RflmChildrenInfo from "./childInfo/RflmChildrenInfo.vue";
+
+import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
+import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import { stepInfoType } from "@/types/Application";
@@ -23,8 +32,12 @@ import { stepInfoType } from "@/types/Application";
 @Component({
     components:{
         StepBase,  
-        ReplyToFlmApplication,
-        PreviewFormsReplyFlm  
+        RflmQuestionnaire,
+        RflmCounterApp,
+        RflmBackground,
+        RflmChildrenInfo,
+        ReviewYourAnswersRFLM,
+        PreviewFormsRFLM  
     }
 })
 export default class ReplyFamilyLawStep extends Vue {

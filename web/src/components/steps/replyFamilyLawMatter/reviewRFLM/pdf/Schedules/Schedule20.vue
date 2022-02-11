@@ -4,11 +4,17 @@
 <!-- <Header> -->
         <div>
              <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 10 – SPOUSAL SUPPORT – EXISTING</b></div>
-            <div style="text-align:center;"><b>This is Schedule 10 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:center;"><b>SCHEDULE 20 – COUNTER APPLICATION SPOUSAL SUPPORT – EXISTING</b></div>
+            <div style="text-align:center;"><b>
+                This is Schedule 20 to the Reply to an Application About a Family Law Matter with Counter Application
+            </b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to change or cancel an existing final order about spousal support or to set aside or replace all or part of an existing written agreement about spousal support.</i>
+                <i>
+                    Complete this schedule only if you are making a counter application to change or cancel an existing final order
+                    about spousal support or to set aside or replace all or part of an existing written agreement about spousal
+                    support.
+                </i>
             </div>
 
 
@@ -174,7 +180,11 @@
 
             <div class="print-block">
                 <div style="margin-top:1rem;"><b>IMPORTANT NOTE TO THE PARTIES:</b></div>
-                <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>This family law case includes an application about spousal support. You must provide your financial information with your application or reply to this application by completing and filing a Financial Statement in Form 4.</b></div>
+                <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>
+                    This family law case includes a counter application about spousal support. You must provide your financial
+                    information with your counter application or reply to this counter application by completing and filing a
+                    Financial Statement in Form 4.
+                </b></div>
                 <div style="margin-top:1rem;text-align:justify;">
                     If you do not give your complete, true, and up-to-date financial information when needed, the court can:
                     <ul>
@@ -203,7 +213,7 @@ import { schedule10DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf'
         CheckBox
     }
 })
-export default class Schedule10 extends Vue {
+export default class Schedule20 extends Vue {
 
     @Prop({required:true})
     result!: any; 

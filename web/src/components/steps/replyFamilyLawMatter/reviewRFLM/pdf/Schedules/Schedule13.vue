@@ -5,20 +5,40 @@
 <!-- <Header> -->
         <div>
             <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 3 – CHILD SUPPORT – NEW</b></div>
-            <div style="text-align:center;"><b>This is Schedule 3 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:center;"><b>SCHEDULE 13 – COUNTER APPLICATION CHILD SUPPORT – NEW</b></div>
+            <div style="text-align:center;"><b>This is Schedule 13 to the Reply to an Application About a Family Law Matter with Counter Application</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making a new application for child support and/or special and extraordinary expenses for the child or children identified in section 12 of this application.</i>
+                <i>
+                    Complete this schedule only if you are making a new counter application for child support and/or special and
+                    extraordinary expenses for the child or children identified in section 13 of the reply with counter application.
+                </i>
             </div>
 <!-- <1> -->
             <section class="resetquestion"> 
                 <div style="display:inline; margin-left:0.25rem">I am:</div>
                 <div style="margin-left:1rem;">
-                    <check-box  :check="chSupInfo.appType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
-                    <check-box style="width:120%;" :check="chSupInfo.appType.standing?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
-                    <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.appType.other?'yes':''" text="other <i>(specify):</i>"/>
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="chSupInfo.appType.otherCom"/>            
+                    <check-box 
+                        :check="chSupInfo.appType.guardian?'yes':''" 
+                        text="a parent or guardian of the child(ren)"/>
+                    <check-box 
+                        style="width:120%;" 
+                        :check="chSupInfo.appType.standing?'yes':''" 
+                        text="applying to be appointed as a guardian of the child(ren)"/>
+                    <check-box  
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="chSupInfo.appType.other?'yes':''" 
+                        text="other <i>(specify):</i>"/>
+                    <underline-form 
+                        style="text-indent:1px;display:inline-block;" 
+                        textwidth="33rem" 
+                        beforetext="" 
+                        hint="" 
+                        :text="chSupInfo.appType.otherCom"/>            
                 </div>
             </section>
 
@@ -62,9 +82,24 @@
             <section>
                 <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                 <div style="margin:0 0 0 1rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.opInfo.income?'yes':''" text="I do not know the income of the other party"/>
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.opInfo.income?'yes':''" text="I believe the other party’s annual income is "/>
-                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext=" $" hint="" :text="chSupInfo.opInfo.incomeAmt"/>                            
+                    <check-box 
+                        style="margin:0 0 0 0rem;" 
+                        :check="!chSupInfo.opInfo.income?'yes':''" 
+                        text="I do not know the income of the other party"/>
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="chSupInfo.opInfo.income?'yes':''" 
+                        text="I believe the other party’s annual income is "/>
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block;" 
+                        textwidth="10rem" 
+                        beforetext=" $" 
+                        hint="" 
+                        :text="chSupInfo.opInfo.incomeAmt"/>                            
                 </div>
             </section>
 
@@ -78,7 +113,7 @@
                 <div v-else style="margin-bottom:3rem;"></div>
             </section>                 
 
-            <div style="margin-top:3rem;"></div>
+            <div style="margin-top:3rem; font-weight: 700;">About the order</div>
 <!-- <7> -->
             <section>
                 <check-box class="marginleft1p5vue" inline="inline" boxMargin="0" style="display:inline-block;margin-left:0.5rem" :check="chSupInfo.desiredSup.payor?'yes':''" text=""/>
@@ -224,7 +259,10 @@
 
             <div class="print-block">
                 <div style="margin-top:1rem;"><b>IMPORTANT NOTE TO THE OTHER PARTY:</b></div>
-                <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>This family law case includes an application about child support. You must provide your financial information with your reply to this application by completing and filing a Financial Statement in Form 4. </b></div>
+                <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>
+                    This family law case includes a counter application about child support. You must provide your financial
+                    information with your reply to this application by completing and filing a Financial Statement in Form 4. 
+                </b></div>
                 <div style="margin-top:1rem;text-align:justify;">
                     If you do not give your complete, true, and up-to-date financial information when needed, the court can:
                     <ul>
