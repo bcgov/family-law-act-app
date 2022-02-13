@@ -372,6 +372,24 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	const requiredDocuments: string[] = [];
 	const reminderDocuments: string[] = [];
 
+	if(type == 'replyFlm'){	
+
+		if(questions.rflmBackgroundSurvey?.existingPOOrdersAttached == "n")
+		  	requiredDocuments.push("Copy of the missed protection related written agreement(s), court order(s) or plan(s)");
+
+		if(questions.rflmBackgroundSurvey?.ExistingOrdersFLM == "y" && questions.rflmBackgroundSurvey?.otherPartyAttach == 'n')
+		  	requiredDocuments.push("Copy of the missed existing agreement(s) or court order(s)");			
+		
+	
+		//REMINDERS		
+
+		if( Vue.filter('includedInRegistries')(questions.filingLocationSurvey?.ExistingCourt, 'early-resolutions')
+			&& (questions.filingLocationSurvey?.MetEarlyResolutionRequirements == 'y')
+		)
+			reminderDocuments.push("Certificate of completion for parenting education program (Parenting After Separation or Parenting After Separation For Indigenous Families), if applicable.")
+	
+	}
+
 	if(type == 'protectionOrder'){		
 	
 		if(questions.poQuestionnaireSurvey?.orderType == "changePO"){
@@ -430,7 +448,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if( questions.flmQuestionnaireSurvey?.includes("guardianOfChild") &&
 			(questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  )
 				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
-		}
+	}
 
 	if(type == 'priorityParenting'){
 		if(questions.ppmBackgroundSurvey?.ExistingOrdersFLM == "y")
