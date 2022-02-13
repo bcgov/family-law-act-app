@@ -8,15 +8,6 @@ export interface locationInfoDataInfoType {
     none: boolean;
 }
 
-export interface relationshipBetweenPartiesInfoType {
-    description: string; 
-    spouses: boolean;
-    startDate: string; 
-    marriageDate: string; 
-    separationDate?: string; 
-    nameOfSpouse: string; 
-};
-
 export interface existingOrdersInfoType {
     existingFlm: boolean; 
     existingPO: boolean;

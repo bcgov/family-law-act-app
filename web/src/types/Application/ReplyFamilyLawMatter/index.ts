@@ -1,5 +1,4 @@
 import { nameInfoType, questionInfoType } from "../CommonInformation";
-import { allOtherChilderenInfoType } from "../ProtectionOrder";
 
 export interface rflmQuestionnaireDataInfoType {    
     selectedParentingArrangementsForm?: string[];  

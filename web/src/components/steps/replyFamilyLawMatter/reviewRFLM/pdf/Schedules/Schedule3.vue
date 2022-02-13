@@ -207,13 +207,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 import { schedule3DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 
 @Component({
@@ -226,9 +222,6 @@ export default class Schedule3 extends Vue {
 
     @Prop({required:true})
     result!: any;
-    
-    @applicationState.State
-    public applicantName!: nameInfoType;
    
     dataReady = false;   
     chSupInfo = {} as schedule3DataInfoType;

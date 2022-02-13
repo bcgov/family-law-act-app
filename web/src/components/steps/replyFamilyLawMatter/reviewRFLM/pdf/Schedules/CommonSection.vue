@@ -474,7 +474,6 @@ import { locationInfoDataInfoType, existingOrdersInfoType } from '@/types/Applic
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { rflmBackgroundSurveyDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 
-
 @Component({
     components:{
         UnderlineForm,
@@ -501,8 +500,6 @@ export default class CommonSection extends Vue {
 
     otherPartyInfo='';
     yourInfo = {} as yourInformationInfoDataInfoType;
-
-    applicantList = []
     
     existingOrders = {} as existingOrdersInfoType;    
    
@@ -580,8 +577,7 @@ export default class CommonSection extends Vue {
             this.counterAboutChildren = false;
             this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
             this.childBestInterestAcknowledmentCheck = false;
-        }
-        
+        }        
 
         if (this.result.flmBackgroundSurvey?.likeToAddCulturalExplanation == 'y' && this.result.flmBackgroundSurvey?.culturalExplain){
             this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;

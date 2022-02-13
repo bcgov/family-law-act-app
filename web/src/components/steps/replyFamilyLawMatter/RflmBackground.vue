@@ -33,10 +33,7 @@ export default class RflmBackground extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
-    @applicationState.State
-    public steps!: stepInfoType[];    
+    public stPgNo!: stepsAndPagesNumberInfoType;   
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

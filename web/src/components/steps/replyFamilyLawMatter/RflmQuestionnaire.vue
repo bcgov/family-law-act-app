@@ -309,9 +309,7 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedSpousalSupportForm = [];                                    
         }
         Vue.filter('surveyChanged')('replyFlm'); 
-    }
-
-    
+    }    
 
     public setSteps() {
        
@@ -344,16 +342,6 @@ export default class RflmQuestionnaire extends Vue {
         if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersRFLM].progress==100)
             Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersRFLM, 50, false);
 
-
-    }
-    
-    
-
-    public toggleSteps(stepId, activeIndicator) {       
-        this.$store.commit("Application/setStepActive", {
-            currentStep: stepId,
-            active: activeIndicator
-        });
     }
 
     public checkErrorOnPages(){

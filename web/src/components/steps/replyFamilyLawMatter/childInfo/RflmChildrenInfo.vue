@@ -112,7 +112,7 @@ import RflmChildrenSurvey from "./RflmChildrenSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 
-import {SearchForChildrenData} from "@/components/utils/ChildrenData/SearchForChildrenData"
+import {SearchForChildrenData} from "@/components/utils/ChildrenData/SearchForChildrenData";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -128,7 +128,7 @@ const applicationState = namespace("Application");
 export default class RflmChildrenInfo extends Vue {
 
     @Prop({required: true})
-    step!: stepInfoType
+    step!: stepInfoType;
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
@@ -230,6 +230,12 @@ export default class RflmChildrenInfo extends Vue {
         }       
     }
 
+    mounted(){
+        Vue.nextTick(()=>this.surveyHasError());
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
+    }
+
     public childRelatedCounter(counter, selectedCounters){
 
         const childRelated = (counter == 'Yes' && 
@@ -240,24 +246,6 @@ export default class RflmChildrenInfo extends Vue {
 
         return childRelated;
     }
-
-    mounted(){
-        Vue.nextTick(()=>this.surveyHasError());
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
-    }
-
-    public determineRequiredForm(filingLocationData){
-        
-        let location = ''
-        location = filingLocationData?.ExistingCourt;                
-        
-        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
-            return true;
-        } else {
-            return false;
-        }
-    }   
 
     public surveyHasError(){
         let progress = this.childData.length==0? 50 : 100;
@@ -315,23 +303,23 @@ export default class RflmChildrenInfo extends Vue {
     public resetChildrenRelatedPages(childData?) {
     
         const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
-        const p = stPgNo.FLM;
+        const p = stPgNo.RFLM;
 
         const pages = [
-            p.ParentingArrangements,
-            p.ParentalResponsibilities,
-            p.ParentingTime,
-            p.ParentingOrderAgreement,
-            p.BestInterestsOfChild,
-            p.ChildSupportCurrentArrangements,
-            p.AboutChildSupportOrder,
-            p.SpecialAndExtraordinaryExpenses,
-            p.ContactWithChild,
-            p.ContactWithChildOrder,
-            p.AboutContactWithChildOrder,
-            p.ContactWithChildBestInterestsOfChild,
-            p.GuardianOfChild,
-            p.ReviewYourAnswersFLM
+            // p.ParentingArrangements,
+            // p.ParentalResponsibilities,
+            // p.ParentingTime,
+            // p.ParentingOrderAgreement,
+            // p.BestInterestsOfChild,
+            // p.ChildSupportCurrentArrangements,
+            // p.AboutChildSupportOrder,
+            // p.SpecialAndExtraordinaryExpenses,
+            // p.ContactWithChild,
+            // p.ContactWithChildOrder,
+            // p.AboutContactWithChildOrder,
+            // p.ContactWithChildBestInterestsOfChild,
+            // p.GuardianOfChild,
+            p.ReviewYourAnswersRFLM
         ]
         Vue.filter('setProgressForPages')(p._StepNo, pages,50);    
 

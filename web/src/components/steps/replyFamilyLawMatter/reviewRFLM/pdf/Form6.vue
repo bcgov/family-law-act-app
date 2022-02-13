@@ -181,9 +181,7 @@ export default class Form6 extends Vue {
 
     public getSchedulesInfo(){       
 
-        let schedules: string[] = [];
-
-        console.log(this.result)
+        let schedules: string[] = [];       
 
         const rflmQuestionnaireInfo: rflmQuestionnaireDataInfoType = this.result.rflmQuestionnaireSurvey;
         const rflmCounterAppInfo: rflmCounterAppDataInfoType = this.result.rflmCounterAppSurvey;
@@ -209,6 +207,8 @@ export default class Form6 extends Vue {
         } else if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('existingContact')){
             schedules.push('schedule6')
         }
+
+        //TODO: update after shedule 7 and 8 have been added 
 
         if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('appointing')){
             schedules.push('schedule7');
@@ -254,7 +254,7 @@ export default class Form6 extends Vue {
                 }
 
             } 
-//TODO: update after shedule 15 and 16 
+//TODO: update after shedule 17 and 18 have been added 
             if (counterList.includes('guardianOfChild')) {
 
                 if (existingFlmList.includes("Contact with a Child")){
