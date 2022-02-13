@@ -44,11 +44,7 @@ export default class PoQuestionnaire extends Vue {
     public types!: string[]
 
     @applicationState.Action
-    public UpdateApplicationType!: (newApplicationType: string[]) => void
-
-    
-
-    
+    public UpdateApplicationType!: (newApplicationType: string[]) => void    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

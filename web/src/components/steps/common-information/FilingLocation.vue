@@ -7,7 +7,7 @@
             <div v-if="messageA" class="m-3">
                
                 <p>
-                    I am filing my application in a family justice registry and I understand I 
+                    I am filing in a family justice registry and I understand I 
                     will be required to participate in a needs assessment and complete a parenting 
                     education program, unless exempt, before a family management conference can be scheduled.
                 </p>
@@ -23,7 +23,7 @@
             <div v-if="messageB" class="m-3">
                
                 <p>
-                    I am filing my application in a parenting education program registry 
+                    I am filing in a parenting education program registry 
                     and I understand I will be required to complete a parenting education 
                     program, unless exempt, before a family management conference can be scheduled.
                 </p>
@@ -51,7 +51,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/filing-location.json";
 import * as surveyEnv from "@/components/survey/survey-glossary"
-import { togglePages } from '@/components/utils/TogglePages';
+import { togglePages, toggleStep } from '@/components/utils/TogglePages';
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -105,21 +105,36 @@ export default class FilingLocation extends Vue {
     messageA = false;
     messageB = false;
 
-    allPages = [];
+    allPages = [];   
     form1Enabled = false;   
     editButton = false;  
+
+    selectedForms = [];
+    selectedReplyForms = [];
+
+    rflmIncluded = false;
+    wrIncluded = false;
+    poIncluded = false;
 
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
 
+    created() {
+        this.disableNextButton = false;        
+    }
+
     mounted(){
-        this.allPages = _.range(this.stPgNo.FLM.FlmBackground, Object.keys(this.stPgNo.FLM).length-1)
+        this.initPageNumbers()
         this.locationInfo = false;
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
+    }
+
+    public initPageNumbers(){        
+        this.allPages = _.range(this.stPgNo.FLM.FlmBackground, Object.keys(this.stPgNo.FLM).length-1)
     }
 
     public initializeSurvey(){
@@ -133,7 +148,11 @@ export default class FilingLocation extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('allExPO')    
+            Vue.filter('surveyChanged')('allExPO')
+            
+            if (this.rflmIncluded){
+                this.determineContinueRflm();
+            }            
             
             if(options.name == 'editLocation'){  
                 const stepPO = this.$store.state.Application.steps[this.stPgNo.PO._StepNo]
@@ -168,7 +187,19 @@ export default class FilingLocation extends Vue {
         })   
     }
 
-
+    public determineContinueRflm(){
+        const location = this.survey.data.ExistingCourt;
+        if (Vue.filter('includedInRegistries')(location, 'early-resolutions')) {
+            
+            if(this.survey.data?.MetEarlyResolutionRequirements == 'n'){
+                toggleStep(this.stPgNo.RFLM._StepNo, false);
+                this.disableNextButton = true;
+            } else {
+                toggleStep(this.stPgNo.RFLM._StepNo, true);
+                this.disableNextButton = false;
+            }
+        }
+    }
 
     public determineRegistry(location){
         this.form1Enabled = false;
@@ -214,15 +245,24 @@ export default class FilingLocation extends Vue {
         const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
         const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
 
-        if(includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes("protectionOrder")){
+        this.selectedForms = (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        
+        this.poIncluded = this.selectedForms.includes("protectionOrder");
+
+        if(this.poIncluded){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[4].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[5].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[8].readOnly = true;
             this.editButton = true
         }
+        
+        this.selectedReplyForms = (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
 
-        if(includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.includes("writtenResponse")){
+        this.wrIncluded = this.selectedReplyForms.includes("writtenResponse");
+        this.rflmIncluded = this.selectedReplyForms.includes("replyFlm");
+
+        if(this.wrIncluded || this.rflmIncluded){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
            
         }
@@ -241,17 +281,19 @@ export default class FilingLocation extends Vue {
                 this.survey.setValue("selectedExistingCourt",  true);
             } else {
                 this.survey.setValue("selectedExistingCourt",  false);    
-            }             
+            }   
+            
+            if (this.rflmIncluded){
+                this.determineContinueRflm();
+            }   
             
         }
 
         this.survey.setVariable("editButton",this.editButton);       
         
         const stepPO = this.steps[this.stPgNo.PO._StepNo]
-        const selectedForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
-        const selectedReplyForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
-
-        if(selectedForms.includes("protectionOrder")){
+        
+        if(this.poIncluded){
             
             if( stepPO.result?.poFilingLocationSurvey?.data && stepPO.result?.poQuestionnaireSurvey?.data?.orderType == 'needPO')
             {
@@ -272,18 +314,21 @@ export default class FilingLocation extends Vue {
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
         }
 
-        if(selectedReplyForms.includes("writtenResponse")){
+        if(this.wrIncluded || this.rflmIncluded){
             this.survey.setValue('ExistingFamilyCase','y');
         }
 
-        if(selectedForms.includes("familyLawMatter")
-            || selectedForms.includes("caseMgmt")
-            || selectedForms.includes("priorityParenting")
-            || selectedForms.includes("childReloc")){
+        this.survey.setVariable("rflmIncluded", this.rflmIncluded);
+
+        if(this.selectedForms.includes("familyLawMatter")
+            || this.selectedForms.includes("caseMgmt")
+            || this.selectedForms.includes("priorityParenting")
+            || this.selectedForms.includes("childReloc")){
 
                 this.survey.setValue('RequiresReasonInfo',true);                
-        }        
-        if(selectedForms.includes("agreementEnfrc")){
+        }  
+              
+        if(this.selectedForms.includes("agreementEnfrc")){
             this.survey.setValue('RequiresFMEPInfo',true);                
         } else {
            this.survey.setValue('RequiresFMEPInfo',false); 
@@ -309,7 +354,7 @@ export default class FilingLocation extends Vue {
         this.messageB = false;
         this.messageA = false;
 
-        if (location && this.types.includes('Family Law Matter')){
+        if (location && (this.types.includes('Family Law Matter') || this.types?.includes('Reply to Application About a Family Law Matter') )){
 
             if (Vue.filter('includedInRegistries')(location, 'family-justice')){
                 this.messageA = true;
@@ -326,7 +371,7 @@ export default class FilingLocation extends Vue {
     public saveApplicationLocation(location){       
         this.$store.commit("Application/setApplicationLocation", location);
         this.survey.setVariable("registryLocation", location);
-        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && this.types?.includes('Family Law Matter')){
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && (this.types?.includes('Family Law Matter') || this.types?.includes('Reply to Application About a Family Law Matter'))){
             this.survey.setVariable("victoriaSurrey", true);
             this.survey.setValue("familyJusticeRegistry", false);
             this.survey.setValue("familyEducationProgram", false);
@@ -334,15 +379,14 @@ export default class FilingLocation extends Vue {
         } else {
             this.survey.setVariable("victoriaSurrey", false);
             this.survey.setValue("earlyResolutionRegistry", false);
-        } 
+        }        
     }  
 
     public setExistingFileNumber(){
        
         let newExistingOrders = [];
-        const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms: []
         
-        for(const selectedForm of selectedForms){
+        for(const selectedForm of this.selectedForms){
         
             let fileType = Vue.filter('getPathwayPdfType')(selectedForm)
 
@@ -353,20 +397,15 @@ export default class FilingLocation extends Vue {
             const fileNumber = this.survey.data?.ExistingFamilyCase == "y"? this.survey.data.ExistingFileNumber: ''
             newExistingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
         }
-
-        const selectedReplyForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms: []
         
-        for(const selectedReplyForm of selectedReplyForms){
+        for(const selectedReplyForm of this.selectedReplyForms){
         
             let fileType = Vue.filter('getPathwayPdfType')(selectedReplyForm);   
-            //TODO: remove once other reply pathways have been added
-            if (fileType == "WRA"){
+            
+            if (fileType == "WRA" || fileType == "RFLM"){
                 const fileNumber = this.survey.data.ExistingFileNumber;
-                newExistingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber}); 
-
-            }
-        
-                                
+                newExistingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});
+            }                                
         }
         
         this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});

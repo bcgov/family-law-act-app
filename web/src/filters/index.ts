@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.3";
+    const CURRENT_VERSION: string = "1.2.3.1";
     //__________________________
     //___________________________
     //___________________________
@@ -584,6 +584,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	function getStepDetails(typeName){	
 		
 		const stepPO = store.state.Application.stPgNo.PO;
+		const stepRFLM = store.state.Application.stPgNo.RFLM;
 		const stepWR = store.state.Application.stPgNo.WR;
 		const stepFLM = store.state.Application.stPgNo.FLM;
 		const stepPPM = store.state.Application.stPgNo.PPM;
@@ -599,6 +600,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepPO._StepNo; 
 			reviewPage = stepPO.ReviewYourAnswers; 
 			previewPages = [stepPO.PreviewForms];
+		} else if(typeName == 'replyFlm'){
+			step = stepRFLM._StepNo; 
+			reviewPage = stepRFLM.ReviewYourAnswersRFLM; 
+			previewPages = [stepRFLM.PreviewFormsRFLM];	
 		} else if(typeName == 'writtenResponse'){
 			step = stepWR._StepNo; 
 			reviewPage = stepWR.ReviewYourAnswersWR; 
@@ -649,12 +654,13 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
 	
 	if(type == 'allExPO'){
         
 		let pathwayCompleted = {} as pathwayCompletedInfoType;
-		pathwayCompleted = store.state.Application.pathwayCompleted			        
+		pathwayCompleted = store.state.Application.pathwayCompleted	
+		pathwayCompleted.replyFlm = false;		        
 		pathwayCompleted.writtenResponse = false;
 		pathwayCompleted.familyLawMatter = false;        
 		pathwayCompleted.caseMgmt = false;       
@@ -771,6 +777,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
+			`.form-header-rflm{display:block; margin:0 0 12rem 0;}`+
 			`.form-header-po{display:block; margin:0 0 6.25rem 0;}`+
 			`.form-header-wr{display:block; margin:0 0 12rem 0;}`+
 			`.form-header-ppm{display:block; margin:0 0 5.25rem 0;}`+

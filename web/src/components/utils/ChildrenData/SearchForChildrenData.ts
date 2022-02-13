@@ -7,6 +7,14 @@ export function SearchForChildrenData(stepName){
     const steps = store.state.Application.steps
     const stPgNo = store.state.Application.stPgNo;
 
+    if(stepName == 'RFLM'){
+        children = FLM();  if(children.length>0) return children
+        children = PO();   if(children.length>0) return children
+        children = PPM();  if(children.length>0) return children
+        children = RELOC();if(children.length>0) return children
+        children = CM();                         return children
+    }
+
     if(stepName == 'FLM'){
         children = PO();   if(children.length>0) return children
         children = PPM();  if(children.length>0) return children

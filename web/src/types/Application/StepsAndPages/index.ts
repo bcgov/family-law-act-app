@@ -55,7 +55,10 @@ export interface COMMONstPgTypes{
 export interface RFLMstPgTypes{
     _StepNo: number;  
 
-    ReplyToFlmApplication: number;  
+    RflmQuestionnaire: number;
+    RflmCounterApp: number;
+    RflmBackground: number;
+    RflmChildrenInfo: number;  
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
 }

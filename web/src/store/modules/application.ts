@@ -309,12 +309,52 @@ class Application extends VuexModule {
         s.type = "stepRFLM";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
-    
+
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "ReplyToFlmApplication";
-        p.label = "Reply to Family Law Matter";
+        p.name = "RflmQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "RflmCounterApp";
+        p.label = "Counter Application";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "RflmBackground";
+        p.label = "Background";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "RflmChildrenInfo";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersRFLM";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsRFLM";
+        p.label = "Preview Forms";
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
