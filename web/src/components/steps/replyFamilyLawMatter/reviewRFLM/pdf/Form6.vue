@@ -163,8 +163,8 @@ export default class Form6 extends Vue {
         const childBestInterestAck = {rflmChildBestInterestAcknowledgement:this.$store.state.Application.steps[this.stPgNo.RFLM._StepNo].result.rflmChildBestInterestAcknowledgement};
         Object.assign(result, result, childBestInterestAck);
 
-        const incorrectChildInfo = {incorrectChildInfo:this.$store.state.Application.steps[this.stPgNo.RFLM._StepNo].result.incorrectChildInfo};
-        Object.assign(result, result, incorrectChildInfo);
+        const correctChildInfo = {correctChildInfo:this.$store.state.Application.steps[this.stPgNo.RFLM._StepNo].result.correctChildInfo};
+        Object.assign(result, result, correctChildInfo);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;

@@ -415,10 +415,10 @@
                 <i style="display:inline; margin-left:0.25rem">Select only one of the options below and complete the required information</i>          
                 <div style="margin-left:1.5rem">
                     <check-box  
-                        :check="!counterAboutChildren?'yes':''" 
+                        :check="includesCounter && !counterAboutChildren?'yes':''" 
                         text="My counter application does not ask for any order(s) about a child or children <i>(skip section 14)</i>"/>
                     <check-box  
-                        :check="counterAboutChildren?'yes':''" 
+                        :check="includesCounter && counterAboutChildren?'yes':''" 
                         text="My counter application is asking for an order(s) about the following child or children:"/>                   
                 </div>
                 <b-table
@@ -440,7 +440,7 @@
 <!-- <14> -->
         <section>
             <div style="margin:0 0 0 .5rem;display:inline;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="childBestInterestAcknowledmentCheck?'yes':''" text=""/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="includesCounter && childBestInterestAcknowledmentCheck?'yes':''" text=""/>
                 <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
                 <div style="margin:0 0 0 1.75rem;display:inline-block;">asking the court to make about the child.</div>
             </div>
@@ -550,7 +550,7 @@ export default class CommonSection extends Vue {
             this.aboutChildren = true;
             this.childrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheck = this.result.rflmChildBestInterestAcknowledgement;
-            this.incorrectChildInfo = this.result.incorrectChildInfo == 'Yes'            
+            this.incorrectChildInfo = this.result.correctChildInfo == 'Yes'            
         } else {
             this.aboutChildren = false;
             this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
@@ -558,7 +558,7 @@ export default class CommonSection extends Vue {
             this.incorrectChildInfo = false;
         }
 
-        const childRelatedCounterApplication = (
+        const childRelatedCounterApplication = this.includesCounter && (
             this.selectedSchedules.includes('schedule11') ||
             this.selectedSchedules.includes('schedule12') || 
             this.selectedSchedules.includes('schedule13') ||
