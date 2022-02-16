@@ -19,7 +19,7 @@
                                 on the court file.
                             </p>
                             <b-form-radio-group
-                                v-model="incorrectChildInfo"
+                                v-model="correctChildInfo"
                                 class="mt-2 ml-3"
                                 style="font-size:1.40em; display: inline-block;">
                                 <b-form-radio class="mr-5" value="Yes"><div style="transform:translate(5px,-5px);">Yes</div></b-form-radio>
@@ -28,7 +28,7 @@
                         </b-form-group>
                     </div>
 
-                    <div class="mt-5" v-if="(incorrectChildInfo == 'No') || (incorrectChildInfo == 'Yes' && includesCounter == 'Yes')" >
+                    <div class="mt-5" v-if="(correctChildInfo == 'No') || (correctChildInfo == 'Yes' && includesCounter == 'Yes')" >
                         <p>
                             Please enter the details of each child in the fields below. Add each 
                             child who is the subject of the family law matter application including 
@@ -81,7 +81,7 @@
                
             </div>
         </div>
-        <b-card v-if="showTable && ((includesCounter=='Yes' && childData && childData.length > 0) || (incorrectChildInfo == 'No') && includesCounter=='No')" class="mb-5" style="max-width: 950px; border-radius: 20px; border:2px solid #ccc;">
+        <b-card v-if="displayAcknowledgement" class="mb-5" style="max-width: 950px; border-radius: 20px; border:2px solid #ccc;">
             <p>
                 The <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests" target="_blank"
             >best interests of the child</a> is a test that the court uses to make decisions about children.  
@@ -148,7 +148,7 @@ export default class RflmChildrenInfo extends Vue {
     editId = null; 
     incompleteError =  false;  
     includesCounter = null;    
-    incorrectChildInfo = null; 
+    correctChildInfo = null; 
     
     public openForm(anyRowToBeEdited?) {
         this.showTable = false;
@@ -207,8 +207,8 @@ export default class RflmChildrenInfo extends Vue {
 
     created() {
 
-        if (this.step.result?.incorrectChildInfo) {
-            this.incorrectChildInfo = this.step.result.incorrectChildInfo;
+        if (this.step.result?.correctChildInfo) {
+            this.correctChildInfo = this.step.result.correctChildInfo;
         }
 
         if (this.step.result?.rflmChildrenInfoSurvey) {
@@ -261,13 +261,27 @@ export default class RflmChildrenInfo extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
+    get displayAcknowledgement(){
+
+        let display = false;
+
+        const includesCounterChildData = this.includesCounter=='Yes' && this.childData && this.childData.length > 0;
+        const includesCorrectedChildData = this.correctChildInfo == 'No' && this.childData && this.childData.length > 0;
+        const noChildDataRequired = this.includesCounter=='No' && this.correctChildInfo == 'Yes';
+
+        display = (this.showTable && (includesCounterChildData || includesCorrectedChildData)) || noChildDataRequired;
+
+        return display;
+    }
+
     public isDisableNext() {
-        return (!this.incorrectChildInfo || this.childData?.length <= 0 || !this.childBestInterestUnderstanding);
+        return (!this.correctChildInfo || (this.correctChildInfo == 'No' && this.childData?.length <= 0 ) || 
+            (this.includesCounter == 'Yes' && this.childData?.length <= 0) || !this.childBestInterestUnderstanding);
     }
 
     beforeDestroy() {
         this.surveyHasError();        
-        this.UpdateStepResultData({step:this.step, data: {incorrectChildInfo: this.incorrectChildInfo, rflmChildrenInfoSurvey: this.getChildrenResults(), rflmChildBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
+        this.UpdateStepResultData({step:this.step, data: {correctChildInfo: this.correctChildInfo, rflmChildrenInfoSurvey: this.getChildrenResults(), rflmChildBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
     }
 
     public getChildrenResults(){
