@@ -344,6 +344,39 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "ReplyNewParentingArrangements";
+        p.label = "Reply New Parenting Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ReplyNewParentalResponsibilities";
+        p.label = "Reply New Parental Responsibilities";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "ReplyNewParentingTime";
+        p.label = "Reply New Parenting Time";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "ReplyNewConditionsParentingTime";
+        p.label = "Reply New Conditions Parenting Time";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
+        p = {} as pageInfoType;
+        p.key = "8";
         p.name = "ReviewYourAnswersRFLM";
         p.label = "Review Your Answers";
         p.active = true;
@@ -351,7 +384,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "9";
         p.name = "PreviewFormsRFLM";
         p.label = "Preview Forms";
         p.active = false;

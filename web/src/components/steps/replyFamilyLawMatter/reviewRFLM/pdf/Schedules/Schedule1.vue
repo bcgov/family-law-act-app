@@ -171,7 +171,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { schedule1DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { agreeDisagreeInfoType, schedule1DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { replyNewConditionsParentingTimeDataInfoType, replyNewParentalResponsibilitiesDataInfoType, replyNewParentingTimeDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ParentingArrangements';
 
 @Component({
     components:{
@@ -184,6 +185,9 @@ export default class Schedule1 extends Vue {
 
     @Prop({required:true})
     result!: any;
+
+    @Prop({required:true})
+    agreeDisagreeResults!: agreeDisagreeInfoType;
 
     dataReady = false;
     parentArrInfo = {} as schedule1DataInfoType;   
@@ -201,13 +205,13 @@ export default class Schedule1 extends Vue {
     public getParentingArrangementsInfo(){
         let parentingArrangements = {} as schedule1DataInfoType;       
 
-        if (this.result.parentalResponsibilitiesSurvey?.parentalResponsibilitiesOrder == 'y'){
-            const parentingResp = this.result.parentingTimeSurvey
+        if (this.agreeDisagreeResults.newParentResp.opApplied && !this.agreeDisagreeResults.newParentResp.agree){
+            const parentingResp: replyNewParentalResponsibilitiesDataInfoType = this.result.replyNewParentalResponsibilitiesSurvey
             parentingArrangements.parentResp = {
                 applying: true,
-                disagreeExpl: '',
-                askExpl: '',
-                bestInterestExpl: ''                
+                disagreeExpl: parentingResp.disagreeReason,
+                askExpl: parentingResp.requestedParentalResponsibilities,
+                bestInterestExpl: parentingResp.childBestInterestReason                
             }
 
         } else {
@@ -219,13 +223,13 @@ export default class Schedule1 extends Vue {
             }
         }
 
-        if (this.result.parentingTimeSurvey?.parentingTimeOrder == 'y'){
-            const parentingTime = this.result.parentingTimeSurvey
+        if (this.agreeDisagreeResults.newParentTime.opApplied && !this.agreeDisagreeResults.newParentTime.agree){
+            const parentingTime: replyNewParentingTimeDataInfoType = this.result.replyNewParentingTimeSurvey
             parentingArrangements.parentTime = {
                 applying: true,
-                disagreeExpl: '',
-                askExpl: '',
-                bestInterestExpl: '' 
+                disagreeExpl: parentingTime.disagreeReason,
+                askExpl: parentingTime.requestedParentalTime,
+                bestInterestExpl: parentingTime.childBestInterestReason 
             }
 
         } else {
@@ -237,13 +241,13 @@ export default class Schedule1 extends Vue {
             }     
         }
 
-        if (this.result.otherParentingArrangementsSurvey?.parentalArrangements == 'y'){
-            const parentalArrangements = this.result.otherParentingArrangementsSurvey
+        if (this.agreeDisagreeResults.newParentTimeConditions.opApplied && !this.agreeDisagreeResults.newParentTimeConditions.agree){
+            const parentingTimeConditions: replyNewConditionsParentingTimeDataInfoType = this.result.replyNewConditionsParentingTimeSurvey
             parentingArrangements.parentTimeConditions = {
                 applying: true,
-                disagreeExpl: '',
-                askExpl: '',
-                bestInterestExpl: ''                 
+                disagreeExpl: parentingTimeConditions.disagreeReason,
+                askExpl: parentingTimeConditions.requestedConditionParentalTime,
+                bestInterestExpl: parentingTimeConditions.childBestInterestReason                 
             }
         } else {
             parentingArrangements.parentTimeConditions = {
