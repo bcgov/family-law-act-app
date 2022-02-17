@@ -54,6 +54,7 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 import { requiredDocumentsInfoType } from '@/types/Common';
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+import { stepInfoType } from '@/types/Application';
 const applicationState = namespace("Application");
 
 @Component({
@@ -75,6 +76,9 @@ export default class RequiredDocument extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType; 
 
+    @applicationState.State
+    public steps!: stepInfoType[];
+
     showGetHelpScanning = false;
     isRequiredDocument = false;
     requiredDocumentLists = [];
@@ -87,18 +91,26 @@ export default class RequiredDocument extends Vue {
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
         this.isRequiredDocument = false;
-        const includesOrderActivities = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        
+        const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
+        
+        const selectedForms = (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        const selectedReplyForms = (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
         
         for (const [key, value] of Object.entries(this.requiredDocuments)){           
-            if(key && value && includesOrderActivities && (this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key) || this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key.slice(0,-2)))){
+            if(key && value && 
+                ( selectedForms.includes(key) || selectedForms.includes(key.slice(0,-2)) 
+                || selectedReplyForms.includes(key) || selectedReplyForms.includes(key.slice(0,-2)) ) ){
+                
                 const name = Vue.filter('getFullOrderName')(key, '');
-                const vowelCondituion = ['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a';
+                const vowelCondition = ['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a';
                 this.requiredDocumentLists.push({
                     name:name, 
                     required:value['required'], 
                     reminder:value['reminder'],
                     text:key.includes('agreementEnfrc2')?'For the Request to':'For the Application About',
-                    article:key.includes('agreementEnfrc2')? '':vowelCondituion
+                    article:key.includes('agreementEnfrc2')? '':vowelCondition
                 })
                 if(value['required']?.length>0) this.isRequiredDocument = true;
             }

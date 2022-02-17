@@ -54,7 +54,10 @@ export default class OtherPartyCommonSurvey extends Vue {
     selectedReplyForms = [];
 
     cmOnly = false;
-    wrOnly = false;
+    wrIncluded = false;
+    rflmIncluded = false;
+    includesReplyPathway = false;
+    includesApplyPathway = false;
     onlyFullNameRequired = false;
 
     beforeCreate() {
@@ -93,8 +96,9 @@ export default class OtherPartyCommonSurvey extends Vue {
     
     public reloadPageInformation() {
 
-        this.cmOnly = false;
-        this.wrOnly = false;
+        this.cmOnly = false;        
+        this.wrIncluded = false;
+        this.rflmIncluded = false;
        
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
@@ -110,17 +114,21 @@ export default class OtherPartyCommonSurvey extends Vue {
 
         this.cmOnly = (this.selectedForms.length == 1 && this.selectedForms.includes("caseMgmt")); 
 
-        //TODO: use this when other reply pathways have been added: this.wrOnly = (this.selectedReplyForms.length == 1 && this.selectedReplyForms.includes("writtenResponse"));
-        this.wrOnly = (this.selectedReplyForms.includes("writtenResponse"));
+        this.wrIncluded = this.selectedReplyForms.includes("writtenResponse");
+        this.rflmIncluded = this.selectedReplyForms.includes("replyFlm");
         
-        if (this.selectedForms.length > 0){
-            if (this.selectedReplyForms.length > 0){
-                this.onlyFullNameRequired = this.cmOnly && this.wrOnly
+        
+        this.includesReplyPathway = this.selectedReplyForms.length > 0;
+        this.includesApplyPathway = this.selectedForms.length > 0;       
+        
+        if (this.includesApplyPathway){
+            if (this.includesReplyPathway ){
+                this.onlyFullNameRequired = this.cmOnly && (this.wrIncluded || this.rflmIncluded)
             } else {
                 this.onlyFullNameRequired = this.cmOnly;
             }
         } else {
-            this.onlyFullNameRequired = this.wrOnly;
+            this.onlyFullNameRequired = this.wrIncluded || this.rflmIncluded;
         }
         
         this.survey.setVariable("onlyFullNameRequired", this.onlyFullNameRequired);

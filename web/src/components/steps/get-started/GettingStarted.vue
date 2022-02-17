@@ -263,24 +263,33 @@ export default class GettingStarted extends Vue {
        if (selectedForms !== undefined && this.selectedReplyForms !== undefined) {            
     
             const poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
-            const poIncluded = selectedForms.includes("protectionOrder");           
-
-            toggleStep(this.stPgNo.PO._StepNo,    selectedForms.includes("protectionOrder"));
-            toggleStep(this.stPgNo.FLM._StepNo,   selectedForms.includes("familyLawMatter"));
-            toggleStep(this.stPgNo.CM._StepNo,    selectedForms.includes("caseMgmt"));
-            toggleStep(this.stPgNo.PPM._StepNo,   selectedForms.includes("priorityParenting"));
-            toggleStep(this.stPgNo.CONNECT._StepNo, false);
-            toggleStep(this.stPgNo.RELOC._StepNo, selectedForms.includes("childReloc"));
-            toggleStep(this.stPgNo.ENFRC._StepNo, selectedForms.includes("agreementEnfrc"));
-
-            toggleStep(this.stPgNo.SUBMIT._StepNo, (selectedForms.length>0 || this.selectedReplyForms.includes("writtenResponse")));//Review And Submit
+            const poIncluded = selectedForms.includes("protectionOrder"); 
             
-            toggleStep(this.stPgNo.COMMON._StepNo, this.selectedReplyForms.includes("writtenResponse") || selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc") || selectedForms.includes("caseMgmt") || selectedForms.includes("agreementEnfrc"));//Common Your Information
+            const flmIncluded = selectedForms.includes("familyLawMatter");
+            const cmIncluded = selectedForms.includes("caseMgmt");
+            const ppmIncluded = selectedForms.includes("priorityParenting")
+            const crIncluded = selectedForms.includes("childReloc")
+            const aeIncluded = selectedForms.includes("agreementEnfrc")
+
+            const wrIncluded = this.selectedReplyForms.includes("writtenResponse");
+            const rflmIncluded = this.selectedReplyForms.includes("replyFlm");
+
+            toggleStep(this.stPgNo.PO._StepNo,    poIncluded);
+            toggleStep(this.stPgNo.FLM._StepNo,   flmIncluded);
+            toggleStep(this.stPgNo.CM._StepNo,    cmIncluded);
+            toggleStep(this.stPgNo.PPM._StepNo,   ppmIncluded);
+            toggleStep(this.stPgNo.CONNECT._StepNo, false);
+            toggleStep(this.stPgNo.RELOC._StepNo, crIncluded);
+            toggleStep(this.stPgNo.ENFRC._StepNo, aeIncluded);
+
+            toggleStep(this.stPgNo.SUBMIT._StepNo, (selectedForms.length>0 || wrIncluded || rflmIncluded));//Review And Submit
+            
+            toggleStep(this.stPgNo.COMMON._StepNo, wrIncluded || rflmIncluded || flmIncluded || ppmIncluded || crIncluded || cmIncluded || aeIncluded);//Common Your Information
             togglePages([this.stPgNo.COMMON.SafetyCheck], !poIncluded, this.stPgNo.COMMON._StepNo);//Safety Check
-            togglePages([this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"), this.stPgNo.COMMON._StepNo);//Notice
+            togglePages([this.stPgNo.COMMON.Notice], ppmIncluded, this.stPgNo.COMMON._StepNo);//Notice
             
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.COMMON._StepNo, currentPage: (poIncluded? this.stPgNo.COMMON.YourInformation:this.stPgNo.COMMON.SafetyCheck) });//correct Safety Check page in sidebar
-            togglePages([this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], (selectedForms.length>0 && !poOnly) || this.selectedReplyForms.includes("writtenResponse"), this.stPgNo.COMMON._StepNo);//Your Information, Other Party, Filing Location    
+            togglePages([this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], (selectedForms.length>0 && !poOnly) || wrIncluded || rflmIncluded, this.stPgNo.COMMON._StepNo);//Your Information, Other Party, Filing Location    
         }
 
 

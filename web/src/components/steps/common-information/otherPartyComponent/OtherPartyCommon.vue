@@ -23,7 +23,7 @@
                     <p v-else>Add each party from your existing case – be sure to copy the names from any filed court document</p>
                     
                     <div v-if="includesReplyPathway">
-                        <p>
+                        <p v-if="wrIncluded">
                             If you are filing a Written Response to Application, you will need to serve each other party with a filed copy of the reply.
                         </p>
                         <p>
@@ -73,6 +73,31 @@
                                 serving the other party to make sure you give them proper notice.
                   
                             </p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="m-4 text-primary" @click="showPartyInfo= !showPartyInfo" style="border-bottom:1px solid; width:31rem;">
+                            <span style='font-size:1.2rem;' class="fa fa-question-circle" /> What if I want to add a party that wasn’t on the application? 
+                            <span v-if="showPartyInfo" class='ml-2 fa fa-chevron-up'/>
+                            <span v-if="!showPartyInfo" class='ml-2 fa fa-chevron-down'/>
+                        </div>
+                        <div v-if="showPartyInfo" class="mx-4 mb-5 mt-3">
+                            <p>
+                                The other party may not have included everyone that you believe should be involved in the case. 
+                                Usually if a case involves a child, each of the child’s parents or current guardians are part 
+                                of the case. If the application is about contact with a child or guardianship of a child, 
+                                you may see other adults included if the application is about them and their relationship 
+                                with the child. A lawyer can help you figure out who should be a party for your case if 
+                                you aren’t sure. 
+                            </p>
+                            <p>
+                                After an application has been filed, you need permission from the court to add a new party. 
+                                To apply, you must complete an Application About a Case Management Order. This service can 
+                                help you complete and file the form. Select “Make an Application” in the first step and 
+                                “Case Management” in the orders you need.
+                            </p>                            
                         </div>
                     </div>
                     <p>Please add the details of the other party in the fields below. </p>
@@ -190,15 +215,18 @@ export default class OtherPartyCommon extends Vue {
     currentStep=0;
     currentPage=0;
     showServeNoticeInfo = false;
+    showPartyInfo = false;
     showTable = true;
     popInfo = false;
     selectedForms = [];
     selectedReplyForms = [];
     cmOnly = false;
-    wrOnly = false;
+    wrIncluded = false;
+    rflmIncluded = false;
     onlyFullNameRequired = false;
     replyPathwayOnly = false;
     includesReplyPathway = false;
+    includesApplyPathway = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
@@ -220,7 +248,8 @@ export default class OtherPartyCommon extends Vue {
         this.dataReady = false;
         this.confirmed = false;
         this.cmOnly = false;
-        this.wrOnly = false;
+        this.wrIncluded = false;
+        this.rflmIncluded = false;
 
         this.tableIsEmpty = this.otherPartyData.length == 0 ;
                 
@@ -235,19 +264,23 @@ export default class OtherPartyCommon extends Vue {
 
         this.cmOnly = (this.selectedForms.length == 1 && this.selectedForms.includes("caseMgmt")); 
 
-        //TODO: use this when other reply pathways have been added: this.wrOnly = (this.selectedReplyForms.length == 1 && this.selectedReplyForms.includes("writtenResponse"));
-        this.wrOnly = (this.selectedReplyForms.includes("writtenResponse"));
-        this.replyPathwayOnly = this.wrOnly && this.selectedForms.length == 0;
-        this.includesReplyPathway = this.selectedReplyForms.length > 0;
+        this.wrIncluded = this.selectedReplyForms.includes("writtenResponse");
+        this.rflmIncluded = this.selectedReplyForms.includes("replyFlm");
         
-        if (this.selectedForms.length > 0){
-            if (this.selectedReplyForms.length > 0){
-                this.onlyFullNameRequired = this.cmOnly && this.wrOnly
+        
+        this.includesReplyPathway = this.selectedReplyForms.length > 0;
+        this.includesApplyPathway = this.selectedForms.length > 0;
+        
+        this.replyPathwayOnly = this.includesReplyPathway && this.selectedForms.length == 0;
+        
+        if (this.includesApplyPathway){
+            if (this.includesReplyPathway ){
+                this.onlyFullNameRequired = this.cmOnly && (this.wrIncluded || this.rflmIncluded)
             } else {
                 this.onlyFullNameRequired = this.cmOnly;
             }
         } else {
-            this.onlyFullNameRequired = this.wrOnly;
+            this.onlyFullNameRequired = this.wrIncluded || this.rflmIncluded;
         }
         
 
