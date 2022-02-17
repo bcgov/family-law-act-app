@@ -13,7 +13,7 @@ import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommun
 import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpensesSurveyInfoType, detrermineArrearsSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
 import { aboutWrittenResponseOrderSurveyInfoType, agreeDisagreeSurveyInfoType, wrReplyingToApplicationSurveyInfoType } from "./WrittenResponse";
 import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmChildDetailsSurveyInfoType } from "./ReplyFamilyLawMatter";
-import { replyNewConditionsParentingTimeSurveyInfoType, replyNewParentalResponsibilitiesSurveyInfoType, replyNewParentingTimeSurveyInfoType } from "./ReplyFamilyLawMatter/ParentingArrangements";
+import { replyExistingParentingArrangementsSurveyInfoType, replyNewConditionsParentingTimeSurveyInfoType, replyNewParentalResponsibilitiesSurveyInfoType, replyNewParentingTimeSurveyInfoType } from "./ReplyFamilyLawMatter/ParentingArrangements";
 
 
 //This is what our database saves.
@@ -119,6 +119,7 @@ export interface stepInfoType {
     replyNewParentalResponsibilitiesSurvey?: replyNewParentalResponsibilitiesSurveyInfoType;
     replyNewParentingTimeSurvey?: replyNewParentingTimeSurveyInfoType;
     replyNewConditionsParentingTimeSurvey?: replyNewConditionsParentingTimeSurveyInfoType;
+    replyExistingParentingArrangementsSurvey?: replyExistingParentingArrangementsSurveyInfoType;
 
 
     //_____Step 4   WR_____________

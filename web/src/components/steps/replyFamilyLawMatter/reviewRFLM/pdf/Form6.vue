@@ -4,8 +4,8 @@
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <common-section v-bind:result="result" v-bind:selectedSchedules="selectedSchedules" v-bind:agreeDisagreeResults="agreeDisagreeResults"/>
         <schedule-1 v-bind:result="result" v-bind:agreeDisagreeResults="agreeDisagreeResults" v-if="selectedSchedules.includes('schedule1')" />
-        <!-- <schedule-2 v-bind:result="result"  v-if="selectedSchedules.includes('schedule2')" />
-        <schedule-3 v-bind:result="result"  v-if="selectedSchedules.includes('schedule3')" />
+        <schedule-2 v-bind:result="result" v-bind:agreeDisagreeResults="agreeDisagreeResults"  v-if="selectedSchedules.includes('schedule2')" />
+        <!-- <schedule-3 v-bind:result="result"  v-if="selectedSchedules.includes('schedule3')" />
         <schedule-4 v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
         <schedule-5 v-bind:result="result"  v-if="selectedSchedules.includes('schedule5')" />
         <schedule-6 v-bind:result="result"  v-if="selectedSchedules.includes('schedule6')" />

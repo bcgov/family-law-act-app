@@ -63,10 +63,11 @@ export interface parentTimeConditionsInfoType {
 }
 
 export interface schedule2DataInfoType {
+    existingType: string;
     agreeNeedsChanges: boolean;
     agreeBestInterest: boolean;
     disagreeExpl: string;
-    cancel: boolean;
+    noChange: boolean;
     change: boolean;
     changeExpl: string;
     bestInterestExpl: string;   

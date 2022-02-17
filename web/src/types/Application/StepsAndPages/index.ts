@@ -63,6 +63,7 @@ export interface RFLMstPgTypes{
     ReplyNewParentalResponsibilities: number;
     ReplyNewParentingTime: number;
     ReplyNewConditionsParentingTime: number;
+    ReplyExistingParentingArrangements: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
 }

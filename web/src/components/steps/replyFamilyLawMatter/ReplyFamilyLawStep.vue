@@ -9,6 +9,7 @@
         <reply-new-parental-responsibilities v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewParentalResponsibilities"/>
         <reply-new-parenting-time v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewParentingTime"/>
         <reply-new-conditions-parenting-time v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewConditionsParentingTime"/>
+        <reply-existing-parenting-arrangements v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyExistingParentingArrangements"/>
 
         <review-your-answers-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/>
         <preview-forms-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PreviewFormsRFLM"/> 
@@ -34,6 +35,8 @@ import ReplyNewParentalResponsibilities from "./parentingArrangements/ReplyNewPa
 import ReplyNewParentingTime from "./parentingArrangements/ReplyNewParentingTime.vue";
 import ReplyNewConditionsParentingTime from "./parentingArrangements/ReplyNewConditionsParentingTime.vue";
 
+import ReplyExistingParentingArrangements from "./parentingArrangements/ReplyExistingParentingArrangements.vue";
+
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
 
@@ -51,6 +54,7 @@ import { stepInfoType } from "@/types/Application";
         ReplyNewParentalResponsibilities,
         ReplyNewParentingTime,
         ReplyNewConditionsParentingTime,
+        ReplyExistingParentingArrangements,
         ReviewYourAnswersRFLM,
         PreviewFormsRFLM  
     }

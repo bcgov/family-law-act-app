@@ -48,6 +48,28 @@ export interface replyNewConditionsParentingTimeSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface replyExistingParentingArrangementsDataInfoType {
+    listOfOpApplications: string[];
+    agreeCourtOrder?: string;
+    existingType?: string;
+    agreeFinalOrder?: string;
+    agreeAgreement?: string;
+    agreePartial?: string;
+    listOfAgreePartial?: string[];
+    disagreeReason?: string;
+    desiredOrderChoice?: string;
+    requestedParentingArrangements?: string;
+    childBestInterestReason?: string;
+}
+
+export interface replyExistingParentingArrangementsSurveyInfoType {
+    data: replyExistingParentingArrangementsDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
 
 
 
