@@ -83,10 +83,30 @@ export default class ReviewYourAnswersRFLM extends Vue {
            Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.RFLM.PreviewFormsRFLM,  50, false);
         }
 
-        this.questionResults = getQuestionResults([this.stPgNo.COMMON._StepNo, this.stPgNo.RFLM._StepNo], this.currentStep)        
+        const newQuestionResults = getQuestionResults([this.stPgNo.COMMON._StepNo, this.stPgNo.RFLM._StepNo], this.currentStep)        
+        this.removeChildStepIfNotRequired(newQuestionResults);
          
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
         togglePages([this.stPgNo.RFLM.PreviewFormsRFLM], !this.pageHasError, this.currentStep);         
+    }
+
+    public removeChildStepIfNotRequired(newQuestionResults){
+        
+        let childInfoRequired = true
+        if (this.step.result?.rflmCounterAppSurvey?.data?.counter && this.step.result?.correctChildInfo) {
+            const noCounterAppData = this.step.result.rflmCounterAppSurvey.data.counter =="No";
+            const correctChildInfo = this.step.result?.correctChildInfo =="Yes";
+            childInfoRequired = !(noCounterAppData && correctChildInfo)
+        } 
+
+        this.questionResults=[]
+        for(const newQuestionResult of newQuestionResults){
+            if (newQuestionResult.pageName=="Children Information" && !childInfoRequired){
+                continue
+            }
+
+            this.questionResults.push(newQuestionResult)
+        }
     }
     
     public onPrev() {

@@ -249,6 +249,9 @@ export default class RflmChildrenInfo extends Vue {
 
     public surveyHasError(){
         let progress = this.childData.length==0? 50 : 100;
+        
+        if(this.correctChildInfo == 'Yes' && this.includesCounter == 'No') progress =100;
+
         this.incompleteError =  false;        
         for(const child of this.childData){
             if (((this.includesCounter=='No') && !child.dob) || 
