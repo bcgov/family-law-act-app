@@ -126,21 +126,22 @@ export default class Schedule2 extends Vue {
 
             const existingInfo: replyExistingParentingArrangementsDataInfoType = this.result.replyExistingParentingArrangementsSurvey;
 
-            if (existingInfo.existingType == 'finalOrder'){
-                existingParentingArrangements.existingType = 'finalOrder';
-                existingParentingArrangements.agreeNeedsChanges = existingInfo.agreeFinalOrder == 'y';
-                existingParentingArrangements.agreeBestInterest = false;                
-            } else if (existingInfo.existingType == 'agreement'){
-                existingParentingArrangements.existingType = 'agreement';
-                existingParentingArrangements.agreeBestInterest = existingInfo.agreeAgreement == 'y';
-                existingParentingArrangements.agreeNeedsChanges = false;
-            }
-
             const disagreeItem = (this.agreeDisagreeResults.existingParentResp.opApplied && !this.agreeDisagreeResults.existingParentResp.agree)
                 || (this.agreeDisagreeResults.existingParentTime.opApplied && !this.agreeDisagreeResults.existingParentTime.agree)
-                || (this.agreeDisagreeResults.existingParentTimeConditions.opApplied && !this.agreeDisagreeResults.existingParentTimeConditions.agree)
+                || (this.agreeDisagreeResults.existingParentTimeConditions.opApplied && !this.agreeDisagreeResults.existingParentTimeConditions.agree);
+
+                console.log(this.agreeDisagreeResults)
 
             if (disagreeItem){
+                if (existingInfo.existingType == 'finalOrder'){
+                    existingParentingArrangements.existingType = 'finalOrder';
+                    existingParentingArrangements.agreeNeedsChanges = existingInfo.agreeFinalOrder == 'y';
+                    existingParentingArrangements.agreeBestInterest = false;                
+                } else if (existingInfo.existingType == 'agreement'){
+                    existingParentingArrangements.existingType = 'agreement';
+                    existingParentingArrangements.agreeBestInterest = existingInfo.agreeAgreement == 'y';
+                    existingParentingArrangements.agreeNeedsChanges = false;
+                }                
                 existingParentingArrangements.disagreeExpl = existingInfo.disagreeReason?existingInfo.disagreeReason:''
                 existingParentingArrangements.noChange = existingInfo.desiredOrderChoice == 'noChange';
                 existingParentingArrangements.change = existingInfo.desiredOrderChoice == 'differentChange';
@@ -149,6 +150,9 @@ export default class Schedule2 extends Vue {
                 existingParentingArrangements.bestInterestExpl = existingInfo.childBestInterestReason?existingInfo.childBestInterestReason:'';
 
             } else {
+                existingInfo.existingType = '';
+                existingParentingArrangements.agreeBestInterest = false;
+                existingParentingArrangements.agreeNeedsChanges = false;
                 existingParentingArrangements.disagreeExpl = '';
                 existingParentingArrangements.noChange = false;
                 existingParentingArrangements.change = false;

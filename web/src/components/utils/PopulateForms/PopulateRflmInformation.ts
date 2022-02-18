@@ -24,153 +24,93 @@ export function getAgreeDisagreeResults(result, schedules: string[]) {
 
     if (schedules.includes('schedule1')){
 
-        const newResp: replyNewParentalResponsibilitiesDataInfoType = result.replyNewParentalResponsibilitiesSurvey;
+        const newResp: replyNewParentalResponsibilitiesDataInfoType = result.replyNewParentalResponsibilitiesSurvey;        
+        agreeDisagreeResults.newParentResp = {
+            opApplied: newResp.otherPartyParentalResponsibilitiesOrder == 'y',
+            agree: newResp.otherPartyParentalResponsibilitiesOrder == 'y' && newResp.agreeResponsibilitiesOrder == 'y'
+        }        
 
-        if (newResp.otherPartyParentalResponsibilitiesOrder == 'y'){
-            agreeDisagreeResults.newParentResp = {
-                opApplied: true,
-                agree: newResp.agreeResponsibilitiesOrder == 'y'
-            }
-        } else {
-            agreeDisagreeResults.newParentResp = {
-                opApplied: false,
-                agree: false
-            }
+        const newTime: replyNewParentingTimeDataInfoType = result.replyNewParentingTimeSurvey;        
+        agreeDisagreeResults.newParentTime= {
+            opApplied: newTime.otherPartyParentalTimeOrder == 'y',
+            agree: (newTime.otherPartyParentalTimeOrder == 'y' && newTime.agreeTimeOrder == 'y')
         }
 
-        const newTime: replyNewParentingTimeDataInfoType = result.replyNewParentingTimeSurvey
-
-        if (newTime.otherPartyParentalTimeOrder == 'y'){
-            agreeDisagreeResults.newParentTime= {
-                opApplied: true,
-                agree: newTime.agreeTimeOrder == 'y'
-            }
-            
-        } else {
-            agreeDisagreeResults.newParentTime = {
-                opApplied: false,
-                agree: false
-            }
-        }
-
-        const newTimeCondition: replyNewConditionsParentingTimeDataInfoType = result.replyNewConditionsParentingTimeSurvey;
-
-        if (newTimeCondition.otherPartyConditionParentalTimeOrder == 'y'){
-            agreeDisagreeResults.newParentTimeConditions= {
-                opApplied: true,
-                agree: newTimeCondition.agreeConditionTimeOrder == 'y'
-            }           
-        } else {
-            agreeDisagreeResults.newParentTimeConditions = {
-                opApplied: false,
-                agree: false
-            }
-        }     
+        const newTimeCondition: replyNewConditionsParentingTimeDataInfoType = result.replyNewConditionsParentingTimeSurvey;        
+        agreeDisagreeResults.newParentTimeConditions= {
+            opApplied: newTimeCondition.otherPartyConditionParentalTimeOrder == 'y',
+            agree: (newTimeCondition.otherPartyConditionParentalTimeOrder == 'y' && newTimeCondition.agreeConditionTimeOrder == 'y')
+        }           
+        
     } else if (schedules.includes('schedule2')){
         
         const existingArrangement: replyExistingParentingArrangementsDataInfoType = result.replyExistingParentingArrangementsSurvey;
+        const agreeAll = existingArrangement.agreeCourtOrder == 'y';
 
-        let listOfOpApplications = existingArrangement.listOfOpApplications;        
-        let minLength = 1;
+        let listOfOpApplications = existingArrangement.listOfOpApplications?existingArrangement.listOfOpApplications:[];
+        let listOfAgreePartial = existingArrangement.listOfAgreePartial?existingArrangement.listOfAgreePartial:[];
 
-        if (listOfOpApplications.includes('none of the above')){              
-            minLength = 2;                         
-        } 
+        const includesParentResp = listOfOpApplications.includes('parental responsibilities');
+        const includesParentTime = listOfOpApplications.includes('parenting time');
+        const includesParentTimeConditions = listOfOpApplications.includes('conditions on parenting time');
+        const includesOther = listOfOpApplications.includes('other parenting arrangements');
+        const includesNone = listOfOpApplications.includes('none of the above');
+
+        let minLength = includesNone?2:1
         
-        if (listOfOpApplications.includes('parental responsibilities')){
-            agreeDisagreeResults.existingParentResp= {
-                opApplied: true,
-                agree: existingArrangement.agreeCourtOrder == 'y' || 
-                    (existingArrangement.agreeCourtOrder == 'n' 
-                        && listOfOpApplications.length > minLength 
-                        && existingArrangement.agreePartial == 'y' 
-                        && existingArrangement.listOfAgreePartial.includes('parental responsibilities'))
-            }           
-        } else {
-            agreeDisagreeResults.existingParentResp = {
-                opApplied: false,
-                agree: false
-            }
-        }  
+        agreeDisagreeResults.existingParentResp = {
+            opApplied: includesParentResp,
+            agree: (includesParentResp && agreeAll) || 
+                (includesParentResp && !agreeAll 
+                    && listOfOpApplications.length > minLength 
+                    && existingArrangement.agreePartial == 'y' 
+                    && listOfAgreePartial.includes('parental responsibilities'))
+        }    
 
-        if (listOfOpApplications.includes('other parenting arrangements') && !listOfOpApplications.includes('parental responsibilities')){
-            agreeDisagreeResults.existingParentResp= {
+        if (includesOther && !includesParentResp){
+            agreeDisagreeResults.existingParentResp = {
                 opApplied: true,
-                agree: (existingArrangement.agreeCourtOrder == 'y' && listOfOpApplications.length == minLength) || 
-                    (existingArrangement.agreeCourtOrder == 'n' 
-                        && listOfOpApplications.length > minLength 
+                agree: (agreeAll) || 
+                        (!agreeAll && listOfOpApplications.length > minLength 
                         && existingArrangement.agreePartial == 'y' 
-                        && existingArrangement.listOfAgreePartial.includes('other parenting arrangements'))
+                        && listOfAgreePartial.includes('other parenting arrangements'))
             }           
-        } else if (!listOfOpApplications.includes('other parenting arrangements') && !listOfOpApplications.includes('parental responsibilities')) {
+        } else if (!includesOther && !includesParentResp) {
             agreeDisagreeResults.existingParentResp = {
                 opApplied: false,
                 agree: false
             }
         }
+        
+        agreeDisagreeResults.existingParentTime = {
+            opApplied: includesParentTime,
+            agree: (includesParentTime && agreeAll) || 
+            (includesParentTime && !agreeAll 
+                && listOfOpApplications.length > minLength 
+                && existingArrangement.agreePartial == 'y' 
+                && listOfAgreePartial.includes('parenting time'))
+        } 
+       
+        agreeDisagreeResults.existingParentTimeConditions = {
+            opApplied: includesParentTimeConditions,
+            agree: (includesParentTimeConditions && agreeAll) || 
+            (includesParentTimeConditions && !agreeAll 
+                && listOfOpApplications.length > minLength 
+                && existingArrangement.agreePartial == 'y' 
+                && listOfAgreePartial.includes('conditions on parenting time'))
+        } 
 
-        if (listOfOpApplications.includes('parenting time')){
-            agreeDisagreeResults.existingParentTime= {
-                opApplied: true,
-                agree: existingArrangement.agreeCourtOrder == 'y' || 
-                (existingArrangement.agreeCourtOrder == 'n' 
-                    && listOfOpApplications.length > minLength 
-                    && existingArrangement.agreePartial == 'y' 
-                    && existingArrangement.listOfAgreePartial.includes('parenting time'))
-            }           
-        } else {
-            agreeDisagreeResults.existingParentTime = {
-                opApplied: false,
-                agree: false
-            }
-        }
+        if (includesNone && agreeAll){
 
-        if (listOfOpApplications.includes('conditions on parenting time')){
-            agreeDisagreeResults.existingParentTimeConditions= {
-                opApplied: true,
-                agree: existingArrangement.agreeCourtOrder == 'y' || 
-                (existingArrangement.agreeCourtOrder == 'n' 
-                    && listOfOpApplications.length > minLength 
-                    && existingArrangement.agreePartial == 'y' 
-                    && existingArrangement.listOfAgreePartial.includes('conditions on parenting time'))
-            }           
-        } else {
-            agreeDisagreeResults.existingParentTimeConditions = {
-                opApplied: false,
-                agree: false
-            }
-        }
+            agreeDisagreeResults.existingParentResp = {opApplied: true, agree: true}
+            agreeDisagreeResults.existingParentTime = {opApplied: true, agree: true}
+            agreeDisagreeResults.existingParentTimeConditions = {opApplied: true, agree: true}     
 
-        if (listOfOpApplications.includes('none of the above') && existingArrangement.agreeCourtOrder == 'y'){
-            agreeDisagreeResults.existingParentResp= {
-                opApplied: true,
-                agree: true
-            }
-            agreeDisagreeResults.existingParentTime= {
-                opApplied: true,
-                agree: true
-            }
-            agreeDisagreeResults.existingParentTimeConditions= {
-                opApplied: true,
-                agree: true
-            }           
-        } else if (listOfOpApplications.includes('none of the above') 
-                    && listOfOpApplications.length == 1 
-                    && existingArrangement.agreeCourtOrder == 'n'){
+        } else if (includesNone && listOfOpApplications.length == 1 && !agreeAll){
 
-            agreeDisagreeResults.existingParentResp= {
-                opApplied: true,
-                agree: false
-            }
-            agreeDisagreeResults.existingParentTime= {
-                opApplied: true,
-                agree: false
-            }
-            agreeDisagreeResults.existingParentTimeConditions= {
-                opApplied: true,
-                agree: false
-            }
-
+            agreeDisagreeResults.existingParentResp = {opApplied: true, agree: false}
+            agreeDisagreeResults.existingParentTime = {opApplied: true, agree: false}
+            agreeDisagreeResults.existingParentTimeConditions = {opApplied: true, agree: false}
         }
     }
         
