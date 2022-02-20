@@ -60,11 +60,11 @@ import Schedule20 from "./Schedules/Schedule20.vue"
 
 
 import { rflmBackgroundSurveyDataInfoType, rflmCounterAppDataInfoType, rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
-import { agreeDisagreeInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
-import { getAgreeDisagreeResults } from "@/components/utils/PopulateForms/PopulateRflmInformation";
+import { getForm6PopulationInfo } from "@/components/utils/PopulateForms/PopulateRflmInformation";
 
 
 
@@ -105,18 +105,18 @@ export default class Form6 extends Vue {
 
     result;
     dataReady = false; 
+
+    populationInfo = {} as form6PopulationInfoType;
     selectedSchedules: string[] = [];
     agreeDisagreeResults = {} as agreeDisagreeInfoType;
    
     mounted(){
         this.dataReady = false;
         this.result = this.getRFLMResultData();
-        this.selectedSchedules = this.getSchedulesInfo();
-        this.agreeDisagreeResults = getAgreeDisagreeResults(this.result, this.selectedSchedules);
+        this.populationInfo = getForm6PopulationInfo(this.result)
+        this.selectedSchedules = this.populationInfo.schedules;
+        this.agreeDisagreeResults = this.populationInfo.agreeDisagree;
 
-        //this.selectedSchedules = []//["schedule1", "schedule2", "schedule3", "schedule4", "schedule5", "schedule6", "schedule7", "schedule8", 
-                                // "schedule9", "schedule10", "schedule11", "schedule12", "schedule13", "schedule14", "schedule15", 
-                                // "schedule16", "schedule17", "schedule18", "schedule19", "schedule20"];
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   

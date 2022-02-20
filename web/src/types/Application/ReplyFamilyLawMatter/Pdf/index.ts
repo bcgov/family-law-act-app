@@ -13,6 +13,11 @@ export interface existingOrdersInfoType {
     existingPO: boolean;
 }
 
+export interface form6PopulationInfoType {
+    schedules: string[];
+    agreeDisagree: agreeDisagreeInfoType;
+}
+
 export interface agreeDisagreeInfoType {
     newParentResp: agreeDisagreeDataInfoType; 
     newParentTime: agreeDisagreeDataInfoType;
