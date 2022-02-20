@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.5.2";
+    const CURRENT_VERSION: string = "1.2.5.3";
     //__________________________
     //___________________________
     //___________________________
@@ -378,7 +378,12 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		  	requiredDocuments.push("Copy of the missed protection related written agreement(s), court order(s) or plan(s)");
 
 		if(questions.rflmBackgroundSurvey?.ExistingOrdersFLM == "y" && questions.rflmBackgroundSurvey?.otherPartyAttach == 'n')
-		  	requiredDocuments.push("Copy of the missed existing agreement(s) or court order(s)");			
+		  	requiredDocuments.push("Copy of the missed existing agreement(s) or court order(s)");	
+			  
+		if( (questions.rflmCalculatingChildSupportSurvey?.attachingCalculations == 'y'  &&  questions.rflmQuestionnaireSurvey?.selectedChildSupportForm?.length > 0 )
+		// || ( questions.rflmCalculatingSpousalSupportSurvey?.attachingCalculations== 'y' &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport"))
+		)
+			requiredDocuments.push("Support calculation");
 		
 	
 		//REMINDERS		

@@ -12,8 +12,9 @@ import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, E
 import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
 import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpensesSurveyInfoType, detrermineArrearsSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
 import { aboutWrittenResponseOrderSurveyInfoType, agreeDisagreeSurveyInfoType, wrReplyingToApplicationSurveyInfoType } from "./WrittenResponse";
-import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmChildDetailsSurveyInfoType } from "./ReplyFamilyLawMatter";
+import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmChildDetailsSurveyInfoType, rflmAdditionalDocumentsSurveyInfoType } from "./ReplyFamilyLawMatter";
 import { replyExistingParentingArrangementsSurveyInfoType, replyNewConditionsParentingTimeSurveyInfoType, replyNewParentalResponsibilitiesSurveyInfoType, replyNewParentingTimeSurveyInfoType } from "./ReplyFamilyLawMatter/ParentingArrangements";
+import { disagreeChildSupportSurveyInfoType, relationshipToChildSurveyInfoType, replyNewChildSupportSurveyInfoType, rflmCalculatingChildSupportSurveyInfoType } from "./ReplyFamilyLawMatter/ChildSupport";
 
 
 //This is what our database saves.
@@ -120,7 +121,12 @@ export interface stepInfoType {
     replyNewParentingTimeSurvey?: replyNewParentingTimeSurveyInfoType;
     replyNewConditionsParentingTimeSurvey?: replyNewConditionsParentingTimeSurveyInfoType;
     replyExistingParentingArrangementsSurvey?: replyExistingParentingArrangementsSurveyInfoType;
-
+    replyNewChildSupportSurvey?: replyNewChildSupportSurveyInfoType;
+    relationshipToChildSurvey?: relationshipToChildSurveyInfoType;
+    disagreeChildSupportSurvey?: disagreeChildSupportSurveyInfoType;
+    rflmCalculatingChildSupportSurvey?: rflmCalculatingChildSupportSurveyInfoType;
+    
+    rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
 
     //_____Step 4   WR_____________
     wrReplyingToApplicationSurvey?: wrReplyingToApplicationSurveyInfoType;

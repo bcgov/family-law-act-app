@@ -5,8 +5,8 @@
         <common-section v-bind:result="result" v-bind:selectedSchedules="selectedSchedules" v-bind:agreeDisagreeResults="agreeDisagreeResults"/>
         <schedule-1 v-bind:result="result" v-bind:agreeDisagreeResults="agreeDisagreeResults" v-if="selectedSchedules.includes('schedule1')" />
         <schedule-2 v-bind:result="result" v-bind:agreeDisagreeResults="agreeDisagreeResults"  v-if="selectedSchedules.includes('schedule2')" />
-        <!-- <schedule-3 v-bind:result="result"  v-if="selectedSchedules.includes('schedule3')" />
-        <schedule-4 v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
+        <schedule-3 v-bind:result="result" v-if="selectedSchedules.includes('schedule3')" />
+        <!-- <schedule-4 v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
         <schedule-5 v-bind:result="result"  v-if="selectedSchedules.includes('schedule5')" />
         <schedule-6 v-bind:result="result"  v-if="selectedSchedules.includes('schedule6')" />
         <schedule-7 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule7')" />

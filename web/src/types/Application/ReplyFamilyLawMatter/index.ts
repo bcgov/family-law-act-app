@@ -68,10 +68,7 @@ export interface rflmChildDetailsSurveyInfoType {
 }
 
 export interface rflmAdditionalDocsDataInfoType {
-    isFilingAdditionalDocs?: string;
-    criminalChecked?: string;
-    unableFileForms?: string[];
-    fileApplicationFAQ?: boolean;
+    isFilingAdditionalDocs?: string;    
 }
 
 export interface rflmAdditionalDocumentsSurveyInfoType {

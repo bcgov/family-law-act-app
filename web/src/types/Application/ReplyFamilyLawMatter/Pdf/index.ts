@@ -82,6 +82,7 @@ export interface schedule3DataInfoType {
 
 export interface childSupportApplicantTypeInfoType {
     parent: boolean;
+    notParent: boolean;
     standing: boolean;
     parentageTestReq: boolean;
     notStanding: boolean;               

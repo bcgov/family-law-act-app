@@ -1,3 +1,4 @@
+import { replyNewChildSupportDataInfoType, replyNewChildSupportSurveyInfoType } from '@/types/Application/ReplyFamilyLawMatter/ChildSupport';
 import { replyExistingParentingArrangementsDataInfoType, replyNewConditionsParentingTimeDataInfoType, replyNewParentalResponsibilitiesDataInfoType, replyNewParentingTimeDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ParentingArrangements';
 import { agreeDisagreeInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 
@@ -112,6 +113,16 @@ export function getAgreeDisagreeResults(result, schedules: string[]) {
             agreeDisagreeResults.existingParentTime = {opApplied: true, agree: false}
             agreeDisagreeResults.existingParentTimeConditions = {opApplied: true, agree: false}
         }
+    }
+
+    if (schedules.includes('schedule3')){
+
+        const newChildSupport: replyNewChildSupportDataInfoType = result.replyNewChildSupportSurvey;        
+        agreeDisagreeResults.newChildSupport = {
+            opApplied: true,
+            agree: newChildSupport.agreeCourtOrder == 'y'
+        }                 
+        
     }
         
     return agreeDisagreeResults;       
