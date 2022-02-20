@@ -14,6 +14,11 @@
         <reply-new-child-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewChildSupport"/>
         <relationship-to-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RelationshipToChild"/>
         <disagree-child-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeChildSupport"/>
+        
+        <reply-existing-child-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyExistingChildSupport"/>
+        <rflm-unpaid-child-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmUnpaidChildSupport"/>
+        <disagree-existing-child-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeExistingChildSupport"/>
+        
         <rflm-calculating-child-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmCalculatingChildSupport"/>
 
         <rflm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmAdditionalDocuments"/>
@@ -46,6 +51,11 @@ import ReplyExistingParentingArrangements from "./parentingArrangements/ReplyExi
 import ReplyNewChildSupport from "./childSupport/ReplyNewChildSupport.vue";
 import RelationshipToChild from "./childSupport/RelationshipToChild.vue";
 import DisagreeChildSupport from "./childSupport/DisagreeChildSupport.vue";
+
+import ReplyExistingChildSupport from "./childSupport/ReplyExistingChildSupport.vue";
+import RflmUnpaidChildSupport from "./childSupport/RflmUnpaidChildSupport.vue";
+import DisagreeExistingChildSupport from "./childSupport/DisagreeExistingChildSupport.vue";
+
 import RflmCalculatingChildSupport from "./childSupport/RflmCalculatingChildSupport.vue";
 
 
@@ -71,6 +81,9 @@ import { stepInfoType } from "@/types/Application";
         ReplyNewChildSupport,
         RelationshipToChild,
         DisagreeChildSupport,
+        ReplyExistingChildSupport,
+        RflmUnpaidChildSupport,
+        DisagreeExistingChildSupport,
         RflmCalculatingChildSupport,
         RflmAdditionalDocuments,
         ReviewYourAnswersRFLM,

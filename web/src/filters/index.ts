@@ -380,10 +380,21 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if(questions.rflmBackgroundSurvey?.ExistingOrdersFLM == "y" && questions.rflmBackgroundSurvey?.otherPartyAttach == 'n')
 		  	requiredDocuments.push("Copy of the missed existing agreement(s) or court order(s)");	
 			  
-		if( (questions.rflmCalculatingChildSupportSurvey?.attachingCalculations == 'y'  &&  questions.rflmQuestionnaireSurvey?.selectedChildSupportForm?.length > 0 )
+		
+		if( (questions.rflmQuestionnaireSurvey?.selectedChildSupportForm?.length > 0 
+			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'
+			&& questions.rflmCalculatingChildSupportSurvey?.attachingCalculations == 'y' )
 		// || ( questions.rflmCalculatingSpousalSupportSurvey?.attachingCalculations== 'y' &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport"))
 		)
 			requiredDocuments.push("Support calculation");
+
+		if (questions.rflmQuestionnaireSurvey?.selectedChildSupportForm?.length > 0 
+			&& questions.rflmQuestionnaireSurvey.selectedChildSupportForm.includes('existingChildSupport')
+			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'){
+				requiredDocuments.push('Financial Statement Form 4, if applicable');
+			}
+			
+		
 		
 	
 		//REMINDERS		

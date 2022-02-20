@@ -14,7 +14,7 @@ import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpens
 import { aboutWrittenResponseOrderSurveyInfoType, agreeDisagreeSurveyInfoType, wrReplyingToApplicationSurveyInfoType } from "./WrittenResponse";
 import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmChildDetailsSurveyInfoType, rflmAdditionalDocumentsSurveyInfoType } from "./ReplyFamilyLawMatter";
 import { replyExistingParentingArrangementsSurveyInfoType, replyNewConditionsParentingTimeSurveyInfoType, replyNewParentalResponsibilitiesSurveyInfoType, replyNewParentingTimeSurveyInfoType } from "./ReplyFamilyLawMatter/ParentingArrangements";
-import { disagreeChildSupportSurveyInfoType, relationshipToChildSurveyInfoType, replyNewChildSupportSurveyInfoType, rflmCalculatingChildSupportSurveyInfoType } from "./ReplyFamilyLawMatter/ChildSupport";
+import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyInfoType, relationshipToChildSurveyInfoType, replyExistingChildSupportSurveyInfoType, replyNewChildSupportSurveyInfoType, rflmCalculatingChildSupportSurveyInfoType, rflmUnpaidChildSupportSurveyInfoType } from "./ReplyFamilyLawMatter/ChildSupport";
 
 
 //This is what our database saves.
@@ -125,6 +125,10 @@ export interface stepInfoType {
     relationshipToChildSurvey?: relationshipToChildSurveyInfoType;
     disagreeChildSupportSurvey?: disagreeChildSupportSurveyInfoType;
     rflmCalculatingChildSupportSurvey?: rflmCalculatingChildSupportSurveyInfoType;
+
+    replyExistingChildSupportSurvey?: replyExistingChildSupportSurveyInfoType;
+    rflmUnpaidChildSupportSurvey?: rflmUnpaidChildSupportSurveyInfoType;
+    disagreeExistingChildSupportSurvey?: disagreeExistingChildSupportSurveyInfoType;
     
     rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
 

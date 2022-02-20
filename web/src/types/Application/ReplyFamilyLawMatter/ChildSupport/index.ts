@@ -1,5 +1,17 @@
 import { questionInfoType } from "../../CommonInformation";
 
+export interface replyNewChildSupportDataInfoType {
+    agreeCourtOrder: string;
+}
+
+export interface replyNewChildSupportSurveyInfoType {
+    data: replyNewChildSupportDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
 export interface disagreeChildSupportDataInfoType {
     incorrectIncome: string;
     incorrectOpIncome: string;
@@ -49,12 +61,43 @@ export interface relationshipToChildSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface replyNewChildSupportDataInfoType {
+export interface replyExistingChildSupportDataInfoType {
     agreeCourtOrder: string;
+    existingType?: string;
+    agreeFinalOrder?: string;
+    agreeAgreement?: string;
 }
 
-export interface replyNewChildSupportSurveyInfoType {
-    data: replyNewChildSupportDataInfoType;
+export interface replyExistingChildSupportSurveyInfoType {
+    data: replyExistingChildSupportDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface rflmUnpaidChildSupportDataInfoType {
+    agreeChildSupportAmount: string;
+    calculationDate?: string; 
+    unPaidAmount?: string; 
+}
+
+export interface rflmUnpaidChildSupportSurveyInfoType {
+    data: rflmUnpaidChildSupportDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface disagreeExistingChildSupportDataInfoType {
+    disagreeReason: string;
+    requestedOrder?: string;
+    requestedChangeDescription?: string;   
+}
+
+export interface disagreeExistingChildSupportSurveyInfoType {
+    data: disagreeExistingChildSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;

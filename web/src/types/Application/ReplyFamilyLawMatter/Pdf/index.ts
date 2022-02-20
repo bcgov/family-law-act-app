@@ -122,6 +122,7 @@ export interface childSupportFinancialStatementInfoType {
 
 export interface schedule4DataInfoType {
     agreeCircumstanceChanges: boolean;
+    disAgreeCircumstanceChanges: boolean;
     agreeSetAside: boolean;
     section150: boolean;
     disagreeReason: string;
@@ -135,7 +136,7 @@ export interface schedule4DataInfoType {
 export interface childSupportUnpaidInfoType {
     agreeAmount: boolean;
     crntDate: string;
-    unpaidAmnt: number; 
+    unpaidAmnt: string; 
 }
 
 export interface schedule5DataInfoType {    

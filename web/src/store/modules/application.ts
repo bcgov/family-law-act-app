@@ -408,14 +408,39 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "12";
-        p.name = "RflmCalculatingChildSupport";
-        p.label = "Calculating Child Support";
+        p.name = "ReplyExistingChildSupport";
+        p.label = "Reply Existing Child Support";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "13";
+        p.name = "RflmUnpaidChildSupport";
+        p.label = "Unpaid Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.name = "DisagreeExistingChildSupport";
+        p.label = "Disagree Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "15";
+        p.name = "RflmCalculatingChildSupport";
+        p.label = "Calculating Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
+        p = {} as pageInfoType;
+        p.key = "16";
         p.name = "RflmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = false;
@@ -423,7 +448,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "14";
+        p.key = "17";
         p.name = "ReviewYourAnswersRFLM";
         p.label = "Review Your Answers";
         p.active = true;
@@ -431,7 +456,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "15";
+        p.key = "18";
         p.name = "PreviewFormsRFLM";
         p.label = "Preview Forms";
         p.active = false;

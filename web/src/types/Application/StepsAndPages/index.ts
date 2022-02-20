@@ -68,6 +68,10 @@ export interface RFLMstPgTypes{
     RelationshipToChild: number;
     DisagreeChildSupport: number;
     RflmCalculatingChildSupport: number;
+    ReplyExistingChildSupport: number;
+    RflmUnpaidChildSupport: number;
+    DisagreeExistingChildSupport: number;       
+
     RflmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
