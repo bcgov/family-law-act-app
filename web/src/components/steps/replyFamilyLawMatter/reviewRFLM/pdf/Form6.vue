@@ -2,10 +2,10 @@
 <div v-if="dataReady">    
    
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-        <common-section v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"/>
-        <!-- <schedule-1 v-bind:result="result"  v-if="selectedSchedules.includes('schedule1')" />
-        <schedule-2 v-bind:result="result"  v-if="selectedSchedules.includes('schedule2')" />
-        <schedule-3 v-bind:result="result"  v-if="selectedSchedules.includes('schedule3')" />
+        <common-section v-bind:result="result" v-bind:selectedSchedules="selectedSchedules" v-bind:agreeDisagreeResults="agreeDisagreeResults"/>
+        <schedule-1 v-bind:result="result" v-bind:agreeDisagreeResults="agreeDisagreeResults" v-if="selectedSchedules.includes('schedule1')" />
+        <schedule-2 v-bind:result="result" v-bind:agreeDisagreeResults="agreeDisagreeResults"  v-if="selectedSchedules.includes('schedule2')" />
+        <!-- <schedule-3 v-bind:result="result"  v-if="selectedSchedules.includes('schedule3')" />
         <schedule-4 v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
         <schedule-5 v-bind:result="result"  v-if="selectedSchedules.includes('schedule5')" />
         <schedule-6 v-bind:result="result"  v-if="selectedSchedules.includes('schedule6')" />
@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import moment from 'moment';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -58,10 +59,14 @@ import Schedule19 from "./Schedules/Schedule19.vue"
 import Schedule20 from "./Schedules/Schedule20.vue"
 
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-
-import moment from 'moment';
 import { rflmBackgroundSurveyDataInfoType, rflmCounterAppDataInfoType, rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
+import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
+import { getForm6PopulationInfo } from "@/components/utils/PopulateForms/PopulateRflmInformation";
+
+
 
 @Component({
     components:{
@@ -100,15 +105,18 @@ export default class Form6 extends Vue {
 
     result;
     dataReady = false; 
+
+    populationInfo = {} as form6PopulationInfoType;
     selectedSchedules: string[] = [];
+    agreeDisagreeResults = {} as agreeDisagreeInfoType;
    
     mounted(){
         this.dataReady = false;
         this.result = this.getRFLMResultData();
-        this.selectedSchedules = this.getSchedulesInfo();
-        //this.selectedSchedules = []//["schedule1", "schedule2", "schedule3", "schedule4", "schedule5", "schedule6", "schedule7", "schedule8", 
-                                // "schedule9", "schedule10", "schedule11", "schedule12", "schedule13", "schedule14", "schedule15", 
-                                // "schedule16", "schedule17", "schedule18", "schedule19", "schedule20"];
+        this.populationInfo = getForm6PopulationInfo(this.result)
+        this.selectedSchedules = this.populationInfo.schedules;
+        this.agreeDisagreeResults = this.populationInfo.agreeDisagree;
+
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   

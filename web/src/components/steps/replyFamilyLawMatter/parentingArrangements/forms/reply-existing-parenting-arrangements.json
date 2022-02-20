@@ -1,0 +1,190 @@
+{
+  "title": "Reply Existing Parenting Arrangements",
+  "pages": [
+    {
+      "name": "Reply Existing Parenting Arrangements",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "parentingArrangementsDescription",
+          "title": "Family dynamics change and children grow up. An order or agreement about parenting arrangements that was made in the past may not make sense anymore.<br><br>The other party is asking for an order to be made about an existing final order or agreement about parenting arrangements. They may be asking to cancel or set aside the order or agreement, or they may be asking that it be changed or replaced with something different. An order about parenting arrangements can include details about:<ul><li>who has parental responsibilities and how those responsibilities are shared or divided</li><li>how parenting time is scheduled, including when and how parenting time takes place, how a child may be exchanged between parents and holiday time</li><li>what happens during parenting time or conditions on parenting time such as participation in extra-curricular, religious or cultural events during parenting time, visits by extended family or friends during parenting time, or where the parenting time will take place</li></ul>The details of the order the other party is asking for can be found in Schedule 2 of their Application About a Family Law Matter. You will need to refer to their application for these next questions.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "NewApplicantParentingArrangementsPanel",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "listOfOpApplications",
+              "title": "Has the other party applied to change or replace any of the following parenting arrangements?",
+              "description": "Refer to Schedule 2 of the other party’s application. See if Questions 5, 6, 7 or 8 on the Schedule have been completed. Select each option below that applies.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"<b>parental responsibilities</b><br><div style='font-size: 90%; margin: 1rem 0 1rem 1.75rem;'>Question 5 was completed by the other party. They are applying for a different allocation of parental responsibilities (how you share or divide parenting responsibilities).</div>",
+                  "value": "parental responsibilities"
+                },
+                {
+                  "text":"<b>parenting time</b><br><div style='font-size: 90%; margin: 1rem 0 1rem 1.75rem;'>Question 6 was completed by the other party. They are applying for a different parenting time schedule.</div>",
+                  "value": "parenting time"
+                },
+                {
+                  "text":"<b>conditions on parenting time</b><br><div style='font-size: 90%; margin: 1rem 0 1rem 1.75rem;'>Question 7 was completed by the other party. They are applying for different conditions on parenting time.</div>",
+                  "value": "conditions on parenting time"
+                },
+                {
+                  "text":"<b>other parenting arrangements</b><br><div style='font-size: 90%; margin: 1rem 0 1rem 1.75rem;'>Question 8 was completed by the other party. They are applying for different parenting arrangement orders.</div>",
+                  "value": "other parenting arrangements"
+                },
+                {
+                  "text":"<b>none of the above</b><br><div style='font-size: 90%; margin: 1rem 0 1rem 1.75rem;'>The other party is applying to cancel or set aside the order or agreement in full.</div>",
+                  "value": "none of the above"
+                }
+              ]
+            },
+            {
+              "type": "yesno",
+              "name": "agreeCourtOrder",
+              "title": "Do you agree the court should make the order?",
+              "description": "Look at the order the other party is applying for. Consider what is in the best interests of the child. Should the court make this order?<br><br>If you agree to some but not all of what the other party is asking for, select NO. The next questions will allow you to provide details about the parts you do or don’t agree with.",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ParentingArrangementsApplicationPanel",
+          "visible": false,
+          "visibleIf": "{agreeCourtOrder} = 'n'",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "existingType",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'",
+              "title": "Is the other party’s application about an existing final order or an existing agreement?",  
+              "description": "Check the other party’s application. On Schedule 2, Question 3 would be completed for a final order, Question 4 would be completed for an agreement.<br>Select the correct option.",            
+              "choices": [
+                {
+                  "value": "finalOrder",
+                  "text": "Final order"
+                },
+                {
+                  "value": "agreement",
+                  "text": "Agreement"
+                }
+              ]
+            },
+            {
+              "type": "yesno",
+              "name": "agreeFinalOrder",
+              "description": "The court can only change or cancel an order if there has been a change in the needs or circumstances of the child since the original court order was made, including a change in the circumstances of another person such as a parent.",
+              "title": "Do you agree with the other party that needs or circumstances have changed since the final order was made?",
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {existingType} = 'finalOrder'",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "agreeAgreement",
+              "description": "If there is an existing agreement, the court can set aside all or part of the existing agreement and replace it with a new order if something different would be in the best interests of the child.",
+              "title": "Do you agree with the other party that the agreement is no longer in the best interests of the child?",
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {existingType} = 'agreement'",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "agreePartial",
+              "description": "{agreePartialDescription}",
+              "title": "Is there any part of the order the other party is asking for that you agree should be made?",
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {multipleTypes}",
+              "isRequired": true
+            },
+            {
+              "type": "checkbox",
+              "name": "listOfAgreePartial",
+              "title": "Which part of the order about parenting arrangements do you agree to:",
+              "description": "Select all that apply.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {multipleTypes} and {agreePartial} = 'y'",
+              "choicesVisibleIf": "{listOfOpApplications} contains {item}",
+              "choices": [
+                {
+                  "text":"parental responsibilities",
+                  "value": "parental responsibilities"
+                },
+                {
+                  "text":"parenting time",
+                  "value": "parenting time"
+                },
+                {
+                  "text":"conditions on parenting time",
+                  "value": "conditions on parenting time"
+                },
+                {
+                  "text":"other parenting arrangements",
+                  "value": "other parenting arrangements"
+                }
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "disagreeReason",
+              "title": "Why don’t you agree with the requested order?",
+              "description": "Explain why you don’t agree the order the other party requested should be made. If you agreed with some parts, just explain why you don’t agree with the other parts of the order they are asking to have made.<br><br>You do not need to use any special wording. The key is to be clear about what you mean.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'"
+            },
+            {
+              "type": "radiogroup",
+              "name": "desiredOrderChoice",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'",
+              "title": "What do you want the court to order?",  
+              "description": "Choose one.",
+              "choices": [
+                {
+                  "value": "noChange",
+                  "text": " I want the existing final order or agreement to stay in place (no changes to be made)."
+                },
+                {
+                  "value": "differentChange",
+                  "text": "I want a different order made about parenting arrangements (just not what the other party requested)."
+                }
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "requestedParentingArrangements",
+              "title": "What changes to parenting arrangements do you want the court to order?",
+              "description": "Explain what order you want made about parenting arrangements instead of what the other party has asked for.<br><br>Give as much detail as you would like the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. If there is more than one child, be clear if there are differences in how the parenting arrangements will apply to each child.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order instead.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {desiredOrderChoice} = 'differentChange'"
+            },
+            {
+              "type": "comment",
+              "name": "childBestInterestReason",
+              "title": "Why do you believe the order you are asking for is in the child’s best interests?",
+              "description": "When you make parenting arrangements, you must consider what is in the best interests of your child. Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child.<br>To determine what is in the <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests' target='_blank'>child's best interests</a> when making parenting arrangements, you must consider factors including:<ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>You do not need to use any special wording. The key is to be clear about why you think the order you want to make is in the child’s best interests. ",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'"
+            }
+          ]
+        }
+      ],
+      "title": "Reply Existing Parenting Arrangements"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

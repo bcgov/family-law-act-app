@@ -203,53 +203,65 @@
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.5rem;"><b>Parenting arrangements</b></div>
                     <div style="margin-top:0.25rem;">Parenting arrangements – new <i>[see Schedule 1 of Application About a Family Law Matter]</i></div>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="parental responsibilities"/>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="parenting time"/>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="conditions on parenting time"/>
+                    <check-box 
+                        :check="agreeDisagreeResults.newParentResp.opApplied && agreeDisagreeResults.newParentResp.agree?'yes':''" 
+                        text="parental responsibilities"/>
+                    <check-box 
+                        :check="agreeDisagreeResults.newParentTime.opApplied && agreeDisagreeResults.newParentTime.agree?'yes':''" 
+                        text="parenting time"/>
+                    <check-box 
+                        :check="agreeDisagreeResults.newParentTimeConditions.opApplied && agreeDisagreeResults.newParentTimeConditions.agree?'yes':''" 
+                        text="conditions on parenting time"/>
                     
                     <div style="margin-top:0.25rem;">Parenting arrangements order/agreement – existing <i>[see Schedule 2 of Application About a Family Law Matter]</i></div>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="change to parental responsibilities"/>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="change to parenting time"/>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="change to conditions on parenting time"/>
+                    <check-box 
+                        :check="agreeDisagreeResults.existingParentResp.opApplied && agreeDisagreeResults.existingParentResp.agree?'yes':''" 
+                        text="change to parental responsibilities"/>
+                    <check-box 
+                        :check="agreeDisagreeResults.existingParentTime.opApplied && agreeDisagreeResults.existingParentTime.agree?'yes':''" 
+                        text="change to parenting time"/>
+                    <check-box 
+                        :check="agreeDisagreeResults.existingParentTimeConditions.opApplied && agreeDisagreeResults.existingParentTimeConditions.agree?'yes':''" 
+                        text="change to conditions on parenting time"/>
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Child support</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="agreeDisagreeResults.newChildSupport.opApplied && agreeDisagreeResults.newChildSupport.agree?'yes':''" 
                         text="child support – new <i>[see Schedule 3 of Application About a Family Law Matter]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="agreeDisagreeResults.existingChildSupport.opApplied && agreeDisagreeResults.existingChildSupport.agree?'yes':''" 
                         text="child support order/agreement – existing <i>[see Schedule 4 of Application About a Family Law Matter]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="agreeDisagreeResults.newChildContact.opApplied && agreeDisagreeResults.newChildContact.agree?'yes':''" 
                         text="contact with a child – new <i>[see Schedule 5 of Application About a Family Law Matter]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="agreeDisagreeResults.existingChildContact.opApplied && agreeDisagreeResults.existingChildContact.agree?'yes':''" 
                         text="contact order/agreement – existing <i>[see Schedule 6 of Application About a Family Law Matter]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="agreeDisagreeResults.appointGuardian.opApplied && agreeDisagreeResults.appointGuardian.agree?'yes':''" 
                         text="appointing a guardian of a child <i>[see Schedule 7 of Application About a Family Law Matter]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="agreeDisagreeResults.cancelGuardian.opApplied && agreeDisagreeResults.appointGuardian.agree?'yes':''" 
                         text="cancelling guardianship of a child <i>[see Schedule 8 of Application About a Family Law Matter]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="agreeDisagreeResults.newSpouseSupport.opApplied && agreeDisagreeResults.appointGuardian.agree?'yes':''" 
                         text="spousal support – new <i>[see Schedule 9 of Application About a Family Law Matter]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="agreeDisagreeResults.existingSpouseSupport.opApplied && agreeDisagreeResults.appointGuardian.agree?'yes':''" 
                         text="spousal support order/agreement – existing <i>[see Schedule 10 of Application About a Family Law Matter]</i>"/>                    
                 </div>                   
               
@@ -268,53 +280,65 @@
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Parenting arrangements</b></div>
                     <div style="margin-top:0.25rem;">Parenting arrangements – new <i>[complete and attach Schedule 1]</i></div>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="parental responsibilities"/>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="parenting time"/>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="conditions on parenting time"/>
+                    <check-box 
+                        :check="!agreeDisagreeResults.newParentResp.agree && agreeDisagreeResults.newParentResp.opApplied?'yes':''" 
+                        text="parental responsibilities"/>
+                    <check-box 
+                        :check="!agreeDisagreeResults.newParentTime.agree && agreeDisagreeResults.newParentTime.opApplied?'yes':''" 
+                        text="parenting time"/>
+                    <check-box 
+                        :check="!agreeDisagreeResults.newParentTimeConditions.agree && agreeDisagreeResults.newParentTimeConditions.opApplied?'yes':''" 
+                        text="conditions on parenting time"/>
                     
                     <div style="margin-top:0.25rem;">Parenting arrangements order/agreement – existing <i>[complete and attach Schedule 2]</i></div>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="change to parental responsibilities"/>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="change to parenting time"/>
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="change to conditions on parenting time"/>
+                    <check-box 
+                        :check="!agreeDisagreeResults.existingParentResp.agree && agreeDisagreeResults.existingParentResp.opApplied?'yes':''" 
+                        text="change to parental responsibilities"/>
+                    <check-box 
+                        :check="!agreeDisagreeResults.existingParentTime.agree && agreeDisagreeResults.existingParentTime.opApplied?'yes':''" 
+                        text="change to parenting time"/>
+                    <check-box 
+                        :check="!agreeDisagreeResults.existingParentTimeConditions.agree && agreeDisagreeResults.existingParentTimeConditions.opApplied?'yes':''" 
+                        text="change to conditions on parenting time"/>
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Child support</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="!agreeDisagreeResults.newChildSupport.agree && agreeDisagreeResults.newChildSupport.opApplied?'yes':''" 
                         text="child support – new <i>[complete and attach Schedule 3]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="!agreeDisagreeResults.existingChildSupport.agree && agreeDisagreeResults.existingChildSupport.opApplied?'yes':''" 
                         text="child support order/agreement – existing <i>[complete and attach Schedule 4]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="!agreeDisagreeResults.newChildContact.agree && agreeDisagreeResults.newChildContact.opApplied?'yes':''" 
                         text="contact with a child – new <i>[complete and attach Schedule 5]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="!agreeDisagreeResults.existingChildContact.agree && agreeDisagreeResults.existingChildContact.opApplied?'yes':''" 
                         text="contact order/agreement – existing <i>[complete and attach Schedule 6]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="!agreeDisagreeResults.appointGuardian.agree && agreeDisagreeResults.appointGuardian.opApplied?'yes':''" 
                         text="appointing a guardian of a child <i>[complete and attach Schedule 7]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="!agreeDisagreeResults.cancelGuardian.agree && agreeDisagreeResults.cancelGuardian.opApplied?'yes':''" 
                         text="cancelling guardianship of a child <i>[complete and attach Schedule 8]</i>"/>                    
                 </div>
 
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="!agreeDisagreeResults.newSpouseSupport.agree && agreeDisagreeResults.newSpouseSupport.opApplied?'yes':''" 
                         text="spousal support – new <i>[complete and attach Schedule 9]</i>"/>
                     <check-box  
-                        :check="selectedSchedules.includes('schedule1')?'yes':''" 
+                        :check="!agreeDisagreeResults.existingSpouseSupport.agree && agreeDisagreeResults.existingSpouseSupport.opApplied?'yes':''" 
                         text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>                    
                 </div>                   
               
@@ -473,6 +497,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { locationInfoDataInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { rflmBackgroundSurveyDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
+import { agreeDisagreeInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -487,6 +512,9 @@ export default class CommonSection extends Vue {
 
     @Prop({required:true})
     selectedSchedules!: string[];  
+
+    @Prop({required:true})
+    agreeDisagreeResults!: agreeDisagreeInfoType;
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void

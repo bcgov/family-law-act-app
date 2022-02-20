@@ -59,6 +59,11 @@ export interface RFLMstPgTypes{
     RflmCounterApp: number;
     RflmBackground: number;
     RflmChildrenInfo: number;  
+    ReplyNewParentingArrangements: number;
+    ReplyNewParentalResponsibilities: number;
+    ReplyNewParentingTime: number;
+    ReplyNewConditionsParentingTime: number;
+    ReplyExistingParentingArrangements: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
 }

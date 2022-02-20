@@ -12,7 +12,33 @@ export interface existingOrdersInfoType {
     existingFlm: boolean; 
     existingPO: boolean;
 }
-        
+
+export interface form6PopulationInfoType {
+    schedules: string[];
+    agreeDisagree: agreeDisagreeInfoType;
+}
+
+export interface agreeDisagreeInfoType {
+    newParentResp: agreeDisagreeDataInfoType; 
+    newParentTime: agreeDisagreeDataInfoType;
+    newParentTimeConditions: agreeDisagreeDataInfoType;
+    existingParentResp: agreeDisagreeDataInfoType; 
+    existingParentTime: agreeDisagreeDataInfoType;
+    existingParentTimeConditions: agreeDisagreeDataInfoType;
+    newChildSupport: agreeDisagreeDataInfoType;
+    existingChildSupport: agreeDisagreeDataInfoType;
+    newChildContact: agreeDisagreeDataInfoType;
+    existingChildContact: agreeDisagreeDataInfoType;
+    appointGuardian: agreeDisagreeDataInfoType;
+    cancelGuardian: agreeDisagreeDataInfoType;
+    newSpouseSupport: agreeDisagreeDataInfoType;
+    existingSpouseSupport: agreeDisagreeDataInfoType;
+}   
+
+export interface agreeDisagreeDataInfoType {
+    opApplied: boolean;
+    agree: boolean;
+}
 
 export interface schedule1DataInfoType {
     parentResp: parentResponsibilitiesInfoType;
@@ -42,10 +68,11 @@ export interface parentTimeConditionsInfoType {
 }
 
 export interface schedule2DataInfoType {
+    existingType: string;
     agreeNeedsChanges: boolean;
     agreeBestInterest: boolean;
     disagreeExpl: string;
-    cancel: boolean;
+    noChange: boolean;
     change: boolean;
     changeExpl: string;
     bestInterestExpl: string;   

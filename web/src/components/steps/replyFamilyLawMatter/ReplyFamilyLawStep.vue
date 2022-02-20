@@ -5,6 +5,12 @@
         <rflm-background v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmBackground"/>
         <rflm-children-info v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmChildrenInfo"/>
 
+        <reply-new-parenting-arrangements v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewParentingArrangements"/>
+        <reply-new-parental-responsibilities v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewParentalResponsibilities"/>
+        <reply-new-parenting-time v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewParentingTime"/>
+        <reply-new-conditions-parenting-time v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewConditionsParentingTime"/>
+        <reply-existing-parenting-arrangements v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyExistingParentingArrangements"/>
+
         <review-your-answers-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/>
         <preview-forms-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PreviewFormsRFLM"/> 
     </step-base>
@@ -23,6 +29,14 @@ import RflmCounterApp from "./RflmCounterApp.vue";
 import RflmBackground from "./RflmBackground.vue";
 import RflmChildrenInfo from "./childInfo/RflmChildrenInfo.vue";
 
+import ReplyNewParentingArrangements from "./parentingArrangements/ReplyNewParentingArrangements.vue";
+import ReplyNewParentalResponsibilities from "./parentingArrangements/ReplyNewParentalResponsibilities.vue";
+
+import ReplyNewParentingTime from "./parentingArrangements/ReplyNewParentingTime.vue";
+import ReplyNewConditionsParentingTime from "./parentingArrangements/ReplyNewConditionsParentingTime.vue";
+
+import ReplyExistingParentingArrangements from "./parentingArrangements/ReplyExistingParentingArrangements.vue";
+
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
 
@@ -36,6 +50,11 @@ import { stepInfoType } from "@/types/Application";
         RflmCounterApp,
         RflmBackground,
         RflmChildrenInfo,
+        ReplyNewParentingArrangements,
+        ReplyNewParentalResponsibilities,
+        ReplyNewParentingTime,
+        ReplyNewConditionsParentingTime,
+        ReplyExistingParentingArrangements,
         ReviewYourAnswersRFLM,
         PreviewFormsRFLM  
     }

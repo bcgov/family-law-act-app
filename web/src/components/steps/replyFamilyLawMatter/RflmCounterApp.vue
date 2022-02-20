@@ -385,8 +385,8 @@ export default class RflmCounterApp extends Vue {
 
         this.childRelatedPages = [p.RflmChildrenInfo];
 
-        this.parentingArrangementsNewPages = [p.RflmChildrenInfo]
-        this.parentingArrangementsExistingPages = [p.RflmChildrenInfo]   
+        this.parentingArrangementsNewPages = [p.RflmChildrenInfo, p.ReplyNewParentingArrangements, p.ReplyNewParentalResponsibilities, p.ReplyNewParentingTime, p.ReplyNewConditionsParentingTime]
+        this.parentingArrangementsExistingPages = [p.RflmChildrenInfo, p.ReplyExistingParentingArrangements]   
 
         this.childSupportNewPages = [p.RflmChildrenInfo]
         this.childSupportExistingPages = [p.RflmChildrenInfo]
