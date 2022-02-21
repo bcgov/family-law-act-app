@@ -68,7 +68,7 @@ export function getForm6PopulationInfo(result) {
         
     }
 
-    if (rflmQuestionnaireInfo.selectedChildSupportForm.includes('newChildSupport')){
+    if (rflmQuestionnaireInfo.selectedChildSupportForm.includes('newChildSupport')){        
 
         const newChildSupport: replyNewChildSupportDataInfoType = result.replyNewChildSupportSurvey;        
         agreeDisagreeResults.newChildSupport = {
@@ -91,6 +91,81 @@ export function getForm6PopulationInfo(result) {
             schedules.push('schedule4')
         }
     }
+
+    if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('newContact')){
+        schedules.push('schedule5');
+    } else if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('existingContact')){
+        schedules.push('schedule6')
+    }
+
+    //TODO: update after shedule 7 and 8 have been added 
+
+    if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('appointing')){
+        schedules.push('schedule7');
+    } 
+    if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('cancelling')){
+        schedules.push('schedule8')
+    }
+
+    if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('newSpouseSupport')){
+        schedules.push('schedule9');
+    } else if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('existingSpouseSupport')){
+        schedules.push('schedule10')
+    }
+
+    if (rflmCounterAppInfo.counter == 'Yes'){
+
+        if (counterList.includes('parentingArrangements')) {
+
+            if (existingFlmList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+                schedules.push('schedule12')
+            } else {
+                schedules.push('schedule11')
+            }
+
+        } 
+
+        if (counterList.includes('childSupport')) {
+
+            if (existingFlmList.includes("Child Support")){
+                schedules.push('schedule14')
+            } else {
+                schedules.push('schedule13')
+            }
+
+        } 
+
+        if (counterList.includes('contactWithChild')) {
+
+            if (existingFlmList.includes("Contact with a Child")){
+                schedules.push('schedule16')
+            } else {
+                schedules.push('schedule15')
+            }
+
+        } 
+//TODO: update after shedule 17 and 18 have been added 
+        if (counterList.includes('guardianOfChild')) {
+
+            if (existingFlmList.includes("Contact with a Child")){
+                schedules.push('schedule16')
+            } else {
+                schedules.push('schedule15')
+            }
+
+        }
+
+        if (counterList.includes('spousalSupport')) {
+
+            if (existingFlmList.includes("Spousal Support")){
+                schedules.push('schedule20')
+            } else {
+                schedules.push('schedule19')
+            }
+
+        }
+
+    }    
 
     form6PopulationInfo = {
         schedules: schedules,

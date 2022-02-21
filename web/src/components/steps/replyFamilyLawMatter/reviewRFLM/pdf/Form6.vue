@@ -58,11 +58,7 @@ import Schedule18 from "./Schedules/Schedule18.vue"
 import Schedule19 from "./Schedules/Schedule19.vue"
 import Schedule20 from "./Schedules/Schedule20.vue"
 
-
-import { rflmBackgroundSurveyDataInfoType, rflmCounterAppDataInfoType, rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
-
-
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import { getForm6PopulationInfo } from "@/components/utils/PopulateForms/PopulateRflmInformation";
 
@@ -186,107 +182,7 @@ export default class Form6 extends Vue {
 
         return result;
     }
-
-    public getSchedulesInfo(){       
-
-        let schedules: string[] = [];       
-
-        const rflmQuestionnaireInfo: rflmQuestionnaireDataInfoType = this.result.rflmQuestionnaireSurvey;
-        const rflmCounterAppInfo: rflmCounterAppDataInfoType = this.result.rflmCounterAppSurvey;
-        const rflmBackgroundInfo: rflmBackgroundSurveyDataInfoType = this.result.rflmBackgroundSurvey;
-        
-        const counterList = rflmCounterAppInfo.counterList;
-        const existingFlmList = (rflmBackgroundInfo.ExistingOrdersFLM == 'y')?rflmBackgroundInfo.existingOrdersListFLM:[];
-
-        if (rflmQuestionnaireInfo.selectedParentingArrangementsForm.includes('newParentingArrangements')){
-            schedules.push('schedule1');
-        } else if (rflmQuestionnaireInfo.selectedParentingArrangementsForm.includes('existingParentingArrangements')){
-            schedules.push('schedule2')
-        }
-
-        if (rflmQuestionnaireInfo.selectedChildSupportForm.includes('newChildSupport')){
-            schedules.push('schedule3');
-        } else if (rflmQuestionnaireInfo.selectedChildSupportForm.includes('existingChildSupport')){
-            schedules.push('schedule4')
-        }
-
-        if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('newContact')){
-            schedules.push('schedule5');
-        } else if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('existingContact')){
-            schedules.push('schedule6')
-        }
-
-        //TODO: update after shedule 7 and 8 have been added 
-
-        if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('appointing')){
-            schedules.push('schedule7');
-        } 
-        if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('cancelling')){
-            schedules.push('schedule8')
-        }
-
-        if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('newSpouseSupport')){
-            schedules.push('schedule9');
-        } else if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('existingSpouseSupport')){
-            schedules.push('schedule10')
-        }
-
-        if (rflmCounterAppInfo.counter == 'Yes'){
-
-            if (counterList.includes('parentingArrangements')) {
-
-                if (existingFlmList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
-                    schedules.push('schedule12')
-                } else {
-                    schedules.push('schedule11')
-                }
-
-            } 
-
-            if (counterList.includes('childSupport')) {
-
-                if (existingFlmList.includes("Child Support")){
-                    schedules.push('schedule14')
-                } else {
-                    schedules.push('schedule13')
-                }
-
-            } 
-
-            if (counterList.includes('contactWithChild')) {
-
-                if (existingFlmList.includes("Contact with a Child")){
-                    schedules.push('schedule16')
-                } else {
-                    schedules.push('schedule15')
-                }
-
-            } 
-//TODO: update after shedule 17 and 18 have been added 
-            if (counterList.includes('guardianOfChild')) {
-
-                if (existingFlmList.includes("Contact with a Child")){
-                    schedules.push('schedule16')
-                } else {
-                    schedules.push('schedule15')
-                }
-
-            }
-
-            if (counterList.includes('spousalSupport')) {
-
-                if (existingFlmList.includes("Spousal Support")){
-                    schedules.push('schedule20')
-                } else {
-                    schedules.push('schedule19')
-                }
-
-            }
-
-        }            
-        
-        return schedules;
-    }
+    
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
