@@ -1,3 +1,4 @@
+import { replyExistingChildSupportDataInfoType, replyNewChildSupportDataInfoType, replyNewChildSupportSurveyInfoType } from '@/types/Application/ReplyFamilyLawMatter/ChildSupport';
 import { rflmQuestionnaireDataInfoType, rflmCounterAppDataInfoType, rflmBackgroundSurveyDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 import { replyExistingParentingArrangementsDataInfoType, replyNewConditionsParentingTimeDataInfoType, replyNewParentalResponsibilitiesDataInfoType, replyNewParentingTimeDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ParentingArrangements';
 import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
@@ -15,7 +16,6 @@ export function getForm6PopulationInfo(result) {
     
     const counterList = rflmCounterAppInfo.counterList;
     const existingFlmList = (rflmBackgroundInfo.ExistingOrdersFLM == 'y')?rflmBackgroundInfo.existingOrdersListFLM:[];
-
 
     agreeDisagreeResults = {
         newParentResp: { opApplied: false, agree: false},
@@ -67,6 +67,105 @@ export function getForm6PopulationInfo(result) {
         }
         
     }
+
+    if (rflmQuestionnaireInfo.selectedChildSupportForm.includes('newChildSupport')){        
+
+        const newChildSupport: replyNewChildSupportDataInfoType = result.replyNewChildSupportSurvey;        
+        agreeDisagreeResults.newChildSupport = {
+            opApplied: true,
+            agree: newChildSupport.agreeCourtOrder == 'y'
+        }     
+        
+        if (newChildSupport.agreeCourtOrder == 'n'){
+            schedules.push('schedule3')
+        }
+        
+    } else if (rflmQuestionnaireInfo.selectedChildSupportForm.includes('existingChildSupport')){
+        const existingChildSupport: replyExistingChildSupportDataInfoType = result.replyExistingChildSupportSurvey;        
+        agreeDisagreeResults.existingChildSupport = {
+            opApplied: true,
+            agree: existingChildSupport.agreeCourtOrder == 'y'
+        }
+        
+        if (existingChildSupport.agreeCourtOrder == 'n'){
+            schedules.push('schedule4')
+        }
+    }
+
+    if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('newContact')){
+        schedules.push('schedule5');
+    } else if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('existingContact')){
+        schedules.push('schedule6')
+    }
+
+    //TODO: update after shedule 7 and 8 have been added 
+
+    if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('appointing')){
+        schedules.push('schedule7');
+    } 
+    if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('cancelling')){
+        schedules.push('schedule8')
+    }
+
+    if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('newSpouseSupport')){
+        schedules.push('schedule9');
+    } else if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('existingSpouseSupport')){
+        schedules.push('schedule10')
+    }
+
+    if (rflmCounterAppInfo.counter == 'Yes'){
+
+        if (counterList.includes('parentingArrangements')) {
+
+            if (existingFlmList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+                schedules.push('schedule12')
+            } else {
+                schedules.push('schedule11')
+            }
+
+        } 
+
+        if (counterList.includes('childSupport')) {
+
+            if (existingFlmList.includes("Child Support")){
+                schedules.push('schedule14')
+            } else {
+                schedules.push('schedule13')
+            }
+
+        } 
+
+        if (counterList.includes('contactWithChild')) {
+
+            if (existingFlmList.includes("Contact with a Child")){
+                schedules.push('schedule16')
+            } else {
+                schedules.push('schedule15')
+            }
+
+        } 
+//TODO: update after shedule 17 and 18 have been added 
+        if (counterList.includes('guardianOfChild')) {
+
+            if (existingFlmList.includes("Contact with a Child")){
+                schedules.push('schedule16')
+            } else {
+                schedules.push('schedule15')
+            }
+
+        }
+
+        if (counterList.includes('spousalSupport')) {
+
+            if (existingFlmList.includes("Spousal Support")){
+                schedules.push('schedule20')
+            } else {
+                schedules.push('schedule19')
+            }
+
+        }
+
+    }    
 
     form6PopulationInfo = {
         schedules: schedules,
@@ -134,10 +233,7 @@ export function getSchedule2Info(result){
                     && listOfAgreePartial.includes('other parenting arrangements'))
         }           
     } else if (!includesOther && !includesParentResp) {
-        existingParentResp = {
-            opApplied: false,
-            agree: false
-        }
+        existingParentResp = { opApplied: false, agree: false }
     }
     
     let existingParentTime = {
@@ -169,9 +265,8 @@ export function getSchedule2Info(result){
         existingParentResp = {opApplied: true, agree: false}
         existingParentTime = {opApplied: true, agree: false}
         existingParentTimeConditions = {opApplied: true, agree: false}
-    }
+    }    
     
     return {existingParentResp: existingParentResp, existingParentTime: existingParentTime, existingParentTimeConditions: existingParentTimeConditions}
 
 }
-

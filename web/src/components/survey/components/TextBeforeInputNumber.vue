@@ -29,7 +29,7 @@ export default class TextBeforeInputNumber extends Vue {
 
     mounted(){
         this.readOnly = this.question.readOnly;
-        this.bodyText = this.question.bodyText;
+        this.bodyText = this.question.processedTitle;
         this.inputWidth = this.question.inputWidth;
         this.textClass = this.question.textClass;
     }

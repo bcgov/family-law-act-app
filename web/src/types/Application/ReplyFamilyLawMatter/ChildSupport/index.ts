@@ -1,247 +1,103 @@
 import { questionInfoType } from "../../CommonInformation";
 
-export interface childSupportDataInfoType {
-    applicantGuardianType?: string[];
-    applicantGuardianTypeComment?: string;
-    'otherParty[0]GuardianType'?: string[];
-    'otherParty[1]GuardianType'?: string[];
-    'otherParty[2]GuardianType'?: string[];
-    'otherParty[3]GuardianType'?: string[];
-    'otherParty[4]GuardianType'?: string[];
-    'otherParty[5]GuardianType'?: string[];
-    'otherParty[6]GuardianType'?: string[];
-    'otherParty[7]GuardianType'?: string[];
-    'otherParty[8]GuardianType'?: string[];
-    'otherParty[9]GuardianType'?: string[];
-    'otherParty[10]GuardianType'?: string[];
-    'otherParty[0]GuardianTypeComment'?: string;
-    'otherParty[1]GuardianTypeComment'?: string;
-    'otherParty[2]GuardianTypeComment'?: string;
-    'otherParty[3]GuardianTypeComment'?: string;
-    'otherParty[4]GuardianTypeComment'?: string;
-    'otherParty[5]GuardianTypeComment'?: string;
-    'otherParty[6]GuardianTypeComment'?: string;
-    'otherParty[7]GuardianTypeComment'?: string;
-    'otherParty[8]GuardianTypeComment'?: string;
-    'otherParty[9]GuardianTypeComment'?: string;
-    'otherParty[10]GuardianTypeComment'?: string;
+export interface replyNewChildSupportDataInfoType {
+    agreeCourtOrder: string;
 }
 
-export interface childSupportSurveyInfoType {
-    data: childSupportDataInfoType;
+export interface replyNewChildSupportSurveyInfoType {
+    data: replyNewChildSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface childSupportCurrentArrangementDataInfoType {
-    FAQTimewithchild?: boolean;
-    applicantTimeWithChildExplanation?: string;
-    applicantTimeType?: string;
-    currentArrangmentExplanation?: string;
+export interface disagreeChildSupportDataInfoType {
+    incorrectIncome: string;
+    incorrectOpIncome: string;
+    incorrectDescription?: string;
+    incorrectSpecialAndExtraordinaryExpenses: string;
+    incorrectSpecialAndExtraordinaryDescription?: string;
+    incorrectTimeWithChild: string;
+    incorrectTimeWithChildDescription?: string;
+    causeUndueHardship: string;
+    undueHardshipReason?: string[];
+    undueHardshipReasonComment?: string; 
+    disagreeOtherReason: string;
+    OtherReasonDescription?: string;    
 }
 
-export interface childSupportCurrentArrangementsSurveyInfoType {
-    data: childSupportCurrentArrangementDataInfoType;
+export interface disagreeChildSupportSurveyInfoType {
+    data: disagreeChildSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface childSupportIncomeEarningDataInfoType {
-    knowIncome?: string;
-    otherPartyIncome?: string;
-    knowFacts?: string;
-    factsExplanation?: string;
+export interface rflmCalculatingChildSupportDataInfoType {
+    attachingCalculations: string;
+    notAttachingCalculationsReason?: string;  
 }
 
-export interface incomeAndEarningPotentialSurveyInfoType {
-    data: childSupportIncomeEarningDataInfoType;
+export interface rflmCalculatingChildSupportSurveyInfoType {
+    data: rflmCalculatingChildSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface reasonForSupportInfoType {
-    illness?: boolean;
-    disability?: boolean;
-    student?: boolean;
+export interface relationshipToChildDataInfoType {
+    listOfRelationshipTypes: string[];
+    parentageTest?: string;   
 }
 
-export interface over19DetailsInfoType {
-    name?: string;
-    reasonForSupport?: reasonForSupportInfoType;
-}
-
-export interface paymentRequestStartingDateInfoType {
-    startingDate?: string;
-    selected?: string;
-    otherComment?: string;
-}
-
-export interface aboutChildSupportOrderDataInfoType {
-    FAQamountdifference?: boolean;
-    numberOf19yrsChild?: number;
-    listOfSupportPayors?: string[];
-    over19Details?: over19DetailsInfoType[];
-    payorEarnsHigh?: string;
-    listOfChildren?: string[];
-    supportChildOver19?: string;
-    'whyOlderChildNeedSupport[0]'?: string;
-    'whyOlderChildNeedSupport[1]'?: string;
-    'whyOlderChildNeedSupport[2]'?: string;
-    'whyOlderChildNeedSupport[3]'?: string;
-    'whyOlderChildNeedSupport[4]'?: string;
-    'whyOlderChildNeedSupport[5]'?: string;
-    'whyOlderChildNeedSupport[6]'?: string;
-    'whyOlderChildNeedSupport[7]'?: string;
-    'whyOlderChildNeedSupport[8]'?: string;
-    'whyOlderChildNeedSupport[9]'?: string;
-    'whyOlderChildNeedSupport[10]'?: string;
-    paymentRequestStartingDate?: paymentRequestStartingDateInfoType;
-    paymentRequestStartingDateWhy?: string;
-    FAQpayingparent?: boolean;
-}
-
-export interface aboutChildSupportOrderSurveyInfoType {
-    data: aboutChildSupportOrderDataInfoType;
+export interface relationshipToChildSurveyInfoType {
+    data: relationshipToChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface calculatingChildSupportDataInfoType {
-    attachingCalculations?: string;
-    whyNotAttachingCalculations?: string;
-}
-
-export interface calculatingChildSupportSurveyInfoType {
-    data: calculatingChildSupportDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface undueHardshipDataInfoType {
-    FAQamountdifference?: boolean;
-    changeAmount?: string;
-    hardshipReasons?: string[];
-    hardshipReasonsComment?: string;
-}
-
-export interface undueHardshipSurveyInfoType {
-    data: undueHardshipDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface childrenSupportExpenseFieldInfoType {
-    key: string;
-    label: string;
-    tdClass: string;
-    thClass: string;
-    thStyle: string;
-}
-
-export interface specialAndExtraordinaryExpensesDataInfoType {
-    applyForExtraordinaryExpenses?: string;
-    childrenSupportExpenseItem?: any[];
-    childrenSupportExpenseFields?: childrenSupportExpenseFieldInfoType[];
-}
-
-export interface specialAndExtraordinaryExpensesSurveyInfoType {
-    data: specialAndExtraordinaryExpensesDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface childSupportOrderAgreementDataInfoType {
+export interface replyExistingChildSupportDataInfoType {
+    agreeCourtOrder: string;
     existingType?: string;
-    existingResponsibilityType?: string;
-    existingResponsibilityTypeComment?: string;
-    filedWithDirector?: string;
+    agreeFinalOrder?: string;
+    agreeAgreement?: string;
 }
 
-export interface childSupportOrderAgreementSurveyInfoType {
-    data: childSupportOrderAgreementDataInfoType;
+export interface replyExistingChildSupportSurveyInfoType {
+    data: replyExistingChildSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface changesSinceOrderListInfoType {
-    expensesChangedComment?: string;
-    arrangementsChangedComment?: string;
-    newInformationComment?: string;
-    otherComment?: string;
-    checked?: string[];
+export interface rflmUnpaidChildSupportDataInfoType {
+    agreeChildSupportAmount: string;
+    calculationDate?: string; 
+    unPaidAmount?: string; 
 }
 
-export interface aboutExistingChildSupportDataInfoType {
-    orderDate?: string;
-    changesSinceOrderList?: changesSinceOrderListInfoType;
-    orderDifferenceType?: string;
-    agreementDate?: string;
-    changesSinceAgreement?: string;
-    agreementDifferenceType?: string;
-}
-
-export interface aboutExistingChildSupportSurveyInfoType {
-    data: aboutExistingChildSupportDataInfoType;
+export interface rflmUnpaidChildSupportSurveyInfoType {
+    data: rflmUnpaidChildSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface orderStartingDateInfoType {
-    startingDate?: string;
-    selected?: string;
-    otherComment?: string;
+export interface disagreeExistingChildSupportDataInfoType {
+    disagreeReason: string;
+    requestedOrder?: string;
+    requestedChangeDescription?: string;   
 }
 
-export interface aboutChildSupportChangesDataInfoType {
-    orderDescription: string;
-    orderStartingDate: orderStartingDateInfoType;
-    orderStartDateReason: string;
-    listOfSituations: string[];
-}
-
-export interface aboutChildSupportChangesSurveyInfoType {
-    data: aboutChildSupportChangesDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface paymentScheduleInfoType {
-    monthlyAmount?: string;
-    selected?: string;
-    otherComment?: string;
-}
-
-export interface unpaidChildSupportDataInfoType {
-    unpaid?: string;
-    unPaidAmount?: string;
-    applyToReduce?: string;
-    reduceAmount?: string;
-    whyReduceAmount?: string;
-    paymentSchedule?: paymentScheduleInfoType;
-}
-
-export interface unpaidChildSupportSurveyInfoType {
-    data: unpaidChildSupportDataInfoType;
+export interface disagreeExistingChildSupportSurveyInfoType {
+    data: disagreeExistingChildSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;

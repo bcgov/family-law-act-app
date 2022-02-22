@@ -446,7 +446,7 @@
                         text="My counter application is asking for an order(s) about the following child or children:"/>                   
                 </div>
                 <b-table
-                    :items="childrenInfo"
+                    :items="counterChildrenInfo"
                     :fields="childrenFields"
                     class="mt-2"
                     small
@@ -496,7 +496,7 @@ import UnderlineForm from "@/components/utils/PopulateForms/components/Underline
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { locationInfoDataInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { rflmBackgroundSurveyDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
+import { rflmBackgroundSurveyDataInfoType, rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 import { agreeDisagreeInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 
 @Component({
@@ -532,6 +532,7 @@ export default class CommonSection extends Vue {
     existingOrders = {} as existingOrdersInfoType;    
    
     childrenInfo = []
+    counterChildrenInfo = []
     childBestInterestAcknowledmentCheck = false;
     incorrectChildInfo = false;
     culturalInfo = '';
@@ -555,30 +556,31 @@ export default class CommonSection extends Vue {
         {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]   
 
-    public extractInfo(){   
-        
-        console.log(this.result)       
+    public extractInfo(){ 
 
         this.includesCounter = this.result.rflmCounterAppSurvey.counter == 'Yes';
         
         this.existingOrders = this.getExistingOrdersInfo();
+        const rflmQuestionnaireInfo: rflmQuestionnaireDataInfoType = this.result.rflmQuestionnaireSurvey;
+        const counterList: string[] = this.result.rflmCounterAppSurvey?.counterList;    
         
         const childRelatedApplication = ( 
-            this.selectedSchedules.includes('schedule1') ||
-            this.selectedSchedules.includes('schedule2') || 
-            this.selectedSchedules.includes('schedule3') ||
-            this.selectedSchedules.includes('schedule4') ||
-            this.selectedSchedules.includes('schedule5') || 
-            this.selectedSchedules.includes('schedule6') ||
-            this.selectedSchedules.includes('schedule7') || 
-            this.selectedSchedules.includes('schedule8')
+            rflmQuestionnaireInfo.selectedParentingArrangementsForm.length > 0 || 
+            rflmQuestionnaireInfo.selectedChildSupportForm.length > 0 ||
+            rflmQuestionnaireInfo.selectedContactWithChildForm.length > 0 || 
+            rflmQuestionnaireInfo.selectedGuardianshipForm.length > 0 
         )
 
-        if (childRelatedApplication && this.result.rflmChildrenInfoSurvey?.length > 0){
+        if (childRelatedApplication){
             this.aboutChildren = true;
-            this.childrenInfo = this.getChildrenInfo();
+            this.incorrectChildInfo = this.result.correctChildInfo == 'No';
+            if (this.incorrectChildInfo && this.result.rflmChildrenInfoSurvey?.length > 0){           
+                this.childrenInfo = this.getChildrenInfo();
+            } else {
+                this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
+            }
             this.childBestInterestAcknowledmentCheck = this.result.rflmChildBestInterestAcknowledgement;
-            this.incorrectChildInfo = this.result.correctChildInfo == 'Yes'            
+                       
         } else {
             this.aboutChildren = false;
             this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
@@ -587,23 +589,18 @@ export default class CommonSection extends Vue {
         }
 
         const childRelatedCounterApplication = this.includesCounter && (
-            this.selectedSchedules.includes('schedule11') ||
-            this.selectedSchedules.includes('schedule12') || 
-            this.selectedSchedules.includes('schedule13') ||
-            this.selectedSchedules.includes('schedule14') ||
-            this.selectedSchedules.includes('schedule15') || 
-            this.selectedSchedules.includes('schedule16') ||
-            this.selectedSchedules.includes('schedule17') || 
-            this.selectedSchedules.includes('schedule18')
-        )
+            counterList.includes('parentingArrangements') ||
+            counterList.includes('childSupport') || 
+            counterList.includes('contactWithChild') ||
+            counterList.includes('guardianOfChild'))
 
         if (childRelatedCounterApplication && this.result.rflmChildrenInfoSurvey?.length > 0){
             this.counterAboutChildren = true;
-            this.childrenInfo = this.getChildrenInfo();
+            this.counterChildrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheck = this.result.rflmChildBestInterestAcknowledgement;            
         } else {
             this.counterAboutChildren = false;
-            this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
+            this.counterChildrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
             this.childBestInterestAcknowledmentCheck = false;
         }        
 

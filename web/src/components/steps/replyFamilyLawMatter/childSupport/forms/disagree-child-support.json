@@ -1,0 +1,275 @@
+{
+  "title": "Disagree – Child Support",
+  "pages": [
+    {
+      "name": "Disagree – Child Support",
+      "description": "The court usually orders an amount of child support based on the <a href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html' target='_blank'>Federal Child Support Guidelines</a>. This amount is called the guideline table amount and is meant to cover regular expenses like clothes, food and housing.<br><br>The court can order an amount other than the guideline table amount only in certain situations:<ul><li>when a child is 19 or older</li><li>when the parent paying support has an income over $150,000</li><li>when parents split or share parenting time</li><li>when there’s undue hardship</li></ul>",
+      "elements": [
+        {          
+          "type": "infotexttitle",
+          "name": "disagreeChildSupportDescription",
+          "title": "There may be different reasons why the child support order is not appropriate. For each statement below, indicate if it is true or false and provide any details requested.",
+          "messageStyle": "inline"          
+        },
+        {
+          "type": "panel",
+          "name": "IncomePanel",
+          "elements": [
+            {          
+              "type": "infotexttitle",
+              "name": "disagreeIncomeDescription",
+              "title": "Income",
+              "messageStyle": "inline"          
+            },
+            {
+              "type": "infotext",
+              "name": "incomeDescription",
+              "title": "With any application about child support, there are requirements to disclose financial information. It is impossible for the court to decide a fair and proper amount for child support without complete, true and up-to-date financial information.<br><br>You must file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank'>Financial Statement Form 4</a> with your reply so the court has your financial information. We will remind you to include this when you file your documents.",
+              "messageStyle": "inline",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "radiogroup",
+              "name": "incorrectIncome",
+              "title": "My income is not what the other party claimed it is.",
+              "description": "It could be that the other party made a guess about your income to calculate child support or was relying on dated information. Any information they provided about your income can be found in their response to <b>Question 5</b> and <b>Question 6</b> on <b>Schedule 3 – Child Support – New</b>. Did they get it wrong?",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "incorrectOpIncome",
+              "title": "The other party’s income is not what they claimed it is.",
+              "description": "The other party doesn’t always have to provide information about their income, for example, if you are the payor and the children live with the other party most of the time. The other party’s income will usually be provided in their <b>attached child support calculations</b> or in their <b>Financial Statement Form 3</b>. Do you believe something is not correct in the other party’s financial disclosure?",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                },
+                {
+                  "text":"No income information provided",
+                  "value": "noInfo"
+                }
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "incorrectDescription",
+              "title": "Please explain what you believe is not correct:",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{incorrectOpIncome} = 'true'"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "SpecialAndExtraordinaryExpensesPanel",
+          "elements": [
+            {          
+              "type": "infotexttitle",
+              "name": "disagreeSpecialAndExtraordinaryExpensesDescription",
+              "title": "Special and extraordinary expenses",
+              "messageStyle": "inline"          
+            },
+            {
+              "type": "infotext",
+              "name": "specialAndExtraordinaryExpensesDescription",
+              "title": "Special and extraordinary expenses are costs of raising a child that go above and beyond what is covered by the guideline table amount for child support. Section 7 of the <a target='_blank' href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html'>Federal Child Support Guidelines</a> say that each parent or guardian must help pay for the special and extraordinary expenses for a child.<br><br>Special and `extraordinary` expenses are:<ul><li>childcare expenses that you may have to pay because of a job, an illness, a disability, or educational requirements for employment if your child spends most of the time with you</li><li>the portion of your medical and dental insurance premiums that provides coverage for your child</li><li>your child’s healthcare needs that exceed $100 per year if the cost is not covered by insurance (for example, orthodontics, counselling, medication, or eye care)</li><li>expenses for post-secondary education</li><li>extraordinary expenses for your child’s primary education, secondary education or any other educational programs that meet your child’s particular needs</li><li>extraordinary expenses for your child’s extracurricular activities</li></ul>Usually, the amount is shared in proportion to the incomes of the parents or guardians. Either parent or guardian can claim special and extraordinary expenses.",
+              "messageStyle": "inline",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "radiogroup",
+              "name": "incorrectSpecialAndExtraordinaryExpenses",
+              "title": "I believe the special and extraordinary expenses are not what the other party claims they are.",
+              "description": "The other party’s claim for special and extraordinary expenses is set out in their response to <b>Question 12</b> on <b>Schedule 3 – Child Support – New</b>. If you don’t agree with the claimed special and extraordinary expense or the amount, or you believe something is missing, select “True”.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "incorrectSpecialAndExtraordinaryDescription",
+              "title": "Please explain:",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible about what is not correct and what it should be.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{incorrectSpecialAndExtraordinaryExpenses} = 'true'"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "TimeWithChildPanel",
+          "elements": [
+            {          
+              "type": "infotexttitle",
+              "name": "disagreeTimeWithChildDescription",
+              "title": "Time with a child",
+              "messageStyle": "inline"          
+            },
+            {
+              "type": "infotext",
+              "name": "TimeWithChildDescription",
+              "title": "Different living arrangements may result in a different calculation of child support including who may be required to pay child support. The time a child spends with each parent or guardian includes the time that they are responsible for the child, even if the child is not physically with them.",
+              "messageStyle": "inline",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "radiogroup",
+              "name": "incorrectTimeWithChild",
+              "title": "I believe the living arrangements are not how the other party described them.",
+              "description": "The other party would have calculated child support using the living arrangements for the child(ren) that are already in place as described in <b>Question 3</b> on <b>Schedule 3 – Child Support – New</b>, or that they are asking for in their application in <b>Schedule 1 or Schedule 2</b>. You may be asking for something different or not agree with what the other party described.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "incorrectTimeWithChildDescription",
+              "title": "Please describe the children’s living arrangements:",
+              "description": "You do not need to use any special wording. The key is to be clear about the amount of time each child spends with each parent.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{incorrectTimeWithChild} = 'true'"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "UndueHardshipPanel",
+          "elements": [
+            {          
+              "type": "infotexttitle",
+              "name": "disagreeUndueHardshipDescription",
+              "title": "Undue hardship",
+              "messageStyle": "inline"          
+            },
+            {
+              "type": "infotext",
+              "name": "UndueHardshipDescription",
+              "title": "Sometimes the amount of child support determined under the <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/2017/look-rech.aspx' target='_blank'>Federal Child Support Guidelines</a>, when combined with other circumstances, may create undue hardship for a person or their child. Either parent can claim undue hardship.<br><br>The court can make a child support order for an amount different from the <a target='_blank' href='https://www.justice.gc.ca/eng/fl-df/child-enfant/2017/look-rech.aspx'>Federal Child Support Guidelines</a>. A party can ask if they believe paying or receiving the guideline table amount would make them suffer financially to an excessive amount because of specific circumstances, including if:<ul><li>You have an unusual or excessive amount of debt you incurred to support the family prior to separation or to earn a living</li><li>You have unusually high expenses to exercise parenting time or contact with a child, for example travel costs</li><li>You have a legal duty to support another person, such as an ill or disabled person or a former spouse</li><li>You have a legal duty to support a dependent child from another relationship</li></ul>If you claim undue hardship, you must show the court that paying or receiving the guideline table amount would cause undue hardship for you or the child and that your household standard of living is lower than that of the other parent.",
+              "messageStyle": "inline",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "radiogroup",
+              "name": "causeUndueHardship",
+              "title": "The amount of child support would cause me undue hardship.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "undueHardshipInfo",
+              "title": "To claim undue hardship you must also complete Part 4 and 5 of the Financial Statement.",
+              "visible": false,
+              "visibleIf": "{causeUndueHardship} = 'true'",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "checkbox",
+              "name": "undueHardshipReason",
+              "title": "Please select the reason why you are claiming undue hardship.",
+              "description": "You can select more than one option if applicable.",
+              "isRequired": true,
+              "hasOther": true,
+              "otherText": "I have other undue hardship circumstances: Please specify",
+              "visible": false,
+              "visibleIf": "{causeUndueHardship} = 'true'",
+              "choices": [
+                {
+                  "text":"I have an unusual or excessive amount of debt you incurred to support the family prior to separation or to earn a living",
+                  "value": "debt"
+                },
+                {
+                  "text":"I have unusually high expenses to exercise parenting time or contact with a child, for example travel costs",
+                  "value": "expenses"
+                },
+                {
+                  "text":"I have a legal duty to support another person, such as an ill or disabled person or a former spouse",
+                  "value": "legalDutyOtherPerson"
+                },
+                {
+                  "text":"I have a legal duty to support a dependent child from another relationship",
+                  "value": "legalDutyOtherChild"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "OtherReasonPanel",
+          "elements": [
+            {          
+              "type": "infotexttitle",
+              "name": "disagreeOtherReasonDescription",
+              "title": "Other reason",
+              "messageStyle": "inline"          
+            },            
+            {
+              "type": "yesno",
+              "name": "disagreeOtherReason",
+              "title": "Is there any other reason that you would like to share with the court?",
+              "isRequired": true              
+            },            
+            {
+              "type": "comment",
+              "name": "OtherReasonDescription",
+              "title": "Please explain:",
+              "description": "You do not need to use any special wording. The key is to be clear about why you don’t agree with the order about child support the other party has requested.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{disagreeOtherReason} = 'y'"
+            }
+          ]
+        }       
+      ],
+      "title": "Disagree – Child Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

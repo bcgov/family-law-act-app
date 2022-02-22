@@ -1,0 +1,54 @@
+{
+  "title": "Disagree – Child Support",
+  "pages": [
+    {
+      "name": "Disagree – Child Support",
+      "description": "The court usually orders an amount of child support based on the <a href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html' target='_blank'>Federal Child Support Guidelines</a>. This amount is called the guideline table amount and is meant to cover regular expenses like clothes, food and housing.<br><br>The court can order an amount other than the guideline table amount only in certain situations:<ul><li>when a child is 19 or older</li><li>when the parent paying support has an income over $150,000</li><li>when parents split or share parenting time</li><li>when there’s undue hardship</li></ul>",
+      "elements": [        
+        {
+          "type": "panel",
+          "name": "disagreeExistingChildSupportPanel",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "disagreeReason",
+              "title": "Why don’t you agree with the requested order?",
+              "description": "Explain why you don’t agree with the order the other party requested should be made. If you agreed with some parts, just explain why you don’t agree with the other parts of the order they are asking to have made.<br><br>You do not need to use any special wording. The key is to be clear about what you mean.",
+              "isRequired": true              
+            },           
+            {
+              "type": "radiogroup",
+              "name": "requestedOrder",
+              "title": "What do you want the court to order?",
+              "description": "Choose one.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"I want the existing final order or agreement to stay in place (no changes to be made).",
+                  "value": "noChange"
+                },
+                {
+                  "text":"I want a different order made about child support (just not what the other party requested).",
+                  "value": "diffChange"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "requestedChangeDescription",
+              "title": "What changes to child support do you want the court to order?",
+              "description": "Explain what order you want made about child support instead of what the other party has asked for.<br><br>Give as much detail as you would like the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. If there is more than one child, be clear if there are differences in how the parenting arrangements will apply to each child.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order instead.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{requestedOrder} = 'diffChange'"
+            }
+          ]
+        }
+            
+      ],
+      "title": "Disagree – Child Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

@@ -29,7 +29,7 @@
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline;" 
-                        :check="!chSupInfo.appType.parent?'yes':''" 
+                        :check="chSupInfo.appType.notParent?'yes':''" 
                         text="not a parent of the child(ren)"/>
                     <check-box 
                         style="margin-left:1.75rem;" 
@@ -127,14 +127,13 @@
                 <div style="margin-left:1rem;">                    
                     <check-box 
                         style="width:120%;" 
-                        :check="chSupInfo.disagreeReason.undueHardship && chSupInfo.disagreeReason.undueHardshipDetails.otherHardship?'yes':''" 
+                        :check="chSupInfo.disagreeReason.other?'yes':''" 
                         text="other reason <i>(specify)</i>:"/>
                 </div>               
                 <div 
-                    v-if="chSupInfo.disagreeReason.undueHardship && 
-                        chSupInfo.disagreeReason.undueHardshipDetails.otherHardship && 
-                        chSupInfo.disagreeReason.undueHardshipDetails.otherHardshipDesc" 
-                    class="answerbox">{{chSupInfo.disagreeReason.undueHardshipDetails.otherHardshipDesc}}</div>
+                    v-if="chSupInfo.disagreeReason.other &&
+                        chSupInfo.disagreeReason.otherDesc" 
+                    class="answerbox">{{chSupInfo.disagreeReason.otherDesc}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>
 
             </section>           
@@ -210,7 +209,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { schedule3DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { schedule3DataInfoType, undueHardshipDetailsInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { disagreeChildSupportDataInfoType, relationshipToChildDataInfoType, rflmCalculatingChildSupportDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ChildSupport';
+import { undueHardshipDataInfoType } from '@/types/Application/FamilyLawMatter/ChildSupport';
+import { rflmAdditionalDocsDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 
 @Component({
     components:{
@@ -236,45 +238,123 @@ export default class Schedule3 extends Vue {
         this.chSupInfo = this.getNewChildSupportInfo();
     }
 
-    public getNewChildSupportInfo(){
+    public getNewChildSupportInfo(){       
        
         let newChildSupportInfo = {} as schedule3DataInfoType;
-        
-        newChildSupportInfo.appType = {
-            parent: false,
-            standing: false,
-            parentageTestReq: false,
-            notStanding: false
-        }       
-        
-        const undueHardshipDetailsInfo = {
-            debt: false,
-            highExpense: false,
-            legalDutyOtherPerson: false,
-            legalDutyOtherChild: false,
-            otherHardship: false,
-            otherHardshipDesc: ''   
-        }
-        newChildSupportInfo.disagreeReason = {
-            appIncome: false,                
-            opIncome: false,
-            opIncomeDesc: '',
-            specialExpense: false,
-            specialExpenseDesc: '',
-            livingArrangements: false,
-            livingArrangementsDesc: '',   
-            undueHardship: false,
-            undueHardshipDetails: undueHardshipDetailsInfo,
-            other: false,
-            otherDesc: ''
-        }
-    
-        newChildSupportInfo.calculate = {                
-            attaching: false,
-            reason: ''
-        }         
 
-        newChildSupportInfo.filing = false;
+        if (this.result.relationshipToChildSurvey){
+            const relationshipInfo: relationshipToChildDataInfoType = this.result.relationshipToChildSurvey
+            newChildSupportInfo.appType = {
+                parent: relationshipInfo.listOfRelationshipTypes.includes('parent'),
+                notParent: relationshipInfo.listOfRelationshipTypes.includes('notParent'),
+                standing: relationshipInfo.listOfRelationshipTypes.includes('stepParent'),
+                parentageTestReq: relationshipInfo.listOfRelationshipTypes.includes('notParent') && relationshipInfo.parentageTest == 'y',
+                notStanding: relationshipInfo.listOfRelationshipTypes.includes('notStepParent')
+            }
+           
+        } else {
+            newChildSupportInfo.appType = {
+                parent: false,
+                notParent: false,
+                standing: false,
+                parentageTestReq: false,
+                notStanding: false
+            } 
+        }
+
+        if (this.result.disagreeChildSupportSurvey){
+            const disagreeInfo: disagreeChildSupportDataInfoType = this.result.disagreeChildSupportSurvey;
+
+            let undueHardshipDetailsInfo = {} as undueHardshipDetailsInfoType
+
+            if (disagreeInfo.causeUndueHardship == "true"){
+                undueHardshipDetailsInfo = {
+                    debt: disagreeInfo.undueHardshipReason.includes('debt'),
+                    highExpense: disagreeInfo.undueHardshipReason.includes('expenses'),
+                    legalDutyOtherPerson: disagreeInfo.undueHardshipReason.includes('legalDutyOtherPerson'),
+                    legalDutyOtherChild: disagreeInfo.undueHardshipReason.includes('legalDutyOtherChild'),
+                    otherHardship: disagreeInfo.undueHardshipReason.includes('other'),
+                    otherHardshipDesc: disagreeInfo.undueHardshipReason.includes('other')?disagreeInfo.undueHardshipReasonComment:''   
+                }
+
+            } else {
+
+                undueHardshipDetailsInfo = {
+                    debt: false,
+                    highExpense: false,
+                    legalDutyOtherPerson: false,
+                    legalDutyOtherChild: false,
+                    otherHardship: false,
+                    otherHardshipDesc: ''   
+                }
+
+            }
+
+            newChildSupportInfo.disagreeReason = {
+                appIncome: disagreeInfo.incorrectIncome == "true",                
+                opIncome: disagreeInfo.incorrectOpIncome == "true",
+                opIncomeDesc: disagreeInfo.incorrectOpIncome == "true"?disagreeInfo.incorrectDescription:'',
+                specialExpense: disagreeInfo.incorrectSpecialAndExtraordinaryExpenses == "true",
+                specialExpenseDesc: disagreeInfo.incorrectSpecialAndExtraordinaryExpenses == "true"?disagreeInfo.incorrectSpecialAndExtraordinaryDescription:'',
+                livingArrangements: disagreeInfo.incorrectTimeWithChild == "true",
+                livingArrangementsDesc: disagreeInfo.incorrectTimeWithChild == "true"?disagreeInfo.incorrectTimeWithChildDescription:'',   
+                undueHardship: disagreeInfo.causeUndueHardship == "true",
+                undueHardshipDetails: undueHardshipDetailsInfo,
+                other: disagreeInfo.disagreeOtherReason == 'y',
+                otherDesc: disagreeInfo.disagreeOtherReason == 'y'? disagreeInfo.OtherReasonDescription:''
+            }
+
+        } else {
+
+            const undueHardshipDetailsInfo = {
+                debt: false,
+                highExpense: false,
+                legalDutyOtherPerson: false,
+                legalDutyOtherChild: false,
+                otherHardship: false,
+                otherHardshipDesc: ''   
+            }
+
+            newChildSupportInfo.disagreeReason = {
+                appIncome: false,                
+                opIncome: false,
+                opIncomeDesc: '',
+                specialExpense: false,
+                specialExpenseDesc: '',
+                livingArrangements: false,
+                livingArrangementsDesc: '',   
+                undueHardship: false,
+                undueHardshipDetails: undueHardshipDetailsInfo,
+                other: false,
+                otherDesc: ''
+            }
+        }
+
+        if (this.result.rflmAdditionalDocumentsSurvey){
+            const additionalDocsInfo: rflmAdditionalDocsDataInfoType = this.result.rflmAdditionalDocumentsSurvey;
+        
+            newChildSupportInfo.filing = additionalDocsInfo.isFilingAdditionalDocs == 'y';
+        
+        } else {
+            newChildSupportInfo.filing = false;
+        }
+
+        if (this.result.rflmCalculatingChildSupportSurvey){
+            const calculationInfo: rflmCalculatingChildSupportDataInfoType = this.result.rflmCalculatingChildSupportSurvey;
+                    
+            newChildSupportInfo.calculate = {                
+                attaching: calculationInfo.attachingCalculations == 'y',
+                reason: calculationInfo.attachingCalculations == 'n'?calculationInfo.notAttachingCalculationsReason:''
+            } 
+        
+        } else {
+
+            newChildSupportInfo.calculate = {                
+                attaching: false,
+                reason: ''
+            } 
+
+        } 
         
         return newChildSupportInfo;
     } 

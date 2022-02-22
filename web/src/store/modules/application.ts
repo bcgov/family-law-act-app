@@ -382,9 +382,73 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
-
         p = {} as pageInfoType;
         p.key = "9";
+        p.name = "ReplyNewChildSupport";
+        p.label = "Reply New Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "RelationshipToChild";
+        p.label = "Relationship To Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.name = "DisagreeChildSupport";
+        p.label = "Disagree Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "ReplyExistingChildSupport";
+        p.label = "Reply Existing Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "13";
+        p.name = "RflmUnpaidChildSupport";
+        p.label = "Unpaid Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.name = "DisagreeExistingChildSupport";
+        p.label = "Disagree Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "15";
+        p.name = "RflmCalculatingChildSupport";
+        p.label = "Calculating Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
+        p = {} as pageInfoType;
+        p.key = "16";
+        p.name = "RflmAdditionalDocuments";
+        p.label = "Additional Documents";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "17";
         p.name = "ReviewYourAnswersRFLM";
         p.label = "Review Your Answers";
         p.active = true;
@@ -392,7 +456,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "10";
+        p.key = "18";
         p.name = "PreviewFormsRFLM";
         p.label = "Preview Forms";
         p.active = false;

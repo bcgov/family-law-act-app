@@ -26,7 +26,7 @@
                         :check="exChSupInfo.agreeCircumstanceChanges?'yes':''" 
                         text="I agree that circumstances have changed since the final order about child support was made"/>
                     <check-box 
-                        :check="!exChSupInfo.agreeCircumstanceChanges?'yes':''" 
+                        :check="exChSupInfo.disAgreeCircumstanceChanges?'yes':''" 
                         text="There has been no change in circumstances since the final order about child support was made"/>
                     <check-box style="width:120%;" 
                         :check="exChSupInfo.agreeSetAside?'yes':''" 
@@ -157,6 +157,7 @@ import UnderlineForm from "@/components/utils/PopulateForms/components/Underline
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import moment from 'moment';
 import { schedule4DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import {replyExistingChildSupportDataInfoType, rflmCalculatingChildSupportDataInfoType, rflmUnpaidChildSupportDataInfoType, disagreeExistingChildSupportDataInfoType} from "@/types/Application/ReplyFamilyLawMatter/ChildSupport"
 
 @Component({
     components:{
@@ -187,29 +188,75 @@ export default class Schedule4 extends Vue {
 
         let existingChildSupportInfo = {} as schedule4DataInfoType;
         
-        const calculationsInfo = {
-            attaching: false,
-            reason: ''
+        
 
-        }
-        const childSupportUnpaid = {
-            agreeAmount: false,
-            crntDate: '',
-            unpaidAmnt: 0
+        if (this.result.replyExistingChildSupportSurvey && this.result.rflmUnpaidChildSupportSurvey 
+                && this.result.rflmCalculatingChildSupportSurvey && this.result.disagreeExistingChildSupportSurvey){
 
-        }
-        existingChildSupportInfo = {
+            const replyExistingChildSupportInfo: replyExistingChildSupportDataInfoType = this.result.replyExistingChildSupportSurvey;
+            if (replyExistingChildSupportInfo.existingType == 'finalOrder'){
+                existingChildSupportInfo.agreeCircumstanceChanges = replyExistingChildSupportInfo.agreeFinalOrder == 'y';
+                existingChildSupportInfo.disAgreeCircumstanceChanges = replyExistingChildSupportInfo.agreeFinalOrder == 'n';
+                existingChildSupportInfo.section150 = false;
+                existingChildSupportInfo.agreeSetAside = false;
+
+            } else if (replyExistingChildSupportInfo.existingType == 'agreement'){
+                existingChildSupportInfo.section150 = replyExistingChildSupportInfo.agreeAgreement == 'y';
+                existingChildSupportInfo.agreeSetAside = replyExistingChildSupportInfo.agreeAgreement == 'n';
+                existingChildSupportInfo.agreeCircumstanceChanges = false;
+                existingChildSupportInfo.disAgreeCircumstanceChanges = false;
+            }
+
+            const rflmUnpaidChildSupportInfo: rflmUnpaidChildSupportDataInfoType = this.result.rflmUnpaidChildSupportSurvey;
+
+            existingChildSupportInfo.unpaidDetails = {
+                agreeAmount: rflmUnpaidChildSupportInfo.agreeChildSupportAmount == 'y',
+                crntDate: rflmUnpaidChildSupportInfo.agreeChildSupportAmount == 'n'? Vue.filter('beautify-date')(rflmUnpaidChildSupportInfo.calculationDate):'',
+                unpaidAmnt: rflmUnpaidChildSupportInfo.agreeChildSupportAmount == 'n'?rflmUnpaidChildSupportInfo.unPaidAmount:''
+
+            }           
+            const calculationInfo: rflmCalculatingChildSupportDataInfoType = this.result.rflmCalculatingChildSupportSurvey;
+                    
+            existingChildSupportInfo.calc = {                
+                attaching: calculationInfo.attachingCalculations == 'y',
+                reason: calculationInfo.attachingCalculations == 'n'?calculationInfo.notAttachingCalculationsReason:''
+            } 
+
+            const disagreeExistingChildSupportInfo: disagreeExistingChildSupportDataInfoType = this.result.disagreeExistingChildSupportSurvey;
+
+            existingChildSupportInfo.disagreeReason = disagreeExistingChildSupportInfo.disagreeReason;
+            existingChildSupportInfo.continue = disagreeExistingChildSupportInfo.requestedOrder == 'noChange';
+            existingChildSupportInfo.change = disagreeExistingChildSupportInfo.requestedOrder == 'diffChange';
+            existingChildSupportInfo.changeExpl = disagreeExistingChildSupportInfo.requestedOrder == 'diffChange'?disagreeExistingChildSupportInfo.requestedChangeDescription:'';  
             
-            agreeCircumstanceChanges: false,
-            agreeSetAside: false,
-            section150: false,
-            disagreeReason: '',
-            continue: false,  
-            change: false,
-            changeExpl: '',     
-            calc: calculationsInfo,
-            unpaidDetails: childSupportUnpaid
-        }            
+          
+        } else {
+            const calculationsInfo = {
+                attaching: false,
+                reason: ''
+            }
+            const childSupportUnpaid = {
+                agreeAmount: false,
+                crntDate: '',
+                unpaidAmnt: ''
+            }
+            existingChildSupportInfo = {
+            
+                agreeCircumstanceChanges: false,
+                disAgreeCircumstanceChanges: false,
+                agreeSetAside: false,
+                section150: false,
+                disagreeReason: '',
+                continue: false,  
+                change: false,
+                changeExpl: '',     
+                calc: calculationsInfo,
+                unpaidDetails: childSupportUnpaid
+            }    
+
+        }
+        
+                
 
         return existingChildSupportInfo;
     } 
