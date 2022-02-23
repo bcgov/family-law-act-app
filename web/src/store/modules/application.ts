@@ -103,6 +103,14 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "FlmInfo";
+        p.label = "Did You Know?";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
         this.steps.push(s);
     
         // Getting started STOP       
