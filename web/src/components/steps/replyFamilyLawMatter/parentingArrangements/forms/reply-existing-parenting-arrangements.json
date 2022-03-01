@@ -136,7 +136,7 @@
             {
               "type": "comment",
               "name": "disagreeReason",
-              "title": "Why don’t you agree with the requested order?",
+              "title": "{disagreeReasonQuestion}",
               "description": "Explain why you don’t agree the order the other party requested should be made. If you agreed with some parts, just explain why you don’t agree with the other parts of the order they are asking to have made.<br><br>You do not need to use any special wording. The key is to be clear about what you mean.",
               "isRequired": true,
               "visible": false,

@@ -73,6 +73,8 @@ export default class ReplyExistingParentingArrangements extends Vue {
             this.setVariables();
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);             
         }
+
+        this.survey.setValue("disagreeReasonQuestion",  "Why don’t you agree with the requested order?");
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
@@ -82,16 +84,19 @@ export default class ReplyExistingParentingArrangements extends Vue {
         if (this.survey.data?.listOfOpApplications){
 
             let list = this.survey.data?.listOfOpApplications;
+            let multipleTypes = false;
             
             
             const index = list.indexOf('none of the above')
             let agreePartialDescription = 'You indicated the other party applied to change or replace:<ul>';
             
 
-            if (index != -1){                
-                this.survey.setValue("multipleTypes",  list.length > 2);                
+            if (index != -1){ 
+                multipleTypes =  list.length > 2;               
+                this.survey.setValue("multipleTypes", multipleTypes);                               
             } else {
-                this.survey.setValue("multipleTypes",  list.length > 1);                
+                multipleTypes = list.length > 1;
+                this.survey.setValue("multipleTypes", multipleTypes);                
             } 
             
             for (const app of list){ 
@@ -103,10 +108,15 @@ export default class ReplyExistingParentingArrangements extends Vue {
             agreePartialDescription.concat('</ul>')
 
             this.survey.setValue("agreePartialDescription",  agreePartialDescription);
+
+            if (multipleTypes && this.survey.data.agreeCourtOrder && 
+                this.survey.data.agreeCourtOrder == 'n' && this.survey.data.agreePartial == 'y'){
+                this.survey.setValue("disagreeReasonQuestion",  "Why don’t you agree to the other parts of the requested order?");
+            } else {
+                this.survey.setValue("disagreeReasonQuestion",  "Why don’t you agree with the requested order?");
+            }
         }
     }
-
-
 
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
