@@ -392,6 +392,13 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		)
 			requiredDocuments.push("Support calculation");
 
+
+		
+		if( rflmQuestionnaire?.selectedChildSupportForm?.length > 0 && newChildSupportAttachementRequired && 
+			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
+				requiredDocuments.push("Financial Statement Form 4");
+
+
 		if (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
 			&& rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport')
 			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'){

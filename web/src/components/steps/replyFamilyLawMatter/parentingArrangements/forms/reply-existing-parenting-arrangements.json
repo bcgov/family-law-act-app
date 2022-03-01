@@ -142,6 +142,7 @@
               "visible": false,
               "visibleIf": "{agreeCourtOrder} = 'n'"
             },
+            
             {
               "type": "radiogroup",
               "name": "desiredOrderChoice",
