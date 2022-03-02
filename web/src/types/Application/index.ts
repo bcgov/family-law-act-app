@@ -74,6 +74,7 @@ export interface stepInfoType {
     selectedActivity?: string[];
     selectedReplyApplications?: string[];
     selectedForms?: string[];
+    selectedFlmOption?: string;
     selectedReplyForms?: string[];
     pathwayCompleted?: pathwayCompletedInfoType;
     applicantName?: nameInfoType;

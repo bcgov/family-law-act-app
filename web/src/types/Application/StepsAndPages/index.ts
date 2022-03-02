@@ -20,6 +20,7 @@ export interface GETSTARTstPgTypes{
     SelectActivity: number;
     ReplyToApplication: number;
     GettingStarted: number; // Apply for an order
+    FlmInfo: number;
 }
 
 export interface POstPgTypes{

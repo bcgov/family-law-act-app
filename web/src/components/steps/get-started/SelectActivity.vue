@@ -72,7 +72,7 @@ export default class SelectActivity extends Vue {
     public steps!: stepInfoType[];
 
     @applicationState.State
-    public types!: string[]
+    public types!: string[];
 
     @applicationState.Action
     public UpdateApplicationType!: (newApplicationType: string[]) => void
@@ -142,6 +142,10 @@ export default class SelectActivity extends Vue {
             if (activity.state){
                 this.selectedActivity.push(activity.name)
             }
+        }
+
+        if (!this.selectedActivity.includes('applyForOrder')){
+            togglePages([this.stPgNo.GETSTART.FlmInfo], false, this.stPgNo.GETSTART._StepNo);
         }
 
         togglePages([this.stPgNo.GETSTART.GettingStarted], this.selectedActivity.includes('applyForOrder'), this.stPgNo.GETSTART._StepNo);
