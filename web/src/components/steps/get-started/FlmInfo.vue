@@ -13,8 +13,6 @@
                 <b-card-header class="text-uppercase font-weight-bold  row mx-2 mediation-header">
                     <div class="animated bounce infinite"><i class="fa fa-handshake-o" style="font-size:36px; " ></i></div>
                     <span class="ml-2 mt-1">Mediation</span>
-                    
-                    
                 </b-card-header>
                 <b-card-body>
                     Mediation is a meeting in an informal, neutral setting with a trained mediator 
@@ -38,8 +36,8 @@
 
             <b-card class="border-white">
                 <b-card-header class="collaborative-law-header text-uppercase font-weight-bold row mx-2">
-                    <img  src="../../../assets/users-gear.svg" style="width: 3rem; height: 3rem;"/>                    
-                    <span class="ml-2 mt-3">Collaborative Law</span>                    
+                    <img  src="../../../assets/users-gear.svg" style="width: 2.5rem; height: 2.5rem;"/>                    
+                    <span class="ml-2 mt-2">Collaborative Law</span>                    
                 </b-card-header>
                 <b-card-body>
                     In a collaborative family law process you and the other party each hire a 
@@ -93,9 +91,9 @@
             </b-card>
 
             <b-card class="border-white">
-                <b-card-header class="arbitration-header text-uppercase font-weight-bold row mx-2">
-                    <img src="../../../assets/users-gear.svg" style="width: 3rem; height: 3rem; color: blue;"/>                    
-                    <span class="ml-2 mt-3">Arbitration</span>                    
+                <b-card-header class="arbitration-header text-uppercase font-weight-bold row mx-2">                    
+                    <span style='font-size:2rem; margin: 0.15rem 0; font-weight: 600;' class='fa fa-balance-scale'/>                  
+                    <span class="ml-2 mt-2">Arbitration</span>                    
                 </b-card-header>
                 <b-card-body>
                     Arbitrators play a private judge-like role. A family law arbitrator will make binding 
@@ -403,28 +401,63 @@ export default class FlmInfo extends Vue {
 
     .mediation-header {
         background: linear-gradient(0.25turn, teal, #d6f5f5, teal);
-        color: #0f3d3d;
-        
+        color: #0f3d3d;        
     }
 
     .collaborative-law-header {
         background: linear-gradient(to left, rgb(216, 32, 32), rgb(81, 136, 74), rgb(245, 231, 43), rgb(78, 142, 226));
-        color: #070707;        
+        color: #0f3d3d;        
     }
 
     .facilitated-negotiation-header {
-        background: linear-gradient(0.25turn, teal, #d6f5f5, teal);
+        background: linear-gradient(0.25turn, teal, #f5e50a, rgb(68, 164, 219), rgb(181, 120, 231));
         color: #0f3d3d;        
     }
 
     .parenting-coordination-header {
-        background: linear-gradient(0.25turn, teal, #d6f5f5, teal);
+        background: linear-gradient(0.15turn, rgb(247, 225, 34), #fa8f15e3, rgb(68, 164, 219), rgb(70, 100, 235));
         color: #0f3d3d;        
     }
 
     .arbitration-header {
-        background: linear-gradient(0.25turn, teal, #d6f5f5, teal);
+        background: linear-gradient(0.25turn,  rgb(216, 32, 32), rgb(160, 88, 219), rgb(15, 110, 235));
         color: #0f3d3d;        
+    }
+
+    .rotate-45 {
+        transform-origin: 0px 0px;
+        transform: rotate(45deg);
+    }
+
+    .rotate {
+        transform-origin: 50px 50px;
+        animation: rotate 2s ease infinite;
+    }
+
+    .rotate-back {
+        transform-origin: -100px 0px;
+        animation: rotate 3s ease-in-out infinite;
+        animation-direction: alternate;
+    }
+
+    .left {
+        animation: move 1s ease-in-out infinite;
+    }
+
+    .right {
+        animation: move 1s ease-in-out infinite;
+    }
+
+    @keyframes rotate {
+        100% {
+            transform: rotate(90deg);
+        }
+    }
+
+    @keyframes move {
+        50% {
+            transform: translate(-30px, -30px);
+        }
     }
 
 </style>
