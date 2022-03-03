@@ -15,7 +15,7 @@ import { aboutWrittenResponseOrderSurveyInfoType, agreeDisagreeSurveyInfoType, w
 import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmChildDetailsSurveyInfoType, rflmAdditionalDocumentsSurveyInfoType } from "./ReplyFamilyLawMatter";
 import { replyExistingParentingArrangementsSurveyInfoType, replyNewConditionsParentingTimeSurveyInfoType, replyNewParentalResponsibilitiesSurveyInfoType, replyNewParentingTimeSurveyInfoType } from "./ReplyFamilyLawMatter/ParentingArrangements";
 import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyInfoType, relationshipToChildSurveyInfoType, replyExistingChildSupportSurveyInfoType, replyNewChildSupportSurveyInfoType, rflmCalculatingChildSupportSurveyInfoType, rflmUnpaidChildSupportSurveyInfoType } from "./ReplyFamilyLawMatter/ChildSupport";
-import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
+import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
 
 
 //This is what our database saves.
@@ -134,6 +134,7 @@ export interface stepInfoType {
 
     replyNewContactWithChildSurvey?: replyNewContactWithChildSurveyInfoType;
     disagreeContactWithChildSurvey?: disagreeContactWithChildSurveyInfoType;
+    replyExistingContactWithChildSurvey?: replyExistingContactWithChildSurveyInfoType;
     
     rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
 

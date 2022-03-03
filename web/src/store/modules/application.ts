@@ -464,6 +464,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "18";
+        p.name = "ReplyExistingContactWithChild";
+        p.label = "Reply Existing Contact With Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "19";
         p.name = "RflmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = false;
@@ -471,7 +479,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "19";
+        p.key = "20";
         p.name = "ReviewYourAnswersRFLM";
         p.label = "Review Your Answers";
         p.active = true;
@@ -479,7 +487,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "20";
+        p.key = "21";
         p.name = "PreviewFormsRFLM";
         p.label = "Preview Forms";
         p.active = false;

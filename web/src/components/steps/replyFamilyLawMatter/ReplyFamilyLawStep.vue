@@ -23,6 +23,8 @@
 
         <reply-new-contact-with-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewContactWithChild"/>
         <disagree-contact-with-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeContactWithChild"/>
+
+        <reply-existing-contact-with-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyExistingContactWithChild"/>
        
         <rflm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmAdditionalDocuments"/>
         <review-your-answers-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/>
@@ -64,6 +66,8 @@ import RflmCalculatingChildSupport from "./childSupport/RflmCalculatingChildSupp
 import ReplyNewContactWithChild from "./contactWithChild/ReplyNewContactWithChild.vue";
 import DisagreeContactWithChild from "./contactWithChild/DisagreeContactWithChild.vue";
 
+import ReplyExistingContactWithChild from "./contactWithChild/ReplyExistingContactWithChild.vue";
+
 import RflmAdditionalDocuments from "./RflmAdditionalDocuments.vue";
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
@@ -92,6 +96,7 @@ import { stepInfoType } from "@/types/Application";
         RflmCalculatingChildSupport,
         ReplyNewContactWithChild,
         DisagreeContactWithChild,
+        ReplyExistingContactWithChild,
         RflmAdditionalDocuments,
         ReviewYourAnswersRFLM,
         PreviewFormsRFLM  

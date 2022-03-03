@@ -28,3 +28,22 @@ export interface disagreeContactWithChildSurveyInfoType {
     currentStep?: number | string;
     currentPage?: number | string;
 }
+
+export interface replyExistingContactWithChildDataInfoType {
+    agreeCourtOrder: string;
+    existingType?: string;
+    agreeFinalOrder?: string;
+    agreeAgreement?: string;
+    disagreeReason: string;
+    requestedOrder?: string;
+    requestedChangeDescription?: string;
+    childBestInterestReason?: string;
+}
+
+export interface replyExistingContactWithChildSurveyInfoType {
+    data: replyExistingContactWithChildDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}

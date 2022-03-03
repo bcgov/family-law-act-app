@@ -2,7 +2,7 @@ import { replyExistingChildSupportDataInfoType, replyNewChildSupportDataInfoType
 import { rflmQuestionnaireDataInfoType, rflmCounterAppDataInfoType, rflmBackgroundSurveyDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 import { replyExistingParentingArrangementsDataInfoType, replyNewConditionsParentingTimeDataInfoType, replyNewParentalResponsibilitiesDataInfoType, replyNewParentingTimeDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ParentingArrangements';
 import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
-import { replyNewContactWithChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ContactWithChild';
+import { replyExistingContactWithChildDataInfoType, replyNewContactWithChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ContactWithChild';
 
 export function getForm6PopulationInfo(result) {
 
@@ -104,9 +104,18 @@ export function getForm6PopulationInfo(result) {
         if (newContactWithChild.agreeCourtOrder == 'n'){
             schedules.push('schedule5')
         }
-        
+
     } else if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('existingContact')){
-        schedules.push('schedule6')
+
+        const existingChildContact: replyExistingContactWithChildDataInfoType = result.replyExistingContactWithChildSurvey;        
+        agreeDisagreeResults.existingChildContact = {
+            opApplied: true,
+            agree: existingChildContact.agreeCourtOrder == 'y'
+        }
+        
+        if (existingChildContact.agreeCourtOrder == 'n'){
+            schedules.push('schedule6')
+        }
     }
 
     //TODO: update after shedule 7 and 8 have been added 
