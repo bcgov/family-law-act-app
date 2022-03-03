@@ -1,63 +1,28 @@
 import { questionInfoType } from "../../CommonInformation";
 
-export interface contactWithChildDataInfoType {
-    parentGuardianApplicant?: string;
-    FAQParentGuardian?: boolean;
+export interface replyNewContactWithChildDataInfoType {
+    agreeCourtOrder: string;
 }
 
-export interface contactWithChildSurveyInfoType {
-    data: contactWithChildDataInfoType;
+export interface replyNewContactWithChildSurveyInfoType {
+    data: replyNewContactWithChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface aboutContactWithChildDataInfoType {
-    childrenRequireContactChoices?: string[];
-    lastContactDate?: string;
+export interface disagreeContactWithChildDataInfoType {   
     contactTypeChoices?: string[];
-    contactTypeChoicesComment?: string;
+    contactTypeChoicesComment?: string; 
     inPersonDetails?: string;
-    placeConditions?: string;
+    placeConditions?: string;    
     conditionsDescription?: string;
+    childBestInterestReason?: string;
 }
 
-export interface aboutContactWithChildOrderSurveyInfoType {
-    data: aboutContactWithChildDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface contactWithChildBestInterestOfChildDataInfoType {
-    newChildBestInterestDescription?: string;
-    existingChildBestInterestDescription?: string;
-    newParentingArrangementsChildBestInterestDescription?: string;
-}
-
-export interface contactWithChildBestInterestsOfChildSurveyInfoType {
-    data: contactWithChildBestInterestOfChildDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface contactOrderDataInfoType {
-    roleType?: string;
-    existingType?: string;
-    orderDate?: string;
-    changesSinceOrder?: string;
-    orderDifferenceType?: string;
-    agreementDate?: string;
-    changesSinceAgreement?: string;
-    agreementDifferenceType?: string;
-}
-
-export interface contactWithChildOrderSurveyInfoType {
-    data: contactOrderDataInfoType;
+export interface disagreeContactWithChildSurveyInfoType {
+    data: disagreeContactWithChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;

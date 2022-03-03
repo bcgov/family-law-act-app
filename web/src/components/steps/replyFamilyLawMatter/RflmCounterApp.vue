@@ -391,7 +391,7 @@ export default class RflmCounterApp extends Vue {
         this.childSupportNewPages = [p.RflmChildrenInfo, p.ReplyNewChildSupport, p.RelationshipToChild, p.DisagreeChildSupport, p.RflmCalculatingChildSupport, p.RflmAdditionalDocuments]
         this.childSupportExistingPages = [p.RflmChildrenInfo, p.ReplyExistingChildSupport, p.RflmUnpaidChildSupport, p.DisagreeExistingChildSupport, p.RflmCalculatingChildSupport]
 
-        this.contactWithChildNewPages = [p.RflmChildrenInfo]
+        this.contactWithChildNewPages = [p.RflmChildrenInfo, p.ReplyNewContactWithChild, p.DisagreeContactWithChild]
         this.contactWithChildExistingPages = [p.RflmChildrenInfo]
 
         this.guardianOfChildNewPages = [p.RflmChildrenInfo]

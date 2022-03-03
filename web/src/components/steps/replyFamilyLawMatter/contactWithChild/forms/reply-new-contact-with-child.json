@@ -1,0 +1,35 @@
+{
+  "title": "Reply New Contact with a Child",
+  "pages": [
+    {
+      "name": "Reply New Contact with a Child",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "contactWithchildDescription",
+          "title": "The other party has made an application for an order about contact with a child.<br><br><a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/i-am-not-the-child-s-guardian-can-i-still-have-contact-with-the-child' target='_blank'>Contact with a child<a> is the time a child spends with someone who is not their guardian.<br><br>Children often have important relationships with people other than their parents. These include grandparents, elders, relatives, and others close to the child. Usually these relationships are supported by the parents or guardians.<br><br>If an agreement is not possible, the person who believes they should have contact with the child can apply for a court order. The court will make a decision about contact with the child based on the best interests of the child.<br><br>The details of the order the other party is asking for can be found in <b>Schedule 5 – Contact with a Child – New</b> of their Application About a Family Law Matter. You will need to refer to their application for these next questions.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "NewContactWithChildPanel",
+          "elements": [
+          
+            {
+              "type": "yesno",
+              "name": "agreeCourtOrder",
+              "title": "Do you agree the court should make the order?",
+              "description": "Look at the order the other party is applying for. Their order may be set out in their response to <b>Questions 2</b> and <b>3</b> on <b>Schedule 5 – Contact with a Child – New</b>. Should the court make the order?<br><br>If you agree to only part of the order, for example, you agree they can have contact with the child but not as they requested, select NO. This service will help you to explain why the order should be different.",
+              "isRequired": true
+            }
+          ]
+        }
+   
+      ],
+      "title": "Reply New Contact with a Child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

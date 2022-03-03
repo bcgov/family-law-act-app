@@ -1,0 +1,68 @@
+{
+  "title": "Disagree – Contact with a Child",
+  "pages": [
+    {
+      "name": "Disagree – Contact with a Child",
+      "description": "An order for contact with a child will usually include details about how the contact will happen. You do not agree with the order about contact that the other party was asking for.",
+      "elements": [  
+        {
+          "type": "panel",
+          "name": "contactWithChildPanel",          
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "contactTypeChoices",
+              "title": "Tell the court and the other party what contact with the children you would like the court to order.",
+              "description": "Select each option that applies.",              
+              "isRequired": true,
+              "hasOther": true,
+              "otherText": "Other method of communication (please specify)",
+              "choices": [
+                "No contact of any type",
+                "In person",
+                "Telephone communication",
+                "Video communication",
+                "Written communication"
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "inPersonDetails",
+              "title": "For the in person contact with the child, please provide details about when the contact will occur.",
+              "description": "Think about your relationship with the other party and the child’s relationship with the other party to decide how much detail you think the order needs to include. Provide specific dates or events, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with the child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{contactTypeChoices} contains 'In person'"
+            },
+            {
+              "type": "yesno",
+              "name": "placeConditions",
+              "title": "Are you willing to have the court order include any conditions related to the other party’s contact with the child?",
+              "description": "Sometimes, the court or you may only consider it in the best interests of the child for there to be conditions on the other party’s contact with the child. Conditions may include:<br><ul><li>supervised visits</li><li>contact during specified times</li><li>contact only in a specific location</li><li>things a person must do while they have contact with the child (for example, not use drugs or alcohol while with the child or not have guests over while the child is visiting)</li></ul>",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "conditionsDescription",
+              "title": "Please describe the conditions you want to have placed on the other party’s contact with the child:",
+              "description": "If there are any conditions you want placed on the other party’s contact with the child be sure to include them in the space provided. You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{placeConditions} = 'y'"
+            },
+            {
+              "type": "comment",
+              "name": "childBestInterestReason",
+              "title": "Why do you believe the order about contact you are applying for is in the child’s best interests?",
+              "description": "When you ask for a court order involving a child, you must consider what is in the best interests of the child. Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child.<br>To determine what is in the <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests' target='_blank'>child's best interests</a> when considering contact with a child, you must consider factors including:<ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>You do not need to use any special wording. The key is to be clear about why you think the order you want made is in the child’s best interests.",
+              "isRequired": true
+            }
+          ]
+        }      
+      ],
+      "title": "Disagree – Contact with a Child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

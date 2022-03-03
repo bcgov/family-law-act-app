@@ -21,6 +21,9 @@
         
         <rflm-calculating-child-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmCalculatingChildSupport"/>
 
+        <reply-new-contact-with-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewContactWithChild"/>
+        <disagree-contact-with-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeContactWithChild"/>
+       
         <rflm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmAdditionalDocuments"/>
         <review-your-answers-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/>
         <preview-forms-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PreviewFormsRFLM"/> 
@@ -58,6 +61,8 @@ import DisagreeExistingChildSupport from "./childSupport/DisagreeExistingChildSu
 
 import RflmCalculatingChildSupport from "./childSupport/RflmCalculatingChildSupport.vue";
 
+import ReplyNewContactWithChild from "./contactWithChild/ReplyNewContactWithChild.vue";
+import DisagreeContactWithChild from "./contactWithChild/DisagreeContactWithChild.vue";
 
 import RflmAdditionalDocuments from "./RflmAdditionalDocuments.vue";
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
@@ -85,6 +90,8 @@ import { stepInfoType } from "@/types/Application";
         RflmUnpaidChildSupport,
         DisagreeExistingChildSupport,
         RflmCalculatingChildSupport,
+        ReplyNewContactWithChild,
+        DisagreeContactWithChild,
         RflmAdditionalDocuments,
         ReviewYourAnswersRFLM,
         PreviewFormsRFLM  

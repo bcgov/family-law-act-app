@@ -39,7 +39,7 @@
                 <div style="margin:0 3rem 1rem 1rem;">
                     <i>Complete only if applicable. You may leave this section blank.</i>
                     <div>I am asking to have the following conditions placed on the contact with the child(ren):</div>
-                    <div v-if="result.aboutContactWithChildOrderSurvey && result.aboutContactWithChildOrderSurvey.placeConditions == 'y'" 
+                    <div v-if="chContInfo.abt.cond" 
                         class="answerbox">{{chContInfo.abt.cond}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
                 </div>
@@ -86,6 +86,7 @@ export default class Schedule5 extends Vue {
     }
 
     public extractInfo(){ 
+        console.log(this.result)
         this.chContInfo = this.getNewChildContactInfo();
     }   
 
@@ -108,27 +109,24 @@ export default class Schedule5 extends Vue {
         };
         newChildContactInfo.bstIntrst = '';
 
-        if (this.result.aboutContactWithChildOrderSurvey){
-            const contactChoices = this.result.aboutContactWithChildOrderSurvey.contactTypeChoices?this.result.aboutContactWithChildOrderSurvey.contactTypeChoices:[];
+        if (this.result.disagreeContactWithChildSurvey){
+            const disagreeInfo = this.result.disagreeContactWithChildSurvey;
+            const contactChoices = disagreeInfo.contactTypeChoices?disagreeInfo.contactTypeChoices:[];
             newChildContactInfo.abt = {
                 conType: {
-                    noContact: contactChoices.includes('No contact'),
+                    noContact: contactChoices.includes('No contact of any type'),
                     inPerson: contactChoices.includes('In person'),
                     tel: contactChoices.includes('Telephone communication'),
                     video: contactChoices.includes('Video communication'),
                     written:contactChoices.includes('Written communication'),
                     other: contactChoices.includes('other')
                 },
-                inPrsn: (contactChoices.includes('In person'))? this.result.aboutContactWithChildOrderSurvey.inPersonDetails:'',
-                otherComm: (contactChoices.includes('other'))? this.result.aboutContactWithChildOrderSurvey.contactTypeChoicesComment:'',
-                cond: (this.result.aboutContactWithChildOrderSurvey.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:''
-                
+                inPrsn: (contactChoices.includes('In person'))? disagreeInfo.inPersonDetails:'',
+                otherComm: (contactChoices.includes('other'))? disagreeInfo.contactTypeChoicesComment:'',
+                cond: (disagreeInfo.placeConditions == 'y')? disagreeInfo.conditionsDescription:''                
             }
-        }
-
-        if (this.result.contactWithChildBestInterestsOfChildSurvey){
-            newChildContactInfo.bstIntrst = this.result.contactWithChildBestInterestsOfChildSurvey.newChildBestInterestDescription;
-        }
+            newChildContactInfo.bstIntrst = disagreeInfo.childBestInterestReason?disagreeInfo.childBestInterestReason:'';
+        }        
 
         return newChildContactInfo;
     }  
