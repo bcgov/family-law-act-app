@@ -166,10 +166,13 @@ export interface contactTypeInfoType {
 }
 
 export interface schedule6DataInfoType {
+    agreeCircumstanceChanges: boolean;
+    disAgreeCircumstanceChanges: boolean;      
     agreeChanges: boolean;   
     agreeBestInterest: boolean;
     disagreeReason: string;
     continue: boolean;
+    change: boolean;
     changeDetails: string;    
     bstIntrst: string;
 }

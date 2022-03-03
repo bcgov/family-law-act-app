@@ -22,14 +22,14 @@
                 <div style="display:inline; margin-left:0.25rem"><i>Select only one of the options below</i></div>
                 <div style="margin-left:1rem;">
                     <check-box 
-                        :check="exChContInfo.agreeChanges?'yes':''" 
+                        :check="exChContInfo.agreeCircumstanceChanges?'yes':''" 
                         text="I agree that needs or circumstances have changed since the final order about contact was made"/>
                     <check-box 
                         style="width:120%;" 
-                        :check="!exChContInfo.agreeChanges?'yes':''" 
+                        :check="exChContInfo.disAgreeCircumstanceChanges?'yes':''" 
                         text="There has been no change in needs or circumstances since the final order about contact was made"/>  
                     <check-box  
-                        :check="!exChContInfo.agreeBestInterest?'yes':''" 
+                        :check="exChContInfo.agreeChanges?'yes':''" 
                         text="I agree the agreement is not in the best interests of the child(ren)"/>
                     <check-box 
                         style="width:120%;" 
@@ -65,9 +65,9 @@
                     </div>
                     <div style="margin:0 0 0 1.5rem;">
                         <check-box  
-                            :check="!exChContInfo.continue?'yes':''" 
+                            :check="exChContInfo.change?'yes':''" 
                             text="I am applying to change or replace the existing final order or agreement about contact with a child or children as follows:"/>
-                        <div v-if="!exChContInfo.continue && exChContInfo.changeDetails" 
+                        <div v-if="exChContInfo.change && exChContInfo.changeDetails" 
                             class="answerbox">{{exChContInfo.changeDetails}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -94,6 +94,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule6DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { replyExistingContactWithChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ContactWithChild';
 
 @Component({
     components:{
@@ -125,13 +126,41 @@ export default class Schedule6 extends Vue {
         let existingChildContactInfo = {} as schedule6DataInfoType;
 
         existingChildContactInfo = {
-            agreeChanges: false,            
+            agreeCircumstanceChanges: false,
+            disAgreeCircumstanceChanges: false,
+            agreeChanges: false,
             agreeBestInterest: false,
             disagreeReason: '',
             continue: false,
+            change: false,
             changeDetails: '',    
             bstIntrst: ''
         } 
+
+        if (this.result.replyExistingContactWithChildSurvey){
+            const existingContactInfo: replyExistingContactWithChildDataInfoType = this.result.replyExistingContactWithChildSurvey;
+            console.log(existingContactInfo)
+
+            if (existingContactInfo.existingType == 'finalOrder'){
+
+                existingChildContactInfo.agreeCircumstanceChanges = existingContactInfo.agreeFinalOrder == 'y';
+                existingChildContactInfo.disAgreeCircumstanceChanges = existingContactInfo.agreeFinalOrder == 'n';
+                existingChildContactInfo.agreeChanges = false;
+                existingChildContactInfo.agreeBestInterest = false;
+            } else if (existingContactInfo.existingType == 'agreement'){
+                existingChildContactInfo.agreeChanges = existingContactInfo.agreeAgreement == 'y';
+                existingChildContactInfo.agreeBestInterest = existingContactInfo.agreeAgreement == 'n';
+                existingChildContactInfo.agreeCircumstanceChanges = false;
+                existingChildContactInfo.disAgreeCircumstanceChanges = false;
+            }
+            
+            existingChildContactInfo.disagreeReason = existingContactInfo.disagreeReason;
+
+            existingChildContactInfo.continue = existingContactInfo.requestedOrder == 'noChange';
+            existingChildContactInfo.change = existingContactInfo.requestedOrder == 'diffChange';
+            existingChildContactInfo.changeDetails = existingContactInfo.requestedOrder == 'diffChange'?existingContactInfo.requestedChangeDescription:'';    
+            existingChildContactInfo.bstIntrst = existingContactInfo.childBestInterestReason?existingContactInfo.childBestInterestReason: '';
+        }        
 
         return existingChildContactInfo;
     }  

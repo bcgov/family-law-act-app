@@ -71,7 +71,10 @@ export interface RFLMstPgTypes{
     RflmCalculatingChildSupport: number;
     ReplyExistingChildSupport: number;
     RflmUnpaidChildSupport: number;
-    DisagreeExistingChildSupport: number;       
+    DisagreeExistingChildSupport: number; 
+    ReplyNewContactWithChild: number;
+    DisagreeContactWithChild: number;
+    ReplyExistingContactWithChild: number;
 
     RflmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;

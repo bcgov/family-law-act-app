@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/reply-existing-child-support.json";
+import surveyJson from "./forms/reply-new-contact-with-child.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -26,7 +26,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ReplyExistingChildSupport extends Vue {
+export default class ReplyNewContactWithChild extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;     
@@ -39,8 +39,7 @@ export default class ReplyExistingChildSupport extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
-    currentPage =0;
-  
+    currentPage =0;  
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -73,8 +72,8 @@ export default class ReplyExistingChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.replyExistingChildSupportSurvey?.data) {
-            this.survey.data = this.step.result.replyExistingChildSupportSurvey.data; 
+        if (this.step.result?.replyNewContactWithChildSurvey) {
+            this.survey.data = this.step.result.replyNewContactWithChildSurvey.data; 
             this.setPages();            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);             
         }
@@ -85,12 +84,8 @@ export default class ReplyExistingChildSupport extends Vue {
     public setPages(){
 
         if (this.survey.data?.agreeCourtOrder){
-
-            const p = this.stPgNo.RFLM
-
-            togglePages([p.RflmUnpaidChildSupport, p.DisagreeExistingChildSupport, p.RflmCalculatingChildSupport], this.survey.data.agreeCourtOrder == 'n', this.currentStep);
-
-           
+            const p = this.stPgNo.RFLM;
+            togglePages([p.DisagreeContactWithChild], this.survey.data.agreeCourtOrder == 'n', this.currentStep);
         }
     }
 
@@ -106,7 +101,7 @@ export default class ReplyExistingChildSupport extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {replyExistingChildSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {replyNewContactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
