@@ -125,7 +125,7 @@ export function getForm6PopulationInfo(result) {
         const agreed = (appointingChildGuardian.moreThanOneChild == 'y' && appointingChildGuardian.agreeCourtOrderChild == 'agreeAll')
         || (appointingChildGuardian.moreThanOneChild == 'n' && appointingChildGuardian.agreeCourtOrder == 'y');
 
-        agreeDisagreeResults.existingChildContact = {
+        agreeDisagreeResults.appointGuardian = {
             opApplied: true,
             agree: agreed
         }
