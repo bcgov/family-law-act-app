@@ -60,6 +60,7 @@ import UnderlineForm from "@/components/utils/PopulateForms/components/Underline
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 
 import { schedule7DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { disagreeReasonListInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
 
 @Component({
     components:{
@@ -71,27 +72,19 @@ import { schedule7DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/
 export default class Schedule7 extends Vue {
 
     @Prop({required:true})
-    result!: any;
+    result!: any;    
     
-    @Prop({required:true})
-    selectedSchedules!: string[]; 
    
     dataReady = false; 
     guardInfo = {} as schedule7DataInfoType;
 
     mounted(){
         this.dataReady = false;       
-        this.extractInfo();       
+        this.guardInfo = this.getGuardianshipOfChildInfo();       
         this.dataReady = true;
-    }
+    }    
 
-    public extractInfo(){
-        if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
-            this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
-        }        
-    }
-
-    public getGuardianshipOfChildInfo(guardian:boolean, cancel: boolean){
+    public getGuardianshipOfChildInfo(){
         let guardianshipInfo = {} as schedule7DataInfoType;
 
         guardianshipInfo = {
@@ -101,6 +94,18 @@ export default class Schedule7 extends Vue {
             opNotSuitableDesc: '',
             other: false,
             otherDesc: ''
+        }
+
+        if (this.result.disagreeAppointingGuardianOfChildSurvey?.disagreeReasonList){
+            const disagreeReasons: disagreeReasonListInfoType = this.result.disagreeAppointingGuardianOfChildSurvey.disagreeReasonList;           
+            guardianshipInfo = {
+                opNotGuardian: disagreeReasons.checked.includes('unable'),
+                opNotGuardianDesc: (disagreeReasons.checked.includes('unable') && disagreeReasons.unableComment)?disagreeReasons.unableComment:'',
+                opNotSuitable: disagreeReasons.checked.includes('unsuitable'),
+                opNotSuitableDesc: (disagreeReasons.checked.includes('unsuitable') && disagreeReasons.unsuitableComment)?disagreeReasons.unsuitableComment:'',
+                other: disagreeReasons.checked.includes('other'),
+                otherDesc: (disagreeReasons.checked.includes('other') && disagreeReasons.otherComment)?disagreeReasons.otherComment:''
+            }
         }
         
         return guardianshipInfo;

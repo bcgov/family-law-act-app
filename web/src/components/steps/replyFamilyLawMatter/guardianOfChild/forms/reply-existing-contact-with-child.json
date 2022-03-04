@@ -1,0 +1,125 @@
+{
+  "title": "Reply Existing Contact with a Child",
+  "pages": [
+    {
+      "name": "Reply Existing Contact with a Child",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "childContactDescription",
+          "title": "Family dynamics change and children grow up. An order or agreement about contact with a child that was made in the past may not make sense anymore.<br><br>The other party is asking for an order to be made about an existing final order or agreement about contact with a child. They may be asking to cancel or set aside the order or agreement, or they may be asking that it be changed or replaced with something different.<br><br>The details of the order the other party is asking for can be found in <b>Schedule 6 – Contact order or written agreement - existing</b> of their Application About a Family Law Matter. You will need to refer to their application for these next questions.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "ExistingChildContactPanel",
+          "elements": [          
+            {
+              "type": "yesno",
+              "name": "agreeCourtOrder",
+              "title": "Do you agree the court should make the order?",
+              "description": "Look at the order the other party is applying for. Their order may be set out in their response to <b>Question 5</b> on <b>Schedule 6 – Contact order or written agreement - existing</b> Should the court make the order?<br><br>If you agree to only part of the order, for example, you agree they can have contact with the child but not as they requested, select NO. This service will help you to explain why the order should be different.",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ExistingChildContactApplicationPanel",
+          "visible": false,
+          "visibleIf": "{agreeCourtOrder} = 'n'",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "existingType",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'",
+              "title": "Is the other party’s application about an existing final order or an existing agreement?",  
+              "description": "Check the other party’s application. On <b>Schedule 6 – Contact order or written agreement - existing, Question 3</b> would be completed for a final order, <b>Question 4</b> would be completed for an agreement.<br>Select the correct option.",            
+              "choices": [
+                {
+                  "value": "finalOrder",
+                  "text": "Final order"
+                },
+                {
+                  "value": "agreement",
+                  "text": "Agreement"
+                }
+              ]
+            },
+            {
+              "type": "yesno",
+              "name": "agreeFinalOrder",
+              "description": "The court can only change or cancel an order if there has been a change in the needs or circumstances of the child since the original court order was made, including a change in the circumstances of another person such as a parent.",
+              "title": "Do you agree with the other party that needs or circumstances have changed since the final order was made?",
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {existingType} = 'finalOrder'",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "agreeAgreement",
+              "description": "If there is an existing agreement, the court can set aside all or part of the existing agreement and replace it with a new order if something different would be in the best interests of the child.",
+              "title": "Do you agree with the other party that the agreement is no longer in the best interests of the child?",
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {existingType} = 'agreement'",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "disagreeReason",
+              "title": "Why don’t you agree with the requested order?",
+              "description": "Explain why you don’t agree with the order the other party requested should be made. If you agreed with some parts, just explain why you don’t agree with the other parts of the order they are asking to have made.<br><br>You do not need to use any special wording. The key is to be clear about what you mean.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'"             
+            },           
+            {
+              "type": "radiogroup",
+              "name": "requestedOrder",
+              "title": "What do you want the court to order?",
+              "description": "Choose one.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'",
+              "choices": [
+                {
+                  "text":"I want the existing final order or agreement to stay in place (no changes to be made).",
+                  "value": "noChange"
+                },
+                {
+                  "text":"I want a different order made about child support (just not what the other party requested).",
+                  "value": "diffChange"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "requestedChangeDescription",
+              "title": "What changes to contact with the child do you want the court to order?",
+              "description": "Explain what order you want made about contact with the child instead of what the other party has asked for.<br><br>Give as much detail as you would like the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. If there is more than one child, be clear if there are differences in how the contact will apply to each child.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order instead.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {requestedOrder} = 'diffChange'"
+            },            
+            {
+              "type": "comment",
+              "name": "childBestInterestReason",
+              "title": "Why do you believe the order about contact you are applying for is in the child’s best interests?",
+              "description": "When you ask for a court order involving a child, you must consider what is in the best interests of the child. Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child.<br>To determine what is in the <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests' target='_blank'>child's best interests</a> when making parenting arrangements, you must consider factors including:<ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>You do not need to use any special wording. The key is to be clear about why you think the order you want made is in the child’s best interests.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'"
+            }
+          ]
+        }
+   
+      ],
+      "title": "Reply Existing Contact with a Child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
