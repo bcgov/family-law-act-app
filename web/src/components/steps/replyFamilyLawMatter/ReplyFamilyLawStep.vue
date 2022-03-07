@@ -28,6 +28,9 @@
 
         <reply-appointing-guardian-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyAppointingGuardianOfChild"/>
         <disagree-appointing-guardian-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeAppointingGuardianOfChild"/>
+
+        <reply-cancelling-guardian-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyCancellingGuardianOfChild"/>
+        <disagree-cancelling-guardian-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeCancellingGuardianOfChild"/>
        
         <rflm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmAdditionalDocuments"/>
         <review-your-answers-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/>
@@ -74,6 +77,9 @@ import ReplyExistingContactWithChild from "./contactWithChild/ReplyExistingConta
 import ReplyAppointingGuardianOfChild from "./guardianOfChild/ReplyAppointingGuardianOfChild.vue";
 import DisagreeAppointingGuardianOfChild from "./guardianOfChild/DisagreeAppointingGuardianOfChild.vue";
 
+import ReplyCancellingGuardianOfChild from "./guardianOfChild/ReplyCancellingGuardianOfChild.vue";
+import DisagreeCancellingGuardianOfChild from "./guardianOfChild/DisagreeCancellingGuardianOfChild.vue";
+
 import RflmAdditionalDocuments from "./RflmAdditionalDocuments.vue";
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
@@ -105,6 +111,8 @@ import { stepInfoType } from "@/types/Application";
         ReplyExistingContactWithChild,
         ReplyAppointingGuardianOfChild,
         DisagreeAppointingGuardianOfChild,
+        ReplyCancellingGuardianOfChild,
+        DisagreeCancellingGuardianOfChild,
         RflmAdditionalDocuments,
         ReviewYourAnswersRFLM,
         PreviewFormsRFLM  

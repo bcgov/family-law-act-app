@@ -16,7 +16,7 @@ import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBack
 import { replyExistingParentingArrangementsSurveyInfoType, replyNewConditionsParentingTimeSurveyInfoType, replyNewParentalResponsibilitiesSurveyInfoType, replyNewParentingTimeSurveyInfoType } from "./ReplyFamilyLawMatter/ParentingArrangements";
 import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyInfoType, relationshipToChildSurveyInfoType, replyExistingChildSupportSurveyInfoType, replyNewChildSupportSurveyInfoType, rflmCalculatingChildSupportSurveyInfoType, rflmUnpaidChildSupportSurveyInfoType } from "./ReplyFamilyLawMatter/ChildSupport";
 import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
-import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
+import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType, disagreeCancellingGuardianOfChildSurveyInfoType, replyCancellingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
 
 
 //This is what our database saves.
@@ -139,6 +139,9 @@ export interface stepInfoType {
 
     replyAppointingGuardianOfChildSurvey?: replyAppointingGuardianOfChildSurveyInfoType;
     disagreeAppointingGuardianOfChildSurvey?: disagreeAppointingGuardianOfChildSurveyInfoType;
+
+    replyCancellingGuardianOfChildSurvey?: replyCancellingGuardianOfChildSurveyInfoType;
+    disagreeCancellingGuardianOfChildSurvey?: disagreeCancellingGuardianOfChildSurveyInfoType;
     
     rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
 

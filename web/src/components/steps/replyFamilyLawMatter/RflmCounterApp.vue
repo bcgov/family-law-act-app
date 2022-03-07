@@ -194,7 +194,7 @@ export default class RflmCounterApp extends Vue {
     contactWithChildExistingPages = []
 
     appointingGuardianshipPages = []
-    guardianOfChildExistingPages = []
+    cancellingGuardianshipPages = []
 
     spousalSupportNewPages = []
     spousalSupportExistingPages = []
@@ -333,10 +333,12 @@ export default class RflmCounterApp extends Vue {
             } 
 
             if (this.selectedRepliesData.selectedGuardianshipForm.length > 0){                
-                if(this.selectedRepliesData.selectedGuardianshipForm.includes("appointing"))
+                if(this.selectedRepliesData.selectedGuardianshipForm.includes("appointing")){
                     togglePages(this.appointingGuardianshipPages, true, this.currentStep);
-                else    
-                    togglePages(this.guardianOfChildExistingPages, true, this.currentStep);               
+                }
+                if (this.selectedRepliesData.selectedGuardianshipForm.includes("cancelling")){    
+                    togglePages(this.cancellingGuardianshipPages, true, this.currentStep);  
+                }             
             } 
 
             // if (this.selectedRepliesData.selectedSpousalSupportForm.length > 0){                
@@ -395,7 +397,7 @@ export default class RflmCounterApp extends Vue {
         this.contactWithChildExistingPages = [p.RflmChildrenInfo, p.ReplyExistingContactWithChild]
 
         this.appointingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyAppointingGuardianOfChild, p.DisagreeAppointingGuardianOfChild]
-        this.guardianOfChildExistingPages = [p.RflmChildrenInfo]
+        this.cancellingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyCancellingGuardianOfChild, p.DisagreeCancellingGuardianOfChild]
 
         // this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
         // this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]

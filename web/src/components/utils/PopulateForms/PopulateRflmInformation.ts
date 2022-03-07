@@ -3,7 +3,7 @@ import { rflmQuestionnaireDataInfoType, rflmCounterAppDataInfoType, rflmBackgrou
 import { replyExistingParentingArrangementsDataInfoType, replyNewConditionsParentingTimeDataInfoType, replyNewParentalResponsibilitiesDataInfoType, replyNewParentingTimeDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ParentingArrangements';
 import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 import { replyExistingContactWithChildDataInfoType, replyNewContactWithChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ContactWithChild';
-import { replyAppointingGuardianOfChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
+import { replyAppointingGuardianOfChildDataInfoType, replyCancellingGuardianOfChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
 
 export function getForm6PopulationInfo(result) {
 
@@ -136,7 +136,17 @@ export function getForm6PopulationInfo(result) {
 
     } 
     if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('cancelling')){
-        schedules.push('schedule8')
+        const cancellingChildGuardian: replyCancellingGuardianOfChildDataInfoType = result.replyCancellingGuardianOfChildSurvey;        
+        const agreed = (cancellingChildGuardian.agreeCourtOrder == 'agreeAll');
+
+        agreeDisagreeResults.cancelGuardian = {
+            opApplied: true,
+            agree: agreed
+        }
+        
+        if (!agreed){
+            schedules.push('schedule8')
+        }
     }
 
     if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('newSpouseSupport')){

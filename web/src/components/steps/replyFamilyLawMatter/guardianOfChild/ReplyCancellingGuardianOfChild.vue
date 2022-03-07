@@ -9,13 +9,14 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/reply-existing-contact-with-child.json";
+import surveyJson from "./forms/reply-cancelling-guardian-of-child.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { togglePages } from '@/components/utils/TogglePages';
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
@@ -25,7 +26,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ReplyExistingContactWithChild extends Vue {
+export default class ReplyCancellingGuardianOfChild extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;     
@@ -38,8 +39,7 @@ export default class ReplyExistingContactWithChild extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
-    currentPage =0;
-  
+    currentPage =0;  
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -62,7 +62,8 @@ export default class ReplyExistingContactWithChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('replyFlm')                      
+            Vue.filter('surveyChanged')('replyFlm')
+            this.setPages();          
         })
     }  
     
@@ -71,12 +72,20 @@ export default class ReplyExistingContactWithChild extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.replyExistingContactWithChildSurvey?.data) {
-            this.survey.data = this.step.result.replyExistingContactWithChildSurvey.data;                       
+        if (this.step.result?.replyCancellingGuardianOfChildSurvey) {
+            this.survey.data = this.step.result.replyCancellingGuardianOfChildSurvey.data; 
+            this.setPages();            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);             
         }
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    }
+
+    public setPages(){        
+        if (this.survey.data?.agreeCourtOrder){
+            const p = this.stPgNo.RFLM;
+            togglePages([p.DisagreeCancellingGuardianOfChild], this.survey.data.agreeCourtOrder != 'agreeAll', this.currentStep);
+        }         
     }
 
     public onPrev() {
@@ -91,7 +100,7 @@ export default class ReplyExistingContactWithChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {replyExistingContactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {replyCancellingGuardianOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
