@@ -1,0 +1,48 @@
+{
+  "title": "Disagree – Appointing a Guardian",
+  "pages": [
+    {
+      "name": "Disagree – Appointing a Guardian",
+      "description": "When you ask for a court order involving a child, you must consider what is in the best interests of the child. Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child.<br><br>To determine what is in the <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests' target='_blank'>child's best interests</a> when asking for an order about guardianship of a child, you must consider factors including:<ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>",
+      "elements": [  
+        {
+          "type": "panel",
+          "name": "appointGuardianshipPanel",          
+          "elements": [
+            {
+              "type": "multiplecommentwithdescriptioncheckbox",
+              "name": "disagreeReasonList",
+              "isRequired": true,
+              "title": "Why do you believe it is not in the best interests of the child for the other party to be appointed as their guardian?",
+              "description": "Select each option that applies and explain why. You do not need to use any special wording. The key is to be clear about why you think the order you want made is in the child’s best interests.",
+              "choices": [
+                {
+                  "value": "unable",
+                  "comment": true,
+                  "text": "The other party is not able to be a guardian",
+                  "hint": "Please explain:"
+                },
+                {
+                  "value": "unsuitable",
+                  "comment": true,
+                  "text": "The other party is not suitable to be a guardian",
+                  "hint": "Please explain:"
+                },
+                {
+                  "value": "other",
+                  "comment": true,
+                  "text": "Other reason(s):",
+                  "hint": "Please state your reason and explain why you hold that belief:"
+                }
+              ]
+            }           
+            
+          ]
+        }      
+      ],
+      "title": "Disagree – Appointing a Guardian"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

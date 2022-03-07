@@ -193,8 +193,8 @@ export default class RflmCounterApp extends Vue {
     contactWithChildNewPages = []
     contactWithChildExistingPages = []
 
-    guardianOfChildNewPages = []
-    guardianOfChildExistingPages = []
+    appointingGuardianshipPages = []
+    cancellingGuardianshipPages = []
 
     spousalSupportNewPages = []
     spousalSupportExistingPages = []
@@ -333,10 +333,12 @@ export default class RflmCounterApp extends Vue {
             } 
 
             if (this.selectedRepliesData.selectedGuardianshipForm.length > 0){                
-                if(this.selectedRepliesData.selectedGuardianshipForm.includes("appointing"))
-                    togglePages(this.guardianOfChildNewPages, true, this.currentStep);
-                else    
-                    togglePages(this.guardianOfChildExistingPages, true, this.currentStep);               
+                if(this.selectedRepliesData.selectedGuardianshipForm.includes("appointing")){
+                    togglePages(this.appointingGuardianshipPages, true, this.currentStep);
+                }
+                if (this.selectedRepliesData.selectedGuardianshipForm.includes("cancelling")){    
+                    togglePages(this.cancellingGuardianshipPages, true, this.currentStep);  
+                }             
             } 
 
             // if (this.selectedRepliesData.selectedSpousalSupportForm.length > 0){                
@@ -394,8 +396,8 @@ export default class RflmCounterApp extends Vue {
         this.contactWithChildNewPages = [p.RflmChildrenInfo, p.ReplyNewContactWithChild, p.DisagreeContactWithChild]
         this.contactWithChildExistingPages = [p.RflmChildrenInfo, p.ReplyExistingContactWithChild]
 
-        this.guardianOfChildNewPages = [p.RflmChildrenInfo]
-        this.guardianOfChildExistingPages = [p.RflmChildrenInfo]
+        this.appointingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyAppointingGuardianOfChild, p.DisagreeAppointingGuardianOfChild]
+        this.cancellingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyCancellingGuardianOfChild, p.DisagreeCancellingGuardianOfChild]
 
         // this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
         // this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]

@@ -313,29 +313,14 @@ export default class RflmChildrenInfo extends Vue {
         }        
         
         return resultString
-    }    
-
-    //TODO: after other pages have been added
+    }  
 
     public resetChildrenRelatedPages(childData?) {
     
         const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
         const p = stPgNo.RFLM;
 
-        const pages = [
-            // p.ParentingArrangements,
-            // p.ParentalResponsibilities,
-            // p.ParentingTime,
-            // p.ParentingOrderAgreement,
-            // p.BestInterestsOfChild,
-            // p.ChildSupportCurrentArrangements,
-            // p.AboutChildSupportOrder,
-            // p.SpecialAndExtraordinaryExpenses,
-            // p.ContactWithChild,
-            // p.ContactWithChildOrder,
-            // p.AboutContactWithChildOrder,
-            // p.ContactWithChildBestInterestsOfChild,
-            // p.GuardianOfChild,
+        const pages = [            
             p.ReviewYourAnswersRFLM
         ]
         Vue.filter('setProgressForPages')(p._StepNo, pages,50);    

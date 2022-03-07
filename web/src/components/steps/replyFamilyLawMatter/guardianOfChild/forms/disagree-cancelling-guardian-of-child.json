@@ -1,0 +1,59 @@
+{
+  "title": "Disagree – Cancelling Guardianship",
+  "pages": [
+    {
+      "name": "Disagree – Cancelling Guardianship",
+      "elements": [  
+        {
+          "type": "panel",
+          "name": "cancelGuardianshipPanel",          
+          "elements": [
+            {
+              "type": "multiplecommentwithdescriptioncheckbox",
+              "name": "disagreeReasonList",
+              "isRequired": true,
+              "title": "Explain why you do not agree with the other party’s request to cancel guardianship of a child using the options provided.",
+              "description": "Look at <b>Question 1</b> on <b>Schedule 8 – Cancelling Guardianship of a Child</b> of the other party’s Application About a Family Law Matter. The guardian is the person listed in the first column of the table. This is the person the statements below are about. If there is more than one guardian listed, answer this question for any of those guardians. In your explanation be sure to specify if it applies to one or all guardians.<br><br>Select each option that applies and explain why. You do not need to use any special wording. The key is to be clear about what you mean. ",
+              "choices": [
+                {
+                  "value": "able",
+                  "comment": true,
+                  "text": "The guardian is able and willing to be a guardian",
+                  "hint": "Please explain:"
+                },
+                {
+                  "value": "suitable",
+                  "comment": true,
+                  "text": "The guardian is suitable to be a guardian",
+                  "hint": "Please explain:"
+                },
+                {
+                  "value": "noConsent",
+                  "comment": true,
+                  "text": "The guardian does not consent to cancellation of their guardianship",
+                  "hint": "Please explain why:"
+                },
+                {
+                  "value": "other",
+                  "comment": true,
+                  "text": "Other reason(s):",
+                  "hint": "Please state your reason and explain why you hold that belief:"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "childBestInterestReason",
+              "title": "Why do you believe it is not in the child’s best interests to cancel guardianship as requested by the other party?",
+              "description": "When you ask for a court order involving a child, you must consider what is in the best interests of the child. Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child.<br>To determine what is in the <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests' target='_blank'>child's best interests</a> when considering cancelling guardianship of a child, you must consider factors including:<ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>You do not need to use any special wording. The key is to be clear about why you think it is not in the child’s best interests to cancel their guardianship.",
+              "isRequired": true
+            }
+          ]
+        }      
+      ],
+      "title": "Disagree – Cancelling Guardianship"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

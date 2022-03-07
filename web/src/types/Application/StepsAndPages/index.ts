@@ -75,6 +75,10 @@ export interface RFLMstPgTypes{
     ReplyNewContactWithChild: number;
     DisagreeContactWithChild: number;
     ReplyExistingContactWithChild: number;
+    ReplyAppointingGuardianOfChild: number;
+    DisagreeAppointingGuardianOfChild: number;
+    ReplyCancellingGuardianOfChild: number;
+    DisagreeCancellingGuardianOfChild: number;
 
     RflmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;

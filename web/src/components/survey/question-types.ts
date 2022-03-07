@@ -13,6 +13,7 @@ import TextBeforeInputNumber from "./components/TextBeforeInputNumber.vue";
 import MultipleTextInput from "./components/MultipleTextInput.vue"
 import AdvancedRadioGroup from "./components/AdvancedRadioGroup.vue"
 import MultipleCommentCheckbox from "./components/MultipleCommentCheckbox.vue"
+import MultipleCommentWithDescriptionCheckbox from "./components/MultipleCommentWithDescriptionCheckbox.vue"
 import CustomButton from "./components/CustomButton.vue"
 import CustomDateTime from "./components/CustomDateTime.vue"
 
@@ -420,6 +421,31 @@ function initMultipleCommentCheckbox(Survey: any) {
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
 
+function initMultipleCommentWithDescriptionCheckbox(Survey: any) {
+  const widget = {
+    name: "MultipleCommentWithDescriptionCheckbox",
+    title: "Multiple Comment With Description Checkbox",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "multiplecommentwithdescriptioncheckbox";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("multiplecommentwithdescriptioncheckbox",[],null,"empty");    
+      Survey.JsonObject.metaData.addProperties("multiplecommentwithdescriptioncheckbox", [        
+        {
+          name: "choices:[]"
+        }
+      ]);
+    },
+  };
+
+  Vue.component("MultipleCommentWithDescriptionCheckbox", MultipleCommentWithDescriptionCheckbox);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
 function initCustomButton(Survey: any) {
   const widget = {
     name: "CustomButton",
@@ -533,6 +559,7 @@ export function addQuestionTypes(Survey: any) {
   initMultipleTextInput(Survey);
   initAdvancedRadioGroup(Survey);
   initMultipleCommentCheckbox(Survey);
+  initMultipleCommentWithDescriptionCheckbox(Survey);
   initCustomButton(Survey);
   initCustomDateTime(Survey);
 

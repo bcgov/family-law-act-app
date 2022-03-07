@@ -3,6 +3,7 @@ import { rflmQuestionnaireDataInfoType, rflmCounterAppDataInfoType, rflmBackgrou
 import { replyExistingParentingArrangementsDataInfoType, replyNewConditionsParentingTimeDataInfoType, replyNewParentalResponsibilitiesDataInfoType, replyNewParentingTimeDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ParentingArrangements';
 import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 import { replyExistingContactWithChildDataInfoType, replyNewContactWithChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ContactWithChild';
+import { replyAppointingGuardianOfChildDataInfoType, replyCancellingGuardianOfChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
 
 export function getForm6PopulationInfo(result) {
 
@@ -118,13 +119,34 @@ export function getForm6PopulationInfo(result) {
         }
     }
 
-    //TODO: update after shedule 7 and 8 have been added 
-
     if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('appointing')){
-        schedules.push('schedule7');
+
+        const appointingChildGuardian: replyAppointingGuardianOfChildDataInfoType = result.replyAppointingGuardianOfChildSurvey;        
+        const agreed = (appointingChildGuardian.moreThanOneChild == 'y' && appointingChildGuardian.agreeCourtOrderChild == 'agreeAll')
+        || (appointingChildGuardian.moreThanOneChild == 'n' && appointingChildGuardian.agreeCourtOrder == 'y');
+
+        agreeDisagreeResults.appointGuardian = {
+            opApplied: true,
+            agree: agreed
+        }
+        
+        if (!agreed){
+            schedules.push('schedule7')
+        }
+
     } 
     if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('cancelling')){
-        schedules.push('schedule8')
+        const cancellingChildGuardian: replyCancellingGuardianOfChildDataInfoType = result.replyCancellingGuardianOfChildSurvey;        
+        const agreed = (cancellingChildGuardian.agreeCourtOrder == 'agreeAll');
+
+        agreeDisagreeResults.cancelGuardian = {
+            opApplied: true,
+            agree: agreed
+        }
+        
+        if (!agreed){
+            schedules.push('schedule8')
+        }
     }
 
     if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('newSpouseSupport')){

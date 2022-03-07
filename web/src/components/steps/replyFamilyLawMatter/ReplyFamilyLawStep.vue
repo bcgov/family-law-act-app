@@ -25,6 +25,12 @@
         <disagree-contact-with-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeContactWithChild"/>
 
         <reply-existing-contact-with-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyExistingContactWithChild"/>
+
+        <reply-appointing-guardian-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyAppointingGuardianOfChild"/>
+        <disagree-appointing-guardian-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeAppointingGuardianOfChild"/>
+
+        <reply-cancelling-guardian-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyCancellingGuardianOfChild"/>
+        <disagree-cancelling-guardian-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeCancellingGuardianOfChild"/>
        
         <rflm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmAdditionalDocuments"/>
         <review-your-answers-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/>
@@ -68,6 +74,12 @@ import DisagreeContactWithChild from "./contactWithChild/DisagreeContactWithChil
 
 import ReplyExistingContactWithChild from "./contactWithChild/ReplyExistingContactWithChild.vue";
 
+import ReplyAppointingGuardianOfChild from "./guardianOfChild/ReplyAppointingGuardianOfChild.vue";
+import DisagreeAppointingGuardianOfChild from "./guardianOfChild/DisagreeAppointingGuardianOfChild.vue";
+
+import ReplyCancellingGuardianOfChild from "./guardianOfChild/ReplyCancellingGuardianOfChild.vue";
+import DisagreeCancellingGuardianOfChild from "./guardianOfChild/DisagreeCancellingGuardianOfChild.vue";
+
 import RflmAdditionalDocuments from "./RflmAdditionalDocuments.vue";
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
@@ -97,6 +109,10 @@ import { stepInfoType } from "@/types/Application";
         ReplyNewContactWithChild,
         DisagreeContactWithChild,
         ReplyExistingContactWithChild,
+        ReplyAppointingGuardianOfChild,
+        DisagreeAppointingGuardianOfChild,
+        ReplyCancellingGuardianOfChild,
+        DisagreeCancellingGuardianOfChild,
         RflmAdditionalDocuments,
         ReviewYourAnswersRFLM,
         PreviewFormsRFLM  

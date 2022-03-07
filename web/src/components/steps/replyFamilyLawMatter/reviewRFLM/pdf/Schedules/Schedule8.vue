@@ -2,7 +2,7 @@
     <div v-if="dataReady">         
 <!-- <Page 9> --> 
 <!-- <Header> -->
-        <div v-if="selectedSchedules.includes('schedule8')">
+        <div>
             <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 8 – REPLY TO AN APPLICATION ABOUT CANCELLING GUARDIANSHIP OF CHILD OR CHILDREN</b></div>
             <div style="text-align:center;"><b>This is Schedule 8 to the Reply to an Application About a Family Law Matter</b></div>
@@ -78,6 +78,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule8DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { disagreeCancellationReasonListInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
 
 @Component({
     components:{
@@ -90,27 +91,17 @@ export default class Schedule8 extends Vue {
 
     @Prop({required:true})
     result!: any;
-    
-    @Prop({required:true})
-    selectedSchedules!: string[];
    
     dataReady = false;
     guardInfo = {} as schedule8DataInfoType;
    
     mounted(){
         this.dataReady = false;       
-        this.extractInfo();       
+        this.guardInfo = this.getGuardianshipOfChildInfo();       
         this.dataReady = true;      
-    }  
+    } 
 
-    public extractInfo(){   
-
-        if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
-            this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
-        }
-    }   
-
-    public getGuardianshipOfChildInfo(guardian:boolean, cancel: boolean){
+    public getGuardianshipOfChildInfo(){
         let guardianshipInfo = {} as schedule8DataInfoType;
 
         guardianshipInfo = {
@@ -123,6 +114,21 @@ export default class Schedule8 extends Vue {
             other: false,
             otherDesc: '',
             bstIntrst: ''
+        }
+        
+        if (this.result.disagreeCancellingGuardianOfChildSurvey?.disagreeReasonList && this.result.disagreeCancellingGuardianOfChildSurvey?.childBestInterestReason){
+            const disagreeReasons: disagreeCancellationReasonListInfoType = this.result.disagreeCancellingGuardianOfChildSurvey.disagreeReasonList;           
+            guardianshipInfo = {
+                ableGuardian: disagreeReasons.checked.includes('able'),
+                ableGuardianDesc: (disagreeReasons.checked.includes('able') && disagreeReasons.ableComment)?disagreeReasons.ableComment:'',
+                suitableGuardian: disagreeReasons.checked.includes('suitable'),
+                suitableGuardianDesc: (disagreeReasons.checked.includes('suitable') && disagreeReasons.suitableComment)?disagreeReasons.suitableComment:'',
+                noConsent: disagreeReasons.checked.includes('noConsent'),
+                noConsentDesc: (disagreeReasons.checked.includes('noConsent') && disagreeReasons.noConsentComment)?disagreeReasons.noConsentComment:'',
+                other: disagreeReasons.checked.includes('other'),
+                otherDesc: (disagreeReasons.checked.includes('other') && disagreeReasons.otherComment)?disagreeReasons.otherComment:'',
+                bstIntrst: this.result.disagreeCancellingGuardianOfChildSurvey?.childBestInterestReason?this.result.disagreeCancellingGuardianOfChildSurvey.childBestInterestReason:''
+            }
         }
         
         return guardianshipInfo;
