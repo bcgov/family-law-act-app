@@ -116,11 +116,7 @@ export default class ReviewAndPrint extends Vue {
     public locationsInfo!: locationsInfoType[];
 
     @applicationState.State
-    public types!: string[];
-
-    
-
-    
+    public types!: string[];    
 
     error= "";
     currentStep =0;

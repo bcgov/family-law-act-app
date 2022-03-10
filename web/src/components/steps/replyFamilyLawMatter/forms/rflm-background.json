@@ -1,0 +1,92 @@
+{
+   "title": "Provincial Court Family Law Act Protection Order",
+   "pages": [
+      {
+         "name": "Background",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "backgroundPanel",
+               "elements": [
+                  {
+                     "type": "yesno",
+                     "name": "ExistingOrdersFLM",
+                     "visible": false,
+                     "visibleIf": "({includesCounter})",
+                     "title": "Are there any existing written agreements or court `orders` about parenting arrangements, `child support`, contact with a child, guardianship of a child and/or spousal support?",
+                     "description": "A written agreement includes a separation agreement or mediation agreement. A court order may be from any court in any place, including the Supreme Court.",
+                     "isRequired": true
+                  },                  
+                  {
+                     "type": "checkbox",
+                     "name": "existingOrdersListFLM",
+                     "visible": false,
+                     "visibleIf": "({ExistingOrdersFLM} = 'y') and ({includesCounter})",
+                     "title": "Please select which family law matter issue your existing written agreement or court order is about:",
+                     "description": "Select all that apply.",
+                     "isRequired": true,
+                     "choices": [
+                        "Parenting Arrangements including `parental responsibilities` and `parenting time`",
+                        "Child Support",
+                        "Contact with a Child",
+                        "Guardianship of a Child",
+                        "Spousal Support"
+                     ]
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "otherPartyAttach",
+                     "visible": false,
+                     "visibleIf": "({ExistingOrdersFLM} = 'y') and ({includesCounter})",
+                     "title": "Did the other party attach a copy of all existing written agreements or court orders about parenting arrangements, child support, contact with a child, guardianship of a child and/or spousal support to their application?",
+                     "description": "If a current agreement or order was missed, you can include a copy with your reply. Check the documents you were served to see if a copy was included already.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "attachCopyOfExistingOrders",
+                     "visible": false,
+                     "visibleIf": "({otherPartyAttach} = 'n') and ({ExistingOrdersFLM} = 'y') and ({includesCounter})",
+                     "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "existingPOOrdersAttached",
+                     "title": "Did the other party attach a copy of all existing court orders, agreements or plans protecting one of the parties, or the child(ren), or restraining contact between the parties, including a protection order, an order, agreement or plan involving child protection services, or a peace bond, restraining order, bail condition or other criminal order, to their application?",
+                     "description": "This includes:<ul><li>any family law protection order from Provincial Court, BC Supreme Court, or another jurisdiction</li><li>any order, agreement or plan involving child protection services including a Protective Intervention Order or Supervision Order under the <i>Child, Family and Community Service Act</i>.</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>If an order, agreement, or plan was missed, select “NO” and you can include a copy with your reply. Check the documents you were served to see if a copy was included already.<br><br>If there is no order, agreement, or plan protecting one of the parties, or the child(ren), select “YES”. “",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "attachCopyOfExistingPOOrders",
+                     "visible": false,
+                     "visibleIf": "{existingPOOrdersAttached} = 'n'",
+                     "title": "You will need to include a copy of the missed order(s), agreement(s) or plan(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "likeToAddCulturalExplanation",
+                     "title": "Do you have any information you would like to share with court about the cultural, linguistic, religious and spiritual upbringing and heritage of your family, including, if a child is an Indigenous child, the child’s Indigenous identity?",
+                     "description": "There is no requirement to share but sometimes there is information you may choose to share with the court to help them in considering the application.",
+                     "isRequired": true
+                     
+                  },
+                  {
+                     "type": "comment",
+                     "visible": false,
+                     "visibleIf": "{likeToAddCulturalExplanation} = 'y'",
+                     "name": "culturalExplain",
+                     "title": "I would like to share the following information about my family:",
+                     "isRequired": true
+                  }
+               ]
+            }
+         ],
+         "title": "Background"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

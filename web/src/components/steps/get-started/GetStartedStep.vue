@@ -2,7 +2,8 @@
     <step-base v-bind:step="step">
         <select-activity v-bind:step="step" v-if="step.currentPage == stPgNo.GETSTART.SelectActivity" />
         <reply-to-application v-bind:step="step" v-if="step.currentPage == stPgNo.GETSTART.ReplyToApplication" />
-        <getting-started v-bind:step="step" v-if="step.currentPage == stPgNo.GETSTART.GettingStarted" />        
+        <getting-started v-bind:step="step" v-if="step.currentPage == stPgNo.GETSTART.GettingStarted" /> 
+        <flm-info v-bind:step="step" v-if="step.currentPage == stPgNo.GETSTART.FlmInfo" />        
     </step-base>
 </template>
 
@@ -11,6 +12,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
   
 import StepBase from "../StepBase.vue";
 import GettingStarted from "./GettingStarted.vue";
+import FlmInfo from "./FlmInfo.vue";
 import SelectActivity from "./SelectActivity.vue";
 import ReplyToApplication from "./ReplyToApplication.vue";
 import { stepInfoType } from "@/types/Application";
@@ -26,7 +28,8 @@ const applicationState = namespace("Application");
         StepBase,
         SelectActivity,
         ReplyToApplication,
-        GettingStarted
+        GettingStarted,
+        FlmInfo
     }
 })
 

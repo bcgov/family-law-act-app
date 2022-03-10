@@ -114,7 +114,45 @@
                     </b-form-group>
                 </div>
             </div>
-        </div>    
+        </div>  
+
+        <b-modal size="xl" v-model="preparationInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            <template v-slot:modal-title>
+                <h1 class="mb-0 text-primary">What you need to get started:</h1>
+            </template>
+            <div class="m-3">
+                <p>Try to collect as much information as possible before you start to complete the pathway.</p>
+                <p>The type of information and documents you need will depend on what you and the other party are asking the court for.</p>
+
+                 <p>You will need:</p>
+                <ul>
+                    <li>
+                        a copy of the other party’s Application about a Family Law Matter that you have been served with
+                    </li>
+                </ul>
+
+                <p>You might need:</p>
+                <ul>
+                    <li>
+                        birth dates, names, and other related information about the other party and your children
+                    </li>
+                    <li>
+                        any agreements or court orders you already have about a family law matter
+                    </li>                    
+                    <li>
+                        if you or the other party are asking for child or spousal support, information about 
+                        your income and, if you have it, the other party’s income                       
+                    </li>
+                    <li>
+                        if you or the other party are asking for orders about children, information about 
+                        your children’s living arrangements, schedules and expenses                       
+                    </li>
+                </ul>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="closePreparationInfo">Continue</b-button>
+            </template>            
+        </b-modal>  
 
     </page-base>
 </template>
@@ -169,14 +207,16 @@ export default class ReplyToApplication extends Vue {
   
     selected = []; 
     selectedReplyForms = [];  
-    showLegalAssistance = false;    
+    showLegalAssistance = false;   
+    preparationInfo = false; 
   
     currentStep =0;
     currentPage =0;
     dataReady = false;
 
     mounted(){ 
-        this.dataReady = false;        
+        this.dataReady = false;   
+        this.preparationInfo = false;     
         this.reloadPageInformation();
     }
 
@@ -242,10 +282,11 @@ export default class ReplyToApplication extends Vue {
             const replyCounterApplication = selectedReplyApplications.includes("replyCounterApplication");
                        
             toggleStep(this.stPgNo.RFLM._StepNo, replyFlm);
-            toggleSteps([this.stPgNo.COMMON._StepNo, this.stPgNo.WR._StepNo, this.stPgNo.SUBMIT._StepNo], writtenResponse);
+            toggleStep(this.stPgNo.WR._StepNo, writtenResponse);
+            toggleSteps([this.stPgNo.COMMON._StepNo, this.stPgNo.SUBMIT._StepNo], writtenResponse || replyFlm);
             toggleStep(this.stPgNo.CA._StepNo, replyCounterApplication);
 
-            togglePages([this.stPgNo.COMMON.SafetyCheck, this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], writtenResponse, this.stPgNo.COMMON._StepNo)
+            togglePages([this.stPgNo.COMMON.SafetyCheck, this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], writtenResponse || replyFlm, this.stPgNo.COMMON._StepNo)
 
             this.selectedReplyForms =[];
             if(replyFlm) this.selectedReplyForms.push("replyFlm")
@@ -260,7 +301,16 @@ export default class ReplyToApplication extends Vue {
     }
 
     public onNext() {
-        Vue.prototype.$UpdateGotoNextStepPage();                    
+        if (this.selected.includes("replyFlm")){
+            this.preparationInfo = true;
+        } else {
+            Vue.prototype.$UpdateGotoNextStepPage();
+        }                     
+    }
+
+    public closePreparationInfo(){
+        this.preparationInfo = false;
+        Vue.prototype.$UpdateGotoNextStepPage();
     }
   
     beforeDestroy() {

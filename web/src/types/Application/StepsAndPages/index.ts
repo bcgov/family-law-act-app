@@ -20,6 +20,7 @@ export interface GETSTARTstPgTypes{
     SelectActivity: number;
     ReplyToApplication: number;
     GettingStarted: number; // Apply for an order
+    FlmInfo: number;
 }
 
 export interface POstPgTypes{
@@ -55,7 +56,33 @@ export interface COMMONstPgTypes{
 export interface RFLMstPgTypes{
     _StepNo: number;  
 
-    ReplyToFlmApplication: number;   
+    RflmQuestionnaire: number;
+    RflmCounterApp: number;
+    RflmBackground: number;
+    RflmChildrenInfo: number;  
+    ReplyNewParentingArrangements: number;
+    ReplyNewParentalResponsibilities: number;
+    ReplyNewParentingTime: number;
+    ReplyNewConditionsParentingTime: number;
+    ReplyExistingParentingArrangements: number;
+    ReplyNewChildSupport: number;
+    RelationshipToChild: number;
+    DisagreeChildSupport: number;
+    RflmCalculatingChildSupport: number;
+    ReplyExistingChildSupport: number;
+    RflmUnpaidChildSupport: number;
+    DisagreeExistingChildSupport: number; 
+    ReplyNewContactWithChild: number;
+    DisagreeContactWithChild: number;
+    ReplyExistingContactWithChild: number;
+    ReplyAppointingGuardianOfChild: number;
+    DisagreeAppointingGuardianOfChild: number;
+    ReplyCancellingGuardianOfChild: number;
+    DisagreeCancellingGuardianOfChild: number;
+
+    RflmAdditionalDocuments: number;
+    ReviewYourAnswersRFLM: number;
+    PreviewFormsRFLM: number; 
 }
 
 export interface WRstPgTypes{

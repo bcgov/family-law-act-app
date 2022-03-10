@@ -1,0 +1,54 @@
+{
+  "title": "Relationship to child",
+  "pages": [
+    {
+      "name": "Relationship to child",
+      "elements": [        
+        {
+          "type": "panel",
+          "name": "RelationshipToChildPanel",          
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "listOfRelationshipTypes",
+              "title": "How would you describe your relationship to the child the application for child support is about?",
+              "description": "Select each option that applies. If there is more than one child that the child support application is about, select each option that applies to any child. The other party described your relationship to the child in their response to <b>Question 2</b> on <b>Schedule 3 – Child Support – New</b>.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"Parent",
+                  "value": "parent"
+                },
+                {
+                  "text":"Step-parent or other person standing in the place of a parent",
+                  "value": "stepParent"
+                },
+                {
+                  "text":"Not a parent",
+                  "value": "notParent"
+                },
+                {
+                  "text":"Not a step-parent or other person standing in the place of a parent.",
+                  "value": "notStepParent"
+                }
+              ]
+            },
+            {
+              "type": "yesno",
+              "name": "parentageTest",
+              "title": "Do you want to request a parentage test?",   
+              "description": "If there is a dispute or any uncertainty as to whether you are a parent of a child who is the subject of a child support application, the court can order a parentage test be used to clear this up.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{listOfRelationshipTypes} contains 'notParent'"
+            }
+          ]
+        }      
+        
+      ],
+      "title": "Relationship to child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

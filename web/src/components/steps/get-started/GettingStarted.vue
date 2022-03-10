@@ -105,38 +105,7 @@
                     </b-form-group>
                 </div>
             </div>
-        </div>
-
-        <b-modal size="xl" v-model="preparationInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
-            <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">What you need to get started:</h1>
-            </template>
-            <div class="m-3">
-                <p>Try to collect as much information as possible before you start to complete the pathway.</p>
-                <p>The type of information and documents you need will depend on what you are asking the court for.</p>
-                <p>You might need:</p>
-                <ul>
-                    <li>
-                        birth dates, names, and other related information about the other party and your children
-                    </li>
-                    <li>
-                        any agreements or court orders you already have about a family law matter
-                    </li>
-                    <li>
-                        information about the date you got married, started living together, separated and got divorced, if applicable                       
-                    </li>
-                    <li>
-                        if you are asking for child or spousal support, information about your income and, if you have it, the other party’s income                       
-                    </li>
-                    <li>
-                        if you are asking for orders about children, information about your children’s living arrangements, schedules and expenses                       
-                    </li>
-                </ul>
-            </div>
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="closePreparationInfo">Continue</b-button>
-            </template>            
-        </b-modal>
+        </div>       
 
     </page-base>
 </template>
@@ -189,16 +158,14 @@ export default class GettingStarted extends Vue {
     selected = [];
     selectedReplyForms = [];
     returningUser = false
-    showLegalAssistance = false
-    preparationInfo = false
+    showLegalAssistance = false;    
 
     currentStep =0;
     currentPage =0;
     dataReady = false;
 
     mounted(){ 
-        this.dataReady = false;
-        this.preparationInfo = false;
+        this.dataReady = false;        
         this.reloadPageInformation();
     }
 
@@ -263,27 +230,35 @@ export default class GettingStarted extends Vue {
        if (selectedForms !== undefined && this.selectedReplyForms !== undefined) {            
     
             const poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
-            const poIncluded = selectedForms.includes("protectionOrder");           
-
-            toggleStep(this.stPgNo.PO._StepNo,    selectedForms.includes("protectionOrder"));
-            toggleStep(this.stPgNo.FLM._StepNo,   selectedForms.includes("familyLawMatter"));
-            toggleStep(this.stPgNo.CM._StepNo,    selectedForms.includes("caseMgmt"));
-            toggleStep(this.stPgNo.PPM._StepNo,   selectedForms.includes("priorityParenting"));
-            toggleStep(this.stPgNo.CONNECT._StepNo, false);
-            toggleStep(this.stPgNo.RELOC._StepNo, selectedForms.includes("childReloc"));
-            toggleStep(this.stPgNo.ENFRC._StepNo, selectedForms.includes("agreementEnfrc"));
-
-            toggleStep(this.stPgNo.SUBMIT._StepNo, (selectedForms.length>0 || this.selectedReplyForms.includes("writtenResponse")));//Review And Submit
+            const poIncluded = selectedForms.includes("protectionOrder"); 
             
-            toggleStep(this.stPgNo.COMMON._StepNo, this.selectedReplyForms.includes("writtenResponse") || selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc") || selectedForms.includes("caseMgmt") || selectedForms.includes("agreementEnfrc"));//Common Your Information
+            const flmIncluded = selectedForms.includes("familyLawMatter");
+            const cmIncluded = selectedForms.includes("caseMgmt");
+            const ppmIncluded = selectedForms.includes("priorityParenting")
+            const crIncluded = selectedForms.includes("childReloc")
+            const aeIncluded = selectedForms.includes("agreementEnfrc")
+
+            const wrIncluded = this.selectedReplyForms.includes("writtenResponse");
+            const rflmIncluded = this.selectedReplyForms.includes("replyFlm");
+
+            toggleStep(this.stPgNo.PO._StepNo,    poIncluded);
+            toggleStep(this.stPgNo.FLM._StepNo,   flmIncluded);
+            toggleStep(this.stPgNo.CM._StepNo,    cmIncluded);
+            toggleStep(this.stPgNo.PPM._StepNo,   ppmIncluded);
+            toggleStep(this.stPgNo.CONNECT._StepNo, false);
+            toggleStep(this.stPgNo.RELOC._StepNo, crIncluded);
+            toggleStep(this.stPgNo.ENFRC._StepNo, aeIncluded);
+
+            toggleStep(this.stPgNo.SUBMIT._StepNo, (selectedForms.length>0 || wrIncluded || rflmIncluded));//Review And Submit
+            
+            toggleStep(this.stPgNo.COMMON._StepNo, wrIncluded || rflmIncluded || flmIncluded || ppmIncluded || crIncluded || cmIncluded || aeIncluded);//Common Your Information
             togglePages([this.stPgNo.COMMON.SafetyCheck], !poIncluded, this.stPgNo.COMMON._StepNo);//Safety Check
-            togglePages([this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"), this.stPgNo.COMMON._StepNo);//Notice
+            togglePages([this.stPgNo.COMMON.Notice], ppmIncluded, this.stPgNo.COMMON._StepNo);//Notice
+            togglePages([this.stPgNo.GETSTART.FlmInfo], flmIncluded, this.stPgNo.GETSTART._StepNo);//Flm Info
             
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.COMMON._StepNo, currentPage: (poIncluded? this.stPgNo.COMMON.YourInformation:this.stPgNo.COMMON.SafetyCheck) });//correct Safety Check page in sidebar
-            togglePages([this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], (selectedForms.length>0 && !poOnly) || this.selectedReplyForms.includes("writtenResponse"), this.stPgNo.COMMON._StepNo);//Your Information, Other Party, Filing Location    
+            togglePages([this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], (selectedForms.length>0 && !poOnly) || wrIncluded || rflmIncluded, this.stPgNo.COMMON._StepNo);//Your Information, Other Party, Filing Location    
         }
-
-
     }
 
     public onPrev() {
@@ -291,18 +266,8 @@ export default class GettingStarted extends Vue {
     }    
 
     public onNext() { 
-
-        if (this.selected.includes("familyLawMatter")){
-            this.preparationInfo = true;
-        } else {
-            Vue.prototype.$UpdateGotoNextStepPage();
-        }               
-    }
-
-    public closePreparationInfo(){
-        this.preparationInfo = false;
         Vue.prototype.$UpdateGotoNextStepPage();
-    }
+    }    
   
     beforeDestroy() {
         const progress = this.selected.length==0? 50 : 100;

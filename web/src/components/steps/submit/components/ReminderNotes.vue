@@ -20,6 +20,7 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 import { requiredDocumentsInfoType } from '@/types/Common';
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+import { stepInfoType } from '@/types/Application';
 const applicationState = namespace("Application");
 
 @Component
@@ -34,6 +35,9 @@ export default class ReminderNotes extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
+    @applicationState.State
+    public steps!: stepInfoType[];
+
     isReminder = false;
     requiredDocumentLists = [];
 
@@ -44,11 +48,15 @@ export default class ReminderNotes extends Vue {
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
         this.isReminder = false;
-        const includesOrderActivities = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
+        
+        const selectedForms = (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        const selectedReplyForms = (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
         
         for (const [key, value] of Object.entries(this.requiredDocuments)){
 
-            if(key && value && includesOrderActivities && this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.includes(key)){
+            if(key && value && (selectedForms.includes(key) || selectedReplyForms.includes(key))  ){
                 this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})            
                 if(value['reminder']?.length>0) this.isReminder = true;
             }

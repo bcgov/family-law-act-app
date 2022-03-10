@@ -103,6 +103,14 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "FlmInfo";
+        p.label = "Did You Know?";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
         this.steps.push(s);
     
         // Getting started STOP       
@@ -309,12 +317,212 @@ class Application extends VuexModule {
         s.type = "stepRFLM";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
-    
+
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "ReplyToFlmApplication";
-        p.label = "Reply to Family Law Matter";
+        p.name = "RflmQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "RflmCounterApp";
+        p.label = "Counter Application";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "RflmBackground";
+        p.label = "Background";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "RflmChildrenInfo";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReplyNewParentingArrangements";
+        p.label = "Reply New Parenting Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ReplyNewParentalResponsibilities";
+        p.label = "Reply New Parental Responsibilities";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "ReplyNewParentingTime";
+        p.label = "Reply New Parenting Time";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "ReplyNewConditionsParentingTime";
+        p.label = "Reply New Conditions Parenting Time";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "ReplyExistingParentingArrangements";
+        p.label = "Reply Existing Parenting Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "ReplyNewChildSupport";
+        p.label = "Reply New Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "RelationshipToChild";
+        p.label = "Relationship To Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.name = "DisagreeChildSupport";
+        p.label = "Disagree Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "ReplyExistingChildSupport";
+        p.label = "Reply Existing Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "13";
+        p.name = "RflmUnpaidChildSupport";
+        p.label = "Unpaid Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.name = "DisagreeExistingChildSupport";
+        p.label = "Disagree Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "15";
+        p.name = "RflmCalculatingChildSupport";
+        p.label = "Calculating Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "16";
+        p.name = "ReplyNewContactWithChild";
+        p.label = "Reply New Contact With Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "17";
+        p.name = "DisagreeContactWithChild";
+        p.label = "Disagree Contact With Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "18";
+        p.name = "ReplyExistingContactWithChild";
+        p.label = "Reply Existing Contact With Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "19";
+        p.name = "ReplyAppointingGuardianOfChild";
+        p.label = "Reply Appointing a Guardian of a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "20";
+        p.name = "DisagreeAppointingGuardianOfChild";
+        p.label = "Disagree Appointing a Guardian";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "21";
+        p.name = "ReplyCancellingGuardianOfChild";
+        p.label = "Reply Cancelling a Guardian of a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "22";
+        p.name = "DisagreeCancellingGuardianOfChild";
+        p.label = "Disagree Cancelling a Guardian";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "23";
+        p.name = "RflmAdditionalDocuments";
+        p.label = "Additional Documents";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "24";
+        p.name = "ReviewYourAnswersRFLM";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "25";
+        p.name = "PreviewFormsRFLM";
+        p.label = "Preview Forms";
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 

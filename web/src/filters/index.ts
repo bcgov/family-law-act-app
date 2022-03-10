@@ -4,9 +4,9 @@ import store from '@/store';
 
 import * as _ from 'underscore';
 
-import {FLA_Types} from './applicationTypes'
+import {FLA_Types} from './applicationTypes';
 
-import {customCss} from './bootstrapCSS'
+import {customCss} from './bootstrapCSS';
 import { pathwayCompletedInfoType } from '@/types/Application';
 import {EarlyResolutionsRegistries, FamilyJusticeRegistries} from './locationRegistries';
 
@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.5";
+    const CURRENT_VERSION: string = "1.2.5.7";
     //__________________________
     //___________________________
     //___________________________
@@ -372,6 +372,51 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	const requiredDocuments: string[] = [];
 	const reminderDocuments: string[] = [];
 
+	if(type == 'replyFlm'){	
+
+		const rflmQuestionnaire = questions.rflmQuestionnaireSurvey;
+
+		if(questions.rflmBackgroundSurvey?.existingPOOrdersAttached == "n")
+		  	requiredDocuments.push("Copy of the missed protection related written agreement(s), court order(s) or plan(s)");
+
+		if(questions.rflmBackgroundSurvey?.ExistingOrdersFLM == "y" && questions.rflmBackgroundSurvey?.otherPartyAttach == 'n')
+		  	requiredDocuments.push("Copy of the missed existing agreement(s) or court order(s)");	
+
+		const newChildSupportAttachementRequired = rflmQuestionnaire.selectedChildSupportForm.includes('newChildSupport') && questions.replyNewChildSupportSurvey.agreeCourtOrder == 'n';
+		const existingChildSupportAttachementRequired = rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport') && questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n';	  
+		
+		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
+			&& (newChildSupportAttachementRequired || existingChildSupportAttachementRequired)
+			&& questions.rflmCalculatingChildSupportSurvey?.attachingCalculations == 'y' )
+		// || ( questions.rflmCalculatingSpousalSupportSurvey?.attachingCalculations== 'y' &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport"))
+		)
+			requiredDocuments.push("Support calculation");
+
+
+		
+		if( rflmQuestionnaire?.selectedChildSupportForm?.length > 0 && newChildSupportAttachementRequired && 
+			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
+				requiredDocuments.push("Financial Statement Form 4");
+
+
+		if (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
+			&& rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport')
+			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'){
+				requiredDocuments.push('Financial Statement Form 4, if applicable');
+			}
+			
+		
+		
+	
+		//REMINDERS		
+
+		if( Vue.filter('includedInRegistries')(questions.filingLocationSurvey?.ExistingCourt, 'early-resolutions')
+			&& (questions.filingLocationSurvey?.MetEarlyResolutionRequirements == 'y')
+		)
+			reminderDocuments.push("Certificate of completion for parenting education program (Parenting After Separation or Parenting After Separation For Indigenous Families), if applicable.")
+	
+	}
+
 	if(type == 'protectionOrder'){		
 	
 		if(questions.poQuestionnaireSurvey?.orderType == "changePO"){
@@ -430,7 +475,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if( questions.flmQuestionnaireSurvey?.includes("guardianOfChild") &&
 			(questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  )
 				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
-		}
+	}
 
 	if(type == 'priorityParenting'){
 		if(questions.ppmBackgroundSurvey?.ExistingOrdersFLM == "y")
@@ -584,6 +629,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	function getStepDetails(typeName){	
 		
 		const stepPO = store.state.Application.stPgNo.PO;
+		const stepRFLM = store.state.Application.stPgNo.RFLM;
 		const stepWR = store.state.Application.stPgNo.WR;
 		const stepFLM = store.state.Application.stPgNo.FLM;
 		const stepPPM = store.state.Application.stPgNo.PPM;
@@ -599,6 +645,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepPO._StepNo; 
 			reviewPage = stepPO.ReviewYourAnswers; 
 			previewPages = [stepPO.PreviewForms];
+		} else if(typeName == 'replyFlm'){
+			step = stepRFLM._StepNo; 
+			reviewPage = stepRFLM.ReviewYourAnswersRFLM; 
+			previewPages = [stepRFLM.PreviewFormsRFLM];	
 		} else if(typeName == 'writtenResponse'){
 			step = stepWR._StepNo; 
 			reviewPage = stepWR.ReviewYourAnswersWR; 
@@ -649,12 +699,13 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
 	
 	if(type == 'allExPO'){
         
 		let pathwayCompleted = {} as pathwayCompletedInfoType;
-		pathwayCompleted = store.state.Application.pathwayCompleted			        
+		pathwayCompleted = store.state.Application.pathwayCompleted	
+		pathwayCompleted.replyFlm = false;		        
 		pathwayCompleted.writtenResponse = false;
 		pathwayCompleted.familyLawMatter = false;        
 		pathwayCompleted.caseMgmt = false;       
@@ -771,6 +822,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
+			`.form-header-rflm{display:block; margin:0 0 12rem 0;}`+
 			`.form-header-po{display:block; margin:0 0 6.25rem 0;}`+
 			`.form-header-wr{display:block; margin:0 0 12rem 0;}`+
 			`.form-header-ppm{display:block; margin:0 0 5.25rem 0;}`+

@@ -1,0 +1,78 @@
+{
+  "title": "Reply New Parental Responsibilities",
+  "pages": [
+    {
+      "name": "Reply New Parental Responsibilities",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "parentalResponsibilitiesDescription",
+          "title": "Guardians make decisions about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child’s legal and financial interests. These are examples of parental responsibilities. Guardians share parental responsibilities unless they have a court order or agreement that says otherwise.<br><br><a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/what-does-it-mean-to-be-a-guardian' target='blank'>Parental Responsibilities</a> may be shared with the <b>guardians cooperating</b> to make decisions jointly, exercised by <b>only one guardian</b>, or divided between <b>more than one guardian</b> with each having parental responsibilities over different decisions. The <b>allocation of parental responsibilities</b> is how guardians share or divide parenting decisions. You must carefully consider what is best for the child.<br><br>If there is more than one guardian for a child, an agreement or court order can help to make it clear who has certain parenting responsibilities and when.<br><br>The Family Law Act provides a list of `parental responsibilities` .",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "NewApplicantParentingResponsibilitiesPanel",          
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "otherPartyParentalResponsibilitiesOrder",
+              "title": "Did the other party apply for an order about parental responsibilities?",   
+              "description": "To ask for an order about parental responsibilities, the other party would have completed Question 2 or Question 4 on Schedule 1 – Parenting Arrangements – New.",           
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ParentingResponsibilityApplicationPanel",
+          "visible": false,
+          "visibleIf": "{otherPartyParentalResponsibilitiesOrder} = 'y'",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "agreeResponsibilitiesOrder",
+              "description": "Look at the order the other party is applying for. Consider what is in the best interests of the child. Should the court make this order?",
+              "title": "Do you agree the court should make the order?",
+              "visible": false,
+              "visibleIf": "{otherPartyParentalResponsibilitiesOrder} = 'y'",
+              "isRequired": true
+            },            
+            {
+              "type": "comment",
+              "name": "disagreeReason",
+              "title": "Why don’t you agree?",
+              "description": "Explain why you don’t agree with the other party’s requested allocation of parental responsibilities. Remember allocation of parental responsibilities means how you and the other party will share or divide parenting decisions.<br>You do not need to use any special wording. The key is to be clear about what you mean.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({otherPartyParentalResponsibilitiesOrder} = 'y' and {agreeResponsibilitiesOrder} = 'n')"
+            },            
+            {
+              "type": "comment",
+              "name": "requestedParentalResponsibilities",
+              "title": "How do you want the `parental responsibilities` to be exercised by you and the other party?",
+              "description": "Explain what order you want made about parental responsibilities. How should parental responsibilities be shared or divided? Remember that parental responsibilities can be shared with the guardians cooperating to make decisions jointly, exercised by only one guardian, or divided between more than one guardian with each having parental responsibilities over different decisions.<br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order instead. If there is more than one child, be clear if there are differences in how parental responsibilities apply to each child.<br>Talk to a lawyer if you need help figuring out how parental responsibilities should be set up for your family.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({otherPartyParentalResponsibilitiesOrder} = 'y' and {agreeResponsibilitiesOrder} = 'n')"
+            },            
+            {
+              "type": "comment",
+              "name": "childBestInterestReason",
+              "title": "Why do you believe the order about parental responsibilities you are applying for is in the child’s best interests?",
+              "description": "When you make parenting arrangements, you must consider what is in the best interests of your child. Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child.<br>To determine what is in the <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests' target='_blank'>child's best interests</a> when making parenting arrangements, you must consider factors including:<ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>You do not need to use any special wording. The key is to be clear about why you think the order you want to make is in the child’s best interests. ",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({otherPartyParentalResponsibilitiesOrder} = 'y' and {agreeResponsibilitiesOrder} = 'n')"
+            }
+          ]
+        }
+        
+      ],
+      "title": "Reply New Parental Responsibilities"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

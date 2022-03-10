@@ -110,6 +110,12 @@ export default class YourInformation extends Vue {
             this.survey.setVariable("includesFlm", false);
         }
 
+        if (this.types?.includes("Reply to Application About a Family Law Matter")){
+            this.survey.setVariable("includesRflm", true);            
+        } else {
+            this.survey.setVariable("includesRflm", false);
+        }
+
         const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
         const stepPO = this.steps[this.stPgNo.PO._StepNo]
 
