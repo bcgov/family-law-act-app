@@ -117,7 +117,7 @@
 <!-- <5> -->
         <section>
             <div style="margin:0 0 0 .5rem;display:inline;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="childBestInterestAcknowledmentCheck?'yes':''" text=""/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="aboutChildren && childBestInterestAcknowledmentCheck?'yes':''" text=""/>
                 <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
                 <div style="margin:0 0 0 1.75rem;display:inline-block;">asking the court to make about the child.</div>
             </div>
@@ -464,7 +464,7 @@
 <!-- <14> -->
         <section>
             <div style="margin:0 0 0 .5rem;display:inline;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="includesCounter && childBestInterestAcknowledmentCheck?'yes':''" text=""/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="counterAboutChildren && childBestInterestAcknowledmentCheckCounter?'yes':''" text=""/>
                 <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
                 <div style="margin:0 0 0 1.75rem;display:inline-block;">asking the court to make about the child.</div>
             </div>
@@ -534,6 +534,7 @@ export default class CommonSection extends Vue {
     childrenInfo = []
     counterChildrenInfo = []
     childBestInterestAcknowledmentCheck = false;
+    childBestInterestAcknowledmentCheckCounter = false;
     incorrectChildInfo = false;
     culturalInfo = '';
    
@@ -556,7 +557,7 @@ export default class CommonSection extends Vue {
         {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]   
 
-    public extractInfo(){ 
+    public extractInfo(){     
 
         this.includesCounter = this.result.rflmCounterAppSurvey.counter == 'Yes';
         
@@ -586,7 +587,7 @@ export default class CommonSection extends Vue {
             this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
             this.childBestInterestAcknowledmentCheck = false;
             this.incorrectChildInfo = false;
-        }
+        }        
 
         const childRelatedCounterApplication = this.includesCounter && (
             counterList.includes('parentingArrangements') ||
@@ -597,15 +598,15 @@ export default class CommonSection extends Vue {
         if (childRelatedCounterApplication && this.result.rflmChildrenInfoSurvey?.length > 0){
             this.counterAboutChildren = true;
             this.counterChildrenInfo = this.getChildrenInfo();
-            this.childBestInterestAcknowledmentCheck = this.result.rflmChildBestInterestAcknowledgement;            
+            this.childBestInterestAcknowledmentCheckCounter = this.result.rflmChildBestInterestAcknowledgement;            
         } else {
             this.counterAboutChildren = false;
             this.counterChildrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
-            this.childBestInterestAcknowledmentCheck = false;
+            this.childBestInterestAcknowledmentCheckCounter = false;
         }        
 
-        if (this.result.flmBackgroundSurvey?.likeToAddCulturalExplanation == 'y' && this.result.flmBackgroundSurvey?.culturalExplain){
-            this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
+        if (this.result.rflmBackgroundSurvey?.likeToAddCulturalExplanation == 'y' && this.result.rflmBackgroundSurvey?.culturalExplain){
+            this.culturalInfo = this.result.rflmBackgroundSurvey.culturalExplain;
         } else {
             this.culturalInfo = '';
         } 

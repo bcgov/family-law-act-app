@@ -72,49 +72,45 @@ export function getForm6PopulationInfo(result) {
 
     if (rflmQuestionnaireInfo.selectedChildSupportForm.includes('newChildSupport')){        
 
-        const newChildSupport: replyNewChildSupportDataInfoType = result.replyNewChildSupportSurvey;        
-        agreeDisagreeResults.newChildSupport = {
-            opApplied: true,
-            agree: newChildSupport.agreeCourtOrder == 'y'
-        }     
+        const newChildSupport: replyNewChildSupportDataInfoType = result.replyNewChildSupportSurvey;    
+        const agreed = newChildSupport.agreeCourtOrder == 'y';
+
+        agreeDisagreeResults.newChildSupport = { opApplied: true, agree: agreed }
         
-        if (newChildSupport.agreeCourtOrder == 'n'){
+        if (!agreed){
             schedules.push('schedule3')
         }
         
     } else if (rflmQuestionnaireInfo.selectedChildSupportForm.includes('existingChildSupport')){
-        const existingChildSupport: replyExistingChildSupportDataInfoType = result.replyExistingChildSupportSurvey;        
-        agreeDisagreeResults.existingChildSupport = {
-            opApplied: true,
-            agree: existingChildSupport.agreeCourtOrder == 'y'
-        }
+        const existingChildSupport: replyExistingChildSupportDataInfoType = result.replyExistingChildSupportSurvey;     
+        const agreed = existingChildSupport.agreeCourtOrder == 'y';  
+
+        agreeDisagreeResults.existingChildSupport = { opApplied: true, agree: agreed }
         
-        if (existingChildSupport.agreeCourtOrder == 'n'){
+        if (!agreed){
             schedules.push('schedule4')
         }
     }
 
     if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('newContact')){
 
-        const newContactWithChild: replyNewContactWithChildDataInfoType = result.replyNewContactWithChildSurvey;        
-        agreeDisagreeResults.newChildContact = {
-            opApplied: true,
-            agree: newContactWithChild.agreeCourtOrder == 'y'
-        }     
+        const newContactWithChild: replyNewContactWithChildDataInfoType = result.replyNewContactWithChildSurvey;   
+        const agreed = newContactWithChild.agreeCourtOrder == 'y'; 
+
+        agreeDisagreeResults.newChildContact = { opApplied: true, agree: agreed }     
         
-        if (newContactWithChild.agreeCourtOrder == 'n'){
+        if (!agreed){
             schedules.push('schedule5')
         }
 
     } else if (rflmQuestionnaireInfo.selectedContactWithChildForm.includes('existingContact')){
 
-        const existingChildContact: replyExistingContactWithChildDataInfoType = result.replyExistingContactWithChildSurvey;        
-        agreeDisagreeResults.existingChildContact = {
-            opApplied: true,
-            agree: existingChildContact.agreeCourtOrder == 'y'
-        }
+        const existingChildContact: replyExistingContactWithChildDataInfoType = result.replyExistingContactWithChildSurvey;   
+        const agreed = existingChildContact.agreeCourtOrder == 'y';    
+
+        agreeDisagreeResults.existingChildContact = { opApplied: true, agree: agreed };
         
-        if (existingChildContact.agreeCourtOrder == 'n'){
+        if (!agreed){
             schedules.push('schedule6')
         }
     }
@@ -125,24 +121,18 @@ export function getForm6PopulationInfo(result) {
         const agreed = (appointingChildGuardian.moreThanOneChild == 'y' && appointingChildGuardian.agreeCourtOrderChild == 'agreeAll')
         || (appointingChildGuardian.moreThanOneChild == 'n' && appointingChildGuardian.agreeCourtOrder == 'y');
 
-        agreeDisagreeResults.appointGuardian = {
-            opApplied: true,
-            agree: agreed
-        }
+        agreeDisagreeResults.appointGuardian = { opApplied: true, agree: agreed }
         
         if (!agreed){
             schedules.push('schedule7')
         }
-
     } 
     if (rflmQuestionnaireInfo.selectedGuardianshipForm.includes('cancelling')){
+
         const cancellingChildGuardian: replyCancellingGuardianOfChildDataInfoType = result.replyCancellingGuardianOfChildSurvey;        
         const agreed = (cancellingChildGuardian.agreeCourtOrder == 'agreeAll');
 
-        agreeDisagreeResults.cancelGuardian = {
-            opApplied: true,
-            agree: agreed
-        }
+        agreeDisagreeResults.cancelGuardian = { opApplied: true, agree: agreed };
         
         if (!agreed){
             schedules.push('schedule8')
