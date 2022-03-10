@@ -139,7 +139,7 @@ export default class Schedule6 extends Vue {
 
         if (this.result.replyExistingContactWithChildSurvey){
             const existingContactInfo: replyExistingContactWithChildDataInfoType = this.result.replyExistingContactWithChildSurvey;
-            console.log(existingContactInfo)
+            // console.log(existingContactInfo)
 
             if (existingContactInfo.existingType == 'finalOrder'){
 
