@@ -9,13 +9,15 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/about-spousal-support-order.json";
+import surveyJson from "./forms/rflm-spouse-support-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { togglePages } from '@/components/utils/TogglePages';
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -23,17 +25,21 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class AboutSpousalSupportOrder extends Vue {
+
+export default class RflmSpouseSupportOrder extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;    
+    step!: stepInfoType;     
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType; 
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    survey = new SurveyVue.Model(surveyJson);    
+    survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
-    currentPage =0;   
+    currentPage =0;  
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -46,47 +52,48 @@ export default class AboutSpousalSupportOrder extends Vue {
         this.reloadPageInformation();
     }
 
-    public initializeSurvey(){        
-        this.survey = new SurveyVue.Model(surveyJson);
+    public initializeSurvey(){
+        this.survey = new SurveyVue.Model(surveyJson);      
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }   
-    
-    public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {           
-            Vue.filter('surveyChanged')('familyLawMatter')
-        })
     }
     
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('replyFlm')
+        })
+    }  
+    
     public reloadPageInformation() {
-        
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.aboutSpousalSupportOrderSurvey) {
-            this.survey.data = this.step.result.aboutSpousalSupportOrderSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        if (this.step.result?.rflmSpouseSupportOrderSurvey?.data) {
+            this.survey.data = this.step.result.rflmSpouseSupportOrderSurvey.data;                        
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);             
         }
-        
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false); 
+       
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
-    public onNext() {        
+    public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
             Vue.prototype.$UpdateGotoNextStepPage()
         }
-    }
+    }  
     
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {aboutSpousalSupportOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
+        this.UpdateStepResultData({step:this.step, data: {rflmSpouseSupportOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
+
+

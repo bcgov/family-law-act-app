@@ -1,162 +1,78 @@
 import { questionInfoType } from "../../CommonInformation";
+import { howToPaySpousalSupportInfoType } from "../../FamilyLawMatter/SpousalSupport";
 
 
-export interface spousalSupportDataInfoType {
-    listOfSupportPayors: string[];
-    currentSupport: string;
-    listOfReasons: string[];
+export interface replyNewSpouseSupportDataInfoType {    
+    agreeCourtOrder: string;    
 }
 
-export interface spousalSupportSurveyInfoType {
-    data: spousalSupportDataInfoType;
+export interface replyNewSpouseSupportSurveyInfoType {
+    data: replyNewSpouseSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface spousalSupportIncomeAndEarningPotentialDataInfoType {
-    incomeInfo: string;
-    knowIncome: string;
-    incomeAmount?: string;
-    knowFacts: string;
-    factsExplanation?: string;
+export interface relationshipToOtherPartyDataInfoType {
+    spouse: string;
 }
 
-export interface spousalSupportIncomeAndEarningPotentialSurveyInfoType {
-    data: spousalSupportIncomeAndEarningPotentialDataInfoType;
+export interface relationshipToOtherPartySurveyInfoType {
+    data: relationshipToOtherPartyDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface howToPaySpousalSupportInfoType {
-    monthlyAmount?: string;
-    monthlyStartDate?: string;
-    monthlyEndDate?: string;
-    lumpsumAmount?: string;
-    selected: string;
-    otherComment?: string;
+export interface disagreeSpouseSupportDataInfoType {
+    noEntitlement: string;
+    noEntitlementDescription?: string;
+    incorrectIncomeAndAbilityToWork: string;
+    incorrectEmployment: string;
+    incorrectEmploymentDescription?: string;
+    opIncorrectFinances: string;
+    opIncorrectFinancesDescription?: string;
+    opIncorrectEmployment: string;
+    opIncorrectEmploymentDescription?: string;
+    opIncorrectExpenses: string;
+    opIncorrectExpensesDescription?: string;
+    disagreeOtherReason: string;
+    otherReasonDescription?: string;
 }
 
-export interface aboutSpousalSupportOrderDataInfoType {
+export interface disagreeSpouseSupportSurveyInfoType {
+    data: disagreeSpouseSupportDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface rflmSpouseSupportOrderDataInfoType {
     howToPaySpousalSupport: howToPaySpousalSupportInfoType;
 }
 
-export interface valueInfoType {
-    monthlyAmount: string;
-    monthlyStartDate: string;
-    monthlyEndDate: string;
-    lumpsumAmount: string;
-    selected: string;
-    otherComment?: string;
-}
-
-export interface aboutSpousalSupportOrderSurveyInfoType {
-    data: aboutSpousalSupportOrderDataInfoType;
+export interface rflmSpouseSupportOrderSurveyInfoType {
+    data: rflmSpouseSupportOrderDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface calculatingSpousalSupportDataInfoType {
+export interface rflmCalculatingSpouseSupportDataInfoType {
     attachingCalculations: string;
-    whyNotAttachingCalculations?: string;
+    notAttachingCalculationsReason?: string;
 }
 
-export interface calculatingSpousalSupportSurveyInfoType {
-    data: calculatingSpousalSupportDataInfoType;
+export interface rflmCalculatingSpouseSupportSurveyInfoType {
+    data: rflmCalculatingSpouseSupportDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface existingSpousalSupportOrderAgreementDataInfoType {
-    existingType: string;
-    filedWithDirector?: string;
-    reviewableTerm?: string;
-    fillOutForm?: string;
-}
-
-export interface existingSpousalSupportOrderAgreementSurveyInfoType {
-    data: existingSpousalSupportOrderAgreementDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface spousalChangesSinceOrderListInfoType {
-    myEmploymentChangedComment?: string;
-    partyEmploymentChangedComment?: string;
-    myHouseholdChangedComment?: string;
-    newInformationComment?: string;
-    otherComment?: string;
-    checked: string[];
-}
-
-export interface existingSpousalSupportFinalOrderDataInfoType {
-    orderDate: string;
-    changesSinceOrderList: spousalChangesSinceOrderListInfoType;
-    orderDifferenceType: string;
-}
-
-export interface existingSpousalSupportFinalOrderSurveyInfoType {
-    data: existingSpousalSupportFinalOrderDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface aboutExistingSpousalSupportOrderDataInfoType {
-    changesSinceOrder: string;
-}
-
-export interface aboutExistingSpousalSupportOrderSurveyInfoType {
-    data: aboutExistingSpousalSupportOrderDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-export interface spousalPaymentScheduleInfoType {
-    monthlyAmount?: string;
-    selected: string;
-    otherComment?: string;
-}
-
-export interface unpaidSpousalSupportDataInfoType {
-    unpaid?: string;
-    unPaidAmount?: string;
-    applyToReduce?: string;
-    reduceAmount?: string;
-    whyReduceAmount?: string;
-    paymentSchedule?: spousalPaymentScheduleInfoType;
-}
-
-export interface unpaidSpousalSupportSurveyInfoType {
-    data: unpaidSpousalSupportDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface existingSpousalSupportAgreementDataInfoType {
-    agreementDate?: string;
-    changesReasoning?: string;
-    agreementDifferenceType?: string;
-}
-
-export interface existingSpousalSupportAgreementSurveyInfoType {
-    data: existingSpousalSupportAgreementDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
 

@@ -207,17 +207,17 @@ export interface schedule9DataInfoType {
 }
 
 export interface disagreeSposalSupportDetailsInfoType {
-    entitled: boolean;
-    entitledDesc?: string;
-    correctIncomeClaim: boolean;
-    correctEmploymentClaim: boolean;
-    correctEmploymentClaimDesc?: string;
-    correctOpFinancialClaim: boolean;
-    correctOpFinancialClaimDesc?: string;
-    correctOpEmploymentClaim: boolean;
-    correctOpEmploymentClaimDesc?: string;
-    correctOpExpenseClaim: boolean;
-    correctOpExpenseClaimDesc?: string;
+    noEntitlement: boolean;
+    noEntitlementDesc?: string;
+    incorrectIncomeClaim: boolean;
+    incorrectEmploymentClaim: boolean;
+    incorrectEmploymentClaimDesc?: string;
+    incorrectOpFinancialClaim: boolean;
+    incorrectOpFinancialClaimDesc?: string;
+    incorrectOpEmploymentClaim: boolean;
+    incorrectOpEmploymentClaimDesc?: string;
+    incorrectOpExpenseClaim: boolean;
+    incorrectOpExpenseClaimDesc?: string;
     other: boolean;
     otherDesc?: string;
 }

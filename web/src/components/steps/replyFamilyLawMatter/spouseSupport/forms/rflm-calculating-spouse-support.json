@@ -1,0 +1,36 @@
+{
+  "title": "Calculating Spousal Support",
+  "pages": [
+    {
+      "name": "Calculating Spousal Support",
+      "description": "To calculate how much spousal support should be paid, you can use the <a target='_blank' href='https://www.justice.gc.ca/eng/fl-df/spousal-epoux/ssag-ldfpae.html'>Spousal Support Advisory Guidelines</a> or DIVORCEmate’s free spousal support calculator at <a target='_blank' href='https://www.mysupportcalculator.ca/'>www.mysupportcalculator.ca</a>.<br><br>You can also talk with a <a href='https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C' target='_blank'>child support officer</a> (they can also help with spousal support), <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA'>family justice counsellor</a> or a lawyer.<br><br>It is helpful for both the court and the other party if you include a calculation with this reply showing how much you believe should be paid in spousal support according to the spousal support guidelines.",
+      "elements": [        
+        {
+          "type": "panel",
+          "name": "CalculationsPanel",
+          "elements": [                       
+            {
+              "type": "yesno",
+              "name": "attachingCalculations",
+              "title": "Will you be attaching calculations showing how much spousal support you believe should be paid according to the Spousal Support Advisory Guidelines?",
+              "isRequired": true              
+            },            
+            {
+              "type": "comment",
+              "name": "notAttachingCalculationsReason",
+              "title": "Please explain why you will not be attaching calculations:",
+              "description": "You do not need to use any special wording. The key is to be clear about why you are not providing calculations with your application.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{attachingCalculations} = 'n'"
+            }
+          ]
+        }        
+        
+      ],
+      "title": "Calculating Spousal Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

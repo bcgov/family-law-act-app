@@ -1,121 +1,155 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <b-card v-if="dataReady" class="border-white bg-white">
-            <h1 class="text-cyan">Did You Know? …</h1>
-            <h2 class="text-teal">That you don’t always need to go to court to resolve family law disputes!</h2>
+            <h1 class="text-primary" style="margin-left: -2.5rem;">Did You Know? …</h1>
+            <h2 class="text-dark" style="margin-left: -2.5rem;">That you don’t always need to go to court to resolve family law disputes!</h2>
 
-            <p>
+            <p style="margin-left: -2.5rem;">
                 BC laws encourage people to try to resolve their family law disputes out of court through 
                 agreement and family dispute resolution processes, including:
             </p>
 
-            <b-card class="border-white">
-                <b-card-header class="text-uppercase font-weight-bold  row mx-2 mediation-header">
-                    <div class="animated bounce infinite"><i class="fa fa-handshake-o" style="font-size:36px; " ></i></div>
-                    <span class="ml-2 mt-1">Mediation</span>
-                </b-card-header>
-                <b-card-body>
-                    Mediation is a meeting in an informal, neutral setting with a trained mediator 
-                    who helps you and the other person talk about the issues and reach an agreement. 
-                    <a 
-                        href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-counsellors"
-                        target="_blank">Family Justice Counsellors
-                    </a> provide free family mediation services throughout BC. 
-                    You can also hire a 
-                    <a 
-                        href="https://www.mediatebc.com/"
-                        target="_blank">private mediator
-                    </a> or use 
-                    <a 
-                        href="https://mylawbc.com/mediation/"
-                        target="_blank">MyLawBC’s free online mediation tool
-                    </a>.
-
-                </b-card-body>
+            <b-card no-body class="border-white">                
+                <b-row class="text-uppercase font-weight-bold">
+                    <b-col cols="1" class="mediation-header">
+                        <div class="ml-2"><i class="fa fa-handshake-o" style="font-size:36px;" ></i></div>
+                    </b-col>
+                    <b-col cols="11"><div class="mt-2">Mediation</div></b-col>
+                </b-row>
+                <b-row>
+                    <!-- <b-col cols="1" >
+                        <div class="mt-3"><i class="fa fa-handshake-o" style="font-size:48px;" ></i></div>
+                    </b-col>
+                    <b-col cols="11"> -->
+                        Mediation is a meeting in an informal, neutral setting with a trained mediator 
+                        who helps you and the other person talk about the issues and reach an agreement. 
+                        <a 
+                            href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-counsellors"
+                            target="_blank">Family Justice Counsellors
+                        </a> provide free family mediation services throughout BC. 
+                        You can also hire a 
+                        <a 
+                            href="https://www.mediatebc.com/"
+                            target="_blank">private mediator
+                        </a> or use 
+                        <a 
+                            href="https://mylawbc.com/mediation/"
+                            target="_blank">MyLawBC’s free online mediation tool
+                        </a>.
+                    <!-- </b-col> -->
+                </b-row>
             </b-card>
 
-            <b-card class="border-white">
-                <b-card-header class="collaborative-law-header text-uppercase font-weight-bold row mx-2">
-                    <img  src="../../../assets/users-gear.svg" style="width: 2.5rem; height: 2.5rem;"/>                    
-                    <span class="ml-2 mt-2">Collaborative Law</span>                    
-                </b-card-header>
-                <b-card-body>
-                    In a collaborative family law process you and the other party each hire a 
-                    lawyer who practises collaborative family law, and sign an agreement promising 
-                    to work together to find acceptable solutions. The goal of a collaborative law 
-                    process is to settle your case fairly, without going to court. 
-                    <a 
-                        href="https://www.bccollaborativerostersociety.com/index.php"
-                        target="_blank">The BC Collaborative Roster Society
-                    </a> has a roster of qualified collaborative law professionals.
-
-                </b-card-body>
+            <b-card no-body class="border-white mt-3">
+                <b-row class="text-uppercase font-weight-bold">
+                    <b-col cols="1" class="collaborative-law-header">
+                        <img class="mx-3" src="../../../assets/users-gear.svg" style="width: 2rem; height: 2rem;"/>                    
+                    </b-col>
+                    <b-col cols="11"><div class="mt-2">Collaborative Law</div></b-col>
+                </b-row>
+                <b-row>
+                    <!-- <b-col cols="1" class="collaborative-law-header">
+                        <img class="mt-2 mx-1" src="../../../assets/users-gear.svg" style="width: 3.5rem; height: 3.5rem;"/>                    
+                    </b-col>
+                    <b-col cols="11"> -->
+                        In a collaborative family law process you and the other party each hire a 
+                        lawyer who practises collaborative family law, and sign an agreement promising 
+                        to work together to find acceptable solutions. The goal of a collaborative law 
+                        process is to settle your case fairly, without going to court. 
+                        <a 
+                            href="https://www.bccollaborativerostersociety.com/index.php"
+                            target="_blank">The BC Collaborative Roster Society
+                        </a> has a roster of qualified collaborative law professionals.
+                    <!-- </b-col> -->
+                </b-row>
             </b-card>
 
-            <b-card class="border-white">
-                <b-card-header class="facilitated-negotiation-header text-uppercase font-weight-bold row mx-2">
-                    <b-icon-person-fill class="mt-2" scale="2"/>
-                    <b-icon-arrow-left-right class="mt-2 mx-4" scale="2" animation="cylon"/>
-                    <b-icon-person-fill class="mt-2" scale="2" />      
-                    <span class="ml-3 mt-1">Facilitated Negotiation</span>             
-                </b-card-header>
-                <b-card-body>
-                    Negotiation involves discussing issues to try to reach an agreement. You work out a 
-                    solution together that fits both of your interests. 
-                    <br>A lawyer or other professional can help, or you could negotiate on your own. 
-                    <br>Family Justice Services Division provides free facilitated negotiation of 
-                    child support and spousal support issues with a 
-                    <a 
-                        href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/child-support"
-                        target="_blank">Child Support Officer
-                    </a>.
-
-                </b-card-body>
+            <b-card no-body class="border-white mt-3">
+                <b-row class="mt-1 text-uppercase font-weight-bold">
+                    <b-col cols="1" class="facilitated-negotiation-header">
+                        <div class="row">
+                            <b-icon-person-fill style="margin-left: 0.75rem;" class="mt-2 mr-1" scale="1.5"/>
+                            <b-icon-arrow-left-right class="mt-2 mx-1" scale="1.25"/>
+                            <b-icon-person-fill class="mt-2 ml-1" scale="1.5" />  
+                        </div>          
+                    </b-col>
+                    <b-col cols="11"><div class="mt-2">Facilitated Negotiation</div></b-col>
+                </b-row>
+                <b-row>
+                    <!-- <b-col cols="1" class="facilitated-negotiation-header">
+                        <div class="row" style="margin-top: 3rem;">
+                            <b-icon-person-fill style="margin-left: 0.75rem;" class="mt-2 mr-1" scale="2"/>
+                            <b-icon-arrow-left-right class="mt-2 mx-1" scale="1.5"/>
+                            <b-icon-person-fill class="mt-2 ml-1" scale="2" />  
+                        </div>          
+                    </b-col>
+                    <b-col cols="11"> -->
+                        Negotiation involves discussing issues to try to reach an agreement. You work out a 
+                        solution together that fits both of your interests. 
+                        <br>A lawyer or other professional can help, or you could negotiate on your own. 
+                        <br>Family Justice Services Division provides free facilitated negotiation of 
+                        child support and spousal support issues with a 
+                        <a 
+                            href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/child-support"
+                            target="_blank">Child Support Officer
+                        </a>.
+                    <!-- </b-col> -->
+                </b-row>
             </b-card>
 
-            <b-card class="border-white">
-                <b-card-header class="parenting-coordination-header text-uppercase font-weight-bold row mx-2">
-                    <b-icon-people-fill class="mt-2" scale="2" animation="throb"/>                    
-                    <span class="ml-3 mt-1">Parenting Coordination</span>                    
-                </b-card-header>
-                <b-card-body>
-                    A parenting coordinator helps parents resolve disputes about how parenting agreements 
-                    or orders are put into effect using mediation and arbitration. If you cannot agree, 
-                    a parenting coordinator can make a decision for you (called a determination). The 
-                    <a 
-                        href="http://www.bcparentingcoordinators.com/"
-                        target="_blank">BC Parenting Coordinators Roster Society
-                    </a>has a list of qualified parenting coordinators.
-
-                </b-card-body>
+            <b-card no-body class="border-white mt-3">
+                <b-row class="mt-1 text-uppercase font-weight-bold">
+                    <b-col cols="1" class="parenting-coordination-header">               
+                        <b-icon-people-fill style="margin: 0.5rem 1.25rem;" scale="1.75"/> 
+                    </b-col>
+                    <b-col cols="11"><div class="mt-2">Parenting Coordination</div></b-col>
+                </b-row>
+                <b-row>
+                    <!-- <b-col cols="1" class="parenting-coordination-header">               
+                        <b-icon-people-fill style="margin: 1.75rem 1.25rem;" scale="3"/> 
+                    </b-col>
+                    <b-col cols="11">                -->
+                        A parenting coordinator helps parents resolve disputes about how parenting agreements 
+                        or orders are put into effect using mediation and arbitration. If you cannot agree, 
+                        a parenting coordinator can make a decision for you (called a determination). The 
+                        <a 
+                            href="http://www.bcparentingcoordinators.com/"
+                            target="_blank">BC Parenting Coordinators Roster Society
+                        </a>has a list of qualified parenting coordinators.
+                    <!-- </b-col> -->
+                </b-row>
             </b-card>
 
-            <b-card class="border-white">
-                <b-card-header class="arbitration-header text-uppercase font-weight-bold row mx-2">                    
-                    <span style='font-size:2rem; margin: 0.15rem 0; font-weight: 600;' class='fa fa-balance-scale'/>                  
-                    <span class="ml-2 mt-2">Arbitration</span>                    
-                </b-card-header>
-                <b-card-body>
-                    Arbitrators play a private judge-like role. A family law arbitrator will make binding 
-                    decisions to resolve family law disputes out of court. If you decide to use arbitration, 
-                    you are asking another person to make the decisions for you, after hearing both sides. The 
-                    <a 
-                        href="https://adrbc.com/"
-                        target="_blank">ADR Institute of British Columbia
-                    </a>can assist you in finding an Arbitrator.
-
-                </b-card-body>
+            <b-card no-body class="border-white mt-3">
+                <b-row class="mt-1 text-uppercase font-weight-bold">
+                    <b-col cols="1" class="arbitration-header">                                   
+                        <span style='font-size:1.75rem; margin: 0.25rem 0.75rem; font-weight: 600;' class='fa fa-balance-scale'/>                  
+                    </b-col> 
+                    <b-col cols="11"><div class="mt-2">Arbitration</div></b-col>
+                </b-row>
+                <b-row>
+                    <!-- <b-col cols="1" class="arbitration-header">                                   
+                        <span style='font-size:3rem; margin: 1.25rem 0.1rem; font-weight: 600;' class='fa fa-balance-scale'/>                  
+                    </b-col>                    
+                    <b-col cols="11"> -->
+                        Arbitrators play a private judge-like role. A family law arbitrator will make binding 
+                        decisions to resolve family law disputes out of court. If you decide to use arbitration, 
+                        you are asking another person to make the decisions for you, after hearing both sides. The 
+                        <a 
+                            href="https://adrbc.com/"
+                            target="_blank">ADR Institute of British Columbia
+                        </a>can assist you in finding an Arbitrator.
+                    <!-- </b-col> -->
+                </b-row>
             </b-card>
 
-
-
-            <b-card class="mt-4 shadow-lg border-info bg-gradient-teal">
-                <p style="font-weight: 700;" class="font-weight-bold text-cyan">
+            <b-card no-body class="mt-5 border-white">
+                <p style="font-weight: 700;" class="font-weight-bold text-primary">
                     Research shows that these out of court dispute resolution processes are often faster, less expensive, 
                     and may better meet the needs of the parties involved, but sometimes court is still the best option.  
                     You and the other person can choose whichever process is best for you.                
                 </p>
-                <p style="font-weight: 700;" class="font-weight-bold text-primary">
+                <p style="font-weight: 700;" class="font-weight-bold text-dark">
                     If you are filing your application in an early resolution registry, unless it is not appropriate 
                     you will be required to try to resolve your family law matter using consensual dispute resolution 
                     before going to court. 
@@ -151,16 +185,15 @@
                     </ul>                
                 </p>
             </b-card>
-            
 
-            <b-row class="my-5">                
+            <b-row class="mt-2 mb-3">                
                 <b-col>
                     <b-button
                         style="height: 3rem;"
                         block
                         @click="continueOutsideCourtProcess"
                         :pressed.sync="outOfCourtProcessState"
-                        :variant="outOfCourtProcessState?'primary':'secondary'"
+                        :variant="outOfCourtProcessState?'primary':'info'"
                     ><b-icon-check scale="1.5" class="mr-2" v-if="outOfCourtProcessState" />
                         I’d like to explore out of court options
                     </b-button>
@@ -171,7 +204,7 @@
                         block
                         @click="continueCourtProcess"
                         :pressed.sync="courtProcessState"
-                        :variant="courtProcessState?'primary':'secondary'"
+                        :variant="courtProcessState?'primary':'info'"
                     ><b-icon-check scale="1.5" class="mr-2" v-if="courtProcessState" />
                         Continue to court process
                     </b-button>
@@ -400,27 +433,27 @@ export default class FlmInfo extends Vue {
 <style scoped lang="scss">
 
     .mediation-header {
-        background: linear-gradient(0.25turn, teal, #d6f5f5, teal);
+        background: linear-gradient(0.25turn, #38598a, #43893e, #38598a);
         color: #0f3d3d;        
     }
 
     .collaborative-law-header {
-        background: linear-gradient(to left, rgb(216, 32, 32), rgb(81, 136, 74), rgb(245, 231, 43), rgb(78, 142, 226));
+        background: linear-gradient(to left, #43893e, #fcba19, #38598a);
         color: #0f3d3d;        
     }
 
     .facilitated-negotiation-header {
-        background: linear-gradient(0.25turn, teal, #f5e50a, rgb(68, 164, 219), rgb(181, 120, 231));
+        background: linear-gradient(0.25turn, #43893e, #fcba19, #38598a);
         color: #0f3d3d;        
     }
 
     .parenting-coordination-header {
-        background: linear-gradient(0.15turn, rgb(247, 225, 34), #fa8f15e3, rgb(68, 164, 219), rgb(70, 100, 235));
+        background: linear-gradient(0.15turn, #fcba19, #43893e, #38598a);
         color: #0f3d3d;        
     }
 
     .arbitration-header {
-        background: linear-gradient(0.25turn,  rgb(216, 32, 32), rgb(160, 88, 219), rgb(15, 110, 235));
+        background: linear-gradient(0.25turn,  #fcba19, #38598a);
         color: #0f3d3d;        
     }
 

@@ -4,6 +4,7 @@ import { replyExistingParentingArrangementsDataInfoType, replyNewConditionsParen
 import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 import { replyExistingContactWithChildDataInfoType, replyNewContactWithChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ContactWithChild';
 import { replyAppointingGuardianOfChildDataInfoType, replyCancellingGuardianOfChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
+import { replyNewSpouseSupportDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/SpousalSupport';
 
 export function getForm6PopulationInfo(result) {
 
@@ -140,7 +141,15 @@ export function getForm6PopulationInfo(result) {
     }
 
     if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('newSpouseSupport')){
-        schedules.push('schedule9');
+
+        const newSpouseSupport: replyNewSpouseSupportDataInfoType = result.replyNewSpouseSupportSurvey;    
+        const agreed = newSpouseSupport.agreeCourtOrder == 'y';
+
+        agreeDisagreeResults.newSpouseSupport = { opApplied: true, agree: agreed }
+        
+        if (!agreed){
+            schedules.push('schedule9')
+        }
     } else if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('existingSpouseSupport')){
         schedules.push('schedule10')
     }

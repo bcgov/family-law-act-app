@@ -1,0 +1,233 @@
+{
+  "title": "Disagree – Spousal Support",
+  "pages": [
+    {
+      "name": "Disagree – Spousal Support",
+      "description": "How much and for how long spousal support is paid is determined by considering many factors. The decision to pay a regular amount each month over a certain number of months or years, or a lump sum amount may depend on many factors including the ability of a spouse to pay it all at once.<br><br>An order about spousal support should be tailored to the specific circumstances of you and your spouse.",
+      "elements": [
+        {          
+          "type": "infotexttitle",
+          "name": "disagreeSpousalSupportDescription",
+          "title": "There may be different reasons why you don’t agree with the spousal support order the other party has asked for. For each statement below, indicate if it is true or false and provide any details requested.",
+          "messageStyle": "inline"          
+        },
+        {
+          "type": "panel",
+          "name": "IncomePanel",
+          "elements": [
+            {          
+              "type": "infotexttitle",
+              "name": "disagreeEntitlementDescription",
+              "title": "Entitlement",
+              "messageStyle": "inline"          
+            },
+            {
+              "type": "infotext",
+              "name": "entitlementDescription",
+              "title": "Entitlement to spousal support is determined in consideration of the objectives under section 161 of the <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/lc/statreg/11025_07#section161'>Family Law Act</a>. The considerations are listed in <b>Question 1</b> of <b>Schedule 9 – Spousal Support – New</b> on the other party’s Application About a Family Law Matter.  They have selected the reason they believe there is entitlement to spousal support.",
+              "messageStyle": "inline",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "radiogroup",
+              "name": "noEntitlement",
+              "title": "I do not believe there is any entitlement to spousal support.",
+              "description": "If you don’t agree there is any entitlement to spousal support, select “True”. If you believe there is entitlement, even if it is a different reason, select “False”.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "noEntitlementDescription",
+              "title": "Please explain:",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible about why you believe there is no entitlement to spousal support.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{noEntitlement} = 'true'"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "IncomeAndAbilityToWorkPanel",
+          "elements": [
+            {          
+              "type": "infotexttitle",
+              "name": "incomeAndAbilityToWorkDescription",
+              "title": "Income and Ability to work",
+              "messageStyle": "inline"          
+            },
+            {
+              "type": "infotext",
+              "name": "incomeAndAbilityToWorkDescription",
+              "title": "With any application about spousal support, there are requirements to disclose financial information. It is impossible for the court to decide a fair and proper amount for spousal support without complete, true and up-to-date financial information.<br><br>You must file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank'>Financial Statement Form 4</a> with your reply so the court has your financial information. We will remind you to include this when you file your documents.",
+              "messageStyle": "inline",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "radiogroup",
+              "name": "incorrectIncomeAndAbilityToWork",
+              "title": "My income is not what the other party claimed it is.",
+              "description": "It could be that the other party made a guess about your income to calculate spousal support or was relying on dated information. Any information they provided about your income can be found in their response to <b>Question 4</b> on <b>Schedule 9 – Spousal Support – New</b>. Did they get it wrong?",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "incorrectEmployment",
+              "title": "My employment, training, health and ability to work is not what the other party claims it is.",
+              "description": "It could be that the other party made a guess about this information or was relying on dated information. Any information they provided about your employment, training, health and ability to work can be found in their response to <b>Question 5</b> on <b>Schedule 9 – Spousal Support – New</b>. Did they get it wrong?",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "incorrectEmploymentDescription",
+              "title": "Please explain what it should be:",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{incorrectEmployment} = 'true'"
+            },
+            {
+              "type": "radiogroup",
+              "name": "opIncorrectFinances",
+              "title": "The other party’s financial situation is not what they claim it is.",
+              "description": "The other party’s financial information is provided in <b>Part 1</b> and <b>Part 3</b> of their <b>Financial Statement Form 4</b>. Do you believe something is not correct in the other party’s financial disclosure?",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "opIncorrectFinancesDescription",
+              "title": "Please explain what you believe is not correct:",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{opIncorrectFinances} = 'true'"
+            },
+            {
+              "type": "radiogroup",
+              "name": "opIncorrectEmployment",
+              "title": "The other party’s employment, training, health and ability to work is not what they claim it is.",
+              "description": "Any information they provided about their employment, training, health and ability to work can be found in their response to <b>Question 3</b> on <b>Schedule 9 – Spousal Support – New</b>. Do you believe it is wrong?",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "opIncorrectEmploymentDescription",
+              "title": "Please explain what you believe is not correct:",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{opIncorrectEmployment} = 'true'"
+            },
+            {
+              "type": "radiogroup",
+              "name": "opIncorrectExpenses",
+              "title": "The other party’s expenses are not what they claim them to be.",
+              "description": "The other party’s expenses are provided in <b>Part 2</b> of their <b>Financial Statement Form 4</b>. Do you believe something is not correct in the other party’s claimed expenses?",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"True",
+                  "value": "true"
+                },
+                {
+                  "text":"False",
+                  "value": "false"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "opIncorrectExpensesDescription",
+              "title": "Please explain what you believe is not correct:",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{opIncorrectExpenses} = 'true'"
+            }
+          ]
+        },     
+        
+        {
+          "type": "panel",
+          "name": "OtherReasonPanel",
+          "elements": [
+            {          
+              "type": "infotexttitle",
+              "name": "disagreeOtherReasonDescription",
+              "title": "Other reason",
+              "messageStyle": "inline"          
+            },            
+            {
+              "type": "yesno",
+              "name": "disagreeOtherReason",
+              "title": "Is there any other reason that you would like to share with the court?",
+              "isRequired": true              
+            },            
+            {
+              "type": "comment",
+              "name": "otherReasonDescription",
+              "title": "Please explain:",
+              "description": "You do not need to use any special wording. The key is to be clear about why you don’t agree with the order about spousal support the other party has requested.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{disagreeOtherReason} = 'y'"
+            }
+          ]
+        }       
+      ],
+      "title": "Disagree – Spousal Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

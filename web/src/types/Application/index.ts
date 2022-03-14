@@ -17,6 +17,7 @@ import { replyExistingParentingArrangementsSurveyInfoType, replyNewConditionsPar
 import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyInfoType, relationshipToChildSurveyInfoType, replyExistingChildSupportSurveyInfoType, replyNewChildSupportSurveyInfoType, rflmCalculatingChildSupportSurveyInfoType, rflmUnpaidChildSupportSurveyInfoType } from "./ReplyFamilyLawMatter/ChildSupport";
 import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
 import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType, disagreeCancellingGuardianOfChildSurveyInfoType, replyCancellingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
+import { disagreeSpouseSupportSurveyInfoType, relationshipToOtherPartySurveyInfoType, replyNewSpouseSupportSurveyInfoType, rflmCalculatingSpouseSupportSurveyInfoType, rflmSpouseSupportOrderSurveyInfoType } from "./ReplyFamilyLawMatter/SpousalSupport";
 
 
 //This is what our database saves.
@@ -143,6 +144,12 @@ export interface stepInfoType {
     replyCancellingGuardianOfChildSurvey?: replyCancellingGuardianOfChildSurveyInfoType;
     disagreeCancellingGuardianOfChildSurvey?: disagreeCancellingGuardianOfChildSurveyInfoType;
     
+    replyNewSpouseSupportSurvey?: replyNewSpouseSupportSurveyInfoType;
+    relationshipToOtherPartySurvey?: relationshipToOtherPartySurveyInfoType;
+    disagreeSpouseSupportSurvey?: disagreeSpouseSupportSurveyInfoType;
+    rflmSpouseSupportOrderSurvey?: rflmSpouseSupportOrderSurveyInfoType;
+    rflmCalculatingSpouseSupportSurvey?: rflmCalculatingSpouseSupportSurveyInfoType; 
+
     rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
 
     //_____Step 4   WR_____________

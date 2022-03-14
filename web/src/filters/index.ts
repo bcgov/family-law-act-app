@@ -9,6 +9,7 @@ import {FLA_Types} from './applicationTypes';
 import {customCss} from './bootstrapCSS';
 import { pathwayCompletedInfoType } from '@/types/Application';
 import {EarlyResolutionsRegistries, FamilyJusticeRegistries} from './locationRegistries';
+import { rflmQuestionnaireDataInfoType, rflmQuestionnaireSurveyInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 
 
 
@@ -16,7 +17,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.5.7";
+    const CURRENT_VERSION: string = "1.2.5.8.1";
     //__________________________
     //___________________________
     //___________________________
@@ -374,7 +375,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	if(type == 'replyFlm'){	
 
-		const rflmQuestionnaire = questions.rflmQuestionnaireSurvey;
+		const rflmQuestionnaire: rflmQuestionnaireDataInfoType = questions.rflmQuestionnaireSurvey;
 
 		if(questions.rflmBackgroundSurvey?.existingPOOrdersAttached == "n")
 		  	requiredDocuments.push("Copy of the missed protection related written agreement(s), court order(s) or plan(s)");
@@ -385,17 +386,25 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		const newChildSupportAttachementRequired = rflmQuestionnaire.selectedChildSupportForm.includes('newChildSupport') && questions.replyNewChildSupportSurvey.agreeCourtOrder == 'n';
 		const existingChildSupportAttachementRequired = rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport') && questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n';	  
 		
+		const newSpouseSupportAttachementRequired = rflmQuestionnaire.selectedSpousalSupportForm.includes('newSpouseSupport') && questions.replyNewSpouseSupportSurvey.agreeCourtOrder == 'n';
+		const existingSpouseSupportAttachementRequired = false; //rflmQuestionnaire.selectedSpousalSupportForm.includes('existingSpouseSupport') && questions.replyExistingSpouseSupportSurvey.agreeCourtOrder == 'n';	  
+		
+		
 		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
 			&& (newChildSupportAttachementRequired || existingChildSupportAttachementRequired)
 			&& questions.rflmCalculatingChildSupportSurvey?.attachingCalculations == 'y' )
-		// || ( questions.rflmCalculatingSpousalSupportSurvey?.attachingCalculations== 'y' &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport"))
+		|| (rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 
+			&& (newSpouseSupportAttachementRequired || existingSpouseSupportAttachementRequired)
+			&& questions.rflmCalculatingSpouseSupportSurvey?.attachingCalculations == 'y' )
 		)
 			requiredDocuments.push("Support calculation");
 
 
 		
-		if( rflmQuestionnaire?.selectedChildSupportForm?.length > 0 && newChildSupportAttachementRequired && 
+		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 && newChildSupportAttachementRequired && 
 			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
+			|| ( rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 && newSpouseSupportAttachementRequired && 
+				questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))
 				requiredDocuments.push("Financial Statement Form 4");
 
 
@@ -404,8 +413,6 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'){
 				requiredDocuments.push('Financial Statement Form 4, if applicable');
 			}
-			
-		
 		
 	
 		//REMINDERS		

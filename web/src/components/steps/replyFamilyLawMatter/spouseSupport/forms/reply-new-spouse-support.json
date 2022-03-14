@@ -1,0 +1,48 @@
+{
+  "title": "Reply New Spousal Support",
+  "pages": [
+    {
+      "name": "Reply New Spousal Support",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "spousalSupportDescription1",
+          "title": "The other party has made an application for an order about spousal support.<br><br> <a target='_blank' href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/what-is'>Spousal Support</a> is money that one spouse pays to another spouse for their financial support after separation. It is different from child support. The purpose of spousal support is to help meet the on-going financial needs of a financially dependent spouse for a defined time.<br><br>A person is only entitled to spousal support in certain situations. It is not a right in every case. There are rules under the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/lc/statreg/11025_07#division_d2e13683' target='_blank'>Family Law Act</a> about when an order for spousal support can be made.<br>A person can apply for spousal support if:<ul><li>they are a spouse because:<ul><li>You were married</li><li>You lived together in a marriage-like relationship for at least two years, or</li><li>You lived in a marriage-like relationship for less than two years, but you have a child together</li></ul><li>they can prove entitlement to the court for spousal support, and</li><li>they are applying in time (Married spouses must start a court proceeding claiming spousal support within two years of the date of their divorce or an order annulling their marriage. Unmarried spouses must start a court proceeding within two years of the date of their separation. We recommend that you talk to a lawyer if you are not sure about the timing of the application.)</li></ul><br>For more information about spousal support and referrals to other spousal support resources, visit the <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/more-info' target='_blank'>BC Government website</a> at <a href='https://www2.gov.bc.ca/' target='_blank'>www.gov.bc.ca</a>.<br><br>We recommend that you talk to a lawyer before you make any final decisions about spousal support.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "helptext",
+          "name": "FAQLegalAdvice",
+          "title": "Where can I get legal assistance?",
+          "titleLocation": "hidden",              
+          "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"             
+        },
+        {
+          "type": "infotext",
+          "name": "spousalSupportDescription2",
+          "title": "The details of the order the other party is asking for can be found in <b>Schedule 9 – Spousal Support – New</b> of their Application About a Family Law Matter. You will need to refer to their application for these next questions.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "NewSpousalSupportPanel",
+          "elements": [          
+            {
+              "type": "yesno",
+              "name": "agreeCourtOrder",
+              "title": "Do you agree the court should make the order?",
+              "description": "Look at the order the other party is applying for. The order they are asking for is set out in their response to <b>Question 6</b> on <b>Schedule 9 – Spousal Support – New</b>. Should the court make the order?<br><br>If you agree to only part of the order, for example, you agree to pay spousal support monthly but not the amount they’ve set out, select NO. This service will help you to explain why the order should be different.",
+              "isRequired": true
+            }
+          ]
+        }
+   
+      ],
+      "title": "Reply New Spousal Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
