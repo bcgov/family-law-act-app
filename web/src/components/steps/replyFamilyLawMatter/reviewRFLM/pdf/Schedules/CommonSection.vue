@@ -258,10 +258,10 @@
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
                     <check-box  
-                        :check="agreeDisagreeResults.newSpouseSupport.opApplied && agreeDisagreeResults.appointGuardian.agree?'yes':''" 
+                        :check="agreeDisagreeResults.newSpouseSupport.opApplied && agreeDisagreeResults.newSpouseSupport.agree?'yes':''" 
                         text="spousal support – new <i>[see Schedule 9 of Application About a Family Law Matter]</i>"/>
                     <check-box  
-                        :check="agreeDisagreeResults.existingSpouseSupport.opApplied && agreeDisagreeResults.appointGuardian.agree?'yes':''" 
+                        :check="agreeDisagreeResults.existingSpouseSupport.opApplied && agreeDisagreeResults.existingSpouseSupport.agree?'yes':''" 
                         text="spousal support order/agreement – existing <i>[see Schedule 10 of Application About a Family Law Matter]</i>"/>                    
                 </div>                   
               

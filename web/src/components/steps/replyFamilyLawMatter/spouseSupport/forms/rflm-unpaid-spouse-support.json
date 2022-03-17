@@ -1,0 +1,60 @@
+{
+  "title": "Unpaid Spousal Support",
+  "pages": [
+    {
+      "name": "Unpaid Spousal Support",
+      "description": "Past spousal support payments that have not been made are called arrears. For an application when there is already an order or agreement about spousal support, the court needs to know if there is any unpaid spousal support, and if so, how much.<br><br>The court can reduce or cancel arrears if there is a good reason to. The court can also make an order about how the arrears will be paid, including setting up a payment schedule.",
+      "elements": [
+        {
+          "type": "yesno",
+          "name": "agreeSpouseSupportAmount",
+          "title": "Do you agree with the amount of unpaid spousal support the other party described in their application?",
+          "description": "Look at <b>Schedule 10 – Spousal Support – Existing</b> of the other party’s Application About a Family Law Matter. In <b>Question 5</b>, the other party is asked to describe any amount of unpaid spousal support. Do you agree the amount they set out is the amount of unpaid spousal support that was owing on the date referenced? Note: It may be ‘0’. If you agree with the amount but not what the other party is asking to do about the arrears, select ‘YES’. You will need to explain why you don’t agree with the order they are asking for in the next section.",
+          "isRequired": true
+        },  
+        {
+          "type": "panel",
+          "name": "disagreePanel",
+          "visible": false,
+          "visibleIf": "{agreeSpouseSupportAmount} == 'n'",
+          "elements": [  
+            {
+              "type": "text",
+              "name": "calculationDate",
+              "title": "What date did the other party calculate unpaid spousal support to?",
+              "description": "Look at <b>Schedule 10 – Spousal Support – Existing</b> of the other party’s Application About a Family Law Matter. Copy the date from <b>Question 5</b>.",
+              "isRequired": true,
+              "inputType": "date",
+              "visible": false,
+              "visibleIf": "{agreeSpouseSupportAmount} == 'n'"
+            },    
+            {
+              "type": "textbeforeinputnumber",
+              "name": "unPaidAmount",
+              "title":"As of {calculationDate}, what is the amount of unpaid spousal support you believe is still owing? $ ",
+              "titleLocation":"hidden",      
+              "bodyText":"As of {calculationDate}, what is the amount of unpaid spousal support you believe is still owing? $", 
+              "inputWidth": "9rem",
+              "textClass" : "sv_main sv_q_title font-weight-bold",
+              "visible": false,
+              "visibleIf": "{agreeSpouseSupportAmount} == 'n' and {calculationDate} notempty",              
+              "isRequired": true
+            },
+            {
+              "type": "infotext",
+              "name": "unpaidSpouseSupportAmountFAQ",
+              "visible": false,
+              "visibleIf": "{agreeSpouseSupportAmount} == 'n' and {calculationDate} notempty",   
+              "title": "You can talk with a <a href='https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C' target='_blank'>child support officer</a>, <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA'>family justice counsellor</a> or a lawyer if you need help calculating the amount of unpaid spousal support.",
+              "titleLocation": "hidden"
+            }         
+
+          ]
+        }
+      ],
+      "title": "Unpaid Spousal Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

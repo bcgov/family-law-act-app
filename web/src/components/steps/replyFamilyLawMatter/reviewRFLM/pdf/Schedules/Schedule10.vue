@@ -27,19 +27,19 @@
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box 
                         style="margin:0 0.25rem 0 0rem;" 
-                        :check="exSpsSupInfo.disagreeDetails.circumstancesChanged?'yes':''" 
+                        :check="exSpsSupInfo.agreeCircumstanceChanges?'yes':''" 
                         text="I agree that circumstances have changed since the final order about spousal support was made"/>
                     <check-box 
                         style="margin:0 0.25rem 0 0rem;" 
-                        :check="!exSpsSupInfo.disagreeDetails.circumstancesChanged?'yes':''" 
+                        :check="exSpsSupInfo.disAgreeCircumstanceChanges?'yes':''" 
                         text="There has been no change in circumstances since the final order about spousal support was made"/>
                     <check-box 
                         style="margin:0 0.25rem 0 0rem;" 
-                        :check="exSpsSupInfo.disagreeDetails.correctCircumstances?'yes':''" 
+                        :check="exSpsSupInfo.agreeSetAside?'yes':''" 
                         text="I agree the circumstances were as described by the other party when the written agreement about spousal support was made"/>
                     <check-box 
                         style="margin:0 0.25rem 0 0rem;" 
-                        :check="!exSpsSupInfo.disagreeDetails.correctCircumstances?'yes':''" 
+                        :check="exSpsSupInfo.disagreeSetAside?'yes':''" 
                         text="I do not believe the circumstances as described by the other party existed when the written agreement about spousal support was made"/>        
                 </div>
             </section>
@@ -55,7 +55,7 @@
                     <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                         <check-box 
                             style="margin:0 0.25rem 0 0rem;" 
-                            :check="exSpsSupInfo.disagreeDetails.agreeUnpaidAmount?'yes':''" 
+                            :check="exSpsSupInfo.unpaidDetails.agreeAmount?'yes':''" 
                             text="I agree that the amount of unpaid spousal support (arrears) in the application is correct"/>
                         <check-box 
                             class="marginleft" 
@@ -63,20 +63,20 @@
                             inline="inline" 
                             boxMargin="0" 
                             style="display:inline;" 
-                            :check="!exSpsSupInfo.disagreeDetails.agreeUnpaidAmount?'yes':''" 
+                            :check="!exSpsSupInfo.unpaidDetails.agreeAmount?'yes':''" 
                             text="The amount of unpaid spousal support (arrears) in the application is not correct. As of "/>
                         <underline-form 
                             style="margin-left:0.5rem; text-indent:0px;" 
                             textwidth="9rem" 
                             beforetext="" 
                             hint="mmm/dd/yyyy" 
-                            :text="exSpsSupInfo.disagreeDetails.dateCalculatedUnpaid"/>
+                            :text="exSpsSupInfo.unpaidDetails.crntDate"/>
                         <underline-form 
                             style="margin-left:0.1rem; text-indent:0px;" 
                             textwidth="7rem" 
                             beforetext=", the amount of unpaid spousal support (arrears) was $" 
                             hint="" 
-                            :text="exSpsSupInfo.disagreeDetails.unpaidAmount"/>          
+                            :text="exSpsSupInfo.unpaidDetails.unpaidAmnt"/>          
                     </div>
                 </section>
             </div>           
@@ -89,8 +89,8 @@
                         I do not agree with the requested order about the existing final order or written agreement 
                         about spousal support because:
                     </div>                    
-                    <div style="margin:0 0 0 0rem;" v-if="exSpsSupInfo.about.disagreeReason" 
-                        class="answerbox">{{exSpsSupInfo.about.disagreeReason}}</div>
+                    <div style="margin:0 0 0 0rem;" v-if="exSpsSupInfo.disagreeReason" 
+                        class="answerbox">{{exSpsSupInfo.disagreeReason}}</div>
                     <div v-else style="margin-bottom:2rem;"></div>
                 </section>
             </div> 
@@ -102,14 +102,14 @@
                     <div style="margin:0 0 0 1.25rem;">
                         <check-box 
                             style="margin:0 0.25rem 0 0rem;" 
-                            :check="exSpsSupInfo.about.continueOrder?'yes':''" 
+                            :check="exSpsSupInfo.continue?'yes':''" 
                             text="I am applying for the existing final order or written agreement about spousal support to continue to be in place"/>
                         <check-box 
                             style="margin:0 0rem 0rem 0rem;" 
-                            :check="!exSpsSupInfo.about.continueOrder?'yes':''" 
+                            :check="exSpsSupInfo.change?'yes':''" 
                             text="I am applying to change or replace the existing final order or written agreement about spousal support as follows:"/>
-                        <div style="margin:0 0 0 1rem;" v-if="!exSpsSupInfo.about.continueOrder && exSpsSupInfo.about.changeReason" 
-                            class="answerbox">{{exSpsSupInfo.about.changeReason}}</div>
+                        <div style="margin:0 0 0 1rem;" v-if="exSpsSupInfo.change && exSpsSupInfo.changeExpl" 
+                            class="answerbox">{{exSpsSupInfo.changeExpl}}</div>
                         <div v-else style="margin-bottom:2rem;"></div>
                     </div>
                 </section>
@@ -143,10 +143,10 @@
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
                         <check-box 
-                            :check="!exSpsSupInfo.filingForm4?'yes':''" 
+                            :check="exSpsSupInfo.filingForm4?'yes':''" 
                             text="I am filing a Financial Statement in Form 4 with this application"/>
                         <check-box 
-                            :check="exSpsSupInfo.filingForm4?'yes':''" 
+                            :check="!exSpsSupInfo.filingForm4?'yes':''" 
                             text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
@@ -182,6 +182,7 @@ import UnderlineForm from "@/components/utils/PopulateForms/components/Underline
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import moment from 'moment';
 import { schedule10DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { disagreeExistingSpouseSupportDataInfoType, replyExistingSpouseSupportDataInfoType, rflmCalculatingSpouseSupportDataInfoType, rflmUnpaidSpouseSupportDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/SpousalSupport';
 
 @Component({
     components:{
@@ -209,30 +210,76 @@ export default class Schedule10 extends Vue {
 
     public getExistingSpousalSupportInfo(){        
 
-        let existingSpousalSupportInfo = {} as schedule10DataInfoType; 
+        let existingSpouseSupportInfo = {} as schedule10DataInfoType; 
 
-        existingSpousalSupportInfo = {
-            disagreeDetails: {
-                circumstancesChanged: false,
-                correctCircumstances: false, 
-                agreeUnpaidAmount: false,
-                dateCalculatedUnpaid: moment().format("MMM DD, yyyy"),
-                unpaidAmount: '' 
-            },
-            about: {
-                disagreeReason: '',
-                continueOrder: false,
-                changeReason: ''
-            },   
-            calc: {
+        if (this.result.replyExistingSpouseSupportSurvey && this.result.rflmUnpaidSpouseSupportSurvey 
+                && this.result.rflmCalculatingSpouseSupportSurvey && this.result.disagreeExistingSpouseSupportSurvey && this.result.rflmAdditionalDocumentsSurvey){
+
+            const replyExistingSpouseSupportInfo: replyExistingSpouseSupportDataInfoType = this.result.replyExistingSpouseSupportSurvey;
+            if (replyExistingSpouseSupportInfo.existingType == 'finalOrder'){
+                existingSpouseSupportInfo.agreeCircumstanceChanges = replyExistingSpouseSupportInfo.agreeFinalOrder == 'y';
+                existingSpouseSupportInfo.disAgreeCircumstanceChanges = replyExistingSpouseSupportInfo.agreeFinalOrder == 'n';
+                existingSpouseSupportInfo.disagreeSetAside = false;
+                existingSpouseSupportInfo.agreeSetAside = false;
+
+            } else if (replyExistingSpouseSupportInfo.existingType == 'agreement'){
+                existingSpouseSupportInfo.disagreeSetAside = replyExistingSpouseSupportInfo.agreeAgreement == 'y';
+                existingSpouseSupportInfo.agreeSetAside = replyExistingSpouseSupportInfo.agreeAgreement == 'n';
+                existingSpouseSupportInfo.agreeCircumstanceChanges = false;
+                existingSpouseSupportInfo.disAgreeCircumstanceChanges = false;
+            }
+
+            const rflmUnpaidSpouseSupportInfo: rflmUnpaidSpouseSupportDataInfoType = this.result.rflmUnpaidSpouseSupportSurvey;
+
+            existingSpouseSupportInfo.unpaidDetails = {
+                agreeAmount: rflmUnpaidSpouseSupportInfo.agreeSpouseSupportAmount == 'y',
+                crntDate: rflmUnpaidSpouseSupportInfo.agreeSpouseSupportAmount == 'n'? Vue.filter('beautify-date')(rflmUnpaidSpouseSupportInfo.calculationDate):'',
+                unpaidAmnt: rflmUnpaidSpouseSupportInfo.agreeSpouseSupportAmount == 'n'?rflmUnpaidSpouseSupportInfo.unPaidAmount:''
+
+            }           
+            const calculationInfo: rflmCalculatingSpouseSupportDataInfoType = this.result.rflmCalculatingSpouseSupportSurvey;
+                    
+            existingSpouseSupportInfo.calc = {                
+                attaching: calculationInfo.attachingCalculations == 'y',
+                reason: calculationInfo.attachingCalculations == 'n'?calculationInfo.notAttachingCalculationsReason:''
+            } 
+
+            const disagreeExistingSpouseSupportInfo: disagreeExistingSpouseSupportDataInfoType = this.result.disagreeExistingSpouseSupportSurvey;
+
+            existingSpouseSupportInfo.disagreeReason = disagreeExistingSpouseSupportInfo.disagreeReason;
+            existingSpouseSupportInfo.continue = disagreeExistingSpouseSupportInfo.requestedOrder == 'noChange';
+            existingSpouseSupportInfo.change = disagreeExistingSpouseSupportInfo.requestedOrder == 'diffChange';
+            existingSpouseSupportInfo.changeExpl = disagreeExistingSpouseSupportInfo.requestedOrder == 'diffChange'?disagreeExistingSpouseSupportInfo.requestedChangeDescription:'';  
+            existingSpouseSupportInfo.filingForm4 = this.result.rflmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'y'
+          
+        } else {
+
+            const calculationsInfo = {
                 attaching: false,
                 reason: ''
-            },   
-            filingForm4: false 
+            }
+            const spouseSupportUnpaid = {
+                agreeAmount: false,
+                crntDate: '',
+                unpaidAmnt: ''
+            }
+            existingSpouseSupportInfo = {
+            
+                agreeCircumstanceChanges: false,
+                disAgreeCircumstanceChanges: false,
+                agreeSetAside: false,
+                disagreeSetAside: false,
+                disagreeReason: '',
+                continue: false,  
+                change: false,
+                changeExpl: '',     
+                calc: calculationsInfo,
+                unpaidDetails: spouseSupportUnpaid,
+                filingForm4: false
+            }    
+        }
 
-        }    
-
-        return existingSpousalSupportInfo;
+        return existingSpouseSupportInfo;
     }   
 }
 </script>

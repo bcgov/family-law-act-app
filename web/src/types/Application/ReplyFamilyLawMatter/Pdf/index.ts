@@ -207,17 +207,17 @@ export interface schedule9DataInfoType {
 }
 
 export interface disagreeSposalSupportDetailsInfoType {
-    entitled: boolean;
-    entitledDesc?: string;
-    correctIncomeClaim: boolean;
-    correctEmploymentClaim: boolean;
-    correctEmploymentClaimDesc?: string;
-    correctOpFinancialClaim: boolean;
-    correctOpFinancialClaimDesc?: string;
-    correctOpEmploymentClaim: boolean;
-    correctOpEmploymentClaimDesc?: string;
-    correctOpExpenseClaim: boolean;
-    correctOpExpenseClaimDesc?: string;
+    noEntitlement: boolean;
+    noEntitlementDesc?: string;
+    incorrectIncomeClaim: boolean;
+    incorrectEmploymentClaim: boolean;
+    incorrectEmploymentClaimDesc?: string;
+    incorrectOpFinancialClaim: boolean;
+    incorrectOpFinancialClaimDesc?: string;
+    incorrectOpEmploymentClaim: boolean;
+    incorrectOpEmploymentClaimDesc?: string;
+    incorrectOpExpenseClaim: boolean;
+    incorrectOpExpenseClaimDesc?: string;
     other: boolean;
     otherDesc?: string;
 }
@@ -234,22 +234,15 @@ export interface payDetailsInfoType {
 }
 
 export interface schedule10DataInfoType {
-    disagreeDetails: disagreeDetailsExistingSpousalSupportInfoType;
-    about: aboutExistingSpousalSupportInfoType;   
-    calc: calculationsInfoType;    
-    filingForm4: boolean;    
-}
-
-export interface disagreeDetailsExistingSpousalSupportInfoType {    
-    circumstancesChanged: boolean;
-    correctCircumstances: boolean; 
-    agreeUnpaidAmount: boolean;
-    dateCalculatedUnpaid?: string;
-    unpaidAmount?: string;   
-}
-
-export interface aboutExistingSpousalSupportInfoType {
+    agreeCircumstanceChanges: boolean;
+    disAgreeCircumstanceChanges: boolean;
+    agreeSetAside: boolean;
+    disagreeSetAside: boolean;
     disagreeReason: string;
-    continueOrder: boolean;
-    changeReason?: string;
+    continue: boolean;    
+    change: boolean;
+    changeExpl: string;     
+    calc: calculationsInfoType;
+    unpaidDetails: childSupportUnpaidInfoType;   
+    filingForm4: boolean; 
 }

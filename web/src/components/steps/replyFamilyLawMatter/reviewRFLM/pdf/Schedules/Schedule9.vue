@@ -45,23 +45,23 @@
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline;" 
-                        :check="!spsSupInfo.disagreeDetails.entitled?'yes':''" 
+                        :check="spsSupInfo.disagreeDetails.noEntitlement?'yes':''" 
                         text="I do not believe the other party is entitled to spousal support<br><i>Explain below</i>"/>
-                    <div v-if="!spsSupInfo.disagreeDetails.entitled && spsSupInfo.disagreeDetails.entitledDesc" 
-                        class="answerbox">{{spsSupInfo.disagreeDetails.entitledDesc}}</div>
+                    <div v-if="spsSupInfo.disagreeDetails.noEntitlement && spsSupInfo.disagreeDetails.noEntitlementDesc" 
+                        class="answerbox">{{spsSupInfo.disagreeDetails.noEntitlementDesc}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
 
-                    <check-box :check="!spsSupInfo.disagreeDetails.correctIncomeClaim?'yes':''" text="my income is not what the other party claims it is"/>
+                    <check-box :check="spsSupInfo.disagreeDetails.incorrectIncomeClaim?'yes':''" text="my income is not what the other party claims it is"/>
                     <check-box 
                         class="marginleft" 
                         checkbox="" 
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline;" 
-                        :check="!spsSupInfo.disagreeDetails.correctEmploymentClaim?'yes':''" 
+                        :check="spsSupInfo.disagreeDetails.incorrectEmploymentClaim?'yes':''" 
                         text="my employment, training, health and ability to work is not what the other party claims it is<br><i>Explain below</i>"/>
-                    <div v-if="!spsSupInfo.disagreeDetails.correctEmploymentClaim && spsSupInfo.disagreeDetails.correctEmploymentClaimDesc" 
-                        class="answerbox">{{spsSupInfo.disagreeDetails.correctEmploymentClaimDesc}}</div>
+                    <div v-if="spsSupInfo.disagreeDetails.incorrectEmploymentClaim && spsSupInfo.disagreeDetails.incorrectEmploymentClaimDesc" 
+                        class="answerbox">{{spsSupInfo.disagreeDetails.incorrectEmploymentClaimDesc}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
 
                     <check-box 
@@ -70,10 +70,10 @@
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline;" 
-                        :check="!spsSupInfo.disagreeDetails.correctOpFinancialClaim?'yes':''" 
+                        :check="spsSupInfo.disagreeDetails.incorrectOpFinancialClaim?'yes':''" 
                         text="the other party’s financial situation is not what they claim it is<br><i>Explain below</i>"/>
-                    <div v-if="!spsSupInfo.disagreeDetails.correctOpFinancialClaim && spsSupInfo.disagreeDetails.correctOpFinancialClaimDesc" 
-                        class="answerbox">{{spsSupInfo.disagreeDetails.correctOpFinancialClaimDesc}}</div>
+                    <div v-if="spsSupInfo.disagreeDetails.incorrectOpFinancialClaim && spsSupInfo.disagreeDetails.incorrectOpFinancialClaimDesc" 
+                        class="answerbox">{{spsSupInfo.disagreeDetails.incorrectOpFinancialClaimDesc}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
 
                     <check-box 
@@ -82,10 +82,10 @@
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline;" 
-                        :check="!spsSupInfo.disagreeDetails.correctOpEmploymentClaim?'yes':''" 
+                        :check="spsSupInfo.disagreeDetails.incorrectOpEmploymentClaim?'yes':''" 
                         text="I believe the other party’s employment, training, health and ability to work is not what the other party claims it is<br><i>Explain below</i>"/>
-                    <div v-if="!spsSupInfo.disagreeDetails.correctOpEmploymentClaim && spsSupInfo.disagreeDetails.correctOpEmploymentClaimDesc" 
-                        class="answerbox">{{spsSupInfo.disagreeDetails.correctOpEmploymentClaimDesc}}</div>
+                    <div v-if="spsSupInfo.disagreeDetails.incorrectOpEmploymentClaim && spsSupInfo.disagreeDetails.incorrectOpEmploymentClaimDesc" 
+                        class="answerbox">{{spsSupInfo.disagreeDetails.incorrectOpEmploymentClaimDesc}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
 
                     <check-box 
@@ -94,10 +94,10 @@
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline;" 
-                        :check="!spsSupInfo.disagreeDetails.correctOpExpenseClaim?'yes':''" 
+                        :check="!spsSupInfo.disagreeDetails.incorrectOpExpenseClaim?'yes':''" 
                         text="the other party’s expenses are not what they claim them to be<br><i>Explain below</i>"/>
-                    <div v-if="!spsSupInfo.disagreeDetails.correctOpExpenseClaim && spsSupInfo.disagreeDetails.correctOpExpenseClaimDesc" 
-                        class="answerbox">{{spsSupInfo.disagreeDetails.correctOpExpenseClaimDesc}}</div>
+                    <div v-if="!spsSupInfo.disagreeDetails.incorrectOpExpenseClaim && spsSupInfo.disagreeDetails.incorrectOpExpenseClaimDesc" 
+                        class="answerbox">{{spsSupInfo.disagreeDetails.incorrectOpExpenseClaimDesc}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
 
                     <check-box 
@@ -161,8 +161,8 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box  :check="!spsSupInfo.filingForm4?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box  :check="spsSupInfo.filingForm4?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box  :check="spsSupInfo.filingForm4?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
+                        <check-box  :check="!spsSupInfo.filingForm4?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>
@@ -190,6 +190,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule9DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { disagreeSpouseSupportDataInfoType, rflmCalculatingSpouseSupportDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/SpousalSupport';
+import { howToPaySpousalSupportInfoType } from '@/types/Application/FamilyLawMatter/SpousalSupport';
 
 @Component({
     components:{
@@ -213,6 +215,7 @@ export default class Schedule9 extends Vue {
     } 
 
     public extractInfo(){
+        console.log(this.result)
         this.spsSupInfo = this.getNewSpousalSupportInfo();
     }
 
@@ -220,40 +223,132 @@ export default class Schedule9 extends Vue {
 
         let newSpousalSupportInfo = {} as schedule9DataInfoType;
 
-        newSpousalSupportInfo = {
+        if (this.result.relationshipToOtherPartySurvey){
+            newSpousalSupportInfo.spouse = this.result.relationshipToOtherPartySurvey.spouse == 'y';
+        } else {
+            newSpousalSupportInfo.spouse = false;
+        }
 
-            spouse: false,
-            disagreeDetails: {
-                entitled: false,
-                entitledDesc: '',
-                correctIncomeClaim: false,
-                correctEmploymentClaim: false,
-                correctEmploymentClaimDesc: '',
-                correctOpFinancialClaim: false,
-                correctOpFinancialClaimDesc: '',
-                correctOpEmploymentClaim: false,
-                correctOpEmploymentClaimDesc: '',
-                correctOpExpenseClaim: false,
-                correctOpExpenseClaimDesc: '',
-                other: false,
-                otherDesc: ''
-            },  
-            payDetails: {
-                monthly: false,
-                start: '',
-                end: '',
-                rate: '',
-                lumpSum: false,
-                lumpSumAmount: '',
-                other: false,
-                otherComm: ''
-            },
-            calc: {
-                attaching: false,
-                reason: ''  
-            },           
-            filingForm4: false,
+        newSpousalSupportInfo.disagreeDetails = {                
+            noEntitlement: false,
+            noEntitlementDesc: '',
+            incorrectIncomeClaim: false,
+            incorrectEmploymentClaim: false,
+            incorrectEmploymentClaimDesc: '',
+            incorrectOpFinancialClaim: false,
+            incorrectOpFinancialClaimDesc: '',
+            incorrectOpEmploymentClaim: false,
+            incorrectOpEmploymentClaimDesc: '',
+            incorrectOpExpenseClaim: false,
+            incorrectOpExpenseClaimDesc: '',
+            other: false,
+            otherDesc: ''
+        }
 
+        if (this.result.disagreeSpouseSupportSurvey){
+            const disagreeInfo: disagreeSpouseSupportDataInfoType = this.result.disagreeSpouseSupportSurvey;
+            if (disagreeInfo.noEntitlement == "true"){
+                newSpousalSupportInfo.disagreeDetails.noEntitlement = true;
+                newSpousalSupportInfo.disagreeDetails.noEntitlementDesc = disagreeInfo.noEntitlementDescription;
+            } else {
+                newSpousalSupportInfo.disagreeDetails.noEntitlement = false;
+                newSpousalSupportInfo.disagreeDetails.noEntitlementDesc = "";
+            }
+
+            newSpousalSupportInfo.disagreeDetails.incorrectIncomeClaim = disagreeInfo.incorrectIncomeAndAbilityToWork == "true";
+            
+            if (disagreeInfo.incorrectEmployment == "true"){
+                newSpousalSupportInfo.disagreeDetails.incorrectEmploymentClaim = true;
+                newSpousalSupportInfo.disagreeDetails.incorrectEmploymentClaimDesc = disagreeInfo.incorrectEmploymentDescription;
+            } else {
+                newSpousalSupportInfo.disagreeDetails.incorrectEmploymentClaim = false;
+                newSpousalSupportInfo.disagreeDetails.incorrectEmploymentClaimDesc = "";
+            }
+
+            if (disagreeInfo.opIncorrectFinances == "true"){
+                newSpousalSupportInfo.disagreeDetails.incorrectOpFinancialClaim = true;
+                newSpousalSupportInfo.disagreeDetails.incorrectOpFinancialClaimDesc = disagreeInfo.opIncorrectFinancesDescription;
+
+            } else {
+                newSpousalSupportInfo.disagreeDetails.incorrectOpFinancialClaim = false;
+                newSpousalSupportInfo.disagreeDetails.incorrectOpFinancialClaimDesc = "";
+            }
+
+            if (disagreeInfo.opIncorrectEmployment == "true"){
+                newSpousalSupportInfo.disagreeDetails.incorrectOpEmploymentClaim = true;
+                newSpousalSupportInfo.disagreeDetails.incorrectOpEmploymentClaimDesc = disagreeInfo.opIncorrectEmploymentDescription;
+            } else {
+                newSpousalSupportInfo.disagreeDetails.incorrectOpEmploymentClaim = false;
+                newSpousalSupportInfo.disagreeDetails.incorrectOpEmploymentClaimDesc = "";
+            }
+
+            if (disagreeInfo.opIncorrectExpenses == "true"){
+                newSpousalSupportInfo.disagreeDetails.incorrectOpExpenseClaim = true;
+                newSpousalSupportInfo.disagreeDetails.incorrectOpExpenseClaimDesc = disagreeInfo.opIncorrectExpensesDescription;
+            } else {
+                newSpousalSupportInfo.disagreeDetails.incorrectOpExpenseClaim = false;
+                newSpousalSupportInfo.disagreeDetails.incorrectOpExpenseClaimDesc = "";
+            }
+
+            if (disagreeInfo.disagreeOtherReason == 'y'){
+                newSpousalSupportInfo.disagreeDetails.other = true;
+                newSpousalSupportInfo.disagreeDetails.otherDesc = disagreeInfo.otherReasonDescription;
+            } else {
+                newSpousalSupportInfo.disagreeDetails.other = false;
+                newSpousalSupportInfo.disagreeDetails.otherDesc = "";
+            }
+            
+        }
+
+        newSpousalSupportInfo.payDetails = {
+            monthly: false,
+            start: '',
+            end: '',
+            rate: '',
+            lumpSum: false,
+            lumpSumAmount: '',
+            other: false,
+            otherComm: ''
+        }
+
+        if (this.result.rflmSpouseSupportOrderSurvey?.howToPaySpousalSupport){
+            const supportOrder: howToPaySpousalSupportInfoType = this.result.rflmSpouseSupportOrderSurvey.howToPaySpousalSupport;
+            newSpousalSupportInfo.payDetails = {
+                monthly: supportOrder.selected == 'monthly',
+                start: (supportOrder.selected == 'monthly'
+                        && supportOrder.monthlyStartDate)?Vue.filter('beautify-date')(supportOrder.monthlyStartDate):'',
+                end: (supportOrder.selected == 'monthly'
+                        && supportOrder.monthlyEndDate)?Vue.filter('beautify-date')(supportOrder.monthlyEndDate):'',
+                rate: (supportOrder.selected == 'monthly'
+                        && supportOrder.monthlyAmount)?supportOrder.monthlyAmount:'',
+                lumpSum: supportOrder.selected == 'Lump Sum',
+                lumpSumAmount: (supportOrder.selected == 'Lump Sum'
+                        && supportOrder.lumpsumAmount)? supportOrder.lumpsumAmount:'',
+                other: supportOrder.selected == 'other',
+                otherComm: (supportOrder.selected == 'other' 
+                        && supportOrder.otherComment)? supportOrder.otherComment:''
+            }
+        }
+
+        newSpousalSupportInfo.calc = {                
+            attaching: false,
+            reason: ''
+        }
+
+        if (this.result.rflmCalculatingSpouseSupportSurvey){
+            const calculationInfo: rflmCalculatingSpouseSupportDataInfoType = this.result.rflmCalculatingSpouseSupportSurvey;
+                    
+            newSpousalSupportInfo.calc = {                
+                attaching: calculationInfo.attachingCalculations == 'y',
+                reason: calculationInfo.attachingCalculations == 'n'?calculationInfo.notAttachingCalculationsReason:''
+            } 
+        
+        } 
+
+        if (this.result.rflmAdditionalDocumentsSurvey){
+            newSpousalSupportInfo.filingForm4 = this.result.rflmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'y';
+        } else {
+            newSpousalSupportInfo.filingForm4 = false;
         }        
 
         return newSpousalSupportInfo;

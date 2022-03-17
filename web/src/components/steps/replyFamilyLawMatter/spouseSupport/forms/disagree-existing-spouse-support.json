@@ -1,0 +1,54 @@
+{
+  "title": "Disagree – Spousal Support Existing",
+  "pages": [
+    {
+      "name": "Disagree – Spousal Support Existing",
+      "description": "How much and for how long spousal support is paid is determined by considering many factors. The decision to pay a regular amount each month over a certain number of months or years, or a lump sum amount may depend on many factors including the ability of a spouse to pay it all at once.",
+      "elements": [        
+        {
+          "type": "panel",
+          "name": "disagreeExistingSpouseSupportPanel",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "disagreeReason",
+              "title": "Why don’t you agree with the requested order?",
+              "description": "Explain why you don’t agree with the order the other party requested should be made. If you agreed with some parts, just explain why you don’t agree with the other parts of the order they are asking to have made.<br><br>You do not need to use any special wording. The key is to be clear about what you mean.",
+              "isRequired": true              
+            },           
+            {
+              "type": "radiogroup",
+              "name": "requestedOrder",
+              "title": "What do you want the court to order?",
+              "description": "Choose one.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text":"I want the existing final order or agreement to stay in place (no changes to be made).",
+                  "value": "noChange"
+                },
+                {
+                  "text":"I want a different order made about spousal support (just not what the other party requested).",
+                  "value": "diffChange"
+                }
+              ]
+            },            
+            {
+              "type": "comment",
+              "name": "requestedChangeDescription",
+              "title": "What changes to spousal support do you want the court to order?",
+              "description": "Explain what order you want made about spousal support instead of what the other party has asked for.<br><br>Give as much detail as you would like the court to include in the order.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order instead.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{requestedOrder} = 'diffChange'"
+            }
+          ]
+        }
+            
+      ],
+      "title": "Disagree – Spousal Support Existing"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

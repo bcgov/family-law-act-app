@@ -341,12 +341,12 @@ export default class RflmCounterApp extends Vue {
                 }             
             } 
 
-            // if (this.selectedRepliesData.selectedSpousalSupportForm.length > 0){                
-            //     if(this.selectedRepliesData.selectedSpousalSupportForm.includes("existingSpouseSupport"))
-            //         togglePages(this.spousalSupportExistingPages, true, this.currentStep);
-            //     else    
-            //         togglePages(this.spousalSupportNewPages, true, this.currentStep);               
-            // }            
+            if (this.selectedRepliesData.selectedSpousalSupportForm.length > 0){                
+                if(this.selectedRepliesData.selectedSpousalSupportForm.includes("existingSpouseSupport"))
+                    togglePages(this.spousalSupportExistingPages, true, this.currentStep);
+                else    
+                    togglePages(this.spousalSupportNewPages, true, this.currentStep);               
+            }            
         }
     }
 
@@ -399,8 +399,8 @@ export default class RflmCounterApp extends Vue {
         this.appointingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyAppointingGuardianOfChild, p.DisagreeAppointingGuardianOfChild]
         this.cancellingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyCancellingGuardianOfChild, p.DisagreeCancellingGuardianOfChild]
 
-        // this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
-        // this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]
+        this.spousalSupportNewPages = [p.ReplyNewSpouseSupport, p.RelationshipToOtherParty, p.DisagreeSpouseSupport, p.RflmSpouseSupportOrder, p.RflmCalculatingSpouseSupport, p.RflmAdditionalDocuments]
+        this.spousalSupportExistingPages = [p.ReplyExistingSpouseSupport, p.RflmUnpaidSpouseSupport, p.DisagreeExistingSpouseSupport, p.RflmCalculatingSpouseSupport, p.RflmAdditionalDocuments]
     }
    
 

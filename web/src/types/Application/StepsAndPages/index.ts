@@ -79,7 +79,14 @@ export interface RFLMstPgTypes{
     DisagreeAppointingGuardianOfChild: number;
     ReplyCancellingGuardianOfChild: number;
     DisagreeCancellingGuardianOfChild: number;
-
+    ReplyNewSpouseSupport: number;
+    RelationshipToOtherParty: number;
+    DisagreeSpouseSupport: number;
+    RflmSpouseSupportOrder: number;
+    RflmCalculatingSpouseSupport: number;
+    ReplyExistingSpouseSupport: number;
+    RflmUnpaidSpouseSupport: number;
+    DisagreeExistingSpouseSupport: number;    
     RflmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
