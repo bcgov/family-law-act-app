@@ -75,4 +75,47 @@ export interface rflmCalculatingSpouseSupportSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface replyExistingSpouseSupportDataInfoType {
+    agreeCourtOrder: string;
+    existingType?: string;
+    agreeFinalOrder?: string;
+    agreeAgreement?: string;
+}
+
+export interface replyExistingSpouseSupportSurveyInfoType {
+    data: replyExistingSpouseSupportDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface rflmUnpaidSpouseSupportDataInfoType {
+    agreeSpouseSupportAmount: string;
+    calculationDate?: string; 
+    unPaidAmount?: string; 
+}
+
+export interface rflmUnpaidSpouseSupportSurveyInfoType {
+    data: rflmUnpaidSpouseSupportDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface disagreeExistingSpouseSupportDataInfoType {
+    disagreeReason: string;
+    requestedOrder?: string;
+    requestedChangeDescription?: string;   
+}
+
+export interface disagreeExistingSpouseSupportSurveyInfoType {
+    data: disagreeExistingSpouseSupportDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
 

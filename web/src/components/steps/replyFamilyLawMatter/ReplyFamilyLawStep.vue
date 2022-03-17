@@ -36,6 +36,11 @@
         <relationship-to-other-party v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RelationshipToOtherParty"/>
         <disagree-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeSpouseSupport"/>        
         <rflm-spouse-support-order v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmSpouseSupportOrder"/>
+        
+        <reply-existing-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyExistingSpouseSupport"/>
+        <rflm-unpaid-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmUnpaidSpouseSupport"/>
+        <disagree-existing-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeExistingSpouseSupport"/>
+        
         <rflm-calculating-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmCalculatingSpouseSupport"/>
        
         <rflm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmAdditionalDocuments"/>
@@ -92,6 +97,10 @@ import DisagreeSpouseSupport from "./spouseSupport/DisagreeSpouseSupport.vue";
 import RflmSpouseSupportOrder from "./spouseSupport/RflmSpouseSupportOrder.vue";
 import RflmCalculatingSpouseSupport from "./spouseSupport/RflmCalculatingSpouseSupport.vue";
 
+import ReplyExistingSpouseSupport from "./spouseSupport/ReplyExistingSpouseSupport.vue";
+import RflmUnpaidSpouseSupport from "./spouseSupport/RflmUnpaidSpouseSupport.vue";
+import DisagreeExistingSpouseSupport from "./spouseSupport/DisagreeExistingSpouseSupport.vue";
+
 import RflmAdditionalDocuments from "./RflmAdditionalDocuments.vue";
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
@@ -130,6 +139,9 @@ import { stepInfoType } from "@/types/Application";
         DisagreeSpouseSupport,
         RflmSpouseSupportOrder,
         RflmCalculatingSpouseSupport, 
+        ReplyExistingSpouseSupport,
+        RflmUnpaidSpouseSupport,
+        DisagreeExistingSpouseSupport,
         RflmAdditionalDocuments,
         ReviewYourAnswersRFLM,
         PreviewFormsRFLM  

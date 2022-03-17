@@ -83,7 +83,10 @@ export interface RFLMstPgTypes{
     RelationshipToOtherParty: number;
     DisagreeSpouseSupport: number;
     RflmSpouseSupportOrder: number;
-    RflmCalculatingSpouseSupport: number;    
+    RflmCalculatingSpouseSupport: number;
+    ReplyExistingSpouseSupport: number;
+    RflmUnpaidSpouseSupport: number;
+    DisagreeExistingSpouseSupport: number;    
     RflmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 

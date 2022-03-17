@@ -17,7 +17,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.5.8.1";
+    const CURRENT_VERSION: string = "1.2.5.8.2";
     //__________________________
     //___________________________
     //___________________________
@@ -387,7 +387,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		const existingChildSupportAttachementRequired = rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport') && questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n';	  
 		
 		const newSpouseSupportAttachementRequired = rflmQuestionnaire.selectedSpousalSupportForm.includes('newSpouseSupport') && questions.replyNewSpouseSupportSurvey.agreeCourtOrder == 'n';
-		const existingSpouseSupportAttachementRequired = false; //rflmQuestionnaire.selectedSpousalSupportForm.includes('existingSpouseSupport') && questions.replyExistingSpouseSupportSurvey.agreeCourtOrder == 'n';	  
+		const existingSpouseSupportAttachementRequired = rflmQuestionnaire.selectedSpousalSupportForm.includes('existingSpouseSupport') && questions.replyExistingSpouseSupportSurvey.agreeCourtOrder == 'n';	  
 		
 		
 		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
@@ -399,11 +399,10 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		)
 			requiredDocuments.push("Support calculation");
 
-
-		
 		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 && newChildSupportAttachementRequired && 
 			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
-			|| ( rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 && newSpouseSupportAttachementRequired && 
+			|| ( rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 && 
+				(newSpouseSupportAttachementRequired || existingSpouseSupportAttachementRequired) && 
 				questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))
 				requiredDocuments.push("Financial Statement Form 4");
 

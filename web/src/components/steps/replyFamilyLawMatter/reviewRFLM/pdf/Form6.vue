@@ -12,8 +12,8 @@
         <schedule-7 v-bind:result="result" v-if="selectedSchedules.includes('schedule7')" />
         <schedule-8 v-bind:result="result" v-if="selectedSchedules.includes('schedule8')" />
         <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
-        <!-- <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
-        <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
+        <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
+        <!-- <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
         <schedule-12 v-bind:result="result"  v-if="selectedSchedules.includes('schedule12')" />
         <schedule-13 v-bind:result="result"  v-if="selectedSchedules.includes('schedule13')" />
         <schedule-14 v-bind:result="result"  v-if="selectedSchedules.includes('schedule14')" />

@@ -400,7 +400,7 @@ export default class RflmCounterApp extends Vue {
         this.cancellingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyCancellingGuardianOfChild, p.DisagreeCancellingGuardianOfChild]
 
         this.spousalSupportNewPages = [p.ReplyNewSpouseSupport, p.RelationshipToOtherParty, p.DisagreeSpouseSupport, p.RflmSpouseSupportOrder, p.RflmCalculatingSpouseSupport, p.RflmAdditionalDocuments]
-        // this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]
+        this.spousalSupportExistingPages = [p.ReplyExistingSpouseSupport, p.RflmUnpaidSpouseSupport, p.DisagreeExistingSpouseSupport, p.RflmCalculatingSpouseSupport, p.RflmAdditionalDocuments]
     }
    
 

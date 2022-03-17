@@ -234,22 +234,15 @@ export interface payDetailsInfoType {
 }
 
 export interface schedule10DataInfoType {
-    disagreeDetails: disagreeDetailsExistingSpousalSupportInfoType;
-    about: aboutExistingSpousalSupportInfoType;   
-    calc: calculationsInfoType;    
-    filingForm4: boolean;    
-}
-
-export interface disagreeDetailsExistingSpousalSupportInfoType {    
-    circumstancesChanged: boolean;
-    correctCircumstances: boolean; 
-    agreeUnpaidAmount: boolean;
-    dateCalculatedUnpaid?: string;
-    unpaidAmount?: string;   
-}
-
-export interface aboutExistingSpousalSupportInfoType {
+    agreeCircumstanceChanges: boolean;
+    disAgreeCircumstanceChanges: boolean;
+    agreeSetAside: boolean;
+    disagreeSetAside: boolean;
     disagreeReason: string;
-    continueOrder: boolean;
-    changeReason?: string;
+    continue: boolean;    
+    change: boolean;
+    changeExpl: string;     
+    calc: calculationsInfoType;
+    unpaidDetails: childSupportUnpaidInfoType;   
+    filingForm4: boolean; 
 }

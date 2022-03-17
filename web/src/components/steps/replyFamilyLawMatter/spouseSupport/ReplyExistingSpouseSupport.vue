@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/reply-new-child-support.json";
+import surveyJson from "./forms/reply-existing-spouse-support.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -26,7 +26,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ReplyNewChildSupport extends Vue {
+export default class ReplyExistingSpouseSupport extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;     
@@ -73,8 +73,8 @@ export default class ReplyNewChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.replyNewChildSupportSurvey?.data) {
-            this.survey.data = this.step.result.replyNewChildSupportSurvey.data; 
+        if (this.step.result?.replyExistingSpouseSupportSurvey?.data) {
+            this.survey.data = this.step.result.replyExistingSpouseSupportSurvey.data; 
             this.setPages();            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);             
         }
@@ -82,29 +82,26 @@ export default class ReplyNewChildSupport extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
-    public setPages(){       
+    public setPages(){
 
         if (this.survey.data?.agreeCourtOrder){
 
-            let includesSpouseSupportPathway = false;        
+            let includesChildSupportPathway = false;        
 
-            if (this.step.result?.rflmQuestionnaireSurvey?.data && this.step.result?.replyNewSpouseSupportSurvey?.data) {
+            if (this.step.result?.rflmQuestionnaireSurvey?.data && this.step.result?.replyNewChildSupportSurvey?.data) {
                 const selectedRepliesData = this.step.result.rflmQuestionnaireSurvey.data;
-                if (selectedRepliesData.selectedSpousalSupportForm.length > 0){
-                            
-                    includesSpouseSupportPathway = ((selectedRepliesData.selectedSpousalSupportForm.includes("newSpouseSupport") && 
-                                                        this.step.result.replyNewSpouseSupportSurvey.data.agreeCourtOrder == 'n') ||
-                                                    (selectedRepliesData.selectedSpousalSupportForm.includes("existingSpouseSupport") && 
-                                                        this.step.result.replyExistingSpouseSupportSurvey.data.agreeCourtOrder == 'n'));                
+                if (selectedRepliesData.selectedChildSupportForm.length > 0 && selectedRepliesData.selectedChildSupportForm.includes("newChildSupport")){                
+                    includesChildSupportPathway = this.step.result.replyNewChildSupportSurvey.data.agreeCourtOrder == 'n';
                 } 
             }
 
-            const p = this.stPgNo.RFLM;
+            const p = this.stPgNo.RFLM
 
-            togglePages([p.RelationshipToChild, p.DisagreeChildSupport, p.RflmCalculatingChildSupport], this.survey.data.agreeCourtOrder == 'n', this.currentStep);
-            if (!includesSpouseSupportPathway){
+            togglePages([p.RflmUnpaidSpouseSupport, p.DisagreeExistingSpouseSupport, p.RflmCalculatingSpouseSupport], this.survey.data.agreeCourtOrder == 'n', this.currentStep);
+            if (!includesChildSupportPathway){
                 togglePages([p.RflmAdditionalDocuments], this.survey.data.agreeCourtOrder == 'n', this.currentStep);                
-            }
+            } 
+           
         }
     }
 
@@ -120,7 +117,7 @@ export default class ReplyNewChildSupport extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {replyNewChildSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {replyExistingSpouseSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

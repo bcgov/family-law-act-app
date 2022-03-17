@@ -69,7 +69,7 @@
             {
               "type": "infotext",
               "name": "incomeAndAbilityToWorkDescription",
-              "title": "With any application about spousal support, there are requirements to disclose financial information. It is impossible for the court to decide a fair and proper amount for spousal support without complete, true and up-to-date financial information.<br><br>You must file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank'>Financial Statement Form 4</a> with your reply so the court has your financial information. We will remind you to include this when you file your documents.",
+              "title": "With any application about spousal support, there are requirements to disclose financial information. It is impossible for the court to decide a fair and proper amount for spousal support without complete, true and up-to-date financial information.<br>You must file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank'>Financial Statement Form 4</a> with your reply so the court has your financial information. We will remind you to include this when you file your documents.",
               "messageStyle": "inline",
               "titleLocation": "hidden"
             },
