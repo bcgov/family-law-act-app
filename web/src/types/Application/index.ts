@@ -118,6 +118,7 @@ export interface stepInfoType {
     rflmQuestionnaireSurvey?: rflmQuestionnaireSurveyInfoType;
     rflmCounterAppSurvey?: rflmCounterAppSurveyInfoType;
     rflmBackgroundSurvey?: rflmBackgroundSurveyInfoType;
+    selectedCounterApplications?: string[];
     rflmChildrenInfoSurvey?: rflmChildDetailsSurveyInfoType;
     correctChildInfo?: string;
     rflmChildBestInterestAcknowledgement?: boolean;

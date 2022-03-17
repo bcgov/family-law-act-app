@@ -361,7 +361,6 @@ export default class RflmCounterApp extends Vue {
         return selected;
     }
 
-
     public onChangeCounter(countering){
 
         this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:false})

@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="checkbox-border">
-                            <b-form-checkbox value="familyLawMatter">  
+                            <b-form-checkbox :disabled="selectedReplyForms.includes('replyFlm')" value="familyLawMatter">  
                             <span v-if="returningUser"><div class="checkbox-choices">Family Law Matters including parenting arrangements, child support, contact with a 
                                 child, guardianship of a child and spousal support under the <i>Family Law Act.</i></div>
                                 <p>
@@ -174,14 +174,20 @@ export default class GettingStarted extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
-        const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
-
-        if (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms) {
-            this.selected = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
-        }
+        const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');       
 
         if (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms) {
             this.selectedReplyForms = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms;
+        }
+
+        if (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms) {
+            this.selected = this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
+            if (this.selectedReplyForms.includes("replyFlm")){
+                const index = this.selected.indexOf('familyLawMatter');
+                if (index != -1){
+                    this.selected.splice(index, 1);
+                }
+            }
         }
         
         this.returningUser = (this.$store.state.Application.userType == 'returning');        
@@ -231,15 +237,15 @@ export default class GettingStarted extends Vue {
     
             const poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
             const poIncluded = selectedForms.includes("protectionOrder"); 
-            
-            const flmIncluded = selectedForms.includes("familyLawMatter");
-            const cmIncluded = selectedForms.includes("caseMgmt");
-            const ppmIncluded = selectedForms.includes("priorityParenting")
-            const crIncluded = selectedForms.includes("childReloc")
-            const aeIncluded = selectedForms.includes("agreementEnfrc")
 
             const wrIncluded = this.selectedReplyForms.includes("writtenResponse");
             const rflmIncluded = this.selectedReplyForms.includes("replyFlm");
+
+            const flmIncluded = !rflmIncluded && selectedForms.includes("familyLawMatter");
+            const cmIncluded = selectedForms.includes("caseMgmt");
+            const ppmIncluded = selectedForms.includes("priorityParenting");
+            const crIncluded = selectedForms.includes("childReloc");
+            const aeIncluded = selectedForms.includes("agreementEnfrc");
 
             toggleStep(this.stPgNo.PO._StepNo,    poIncluded);
             toggleStep(this.stPgNo.FLM._StepNo,   flmIncluded);

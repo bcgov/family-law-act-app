@@ -9,7 +9,7 @@ import {FLA_Types} from './applicationTypes';
 import {customCss} from './bootstrapCSS';
 import { pathwayCompletedInfoType } from '@/types/Application';
 import {EarlyResolutionsRegistries, FamilyJusticeRegistries} from './locationRegistries';
-import { rflmQuestionnaireDataInfoType, rflmQuestionnaireSurveyInfoType } from '@/types/Application/ReplyFamilyLawMatter';
+import { rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 
 
 
@@ -17,7 +17,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.5.8.2";
+    const CURRENT_VERSION: string = "1.2.5.9";
     //__________________________
     //___________________________
     //___________________________

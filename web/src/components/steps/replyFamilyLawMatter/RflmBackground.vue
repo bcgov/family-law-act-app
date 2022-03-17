@@ -15,6 +15,7 @@ import surveyJson from "./forms/rflm-background.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -43,12 +44,34 @@ export default class RflmBackground extends Vue {
     currentStep =0;
     currentPage =0;
 
+    allPages = [];
+    counter = false;
+    counterList = []; 
+    selectedCounterApplications = [];
+    
+    commonPages = [];
+
+    parentingArrangementsNewPages = []; 
+    parentingArrangementsExistingPages = [];    
+
+    childSupportNewPages = [];
+    childSupportExistingPages = [];
+
+    contactWithChildNewPages = []
+    contactWithChildExistingPages = []
+
+    guardianOfChildNewPages = []
+
+    spousalSupportNewPages = []
+    spousalSupportExistingPages = []
+
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
 
     mounted(){        
+        this.initPageNumbers();
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -65,8 +88,74 @@ export default class RflmBackground extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('replyFlm')
+            this.setPages();
            
         })
+    }
+
+    public setPages() {
+
+        if (this.getSelectedCounters()) {
+                        
+            togglePages(this.allPages, false, this.currentStep);
+            togglePages(this.commonPages, true, this.currentStep);
+            this.selectedCounterApplications = [];            
+
+            if (this.counterList.includes("parentingArrangements")){                
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && 
+                this.survey.data?.existingOrdersListFLM?.includes('Parenting Arrangements including `parental responsibilities` and `parenting time`')){
+                    togglePages(this.parentingArrangementsExistingPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("existingParentingArrangements");
+                } else {
+                    togglePages(this.parentingArrangementsNewPages, true, this.currentStep);  
+                    this.selectedCounterApplications.push("newParentingArrangements");
+                }                                   
+            } 
+
+            if (this.counterList.includes("childSupport")) {
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && 
+                this.survey.data?.existingOrdersListFLM?.includes('Child Support')){
+                    togglePages(this.childSupportExistingPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("existingChildSupport");
+                } else {
+                    togglePages(this.childSupportNewPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("newChildSupport");
+                }                    
+            }
+
+            if (this.counterList.includes("contactWithChild")) {
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Contact with a Child')){
+                    togglePages(this.contactWithChildNewPages, false, this.currentStep);
+                    togglePages(this.contactWithChildExistingPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("existingContactWithChild");
+                } else {
+                    togglePages(this.contactWithChildExistingPages, false, this.currentStep);
+                    togglePages(this.contactWithChildNewPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("newContactWithChild");
+                }                    
+            }
+
+            if (this.counterList.includes("guardianOfChild")) {                
+                togglePages(this.guardianOfChildNewPages, true, this.currentStep);
+                this.selectedCounterApplications.push("guardianOfChild");
+            }
+
+            if (this.counterList.includes("spousalSupport")) {
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Spousal Support')) {
+                    togglePages(this.spousalSupportExistingPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("existingSpousalSupport");
+                } else {
+                    togglePages(this.spousalSupportNewPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("newSpousalSupport");
+                }
+            }
+           
+        }
+    }
+
+    public getSelectedCounters(){
+        const selectedCounters = this.counter && this.counterList.length>0;
+        return selectedCounters;
     }
 
     public reloadPageInformation() {  
@@ -80,14 +169,45 @@ export default class RflmBackground extends Vue {
         } 
 
         if (this.step.result?.rflmCounterAppSurvey?.data){
-            if (this.step.result?.rflmCounterAppSurvey?.data.counter){
+            if (this.step.result.rflmCounterAppSurvey.data.counter == 'Yes'){
                 this.survey.setVariable("includesCounter", true);
+                this.counter = true;
+                this.counterList = this.step.result.rflmCounterAppSurvey.data.counterList?.length>0?this.step.result.rflmCounterAppSurvey.data.counterList:[];
             } else {
                 this.survey.setVariable("includesCounter", false);
+                this.counterList = [];
             }
         }
 
+        if (this.step.result?.selectedCounterApplications) {
+            this.selectedCounterApplications = this.step.result.selectedCounterApplications;
+        }
+
+        this.setPages();
+       
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    }
+
+    public initPageNumbers(){
+        const p = this.stPgNo.RFLM        
+        this.allPages = _.range(p.ParentingArrangements, p.FlmAdditionalDocuments);
+
+        this.commonPages = [p.YourApplication];       
+
+        this.parentingArrangementsNewPages = [p.ParentingArrangements, p.ParentalResponsibilities, p.ParentingTime, p.OtherParentingArrangements,  p.BestInterestsOfChild]; 
+        this.parentingArrangementsExistingPages = [p.ParentingOrderAgreement, p.AboutParentingArrangements];    
+
+        this.childSupportNewPages = [p.ChildSupport, p.ChildSupportCurrentArrangements, p.IncomeAndEarningPotential, p.AboutChildSupportOrder, p.CalculatingChildSupport, p.UndueHardship, p.SpecialAndExtraordinaryExpenses];
+        this.childSupportExistingPages = [p.ChildSupportOrderAgreement, p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport];
+
+        this.contactWithChildNewPages = [p.ContactWithChild, p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild]
+        this.contactWithChildExistingPages = [p.ContactWithChildOrder, p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild]
+
+        this.guardianOfChildNewPages = [p.GuardianOfChild, p.IndigenousAncestryOfChild]       
+
+        this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
+        this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]
     }
 
     public onPrev() {
@@ -102,8 +222,9 @@ export default class RflmBackground extends Vue {
   
     beforeDestroy() {  
         //TODO: add progress value     
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        this.UpdateStepResultData({step:this.step, data: {rflmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
+
+        this.UpdateStepResultData({step:this.step, data: {rflmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage), selectedCounterApplications: this.selectedCounterApplications}})
     }
 }
 </script>
