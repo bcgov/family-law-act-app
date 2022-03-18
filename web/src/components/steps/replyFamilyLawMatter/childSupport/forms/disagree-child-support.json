@@ -18,7 +18,7 @@
             {          
               "type": "infotexttitle",
               "name": "disagreeIncomeDescription",
-              "title": "Income",
+              "title": "<div style='margin-bottom:-2rem;'>Income",
               "messageStyle": "inline"          
             },
             {
@@ -84,7 +84,7 @@
             {          
               "type": "infotexttitle",
               "name": "disagreeSpecialAndExtraordinaryExpensesDescription",
-              "title": "Special and extraordinary expenses",
+              "title": "<div style='margin-bottom:-2rem;'>Special and extraordinary expenses",
               "messageStyle": "inline"          
             },
             {
@@ -129,7 +129,7 @@
             {          
               "type": "infotexttitle",
               "name": "disagreeTimeWithChildDescription",
-              "title": "Time with a child",
+              "title": "<div style='margin-bottom:-2rem;'>Time with a child",
               "messageStyle": "inline"          
             },
             {
@@ -174,7 +174,7 @@
             {          
               "type": "infotexttitle",
               "name": "disagreeUndueHardshipDescription",
-              "title": "Undue hardship",
+              "title": "<div style='margin-bottom:-2rem;'>Undue hardship",
               "messageStyle": "inline"          
             },
             {
@@ -246,7 +246,7 @@
             {          
               "type": "infotexttitle",
               "name": "disagreeOtherReasonDescription",
-              "title": "Other reason",
+              "title": "<div style='margin-bottom:-2rem;'>Other reason",
               "messageStyle": "inline"          
             },            
             {
