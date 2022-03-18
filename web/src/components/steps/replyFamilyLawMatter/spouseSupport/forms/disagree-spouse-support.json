@@ -18,7 +18,7 @@
             {          
               "type": "infotexttitle",
               "name": "disagreeEntitlementDescription",
-              "title": "Entitlement",
+              "title": "<div style='margin-bottom:-2rem;'>Entitlement",
               "messageStyle": "inline"          
             },
             {
@@ -63,7 +63,7 @@
             {          
               "type": "infotexttitle",
               "name": "incomeAndAbilityToWorkDescription",
-              "title": "Income and Ability to work",
+              "title": "<div style='margin-bottom:-2rem;'>Income and Ability to work",
               "messageStyle": "inline"          
             },
             {
@@ -204,7 +204,7 @@
             {          
               "type": "infotexttitle",
               "name": "disagreeOtherReasonDescription",
-              "title": "Other reason",
+              "title": "<div style='margin-bottom:-2rem;'>Other reason",
               "messageStyle": "inline"          
             },            
             {
