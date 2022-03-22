@@ -239,7 +239,7 @@ export default class RflmQuestionnaire extends Vue {
     allPages = []; 
 
     mounted(){
-        this.allPages = _.range(this.stPgNo.RFLM.RflmBackground, Object.keys(this.stPgNo.RFLM).length-1) 
+        this.allPages = _.range(this.stPgNo.RFLM.RflmCounterApp, Object.keys(this.stPgNo.RFLM).length-1) 
         this.reloadPageInformation();        
     }
 
@@ -254,13 +254,15 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedContactWithChildForm = rflmData.selectedContactWithChildForm?rflmData.selectedContactWithChildForm:[];
             this.selectedGuardianshipForm = rflmData.selectedGuardianshipForm?rflmData.selectedGuardianshipForm:[];
             this.selectedSpousalSupportForm = rflmData.selectedSpousalSupportForm?rflmData.selectedSpousalSupportForm:[];
-            this.determineSteps();
+            if(this.getSelected())
+                this.determineSteps();
         }
 
         const selected = this.getSelected();
         
         const progress = !selected? 50 : 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        this.checkErrorOnPages()
     }
 
     public getSelected(){
@@ -314,10 +316,10 @@ export default class RflmQuestionnaire extends Vue {
     public setSteps() {
        
         togglePages(this.allPages, false, this.currentStep); 
-        const progress = !this.getSelected? 50 : 100;
+        const progress = !this.getSelected()? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        if (this.getSelected) {  
+        if (this.getSelected()) {  
             
             this.determineSteps();
             const p = this.stPgNo.RFLM;
@@ -335,6 +337,7 @@ export default class RflmQuestionnaire extends Vue {
 
         const p = this.stPgNo.RFLM;
        
+        togglePages([p.RflmCounterApp], true, this.currentStep);
         togglePages([p.RflmBackground], true, this.currentStep);
         togglePages([p.PreviewFormsRFLM], false, this.currentStep);
         this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:false});       
@@ -402,7 +405,7 @@ export default class RflmQuestionnaire extends Vue {
     }
   
     beforeDestroy() {
-        const progress = !this.getSelected? 50 : 100;
+        const progress = !this.getSelected()? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'RflmQuestionnaire',title:"Other Party's application:",value:this.getSelectedFormsNames()}]        
         this.UpdateStepResultData({step:this.step, data: {rflmQuestionnaireSurvey: {data: this.getData(), questions: questions, pageName:"Reply to Family Law Matter Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});

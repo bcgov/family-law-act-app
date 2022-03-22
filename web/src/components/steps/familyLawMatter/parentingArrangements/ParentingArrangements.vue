@@ -79,7 +79,8 @@ export default class ParentingArrangements extends Vue {
     }    
     
     public setPages(){
-        const p = this.stPgNo.FLM
+        const RFLM = Vue.filter('isRFLM')()
+        const p = RFLM? this.stPgNo.RFLM :this.stPgNo.FLM
         const agPages = [p.ParentalResponsibilities, p.ParentingTime, p.OtherParentingArrangements,  p.BestInterestsOfChild]
 
         if (this.survey.data?.applyingGuardianApplicant) {

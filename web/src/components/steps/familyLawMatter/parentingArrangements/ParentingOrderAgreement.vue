@@ -76,15 +76,31 @@ export default class ParentingOrderAgreement extends Vue {
 
     public setPages(){
 
-        const p = this.stPgNo.FLM
+        const RFLM = Vue.filter('isRFLM')()
 
-        if (this.survey.data?.applyingGuardianApplicant == 'n' && this.survey.data?.guardianApplicant == 'n') {
-            togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM, p.PreviewFormsFLM], false, this.currentStep);
-            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
-        } else {
-            togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersFLM], true, this.currentStep);
-            Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        if(RFLM){
+            const p = this.stPgNo.RFLM
+            if (this.survey.data?.applyingGuardianApplicant == 'n' && this.survey.data?.guardianApplicant == 'n') {
+                togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersRFLM, p.PreviewFormsRFLM], false, this.currentStep);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
+            } else {
+                togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersRFLM], true, this.currentStep);
+                Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+            }
+            
+        }else{
+            const p = this.stPgNo.FLM
+            if (this.survey.data?.applyingGuardianApplicant == 'n' && this.survey.data?.guardianApplicant == 'n') {
+                togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM, p.PreviewFormsFLM], false, this.currentStep);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
+            } else {
+                togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersFLM], true, this.currentStep);
+                Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+            }
         }
+
+
+       
  
     }
 

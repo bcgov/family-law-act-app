@@ -79,12 +79,25 @@ export default class AboutParentingArrangements extends Vue {
     }
 
     public setPages(){
+        const RFLM = Vue.filter('isRFLM')()
+        let paPages = []
+        let paPagesAll = []
+        let p
+        if(RFLM){
+            p = this.stPgNo.RFLM
+            paPages =    [p.ParentingArrangementChanges, p.BestInterestsOfChild]
+            paPagesAll = [p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM]
+            togglePages([p.ReviewYourAnswersRFLM], true, this.currentStep);
 
-        const p = this.stPgNo.FLM
-        const paPages =    [p.ParentingArrangementChanges, p.BestInterestsOfChild]
-        const paPagesAll = [p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM]
+        }else{
+            p = this.stPgNo.FLM
+            paPages =    [p.ParentingArrangementChanges, p.BestInterestsOfChild]
+            paPagesAll = [p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM]
+            togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);
+        }
 
-        togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);
+
+        
         if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){

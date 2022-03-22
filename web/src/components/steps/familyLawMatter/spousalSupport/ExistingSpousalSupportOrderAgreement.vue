@@ -89,20 +89,42 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
 
     public setPages(){
 
-        const p = this.stPgNo.FLM
-        const existingSpousalSupportPages = [p.ExistingSpousalSupportFinalOrder, p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.AboutExistingSpousalSupportOrder, p.UnpaidSpousalSupport, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM]  
+        const RFLM = Vue.filter('isRFLM')()
+        if(RFLM){
+            const p = this.stPgNo.RFLM
+            const existingSpousalSupportPages = [p.ExistingSpousalSupportFinalOrder, p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.AboutExistingSpousalSupportOrder, p.UnpaidSpousalSupport, p.FlmAdditionalDocuments, p.ReviewYourAnswersRFLM]  
 
-        if (this.survey.data?.existingType == 'ExistingOrder') {
-            this.disableNextButton = false;
-            togglePages([p.ExistingSpousalSupportFinalOrder, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport, p.ReviewYourAnswersFLM], true, this.currentStep); 
-            togglePages([p.ExistingSpousalSupportAgreement], false, this.currentStep);               
-        } else if (this.survey.data?.existingType == 'ExistingAgreement') {
-            this.disableNextButton = false;
-            togglePages([p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport,  p.ReviewYourAnswersFLM], true, this.currentStep); 
-            togglePages([p.ExistingSpousalSupportFinalOrder], false, this.currentStep);                
-        } else if (this.survey.data?.existingType == "Neither") {
-            togglePages(existingSpousalSupportPages, false, this.currentStep);
-            this.disableNextButton = true;
+            if (this.survey.data?.existingType == 'ExistingOrder') {
+                this.disableNextButton = false;
+                togglePages([p.ExistingSpousalSupportFinalOrder, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport, p.ReviewYourAnswersRFLM], true, this.currentStep); 
+                togglePages([p.ExistingSpousalSupportAgreement], false, this.currentStep);               
+            } else if (this.survey.data?.existingType == 'ExistingAgreement') {
+                this.disableNextButton = false;
+                togglePages([p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport,  p.ReviewYourAnswersRFLM], true, this.currentStep); 
+                togglePages([p.ExistingSpousalSupportFinalOrder], false, this.currentStep);                
+            } else if (this.survey.data?.existingType == "Neither") {
+                togglePages(existingSpousalSupportPages, false, this.currentStep);
+                this.disableNextButton = true;
+            }
+
+        }
+        else{
+
+            const p = this.stPgNo.FLM
+            const existingSpousalSupportPages = [p.ExistingSpousalSupportFinalOrder, p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.AboutExistingSpousalSupportOrder, p.UnpaidSpousalSupport, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM]  
+
+            if (this.survey.data?.existingType == 'ExistingOrder') {
+                this.disableNextButton = false;
+                togglePages([p.ExistingSpousalSupportFinalOrder, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport, p.ReviewYourAnswersFLM], true, this.currentStep); 
+                togglePages([p.ExistingSpousalSupportAgreement], false, this.currentStep);               
+            } else if (this.survey.data?.existingType == 'ExistingAgreement') {
+                this.disableNextButton = false;
+                togglePages([p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport,  p.ReviewYourAnswersFLM], true, this.currentStep); 
+                togglePages([p.ExistingSpousalSupportFinalOrder], false, this.currentStep);                
+            } else if (this.survey.data?.existingType == "Neither") {
+                togglePages(existingSpousalSupportPages, false, this.currentStep);
+                this.disableNextButton = true;
+            }
         }
     }
     

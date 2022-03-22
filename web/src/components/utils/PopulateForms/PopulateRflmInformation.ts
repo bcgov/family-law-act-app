@@ -194,14 +194,16 @@ export function getForm6PopulationInfo(result) {
             }
 
         } 
-//TODO: update after shedule 17 and 18 have been added 
-        if (counterList.includes('guardianOfChild')) {
 
-            if (existingFlmList.includes("Contact with a Child")){
-                schedules.push('schedule16')
-            } else {
-                schedules.push('schedule15')
-            }
+        if (counterList.includes('guardianOfChild')) {
+            if (result.guardianOfChildSurvey){
+                if (result.guardianOfChildSurvey?.applicationType?.includes('becomeGuardian')){
+                    schedules.push("schedule17")
+                }
+                if (result.guardianOfChildSurvey?.applicationType?.includes('cancelGuardian')){
+                    schedules.push("schedule18")
+                }
+            }  
 
         }
 

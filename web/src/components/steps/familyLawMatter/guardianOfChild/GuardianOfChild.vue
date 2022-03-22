@@ -165,6 +165,8 @@ export default class GuardianOfChild extends Vue {
     otherPartyNames = [];
     pageProgress = 0;
 
+    FLM_RFLM
+
     guardianOfChildItem =[
         {name:'', nameOther:'', date:'', relationship:''},
     ]
@@ -183,6 +185,8 @@ export default class GuardianOfChild extends Vue {
     }
 
     mounted(){
+        const RFLM = Vue.filter('isRFLM')()
+        this.FLM_RFLM = RFLM? this.stPgNo.RFLM: this.stPgNo.FLM
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -235,9 +239,9 @@ export default class GuardianOfChild extends Vue {
             if((!this.applicationType || !this.applicationType?.includes("becomeGuardian")) && options.name == "applicationType" && options.value?.includes("becomeGuardian")){                
                 this.showPopup = true; 
 
-                togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], true, this.currentStep);
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.stPgNo.FLM.FlmAdditionalDocuments].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.FlmAdditionalDocuments, 50, false);
+                togglePages([this.FLM_RFLM.FlmAdditionalDocuments], true, this.currentStep);
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.FLM_RFLM.FlmAdditionalDocuments].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.FLM_RFLM.FlmAdditionalDocuments, 50, false);
             } 
             Vue.nextTick(()=> this.applicationType = this.survey.data.applicationType)
         })
@@ -259,13 +263,13 @@ export default class GuardianOfChild extends Vue {
     
     public setPages(){ 
         if (this.survey.data?.applicationType?.includes("cancelGuardian")) {                
-            togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], true, this.currentStep);                
+            togglePages([this.FLM_RFLM.GuardianOfChildBestInterestsOfChild], true, this.currentStep);                
         } else {
-            togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], false, this.currentStep);
+            togglePages([this.FLM_RFLM.GuardianOfChildBestInterestsOfChild], false, this.currentStep);
         }
-
-        if(!this.survey.data?.applicationType?.includes("becomeGuardian") && Vue.filter('FLMform4Required')()==false){
-            togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], false, this.currentStep);
+        const RFLM = Vue.filter('isRFLM')()
+        if(!this.survey.data?.applicationType?.includes("becomeGuardian") && Vue.filter('FLMform4Required')(RFLM)==false){
+            togglePages([this.FLM_RFLM.FlmAdditionalDocuments], false, this.currentStep);
         }
     }
     

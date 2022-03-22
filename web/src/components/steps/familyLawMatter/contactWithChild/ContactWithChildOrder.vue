@@ -78,14 +78,26 @@ export default class ContactWithChildOrder extends Vue {
         })
     }    
             
-    public setPages(){ 
+    public setPages(){
+        
+        const RFLM = Vue.filter('isRFLM')()
+        let pgPages = []
+        let pgPagesAll = []
+        let p 
 
-        const p = this.stPgNo.FLM
-        const pgPages =    [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild]
-        const pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
+        if(RFLM){
+            p = this.stPgNo.RFLM
+            pgPages =    [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild]
+            pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersRFLM, p.FlmAdditionalDocuments]
+            togglePages([p.ReviewYourAnswersRFLM], true, this.currentStep); 
 
-
-        togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);           
+        }else{
+            p = this.stPgNo.FLM
+            pgPages =    [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild]
+            pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
+            togglePages([p.ReviewYourAnswersFLM], true, this.currentStep); 
+        }
+       
         if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){

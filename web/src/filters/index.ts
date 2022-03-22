@@ -162,7 +162,7 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	const index = supportingDocumentForm4.indexOf(currentPage)
 	if(index>=0) supportingDocumentForm4.splice(index,1);
 	let flagForm4 = false;
-
+	
 	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
 	for(const question of survey.currentPage.questions){		
 		
@@ -190,6 +190,7 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		
 	}
 
+	
 	if(optionalArg && optionalArg.name && optionalArg.value && optionalArg.title){	
 		questionResults.push(optionalArg)
 	}
@@ -203,9 +204,13 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
 		store.commit("Application/setCommonStepResults",{data:{'supportingDocumentForm4':supportingDocumentForm4}}); 
 	}	
-	
+
+
+		
+	const RFLM = Vue.filter('isRFLM')()	
+
 	Vue.nextTick(()=>{
-		Vue.filter('FLMformsRequired')();
+		Vue.filter('FLMformsRequired')(RFLM);
 	});
 
 	Vue.nextTick(()=>{
@@ -218,6 +223,18 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	}
 	
 	return {data: survey.data, questions:questionResults, pageName:pageName, currentStep: currentStep, currentPage:currentPage}
+})
+
+
+Vue.filter('isRFLM',function(){
+	let RFLM = false
+	const stepGetStarted = store.state.Application.stPgNo.GETSTART._StepNo	
+	const includesReplyActivities = store.state.Application.steps[stepGetStarted].result?.selectedActivity.includes('replyToApplication');       
+	if (includesReplyActivities && store.state.Application.steps[stepGetStarted].result?.selectedReplyForms) {
+		const selectedReplyForms = store.state.Application.steps[stepGetStarted].result.selectedReplyForms;
+		RFLM = selectedReplyForms?.includes("replyFlm")
+	}
+	return RFLM
 })
 
 Vue.filter('getPathwayPdfType',function(pathwayname){
@@ -291,13 +308,13 @@ Vue.filter('typesToFullnames',function(applicationTypes: string[]) {
 	return types;
 })
 
-Vue.filter('FLMform4Required', function(){
-	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
+Vue.filter('FLMform4Required', function(RFLM){
+	const stepFLMnum = RFLM? store.state.Application.stPgNo.RFLM._StepNo : store.state.Application.stPgNo.FLM._StepNo
 
 	const form4Pages = store.state.Application.supportingDocumentForm4
 	if(store.state.Application.supportingDocumentForm4?.length>0){
 		for(const page of form4Pages){
-			if(store.state.Application.steps[stepFLMnum].pages[page].active)
+			if(store.state.Application.steps[stepFLMnum]?.pages[page]?.active)
 			{
 				return true
 			}
@@ -306,24 +323,26 @@ Vue.filter('FLMform4Required', function(){
 	return false
 })
 
-Vue.filter('FLMform5Required', function(){
-	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
-	const guardianOfChildPage = store.state.Application.stPgNo.FLM.GuardianOfChild
+Vue.filter('FLMform5Required', function(RFLM){
+	const stepFLMnum =RFLM? store.state.Application.stPgNo.RFLM._StepNo :store.state.Application.stPgNo.FLM._StepNo
+	const guardianOfChildPage =RFLM? store.state.Application.stPgNo.RFLM.GuardianOfChild :store.state.Application.stPgNo.FLM.GuardianOfChild
+
 	const results = store.state.Application.steps[stepFLMnum].result
 	if( results?.flmQuestionnaireSurvey?.data?.includes("guardianOfChild") && 		
 		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') &&
-		store.state.Application.steps[stepFLMnum].pages[guardianOfChildPage].active
+		store.state.Application.steps[stepFLMnum]?.pages[guardianOfChildPage]?.active
 		){
 			return true
 		}
 	else  return false
 })
 
-Vue.filter('FLMformsRequired', function(){
-	const additionalDocumentsStep = store.state.Application.stPgNo.FLM._StepNo
-	const additionalDocumentsPage = store.state.Application.stPgNo.FLM.FlmAdditionalDocuments
-
-	if(Vue.filter('FLMform4Required')() || Vue.filter('FLMform5Required')() ) 
+Vue.filter('FLMformsRequired', function(RFLM){
+	
+	const additionalDocumentsStep =RFLM? store.state.Application.stPgNo.RFLM._StepNo :store.state.Application.stPgNo.FLM._StepNo;
+	const additionalDocumentsPage =RFLM? store.state.Application.stPgNo.RFLM.FlmAdditionalDocuments :store.state.Application.stPgNo.FLM.FlmAdditionalDocuments;
+	
+	if(Vue.filter('FLMform4Required')(RFLM) || Vue.filter('FLMform5Required')(RFLM) ) 
 		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: true });
 	else
 		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
@@ -450,7 +469,9 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		}
 	}
 
-	if(type == 'familyLawMatter'){	
+	const RFLM = Vue.filter('isRFLM')()
+
+	if(type == 'familyLawMatter' || type == 'replyFlm'){	
 
 		if(questions.flmBackgroundSurvey?.existingPOOrders == "y")
 		  	requiredDocuments.push("Copy of your existing protection related written agreement(s), court order(s) or plan(s)");
@@ -458,7 +479,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if(questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
 		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 			
-		if(Vue.filter('FLMform4Required')())		
+		if(Vue.filter('FLMform4Required')(RFLM))		
 			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
 
 		if( (questions.calculatingChildSupportSurvey?.attachingCalculations == 'y'  &&  questions.flmQuestionnaireSurvey?.includes("childSupport") )
@@ -466,7 +487,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		)
 			requiredDocuments.push("Support calculation");
 
-		if(Vue.filter('FLMform5Required')()){		
+		if(Vue.filter('FLMform5Required')(RFLM)){		
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form");		
 		}

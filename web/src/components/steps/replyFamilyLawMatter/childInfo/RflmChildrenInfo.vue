@@ -211,8 +211,8 @@ export default class RflmChildrenInfo extends Vue {
             this.correctChildInfo = this.step.result.correctChildInfo;
         }
 
-        if (this.step.result?.rflmChildrenInfoSurvey) {
-            this.childData = this.step.result.rflmChildrenInfoSurvey.data;
+        if (this.step.result?.childrenInfoSurvey) {
+            this.childData = this.step.result.childrenInfoSurvey.data;
         }
         if (this.step.result?.rflmChildBestInterestAcknowledgement) {
             this.childBestInterestUnderstanding = this.step.result.rflmChildBestInterestAcknowledgement;
@@ -283,8 +283,16 @@ export default class RflmChildrenInfo extends Vue {
     }
 
     beforeDestroy() {
-        this.surveyHasError();        
-        this.UpdateStepResultData({step:this.step, data: {correctChildInfo: this.correctChildInfo, rflmChildrenInfoSurvey: this.getChildrenResults(), rflmChildBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
+        this.surveyHasError();  
+        
+        let childrenInfo = this.getChildrenResults()
+        
+        const counter = this.step.result?.rflmCounterAppSurvey?.data?.counter
+        const selectedCounters = this.step.result?.rflmCounterAppSurvey?.data?.counterList
+        if(this.correctChildInfo == 'Yes' && counter == 'Yes' && selectedCounters.length==1 && selectedCounters?.includes('spousalSupport'))
+            childrenInfo = null
+        
+        this.UpdateStepResultData({step:this.step, data: {correctChildInfo: this.correctChildInfo, childrenInfoSurvey: childrenInfo , rflmChildBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
     }
 
     public getChildrenResults(){
@@ -320,7 +328,20 @@ export default class RflmChildrenInfo extends Vue {
         const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
         const p = stPgNo.RFLM;
 
-        const pages = [            
+        const pages = [ 
+            p.ParentingArrangements,
+            p.ParentalResponsibilities,
+            p.ParentingTime,
+            p.ParentingOrderAgreement,
+            p.BestInterestsOfChild,
+            p.ChildSupportCurrentArrangements,
+            p.AboutChildSupportOrder,
+            p.SpecialAndExtraordinaryExpenses,
+            p.ContactWithChild,
+            p.ContactWithChildOrder,
+            p.AboutContactWithChildOrder,
+            p.ContactWithChildBestInterestsOfChild,
+            p.GuardianOfChild,           
             p.ReviewYourAnswersRFLM
         ]
         Vue.filter('setProgressForPages')(p._StepNo, pages,50);    

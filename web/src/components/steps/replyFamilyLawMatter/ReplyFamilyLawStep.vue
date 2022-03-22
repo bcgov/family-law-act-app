@@ -47,7 +47,7 @@
 
         <your-application v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.YourApplication"/>
 
-          <parenting-arrangements        v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentingArrangements"/>    
+        <parenting-arrangements        v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentingArrangements"/>    
         <parental-responsibilities     v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentalResponsibilities"/> 
         <parenting-time                v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentingTime"/> 
         <other-parenting-arrangements  v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.OtherParentingArrangements"/>         
@@ -240,7 +240,7 @@ import { stepInfoType } from "@/types/Application";
         RflmAdditionalDocuments,
         YourApplication,
 
-          ParentingArrangements,
+        ParentingArrangements,
         ParentalResponsibilities,
         ParentingTime,
         OtherParentingArrangements,

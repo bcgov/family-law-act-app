@@ -330,7 +330,7 @@ class Application extends VuexModule {
         p.key = "1";
         p.name = "RflmCounterApp";
         p.label = "Counter Application";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -338,7 +338,7 @@ class Application extends VuexModule {
         p.key = "2";
         p.name = "RflmBackground";
         p.label = "Background";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -875,7 +875,7 @@ class Application extends VuexModule {
         p.key = "68";
         p.name = "FlmAdditionalDocuments";
         p.label = "Additional Documents";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -883,7 +883,7 @@ class Application extends VuexModule {
         p.key = "69";
         p.name = "ReviewYourAnswersRFLM";
         p.label = "Review Your Answers";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 

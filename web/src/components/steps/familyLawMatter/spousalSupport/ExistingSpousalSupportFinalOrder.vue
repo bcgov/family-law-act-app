@@ -73,12 +73,14 @@ export default class ExistingSpousalSupportFinalOrder extends Vue {
     }
 
     public setPages(){
+        const RFLM = Vue.filter('isRFLM')()
+        const p = RFLM? this.stPgNo.RFLM :this.stPgNo.FLM
         if(this.survey.data?.orderDifferenceType == 'changeOrder'){
-            togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], true, this.currentStep);
+            togglePages([p.AboutSpousalSupportOrder], true, this.currentStep);
             
         } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
             
-            togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false, this.currentStep);
+            togglePages([p.AboutSpousalSupportOrder], false, this.currentStep);
         }
     }
     

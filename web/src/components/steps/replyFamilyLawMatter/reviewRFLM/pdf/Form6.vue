@@ -13,7 +13,7 @@
         <schedule-8 v-bind:result="result" v-if="selectedSchedules.includes('schedule8')" />
         <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
         <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
-        <!-- <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
+        <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
         <schedule-12 v-bind:result="result"  v-if="selectedSchedules.includes('schedule12')" />
         <schedule-13 v-bind:result="result"  v-if="selectedSchedules.includes('schedule13')" />
         <schedule-14 v-bind:result="result"  v-if="selectedSchedules.includes('schedule14')" />
@@ -22,7 +22,7 @@
         <schedule-17 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule17')" />
         <schedule-18 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule18')" />
         <schedule-19 v-bind:result="result"  v-if="selectedSchedules.includes('schedule19')" />
-        <schedule-20 v-bind:result="result" v-if="selectedSchedules.includes('schedule20')" /> -->
+        <schedule-20 v-bind:result="result" v-if="selectedSchedules.includes('schedule20')" />
 
     </b-card>
 </div>
@@ -157,6 +157,7 @@ export default class Form6 extends Vue {
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
 
         for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.RFLM._StepNo]){
+            
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])
