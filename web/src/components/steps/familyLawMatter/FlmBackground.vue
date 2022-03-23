@@ -78,7 +78,7 @@ export default class FlmBackground extends Vue {
     }
 
     mounted(){
-        this.initPageNumbers();
+        this.initPageNumbers()
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();

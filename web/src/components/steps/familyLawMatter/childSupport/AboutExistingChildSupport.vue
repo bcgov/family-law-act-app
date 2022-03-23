@@ -76,8 +76,8 @@ export default class AboutExistingChildSupport extends Vue {
     }
 
     public setPages(){            
-        const RFLM = Vue.filter('isRFLM')()    
-        const AboutCS = RFLM? this.stPgNo.RFLM.AboutChildSupportChanges: this.stPgNo.FLM.AboutChildSupportChanges
+            
+        const AboutCS = this.stPgNo.FLM.AboutChildSupportChanges
 
         if (this.existingType == 'ExistingOrder') {                
             if(this.survey.data?.orderDifferenceType == 'changeOrder'){

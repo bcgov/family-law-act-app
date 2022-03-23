@@ -1,0 +1,36 @@
+{
+  "title": "Spousal Support About Order",
+  "pages": [
+    {
+      "name": "Spousal Support About Order",
+      "description": "How much and for how long spousal support is paid is determined by considering many factors. The decision to pay a regular amount each month over a certain number of months or years, or a lump sum amount may depend on many factors including the ability of a spouse to pay it all at once.<br><br>An order about spousal support should be tailored to the specific circumstances of you and your spouse. ",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "aboutPanel",
+          "elements": [            
+            {
+              "type": "advancedradiogroup",
+              "name": "howToPaySpousalSupport",              
+              "title": "I am applying for spousal support:",
+              "description" : "Select from the list below.",
+              "radioOutputValues":"{monthly},{Lump Sum}",
+              "inputNames":"{monthlyAmount},{monthlyStartDate},{monthlyEndDate};{lumpsumAmount}",
+              "inputTypes":"{number},{date},{date};{number}",
+              "inputWidths":"{7rem},{11rem},{11rem};{9rem}",                  
+              "textBeforeInputs":"{in the amount of $},{per month starting on},{until},{};{in a lump sum of $},{}",
+              "textClasss": "sv_q_title font-weight-bold",
+              "radioMargins":"0 0 0.5rem 0",
+              "radioTextMargins":"-0.72rem 0 0 0",
+              "hasOther": true,
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "About the Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

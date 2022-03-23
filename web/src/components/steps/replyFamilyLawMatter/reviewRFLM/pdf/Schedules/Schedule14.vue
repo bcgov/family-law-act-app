@@ -267,6 +267,7 @@ export default class Schedule14 extends Vue {
     }
 
     public getExistingChildSupportInfo(){
+        console.log(this.result);
         let existingChildSupportInfo = {} as schedule4DataInfoType;
 
         if (this.result.aboutExistingChildSupportSurvey && this.result.childSupportOrderAgreementSurvey){

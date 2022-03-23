@@ -149,12 +149,8 @@ export default class FlmAdditionalDocuments extends Vue {
         }       
     }
 
-    public getFLMResultData() {  
-        
-        const RFLM = Vue.filter('isRFLM')()
-        const FLM_RFLM_StepNo = RFLM? this.stPgNo.RFLM._StepNo: this.stPgNo.FLM._StepNo
-
-        const steps = [this.stPgNo.COMMON._StepNo, FLM_RFLM_StepNo]
+    public getFLMResultData() {         
+        const steps = [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]
 
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of steps){
@@ -165,7 +161,7 @@ export default class FlmAdditionalDocuments extends Vue {
             }
         }
 
-        const stepFLM = this.$store.state.Application.steps[FLM_RFLM_StepNo]
+        const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
 
         const childBestInterestAck = {childBestInterestAcknowledgement: stepFLM.result.childBestInterestAcknowledgement};
         Object.assign(result, result, childBestInterestAck);

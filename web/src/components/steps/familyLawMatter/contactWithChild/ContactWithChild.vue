@@ -74,19 +74,9 @@ export default class ContactWithChild extends Vue {
     }    
     
     public setPages(){
-        const RFLM = Vue.filter('isRFLM')()
-        let pgPages = []
-        let pgPagesAll = []
-        if(RFLM){
-            const p = this.stPgNo.RFLM
-            pgPages =    [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersRFLM]
-            pgPagesAll = [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersRFLM, p.FlmAdditionalDocuments]
-
-        }else{
-            const p = this.stPgNo.FLM
-            pgPages =    [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM]
-            pgPagesAll = [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
-        }
+        const p = this.stPgNo.FLM
+        const pgPages =    [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM]
+        const pgPagesAll = [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
 
         if (this.survey.data?.parentGuardianApplicant) {
             if (this.survey.data.parentGuardianApplicant == 'y') {

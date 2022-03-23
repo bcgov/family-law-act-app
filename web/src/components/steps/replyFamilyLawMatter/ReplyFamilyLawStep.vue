@@ -153,49 +153,47 @@ import RflmAdditionalDocuments from "./RflmAdditionalDocuments.vue";
 
 import YourApplication from './YourApplication.vue';
 
+import ParentingArrangements from "./counterFlm/parentingArrangements/ParentingArrangements.vue";
+import ParentalResponsibilities from "./counterFlm/parentingArrangements/ParentalResponsibilities.vue";
+import ParentingTime from "./counterFlm/parentingArrangements/ParentingTime.vue";
+import OtherParentingArrangements from "./counterFlm/parentingArrangements/OtherParentingArrangements.vue";
+import ParentingOrderAgreement from "./counterFlm/parentingArrangements/ParentingOrderAgreement.vue";
+import AboutParentingArrangements from "./counterFlm/parentingArrangements/AboutParentingArrangements.vue";
+import ParentingArrangementChanges from "./counterFlm/parentingArrangements/ParentingArrangementChanges.vue";
+import BestInterestsOfChild from "./counterFlm/parentingArrangements/BestInterestsOfChild.vue";
 
-import ParentingArrangements from "../familyLawMatter/parentingArrangements/ParentingArrangements.vue";
-import ParentalResponsibilities from "../familyLawMatter/parentingArrangements/ParentalResponsibilities.vue";
-import ParentingTime from "../familyLawMatter/parentingArrangements/ParentingTime.vue";
-import OtherParentingArrangements from "../familyLawMatter/parentingArrangements/OtherParentingArrangements.vue";
-import ParentingOrderAgreement from "../familyLawMatter/parentingArrangements/ParentingOrderAgreement.vue";
-import AboutParentingArrangements from "../familyLawMatter/parentingArrangements/AboutParentingArrangements.vue";
-import ParentingArrangementChanges from "../familyLawMatter/parentingArrangements/ParentingArrangementChanges.vue";
-import BestInterestsOfChild from "../familyLawMatter/parentingArrangements/BestInterestsOfChild.vue";
+import ChildSupport from "./counterFlm/childSupport/ChildSupport.vue";
+import ChildSupportCurrentArrangements from "./counterFlm/childSupport/ChildSupportCurrentArrangement.vue"
+import IncomeAndEarningPotential from "./counterFlm/childSupport/IncomeAndEarningPotential.vue"
+import AboutChildSupportOrder from "./counterFlm/childSupport/AboutChildSupportOrder.vue"
+import ChildSupportOrderAgreement from "./counterFlm/childSupport/ChildSupportOrderAgreement.vue"
+import AboutExistingChildSupport from "./counterFlm/childSupport/AboutExistingChildSupport.vue"
+import CalculatingChildSupport from "./counterFlm/childSupport/CalculatingChildSupport.vue"
+import UndueHardship from "./counterFlm/childSupport/UndueHardship.vue"
+import SpecialAndExtraordinaryExpenses from "./counterFlm/childSupport/SpecialAndExtraordinaryExpenses.vue"
+import AboutChildSupportChanges from "./counterFlm/childSupport/AboutChildSupportChanges.vue"
+import UnpaidChildSupport from "./counterFlm/childSupport/UnpaidChildSupport.vue"
 
-import ChildSupport from "../familyLawMatter/childSupport/ChildSupport.vue";
-import ChildSupportCurrentArrangements from "../familyLawMatter/childSupport/ChildSupportCurrentArrangement.vue"
-import IncomeAndEarningPotential from "../familyLawMatter/childSupport/IncomeAndEarningPotential.vue"
-import AboutChildSupportOrder from "../familyLawMatter/childSupport/AboutChildSupportOrder.vue"
-import ChildSupportOrderAgreement from "../familyLawMatter/childSupport/ChildSupportOrderAgreement.vue"
-import AboutExistingChildSupport from "../familyLawMatter/childSupport/AboutExistingChildSupport.vue"
-import CalculatingChildSupport from "../familyLawMatter/childSupport/CalculatingChildSupport.vue"
-import UndueHardship from "../familyLawMatter/childSupport/UndueHardship.vue"
-import SpecialAndExtraordinaryExpenses from "../familyLawMatter/childSupport/SpecialAndExtraordinaryExpenses.vue"
-import AboutChildSupportChanges from "../familyLawMatter/childSupport/AboutChildSupportChanges.vue"
-import UnpaidChildSupport from "../familyLawMatter/childSupport/UnpaidChildSupport.vue"
+import ContactWithChild from "./counterFlm/contactWithChild/ContactWithChild.vue";
+import AboutContactWithChildOrder from "./counterFlm/contactWithChild/AboutContactWithChildOrder.vue";
+import ContactWithChildOrder from "./counterFlm/contactWithChild/ContactWithChildOrder.vue";
+import ContactWithChildBestInterestsOfChild from "./counterFlm/contactWithChild/ContactWithChildBestInterestsOfChild.vue";
 
-import ContactWithChild from "../familyLawMatter/contactWithChild/ContactWithChild.vue";
-import AboutContactWithChildOrder from "../familyLawMatter/contactWithChild/AboutContactWithChildOrder.vue";
-import ContactWithChildOrder from "../familyLawMatter/contactWithChild/ContactWithChildOrder.vue";
-import ContactWithChildBestInterestsOfChild from "../familyLawMatter/contactWithChild/ContactWithChildBestInterestsOfChild.vue";
+import GuardianOfChild from "./counterFlm/guardianOfChild/GuardianOfChild.vue";
+import GuardianOfChildBestInterestsOfChild from "./counterFlm/guardianOfChild/GuardianOfChildBestInterestsOfChild.vue";
+import IndigenousAncestryOfChild from "./counterFlm/guardianOfChild/IndigenousAncestryOfChild.vue";
 
-import GuardianOfChild from "../familyLawMatter/guardianOfChild/GuardianOfChild.vue";
-import GuardianOfChildBestInterestsOfChild from "../familyLawMatter/guardianOfChild/GuardianOfChildBestInterestsOfChild.vue";
-import IndigenousAncestryOfChild from "../familyLawMatter/guardianOfChild/IndigenousAncestryOfChild.vue";
+import SpousalSupport from "./counterFlm/spousalSupport/SpousalSupport.vue";
+import AboutSpousalSupportOrder from "./counterFlm/spousalSupport/AboutSpousalSupportOrder.vue";
+import CalculatingSpousalSupport from "./counterFlm/spousalSupport/CalculatingSpousalSupport.vue";
+import SpousalSupportIncomeAndEarningPotential from "./counterFlm/spousalSupport/SpousalSupportIncomeAndEarningPotential.vue";
+import ExistingSpousalSupportAgreement from "./counterFlm/spousalSupport/ExistingSpousalSupportAgreement.vue";
+import ExistingSpousalSupportFinalOrder from "./counterFlm/spousalSupport/ExistingSpousalSupportFinalOrder.vue";
+import AboutExistingSpousalSupportOrder from "./counterFlm/spousalSupport/AboutExistingSpousalSupportOrder.vue";
+import ExistingSpousalSupportOrderAgreement from "./counterFlm/spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
+import UnpaidSpousalSupport from "./counterFlm/spousalSupport/UnpaidSpousalSupport.vue";
 
-import SpousalSupport from "../familyLawMatter/spousalSupport/SpousalSupport.vue";
-import AboutSpousalSupportOrder from "../familyLawMatter/spousalSupport/AboutSpousalSupportOrder.vue";
-import CalculatingSpousalSupport from "../familyLawMatter/spousalSupport/CalculatingSpousalSupport.vue";
-import SpousalSupportIncomeAndEarningPotential from "../familyLawMatter/spousalSupport/SpousalSupportIncomeAndEarningPotential.vue";
-import ExistingSpousalSupportAgreement from "../familyLawMatter/spousalSupport/ExistingSpousalSupportAgreement.vue";
-import ExistingSpousalSupportFinalOrder from "../familyLawMatter/spousalSupport/ExistingSpousalSupportFinalOrder.vue";
-import AboutExistingSpousalSupportOrder from "../familyLawMatter/spousalSupport/AboutExistingSpousalSupportOrder.vue";
-import ExistingSpousalSupportOrderAgreement from "../familyLawMatter/spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
-import UnpaidSpousalSupport from "../familyLawMatter/spousalSupport/UnpaidSpousalSupport.vue";
-
-import FlmAdditionalDocuments from "../familyLawMatter/FlmAdditionalDocuments.vue";
-
+import FlmAdditionalDocuments from "./counterFlm/FlmAdditionalDocuments.vue";
 
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";

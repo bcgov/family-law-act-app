@@ -102,9 +102,9 @@ import AboutExistingSpousalSupportOrder from "./spousalSupport/AboutExistingSpou
 import ExistingSpousalSupportOrderAgreement from "./spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
 import UnpaidSpousalSupport from "./spousalSupport/UnpaidSpousalSupport.vue";
 
-import FlmAdditionalDocuments from "./FlmAdditionalDocuments.vue";
-import ReviewYourAnswersFlm from "./reviewFLM/ReviewYourAnswersFLM.vue";
-import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue";
+import FlmAdditionalDocuments from "./FlmAdditionalDocuments.vue"
+import ReviewYourAnswersFlm from "./reviewFLM/ReviewYourAnswersFLM.vue"
+import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 

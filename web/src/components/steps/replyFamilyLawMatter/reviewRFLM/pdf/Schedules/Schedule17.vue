@@ -132,8 +132,8 @@ export default class Schedule17 extends Vue {
     }
 
     public extractInfo(){
-        if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
-            this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
+        if (this.selectedSchedules?.includes('schedule17') || this.selectedSchedules?.includes('schedule18')){
+            this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule17'), this.selectedSchedules.includes('schedule18'));
         }        
     }
 

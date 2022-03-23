@@ -98,20 +98,10 @@ export default class ChildSupportOrderAgreement extends Vue {
     }
 
     public setPages(){  
-        const RFLM = Vue.filter('isRFLM')()        
-        let existingOrderAgreementPages = []
-        let existingOrderAgreementPagesAll = []
-
-        if(RFLM){
-            const p = this.stPgNo.RFLM
-            existingOrderAgreementPages =    [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersRFLM]
-            existingOrderAgreementPagesAll = [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersRFLM, p.FlmAdditionalDocuments]
-        }
-        else{
-            const p = this.stPgNo.FLM;
-            existingOrderAgreementPages =    [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM]
-            existingOrderAgreementPagesAll = [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
-        }
+        
+        const p = this.stPgNo.FLM
+        const existingOrderAgreementPages =    [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM]
+        const existingOrderAgreementPagesAll = [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
 
         if ((this.survey.data?.existingType == 'ExistingOrder') ||
              (this.survey.data?.existingType == 'ExistingAgreement')) {
