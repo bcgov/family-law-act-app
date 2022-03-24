@@ -2,7 +2,7 @@
     <div v-if="dataReady">         
 <!-- <Page 9> --> 
 <!-- <Header> -->
-        <div v-if="selectedSchedules.includes('schedule8')">
+        <div v-if="selectedSchedules.includes('schedule18')">
             <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 18 – COUNTER APPLICATION TO CANCEL GUARDIANSHIP OF A CHILD OR CHILDREN</b></div>
             <div style="text-align:center;"><b>This is Schedule 18 to the Reply to an Application About a Family Law Matter with Counter Application</b></div>
@@ -125,8 +125,8 @@ export default class Schedule18 extends Vue {
 
     public extractInfo(){   
 
-        if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
-            this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
+        if (this.selectedSchedules?.includes('schedule17') || this.selectedSchedules?.includes('schedule18')){
+            this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule17'), this.selectedSchedules.includes('schedule18'));
         }
     }   
 

@@ -33,7 +33,7 @@ export default class PreviewFormsRFLM extends Vue {
     dataReady = false;
 
     mounted(){
-        this.dataReady = true;//TODO: false;
+        this.dataReady = false;
         this.disableNext = true;        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -75,7 +75,7 @@ export default class PreviewFormsRFLM extends Vue {
     }
 
     beforeDestroy() {
-        const progress = this.dataReady? 100: 50
+        const progress = (this.dataReady && !this.disableNext)? 100: 50
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
     }
 

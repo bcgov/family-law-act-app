@@ -184,20 +184,6 @@ export default class RflmCounterApp extends Vue {
     currentPage = 0;
 
     allPages = []; 
-    commonPages = [];
-    childRelatedPages = [];
-    parentingArrangementsNewPages = []; 
-    parentingArrangementsExistingPages = [];
-    childSupportNewPages = [];
-    childSupportExistingPages = [];
-    contactWithChildNewPages = []
-    contactWithChildExistingPages = []
-
-    appointingGuardianshipPages = []
-    cancellingGuardianshipPages = []
-
-    spousalSupportNewPages = []
-    spousalSupportExistingPages = []
 
     mounted(){      
         this.reloadPageInformation();
@@ -214,11 +200,7 @@ export default class RflmCounterApp extends Vue {
             this.counter = counterAppData.counter;           
         }
 
-        this.enableSelection();
-
-        if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress == 100){
-            this.setPages()
-        }
+        this.enableSelection();        
 
         const progress = this.determineProgress();        
              
@@ -227,12 +209,12 @@ export default class RflmCounterApp extends Vue {
 
     public determineProgress(){
 
-         let progress = 50;
+        let progress = 50;
 
         if (this.counter == null){
             progress = 50;
         } else {
-            if (this.counter == 'yes'){
+            if (this.counter == 'Yes'){
                 progress = this.selectedCounters.length==0? 50 : 100;
             } else {
                 progress = 100;
@@ -290,64 +272,15 @@ export default class RflmCounterApp extends Vue {
         }
     }
 
-    public childRelatedCounter(){
 
-        const childRelated = (this.counter == 'Yes' && 
-                (this.selectedCounters.includes('parentingArrangements') ||
-                this.selectedCounters.includes('childSupport') ||
-                this.selectedCounters.includes('contactWithChild') ||
-                this.selectedCounters.includes('guardianOfChild')));
+    public resetPages() {                               
+        togglePages(this.allPages, false, this.currentStep); 
 
-        return childRelated;
-    }
+        const rflmBackgroundPage = this.stPgNo.RFLM.RflmBackground                
+        Vue.filter('setSurveyProgress')(null, this.currentStep, rflmBackgroundPage, 50, false);       
 
-    public setPages() {
-
-        if (this.getSelectedReplies) {
-                        
-            togglePages(this.allPages, false, this.currentStep);
-            
-            togglePages(this.commonPages, true, this.currentStep);
-
-            togglePages(this.childRelatedPages, this.childRelatedCounter, this.currentStep);
-
-            if (this.selectedRepliesData.selectedParentingArrangementsForm.length > 0){                
-                if(this.selectedRepliesData.selectedParentingArrangementsForm.includes("existingParentingArrangements"))
-                    togglePages(this.parentingArrangementsExistingPages, true, this.currentStep);
-                else    
-                    togglePages(this.parentingArrangementsNewPages, true, this.currentStep);               
-            }
-            
-            if (this.selectedRepliesData.selectedChildSupportForm.length > 0){                
-                if(this.selectedRepliesData.selectedChildSupportForm.includes("existingChildSupport"))
-                    togglePages(this.childSupportExistingPages, true, this.currentStep);
-                else    
-                    togglePages(this.childSupportNewPages, true, this.currentStep);               
-            } 
-
-            if (this.selectedRepliesData.selectedContactWithChildForm.length > 0){                
-                if(this.selectedRepliesData.selectedContactWithChildForm.includes("existingContact"))
-                    togglePages(this.contactWithChildExistingPages, true, this.currentStep);
-                else    
-                    togglePages(this.contactWithChildNewPages, true, this.currentStep);               
-            } 
-
-            if (this.selectedRepliesData.selectedGuardianshipForm.length > 0){                
-                if(this.selectedRepliesData.selectedGuardianshipForm.includes("appointing")){
-                    togglePages(this.appointingGuardianshipPages, true, this.currentStep);
-                }
-                if (this.selectedRepliesData.selectedGuardianshipForm.includes("cancelling")){    
-                    togglePages(this.cancellingGuardianshipPages, true, this.currentStep);  
-                }             
-            } 
-
-            if (this.selectedRepliesData.selectedSpousalSupportForm.length > 0){                
-                if(this.selectedRepliesData.selectedSpousalSupportForm.includes("existingSpouseSupport"))
-                    togglePages(this.spousalSupportExistingPages, true, this.currentStep);
-                else    
-                    togglePages(this.spousalSupportNewPages, true, this.currentStep);               
-            }            
-        }
+        const rflmChildPage = this.stPgNo.RFLM.RflmChildrenInfo
+        Vue.filter('setSurveyProgress')(null, this.currentStep, rflmChildPage, 50, false);
     }
 
     public getSelectedReplies(){
@@ -361,9 +294,8 @@ export default class RflmCounterApp extends Vue {
         return selected;
     }
 
-
     public onChangeCounter(countering){
-
+        this.resetPages()
         this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:false})
 
         if (countering == 'No'){
@@ -374,35 +306,16 @@ export default class RflmCounterApp extends Vue {
     }
    
     public onChange(selectedCounters) {
-        this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:false})
-        
+        this.resetPages()
+        this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:false})        
         Vue.filter('surveyChanged')('replyFlm')               
     }
 
     public initPageNumbers(){
         const p = this.stPgNo.RFLM        
-        this.allPages = _.range(p.RflmChildrenInfo, Object.keys(this.stPgNo.RFLM).length-1) 
-
-        this.commonPages = [p.ReviewYourAnswersRFLM];
-
-        this.childRelatedPages = [p.RflmChildrenInfo];
-
-        this.parentingArrangementsNewPages = [p.RflmChildrenInfo, p.ReplyNewParentingArrangements, p.ReplyNewParentalResponsibilities, p.ReplyNewParentingTime, p.ReplyNewConditionsParentingTime]
-        this.parentingArrangementsExistingPages = [p.RflmChildrenInfo, p.ReplyExistingParentingArrangements]   
-
-        this.childSupportNewPages = [p.RflmChildrenInfo, p.ReplyNewChildSupport, p.RelationshipToChild, p.DisagreeChildSupport, p.RflmCalculatingChildSupport, p.RflmAdditionalDocuments]
-        this.childSupportExistingPages = [p.RflmChildrenInfo, p.ReplyExistingChildSupport, p.RflmUnpaidChildSupport, p.DisagreeExistingChildSupport, p.RflmCalculatingChildSupport]
-
-        this.contactWithChildNewPages = [p.RflmChildrenInfo, p.ReplyNewContactWithChild, p.DisagreeContactWithChild]
-        this.contactWithChildExistingPages = [p.RflmChildrenInfo, p.ReplyExistingContactWithChild]
-
-        this.appointingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyAppointingGuardianOfChild, p.DisagreeAppointingGuardianOfChild]
-        this.cancellingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyCancellingGuardianOfChild, p.DisagreeCancellingGuardianOfChild]
-
-        this.spousalSupportNewPages = [p.ReplyNewSpouseSupport, p.RelationshipToOtherParty, p.DisagreeSpouseSupport, p.RflmSpouseSupportOrder, p.RflmCalculatingSpouseSupport, p.RflmAdditionalDocuments]
-        this.spousalSupportExistingPages = [p.ReplyExistingSpouseSupport, p.RflmUnpaidSpouseSupport, p.DisagreeExistingSpouseSupport, p.RflmCalculatingSpouseSupport, p.RflmAdditionalDocuments]
-    }
-   
+        this.allPages = _.range(p.RflmChildrenInfo, p.ReviewYourAnswersRFLM)
+        
+    }   
 
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage();
@@ -432,7 +345,6 @@ export default class RflmCounterApp extends Vue {
   
     beforeDestroy() {
 
-        this.setPages();
         const progress = this.determineProgress(); 
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);        
 

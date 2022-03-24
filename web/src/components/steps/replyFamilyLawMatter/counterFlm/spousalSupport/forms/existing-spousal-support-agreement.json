@@ -1,0 +1,63 @@
+{
+  "title": "Existing written agreement",
+  "pages": [
+    {
+      "name": "Existing written agreement",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ExistingDetailsPanel",
+          "elements": [
+            {
+              "type": "text",
+              "name": "agreementDate",
+              "title": "Please provide the date the written agreement was signed.",
+              "isRequired": true,
+              "inputType": "date"
+            },
+            {
+              "type": "infotext",
+              "name": "ChangeAgreementExplanationFAQ",
+              "title": "A written agreement about spousal support that was made in the past may not make sense anymore. The <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a> has rules about setting aside or replacing an agreement about spousal support with a new order. The court may set aside an agreement about spousal support or set aside and replace an agreement about spousal support with an order made under Division 4 of Part 7 of the <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a>:<br><br><ul><li>if the court is satisfied that one or more of the following circumstances [set out in section 164 (3) of the <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a>] existed when the parties entered into the agreement:<ul><li>a spouse failed to disclose income, significant property or debts, or other information relevant to the negotiation of the agreement;</li><li>a spouse took improper advantage of the other spouse's vulnerability, including the other party's ignorance, need or distress;</li><li>a spouse did not understand the nature or consequences of the agreement;</li><li>other circumstances that would under the common law cause all or part of a contract to be voidable;</li></ul><br>and the court would not make a different order on consideration of all the evidence, or;</li><br><li>if on consideration of the following matters [set out in section 164 (5) the <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a>], the court is satisfied that the agreement is significantly unfair:<ul><li>the length of time that has passed since the agreement was made;</li><li>any changes, since the agreement was made, in the condition, means, needs or other circumstances of a spouse;</li><li>the intention of the spouses, in making the agreement, to achieve certainty;</li><li>the degree to which the spouses relied on the terms of the agreement;</li><li>the degree to which the agreement meets the objectives set out in section 161 [objectives of spousal support].</li></ul></li></ul>",
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
+            },
+            {
+              "type": "comment",
+              "name": "changesReasoning",
+              "title": "Explain to the court why you believe the agreement should be set aside or replaced.",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+              "isRequired": true
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "radiogroup",
+              "name": "agreementDifferenceType",
+              "title": "Do you want the existing written agreement set aside or replaced?",
+              "description": "You can apply to set aside (cancel) the existing agreement or to replace it with an order about spousal support if you believe you need something different.<br>Select the option that fits your situation.",
+              "choices": [
+                {
+                  "value": "setAsideAgreement",
+                  "text": "Set aside"
+                },
+                {
+                  "value": "replacedAgreement",
+                  "text": "Replace"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "title": "Existing written agreement"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

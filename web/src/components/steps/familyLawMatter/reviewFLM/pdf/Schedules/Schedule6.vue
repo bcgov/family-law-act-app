@@ -204,6 +204,21 @@ export default class Schedule6 extends Vue {
                 otherComm: changeOrReplaceCondition? otherContactCommentCondition:'',
                 cond: changeOrReplaceCondition? placeConditionsStatement:''
             }
+        } else {
+            existingChildContactInfo.abt = {
+                conChList: [],
+                conType: {
+                    noContact: false,
+                    inPerson: false,
+                    tel: false,
+                    video: false,
+                    written:false,
+                    other: false
+                },
+                inPrsn: '',
+                otherComm: '',
+                cond: ''
+            }
         }
 
         if (this.result.contactWithChildBestInterestsOfChildSurvey){

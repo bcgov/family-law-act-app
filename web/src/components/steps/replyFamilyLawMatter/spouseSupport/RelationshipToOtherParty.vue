@@ -85,7 +85,6 @@ export default class RelationshipToOtherParty extends Vue {
     }  
     
     beforeDestroy() {
-        //TODO: add progress
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {relationshipToOtherPartySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

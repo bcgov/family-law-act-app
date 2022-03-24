@@ -44,6 +44,54 @@
         <rflm-calculating-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmCalculatingSpouseSupport"/>
        
         <rflm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmAdditionalDocuments"/>
+
+        <your-application v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.YourApplication"/>
+
+        <parenting-arrangements        v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentingArrangements"/>    
+        <parental-responsibilities     v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentalResponsibilities"/> 
+        <parenting-time                v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentingTime"/> 
+        <other-parenting-arrangements  v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.OtherParentingArrangements"/>         
+        <parenting-order-agreement     v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentingOrderAgreement"/>
+        <about-parenting-arrangements  v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AboutParentingArrangements"/>
+        <parenting-arrangement-changes v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentingArrangementChanges"/>
+        <best-interests-of-child       v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.BestInterestsOfChild"/>
+
+        
+        <child-support                      v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ChildSupport"/> 
+        <child-support-current-arrangements v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ChildSupportCurrentArrangements"/> 
+        <income-and-earning-potential       v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.IncomeAndEarningPotential"/> 
+        <about-child-support-order          v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AboutChildSupportOrder"/>       
+        <child-support-order-agreement      v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ChildSupportOrderAgreement"/>
+        <about-existing-child-support       v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AboutExistingChildSupport"/>        
+        <calculating-child-support          v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.CalculatingChildSupport"/>
+        <undue-hardship                     v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.UndueHardship"/> 
+        <special-and-extraordinary-expenses v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.SpecialAndExtraordinaryExpenses"/> 
+        <about-child-support-changes        v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AboutChildSupportChanges"/> 
+        <unpaid-child-support               v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.UnpaidChildSupport"/>
+
+
+        <contact-with-child                         v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ContactWithChild"/>        
+        <contact-with-child-order                   v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ContactWithChildOrder"/>        
+        <about-contact-with-child-order             v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AboutContactWithChildOrder"/>
+        <contact-with-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ContactWithChildBestInterestsOfChild"/>
+        
+        <guardian-of-child                          v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.GuardianOfChild"/>
+        <guardian-of-child-best-interests-of-child  v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.GuardianOfChildBestInterestsOfChild"/>
+        <indigenous-ancestry-of-child               v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.IndigenousAncestryOfChild"/>
+
+        <spousal-support                              v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.SpousalSupport"/>
+        <spousal-support-income-and-earning-potential v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.SpousalSupportIncomeAndEarningPotential"/> 
+        <about-spousal-support-order                  v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AboutSpousalSupportOrder"/>
+        <existing-spousal-support-order-agreement     v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ExistingSpousalSupportOrderAgreement"/>
+        <existing-spousal-support-final-order         v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ExistingSpousalSupportFinalOrder"/>
+        <existing-spousal-support-agreement           v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ExistingSpousalSupportAgreement"/>        
+        <calculating-spousal-support                  v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.CalculatingSpousalSupport"/> 
+        <about-existing-spousal-support-order         v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AboutExistingSpousalSupportOrder"/>
+        <unpaid-spousal-support                       v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.UnpaidSpousalSupport"/>
+
+        <flm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.FlmAdditionalDocuments"/>
+
+
         <review-your-answers-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReviewYourAnswersRFLM"/>
         <preview-forms-r-f-l-m v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PreviewFormsRFLM"/> 
     </step-base>
@@ -102,6 +150,51 @@ import RflmUnpaidSpouseSupport from "./spouseSupport/RflmUnpaidSpouseSupport.vue
 import DisagreeExistingSpouseSupport from "./spouseSupport/DisagreeExistingSpouseSupport.vue";
 
 import RflmAdditionalDocuments from "./RflmAdditionalDocuments.vue";
+
+import YourApplication from './YourApplication.vue';
+
+import ParentingArrangements from "./counterFlm/parentingArrangements/ParentingArrangements.vue";
+import ParentalResponsibilities from "./counterFlm/parentingArrangements/ParentalResponsibilities.vue";
+import ParentingTime from "./counterFlm/parentingArrangements/ParentingTime.vue";
+import OtherParentingArrangements from "./counterFlm/parentingArrangements/OtherParentingArrangements.vue";
+import ParentingOrderAgreement from "./counterFlm/parentingArrangements/ParentingOrderAgreement.vue";
+import AboutParentingArrangements from "./counterFlm/parentingArrangements/AboutParentingArrangements.vue";
+import ParentingArrangementChanges from "./counterFlm/parentingArrangements/ParentingArrangementChanges.vue";
+import BestInterestsOfChild from "./counterFlm/parentingArrangements/BestInterestsOfChild.vue";
+
+import ChildSupport from "./counterFlm/childSupport/ChildSupport.vue";
+import ChildSupportCurrentArrangements from "./counterFlm/childSupport/ChildSupportCurrentArrangement.vue"
+import IncomeAndEarningPotential from "./counterFlm/childSupport/IncomeAndEarningPotential.vue"
+import AboutChildSupportOrder from "./counterFlm/childSupport/AboutChildSupportOrder.vue"
+import ChildSupportOrderAgreement from "./counterFlm/childSupport/ChildSupportOrderAgreement.vue"
+import AboutExistingChildSupport from "./counterFlm/childSupport/AboutExistingChildSupport.vue"
+import CalculatingChildSupport from "./counterFlm/childSupport/CalculatingChildSupport.vue"
+import UndueHardship from "./counterFlm/childSupport/UndueHardship.vue"
+import SpecialAndExtraordinaryExpenses from "./counterFlm/childSupport/SpecialAndExtraordinaryExpenses.vue"
+import AboutChildSupportChanges from "./counterFlm/childSupport/AboutChildSupportChanges.vue"
+import UnpaidChildSupport from "./counterFlm/childSupport/UnpaidChildSupport.vue"
+
+import ContactWithChild from "./counterFlm/contactWithChild/ContactWithChild.vue";
+import AboutContactWithChildOrder from "./counterFlm/contactWithChild/AboutContactWithChildOrder.vue";
+import ContactWithChildOrder from "./counterFlm/contactWithChild/ContactWithChildOrder.vue";
+import ContactWithChildBestInterestsOfChild from "./counterFlm/contactWithChild/ContactWithChildBestInterestsOfChild.vue";
+
+import GuardianOfChild from "./counterFlm/guardianOfChild/GuardianOfChild.vue";
+import GuardianOfChildBestInterestsOfChild from "./counterFlm/guardianOfChild/GuardianOfChildBestInterestsOfChild.vue";
+import IndigenousAncestryOfChild from "./counterFlm/guardianOfChild/IndigenousAncestryOfChild.vue";
+
+import SpousalSupport from "./counterFlm/spousalSupport/SpousalSupport.vue";
+import AboutSpousalSupportOrder from "./counterFlm/spousalSupport/AboutSpousalSupportOrder.vue";
+import CalculatingSpousalSupport from "./counterFlm/spousalSupport/CalculatingSpousalSupport.vue";
+import SpousalSupportIncomeAndEarningPotential from "./counterFlm/spousalSupport/SpousalSupportIncomeAndEarningPotential.vue";
+import ExistingSpousalSupportAgreement from "./counterFlm/spousalSupport/ExistingSpousalSupportAgreement.vue";
+import ExistingSpousalSupportFinalOrder from "./counterFlm/spousalSupport/ExistingSpousalSupportFinalOrder.vue";
+import AboutExistingSpousalSupportOrder from "./counterFlm/spousalSupport/AboutExistingSpousalSupportOrder.vue";
+import ExistingSpousalSupportOrderAgreement from "./counterFlm/spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
+import UnpaidSpousalSupport from "./counterFlm/spousalSupport/UnpaidSpousalSupport.vue";
+
+import FlmAdditionalDocuments from "./counterFlm/FlmAdditionalDocuments.vue";
+
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
 
@@ -143,6 +236,55 @@ import { stepInfoType } from "@/types/Application";
         RflmUnpaidSpouseSupport,
         DisagreeExistingSpouseSupport,
         RflmAdditionalDocuments,
+        YourApplication,
+
+        ParentingArrangements,
+        ParentalResponsibilities,
+        ParentingTime,
+        OtherParentingArrangements,
+        ParentingOrderAgreement,
+        AboutParentingArrangements,
+        ParentingArrangementChanges,
+        BestInterestsOfChild, 
+
+
+        ChildSupport, 
+        ChildSupportCurrentArrangements,
+        IncomeAndEarningPotential,
+        AboutChildSupportOrder,
+       
+        ChildSupportOrderAgreement,
+        AboutExistingChildSupport,
+        
+        CalculatingChildSupport,
+        UndueHardship,
+        SpecialAndExtraordinaryExpenses,
+
+        AboutChildSupportChanges,
+        UnpaidChildSupport,    
+              
+        ContactWithChild,
+        AboutContactWithChildOrder,
+        ContactWithChildOrder,
+        ContactWithChildBestInterestsOfChild,
+
+        GuardianOfChild,
+        GuardianOfChildBestInterestsOfChild,
+        IndigenousAncestryOfChild,
+
+        SpousalSupport,
+        AboutSpousalSupportOrder,
+        CalculatingSpousalSupport,
+        SpousalSupportIncomeAndEarningPotential,
+       
+        ExistingSpousalSupportAgreement,
+        ExistingSpousalSupportFinalOrder,
+        AboutExistingSpousalSupportOrder,
+        ExistingSpousalSupportOrderAgreement,
+        UnpaidSpousalSupport,
+        
+        FlmAdditionalDocuments,
+
         ReviewYourAnswersRFLM,
         PreviewFormsRFLM  
     }

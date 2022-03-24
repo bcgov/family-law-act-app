@@ -575,7 +575,7 @@ export default class CommonSection extends Vue {
         if (childRelatedApplication){
             this.aboutChildren = true;
             this.incorrectChildInfo = this.result.correctChildInfo == 'No';
-            if (this.incorrectChildInfo && this.result.rflmChildrenInfoSurvey?.length > 0){           
+            if (this.incorrectChildInfo && this.result.childrenInfoSurvey?.length > 0){           
                 this.childrenInfo = this.getChildrenInfo();
             } else {
                 this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
@@ -595,7 +595,7 @@ export default class CommonSection extends Vue {
             counterList.includes('contactWithChild') ||
             counterList.includes('guardianOfChild'))
 
-        if (childRelatedCounterApplication && this.result.rflmChildrenInfoSurvey?.length > 0){
+        if (childRelatedCounterApplication && this.result.childrenInfoSurvey?.length > 0){
             this.counterAboutChildren = true;
             this.counterChildrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheckCounter = this.result.rflmChildBestInterestAcknowledgement;            
@@ -640,7 +640,7 @@ export default class CommonSection extends Vue {
 
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.rflmChildrenInfoSurvey;
+        const childData = this.result.childrenInfoSurvey;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};

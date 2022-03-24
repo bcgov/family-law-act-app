@@ -267,6 +267,7 @@ export default class Schedule14 extends Vue {
     }
 
     public getExistingChildSupportInfo(){
+        console.log(this.result);
         let existingChildSupportInfo = {} as schedule4DataInfoType;
 
         if (this.result.aboutExistingChildSupportSurvey && this.result.childSupportOrderAgreementSurvey){
@@ -329,6 +330,23 @@ export default class Schedule14 extends Vue {
                     none: orgSituationList.includes('None of the above apply to my situation')
                 }
             }
+        } else {
+            existingChildSupportInfo.abtOrg = {                
+                newOrderDesc: '',
+                startDate:   '',
+                startReason: '',
+                situationList: [],                    
+                situation: {
+                    payor: false,
+                    split: false,
+                    over19: false,
+                    partyParentOfOther: false,
+                    payorEarnsHigh: false,
+                    specialClaim: false,
+                    undueHardship: false,
+                    none: false
+                }
+            }
         }
 
         if (this.result.unpaidChildSupportSurvey){
@@ -355,12 +373,29 @@ export default class Schedule14 extends Vue {
                 amnt: 0, 
                 otherComm:''  
             }
+        } else {
+            existingChildSupportInfo.unpdChSup = {
+                crntDate: moment().format("MMM DD, yyyy"),   
+                unpaid: false,
+                reduce: false,
+                reduceAmount: '',
+                whyReduceAmount: '',
+                paySchd: '',
+                monthlyAmount: '',
+                amnt: 0, 
+                otherComm:''  
+            }
         }
 
         if (this.result.calculatingChildSupportSurvey){
             existingChildSupportInfo.calc = {   
                 attaching: this.result.calculatingChildSupportSurvey.attachingCalculations == 'y',
                 reason: (this.result.calculatingChildSupportSurvey.attachingCalculations == 'n' && this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations)? this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations: ''
+            }
+        } else {
+            existingChildSupportInfo.calc = {   
+                attaching: false,
+                reason: ''
             }
         }
 
