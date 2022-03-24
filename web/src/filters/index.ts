@@ -158,6 +158,7 @@ Vue.filter('setProgressForPages', function(currentStep: number, pageNumbers: num
 })
 
 Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage: number, optionalArg?){
+	const RFLM = Vue.filter('isRFLM')();
 	const supportingDocumentForm4 = store.state.Application.supportingDocumentForm4
 	const index = supportingDocumentForm4.indexOf(currentPage)
 	if(index>=0) supportingDocumentForm4.splice(index,1);
@@ -196,18 +197,15 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	}
 
 	if(flagForm4){
-		const additionalDocumentsStep = store.state.Application.stPgNo.FLM._StepNo
-		const additionalDocumentsPage = store.state.Application.stPgNo.FLM.FlmAdditionalDocuments
+		const additionalDocumentsStep = RFLM?store.state.Application.stPgNo.RFLM._StepNo:store.state.Application.stPgNo.FLM._StepNo
+		const additionalDocumentsPage = RFLM?store.state.Application.stPgNo.RFLM.FlmAdditionalDocuments:store.state.Application.stPgNo.FLM.FlmAdditionalDocuments
 		if(store.state.Application.steps[additionalDocumentsStep].pages[additionalDocumentsPage].progress==100)
 			Vue.filter('setSurveyProgress')(null, additionalDocumentsStep, additionalDocumentsPage, 50, false);
 		supportingDocumentForm4.push(currentPage)
 		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
 		store.commit("Application/setCommonStepResults",{data:{'supportingDocumentForm4':supportingDocumentForm4}}); 
-	}	
-
-
-		
-	const RFLM = Vue.filter('isRFLM')()	
+	}			
+	
 
 	Vue.nextTick(()=>{
 		Vue.filter('FLMformsRequired')(RFLM);
@@ -328,7 +326,14 @@ Vue.filter('FLMform5Required', function(RFLM){
 	const guardianOfChildPage =RFLM? store.state.Application.stPgNo.RFLM.GuardianOfChild :store.state.Application.stPgNo.FLM.GuardianOfChild
 
 	const results = store.state.Application.steps[stepFLMnum].result
-	if( results?.flmQuestionnaireSurvey?.data?.includes("guardianOfChild") && 		
+	if(RFLM && results?.rflmCounterAppSurvey?.data?.counter == "Yes" &&
+		results?.rflmCounterAppSurvey?.data?.counterList?.includes("guardianOfChild") && 		
+		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') &&
+		store.state.Application.steps[stepFLMnum]?.pages[guardianOfChildPage]?.active){
+			return true;
+	}
+	else if(!RFLM &&
+		results?.flmQuestionnaireSurvey?.data?.includes("guardianOfChild") && 		
 		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') &&
 		store.state.Application.steps[stepFLMnum]?.pages[guardianOfChildPage]?.active
 		){
@@ -470,22 +475,36 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	}
 
 	const RFLM = Vue.filter('isRFLM')()
+	const includesCounter = RFLM && 
+							questions.rflmCounterAppSurvey?.data?.counter == "Yes" &&
+							questions.rflmCounterAppSurvey?.counterList?.length>0;
 
-	if(type == 'familyLawMatter' || type == 'replyFlm'){	
+	const counterList = includesCounter?questions.rflmCounterAppSurvey.counterList:[];
 
-		if(questions.flmBackgroundSurvey?.existingPOOrders == "y")
+	if(type == 'familyLawMatter' || type == 'replyFlm'){
+
+
+		if(!RFLM && questions.flmBackgroundSurvey?.existingPOOrders == "y")
 		  	requiredDocuments.push("Copy of your existing protection related written agreement(s), court order(s) or plan(s)");
 
-		if(questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
+		if(!RFLM && questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
 		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 			
 		if(Vue.filter('FLMform4Required')(RFLM))		
 			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
 
-		if( (questions.calculatingChildSupportSurvey?.attachingCalculations == 'y'  &&  questions.flmQuestionnaireSurvey?.includes("childSupport") )
-		|| ( questions.calculatingSpousalSupportSurvey?.attachingCalculations== 'y' &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport"))
-		)
-			requiredDocuments.push("Support calculation");
+		const childSupportAttachementCondition = questions.calculatingChildSupportSurvey?.attachingCalculations == 'y';
+		const spousalSupportAttachementCondition = questions.calculatingSpousalSupportSurvey?.attachingCalculations== 'y';
+
+		if( (!RFLM && (
+				(childSupportAttachementCondition && questions.flmQuestionnaireSurvey?.includes("childSupport")) || 
+			    (spousalSupportAttachementCondition &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport"))) ) ||			 
+			(RFLM && ( 
+				(childSupportAttachementCondition  &&  counterList.includes("childSupport")) ||
+			    ( spousalSupportAttachementCondition &&  counterList.includes("spousalSupport"))))){
+					requiredDocuments.push("Support calculation");
+				}
+			
 
 		if(Vue.filter('FLMform5Required')(RFLM)){		
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
@@ -493,14 +512,26 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		}
 	
 		//REMINDERS 
+
+		const flmDirectorMaintenanceCopyRequiredCondition = ( questions.flmQuestionnaireSurvey?.includes("childSupport") && 
+															questions.aboutExistingChildSupportSurvey?.filedWithDirector == "y") ||
+		  													( questions.flmQuestionnaireSurvey?.includes("spousalSupport") && 
+		  													questions.existingSpousalSupportOrderAgreementSurvey?.filedWithDirector == "y")
+
+		const rflmDirectorMaintenanceCopyRequiredCondition = (counterList.includes("childSupport") && 
+																questions.aboutExistingChildSupportSurvey?.filedWithDirector == "y") ||
+																(counterList.includes("spousalSupport") && 
+																questions.existingSpousalSupportOrderAgreementSurvey?.filedWithDirector == "y")
 	
-		if( ( questions.flmQuestionnaireSurvey?.includes("childSupport")   && questions.aboutExistingChildSupportSurvey?.filedWithDirector == "y" )
-		  ||( questions.flmQuestionnaireSurvey?.includes("spousalSupport") && questions.existingSpousalSupportOrderAgreementSurvey?.filedWithDirector == "y" )
-		  )
-			reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
+		if( (!RFLM && flmDirectorMaintenanceCopyRequiredCondition) || (RFLM && rflmDirectorMaintenanceCopyRequiredCondition) ){
+			reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.");
+		}	
+
+		const noticeRequirement = (questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || 
+			questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )
 		
-		if( questions.flmQuestionnaireSurvey?.includes("guardianOfChild") &&
-			(questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  )
+		if( (!RFLM && questions.flmQuestionnaireSurvey?.includes("guardianOfChild") && noticeRequirement) || 
+			(RFLM && counterList.includes("guardianOfChild") && noticeRequirement))
 				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act. <br/><br/>Contact the Nisga’a Lisims Government or the Treaty First Nation to confirm how they should be served with notice of the application. For an alphabetical listing of First Nations including information about the First Nation(s) and contact information where available, visit the BC Government <a target='_blank' href='https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/consulting-with-first-nations/first-nations-negotiations/first-nations-a-z-listing'>website</a> .");
 	}
 

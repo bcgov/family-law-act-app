@@ -191,11 +191,21 @@ export default class RflmBackground extends Vue {
         return childRelated;
     }
 
+    public childRelatedReplies(){
+
+        const childRelated = this.selectedRepliesData.selectedParentingArrangementsForm.length>0 || 
+                        this.selectedRepliesData.selectedChildSupportForm.length>0 ||
+                        this.selectedRepliesData.selectedContactWithChildForm.length>0 ||
+                        this.selectedRepliesData.selectedGuardianshipForm.length>0 
+
+        return childRelated;
+    }
+
     public setReplyPages() {
 
-        if (this.getSelectedReplies) {
+        if (this.getSelectedReplies) {           
 
-            togglePages(this.rflmChildRelatedPages, this.rflmChildRelatedCounter, this.currentStep);
+            togglePages(this.rflmChildRelatedPages, this.rflmChildRelatedCounter() || this.childRelatedReplies(), this.currentStep);
 
             if (this.selectedRepliesData.selectedParentingArrangementsForm.length > 0){                
                 if(this.selectedRepliesData.selectedParentingArrangementsForm.includes("existingParentingArrangements"))
