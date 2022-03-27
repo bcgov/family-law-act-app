@@ -123,6 +123,8 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{applicationIdentifier}/g,'application(s)');
         adjQuestion = adjQuestion.replace(/{verb}/g,'was/were');
         adjQuestion = adjQuestion.replace(/{applicationList}/g, getWrittenResponseApplications(this.$store.state.Application.types).join(' and '));
+        adjQuestion = adjQuestion.replace(/{calculationDate}/g,'the above mentioned date');
+        adjQuestion = adjQuestion.replace(/{disagreeReasonQuestion}/g,'Why don’t you agree with the requested order?');
         return adjQuestion
     }
 

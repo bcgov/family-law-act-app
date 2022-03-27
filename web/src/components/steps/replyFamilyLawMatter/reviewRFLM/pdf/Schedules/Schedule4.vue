@@ -33,7 +33,7 @@
                         text="I agree the agreement about child support should be set aside or replaced"/>
                     <check-box style="width:120%;" 
                         :check="exChSupInfo.section150?'yes':''" 
-                        text="I believe the agreement about child support was made on consideration of section 150 of the <i>Family Law Act</i>"/>                    
+                        text="I believe the agreement about child support was made on consideration of section 150 of the <br> <i>Family Law Act</i>"/>                    
                 </div>
             </section>
 

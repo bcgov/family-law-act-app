@@ -1,8 +1,8 @@
 {
-  "title": "Unpaid spousal support",
+  "title": "Unpaid Spousal Support",
   "pages": [
     {
-      "name": "Unpaid spousal support",
+      "name": "Unpaid Spousal Support",
       "description": "Past spousal support payments that have not been made are called arrears. If you are making an application when there is already an order or agreement about spousal support, the court needs to know if there is any unpaid amount.<br><br>The court can reduce or cancel arrears if there is a good reason to. The court can also make an order about how the arrears will be paid, including setting up a payment schedule.",
       "elements": [
         {
@@ -77,7 +77,7 @@
           ]
         }
       ],
-      "title": "Unpaid spousal support"
+      "title": "Unpaid Spousal Support"
     }
   ],
   "showQuestionNumbers": "off",

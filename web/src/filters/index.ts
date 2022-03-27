@@ -433,7 +433,8 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 		if (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
 			&& rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport')
-			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'){
+			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'
+			&& !requiredDocuments?.includes("Financial Statement Form 4")){
 				requiredDocuments.push('Financial Statement Form 4, if applicable');
 			}
 		

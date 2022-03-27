@@ -1,8 +1,8 @@
 {
-  "title": "Unpaid child support",
+  "title": "Unpaid Child Support",
   "pages": [
     {
-      "name": "Unpaid child support",
+      "name": "Unpaid Child Support",
       "description": "Past child support payments that have not been made are called arrears. If you are making an application when there is already an order or agreement about child support, the court needs to know if there is any unpaid child support.<br><br>The court can reduce or cancel arrears if there is a good reason to. The court can also make an order about how the arrears will be paid, including setting up a payment schedule.",
       "elements": [
         {
@@ -78,7 +78,7 @@
           ]
         }
       ],
-      "title": "Unpaid child support"
+      "title": "Unpaid Child Support"
     }
   ],
   "showQuestionNumbers": "off",

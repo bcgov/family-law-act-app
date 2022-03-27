@@ -1,8 +1,8 @@
 {
-  "title": "Calculating spousal support",
+  "title": "Calculating Spousal Support",
   "pages": [
     {
-      "name": "Calculating spousal support",
+      "name": "Calculating Spousal Support",
       "description":"To calculate how much spousal support should be paid, you can use the <a href='https://www.justice.gc.ca/eng/fl-df/spousal-epoux/ssag-ldfpae.html' target='_blank'>Spousal Support Advisory Guidelines</a> or DIVORCEmate’s free spousal support calculator at <a href='https://www.mysupportcalculator.ca/' target='_blank'>www.mysupportcalculator.ca</a>.<br><br>You can also talk with a <a href='https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C' target='_blank'>child support officer</a> (they can also help with spousal support), <a href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA' target='_blank'>family justice counsellor</a> or a lawyer.<br><br>It is helpful for both the court and the other party if you include a calculation with this application showing how much you believe should be paid in spousal support according to the spousal support guidelines.",         
       "elements": [
         {
@@ -47,7 +47,7 @@
           ]
         }
       ],
-      "title": "Calculating spousal support"
+      "title": "Calculating Spousal Support"
     }
   ],
   "showQuestionNumbers": "off",

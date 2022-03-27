@@ -1,8 +1,8 @@
 {
-  "title": "Existing final order",
+  "title": "Existing Final Order",
   "pages": [
     {
-      "name": "Existing final order",
+      "name": "Existing Final Order",
       "elements": [
         {
           "type": "panel",
@@ -58,7 +58,7 @@
           ]
         }
       ],
-      "title": "Existing final order"
+      "title": "Existing Final Order"
     }
   ],
   "showQuestionNumbers": "off",

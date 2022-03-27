@@ -1,8 +1,8 @@
 {
-  "title": "Guardianship of a child",
+  "title": "Guardianship of a Child",
   "pages": [
     {
-      "name": "Guardianship of a child",      
+      "name": "Guardianship of a Child",      
       "elements": [
         {
           "type": "infotexttitle",
@@ -67,7 +67,7 @@
           "visibleIf": "{applicationType} contains 'cancelGuardian'"
         }
       ],
-      "title": "Guardianship of a child"
+      "title": "Guardianship of a Child"
     }
   ],
   "showQuestionNumbers": "off",
