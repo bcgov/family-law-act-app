@@ -43,12 +43,16 @@ class EFilingSubmitView(generics.GenericAPIView):
         return extension.lower() not in self.allowed_extensions
 
     def _get_validation_errors(self, request_files, documents):
-        # TODO: check group of images isn't over 10MB
+        
+        total_file_size = 0
+        
         if not is_valid_json(documents):
             return JsonMessageResponse("Invalid json data for documents.", status=400)
         if len(request_files) > 30:
             return JsonMessageResponse("Too many files.", status=400)
+
         for file in request_files:
+            total_file_size = total_file_size + file.size
             if file.size == 0:
                 return JsonMessageResponse("One of the files was empty.", status=400)
             if self._file_size_too_large(file.size):
@@ -57,6 +61,12 @@ class EFilingSubmitView(generics.GenericAPIView):
                 )
             if self._invalid_file_extension(file):
                 return JsonMessageResponse("Wrong file format.", status=400)
+        
+        if self._file_size_too_large(total_file_size):
+            return JsonMessageResponse(
+                "The total Files size limit exceeded: 10 MB.", status=400
+            )
+
         return None
 
     def _unique_file_names(self, request_files):

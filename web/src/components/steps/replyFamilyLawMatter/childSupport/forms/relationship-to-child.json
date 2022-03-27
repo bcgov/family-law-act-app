@@ -1,8 +1,8 @@
 {
-  "title": "Relationship to child",
+  "title": "Relationship to Child",
   "pages": [
     {
-      "name": "Relationship to child",
+      "name": "Relationship to Child",
       "elements": [        
         {
           "type": "panel",
@@ -46,7 +46,7 @@
         }      
         
       ],
-      "title": "Relationship to child"
+      "title": "Relationship to Child"
     }
   ],
   "showQuestionNumbers": "off",

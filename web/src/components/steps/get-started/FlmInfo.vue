@@ -4,7 +4,7 @@
             <h1 class="text-primary" style="margin-left: -2.5rem;">Did You Know? …</h1>
             <h2 class="text-dark" style="margin-left: -2.5rem;">That you don’t always need to go to court to resolve family law disputes!</h2>
 
-            <p style="margin-left: -2.5rem;">
+            <p style="margin-left:-2.35rem; margin-right:-2rem;">
                 BC laws encourage people to try to resolve their family law disputes out of court through 
                 agreement and family dispute resolution processes, including:
             </p>
@@ -19,16 +19,16 @@
                 <b-row>                    
                     Mediation is a meeting in an informal, neutral setting with a trained mediator 
                     who helps you and the other person talk about the issues and reach an agreement. 
-                    <a 
+                    <a  class="mr-1"
                         href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-counsellors"
                         target="_blank">Family Justice Counsellors
                     </a> provide free family mediation services throughout BC. 
                     You can also hire a 
-                    <a 
+                    <a  class="mx-1"
                         href="https://www.mediatebc.com/"
                         target="_blank">private mediator
                     </a> or use 
-                    <a 
+                    <a
                         href="https://mylawbc.com/mediation/"
                         target="_blank">MyLawBC’s free online mediation tool
                     </a>.
@@ -47,7 +47,7 @@
                     lawyer who practises collaborative family law, and sign an agreement promising 
                     to work together to find acceptable solutions. The goal of a collaborative law 
                     process is to settle your case fairly, without going to court. 
-                    <a 
+                    <a  class="mr-1"
                         href="https://www.bccollaborativerostersociety.com/index.php"
                         target="_blank">The BC Collaborative Roster Society
                     </a> has a roster of qualified collaborative law professionals.                   
@@ -89,7 +89,7 @@
                     A parenting coordinator helps parents resolve disputes about how parenting agreements 
                     or orders are put into effect using mediation and arbitration. If you cannot agree, 
                     a parenting coordinator can make a decision for you (called a determination). The 
-                    <a 
+                    <a  class="mr-1"
                         href="http://www.bcparentingcoordinators.com/"
                         target="_blank">BC Parenting Coordinators Roster Society
                     </a>has a list of qualified parenting coordinators.                   
@@ -107,14 +107,14 @@
                     Arbitrators play a private judge-like role. A family law arbitrator will make binding 
                     decisions to resolve family law disputes out of court. If you decide to use arbitration, 
                     you are asking another person to make the decisions for you, after hearing both sides. The 
-                    <a 
+                    <a  class="mr-1"
                         href="https://adrbc.com/"
-                        target="_blank">ADR Institute of British Columbia
-                    </a>can assist you in finding an Arbitrator.                  
+                        target="_blank"> ADR Institute of British Columbia 
+                    </a> can assist you in finding an Arbitrator.                  
                 </b-row>
             </b-card>
 
-            <b-card no-body class="mt-5 border-white">
+            <div style="margin:3rem -2rem 0 -2.3rem;">
                 <p style="font-weight: 700;" class="font-weight-bold text-primary">
                     Research shows that these out of court dispute resolution processes are often faster, less expensive, 
                     and may better meet the needs of the parties involved, but sometimes court is still the best option.  
@@ -155,9 +155,9 @@
                                         
                     </ul>                
                 </p>
-            </b-card>
+            </div>
 
-            <b-row class="mt-2 mb-3">                
+            <b-row style="margin:3rem -2.5rem 2rem -3.2rem;">                
                 <b-col>
                     <b-button
                         style="height: 3rem;"

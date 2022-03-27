@@ -2,7 +2,7 @@
     "title": "Provincial Court Family Law Act Protection Order",
     "pages": [
      {
-      "name": "Remove person or belongings",
+      "name": "Remove Person or Belongings",
       "elements": [
        {
         "type": "panel",
@@ -43,7 +43,7 @@
         ]
        }
       ],
-      "title": "Remove person or belongings"
+      "title": "Remove Person or Belongings"
      }
     ],
     "showQuestionNumbers": "off",

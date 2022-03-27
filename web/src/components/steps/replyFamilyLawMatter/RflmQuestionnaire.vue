@@ -135,7 +135,7 @@
                             class="mt-3"
                             v-on:change="changeSelection('guardianship', 'appointing', $event)" 
                             value="appointing">
-                            <div class="checkbox-choices">appointing a guardian of a child</div>
+                            <div class="checkbox-choices">Appointing a guardian of a child</div>
                             <p>
                                 Schedule 7 of the application was completed by the other party. 
                                 They are asking for an order to appoint a new guardian for a child.
@@ -144,7 +144,7 @@
                         <b-form-checkbox 
                             v-on:change="changeSelection('guardianship', 'cancelling', $event)" 
                             value="cancelling">
-                            <div class="checkbox-choices">cancelling guardianship of a child </div>
+                            <div class="checkbox-choices">Cancelling guardianship of a child </div>
                             <p>
                                 Schedule 8 of the application was completed by the other party. 
                                 They are asking for an order to cancel someone’s guardianship 

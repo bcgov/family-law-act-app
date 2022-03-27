@@ -1,8 +1,8 @@
 {
-  "title": "Parenting time",
+  "title": "Parenting Time",
   "pages": [
     {
-      "name": "Parenting time",
+      "name": "Parenting Time",
       "description": "Parenting time is the time each guardian spends with the child.  Guardians can arrange parenting time in any way that is in the best interests of the child.  Parenting time can be shared equally, or one guardian can have the child more of the time.",
       "elements": [
         {
@@ -90,7 +90,7 @@
           ]
         }
       ],
-      "title": "Parenting time"
+      "title": "Parenting Time"
     }
   ],
   "showQuestionNumbers": "off",

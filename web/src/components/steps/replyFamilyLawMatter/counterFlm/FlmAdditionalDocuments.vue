@@ -87,7 +87,9 @@ export default class FlmAdditionalDocuments extends Vue {
     }
 
     public determineCaseMgntNeeded(){
-       
+        
+        const includesOrderActivities = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity?.includes('applyForOrder');
+
         if ((this.survey.data?.criminalChecked && this.survey.data.criminalChecked == 'n') 
             || (this.survey.data?.isFilingAdditionalDocs && this.survey.data.isFilingAdditionalDocs == 'n')) {            
                 
@@ -99,6 +101,8 @@ export default class FlmAdditionalDocuments extends Vue {
                 }
 
                 this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
+        }else if(!includesOrderActivities) {
+            this.toggleSteps(this.stPgNo.CM._StepNo,  false);
         }
     }
 

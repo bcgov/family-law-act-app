@@ -1,8 +1,8 @@
 {
-  "title": "Relationship to other party",
+  "title": "Relationship to Other Party",
   "pages": [
     {
-      "name": "Relationship to other party",
+      "name": "Relationship to Other Party",
       "elements": [        
         {
           "type": "panel",
@@ -19,7 +19,7 @@
         }      
         
       ],
-      "title": "Relationship to other party"
+      "title": "Relationship to Other Party"
     }
   ],
   "showQuestionNumbers": "off",

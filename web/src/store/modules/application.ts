@@ -161,7 +161,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "4";
         p.name = "RemovePerson";
-        p.label = "Remove person or belongings";
+        p.label = "Remove Person or Belongings";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -272,7 +272,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "1";
         p.name = "YourInformation";
-        p.label = "Your information";
+        p.label = "Your Information";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -513,7 +513,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "24";
         p.name = "RelationshipToOtherParty";
-        p.label = "Relationship to other party";
+        p.label = "Relationship to Other Party";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -833,7 +833,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "63";
         p.name = "ExistingSpousalSupportFinalOrder";
-        p.label = "Existing final order";
+        p.label = "Existing Final Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -841,7 +841,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "64";
         p.name = "ExistingSpousalSupportAgreement";
-        p.label = "Existing written agreement";
+        p.label = "Existing Written Agreement";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -857,7 +857,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "66";
         p.name = "AboutExistingSpousalSupportOrder";
-        p.label = "About the order";
+        p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -931,7 +931,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "2";
         p.name = "AboutWrittenResponseOrder";
-        p.label = "About the order";
+        p.label = "About the Order";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
@@ -1269,7 +1269,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "33";
         p.name = "ExistingSpousalSupportFinalOrder";
-        p.label = "Existing final order";
+        p.label = "Existing Final Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -1277,7 +1277,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "34";
         p.name = "ExistingSpousalSupportAgreement";
-        p.label = "Existing written agreement";
+        p.label = "Existing Written Agreement";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -1293,7 +1293,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "36";
         p.name = "AboutExistingSpousalSupportOrder";
-        p.label = "About the order";
+        p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -1398,7 +1398,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "6";
         p.name = "AboutCaseManagementOrder";
-        p.label = "About the order";
+        p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -1492,7 +1492,7 @@ class Application extends VuexModule {
         s.active = false;
         s.id = "8";
         s.name = "PPM";
-        s.label = "Priority parenting matter";
+        s.label = "Priority Parenting Matter";
         s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepPpm";
@@ -1580,7 +1580,7 @@ class Application extends VuexModule {
         s.active = false;
         s.id = "9";
         s.name = "RELOC";
-        s.label = "Relocation of a child";
+        s.label = "Relocation of a Child";
         s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepReloc";

@@ -1,8 +1,8 @@
 {
-  "title": "Best interests of the child",
+  "title": "Best Interests of the Child",
   "pages": [
     {
-      "name": "Best interests of the child",
+      "name": "Best Interests of the Child",
       "elements": [
         {
           "type": "panel",
@@ -25,7 +25,7 @@
           ]
         }
       ],
-      "title": "Best interests of the child"
+      "title": "Best Interests of the Child"
     }
   ],
   "showQuestionNumbers": "off",

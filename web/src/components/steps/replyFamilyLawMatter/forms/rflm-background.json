@@ -37,7 +37,7 @@
                      "type": "yesno",
                      "name": "otherPartyAttach",
                      "visible": false,
-                     "visibleIf": "({ExistingOrdersFLM} = 'y') and ({includesCounter})",
+                     "visibleIf": "(!{includesCounter}) or (({ExistingOrdersFLM} = 'y') and ({includesCounter}))",
                      "title": "Did the other party attach a copy of all existing written agreements or court orders about parenting arrangements, child support, contact with a child, guardianship of a child and/or spousal support to their application?",
                      "description": "If a current agreement or order was missed, you can include a copy with your reply. Check the documents you were served to see if a copy was included already.",
                      "isRequired": true

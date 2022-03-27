@@ -1,8 +1,8 @@
 {
-  "title": "Existing written agreement",
+  "title": "Existing Written Agreement",
   "pages": [
     {
-      "name": "Existing written agreement",
+      "name": "Existing Written Agreement",
       "elements": [
         {
           "type": "panel",
@@ -55,7 +55,7 @@
           ]
         }
       ],
-      "title": "Existing written agreement"
+      "title": "Existing Written Agreement"
     }
   ],
   "showQuestionNumbers": "off",

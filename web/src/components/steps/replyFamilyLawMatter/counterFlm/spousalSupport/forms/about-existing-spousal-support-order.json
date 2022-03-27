@@ -1,8 +1,8 @@
 {
-  "title": "About the order",
+  "title": "About the Order",
   "pages": [
     {
-      "name": "About the order",
+      "name": "About the Order",
       "elements": [
         {
           "type": "panel",
@@ -18,7 +18,7 @@
           ]
         }
       ],
-      "title": "About the order"
+      "title": "About the Order"
     }
   ],
   "showQuestionNumbers": "off",
