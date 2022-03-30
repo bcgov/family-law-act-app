@@ -402,7 +402,7 @@ export default class FilingLocation extends Vue {
         
             let fileType = Vue.filter('getPathwayPdfType')(selectedReplyForm);   
             
-            if (fileType == "WRA" || fileType == "RFLM"){
+            if (fileType == "WRA" || fileType == "RPL"){
                 const fileNumber = this.survey.data.ExistingFileNumber;
                 newExistingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});
             }                                
