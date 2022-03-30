@@ -141,6 +141,12 @@
                     style="color:blue; cursor:pointer;">
                     Checklist for Written Response to Application
                 </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('RFLM')" 
+                    @click="checklist=true;checklistType='RFLM';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Reply to a Family Law Matter
+                </div>
             </div>           
 
             <div class="mt-5">
@@ -310,6 +316,10 @@ export default class SuccessPage extends Vue {
 
             if (pathways.includes('writtenResponse')){
                 this.applicationDocumentTypes.push('WRA')
+            }
+
+            if (pathways.includes('replyFlm')){
+                this.applicationDocumentTypes.push('RFLM')
             }
 
             if (includesFlm){
