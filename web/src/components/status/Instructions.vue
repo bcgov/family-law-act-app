@@ -102,6 +102,16 @@
                 :byConsent="applicationByConsent"
                 :writtenResponse="includesWr"  
             />
+
+            <schedule-family-management-conference
+                v-if="conditionArray[16]"
+                v-bind:instructionsStep="instructionsStepArray[16]"  
+            />
+
+            <attend-family-management-conference
+                v-if="conditionArray[17]"
+                v-bind:instructionsStep="instructionsStepArray[17]"  
+            />
         
         </b-card>
         <loading-spinner v-else waitingText="Waiting for submitted information"/>  
@@ -133,6 +143,9 @@ import {whichCaseMgmtForm} from "@/components/steps/caseMgmt/reviewCM/RequiredFo
 
 import ArrangeForServiceWrInstructions from "./postFilingSteps/ArrangeForServiceWrInstructions.vue"
 
+import ScheduleFamilyManagementConference from "./postFilingSteps/ScheduleFamilyManagementConference.vue"
+import AttendFamilyManagementConference from "./postFilingSteps/AttendFamilyManagementConference.vue"
+
 @Component({
     components:{        
         ArrangeForServiceFlmInstructions,
@@ -147,7 +160,9 @@ import ArrangeForServiceWrInstructions from "./postFilingSteps/ArrangeForService
         ArrangeForServiceCmPpmRelocEnfrcInstructions,
         WaitForJudgeToReview,
         ServeCopyOfOrderOnOtherParty,
-        ArrangeForServiceWrInstructions
+        ArrangeForServiceWrInstructions,
+        ScheduleFamilyManagementConference,
+        AttendFamilyManagementConference
     }
 })
 export default class Instructions extends Vue {
@@ -178,6 +193,7 @@ export default class Instructions extends Vue {
     includeCmWithoutNotice = false;
     includeCmWithNotice = false;
     includesWr = false;
+    includesRflm = false;
     applicationByConsent = false;
 
     error = ''
@@ -198,7 +214,8 @@ export default class Instructions extends Vue {
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
 
-            const applicationData = response.data;  
+            const applicationData = response.data;
+            console.log(applicationData)  
            
             const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
             const stepPO = this.getStepResultByName(applicationData, 'PO');
@@ -245,20 +262,25 @@ export default class Instructions extends Vue {
             }
 
             this.includesWr = this.listOfselectedReplyForms.includes('writtenResponse');
+            this.includesRflm = this.listOfselectedReplyForms.includes('replyFlm');
+
 
             // //______TEMPORARY Check_________
             // //______________________________
             // this.includeParentingAfterSeparationStep = false;
-            // this.includesFlm = false 
-            // this.earlyResolution = false
-            // this.includesPo = false
-            // this.urgentPO = false
+            // this.includesFlm = false; 
+            // this.earlyResolution = false;
+            // this.includesPo = false;
+            // this.urgentPO = false;
+            
+            // this.includesCm = false;
+            // this.includeCmWithoutNotice = false;
+            // this.includesPpm = false;
+            // this.includesReloc = false;
+            // this.includesEnfrc = false;
 
-            // this.includesCm = true
-            // this.includeCmWithoutNotice = true;
-            // this.includesPpm = true
-            // this.includesReloc = true
-            // this.includesEnfrc = false 
+            // this.includesWr = false;
+            // this.includesRflm = false;
 
             // console.error("_new set__")
             // console.log('Separation',this.includeParentingAfterSeparationStep);
@@ -366,6 +388,20 @@ export default class Instructions extends Vue {
                                   this.includesWr; 
         this.instructionsStepArray[15] = 0;
         
+
+
+        //schedule-family-management-conference
+        this.conditionArray[16] = this.includesRflm ;
+        this.instructionsStepArray[16] = 0;
+
+        //attend-family-management-conference
+        this.conditionArray[17] = this.includesRflm ;
+        this.instructionsStepArray[17] = 0;
+
+
+
+
+        //================Adjust Step Numbers===========
         let stepNum = 1;
         for(let i =0; i<this.conditionArray.length; i++){
             if(this.conditionArray[i]){
@@ -373,6 +409,11 @@ export default class Instructions extends Vue {
                 stepNum++;
             }
         }
+
+        
+
+
+
     }
     
     public getStepResultByName(applicationData, stepName){
