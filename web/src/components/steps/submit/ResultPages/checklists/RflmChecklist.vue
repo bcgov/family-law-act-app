@@ -41,13 +41,11 @@
                     text="Step 3: Schedule your Family Management Conference"/>               
             </div>
 
-            <p>
-                Your first step with the court will be to attend a family management conference. 
+            <p style="margin-left:1.75rem;">
+                Your first step with the court will be to attend a family management conference.<br/> 
                 The court registry will provide you and the other party with instructions on how 
-                to schedule your family management conference.
-            </p>
-
-            <p>
+                to schedule your family management conference.<br/>
+            
                 If you have a lawyer, they will help with scheduling your case for a date you 
                 can attend.
             </p>            
@@ -65,23 +63,24 @@
                     check="" 
                     text="Step 4: Attend the Family Management Conference"/>               
             </div>  
-            
-            <div style="margin:0;">
-                A family management conference is an informal and time-limited process in which a 
-                judge or family justice manager:
-            </div>
-            <ul>
-                <li>assists the parties to identify the issues to be resolved</li>
-                <li>explores options to resolve the issues</li>
-                <li>can make case management orders or directions to make sure your case is ready for the next step</li>
-                <li>can make interim (temporary) orders about your family law matters</li>
-                <li>can make an order by consent of the parties</li>
-                <li>can make an order without a party, if a party does not show up or file a reply</li>
-            </ul>
+            <div style="margin-left:1.75rem;">
+                <div style="margin:0;">
+                    A family management conference is an informal and time-limited process in which a 
+                    judge or family justice manager:
+                </div>
+                <ul>
+                    <li>assists the parties to identify the issues to be resolved</li>
+                    <li>explores options to resolve the issues</li>
+                    <li>can make case management orders or directions to make sure your case is ready for the next step</li>
+                    <li>can make interim (temporary) orders about your family law matters</li>
+                    <li>can make an order by consent of the parties</li>
+                    <li>can make an order without a party, if a party does not show up or file a reply</li>
+                </ul>
 
-            <p>
-                Your scheduling notice will provide you with more information about what happens at the family management conference.
-            </p>
+                <p>
+                    Your scheduling notice will provide you with more information about what happens at the family management conference.
+                </p>
+            </div>
         </div>
 
     </div>
