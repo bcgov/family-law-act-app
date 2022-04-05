@@ -99,7 +99,7 @@ export default class Form19 extends Vue {
         else
             Object.assign(result, result,{applicationLocation: userLocation});
 
-        Vue.filter('extractRequiredDocuments')(result, 'replyFlm')
+        
 
         return result;
     }
