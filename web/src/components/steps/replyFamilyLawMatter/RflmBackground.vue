@@ -115,7 +115,10 @@ export default class RflmBackground extends Vue {
     }
 
     public setPages() {
-        togglePages(this.allPages, false, this.currentStep);            
+        
+        togglePages(this.allPages, false, this.currentStep);
+        Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, false, 'reply')
+
         togglePages(this.commonPages, true, this.currentStep);
         this.setCounterPages()
         this.setReplyPages()
@@ -218,7 +221,8 @@ export default class RflmBackground extends Vue {
                 if(this.selectedRepliesData.selectedChildSupportForm.includes("existingChildSupport"))
                     togglePages(this.rflmChildSupportExistingPages, true, this.currentStep);
                 else    
-                    togglePages(this.rflmChildSupportNewPages, true, this.currentStep);               
+                    togglePages(this.rflmChildSupportNewPages, true, this.currentStep); 
+                    Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, true, 'reply')              
             } 
 
             if (this.selectedRepliesData.selectedContactWithChildForm.length > 0){                
@@ -238,10 +242,13 @@ export default class RflmBackground extends Vue {
             } 
 
             if (this.selectedRepliesData.selectedSpousalSupportForm.length > 0){                
-                if(this.selectedRepliesData.selectedSpousalSupportForm.includes("existingSpouseSupport"))
+                if(this.selectedRepliesData.selectedSpousalSupportForm.includes("existingSpouseSupport")){
                     togglePages(this.rflmSpousalSupportExistingPages, true, this.currentStep);
-                else    
+                    Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, true, 'reply')
+                }else{    
                     togglePages(this.rflmSpousalSupportNewPages, true, this.currentStep);               
+                    Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, true, 'reply');
+                }
             }            
         }
     }
@@ -326,7 +333,7 @@ export default class RflmBackground extends Vue {
         this.rflmParentingArrangementsNewPages = [p.RflmChildrenInfo, p.ReplyNewParentingArrangements, p.ReplyNewParentalResponsibilities, p.ReplyNewParentingTime, p.ReplyNewConditionsParentingTime]
         this.rflmParentingArrangementsExistingPages = [p.RflmChildrenInfo, p.ReplyExistingParentingArrangements]   
 
-        this.rflmChildSupportNewPages = [p.RflmChildrenInfo, p.ReplyNewChildSupport, p.RelationshipToChild, p.DisagreeChildSupport, p.RflmCalculatingChildSupport, p.RflmAdditionalDocuments]
+        this.rflmChildSupportNewPages = [p.RflmChildrenInfo, p.ReplyNewChildSupport, p.RelationshipToChild, p.DisagreeChildSupport, p.RflmCalculatingChildSupport]//, p.RflmAdditionalDocuments]
         this.rflmChildSupportExistingPages = [p.RflmChildrenInfo, p.ReplyExistingChildSupport, p.RflmUnpaidChildSupport, p.DisagreeExistingChildSupport, p.RflmCalculatingChildSupport]
 
         this.rflmContactWithChildNewPages = [p.RflmChildrenInfo, p.ReplyNewContactWithChild, p.DisagreeContactWithChild]
@@ -335,8 +342,8 @@ export default class RflmBackground extends Vue {
         this.rflmAppointingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyAppointingGuardianOfChild, p.DisagreeAppointingGuardianOfChild]
         this.rflmCancellingGuardianshipPages = [p.RflmChildrenInfo, p.ReplyCancellingGuardianOfChild, p.DisagreeCancellingGuardianOfChild]
 
-        this.rflmSpousalSupportNewPages = [p.ReplyNewSpouseSupport, p.RelationshipToOtherParty, p.DisagreeSpouseSupport, p.RflmSpouseSupportOrder, p.RflmCalculatingSpouseSupport, p.RflmAdditionalDocuments]
-        this.rflmSpousalSupportExistingPages = [p.ReplyExistingSpouseSupport, p.RflmUnpaidSpouseSupport, p.DisagreeExistingSpouseSupport, p.RflmCalculatingSpouseSupport, p.RflmAdditionalDocuments]
+        this.rflmSpousalSupportNewPages = [p.ReplyNewSpouseSupport, p.RelationshipToOtherParty, p.DisagreeSpouseSupport, p.RflmSpouseSupportOrder, p.RflmCalculatingSpouseSupport]//, p.RflmAdditionalDocuments]
+        this.rflmSpousalSupportExistingPages = [p.ReplyExistingSpouseSupport, p.RflmUnpaidSpouseSupport, p.DisagreeExistingSpouseSupport, p.RflmCalculatingSpouseSupport]//, p.RflmAdditionalDocuments]
 
 
     }

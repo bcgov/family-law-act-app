@@ -99,7 +99,8 @@ export default class ReplyNewSpouseSupport extends Vue {
 
             togglePages([p.RelationshipToOtherParty, p.DisagreeSpouseSupport, p.RflmSpouseSupportOrder, p.RflmCalculatingSpouseSupport], this.survey.data.agreeCourtOrder == 'n', this.currentStep);
             if (!includesChildSupportPathway){
-                togglePages([p.RflmAdditionalDocuments], this.survey.data.agreeCourtOrder == 'n', this.currentStep);                
+                // togglePages([p.RflmAdditionalDocuments], this.survey.data.agreeCourtOrder == 'n', this.currentStep);                
+                Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, this.survey.data.agreeCourtOrder == 'n', 'reply')
             } 
            
         }

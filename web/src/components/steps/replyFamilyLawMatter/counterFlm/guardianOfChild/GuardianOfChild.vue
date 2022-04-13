@@ -231,7 +231,10 @@ export default class GuardianOfChild extends Vue {
             if((!this.applicationType || !this.applicationType?.includes("becomeGuardian")) && options.name == "applicationType" && options.value?.includes("becomeGuardian")){                
                 this.showPopup = true; 
 
-                togglePages([this.stPgNo.RFLM.FlmAdditionalDocuments], true, this.currentStep);
+                //togglePages([this.stPgNo.RFLM.FlmAdditionalDocuments], true, this.currentStep);
+                Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, true, 'counter');
+
+
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.stPgNo.RFLM.FlmAdditionalDocuments].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.RFLM.FlmAdditionalDocuments, 50, false);
             } 
@@ -261,7 +264,8 @@ export default class GuardianOfChild extends Vue {
         }
         const RFLM = Vue.filter('isRFLM')()
         if(!this.survey.data?.applicationType?.includes("becomeGuardian") && Vue.filter('FLMform4Required')(RFLM)==false){
-            togglePages([this.stPgNo.RFLM.FlmAdditionalDocuments], false, this.currentStep);
+            //togglePages([this.stPgNo.RFLM.FlmAdditionalDocuments], false, this.currentStep);
+            Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, false, 'counter');
         }
     }
     

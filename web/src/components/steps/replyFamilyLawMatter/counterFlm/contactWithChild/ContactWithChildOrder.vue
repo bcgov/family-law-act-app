@@ -81,7 +81,7 @@ export default class ContactWithChildOrder extends Vue {
        
         const p = this.stPgNo.RFLM
         pgPages =    [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild]
-        pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersRFLM, p.FlmAdditionalDocuments]
+        pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersRFLM]//, p.FlmAdditionalDocuments]
         togglePages([p.ReviewYourAnswersRFLM], true, this.currentStep);         
        
         if (this.survey.data?.existingType == 'ExistingOrder') {
@@ -105,6 +105,7 @@ export default class ContactWithChildOrder extends Vue {
         } else if (this.survey.data?.existingType == 'Neither') {
             
             togglePages(pgPagesAll, false, this.currentStep);
+            Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, false, 'counter')
             this.disableNextButton = true;            
         }
     }

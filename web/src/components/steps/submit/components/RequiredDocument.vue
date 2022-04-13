@@ -107,14 +107,32 @@ export default class RequiredDocument extends Vue {
                 const vowelCondition = ['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a';
                 this.requiredDocumentLists.push({
                     name:name, 
-                    required:value['required'], 
+                    required:JSON.parse(JSON.stringify(value['required'])), 
                     reminder:value['reminder'],
                     text:key.includes('agreementEnfrc2')?'For the Request to':'For the Application About',
                     article:key.includes('agreementEnfrc2')? '':vowelCondition
                 })
                 if(value['required']?.length>0) this.isRequiredDocument = true;
             }
-        }        
+        }
+        
+
+        //Remove redundant docs        
+        for(const requiredDocList of this.requiredDocumentLists){
+            const requiredDoc = requiredDocList.required
+            //console.log(requiredDoc)
+            const inxToRemove = []
+            for(let i=0; i<requiredDoc.length; i++){
+                if(requiredDoc[i].includes('Financial Statement Form 4')){                    
+                    inxToRemove.push(i)
+                }                
+            }
+            //console.log(inxToRemove)
+            for (let i = inxToRemove.length -1; i > 0; i--)
+                requiredDoc.splice(inxToRemove[i],1);
+        }
+
+
     }
 }
 </script>

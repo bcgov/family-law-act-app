@@ -49,7 +49,7 @@
               "type": "radiogroup",
               "name": "incorrectOpIncome",
               "title": "The other party’s income is not what they claimed it is.",
-              "description": "The other party doesn’t always have to provide information about their income, for example, if you are the payor and the children live with the other party most of the time. The other party’s income will usually be provided in their <b>attached child support calculations</b> or in their <b>Financial Statement Form 3</b>. Do you believe something is not correct in the other party’s financial disclosure?",
+              "description": "The other party doesn’t always have to provide information about their income, for example, if you are the payor and the children live with the other party most of the time. The other party’s income will usually be provided in their <b>attached child support calculations</b> or in their <b>Financial Statement Form 4</b>. Do you believe something is not correct in the other party’s financial disclosure?",
               "isRequired": true,
               "choices": [
                 {

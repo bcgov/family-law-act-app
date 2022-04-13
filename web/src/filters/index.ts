@@ -347,10 +347,16 @@ Vue.filter('FLMformsRequired', function(RFLM){
 	const additionalDocumentsStep =RFLM? store.state.Application.stPgNo.RFLM._StepNo :store.state.Application.stPgNo.FLM._StepNo;
 	const additionalDocumentsPage =RFLM? store.state.Application.stPgNo.RFLM.FlmAdditionalDocuments :store.state.Application.stPgNo.FLM.FlmAdditionalDocuments;
 	
-	if(Vue.filter('FLMform4Required')(RFLM) || Vue.filter('FLMform5Required')(RFLM) ) 
-		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: true });
-	else
-		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
+	if(Vue.filter('FLMform4Required')(RFLM) || Vue.filter('FLMform5Required')(RFLM) ){ 
+		if(RFLM) Vue.filter('requestRflmRequiredDocs')(0, 0, true, 'counter')
+		else store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: true });
+		
+	}
+	else{
+		if(RFLM) Vue.filter('requestRflmRequiredDocs')(0, 0, false, 'counter')
+		else store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
+		
+	}
 })
 
 Vue.filter('PPMform5Required', function(){
@@ -427,15 +433,17 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
 			|| ( rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 && 
 				(newSpouseSupportAttachementRequired || existingSpouseSupportAttachementRequired) && 
-				questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))
-				requiredDocuments.push("Financial Statement Form 4");
+				questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))				
+				requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
+
 
 
 		if (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
 			&& rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport')
 			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'
-			&& !requiredDocuments?.includes("Financial Statement Form 4")){
-				requiredDocuments.push('Financial Statement Form 4, if applicable');
+			&& !requiredDocuments?.includes("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>")){
+				requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>, if applicable");
+
 			}
 		
 	
@@ -656,6 +664,22 @@ Vue.filter('removeRequiredDocuments', function(type){
 	const reminderDocuments: string[] = [];
 	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments, reminder:reminderDocuments} });	
 	store.commit("Application/setCommonStepResults",{data:{'requiredDocuments':store.state.Application.requiredDocuments}});	
+})
+
+Vue.filter('requestRflmRequiredDocs', function(page, step, toggle, type){
+	const rflmRequiredDocsRequests = store.state.Application.rflmRequiredDocsRequests;
+	const updateCounter = store.state.Application.rflmRequiredDocsRequestsUpdateCounter+1;
+	const index = rflmRequiredDocsRequests.findIndex(req => (req.page == page && req.step == step))
+	if(index>-1){
+		rflmRequiredDocsRequests[index].toggle = toggle;
+		rflmRequiredDocsRequests[index].type = type;
+	}else{
+		rflmRequiredDocsRequests.push({page:page, step:step, toggle:toggle, type:type})
+	}
+
+	store.commit("Application/setRflmRequiredDocsRequests", rflmRequiredDocsRequests);	
+	store.commit("Application/setCommonStepResults",{data:{'rflmRequiredDocsRequests':store.state.Application.rflmRequiredDocsRequests}});	
+	store.commit("Application/setRflmRequiredDocsRequestsUpdateCounter", updateCounter)
 })
 
 Vue.filter('replaceRequiredDocuments', function(){

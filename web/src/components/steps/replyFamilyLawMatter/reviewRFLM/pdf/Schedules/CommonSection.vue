@@ -141,7 +141,11 @@
             <div style="margin-top:1rem;"><b>Existing written agreements or court orders</b></div>
 <!-- <7> -->
             <section>
-                <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
+                <div style="display:inline; margin-left:0.25rem">
+                    There is an existing written agreement or court order about parenting arrangements, child support, 
+                    contact with a child, guardianship of a child, and/or spousal support that was not provided by the 
+                    other party with their application
+                </div>          
                 <div style="margin-left:1rem">
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
@@ -155,7 +159,8 @@
             <div style="display:inline; margin-left:0.25rem">
                 There is an existing court order, agreement or plan protecting one of the parties or the child(ren), or
                 restraining contact between the parties, including a protection order, an order, agreement or plan involving
-                child protection services, or a peace bond, restraining order, bail condition or other criminal order
+                child protection services, or a peace bond, restraining order, bail condition or other criminal order that 
+                was not provided by the other party with their application
             </div>            
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>

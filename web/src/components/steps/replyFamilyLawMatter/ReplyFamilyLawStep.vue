@@ -43,8 +43,7 @@
         
         <rflm-calculating-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmCalculatingSpouseSupport"/>
        
-        <rflm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmAdditionalDocuments"/>
-
+        
         <your-application v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.YourApplication"/>
 
         <parenting-arrangements        v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ParentingArrangements"/>    
@@ -98,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -149,8 +148,6 @@ import ReplyExistingSpouseSupport from "./spouseSupport/ReplyExistingSpouseSuppo
 import RflmUnpaidSpouseSupport from "./spouseSupport/RflmUnpaidSpouseSupport.vue";
 import DisagreeExistingSpouseSupport from "./spouseSupport/DisagreeExistingSpouseSupport.vue";
 
-import RflmAdditionalDocuments from "./RflmAdditionalDocuments.vue";
-
 import YourApplication from './YourApplication.vue';
 
 import ParentingArrangements from "./counterFlm/parentingArrangements/ParentingArrangements.vue";
@@ -193,7 +190,7 @@ import AboutExistingSpousalSupportOrder from "./counterFlm/spousalSupport/AboutE
 import ExistingSpousalSupportOrderAgreement from "./counterFlm/spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
 import UnpaidSpousalSupport from "./counterFlm/spousalSupport/UnpaidSpousalSupport.vue";
 
-import FlmAdditionalDocuments from "./counterFlm/FlmAdditionalDocuments.vue";
+import FlmAdditionalDocuments from "./FlmAdditionalDocuments.vue";
 
 import PreviewFormsRFLM from "./reviewRFLM/PreviewFormsRFLM.vue";
 import ReviewYourAnswersRFLM from "./reviewRFLM/ReviewYourAnswersRFLM.vue";
@@ -234,8 +231,7 @@ import { stepInfoType } from "@/types/Application";
         RflmCalculatingSpouseSupport, 
         ReplyExistingSpouseSupport,
         RflmUnpaidSpouseSupport,
-        DisagreeExistingSpouseSupport,
-        RflmAdditionalDocuments,
+        DisagreeExistingSpouseSupport,        
         YourApplication,
 
         ParentingArrangements,
@@ -296,6 +292,38 @@ export default class ReplyFamilyLawStep extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public rflmRequiredDocsRequests!: any[];
+
+     @applicationState.State
+    public rflmRequiredDocsRequestsUpdateCounter!: number;
+
+
+    showRequiredDocumentsPage = false
+
+    @Watch('rflmRequiredDocsRequestsUpdateCounter')
+    evaluateRequiredDocumentsPage(){
+       
+        const requiredDocsStep =  this.stPgNo.RFLM._StepNo
+        const requiredDocsPage =  this.stPgNo.RFLM.FlmAdditionalDocuments
+
+        for(const request of this.rflmRequiredDocsRequests){
+            const pageActive = (request.step==0 &&request.page==0)? true: this.$store.state.Application.steps[request.step].pages[request.page].active
+            if(request.toggle && pageActive){
+                
+                this.$store.commit("Application/setPageActive", {currentStep: requiredDocsStep, currentPage: requiredDocsPage, active: true }); 
+                if(  (this.$store.state.Application.steps[requiredDocsStep].currentPage<requiredDocsPage)
+                  && (this.$store.state.Application.steps[requiredDocsStep].pages[requiredDocsPage].progress==100)){
+                        Vue.filter('setSurveyProgress')(null, requiredDocsStep, requiredDocsPage, 50, false);
+                }
+
+                return
+            }
+        }
+        this.$store.commit("Application/setPageActive", {currentStep: requiredDocsStep, currentPage: requiredDocsPage, active: false }); 
+                
+    }
 
 }
 

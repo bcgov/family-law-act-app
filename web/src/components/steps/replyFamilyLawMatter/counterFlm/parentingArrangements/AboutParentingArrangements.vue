@@ -79,7 +79,7 @@ export default class AboutParentingArrangements extends Vue {
         let paPagesAll = []
         const p = this.stPgNo.RFLM
         paPages =    [p.ParentingArrangementChanges, p.BestInterestsOfChild]
-        paPagesAll = [p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersRFLM]
+        paPagesAll = [p.ParentingArrangementChanges, p.BestInterestsOfChild, p.ReviewYourAnswersRFLM]//, p.FlmAdditionalDocuments
         togglePages([p.ReviewYourAnswersRFLM], true, this.currentStep);
         
         if (this.survey.data?.existingType == 'ExistingOrder') {
@@ -103,6 +103,7 @@ export default class AboutParentingArrangements extends Vue {
         } else if (this.survey.data?.existingType == 'Neither') {
             this.disableNextButton = true;
             togglePages(paPagesAll, false, this.currentStep);
+            Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, false, 'counter')
         }         
     }
 
