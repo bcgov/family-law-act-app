@@ -75,12 +75,13 @@ export default class ContactWithChild extends Vue {
         
         const p = this.stPgNo.RFLM
         pgPages =    [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersRFLM]
-        pgPagesAll = [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersRFLM, p.FlmAdditionalDocuments]
+        pgPagesAll = [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersRFLM]//, p.FlmAdditionalDocuments]
       
         if (this.survey.data?.parentGuardianApplicant) {
             if (this.survey.data.parentGuardianApplicant == 'y') {
                 this.disableNextButton = true;
                 togglePages(pgPagesAll, false, this.currentStep);
+                Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, false, 'counter')
             } else {
                 this.disableNextButton = false;
                 togglePages(pgPages, true, this.currentStep);

@@ -100,7 +100,7 @@ export default class ChildSupportOrderAgreement extends Vue {
         
         const p = this.stPgNo.RFLM
         existingOrderAgreementPages =    [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersRFLM]
-        existingOrderAgreementPagesAll = [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersRFLM, p.FlmAdditionalDocuments]
+        existingOrderAgreementPagesAll = [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersRFLM]//, p.FlmAdditionalDocuments]
        
         if ((this.survey.data?.existingType == 'ExistingOrder') ||
              (this.survey.data?.existingType == 'ExistingAgreement')) {
@@ -110,6 +110,8 @@ export default class ChildSupportOrderAgreement extends Vue {
                 
         } else if (this.survey.data?.existingType == "Neither") {
             togglePages(existingOrderAgreementPagesAll, false, this.currentStep);
+            Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, false, 'counter')
+            
             this.disableNextButton = true;
         }
     }

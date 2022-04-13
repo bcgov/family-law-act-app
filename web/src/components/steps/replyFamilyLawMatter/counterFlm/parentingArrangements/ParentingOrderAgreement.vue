@@ -74,7 +74,9 @@ export default class ParentingOrderAgreement extends Vue {
 
         const p = this.stPgNo.RFLM
         if (this.survey.data?.applyingGuardianApplicant == 'n' && this.survey.data?.guardianApplicant == 'n') {
-            togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersRFLM, p.PreviewFormsRFLM], false, this.currentStep);
+            togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.ReviewYourAnswersRFLM, p.PreviewFormsRFLM], false, this.currentStep);//, p.FlmAdditionalDocuments
+            Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, false, 'counter')
+            
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
         } else {
             togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersRFLM], true, this.currentStep);

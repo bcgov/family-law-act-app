@@ -13,5 +13,9 @@ export class RestoreCommonStep{
         if(currentApplication.steps[0].result?.pathwayCompleted)
             store.dispatch('Application/UpdatePathwayCompletedFull',currentApplication.steps[0].result.pathwayCompleted)           
 
+        if(currentApplication.steps[0].result?.rflmRequiredDocsRequests)
+            store.dispatch('Application/UpdateRflmRequiredDocsRequests',currentApplication.steps[0].result.rflmRequiredDocsRequests)           
+
+
     }
 }

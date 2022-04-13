@@ -86,7 +86,7 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     public setPages(){        
        
         const p = this.stPgNo.RFLM
-        const existingSpousalSupportPages = [p.ExistingSpousalSupportFinalOrder, p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.AboutExistingSpousalSupportOrder, p.UnpaidSpousalSupport, p.FlmAdditionalDocuments, p.ReviewYourAnswersRFLM]  
+        const existingSpousalSupportPages = [p.ExistingSpousalSupportFinalOrder, p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.AboutExistingSpousalSupportOrder, p.UnpaidSpousalSupport, p.ReviewYourAnswersRFLM]//, p.FlmAdditionalDocuments  
 
         if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
@@ -98,6 +98,8 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
             togglePages([p.ExistingSpousalSupportFinalOrder], false, this.currentStep);                
         } else if (this.survey.data?.existingType == "Neither") {
             togglePages(existingSpousalSupportPages, false, this.currentStep);
+            Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, false, 'counter');
+            
             this.disableNextButton = true;
         }        
         

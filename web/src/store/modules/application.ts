@@ -31,6 +31,8 @@ class Application extends VuexModule {
     public packageNumber = ""
     public eFilingHubLink = ""
     public generatedForms: string[] = [];
+    public rflmRequiredDocsRequests = [];
+    public rflmRequiredDocsRequestsUpdateCounter = 0;
 
     public surveyChangedPO = false;
     
@@ -1901,6 +1903,21 @@ class Application extends VuexModule {
     public UpdateRequiredDocumentsByType({typeOfRequiredDocuments, requiredDocuments }) {
         this.context.commit("setRequiredDocumentsByType", {typeOfRequiredDocuments, requiredDocuments });
         this.context.commit("setCommonStepResults",{data:{'requiredDocuments':this.requiredDocuments}});
+    }
+
+
+    @Mutation
+    public setRflmRequiredDocsRequests(rflmRequiredDocsRequests): void {
+        this.rflmRequiredDocsRequests = rflmRequiredDocsRequests;
+    }    
+    @Action
+    public UpdateRflmRequiredDocsRequests(newRflmRequiredDocsRequests) {
+        this.context.commit("setRflmRequiredDocsRequests", newRflmRequiredDocsRequests);
+        //this.context.commit("setCommonStepResults",{data:{'rflmRequiredDocsRequests':this.rflmRequiredDocsRequests}});
+    }
+    @Mutation
+    public setRflmRequiredDocsRequestsUpdateCounter(rflmRequiredDocsRequestsUpdateCounter): void {
+        this.rflmRequiredDocsRequestsUpdateCounter = rflmRequiredDocsRequestsUpdateCounter;
     }
 
     @Mutation

@@ -347,10 +347,16 @@ Vue.filter('FLMformsRequired', function(RFLM){
 	const additionalDocumentsStep =RFLM? store.state.Application.stPgNo.RFLM._StepNo :store.state.Application.stPgNo.FLM._StepNo;
 	const additionalDocumentsPage =RFLM? store.state.Application.stPgNo.RFLM.FlmAdditionalDocuments :store.state.Application.stPgNo.FLM.FlmAdditionalDocuments;
 	
-	if(Vue.filter('FLMform4Required')(RFLM) || Vue.filter('FLMform5Required')(RFLM) ) 
-		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: true });
-	else
-		store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
+	if(Vue.filter('FLMform4Required')(RFLM) || Vue.filter('FLMform5Required')(RFLM) ){ 
+		if(RFLM) Vue.filter('requestRflmRequiredDocs')(0, 0, true, 'counter')
+		else store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: true });
+		
+	}
+	else{
+		if(RFLM) Vue.filter('requestRflmRequiredDocs')(0, 0, false, 'counter')
+		else store.commit("Application/setPageActive", {currentStep: additionalDocumentsStep, currentPage: additionalDocumentsPage, active: false });
+		
+	}
 })
 
 Vue.filter('PPMform5Required', function(){
@@ -658,6 +664,22 @@ Vue.filter('removeRequiredDocuments', function(type){
 	const reminderDocuments: string[] = [];
 	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments, reminder:reminderDocuments} });	
 	store.commit("Application/setCommonStepResults",{data:{'requiredDocuments':store.state.Application.requiredDocuments}});	
+})
+
+Vue.filter('requestRflmRequiredDocs', function(page, step, toggle, type){
+	const rflmRequiredDocsRequests = store.state.Application.rflmRequiredDocsRequests;
+	const updateCounter = store.state.Application.rflmRequiredDocsRequestsUpdateCounter+1;
+	const index = rflmRequiredDocsRequests.findIndex(req => (req.page == page && req.step == step))
+	if(index>-1){
+		rflmRequiredDocsRequests[index].toggle = toggle;
+		rflmRequiredDocsRequests[index].type = type;
+	}else{
+		rflmRequiredDocsRequests.push({page:page, step:step, toggle:toggle, type:type})
+	}
+
+	store.commit("Application/setRflmRequiredDocsRequests", rflmRequiredDocsRequests);	
+	store.commit("Application/setCommonStepResults",{data:{'rflmRequiredDocsRequests':store.state.Application.rflmRequiredDocsRequests}});	
+	store.commit("Application/setRflmRequiredDocsRequestsUpdateCounter", updateCounter)
 })
 
 Vue.filter('replaceRequiredDocuments', function(){
