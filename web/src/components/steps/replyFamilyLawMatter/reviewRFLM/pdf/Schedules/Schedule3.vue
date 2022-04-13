@@ -98,7 +98,7 @@
                     </i>
                     <div style="margin-left:1rem;">                    
                         <check-box 
-                            style="width:120%;" 
+                            style="width:100%;" 
                             :check="chSupInfo.disagreeReason.undueHardship && chSupInfo.disagreeReason.undueHardshipDetails.debt?'yes':''" 
                             text="I have an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>
                         <check-box 

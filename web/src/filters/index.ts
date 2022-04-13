@@ -420,14 +420,17 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		const existingSpouseSupportAttachementRequired = rflmQuestionnaire.selectedSpousalSupportForm.includes('existingSpouseSupport') && questions.replyExistingSpouseSupportSurvey.agreeCourtOrder == 'n';	  
 		
 		
-		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
+		if( rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
 			&& (newChildSupportAttachementRequired || existingChildSupportAttachementRequired)
-			&& questions.rflmCalculatingChildSupportSurvey?.attachingCalculations == 'y' )
-		|| (rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 
-			&& (newSpouseSupportAttachementRequired || existingSpouseSupportAttachementRequired)
-			&& questions.rflmCalculatingSpouseSupportSurvey?.attachingCalculations == 'y' )
+			&& questions.rflmCalculatingChildSupportSurvey?.attachingCalculations == 'y'
 		)
-			requiredDocuments.push("Support calculation");
+			requiredDocuments.push("Child Support calculation");
+
+		if( rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 
+				&& (newSpouseSupportAttachementRequired || existingSpouseSupportAttachementRequired)
+				&& questions.rflmCalculatingSpouseSupportSurvey?.attachingCalculations == 'y' 
+			)
+				requiredDocuments.push("Spousal Support calculation");
 
 		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 && newChildSupportAttachementRequired && 
 			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
@@ -506,12 +509,15 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		const spousalSupportAttachementCondition = questions.calculatingSpousalSupportSurvey?.attachingCalculations== 'y';
 
 		if( (!RFLM && (
-				(childSupportAttachementCondition && questions.flmQuestionnaireSurvey?.includes("childSupport")) || 
-			    (spousalSupportAttachementCondition &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport"))) ) ||			 
+				childSupportAttachementCondition && questions.flmQuestionnaireSurvey?.includes("childSupport") ) ) ||			 
 			(RFLM && ( 
-				(childSupportAttachementCondition  &&  counterList.includes("childSupport")) ||
-			    ( spousalSupportAttachementCondition &&  counterList.includes("spousalSupport"))))){
-					requiredDocuments.push("Support calculation");
+				childSupportAttachementCondition  &&  counterList.includes("childSupport") ))){
+					requiredDocuments.push("Child Support calculation");
+				}
+
+		if( (!RFLM && (spousalSupportAttachementCondition &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport")) ) ||			 
+			(RFLM && (spousalSupportAttachementCondition &&  counterList.includes("spousalSupport")))){
+					requiredDocuments.push("Spousal Support calculation");
 				}
 			
 
