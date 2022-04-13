@@ -427,15 +427,17 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
 			|| ( rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 && 
 				(newSpouseSupportAttachementRequired || existingSpouseSupportAttachementRequired) && 
-				questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))
-				requiredDocuments.push("Financial Statement Form 4");
+				questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))				
+				requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
+
 
 
 		if (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 
 			&& rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport')
 			&& questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n'
-			&& !requiredDocuments?.includes("Financial Statement Form 4")){
-				requiredDocuments.push('Financial Statement Form 4, if applicable');
+			&& !requiredDocuments?.includes("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>")){
+				requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>, if applicable");
+
 			}
 		
 	
