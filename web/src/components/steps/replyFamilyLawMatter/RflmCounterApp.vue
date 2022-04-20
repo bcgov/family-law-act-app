@@ -276,11 +276,13 @@ export default class RflmCounterApp extends Vue {
     public resetPages() {                               
         togglePages(this.allPages, false, this.currentStep); 
 
-        const rflmBackgroundPage = this.stPgNo.RFLM.RflmBackground                
-        Vue.filter('setSurveyProgress')(null, this.currentStep, rflmBackgroundPage, 50, false);       
+        const rflmBackgroundPage = this.stPgNo.RFLM.RflmBackground
+        if(this.$store.state.Application.steps[this.currentStep].pages[rflmBackgroundPage].progress>0)               
+            Vue.filter('setSurveyProgress')(null, this.currentStep, rflmBackgroundPage, 50, false);       
 
         const rflmChildPage = this.stPgNo.RFLM.RflmChildrenInfo
-        Vue.filter('setSurveyProgress')(null, this.currentStep, rflmChildPage, 50, false);
+        if(this.$store.state.Application.steps[this.currentStep].pages[rflmChildPage].progress>0) 
+            Vue.filter('setSurveyProgress')(null, this.currentStep, rflmChildPage, 50, false);
     }
 
     public getSelectedReplies(){
