@@ -488,10 +488,10 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	const RFLM = Vue.filter('isRFLM')()
 	const includesCounter = RFLM && 
-							questions.rflmCounterAppSurvey?.data?.counter == "Yes" &&
+							questions.rflmCounterAppSurvey?.counter == "Yes" &&
 							questions.rflmCounterAppSurvey?.counterList?.length>0;
 
-	const counterList = includesCounter?questions.rflmCounterAppSurvey.counterList:[];
+	const counterList = includesCounter? questions.rflmCounterAppSurvey.counterList:[];
 
 	if(type == 'familyLawMatter' || type == 'replyFlm'){
 
@@ -516,7 +516,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 				}
 
 		if( (!RFLM && (spousalSupportAttachementCondition &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport")) ) ||			 
-			(RFLM && (spousalSupportAttachementCondition &&  counterList.includes("spousalSupport")))){
+			( RFLM && (spousalSupportAttachementCondition &&  counterList.includes("spousalSupport")))){
 					requiredDocuments.push("Spousal Support calculation");
 				}
 			
