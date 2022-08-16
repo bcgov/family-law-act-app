@@ -1,5 +1,5 @@
 # Main
-django>=4.0
+django==4.0.7
 django-filter>=21.1,<22
 djangorestframework>=3.13.1,<4
 djangorestframework-bulk>=0.2.1,<1
@@ -24,7 +24,7 @@ pytest-django>=3.1.2,<4
 
 # Util
 requests>=2.18.4,<3
-pillow>=8.1.0
+pillow>=9.2.0
 numpy>=1.19.5
 jsonschema>=3.2.0,<4
 
