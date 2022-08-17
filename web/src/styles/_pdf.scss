@@ -1,14 +1,14 @@
-.table >>> th{border:1px solid #000;}
-.table >>> td{border:1px solid #000;}
-.table >>> tr{height:1.5rem;}
+.table :deep(th) {border:1px solid #000;}
+.table :deep(td) {border:1px solid #000;}
+.table :deep(tr) {height:1.5rem;}
 
 table.fullsize {table-layout: fixed; width: 100%; margin-top:1rem;}
-table.fullsize >>> tr{border:1px solid #313132;}
-table.fullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
+table.fullsize :deep(tr) {border:1px solid #313132;}
+table.fullsize :deep(td) {padding:0 0 0 .5rem; color: #313132;}
 
 table.compactfullsize {table-layout: fixed; width: 100%; margin-top:0rem;}
-table.compactfullsize >>> tr{border:1px solid #313132;}
-table.compactfullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
+table.compactfullsize :deep(tr) {border:1px solid #313132;}
+table.compactfullsize :deep(td) {padding:0 0 0 .5rem; color: #313132;}
 
 .new-page{margin-top:7rem;}
 .marginleft{margin-left:-1rem;}
