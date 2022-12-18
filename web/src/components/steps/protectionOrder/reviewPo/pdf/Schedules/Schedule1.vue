@@ -255,7 +255,7 @@
                         <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
                     </template>
                     <template v-slot:head(dob)>
-                        Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                        Child's date of birth<i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
                     </template>
             </b-table> 
         </section>
