@@ -36,16 +36,92 @@ export interface documentTypesJsonInfoType {
 }
 
 export interface  applicationJsonInfoType {
-    lastUpdated?: number, 
-    lastUpdatedDate?: string, 
-    id?: number, 
-    app_type?: string[], 
-    lastFiled?: number, 
-    lastFiledDate?: string, 
-    packageNum?: string, 
-    listOfPdfs?: string[], 
-    last_efiling_submission:{
-        package_number?: string,
-        package_url?: string
-    }
+    lastUpdated?: number; 
+    lastUpdatedDate?: string; 
+    id?: number; 
+    app_type?: string[]; 
+    lastFiled?: number; 
+    lastFiledDate?: string; 
+    packageNum?: string; 
+    listOfPdfs?: string[]; 
+    last_efiling_submission: {
+        package_number?: string;
+        package_url?: string;
+    };
 }
+
+export interface dateRangeInfoType {
+    startDate: string;
+    endDate: string;
+}
+
+export interface reportInfoType {
+    start_date: string;
+    end_date: string;
+    users_info: userInfoReportInfoType;
+    manual_submission_info: manualSubmissionReportInfoType;
+    form1: formReportInfoType;
+    form3: formReportInfoType;
+    form6: formReportInfoType;
+    form10: formReportInfoType;
+    form11: formReportInfoType;
+    form12: formReportInfoType;
+    form15: formReportInfoType;
+    form16: formReportInfoType;
+    form19: formReportInfoType;
+    form26: formReportInfoType;
+    form27: formReportInfoType;
+    form28: formReportInfoType;
+    form29: formReportInfoType;
+}
+
+
+export interface formReportInfoType {
+    submitted: number;
+    unsuccessful: number;
+    completed: number;
+    drafted: number;
+    started: number;
+    total: number;
+    users: number;
+    top_user: topUserReportInfoType;    
+}
+
+export interface topUserReportInfoType {
+    submitted: number;
+    unsuccessful: number;
+    completed: number;
+    drafted: number;
+    started: number;
+    total: number;
+    first_name: string;
+    last_name: string;
+    display_name: string;
+}
+
+export interface manualSubmissionTopUserReportInfoType {
+    total: number;
+    first_name: string;
+    last_name: string;
+    display_name: string;
+    forms: manuallySubmittedFormsReportInfoType[];
+}
+
+export interface manualSubmissionReportInfoType {
+    total: number;
+    users: number;
+    top_user: manualSubmissionTopUserReportInfoType;
+    forms: manuallySubmittedFormsReportInfoType[];
+}
+
+export interface manuallySubmittedFormsReportInfoType {
+    form_type: string;
+    submitted_count: number;
+}
+
+export interface userInfoReportInfoType {
+    total: number;
+    active_in_period: number;
+    joined_in_period: number;
+}    
+

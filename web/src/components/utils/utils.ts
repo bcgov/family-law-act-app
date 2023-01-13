@@ -20,9 +20,10 @@ export const SessionManager = {
     },
     getUserInfo: async function(store) {
         try {
-            var response = await Axios.get('/user-info/');
+            const response = await Axios.get('/user-info/');
             const userId = response.data.user_id;
             const loginUrl = response.data.login_uri;
+            const userHasStatisticsAccess = response.data.stats? true : false;
             const userLocation = response.data.location;
             const efilingEnabled = response.data.efiling_enabled;
             const efilingStreams = response.data.efiling_streams? response.data.efiling_streams.split(","): [];
@@ -36,9 +37,10 @@ export const SessionManager = {
                 store.commit("Common/setUserId", userId);
                 store.commit("Common/setUserLocation",userLocation);
                 store.commit("Common/setEfilingEnabled", efilingEnabled);
-                store.commit("Common/setEfilingStreams", efilingStreams);                 
+                store.commit("Common/setEfilingStreams", efilingStreams);
+                store.commit("Common/setUserHasStatisticsAccess", userHasStatisticsAccess);                 
             }
-            return { userId, loginUrl };
+            return { userId, loginUrl, userHasStatisticsAccess };
         }
         catch (error) {
             console.log(error);  

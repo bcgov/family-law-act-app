@@ -13,6 +13,7 @@ class Common extends VuexModule {
     public efilingStreams = [];
 
     public locationsInfo = [];
+    public userHasStatisticsAccess = false;
 
     @Mutation
     public setExistingApplication(existingApplication: boolean): void {   
@@ -66,6 +67,15 @@ class Common extends VuexModule {
     @Mutation
     public setEfilingStreams(efilingStreams: string[]): void {
         this.efilingStreams = efilingStreams;
+    }
+
+    @Mutation
+    public setUserHasStatisticsAccess(userHasStatisticsAccess: boolean): void {   
+        this.userHasStatisticsAccess = userHasStatisticsAccess
+    }
+    @Action
+    public UpdateUserHasStatisticsAccess(newUserHasStatisticsAccess: boolean): void {
+        this.context.commit('setUserHasStatisticsAccess', newUserHasStatisticsAccess)
     }
 }
 
