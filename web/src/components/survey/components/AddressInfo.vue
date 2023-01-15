@@ -162,9 +162,7 @@ export default class AddressInfo extends Vue {
             this.pendingValue['country'] = "Canada";
             this.pendingValue['state'] = "BC";
             this.postcodePlaceholder = 'A1A 1A1';          
-        }
-
-        
+        }        
 
         this.questionValidator();
     }
@@ -252,7 +250,7 @@ export default class AddressInfo extends Vue {
     }
 
     public UpdateRegion() {
-        console.log(this.pendingValue)
+        // console.log(this.pendingValue)
         if (this.pendingValue.country == "United States") {
             this.displayProvinceInputField = false;
             this.provinceOptions = this.USAregionOptions;
@@ -273,7 +271,7 @@ export default class AddressInfo extends Vue {
         this.UpdateRegion();
 
         const value = Object.assign({}, this.pendingValue);
-        for (let k in value) {
+        for (const k in value) {
             if (value[k] !== undefined && value[k].length) {
                 this.question.value = value;
                 return;
