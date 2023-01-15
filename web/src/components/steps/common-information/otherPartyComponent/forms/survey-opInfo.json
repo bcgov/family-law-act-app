@@ -92,6 +92,14 @@
                     "rows": 1
                 },
                 {
+                    "type": "infotext",
+                    "name": "ExplanationOpAddress",
+                    "visible": false,
+                    "visibleIf": "!({onlyFullNameRequired})",
+                    "title": "If the address is outside of Canada, please select the country first before entering the address information.",                    
+                    "titleLocation": "hidden"
+                },
+                {
                     "type": "address",
                     "name": "otherPartyAddress",
                     "visible": false,

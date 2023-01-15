@@ -82,6 +82,12 @@
         "rows": 1
        },
        {
+        "type": "infotext",
+        "name": "ExplanationOpAddress",        
+        "title": "If the address is outside of Canada, please select the country first before entering the address information.",        
+        "titleLocation": "hidden"
+       },
+       {
         "type": "address",
         "name": "otherPartyAddress",
         "title": "Please provide the following address information for {OtherPartyName}."
