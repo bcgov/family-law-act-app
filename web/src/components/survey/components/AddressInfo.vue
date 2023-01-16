@@ -40,7 +40,15 @@
             </div>
             <div class="col-sm-6">
                 <label class="survey-sublabel" :for="question.inputId + '-state'">Province / State / Region</label>
+                <input
+                    v-if="displayProvinceInputField"
+                    class="form-control"
+                    :id="question.inputId + '-state'"
+                    data-test-id="state"
+                    v-model="pendingValue['state']"
+                    @change="updateValue"/>
                 <select
+                    v-else
                     class="form-control"
                     v-model="pendingValue['state']"
                     data-test-id="state"
@@ -53,7 +61,7 @@
                         :key="prov.value"
                         :value="prov.value"
                         >{{ prov.text }}</option>
-                </select>
+                </select>                
             </div>
         </div>
         <div class="row survey-address-line pb-1">
@@ -67,10 +75,10 @@
                     @change="updateValue">
                     <option value="">(Select)</option>
                     <option
-                        v-for="coun of countryOptions"
-                        :key="coun.value"
-                        :value="coun.value"
-                        >{{ coun.text }}</option>
+                        v-for="country of countryOptions"
+                        :key="country"
+                        :value="country"
+                        >{{ country }}</option>
                 </select>
             </div>
             <div class="col-sm-6">
@@ -93,6 +101,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import { Question } from "survey-vue";
 import * as UsStatesList from "./UsStatesList.json";
 import * as CaProvinceList from "./CaProvinceList.json";
+import * as countryList from "./countries.json";
 import * as SurveyVue from "survey-vue"; 
 
 @Component
@@ -104,19 +113,9 @@ export default class AddressInfo extends Vue {
     provinceOptions = [];
     USAregionOptions = [];
     CAregionOptions = [];
-    postcodePlaceholder = 'A1A 1A1'
-
-    countryOptions = [
-
-        {
-            value: "CAN",
-            text: "Canada"
-        },
-        // {
-        //     value: "USA",
-        //     text: "USA"
-        // }        
-    ];
+    countryOptions = [];
+    postcodePlaceholder = 'A1A 1A1';
+    displayProvinceInputField = false;    
 
     selOptions = [];
     pendingValue = this.loadValue(this.question.value);
@@ -134,6 +133,7 @@ export default class AddressInfo extends Vue {
 
         this.USAregionOptions = UsStatesList.states;
         this.CAregionOptions = CaProvinceList.provinces;
+        this.countryOptions = countryList.countries;        
 
         const q = this.question;
         q.valueChangedCallback = () => {
@@ -143,14 +143,26 @@ export default class AddressInfo extends Vue {
             this.selOptions = this.prevAddrOptions();
         };
         this.selOptions = this.prevAddrOptions();
+        this.displayProvinceInputField = false;
 
-        if (this.value && this.value.country == "USA") {
-            this.provinceOptions = this.USAregionOptions;
-            this.postcodePlaceholder = '12345 or 12345-1234'
-        } else {
+        if (this.value){
+            if (this.value.country == "United States") {            
+                this.provinceOptions = this.USAregionOptions;
+                this.postcodePlaceholder = '12345 or 12345-1234'
+            } else if (this.value.country == "Canada") {
+                this.provinceOptions = this.CAregionOptions;
+                this.postcodePlaceholder = 'A1A 1A1'
+            } else {
+                this.displayProvinceInputField = true;
+                this.provinceOptions = [];
+                this.postcodePlaceholder = '';            
+            }
+        } else {            
             this.provinceOptions = this.CAregionOptions;
-            this.postcodePlaceholder = 'A1A 1A1'
-        }
+            this.pendingValue['country'] = "Canada";
+            this.pendingValue['state'] = "BC";
+            this.postcodePlaceholder = 'A1A 1A1';          
+        }        
 
         this.questionValidator();
     }
@@ -161,7 +173,7 @@ export default class AddressInfo extends Vue {
             let error = null 
             const address =  Object.assign({}, this.pendingValue);    
             
-            if(address?.country =='USA'){
+            if(address?.country =='United States'){
                 const index = this.USAregionOptions.findIndex(state=>{return(state.value == address.state)});
                 if(index<0)
                     error = new SurveyVue.SurveyError("Please select a 'Province / State / Region'")
@@ -171,7 +183,7 @@ export default class AddressInfo extends Vue {
                     if(!postcodeFormat.test(address.postcode)) error = new SurveyVue.SurveyError("Postal Code is invalid!")
                 }
             }
-            else if(address?.country =='CAN'){
+            else if(address?.country =='Canada'){
                 const index = this.CAregionOptions.findIndex(state=>{return(state.value == address.state)});
                 if(index<0)
                     error = new SurveyVue.SurveyError("Please select a 'Province / State / Region'")
@@ -183,6 +195,15 @@ export default class AddressInfo extends Vue {
                     if(address.postcode.length != 7 ) error = new SurveyVue.SurveyError("Postal Code is invalid!")
                     
                 }
+            }
+            else {
+                
+                if(!address.state || address.state.length == 0)
+                    error = new SurveyVue.SurveyError("Please select a 'Province / State / Region'")
+                
+                if(!address.postcode || address.postcode.length == 0)
+                    error = new SurveyVue.SurveyError("Please enter the Postal Code!")                    
+                
             }
 
             return error
@@ -229,12 +250,19 @@ export default class AddressInfo extends Vue {
     }
 
     public UpdateRegion() {
-        if (this.pendingValue.country == "USA") {
+        // console.log(this.pendingValue)
+        if (this.pendingValue.country == "United States") {
+            this.displayProvinceInputField = false;
             this.provinceOptions = this.USAregionOptions;
             this.postcodePlaceholder = '12345 or 12345-1234'
-        } else {
+        } else if (this.pendingValue.country == "Canada") {
+            this.displayProvinceInputField = false;
             this.provinceOptions = this.CAregionOptions;
             this.postcodePlaceholder = 'A1A 1A1'
+        } else {
+            this.displayProvinceInputField = true;
+            this.provinceOptions = [];
+            this.postcodePlaceholder = '';
         }
     }
     
@@ -243,7 +271,7 @@ export default class AddressInfo extends Vue {
         this.UpdateRegion();
 
         const value = Object.assign({}, this.pendingValue);
-        for (let k in value) {
+        for (const k in value) {
             if (value[k] !== undefined && value[k].length) {
                 this.question.value = value;
                 return;
@@ -254,11 +282,12 @@ export default class AddressInfo extends Vue {
 
     public loadValue(val) {
         val = val || {};
+
         return {
             street: val.street || "",
             city: val.city || "",
-            state: val.state || "BC",
-            country: val.country || "CAN",
+            state: val.state || "",
+            country: val.country || "",
             postcode: val.postcode || ""
         };       
     }
