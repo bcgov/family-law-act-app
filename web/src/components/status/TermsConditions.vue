@@ -4,10 +4,10 @@
             <div class="col-md-12">
                 <h1>Terms and Conditions</h1>
                 <p>
-                    "Apply for a Family Law Protection Order" Terms of Use
+                    "Apply for or Respond to a Provincial Court Family Law Act matter" Terms of Use
                     <br />Version 0.1, May 28, 2018
                 </p>
-                <p>The "Apply for a Family Law Protection Order" Service ("this service") is provided as a public service by the Government of British Columbia, Box 9411, Victoria, British Columbia, Canada V8W 9V1.</p>
+                <p>The "Apply for or Respond to a Provincial Court Family Law Act matter" Service ("this service") is provided as a public service by the Government of British Columbia, Box 9411, Victoria, British Columbia, Canada V8W 9V1.</p>
                 <h3>User Agreement</h3>
                 <p>Every person who uses this service ("User" or "You") agrees to the Terms of Use in this document and to the fact that the Government of British Columbia may amend these terms from time to time. The Government of British Columbia reserves the right, at its discretion, to change, modify, add, or remove portions of these terms at any time. Please check these terms periodically for changes. Your continued use of this service following the posting of changes to these terms will mean you accept these changes.</p>
                 <h3>Privacy Protection</h3>
