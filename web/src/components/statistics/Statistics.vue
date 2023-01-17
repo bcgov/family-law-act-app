@@ -102,6 +102,7 @@ export default class Statistics extends Vue {
        
         this.dataLoaded = false;
         this.searching = true;
+        this.error = '';
 
         const start = this.reportDateRange.startDate? this.reportDateRange.startDate?.slice(0,10) : null
         const end = this.reportDateRange.endDate? this.reportDateRange.endDate?.slice(0,10) : null

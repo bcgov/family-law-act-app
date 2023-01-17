@@ -214,7 +214,7 @@ export default class DateRangePicker extends Vue {
 </script>
 
 <style scoped lang="scss" >
-    :deep(.vuetify){
+    ::v-deep .vuetify{
         @import "@/styles/vuetify.scss";
         @import "@/styles/_custom_vuetify.scss";
         overflow: hidden;

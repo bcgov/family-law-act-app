@@ -7,3 +7,4 @@ from .efiling_submit_view import EFilingSubmitView
 from .survey_pdf_view import SurveyPdfView
 from .user_view import UserView
 from .fillable_pdf_view import FillablePdfView
+from .statistics_view import StatisticsView

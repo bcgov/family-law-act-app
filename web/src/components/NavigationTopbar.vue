@@ -41,9 +41,9 @@
                                 </template>
                                 <b-dropdown-item-button @click="logout(false)"><b-icon-box-arrow-left class="mr-2"/>Logout </b-dropdown-item-button>
                                 <b-dropdown-item-button @click="viewStatus()"><b-icon-card-list class="mr-2"/>Previous Applications </b-dropdown-item-button>
-                                <b-dropdown-item-button 
-                                   
-                                    @click="viewStats()"><b-icon-file-earmark-bar-graph class="mr-2"/>Reports</b-dropdown-item-button>
+                                <b-dropdown-item-button  v-if="userHasStatisticsAccess" @click="viewStats()">
+                                    <b-icon-file-earmark-bar-graph class="mr-2"/>Reports
+                                </b-dropdown-item-button>
                             </b-dropdown>
                         </div>
                     </div>
