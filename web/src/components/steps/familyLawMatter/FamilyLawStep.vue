@@ -181,11 +181,6 @@ export default class FamilyLawStep extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-};
+}
 
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-    @import "src/styles/survey";
-</style>

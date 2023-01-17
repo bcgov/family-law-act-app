@@ -18,10 +18,10 @@
                 <div style="display:inline; margin:0 0 0 0.5rem;">I believe that I am, or the other party is, entitled to spousal support for the following reason(s):</div>
                 <div style="margin:0 0 0 1.5rem;">
                     <i style="margin:0 0 0 0rem;" >Select all options that apply</i>
-                    <check-box style="" :check="spsSupInfo.current.adv?'yes':''" text="there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship"/>
-                    <check-box style="" :check="spsSupInfo.current.share?'yes':''" text="to share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child"/>
-                    <check-box style="" :check="spsSupInfo.current.hardship?'yes':''" text="to relieve economic hardship of the spouses arising from the breakdown of the relationship"/>
-                    <check-box style="" :check="spsSupInfo.current.bcmIndpndnt?'yes':''" text="to help each spouse become financially independent within a reasonable period"/>                    
+                    <check-box  :check="spsSupInfo.current.adv?'yes':''" text="there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship"/>
+                    <check-box  :check="spsSupInfo.current.share?'yes':''" text="to share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child"/>
+                    <check-box  :check="spsSupInfo.current.hardship?'yes':''" text="to relieve economic hardship of the spouses arising from the breakdown of the relationship"/>
+                    <check-box  :check="spsSupInfo.current.bcmIndpndnt?'yes':''" text="to help each spouse become financially independent within a reasonable period"/>                    
                 </div>            
             </section>
 
@@ -52,7 +52,7 @@
             <section>               
                 <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                 <div style="margin:0 0 0 1.25rem;">
-                    <check-box style="" :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the other party"/>
+                    <check-box  :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the other party"/>
                     <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I believe the other party’s annual income is $"/>
                     <underline-form style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="" hint="" :text="spsSupInfo.incomeInfo.opIncome"/>
                 </div>
@@ -104,8 +104,8 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 0rem 1.25rem;">
-                        <check-box style="" :check="spsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
-                        <check-box style="" :check="!spsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
+                        <check-box  :check="spsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
+                        <check-box  :check="!spsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
                     </div>
                     <div v-if="!spsSupInfo.calc.attaching" 
                         class="answerbox">{{spsSupInfo.calc.reason}}</div>
@@ -119,8 +119,8 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box style="" :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box style="" :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box  :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
+                        <check-box  :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>
@@ -145,8 +145,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule9DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
@@ -156,7 +156,7 @@ import { schedule9DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
     }
 })
 
-export default class Form3 extends Vue {
+export default class Schedule9 extends Vue {
 
     @Prop({required:true})
     result!: any;
@@ -179,7 +179,7 @@ export default class Form3 extends Vue {
         let newSpousalSupportInfo = {} as schedule9DataInfoType;
        
         if (this.result.spousalSupportSurvey){
-            const entitlementReasons = this.result.spousalSupportSurvey.listOfReasons?this.result.spousalSupportSurvey.listOfReasons:[]
+            const entitlementReasons = this.result.spousalSupportSurvey.listOfReasons? this.result.spousalSupportSurvey.listOfReasons:[]
             if(entitlementReasons){
                 newSpousalSupportInfo.current = {
                     adv: entitlementReasons.includes('There are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship'),
@@ -197,8 +197,7 @@ export default class Form3 extends Vue {
                     hardship: false,
                     bcmIndpndnt: false,
                     crntArrngmnt: (this.result.spousalSupportSurvey.currentSupport)? this.result.spousalSupportSurvey.currentSupport:'',
-                    payors: (this.result.spousalSupportSurvey.listOfSupportPayors 
-                            && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors:''
+                    payors: (this.result.spousalSupportSurvey?.listOfSupportPayors?.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors:''
                 }
             }
 
@@ -212,16 +211,16 @@ export default class Form3 extends Vue {
                         && incomeEarning.knowIncome == 'y'),
                 opIncome: (incomeEarning.knowIncome
                         && incomeEarning.knowIncome == 'y'
-                        && incomeEarning.incomeAmount)?incomeEarning.incomeAmount:'',
+                        && incomeEarning.incomeAmount)? incomeEarning.incomeAmount:'',
                 knowFacts: (incomeEarning.knowFacts
                         && incomeEarning.knowFacts == 'y'),
                 facts: (incomeEarning.knowFacts
                         && incomeEarning.knowFacts == 'y'
-                        && incomeEarning.factsExplanation)?incomeEarning.factsExplanation:''                
+                        && incomeEarning.factsExplanation)? incomeEarning.factsExplanation:''                
             }
         }
 
-        if (this.result.aboutSpousalSupportOrderSurvey.howToPaySpousalSupport){ 
+        if (this.result.aboutSpousalSupportOrderSurvey?.howToPaySpousalSupport){ 
             const aboutSpousalSupport = this.result.aboutSpousalSupportOrderSurvey.howToPaySpousalSupport;           
             newSpousalSupportInfo.payDetails = {
                 monthly: aboutSpousalSupport.selected == 'monthly',
@@ -242,17 +241,15 @@ export default class Form3 extends Vue {
 
         if (this.result.calculatingSpousalSupportSurvey){
             newSpousalSupportInfo.calc = {
-                attaching: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
-                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'y'),
-                reason: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
-                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'n'
-                        && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)?this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
+                attaching: (this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'y'),
+                reason: (this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'n'
+                        && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)? this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
             }
         }
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
             for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
@@ -260,7 +257,7 @@ export default class Form3 extends Vue {
             }   
         }
 
-        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs =='n' && form4unable){
             newSpousalSupportInfo.applyForCaseManagement = true           
         }
 

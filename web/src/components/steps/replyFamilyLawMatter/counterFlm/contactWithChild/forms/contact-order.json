@@ -1,0 +1,171 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+        {
+            "name": "Contact Order or Written Agreement – Existing",
+            "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/i-am-not-the-child-s-guardian-can-i-still-have-contact-with-the-child\" target=\"blank\">Contact with a child</a> is the time a child spends with someone who is not their guardian. Usually, a child’s parent is also the child’s guardian. A parent is a child’s guardian if:<br><ul><li>they lived with the other parent when the child was born,</li><li>they care for the child regularly, but do not live with the child, or</li><li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li><li>there is no agreement or order that says they are not a guardian.</li></ul>A parent can become a guardian of a child through a court order or by an agreement with all the other guardians of the child. A non-parent can become a guardian through a court order.<br><br>Children often have important relationships with people other than their parents. These include grandparents, elders, relatives, and others close to the child. Usually these relationships are supported by the parents or guardians.<br><br>A written agreement or court order can allow someone who is not a child’s guardian contact with the child based on the best interests of the child.",
+            "elements": [
+                {
+                    "type": "panel",
+                    "name": "ExistingInfoPanel",
+                    "elements": [
+                        {
+                            "type": "radiogroup",
+                            "name": "roleType",
+                            "title": "Select the option that best describes your role.",
+                            "isRequired": true,
+                            "choices": [
+                                {
+                                    "value": "allowedContact",
+                                    "text": "I am a person allowed to have contact with a child according to a court order or written agreement"
+                                },
+                                {
+                                    "value": "guardian",
+                                    "text": "I am a guardian of the child in the court order or written agreement"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "helptext",
+                            "name": "FAQGuardian",
+                            "title": "I am the child’s parent, does that mean I’m their guardian?",
+                            "titleLocation": "hidden",
+                            "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.\n<br>\n<br>\nA person who is not a parent can become a guardian of a child by court order or under a will.\n<br>\n<br>\nIf you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "existingType",
+                            "title": "Which do you have?",
+                            "description": "Select the correct option.",
+                            "isRequired": true,
+                            "choices": [
+                                {
+                                    "value": "ExistingOrder",
+                                    "text": "Court Order about contact with a child"
+                                },
+                                {
+                                    "value": "ExistingAgreement",
+                                    "text": "Written Agreement about contact with a child"
+                                },
+                                {
+                                    "value": "Neither",
+                                    "text": "None of the above"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "ifNeitherexistingFAQ",
+                            "title": "In a previous step you identified that you had an existing order or written agreement about contact with a child. If you need an order about contact with a child, and there is no order or written agreement already in place, please return to the Background step and de-select contact with a child under the '<i>Please select which family law matter issue your existing written agreement or court order is about</i>' question",
+                            "titleLocation": "hidden",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'Neither'"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "ifExistingFAQ",
+                            "title": "You will need to include a copy of your written agreement or court order when you file your documents. You will be reminded to include a copy at the end of the service.",
+                            "titleLocation": "hidden",
+                            "visible": false,
+                            "visibleIf": "({existingType} = 'ExistingAgreement') or ({existingType} = 'ExistingOrder')"
+                        },
+                        {
+                            "type": "text",
+                            "name": "orderDate",
+                            "title": "Please provide the date the court made the order.",
+                            "description": "The date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
+                            "isRequired": true,
+                            "inputType": "date",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingOrder'"
+                        },
+                        {
+                            "type": "text",
+                            "name": "agreementDate",
+                            "title": "Please provide the date the written agreement was signed.",
+                            "isRequired": true,
+                            "inputType": "date",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingAgreement'"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "ChangeOrderExplanationFAQ",
+                            "title": "Family dynamics change and children grow up.  An order about contact with a child that was made in the past may not make sense anymore.<br>The court can only change or cancel an order if there has been a change in the needs or circumstances of the child since the original court order was made, including a change in the circumstances of another person such as a parent.",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingOrder'"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "ChangeAgreementExplanationFAQ",
+                            "title": "Family dynamics change and children grow up.  An agreement about contact with a child that was made in the past may not make sense anymore. The court can only set aside or replace an agreement if it is not in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"blank\">best interests of the child</a>.",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingAgreement'"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "changesSinceOrder",
+                            "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
+                            "description": "You do not need to use any special wording. The key is to be clear about what needs or circumstances have changed.",
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingOrder'"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "changesSinceAgreement",
+                            "title": "Explain to the court why you believe the agreement is not in the best interests of the child.",
+                            "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingAgreement'"
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "orderDifferenceType",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingOrder'",
+                            "title": "Do you want the existing order changed or cancelled?",
+                            "description": "You can apply to change the existing order if you still need an order about contact with the child, but you want something different. Or you can apply to cancel the existing order.<br>Select the option that fits your situation.",
+                            "choices": [
+                                {
+                                    "value": "changeOrder",
+                                    "text": "Change"
+                                },
+                                {
+                                    "value": "cancelOrder",
+                                    "text": "Cancel"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "agreementDifferenceType",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingAgreement'",
+                            "title": "Do you want the existing written agreement set aside or replaced?",
+                            "description": "You can apply to set aside (cancel) the existing agreement or to replace (change) the existing agreement if you need an order about contact with a child but something different would be in the best interests of the child.<br><br>Select the option that fits your situation.",
+                            "choices": [
+                                {
+                                    "value": "setAsideAgreement",
+                                    "text": "Set aside"
+                                },
+                                {
+                                    "value": "replacedAgreement",
+                                    "text": "Replace"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "title": "Contact Order or Written Agreement – Existing"
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

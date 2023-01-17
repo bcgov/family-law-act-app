@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/about-child-support-order.json";
 
 import PageBase from "../../PageBase.vue";
@@ -42,11 +42,9 @@ export default class AboutChildSupportOrder extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -86,41 +84,32 @@ export default class AboutChildSupportOrder extends Vue {
 
     public adjustSurveyForChildren(){
 
-        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
-        // this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"]=[];
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                        
         this.childData = [];
-        this.over19Index = [];
-        
+        this.over19Index = [];        
 
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
             this.childData = this.step.result.childrenInfoSurvey.data;           
             const _19yearsBefore = moment().add(-19,'years')           
             const whysupport19childTemplate = JSON.parse(JSON.stringify(this.surveyJsonCopy.pages[0].elements[0].elements[8]))
             this.surveyJsonCopy.pages[0].elements[0].elements.splice(8,1)
-            //console.log(whysupport19childTemplate)
-            // console.log(_19yearsBefore.format()) 
+            
             this.numOf19child = 0   
             for (const childInx in this.childData){
                 const child = this.childData[childInx];
                 const childName = Vue.filter('getFullName')(child.name)
-                //console.log(child)
-                // this.childData.push(child);
-                //this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({value:'child.+childInx+',text:childName});
+                
                 this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push(childName);
 
                 if ((moment(child.dob).isBefore(_19yearsBefore))){
                     const temp =JSON.parse(JSON.stringify(whysupport19childTemplate))
                     temp.title = "Why does "+childName +" need support?"
-                    temp.name  = "whyOlderChildNeedSupport["+childInx+"]"
-                    //temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains 'child["+childInx+"]' "
+                    temp.name  = "whyOlderChildNeedSupport["+childInx+"]"                    
                     temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains '"+childName+"' "
                     
                     this.surveyJsonCopy.pages[0].elements[0].elements.splice(8+this.numOf19child,0,temp)
                     this.numOf19child++;
                     this.over19Index.push(childInx);
-                    //this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push({value:'child['+childInx+']',text:childName});
-
-                //     this.overAgeChildren.push(childName)
                 }
             }
         }
@@ -132,7 +121,7 @@ export default class AboutChildSupportOrder extends Vue {
 
         this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"]=[Vue.filter('getFullName')(this.applicantName)];
 
-        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
             const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
@@ -143,14 +132,11 @@ export default class AboutChildSupportOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
-            // console.log(this.survey.data.paymentRequestStartingDate'])
-
+           
             if (options.name == 'listOfChildren'){
                 this.setSelectedChildNames(options.value);
             }
-            if(options.name == 'listOfSupportPayors'){     
-                //console.log(options.value.includes(this.applicantFullName)           )
+            if(options.name == 'listOfSupportPayors'){                 
                 this.determineNumberOfPayors();               
             }
         })
@@ -161,11 +147,10 @@ export default class AboutChildSupportOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.aboutChildSupportOrderSurvey) {
+        if (this.step.result?.aboutChildSupportOrderSurvey) {
             this.survey.data = this.step.result.aboutChildSupportOrderSurvey.data;
 
-            this.survey.setVariable("listOfSupportPayorsLength",this.survey.data.listOfSupportPayors?this.survey.data.listOfSupportPayors.length:0)
-
+            this.survey.setVariable("listOfSupportPayorsLength",this.survey.data?.listOfSupportPayors? this.survey.data.listOfSupportPayors.length : 0)
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
@@ -174,7 +159,7 @@ export default class AboutChildSupportOrder extends Vue {
         
         this.determineNumberOfPayors();
         
-        if(this.childData.length==1){
+        if(this.childData?.length==1){
             this.survey.setValue('listOfChildren',[Vue.filter('getFullName')(this.childData[0].name)])           
         }
         
@@ -184,17 +169,17 @@ export default class AboutChildSupportOrder extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }  
 
     public determineNumberOfPayors(){
-        if(this.survey.data &&this.survey.data.listOfSupportPayors){
+        if(this.survey.data?.listOfSupportPayors){
             if(this.survey.data.listOfSupportPayors.includes(this.applicantFullName))
                 this.survey.setVariable("listOfSupportPayorsLength",2)
             else
@@ -205,22 +190,21 @@ export default class AboutChildSupportOrder extends Vue {
     }
 
     public setSelectedChildNames(selectedChildren: string[]){
-        // console.log(this.childData)
-        // console.log(selectedChildren)
+       
         const selectedChildNames = []
         for (const selectedChild of selectedChildren){            
             const index = selectedChild.charAt(6)   
-            if(this.childData[index])         
+            if(this.childData?.[index])         
                 selectedChildNames.push(Vue.filter('getFullName')(this.childData[index].name))
         }
-        //console.log(selectedChildNames)
+        
         this.survey.setValue("selectedChildrenNames", selectedChildNames);
     }
 
     public setOver19Info(){
         const over19Details = []
         for (const index of this.over19Index){
-            //console.log(this.survey.data.whyOlderChildNeedSupport['+ index + ']'])
+            
             const detail = {
                 name:Vue.filter('getFullName')(this.childData[index].name), 
                 reasonForSupport:{
@@ -244,8 +228,3 @@ export default class AboutChildSupportOrder extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

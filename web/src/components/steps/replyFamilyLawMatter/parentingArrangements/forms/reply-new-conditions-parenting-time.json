@@ -1,0 +1,71 @@
+{
+  "title": "Reply New Conditions Parenting Time",
+  "pages": [
+    {
+      "name": "Reply New Conditions Parenting Time",
+      "description": "Conditions on parenting time may include things like a child’s participation in extra-curricular activities, religious or cultural events during parenting time, visits by extended family or friends during parenting time, or where the parenting time will take place.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "NewApplicantConditionParentingTimePanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "otherPartyConditionParentalTimeOrder",
+              "title": "Did the other party ask for any conditions on parenting time?",
+              "description": "To ask for an order about conditions on parenting time, the other party would have provided details under Question 3 on Schedule 1 – Parenting Arrangements – New. The conditions may have been about their parenting time, your parenting time or both.",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "conditionParentingTimeApplicationPanel",
+          "visible": false,
+          "visibleIf": "{otherPartyConditionParentalTimeOrder} = 'y'",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "agreeConditionTimeOrder",
+              "description": "Look at the order the other party is applying for. Consider what is in the best interests of the child. Should the court make this order?",
+              "title": "Do you agree the court should order the conditions on parenting time?",
+              "visible": false,
+              "visibleIf": "{otherPartyConditionParentalTimeOrder} = 'y'",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "disagreeReason",
+              "title": "Why don’t you agree?",
+              "description": "Explain why you don’t agree with the other party’s requested conditions on parenting time.<br>You do not need to use any special wording. The key is to be clear about what you mean.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({otherPartyConditionParentalTimeOrder} = 'y' and {agreeConditionTimeOrder} = 'n')"
+            },
+            {
+              "type": "comment",
+              "name": "requestedConditionParentalTime",
+              "title": "What conditions on your parenting time or the other party’s parenting time do you want the court to order?",
+              "description": "Explain what order you want made about the conditions on parenting time instead of what the other party has asked for.<br><br>Give as much detail as you would like the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. If there is more than one child, be clear if there are differences in how the conditions on parenting will apply to each child.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order instead",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({otherPartyConditionParentalTimeOrder} = 'y' and {agreeConditionTimeOrder} = 'n')"
+            },
+            {
+              "type": "comment",
+              "name": "childBestInterestReason",
+              "title": "Why do you believe the conditions on parenting time you are asking for are in the child’s best interests?",
+              "description": "When you make parenting arrangements, you must consider what is in the best interests of your child. Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child.<br>To determine what is in the <a href='https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests' target='_blank'>child's best interests</a> when making parenting arrangements, you must consider factors including:<ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>You do not need to use any special wording. The key is to be clear about why you think the order you want to make is in the child’s best interests. ",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({otherPartyConditionParentalTimeOrder} = 'y' and {agreeConditionTimeOrder} = 'n')"
+            }
+          ]
+        }
+      ],
+      "title": "Reply New Conditions Parenting Time"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

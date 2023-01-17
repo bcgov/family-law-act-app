@@ -4,10 +4,10 @@
             <div class="col-md-12">
                 <h1>Terms and Conditions</h1>
                 <p>
-                    "Apply for a Family Law Protection Order" Terms of Use
+                    "Apply for or Respond to a Provincial Court Family Law Act matter" Terms of Use
                     <br />Version 0.1, May 28, 2018
                 </p>
-                <p>The "Apply for a Family Law Protection Order" Service ("this service") is provided as a public service by the Government of British Columbia, Box 9411, Victoria, British Columbia, Canada V8W 9V1.</p>
+                <p>The "Apply for or Respond to a Provincial Court Family Law Act matter" Service ("this service") is provided as a public service by the Government of British Columbia, Box 9411, Victoria, British Columbia, Canada V8W 9V1.</p>
                 <h3>User Agreement</h3>
                 <p>Every person who uses this service ("User" or "You") agrees to the Terms of Use in this document and to the fact that the Government of British Columbia may amend these terms from time to time. The Government of British Columbia reserves the right, at its discretion, to change, modify, add, or remove portions of these terms at any time. Please check these terms periodically for changes. Your continued use of this service following the posting of changes to these terms will mean you accept these changes.</p>
                 <h3>Privacy Protection</h3>
@@ -36,13 +36,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue} from 'vue-property-decorator';
 
 @Component
-export default class terms extends Vue {
-
+export default class TermsConditions extends Vue {
   
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -53,70 +52,5 @@ export default class terms extends Vue {
   max-width: 950px;
   color: black;
 }
-hr.section {
-  border: 1px solid $gov-mid-blue;
-  margin-bottom: 3.5rem;
-}
-.section-heading {
-  color: $gov-mid-blue;
-  font-weight: 500;
-  padding: 0rem 2rem 0rem 2rem;
-}
-.intro {
-  font-size: 24px;
-  line-height: 1.6;
-  margin: 0.5rem auto 0.5rem;
-  p {
-    margin-bottom: 0.5rem;
-  }
-}
-.loginInfo-section {
-  margin-top: 2.5rem;
-}
-.register-button {
-  color: $gov-white !important;
-  border: 2px solid rgba($gov-pale-grey, 0.3);
-  margin-top: 2.5rem;
-  width: 100%;
-  &:active {
-    border: 2px solid rgba($gov-white, 0.8);
-  }
-}
-.wrapper {
-  position: relative;
-  padding-left: 8rem;
-  width: 30px;
-  height: 300px;
-  margin: 10px;
-}
 
-.line {
-  position: absolute;
-  left: 49%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: $gov-mid-blue;
-  z-index: 1;
-}
-
-.wordwrapper {
-  text-align: center;
-  height: 12px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  margin-top: -12px;
-  z-index: 2;
-}
-
-.word {
-  color: black;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 3px;
-  font: bold 18px arial, sans-serif;
-  background: #fff;
-}
 </style>

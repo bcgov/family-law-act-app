@@ -7,8 +7,6 @@ module.exports = {
     "plugin:vue/essential",
     "eslint:recommended",
     "@vue/typescript/recommended",
-    "@vue/prettier",
-    "@vue/prettier/@typescript-eslint",
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -21,5 +19,6 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/class-name-casing": "off"
   },
 };

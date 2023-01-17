@@ -1,0 +1,75 @@
+{
+  "title": "Guardianship of a Child",
+  "pages": [
+    {
+      "name": "Guardianship of a Child",      
+      "elements": [
+        {
+          "type": "infotexttitle",
+          "name": "guardianOfChildDescription1",
+          "title": "",
+          "body": "A <a href=\"https://www2.gov.bc.ca/gov/content?id=058E82ED3E4F4CCDBBB95DFC2B3D1F69\" target=\"_blank\">guardian</a> is responsible for a child.  Only guardians have parenting responsibilities and parenting time with a child.<br><br>A parent is a child’s guardian if:<ul><li>they lived with the other parent when the child was born,</li><li>they care for the child regularly, but have never lived with the child, or</li><li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li><li>there is no agreement or order that says they are not a guardian.</li></ul><br>A parent can become a guardian of a child through a court order or by an agreement with all the other guardians of the child. A non-parent can become a guardian through a court order.<br><br>The <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_01\" target=\"blank\">Family Law Act</a> provides that generally both parents will continue to be guardians even if the parents are not together, and each will have parenting time and parental responsibilities. This does not mean that parents must have equal time or responsibility for a child. An agreement or order about parenting arrangements can make all the child’s guardians share parenting responsibilities or parenting time. Or it can make only one or more guardians responsible for parenting decisions and time with the child to the exclusion of all other guardians.<br><br>Anyone who wants to become a guardian can apply, including a parent who is not a guardian or anyone else (even if they are not related to the child).<br><br>In some cases, it may not be appropriate for a parent or guardian to remain a guardian. A parent can be removed as guardian by agreement with all the other guardians or court order. If a parent is not a guardian, they can still have time with the child – contact – but will not have any parenting responsibilities.<br><br>We recommend that you talk to a lawyer before you make decisions about your future parenting arrangements or if you are applying to become a guardian.",
+          "titleLocation": "hidden",
+          "messageStyle": "inline"
+        },
+        {
+          "type": "helptext",
+          "name": "FAQLegalAdvice",
+          "title": "Where can I get legal assistance?",
+          "titleLocation": "hidden",
+          "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+        },
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "isRequired": true,
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "applicationType",
+              "title": "Select each correct statement below:",
+              "choices": [
+                {
+                  "value": "becomeGuardian",
+                  "text": "I am applying to be appointed as a guardian of a child"
+                },
+                {
+                  "value": "cancelGuardian",
+                  "text": "I am applying for a person to no longer be a guardian of a child"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "becomeGuardianPanel",
+          "visible": false,
+          "visibleIf": "{applicationType} contains 'becomeGuardian'",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "childrenList",
+              "title": "Select each child from the list below that you want to be appointed as a guardian of.",
+              "visible": false,
+              "visibleIf": "{applicationType} contains 'becomeGuardian'",
+              "isRequired": true,
+              "choices": "{childNames}"
+            }            
+          ]
+        },
+        {
+          "type": "html",
+          "name": "cancelGuardianDetailsTitle",
+          "title": "Please complete the following information for each child you are applying for a person to no longer be a guardian of.",
+          "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>Please complete the following information for each child you are applying for a person to no longer be a guardian of.</div>The child and the guardian whose guardianship you are applying to cancel both need to be added in the Children and Other Party steps in this application. If you have not added them already, please return to that step first.<br><br>To add a child, click the “<b-badge class='bg-success text-white' style='padding:0.06rem 0.1rem; font-size:12px ;border-radius:5px;' ><b> + </b></b-badge>” button. If you are done entering information for all the children, click the “Next” button.</div>",          
+          "visible": false,
+          "visibleIf": "{applicationType} contains 'cancelGuardian'"
+        }
+      ],
+      "title": "Guardianship of a Child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

@@ -54,28 +54,20 @@ export default class MultipleTextInput extends Vue {
         
         this.readOnly = this.question.readOnly;
                 
-        //this.title = this.question.title;
         this.fields = this.makeFields()
         this.pendingValue = Object.assign({}, this.question.value)
-        // this.value = this.question.value
-        // const q = this.question;
-        //     q.valueChangedCallback = () => {
-        //     this.pendingValue = Object.assign({}, q.value);
-        //     this.value = q.value;
-        // };
 
         this.questionValidator();
-        //console.log(this.pendingValue)
         this.dataReady = true
     }
 
     public questionValidator(){
         this.question.validateValueCallback = () => {
-            //console.log('validate')
+            
             let error = null      
             for (const field of this.fields) {
                 const newValue = (this.pendingValue[field.name] || "").trim();
-                // console.log(newValue)
+            
                 if (!newValue.length){
                     error = new SurveyVue.SurveyError("Please enter all fields")
                     break;
@@ -91,7 +83,7 @@ export default class MultipleTextInput extends Vue {
     }
 
     public inputChanged(){
-        //console.log(inx)
+
         const currentVal = this.question.value || {};
         let updatedVal = {};
         let emptyField = true;
@@ -99,14 +91,12 @@ export default class MultipleTextInput extends Vue {
 
         for (const field of this.fields) {
             const newValue = (updatedVal[field.name] = (this.pendingValue[field.name] || "").trim());
-            //console.log(newValue)
+
             if (newValue.length) emptyField = false;
             if ((currentVal[field.name] || "") !== newValue) valueChanged = true;
         }
         if (valueChanged) this.question.value = emptyField ? null : updatedVal;
-        // const err = new SurveyVue.SurveyError("Please enter all fields")
-        // this.question.addError(err);
-        //this.question.removeError(err);
+
     }
 
     public makeFields() {
@@ -121,9 +111,8 @@ export default class MultipleTextInput extends Vue {
                 desc: "inputDesc"+i
             })            
         }
-           
-        //console.log(fields)
+
         return fields;
     }
-};
+}
 </script>

@@ -22,5 +22,5 @@ import NavigationFooter from "./components/NavigationFooter.vue";
 
 export default class App extends Vue {
 
-};
+}
 </script>

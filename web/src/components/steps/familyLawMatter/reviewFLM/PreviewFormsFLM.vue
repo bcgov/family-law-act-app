@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import Form3 from  "./pdf/Form3.vue"
 import Form1 from  "./pdf/Form1.vue"
 import PageBase from "@/components/steps/PageBase.vue";
@@ -30,11 +30,9 @@ export default class PreviewFormsFlm extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
 
     currentStep = 0;
@@ -52,34 +50,26 @@ export default class PreviewFormsFlm extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         this.determineRequiredForm();
         if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo])) this.dataReady = true;
+        window.scrollTo(0, 0);
     }
 
     public determineRequiredForm(){        
 
         const stepCOM =  this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]   
 
-        if( stepCOM && 
-            stepCOM.result &&
-            stepCOM.result.filingLocationSurvey &&
-            stepCOM.result.filingLocationSurvey.data){
-            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-            const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-    
+        if( stepCOM.result?.filingLocationSurvey?.data){
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;    
             const location = filingLocationData.ExistingCourt;                            
 
-            if(courtsC.includes(location) && 
-                filingLocationData.MetEarlyResolutionRequirements == 'n'){
-                    this.requiredForm = 1;
-                
+            if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+                this.requiredForm = 1;                
             } else {
                 this.requiredForm = 3;
             }
         
         } else {
             this.requiredForm = 3;
-        }
-
-               
+        }               
     }
 
     public EnableNext(){
@@ -88,11 +78,11 @@ export default class PreviewFormsFlm extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage()
+        Vue.prototype.$UpdateGotoNextStepPage()
     }
 
     public checkErrorOnPages(steps){

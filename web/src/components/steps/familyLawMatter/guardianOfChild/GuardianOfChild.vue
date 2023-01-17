@@ -62,7 +62,7 @@
 
 
 
-        <b-modal size="xl" v-model="showPopup" header-class="bg-white" no-close-on-backdrop hide-header-close>
+        <b-modal size="xl" v-model="showPopup" header-class="bg-white" no-close-on-backdrop hide-header>
             
             <div class="m-3">
                
@@ -108,14 +108,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/guardian-of-child.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -140,11 +141,9 @@ export default class GuardianOfChild extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -202,15 +201,15 @@ export default class GuardianOfChild extends Vue {
     public adjustSurveyForChildren(){
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));         
-        this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"]=[];        
+        this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"]=[];        
 
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data; 
             this.childrenNames = [];       
             for (const child of childData){
                 const childName = Vue.filter('getFullName')(child.name);
                 this.childrenNames.push(childName)
-                this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"].push(childName);                
+                this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push(childName);                
             }
         }
     }
@@ -218,7 +217,7 @@ export default class GuardianOfChild extends Vue {
     public adjustSurveyForOtherParties(){
         const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
 
-        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
             const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;
             this.otherPartyNames = [];            
             for (const otherParty of otherPartyData){
@@ -232,13 +231,11 @@ export default class GuardianOfChild extends Vue {
             Vue.filter('surveyChanged')('familyLawMatter')
             this.setPages();
             this.determineShowingTable();
-            //console.log(options)
-            // console.log(this.survey.data)
-            //console.log(this.applicationType)
-            if((!this.applicationType||(this.applicationType && !this.applicationType.includes("becomeGuardian"))) && options.name == "applicationType" && options.value.includes("becomeGuardian")){                
+           
+            if((!this.applicationType || !this.applicationType?.includes("becomeGuardian")) && options.name == "applicationType" && options.value?.includes("becomeGuardian")){                
                 this.showPopup = true; 
 
-                this.togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], true);
+                togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], true, this.currentStep);
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.stPgNo.FLM.FlmAdditionalDocuments].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.FlmAdditionalDocuments, 50, false);
             } 
@@ -247,57 +244,42 @@ export default class GuardianOfChild extends Vue {
     }
 
     public determineShowingTable(){
-        if(this.survey.data && this.survey.data.applicationType && this.survey.data.applicationType.includes('cancelGuardian'))
+        if(this.survey.data?.applicationType?.includes('cancelGuardian'))
             this.showTable=true;
         else
             this.showTable=false;
     }
 
     public determineShowPopup(){
-        if( 
-            this.survey.data && 
-            this.survey.data.applicationType && 
-            this.survey.data.applicationType.includes('becomeGuardian'))
-                return true;
+        if(this.survey.data?.applicationType?.includes('becomeGuardian'))
+            return true;
         else
             return false;
     }
     
     public setPages(){ 
-        if (this.survey.data.applicationType && this.survey.data.applicationType.includes("cancelGuardian")) {                
-            this.togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], true);                
+        if (this.survey.data?.applicationType?.includes("cancelGuardian")) {                
+            togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], true, this.currentStep);                
         } else {
-            this.togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], false);
+            togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], false, this.currentStep);
         }
 
-        if(this.survey.data && this.survey.data.applicationType && this.survey.data.applicationType.includes("becomeGuardian")){
-          // 
-        }else if(Vue.filter('FLMform4Required')()==false){
-            this.togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], false);
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
+        if(!this.survey.data?.applicationType?.includes("becomeGuardian") && Vue.filter('FLMform4Required')()==false){
+            togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], false, this.currentStep);
         }
     }
     
     public reloadPageInformation() {
-        // console.log(this.step.result)
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.guardianOfChildSurvey) {
+        if (this.step.result?.guardianOfChildSurvey) {
+
             this.survey.data = this.step.result.guardianOfChildSurvey.data;
-
             this.applicationType = this.survey.data.applicationType
-
-            if(this.survey.data.cancelGuardianDetails) this.guardianOfChildItem = this.survey.data.cancelGuardianDetails;
+            if(this.survey.data?.cancelGuardianDetails) 
+                this.guardianOfChildItem = this.survey.data.cancelGuardianDetails;
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -314,23 +296,20 @@ export default class GuardianOfChild extends Vue {
     }
 
     public AddRow(){
-        //console.log('add')
-        //if(this.childrenNames.length>this.guardianOfChildItem.length)
-            this.guardianOfChildItem.push({name:'', nameOther:'', date:'', relationship:''},)
+        this.guardianOfChildItem.push({name:'', nameOther:'', date:'', relationship:''},)
     }
 
-    public RemoveRow(){
-        //console.log('remove')
-        if(this.guardianOfChildItem.length>1)
+    public RemoveRow(){        
+        if(this.guardianOfChildItem?.length>1)
             this.guardianOfChildItem.pop()
     }
 
     public checkTableError(){
-        // console.log( this.guardianOfChildItem)
+        
         if(this.showTable)
             for(const itemIndex in this.guardianOfChildItem){
                 const childItem = this.guardianOfChildItem[itemIndex]
-                if(!childItem.name || !childItem.nameOther || !childItem.date || !childItem.relationship){
+                if(!childItem?.name || !childItem?.nameOther || !childItem?.date || !childItem?.relationship){
                     this.tableError = true;
                     return true
                 }
@@ -344,18 +323,17 @@ export default class GuardianOfChild extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors && !this.checkTableError()) {
-            this.UpdateGotoNextStepPage();
+            Vue.prototype.$UpdateGotoNextStepPage();
         }
     }  
 
     public closePopup(){
         this.showPopup = false;
-        //this.UpdateGotoNextStepPage();
     }
     
     beforeDestroy() {
@@ -370,8 +348,3 @@ export default class GuardianOfChild extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

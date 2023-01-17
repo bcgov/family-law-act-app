@@ -8,11 +8,12 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/existing-spousal-support-agreement.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -25,7 +26,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
         PageBase
     }
 })
-export default class AboutExistingSpousalSupportAgreement extends Vue {
+export default class ExistingSpousalSupportAgreement extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType; 
@@ -33,11 +34,9 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -68,37 +67,27 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')           
-            // console.log(this.survey.data)
+
             this.setPages()
         })
     }
 
     public setPages(){
-        if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder ], true);
+        if(this.survey.data?.agreementDifferenceType == 'replacedAgreement'){
+            togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder ], true, this.currentStep);
             
-        } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+        } else if(this.survey.data?.agreementDifferenceType == 'setAsideAgreement') {
             
-            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false);
+            togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false, this.currentStep);
         }         
-    }  
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
+    }    
     
     public reloadPageInformation() {  
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.existingSpousalSupportAgreementSurvey) {
+        if (this.step.result?.existingSpousalSupportAgreementSurvey) {
             this.survey.data = this.step.result.existingSpousalSupportAgreementSurvey.data;
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
@@ -110,12 +99,12 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     
@@ -126,8 +115,3 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

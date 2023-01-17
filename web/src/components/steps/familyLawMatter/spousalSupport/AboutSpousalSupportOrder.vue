@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/about-spousal-support-order.json";
 
 import PageBase from "../../PageBase.vue";
@@ -26,13 +26,7 @@ const applicationState = namespace("Application");
 export default class AboutSpousalSupportOrder extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;       
-
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
-
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    step!: stepInfoType;    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -63,8 +57,6 @@ export default class AboutSpousalSupportOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.pages[0].questions)           
-            //console.log(this.survey.data)
         })
     }
     
@@ -73,7 +65,7 @@ export default class AboutSpousalSupportOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.aboutSpousalSupportOrderSurvey) {
+        if (this.step.result?.aboutSpousalSupportOrderSurvey) {
             this.survey.data = this.step.result.aboutSpousalSupportOrderSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -82,12 +74,12 @@ export default class AboutSpousalSupportOrder extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {        
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     
@@ -98,8 +90,3 @@ export default class AboutSpousalSupportOrder extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

@@ -42,6 +42,7 @@
                             "name": "ExistingCourt",
                             "isRequired": true,
                             "title": "Court Location",
+                            "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
                             "choices": []
                         },
                         {

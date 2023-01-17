@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/unpaid-child-support.json";
 
 import PageBase from "../../PageBase.vue";
@@ -33,18 +33,16 @@ export default class UnpaidChildSupport extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
    
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);   
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -68,8 +66,6 @@ export default class UnpaidChildSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')           
-            //console.log(options) 
-            //console.log(this.survey.data)
         })
     }
     
@@ -78,7 +74,7 @@ export default class UnpaidChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.unpaidChildSupportSurvey) {
+        if (this.step.result?.unpaidChildSupportSurvey) {
             this.survey.data = this.step.result.unpaidChildSupportSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -90,12 +86,12 @@ export default class UnpaidChildSupport extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     
@@ -103,12 +99,6 @@ export default class UnpaidChildSupport extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {unpaidChildSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

@@ -1,0 +1,144 @@
+{
+  "title": "About the Order",
+  "pages": [
+    {
+      "name": "About the Order",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "aboutExistingContactWithChildDescription",
+          "title": "The order will usually include new details about how the contact will happen.",
+          "messageStyle": "inline",
+          "visible": false,
+          "visibleIf": "{existing}",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "infotext",
+          "name": "aboutNewContactWithChildDescription",
+          "title": "You can apply to the court for an order for contact with a child. The order will usually include details about how the contact will happen.",
+          "messageStyle": "inline",
+          "visible": false,
+          "visibleIf": "!({existing})",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "existingContactWithChildPanel",
+          "visible": false,
+          "visibleIf": "{existing}",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "contactTypeChoices",
+              "title": "Tell the court and the other party what contact you are asking for.",
+              "description": "Select each option that applies.",
+              "visible": false,
+              "visibleIf": "{existing}",
+              "isRequired": true,
+              "hasOther": true,
+              "otherText": "Other method of communication",
+              "choices": [
+                "No contact of any type",
+                "In person",
+                "Telephone communication",
+                "Video communication",
+                "Written communication"
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "inPersonDetails",
+              "title": "For the in person contact with the {childWording}, please provide details about when the contact will occur.",
+              "description": "Think about your relationship with the child and their parents/guardians to decide how much detail you think the order needs to include. Provide specific dates or events requested, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with a child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",              
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existing}=true and {InPerson}"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "newContactWithChildPanel",
+          "visible": false,
+          "visibleIf": "!({existing})",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "childrenRequireContactChoices",
+              "title": "Select each child from the list below that you want an order for contact with.",
+              "visible": false,
+              "visibleIf": "!({existing})",
+              "isRequired": true,
+              "choices": [
+                "child1",
+                "child2"
+              ]
+            },
+            {
+              "type": "text",
+              "name": "lastContactDate",
+              "title": "When did you last have contact with the {selectedChildWording}?",
+              "description": "If you do not remember the exact date, pick any date on or around the time you last remember having contact. If there is more than one child, pick the most recent date you had contact with any of the children.",
+              "inputType": "date",
+              "visible": false,
+              "visibleIf": "!({existing})",
+              "isRequired": true
+            },
+            {
+              "type": "checkbox",
+              "name": "contactTypeChoices",
+              "title": "Tell the court and the other party what contact you are asking for.",
+              "description": "Select each option that applies.",
+              "visible": false,
+              "visibleIf": "!({existing})",
+              "isRequired": true,
+              "hasOther": true,
+              "otherText": "Other method of communication",
+              "choices": [
+                "In person",
+                "Telephone communication",
+                "Video communication",
+                "Written communication"
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "inPersonDetails",
+              "title": "For the in person contact with the {selectedChildWording}, please provide details about when the contact will occur.",
+              "description": "Think about your relationship with the child and their parents/guardians to decide how much detail you think the order needs to include. Provide specific dates or events requested, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with a child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existing} = false and {InPerson}"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ParentingDescriptionPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "placeConditions",
+              "title": "Are you willing to have the court order include any conditions related to your contact with the child?",
+              "description": "Sometimes, the court or the other party may only consider it in the best interests of the child for there to be conditions on your contact with the child. Conditions may include:<br><ul><li>supervised visits</li><li>contact during specified times</li><li>contact only in a specific location</li><li>things a person must do while they have contact with the child (for example, not use drugs or alcohol while with the child or not have guests over while the child is visiting)</li></ul>",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "conditionsDescription",
+              "title": "Please describe the conditions you are willing to have on your contact with the child:",
+              "description": "If there are any conditions you are willing to have placed on your contact with the child be sure to include them in the space provided. You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{placeConditions} = 'y'"
+            }
+          ]
+        }
+      ],
+      "title": "About the Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

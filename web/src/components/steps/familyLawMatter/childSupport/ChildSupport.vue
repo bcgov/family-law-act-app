@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/child-support.json";
 
 import PageBase from "../../PageBase.vue";
@@ -37,11 +37,9 @@ export default class ChildSupport extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -80,10 +78,10 @@ export default class ChildSupport extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
         const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
 
-        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
             const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data; 
             this.numberOfOtherParties = otherPartyData.length;           
-            // console.log(otherPartyData)            
+        
             const template = this.surveyJsonCopy.pages[0].elements[0].elements[2];
             const infoTemplate = this.surveyJsonCopy.pages[0].elements[0].elements[3];
             this.surveyJsonCopy.pages[0].elements[0].elements.pop()
@@ -98,7 +96,7 @@ export default class ChildSupport extends Vue {
                 this.surveyJsonCopy.pages[0].elements[0].elements.push(temp);
                 visibleCondition += "or {otherParty["+otherIndex+"]GuardianType} == 'appointedGuardian' "
             }
-            //console.log(visibleCondition)
+
             infoTemplate.visibleIf = visibleCondition
             this.surveyJsonCopy.pages[0].elements[0].elements.push(infoTemplate);
         }else{
@@ -109,7 +107,6 @@ export default class ChildSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data)
         })
     }
     
@@ -117,11 +114,12 @@ export default class ChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.childSupportSurvey) {
+        if (this.step.result?.childSupportSurvey) {
             this.survey.data = this.step.result.childSupportSurvey.data;
            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
         if(this.surveyHasError)
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         else
@@ -129,12 +127,12 @@ export default class ChildSupport extends Vue {
     }   
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     
@@ -149,8 +147,3 @@ export default class ChildSupport extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

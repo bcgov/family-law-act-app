@@ -9,13 +9,13 @@
             <div style="text-align:center;"><b>This is Schedule 3 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making a new application for child support and/or special and extraordinary expenses for the child or children identified in section 11 of this application.</i>
+                <i>Complete this schedule only if you are making a new application for child support and/or special and extraordinary expenses for the child or children identified in section 12 of this application.</i>
             </div>
 <!-- <1> -->
             <section class="resetquestion"> 
                 <div style="display:inline; margin-left:0.25rem">I am:</div>
                 <div style="margin-left:1rem;">
-                    <check-box style="" :check="chSupInfo.appType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
+                    <check-box  :check="chSupInfo.appType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
                     <check-box style="width:120%;" :check="chSupInfo.appType.standing?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
                     <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.appType.other?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="chSupInfo.appType.otherCom"/>            
@@ -27,7 +27,7 @@
             <section> 
                 The other party is:
                 <div style="margin-left:1rem;">
-                    <check-box style="" :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
+                    <check-box  :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
                     <check-box style="width:120%;" :check="chSupInfo.opType.standing?'yes':''" text="a person standing in the place of a parent to the child(ren) <i>(for example, a step-parent)</i>"/>
                     <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.opType.other?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="chSupInfo.opType.otherCom"/>            
@@ -83,7 +83,7 @@
             <section>
                 <check-box class="marginleft1p5vue" inline="inline" boxMargin="0" style="display:inline-block;margin-left:0.5rem" :check="chSupInfo.desiredSup.payor?'yes':''" text=""/>
                 <underline-form style="text-indent:0px;display:inline-block;" textwidth="15rem" beforetext="I am applying for an order for ongoing support to be paid by" hint="name of paying party" :text="chSupInfo.desiredSup.payor"/>
-                <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in the monthly amount set out in the child support guidelines table for the following child(ren) identified in section 11 of this application: </div>
+                <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in the monthly amount set out in the child support guidelines table for the following child(ren) identified in section 12 of this application: </div>
                 <div style="margin-left:1.25rem;">
                     <i class="marginleft1p5vue" style="display:inline" >List the name of each child you are applying for support for</i>
                     <underline-form v-for="(payee,inx) in chSupInfo.desiredSup.payees" :key="inx" style="text-indent:3px;display:inline-block;" textwidth="16.85rem" beforetext="" hint="" :text="payee"/>                   
@@ -96,7 +96,7 @@
                 <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                 <div style="margin:0 0 0 1rem;">
                     <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.desiredSup.over19?'yes':''" text="Each child I am applying for an order for child support for is under 19 years of age"/>
-                    <check-box style="" :check="chSupInfo.desiredSup.over19?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
+                    <check-box  :check="chSupInfo.desiredSup.over19?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
                 </div>
                 <b-table
                     :items="over19ChildSupportDetails"
@@ -157,11 +157,11 @@
                         <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.ndHard.change?'yes':''" text="I am applying for an order to change the guideline amount payable because the guideline amount would cause me undue hardship for the following reason(s):<br/><i> Note:  If this option applies to your situation, you will need to complete the undue hardship portion of the Financial Statement, Part 4 and Part 5, in addition to any other required parts</i>"/>                    
                     </div>
                     <div style="margin:0 0 3rem 3.25rem;">
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.excessive?'yes':''" text="I have an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>                    
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.high?'yes':''" text="I have unusually high expenses to exercise parenting time or contact with the child(ren)"/>
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.another?'yes':''" text="I have a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.dependent?'yes':''" text="I have a legal duty to support a dependent child from another relationship"/>
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.other?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.excessive?'yes':''" text="I have an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>                    
+                        <check-box  :check="chSupInfo.ndHard.reasons.high?'yes':''" text="I have unusually high expenses to exercise parenting time or contact with the child(ren)"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.another?'yes':''" text="I have a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.dependent?'yes':''" text="I have a legal duty to support a dependent child from another relationship"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.other?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
                         <div v-if="chSupInfo.ndHard.reasons.other" 
                             class="answerbox">{{chSupInfo.ndHard.otherCom}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
@@ -206,13 +206,13 @@
                         <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.finStmnt.required?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:	<br/><i>Select all options that apply</i>"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.applicantPayor?'yes':''" text="I am the payor"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.currCond.splitShared?'yes':''" text="there is split or shared parenting time"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.opType.standing?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.payorErnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.specExp.applying?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.ndHard.change?'yes':''" text="I am claiming undue hardship"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.applicantPayor?'yes':''" text="I am the payor"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.currCond.splitShared?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.opType.standing?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.payorErnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.specExp.applying?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.ndHard.change?'yes':''" text="I am claiming undue hardship"/>
                     </div>
 
                     <div style="margin:0.5rem 0 0 1.5rem;">
@@ -246,8 +246,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { schedule3DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
@@ -307,21 +307,21 @@ export default class Schedule3 extends Vue {
        
         let newChildSupportInfo = {} as schedule3DataInfoType;
 
-        if (this.result.childSupportSurvey && this.result.childSupportSurvey.applicantGuardianType){
+        if (this.result.childSupportSurvey?.applicantGuardianType){
             newChildSupportInfo.appType = {
-                guardian: this.result.childSupportSurvey.applicantGuardianType == 'parentGuardian',
-                standing: this.result.childSupportSurvey.applicantGuardianType == 'appointedGuardian',
-                other: this.result.childSupportSurvey.applicantGuardianType == 'other',
-                otherCom: (this.result.childSupportSurvey.applicantGuardianType == 'other' && this.result.childSupportSurvey.applicantGuardianTypeComment)? this.result.childSupportSurvey.applicantGuardianTypeComment: ''
+                guardian: this.result.childSupportSurvey.applicantGuardianType.includes('parentGuardian'),
+                standing: this.result.childSupportSurvey.applicantGuardianType.includes('appointedGuardian'),
+                other: this.result.childSupportSurvey.applicantGuardianType.includes('other'),
+                otherCom: (this.result.childSupportSurvey.applicantGuardianType.includes('other') && this.result.childSupportSurvey.applicantGuardianTypeComment)? this.result.childSupportSurvey.applicantGuardianTypeComment: ''
             }
         }
 
-        if (this.result.childSupportSurvey && this.result.childSupportSurvey['otherParty[0]GuardianType']){
+        if (this.result.childSupportSurvey?.['otherParty[0]GuardianType']){
             newChildSupportInfo.opType = {
-                guardian: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'parentGuardian',
-                standing: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'appointedGuardian',
-                other: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'other',
-                otherCom: (this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'other' && this.result.childSupportSurvey['otherParty[0]GuardianTypeComment'])? this.result.childSupportSurvey['otherParty[0]GuardianTypeComment']: ''
+                guardian: this.result.childSupportSurvey['otherParty[0]GuardianType'].includes('parentGuardian'),
+                standing: this.result.childSupportSurvey['otherParty[0]GuardianType'].includes('appointedGuardian'),
+                other: this.result.childSupportSurvey['otherParty[0]GuardianType'].includes('other'),
+                otherCom: (this.result.childSupportSurvey['otherParty[0]GuardianType'].includes('other') && this.result.childSupportSurvey['otherParty[0]GuardianTypeComment'])? this.result.childSupportSurvey['otherParty[0]GuardianTypeComment']: ''
             }
         }
 
@@ -393,11 +393,6 @@ export default class Schedule3 extends Vue {
                     for(let i=1; i<tableFields.length; i++)
                         this.childrenSupportExpenseFields.push({key:tableFields[i].key, label:tableFields[i].label,  tdClass:"border-dark align-middle text-center",  thClass:"border-dark align-middle text-center",   thStyle:"width:17%;"},)
 
-        //         for(const item of this.childrenSupportExpenseItem)
-        // {key:"child0", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        // {key:"child1", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        // {key:"child2", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        // {key:"child3", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},  
             }            
         }
 
@@ -413,7 +408,7 @@ export default class Schedule3 extends Vue {
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
             for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
@@ -421,7 +416,7 @@ export default class Schedule3 extends Vue {
             }   
         }
 
-        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n') && form4unable ){
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && form4unable ){
            newChildSupportInfo.applyForCaseManagement = true
             newChildSupportInfo.finStmnt = {
                 required: false
@@ -430,7 +425,6 @@ export default class Schedule3 extends Vue {
 
         return newChildSupportInfo;
     } 
-
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">

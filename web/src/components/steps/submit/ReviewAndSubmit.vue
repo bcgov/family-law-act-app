@@ -1,5 +1,5 @@
 <template>   
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
         <h2 class="mt-4">Review and Submit</h2>
         <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
@@ -49,8 +49,6 @@
 
                 <required-document type="Submit" title="Upload Documents:" />
                 
-                <!-- <b-img v-for="(supportingDocument,index) in supportingDocuments" :key="index" :src="supportingDocument.image" width="100" height="100"  /> -->
-                
                 <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">
                         <label class="btn btn-default btnfile">
@@ -59,7 +57,7 @@
                     </div>
                     <input id="inputfile" type="file" multiple style="display: none;" accept="application/pdf,image/x-png,image/jpeg" @change="handleSelectedFile" onclick="this.value=null;">
                     <p class="text-center m-0 text-info">Drag and Drop the PDF documents or JPG/PNG images here,</p>
-                    <p class="text-center m-0 text-info" style=""> or click here to Browse for files</p>
+                    <p class="text-center m-0 text-info" > or click here to Browse for files</p>
                 </b-card>
 
                 <b-card border-variant="white" body-class="mb-0 pb-0">
@@ -153,7 +151,7 @@
                         variant="success">
                             <span class="fa fa-paper-plane btn-icon-left"/>
                             Proceed to Submit
-                    </b-button>
+                    </b-button>                    
                     
                 </div>
             </b-card>
@@ -176,13 +174,13 @@
         <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
             <b-card style="border-radius:10px" class="bg-light">
                 <h1 class="text-center bg-primary text-white" style="border-radius:10px; width:35rem; margin:0 auto; padding:1rem 0;">Specify the Type of Document(s)</h1>
-                <div v-if="supportingFile" class="h3 my-4 text-center"><div class="mb-3"> File Name(s): </div> <span v-for="(file,inx) in supportingFile" :key="inx" style="display:block;" class="my-2  p-0 h3 text-danger"> {{file.name}} </span> </div>
+                <div v-if="supportingFile" class="h3 my-4 text-center"><div class="mb-3"> File Name(s): </div> <span v-for="(file,inx) in supportingFile" :key="inx" style="display:block;" class="my-2  p-0 h3 text-success"> {{file["name"]}} </span> </div>
                 <b-form-group style="width:30rem; margin: 2rem auto;"> 
                     <b-form-select
                         id="documentType"
                         v-model="fileType"
                         :state = "selectedDocumentTypeState?null:false">
-                        <b-form-select-option v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
+                        <b-form-select-option :class="docType.type == ppmSchedule1FileType.type?'font-weight-bold':''" v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
                     </b-form-select>
                 </b-form-group> 
             </b-card>
@@ -190,9 +188,7 @@
                 <b-button style="margin-left: 0;margin-right:auto;" variant="primary" @click="showTypeOfDocuments=false">Cancel</b-button>
                 <b-button style="margin-left: auto;margin-right:0;" variant="success" @click="addDocument()">Submit</b-button>
             </template>            
-            <!-- <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showTypeOfDocuments=false">&times;</b-button>
-            </template> -->
+          
         </b-modal>
 
     </page-base>
@@ -200,22 +196,22 @@
 
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import Tooltip from "@/components/survey/Tooltip.vue"
+    import Tooltip from "@/components/survey/Tooltip.vue";
     
     import { stepInfoType } from "@/types/Application";
     import PageBase from "@/components/steps/PageBase.vue";   
-    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
+    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";
 
-    import FormList from "./components/FormList.vue"
-    import RequiredDocument from "./components/RequiredDocument.vue"
-    import ReminderNotes from "./components/ReminderNotes.vue"
+    import FormList from "./components/FormList.vue";
+    import RequiredDocument from "./components/RequiredDocument.vue";
+    import ReminderNotes from "./components/ReminderNotes.vue";
     
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
-import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
+    import { documentTypesJsonInfoType, locationsInfoType, requiredDocumentsInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
 
@@ -245,13 +241,13 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
         public id!: string;
 
         @applicationState.State
+        public types!: string[];
+
+        @applicationState.State
         public steps!: stepInfoType[];
 
         @applicationState.State
         public applicationLocation!: string;
-
-        @applicationState.State
-        public protectedPartyName!: string;
 
         @applicationState.State
         public currentStep!: number;
@@ -261,6 +257,9 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
 
         @applicationState.State
         public supportingDocuments!: any;
+
+        @applicationState.State
+        public requiredDocuments!: requiredDocumentsInfoType;
 
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
@@ -286,19 +285,19 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
         @applicationState.Action
         public UpdateLastFiled!: (newLastFiled) => void
 
-
         error = "";
         showGetHelpForPDF = false;
 
-        applicantLocation = {}        
+        applicantLocation = {} as locationsInfoType;        
         submissionInProgress = false;
         
         supportingFile = null;
         selectedDocumentTypeState = true;
         selectedSupportingDocumentState = true;
         fileType = "";
-        fileTypes = [];
-
+        fileTypes: documentTypesJsonInfoType[] = [];
+        ppmSchedule1FileType = {description: 'Schedule 1 completed by a director', type: 'Merge With Form15'};
+        scheduleOneText = "Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)<ul class='mt-3' style='line-height: 1.5; list-style-type:circle;'><li>When you upload your completed Schedule 1, you will need to select from the drop list of document types – Schedule 1, completed by the Director from the top of the drop list. Once uploaded, the Schedule 1 will be attached to your Application About a Priority Parenting Matter when you click the Proceed to Submit button.</li></ul>";
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
             { key: 'fileType', label: 'File Type',tdClass:'align-middle'},
@@ -307,33 +306,21 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
         ];
        
         showTypeOfDocuments = false;
-
         submitEnable = true;
-        formsList = [];
         currentPage=0;
 
         mounted(){
 
             this.submitEnable =  true;
             const progress = 50;
-
-            //console.log(this.currentStep)
-            //console.log(this.steps[this.currentStep])
-            this.currentPage = this.steps[this.currentStep].currentPage
+            
+            this.currentPage = Number(this.steps[this.currentStep].currentPage)
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
        
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
 
-            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
-            // console.log(this.applicantLocation)       
-
-            // if(location == 'Victoria'){
-            //     this.applicantLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-            // } else if(location == 'Surrey'){
-            //     this.applicantLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-            // }
-            //TODO: use get api for document-types
+            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]              
            
             this.fileTypes = this.documentTypesJson;
            
@@ -354,59 +341,71 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
             e.stopPropagation()
             const dt = e.dataTransfer
             const files = dt.files
-            // console.log(files)
+
             if (files && files[0]) 
             {
                 this.supportingFile = files;
+                this.handlePpmSchedule1();
                 this.showTypeOfDocuments= true;
             }
         } 
 
         public uploadClicked(){
-            // console.log('click')
             const el = document.getElementById("inputfile");
             if(el) el.click();
         }
 
         public handleSelectedFile(event){
-            // console.log(event)
+
             event.preventDefault();
             event.stopPropagation();
-            // console.log(event.target.files[0])
             
             if (event.target.files && event.target.files[0]) 
             {
                 this.supportingFile = event.target.files;
+                this.handlePpmSchedule1();
                 this.showTypeOfDocuments= true;
             }
         }
         
         public onPrev() {
-            this.UpdateGotoPrevStepPage()
+            Vue.prototype.$UpdateGotoPrevStepPage()
         }
 
         public onNext() {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }        
 
-        public onSubmit() {            
-            this.eFile()              
+        public onSubmit() {                     
+            
+            if (this.types.includes("Priority Parenting Matter") && this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText)){
+
+                const index = this.supportingDocuments.findIndex(doc => doc.documentType == this.ppmSchedule1FileType.type);
+
+                if (index == -1){
+                    this.error = 'You should include: Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)'
+                } else {
+                    this.eFile();
+                }
+
+            } else {
+                this.eFile();
+            }
+                       
         }
 
         public eFile() {
             
+            this.error = "";
             const bodyFormData = new FormData();
             const docType = []
-
-            // console.log(this.supportingDocuments[this.supportingDocuments.length-1])
             const lastFileTypes = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
-            
-            // console.log(lastFileTypes)
+          
             let fileIndex = 0;
             for(const filetype of lastFileTypes){
-                // console.log(filetype)
+            
                 const tempSupportingDocs = this.supportingDocuments.filter(doc=>{return(doc.documentType==filetype)})
-                // console.log(tempSupportingDocs)
+            
                 if(tempSupportingDocs.length>0){
                     const filesIndices = [];
                     const filesRotation = [];
@@ -421,22 +420,9 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
             }
             
             docType.push({type:"FPO"})
-
-            // for(const index in this.supportingDocuments){//, files:[], rotations:[]
-            //     const supportingDoc = this.supportingDocuments[index]
-            //     bodyFormData.append('files',supportingDoc['file']); 
-                          
-            //     docType.push({type: supportingDoc['documentType'], files: [Number(index)], rotations:[supportingDoc['imageRotation']]})
-            //    // bodyFormData.append('documents', );
-            //    // console.log(supportingDoc['imageRotation'])
-            // }
-            // console.log(docType);
-            const docTypeJson = JSON.stringify(docType);
-            //const docTypeBlob = new Blob([docTypeJson], {type: 'application/json'});
-            bodyFormData.append('documents', docTypeJson);
             
-
-            // console.log(bodyFormData.get('documents'))
+            const docTypeJson = JSON.stringify(docType);
+            bodyFormData.append('documents', docTypeJson);          
 
             const url = "/efiling/"+this.id+"/submit/" 
             const header = {
@@ -451,13 +437,12 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
             
             this.$http.post(url, bodyFormData, header)
             .then(res => {
-                // console.log(res)
-                if(res.data.message=="success")
+
+                if(res?.data?.message=="success")
                 {
                     this.generateUrl(res.data.redirectUrl)                   
                 }
             }, err => {
-                // console.error(err);
                 this.error = err.response.data.message;
                 this.submissionInProgress = false;
             });           
@@ -466,8 +451,7 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
         public generateUrl(eFilingUrl) {            
             // redirect user to the generated url
             location.replace(eFilingUrl);        
-        }
-      
+        }      
 
         public removeDocument(index) {
             this.supportingDocuments.splice(index, 1);
@@ -485,7 +469,6 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
                 let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
                 if(!typeIndex.includes(this.fileType))
                     typeIndex.push(this.fileType)
-                // console.log(typeIndex)
                 
                 for(const supportingfile of this.supportingFile){
                
@@ -505,9 +488,23 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
                 this.fileType = "";
                 Vue.nextTick(()=>{
                     const el = document.getElementById('drop-area');
-                    // console.log(el)
                     if(el) el.scrollIntoView();
                 })
+            }
+        }
+
+        public handlePpmSchedule1(){
+            
+            const index = this.fileTypes.findIndex(fileType => fileType.type == this.ppmSchedule1FileType.type);
+
+            if (this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText) && index == -1){
+
+                this.fileTypes.unshift(this.ppmSchedule1FileType);
+
+            } else if(!this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText) && index != -1) {                
+                                
+                this.fileTypes.splice(index, 1);
+                           
             }
         }
 
@@ -544,7 +541,5 @@ import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
     #drop-area.highlight {
     border-color: purple;
     }
-   
-
 
 </style>

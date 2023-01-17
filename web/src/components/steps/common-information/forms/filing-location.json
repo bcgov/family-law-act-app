@@ -29,12 +29,20 @@
                      "body": "If you have a Family Law file open with different parties, select no. You will need to open a new court file. You must follow the rules about which registry to use if you do not have an existing case with the same parties. The next questions will help you determine the correct court location, it may be the same one your case with other parties is already at."
                   },
                   {
+                     "type": "helptext",
+                     "name": "ExistingChildProtectionFAQ",
+                     "title": "If I have a Child Protection file open in Provincial Court, should I include that?",
+                     "titleLocation": "hidden",
+                     "body": "No, the court files are separate for child protection cases and family law cases. If you don’t also have an existing family law file, you will need to open a new court file. Select no."
+                  },
+                  {
                      "type": "dropdown",
                      "name": "ExistingCourt",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'y'",
                      "isRequired": true,
                      "title": "Court Location",
+                     "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
                      "choices": []
                   },
                   {
@@ -51,7 +59,7 @@
                      "name": "ExplanationExistingFamilyCase",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'y'",
-                     "title": "<b>Note: You must file any new application at the court registry where your existing case is filed.</b> If you want your case moved to another court registry, you must get a court order to transfer the file. You can apply for this case management order by selecting the case management option in the first step of this service.",
+                     "title": "<b>Note: You must file at the court registry where your existing case is filed.</b> If you want your case moved to another court registry, you must get a court order to transfer the file. You can apply for this case management order by selecting the case management option in the first step of this service.",
                      "titleLocation": "hidden"
                   },                 
                   {
@@ -70,6 +78,7 @@
                      "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
                      "isRequired": true,
                      "title": "Court Location",
+                     "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
                      "choices": []
                   },
                   {
@@ -80,6 +89,19 @@
                      "textClass":"bg-warning text-dark",
                      "visible": false,
                      "visibleIf": "{editButton}"
+                  },
+                  {
+                     "type": "radiogroup",
+                     "name": "filingLocationReason",
+                     "title": "Please select the reason you have chosen {registryLocation} as your filing location.",
+                     "isRequired": true,
+                     "visible": false,
+                     "visibleIf": "{RequiresReasonInfo} and {ExistingFamilyCase} = 'n' and {selectedExistingCourt}",
+                     "choices": [
+                        "It is the court location closest to where the child lives, because my case involves a child-related issue",
+                        "It is the court location closest to where I live because my case does not involve a child-related issue",
+                        "The court made an order that allows me to"
+                     ]
                   },
                   {
                      "type": "helptext",
@@ -100,6 +122,29 @@
                      "body": "If the child lives equally in two different locations closest to two different court locations, you will need to decide where you want to file your application. The rule about which court registry to use for filing an application is meant to ensure all applications are filed in the same registry and that the location is fair to the parties. Think about your family and which location is the most fair for everyone. If the other party doesn’t agree the registry you choose is the closest, they can ask the court to transfer the file to another location. It will then be up to the court to decide where the file is located."
                   },
                   {
+                     "type": "yesno",
+                     "name": "ExistingFMEPCase",
+                     "visible": false,
+                     "visibleIf": "{RequiresFMEPInfo} and ({ExplanationCourtLocation}>0 or {selectedExistingCourt})",
+                     "isRequired": true,
+                     "title": "Is your order or agreement filed with the Director of Maintenance Enforcement to help with collecting child or spousal support?"
+                  },
+                  {
+                     "type": "text",
+                     "name": "ExistingFMEPNumber",
+                     "visible": false,
+                     "visibleIf": "{RequiresFMEPInfo} and {ExistingFMEPCase} = 'y'",                     
+                     "title": "What is your FMEP Number?"                     
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationFMEPNumber",
+                     "visible": false,
+                     "visibleIf": "{RequiresFMEPInfo} and {ExistingFMEPCase} = 'y'",
+                     "title": "Your FMEP Number is the file number assigned by the Family Maintenance Enforcement Program. If you do not have an FMEP Number or do not know your FMEP Number, you can skip this question by clicking Next below.",
+                     "titleLocation": "hidden"                     
+                  },
+                  {
                      "type": "panel",
                      "name": "VictoriaSurreyPanel",
                      "visible": false,
@@ -108,7 +153,45 @@
                         {
                            "type": "infotext",
                            "name": "registriesExplanation",
-                           "title": "You are filing your application in an early resolution registry. Before filing your Application About a Family Law Matter, you must meet the following early resolution requirements:<br><ul><li>Participation in an individual needs assessment meeting with a Family Justice Counsellor</li><li>Completion of a Parenting After Separation online course, if applicable</li><li>Participation in a Consensual dispute resolution session, if appropriate</li></ul><br>You have met these requirements if you have participated in a needs assessment, parenting education course and consensual dispute resolution OR if you were exempt by the needs assessor or the court from participating in any of these.<br><br>If you do not resolve all issues during the early resolution process, either party can make an application to the Provincial Court for a court order by filing an Application About a Family Law Matter.",
+                           "visible": false,
+                           "visibleIf": "!({rflmIncluded})",
+                           "title": "You are filing your application in an <a href='https://www2.gov.bc.ca/gov/content?id=065CC36FFE804085B96DF218DAB22AF3' target='_blank'>early resolution registry</a>. Before filing your Application About a Family Law Matter, you must meet the following early resolution requirements:<br><ul><li>Participation in an individual `needs assessment` meeting with a family justice counsellor</li><li>Completion of a <a href='https://www2.gov.bc.ca/gov/content?id=991A99470F9B4576B6BD3E97CB649B2A' target='_blank'>Parenting After Separation</a> online course, if applicable</li><li>Participation in a `Consensual dispute resolution` session, if appropriate</li></ul><br>You have met these requirements if you have participated in a needs assessment, parenting education course and consensual dispute resolution OR if you were exempt by the family justice counsellor or the court from participating in any of these.<br><br>If you do not resolve all issues during the early resolution process, either party can make an application to the Provincial Court for a court order by filing an Application About a Family Law Matter.",
+                           "titleLocation": "hidden",
+                           "messageStyle": "inline"
+                        },
+                        {
+                           "type": "infotext",
+                           "name": "registriesExplanation",
+                           "visible": false,
+                           "visibleIf": "{rflmIncluded}",
+                           "title": "You are filing your reply in an <a href='https://www2.gov.bc.ca/gov/content?id=065CC36FFE804085B96DF218DAB22AF3' target='_blank'>early resolution registry</a>. Before filing your Reply to an Application About a Family Law Matter, you must meet the following early resolution requirements:<br><ul><li>Participation in an individual `needs assessment` meeting with a family justice counsellor</li><li>Completion of a <a href='https://www2.gov.bc.ca/gov/content?id=991A99470F9B4576B6BD3E97CB649B2A' target='_blank'>Parenting After Separation</a> online course, if applicable</li><li>Participation in a `Consensual dispute resolution` session, if appropriate</li></ul><br>You have met these requirements if you have participated in a needs assessment, parenting education course and consensual dispute resolution OR if you were exempt by the family justice counsellor or the court from participating in any of these.",
+                           "titleLocation": "hidden",
+                           "messageStyle": "inline"
+                        },
+                        {
+                           "type": "helptext",
+                           "name": "EarlyRegistryFAQ",
+                           "title": "How do I get an exemption from the early resolution requirements?",
+                           "titleLocation": "hidden",
+                           "visible": false,
+                           "visibleIf": "{rflmIncluded}",
+                           "body": "Each party must participate in an individual needs assessment before proceeding to court unless the court makes an order that you do not need to participate in it. A needs assessment can be scheduled within a week and can be very helpful.<br><br>At the needs assessment, the family justice counsellor will let you know if you are required to complete a parenting education program (online Parenting After Separation course). There are some situations where a parenting education program does not need to be completed by the parties. The family justice counsellor can also give you an exemption in some circumstances, for example you can’t access it online or the course isn’t available in a language you are fluent in. The court can also make an order that exempts you from the requirement.<br><br>A needs assessor or consensual dispute resolution professional may determine that you cannot access consensual dispute resolution services or that it is not appropriate for you to participate in consensual dispute resolution (CDR). This will depend on different factors including the issues to be resolved, barriers to participation, the ability to make accommodations or recent CDR. Only the court can grant an exemption for participation in CDR if it is determined to be appropriate.<br><br>There are many benefits to the early resolution requirements.<br><br>If you need a court order, you can apply for a case management order using the Application About a Case Management Order Without Notice or Attendance Form 11 to ask the court to waive any or all of the early resolution requirements. This service can help you complete the application. Go back to Step 1 and choose “Apply for an Order”. You will need to ask for a case management order."
+                        },
+                        {
+                           "type": "helptext",
+                           "name": "EarlyRegistryFAQ2",
+                           "title": "What if I can’t meet the early resolution requirements before my time limit to file my reply?",
+                           "titleLocation": "hidden",
+                           "visible": false,
+                           "visibleIf": "{rflmIncluded}",
+                           "body": "You have 30 days from when you were served with the application to file your reply. If you don’t think you can meet the early resolution requirements within those 30 days, you can apply to the court for more time to file, or to be allowed to file your reply before you meet the requirements (postpone meeting the requirements until after you file your reply). This service can help you complete the application. Go back to Step 1 and choose “Apply for an Order”. You will need to ask for a case management order to change a requirement under the rules – to ask for more time to file, or to file first then meet the requirements."
+                        },
+                        {
+                           "type": "infotext",
+                           "name": "registriesExplanation2",
+                           "visible": false,
+                           "visibleIf": "{rflmIncluded}",
+                           "title": "If you do not resolve all issues during the early resolution process, either party can make an application to the Provincial Court for a court order by filing an Application About a Family Law Matter.<br><br>The first step to resolving a family law matter at an early resolution registry is meeting the early resolution requirements.<br><br>Contact the <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F'>Justice Access Centre</a> nearest to where the application was filed to get more information on how to meet the requirements. Staff at the Justice Access Centre can also provide you with information about whether you need to complete a parenting education course, how to complete it, or information about how to get an exemption.",
                            "titleLocation": "hidden",
                            "messageStyle": "inline"
                         },
@@ -117,8 +200,25 @@
                            "name": "MetEarlyResolutionRequirements",
                            "isRequired": true,
                            "visible": false,
-                           "visibleIf": "{victoriaSurrey}",
+                           "visibleIf": "{victoriaSurrey} and !({rflmIncluded})",
                            "title": "Have you already met the early resolution requirements?"
+                        },
+                        {
+                           "type": "yesno",
+                           "name": "MetEarlyResolutionRequirements",
+                           "isRequired": true,
+                           "visible": false,
+                           "visibleIf": "{victoriaSurrey} and ({rflmIncluded})",
+                           "title": "Have you already met the early resolution requirements?",
+                           "description": "If you have already been given an exemption from one or more of the early resolution requirements or it was determined that CDR is not appropriate, select “YES” as you have met the requirements.<br><br>If you will be meeting the requirements before filing your reply (either you completed each requirement or you are expecting an exemption to complete one or more requirements), select “YES” to finish completing your reply to file."
+                        },
+                        {
+                           "type": "infotext",
+                           "name": "MetEarlyResolutionRequirementsExplanation",
+                           "title": "If you were required to complete a parenting education program and have not already submitted your certificate of completion for the online parenting course to the Justice Access Centre, you will be required to submit a copy with this reply. <br> The <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> will let the court registry know that you have met the other requirements.",
+                           "titleLocation": "hidden",
+                           "visible": false,
+                           "visibleIf": "({rflmIncluded}) and ({MetEarlyResolutionRequirements} = 'y')"
                         },
                         {
                            "type": "infotext",
@@ -126,7 +226,16 @@
                            "title": "Be sure to let the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> where you attended for your needs assessment know you are planning to file your application. They will send the court registry proof of your participation or exemption in the early resolution requirements so that you can file your application.",
                            "titleLocation": "hidden",
                            "visible": false,
-                           "visibleIf": "{MetEarlyResolutionRequirements} = 'y'"
+                           "visibleIf": "({MetEarlyResolutionRequirements} = 'y') and !({rflmIncluded})"
+                        },
+                        {
+                           "type": "infotext",
+                           "name": "NotMetEarlyResolutionRequirementsExplanation",
+                           "title": "The first step to resolving a family law matter at an early resolution registry is meeting the early resolution requirements.<br>Contact the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> nearest to where the application was filed to get more information on how to meet the requirements. Staff at the Justice Access Centre can also provide you with information about whether you need to complete a parenting education course, how to complete it, or information about how to get an exemption.<br><br>Once you have met the early resolution requirements, return to the Online Forms Service and select “YES” to complete your reply.<br><br>If you have already been given an exemption from one or more of the early resolution requirements or it was determined that CDR is not appropriate, select “YES” as you have met the requirements.<br><br>If you will be meeting the requirements before filing your reply (either you completed each requirement or you are expecting an exemption to complete one or more requirements), select “YES” to finish completing your reply to file.",
+                           "titleLocation": "hidden",
+                           "messageStyle": "inline",
+                           "visible": false,
+                           "visibleIf": "({MetEarlyResolutionRequirements} = 'n') and ({rflmIncluded})"
                         },
                         {
                            "type": "infotext",
@@ -135,21 +244,8 @@
                            "titleLocation": "hidden",
                            "messageStyle": "inline",
                            "visible": false,
-                           "visibleIf": "{MetEarlyResolutionRequirements} = 'n'"
-                        },
-                        {
-                           "type": "radiogroup",
-                           "name": "registryLocationReason",
-                           "title": "Please select the reason you have chosen {registryLocation} as your filing location.",
-                           "isRequired": true,
-                           "visible": false,
-                           "visibleIf": "{MetEarlyResolutionRequirements} = 'n'",
-                           "choices": [
-                              "It is the court location where my existing case with the same party/parties is filed",
-                              "It is the court location closest to where the child lives, because my case involves a child-related issue",
-                              "It is the court location closest to where I live, because my case does not involve a child-related issue"
-                           ]
-                        }
+                           "visibleIf": "({MetEarlyResolutionRequirements} = 'n') and !({rflmIncluded})"
+                        }                        
                      ]
                   }
                ]

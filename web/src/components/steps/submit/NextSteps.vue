@@ -3,7 +3,7 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
         <h2 class="mt-4">Next Steps</h2>
-        <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
+        <b-card style="border:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             <h3>What happens at the Court Registry? </h3>
             <p>The court registry staff will check your documents to make sure they are complete.</p>
             <p>If you are not sure whether you’ve completed your application properly, you may want to get some legal advice before you file your documents.</p>
@@ -42,6 +42,25 @@
             <p>
                 Once your application is reviewed, the registry staff will stamp the document, assign a court file number (if there is no existing court file number), schedule the court appearance, and return a copy of the application to you.
             </p>
+
+            <div class="my-4" v-if="regForeignSupportOrder">
+                <div class="mb-2">
+                    To serve the designated registry, you must send the application and a copy of the foreign order by registered mail to:
+                </div>
+                <div>
+                    Interjurisdictional Support Services
+                </div>
+                <div>                
+                    Vancouver Main Office Boxes
+                </div>
+                <div>
+                    P.O. Box 2074
+                </div>
+                <div>
+                    Vancouver, BC V6B 3S3
+                </div>
+            </div>
+
             <p>
                 The registry will give you information about your next steps.
             </p>
@@ -130,6 +149,8 @@
         currentPage =0;
         hasNeedPOselected = false
         showServeOtherParty = false
+        
+        regForeignSupportOrder = false;
 
         mounted(){ 
             this.hasNeedPOselected = false
@@ -139,24 +160,31 @@
             const stepGETSTART = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo]
             const stepPO = this.$store.state.Application.steps[this.stPgNo.PO._StepNo]
 
-            //console.log(this.currentPage)
+            this.regForeignSupportOrder = this.getRegForeignSupportOrderStatus()
+
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
-            if( stepGETSTART.result && 
-                stepGETSTART.result.selectedForms &&
-                stepGETSTART.result.selectedForms.includes('protectionOrder') &&
-                stepPO.result &&
-                stepPO.result.poQuestionnaireSurvey &&
-                stepPO.result.poQuestionnaireSurvey.data &&
-                stepPO.result.poQuestionnaireSurvey.data.orderType == 'needPO'
-            )  this.hasNeedPOselected =  true;
+
+            const includesOrderActivities = stepGETSTART.result?.selectedActivity.includes('applyForOrder');
+            
+            if( includesOrderActivities && stepGETSTART.result?.selectedForms?.includes('protectionOrder') && stepPO.result?.poQuestionnaireSurvey?.data?.orderType == 'needPO')  
+                this.hasNeedPOselected =  true;
+        }
+
+        public getRegForeignSupportOrderStatus(){
+            const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
+            
+            if(stepENFRC.active && stepENFRC.result?.enfrcQuestionnaireSurvey?.data?.includes('foreignSupport') )
+                return true
+            else
+                return false
         }
 
         public onPrev() {
-            this.UpdateGotoPrevStepPage()
+            Vue.prototype.$UpdateGotoPrevStepPage()
         }
 
         public onNext() {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 </script>

@@ -3,10 +3,10 @@
         <survey v-bind:survey="survey"></survey>
         <div class="row">
             <div class="col-6">
-                <button type="button" class="btn btn-primary" @click="goBack()">Back</button>
+                <button type="button" class="btn btn-secondary" @click="goBack()">Cancel</button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-primary" @click="saveParty()">Save Changes</button>
+                <button type="button" class="btn btn-success" @click="saveParty()">Save</button>
             </div>
         </div>
         <br />
@@ -18,7 +18,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import { otherPartyInfoType, addressInfoType, contactInfoType } from "@/types/Application/CommonInformation";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -64,7 +64,6 @@ export default class OtherPartySurvey extends Vue {
 
             Vue.filter('surveyChanged')('protectionOrder')
 
-            //console.log(this.survey.data)
             this.populateOpModel(sender.data);
             let id = sender.getVariable("id");
             if (id == null || id == undefined) {
@@ -80,7 +79,7 @@ export default class OtherPartySurvey extends Vue {
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        //console.log(this.step.result)
+
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
         }
@@ -101,9 +100,9 @@ export default class OtherPartySurvey extends Vue {
     }
 
     public populateOpModel(opData) {
-        //console.log(opData)
-        //console.log(this.op)
+       
         this.op.name = opData.OtherPartyName;
+        this.op.lawyer = opData.otherPartyLawyer;
         this.op.knowDob = opData.doYouKnowDOB;
         this.op.dob = opData.otherPartyDOB;
         this.op.opRelation = opData.relationWithOtherParty;
@@ -127,7 +126,6 @@ export default class OtherPartySurvey extends Vue {
         }
         else
             this.op.contactInfo = {} as contactInfoType
-
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
@@ -146,6 +144,8 @@ export default class OtherPartySurvey extends Vue {
                 email: editRowProp.contactInfo.email
             }
         };
+        survey.setValue("otherPartyLawyer", editRowProp.lawyer);
+        
         survey.setValue("doYouKnowDOB", editRowProp.knowDob);
         survey.setValue("otherPartyDOB", editRowProp.dob);
         survey.setValue("relationWithOtherParty", editRowProp.opRelation);
@@ -161,9 +161,8 @@ export default class OtherPartySurvey extends Vue {
     beforeDestroy() {
 
         const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })    
-    
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
     }
   
-};
+}
 </script>

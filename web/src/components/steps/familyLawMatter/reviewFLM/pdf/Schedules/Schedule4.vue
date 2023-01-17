@@ -9,7 +9,7 @@
             <div style="text-align:center;"><b>This is Schedule 4 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about child support, or to set aside or replace all or part of an existing agreement about child support, for the child or children identified in section 11 of this application.</i>
+                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about child support, or to set aside or replace all or part of an existing agreement about child support, for the child or children identified in section 12 of this application.</i>
             </div>
 
 <!-- <1> -->
@@ -18,7 +18,7 @@
                 
                 <div style="margin-left:1rem;">
                     <i>Select only one of the options below</i>
-                    <check-box style="" :check="exChSupInfo.abtEx.payor?'yes':''" text="make payments for support of a child or children"/>
+                    <check-box  :check="exChSupInfo.abtEx.payor?'yes':''" text="make payments for support of a child or children"/>
                     <check-box style="width:120%;" :check="exChSupInfo.abtEx.payee?'yes':''" text="receive payments for support of a child or children"/>
                     <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="exChSupInfo.abtEx.other?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="exChSupInfo.abtEx.otherComm"/>            
@@ -41,12 +41,12 @@
                         <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtEx.exstngOrdr?'yes':''" text="I am applying for the existing final order about child support to be:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="exChSupInfo.abtEx.changeOrdr?'yes':''" text="changed"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.cancelOrdr?'yes':''" text="cancelled"/>
+                        <check-box  :check="exChSupInfo.abtEx.changeOrdr?'yes':''" text="changed"/>
+                        <check-box  :check="exChSupInfo.abtEx.cancelOrdr?'yes':''" text="cancelled"/>
                         <div>Since the final order about child support was made, circumstances have changed as follows:</div>
                         <i class="marginleft-1vue">Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="exChSupInfo.abtEx.changes.myfin?'yes':''" text="my financial situation has changed"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
+                        <check-box  :check="exChSupInfo.abtEx.changes.myfin?'yes':''" text="my financial situation has changed"/>
+                        <check-box  :check="exChSupInfo.abtEx.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
                         <check-box style="margin:0 0 -0.25rem 0;" :check="exChSupInfo.abtEx.changes.spcl?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
                         <div v-if="exChSupInfo.abtEx.changes.spcl" 
                              class="answerbox">{{exChSupInfo.abtEx.expChangeInfo}}</div>
@@ -79,8 +79,8 @@
                         <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtEx.exstngAgrmnt?'yes':''" text="I am applying for the existing agreement about child support to be:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="exChSupInfo.abtEx.setAsideAgrmnt?'yes':''" text="set aside"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.replaceAgrmnt?'yes':''" text="replaced"/>
+                        <check-box  :check="exChSupInfo.abtEx.setAsideAgrmnt?'yes':''" text="set aside"/>
+                        <check-box  :check="exChSupInfo.abtEx.replaceAgrmnt?'yes':''" text="replaced"/>
                         <div style="margin:0 0 -0.25rem 0;">I believe the agreement should be set aside or replaced because:</div>                    
                         <div v-if="exChSupInfo.abtEx.exstngAgrmnt" 
                             class="answerbox">{{exChSupInfo.abtEx.changesSinceAgrmnt}}</div>
@@ -191,13 +191,13 @@
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
                         <i>Select all options that apply</i>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payor?'yes':''" text="I am the payor"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.split?'yes':''" text="there is split or shared parenting time"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.partyParentOfOther?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payorEarnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.specialClaim?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.undueHardship?'yes':''" text="I am claiming undue hardship"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payor?'yes':''" text="I am the payor"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.split?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.partyParentOfOther?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payorEarnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.specialClaim?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.undueHardship?'yes':''" text="I am claiming undue hardship"/>
                     </div>
                     <div style="margin:0.5rem 0 0 1.5rem;">
                         <check-box style="margin:0 0 0 0rem;" :check="!exChSupInfo.applyForCaseManagement && exChSupInfo.abtOrg.situation.none?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
@@ -228,8 +228,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import moment from 'moment';
 import { schedule4DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
@@ -260,7 +260,6 @@ export default class Schedule4 extends Vue {
 
     public getExistingChildSupportInfo(){
         let existingChildSupportInfo = {} as schedule4DataInfoType;
-        // console.log(this.result)
 
         if (this.result.aboutExistingChildSupportSurvey && this.result.childSupportOrderAgreementSurvey){
             const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked:[];
@@ -290,25 +289,26 @@ export default class Schedule4 extends Vue {
                     newInfo: orderChangeList.includes('newInformation'),
                     other: orderChangeList.includes('other')
                 },
-                newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&        orderChangeList.includes('newInformation')     && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment)?      this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment:'',
-                expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('expensesChanged')    && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment)?     this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment:'',
-                lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('arrangementsChanged') && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment)?this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment:'',
-                otherInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&      orderChangeList.includes('other')              && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment)?               this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment:'',
-                exstngAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
-                setAsideAgrmnt:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
-                replaceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
-                changesSinceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)?this.result.aboutExistingChildSupportSurvey.changesSinceAgreement:''
+                newInfo:       (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList?.includes('newInformation')      && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList?.newInformationComment)?      this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment:'',
+                expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList?.includes('expensesChanged')     && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList?.expensesChangedComment)?     this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment:'',
+                lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList?.includes('arrangementsChanged') && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList?.arrangementsChangedComment)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment:'',
+                otherInfo:     (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList?.includes('other')               && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList?.otherComment)?               this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment:'',
+                exstngAgrmnt:       (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
+                setAsideAgrmnt:     (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
+                replaceAgrmnt:      (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
+                changesSinceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)? this.result.aboutExistingChildSupportSurvey.changesSinceAgreement : ''
             }
         }
 
         if (this.result.aboutChildSupportChangesSurvey){
             const aboutChildSupportChanges = this.result.aboutChildSupportChangesSurvey;
-            const changeCondition =   existingChildSupportInfo.abtEx && (existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr'])
-            const orgSituationList = (changeCondition && aboutChildSupportChanges.listOfSituations)?aboutChildSupportChanges.listOfSituations:[]
+            const changeCondition =  (existingChildSupportInfo?.abtEx?.['replaceAgrmnt'] || existingChildSupportInfo?.abtEx?.['changeOrdr'])
+            const orgSituationList = (changeCondition && aboutChildSupportChanges.listOfSituations)? aboutChildSupportChanges.listOfSituations:[]
+            const orderStartCondition = aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?Vue.filter('beautify-date')(aboutChildSupportChanges.orderStartingDate.startingDate):aboutChildSupportChanges.orderStartingDate.otherComment;
             existingChildSupportInfo.abtOrg = {                
-                newOrderDesc: changeCondition? aboutChildSupportChanges.orderDescription:'',
-                startDate:   (changeCondition && aboutChildSupportChanges.orderStartingDate)?(aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?aboutChildSupportChanges.orderStartingDate.startingDate:aboutChildSupportChanges.orderStartingDate.otherComment):'',
-                startReason: (changeCondition && aboutChildSupportChanges.orderStartDateReason)?aboutChildSupportChanges.orderStartDateReason:'',
+                newOrderDesc: changeCondition ?  aboutChildSupportChanges.orderDescription:'',
+                startDate:   (changeCondition && aboutChildSupportChanges.orderStartingDate)? orderStartCondition:'',
+                startReason: (changeCondition && aboutChildSupportChanges.orderStartDateReason)? aboutChildSupportChanges.orderStartDateReason:'',
                 situationList: orgSituationList,                    
                 situation: {
                     payor: orgSituationList.includes('I am required to pay child support'),
@@ -321,6 +321,23 @@ export default class Schedule4 extends Vue {
                     none: orgSituationList.includes('None of the above apply to my situation')
                 }
             }
+        } else {
+            existingChildSupportInfo.abtOrg = {                
+                newOrderDesc: '',
+                startDate:   '',
+                startReason: '',
+                situationList: [],                    
+                situation: {
+                    payor: false,
+                    split: false,
+                    over19: false,
+                    partyParentOfOther: false,
+                    payorEarnsHigh: false,
+                    specialClaim: false,
+                    undueHardship: false,
+                    none: false
+                }
+            }
         }
 
         if (this.result.unpaidChildSupportSurvey){
@@ -328,15 +345,27 @@ export default class Schedule4 extends Vue {
             existingChildSupportInfo.unpdChSup = unpaidChildSupport.unpaid == 'y'?
             {
                 crntDate: moment().format("MMM DD, yyyy"),   
-                unpaid: unpaidChildSupport.unpaid == 'y',
-                reduce: unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y',
-                reduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')?unpaidChildSupport.reduceAmount:'',
-                whyReduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')?unpaidChildSupport.whyReduceAmount:'',
-                paySchd: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule)?unpaidChildSupport.paymentSchedule.selected:'',
-                monthlyAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule && unpaidChildSupport.paymentSchedule.selected == 'monthly')? unpaidChildSupport.paymentSchedule.monthlyAmount:'',
-                amnt: (unpaidChildSupport.unpaid == 'y')?unpaidChildSupport.unPaidAmount:0, 
-                otherComm: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule) && (unpaidChildSupport.paymentSchedule.selected == 'other')? unpaidChildSupport.paymentSchedule.otherComment:''       
+                unpaid:           unpaidChildSupport.unpaid == 'y',
+                reduce:          (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y'),
+                reduceAmount:    (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')? unpaidChildSupport.reduceAmount : '',
+                whyReduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')? unpaidChildSupport.whyReduceAmount : '',
+                paySchd:         (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule)?      unpaidChildSupport.paymentSchedule.selected : '',
+                monthlyAmount:   (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule?.selected == 'monthly')? unpaidChildSupport.paymentSchedule.monthlyAmount : '',
+                amnt:            (unpaidChildSupport.unpaid == 'y')?  unpaidChildSupport.unPaidAmount : 0, 
+                otherComm:       (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule?.selected == 'other')? unpaidChildSupport.paymentSchedule.otherComment : ''       
             }:{
+                crntDate: moment().format("MMM DD, yyyy"),   
+                unpaid: false,
+                reduce: false,
+                reduceAmount: '',
+                whyReduceAmount: '',
+                paySchd: '',
+                monthlyAmount: '',
+                amnt: 0, 
+                otherComm:''  
+            }
+        } else {
+            existingChildSupportInfo.unpdChSup = {
                 crntDate: moment().format("MMM DD, yyyy"),   
                 unpaid: false,
                 reduce: false,
@@ -354,25 +383,26 @@ export default class Schedule4 extends Vue {
                 attaching: this.result.calculatingChildSupportSurvey.attachingCalculations == 'y',
                 reason: (this.result.calculatingChildSupportSurvey.attachingCalculations == 'n' && this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations)? this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations: ''
             }
+        } else {
+            existingChildSupportInfo.calc = {   
+                attaching: false,
+                reason: ''
+            }
         }
 
-        // console.log('____')
-        // console.log(existingChildSupportInfo.abtOrg.situation)
-
-
         existingChildSupportInfo.finStmnt = {
-            required: (existingChildSupportInfo.abtOrg.situation.payor ||
-                    existingChildSupportInfo.abtOrg.situation.over19 ||
-                    existingChildSupportInfo.abtOrg.situation.split  ||
-                    existingChildSupportInfo.abtOrg.situation.partyParentOfOther  ||
-                    existingChildSupportInfo.abtOrg.situation.payorEarnsHigh ||
-                    existingChildSupportInfo.abtOrg.situation.specialClaim ||
-                    existingChildSupportInfo.abtOrg.situation.undueHardship )
+            required: (existingChildSupportInfo.abtOrg?.situation?.payor ||
+                       existingChildSupportInfo.abtOrg?.situation?.over19 ||
+                       existingChildSupportInfo.abtOrg?.situation?.split  ||
+                       existingChildSupportInfo.abtOrg?.situation?.partyParentOfOther  ||
+                       existingChildSupportInfo.abtOrg?.situation?.payorEarnsHigh ||
+                       existingChildSupportInfo.abtOrg?.situation?.specialClaim ||
+                       existingChildSupportInfo.abtOrg?.situation?.undueHardship )
         }
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
             for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
@@ -380,7 +410,7 @@ export default class Schedule4 extends Vue {
             }   
         }
 
-        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && form4unable){
             existingChildSupportInfo.applyForCaseManagement = true
             existingChildSupportInfo.finStmnt = {
                 required: false

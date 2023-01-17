@@ -1,10 +1,14 @@
-.table >>> th{border:1px solid #000;}
-.table >>> td{border:1px solid #000;}
-.table >>> tr{height:1.5rem;}
+.table :deep(th) {border:1px solid #000;}
+.table :deep(td) {border:1px solid #000;}
+.table :deep(tr) {height:1.5rem;}
 
 table.fullsize {table-layout: fixed; width: 100%; margin-top:1rem;}
-table.fullsize >>> tr{border:1px solid #313132;}
-table.fullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
+table.fullsize :deep(tr) {border:1px solid #313132;}
+table.fullsize :deep(td) {padding:0 0 0 .5rem; color: #313132;}
+
+table.compactfullsize {table-layout: fixed; width: 100%; margin-top:0rem;}
+table.compactfullsize :deep(tr) {border:1px solid #313132;}
+table.compactfullsize :deep(td) {padding:0 0 0 .5rem; color: #313132;}
 
 .new-page{margin-top:7rem;}
 .marginleft{margin-left:-1rem;}
@@ -12,13 +16,26 @@ table.fullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
 .marginleft1p5vue{margin-left:1.5rem !important;}
 .marginleft2p5vue{margin-left:2.5rem !important;}
 .marginleft-1vue{margin-left:-1rem !important;}
+.marginleft0p25vue{margin-left:0.25rem !important;}
+
+.margintop1vue{margin-top:1rem !important;}
+.margintop-1vue{margin-top:-1rem !important;}
 
 .answer{color: #000; display:inline; font-size:11pt;}
 .answerbox{color: #000; font-size:11pt; display:block;text-indent:0px; margin:0.5rem 0 0.5rem 0.1rem;}
 .uline{text-decoration: underline; display: inline;}
 .form-header{display:block; margin:0 0 4rem 0;}
-.form-header-po{display:block; margin:0 0 4rem 0;}
+.form-header-po{display:block; margin:0 0 6.25rem 0;}
+.form-header-rflm{display:block; margin:0 0 10rem 0;}
+.form-header-wr{display:block; margin:0 0 13rem 0;}
+.form-header-ppm{display:block; margin:0 0 5.25rem 0;}
+.form-header-cm{display:block; margin:0 0 7rem 0;}
+.form-header-cmo{display:block; margin:0 0 5rem 0;}
 .form-one-header{display:block; margin:0 0 4rem 0;}
+.form-header-reloc{display:block; margin:0 0 6.25rem 0;}
+.form-header-ea{display:block; margin:0 0 6rem 0;}
+.form-header-enf{display:block; margin:0 0 4.5rem 0;}
+.form-header-cs{display:block; margin:0 0 4rem 0;}
 
 section{
     counter-increment: question-counter;         
@@ -54,6 +71,36 @@ ol li.bracketnumber{
 ol li.bracketnumber:before {
     content:"(" counter(bracket-counter) ") ";
     font-weight: bold;
+}
+
+ol.resetcounteralpha {
+    list-style: none;
+    counter-reset: alpha-counter;
+}
+  
+ol li.bracketalpha {
+    text-indent: -20px;
+    margin:0.25rem 0;
+    counter-increment: alpha;
+}
+
+ol li.bracketalpha:before {
+    content:counter(alpha, lower-alpha)") ";
+}
+
+ol.resetcounterroman {
+    list-style: none;
+    counter-reset: roman-counter;
+}
+  
+ol li.bracketroman {
+    text-indent: -20px;
+    margin:0.25rem 0;
+    counter-increment: roman;
+}
+
+ol li.bracketroman:before {
+    content:counter(roman, lower-roman)") ";
 }
 
 ol.resetlist {

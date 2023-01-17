@@ -5,14 +5,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/child-support-order-agreement.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -36,11 +37,9 @@ export default class ChildSupportOrderAgreement extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];  
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -76,7 +75,6 @@ export default class ChildSupportOrderAgreement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
             this.setPages();
         })
     }
@@ -86,7 +84,7 @@ export default class ChildSupportOrderAgreement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.childSupportOrderAgreementSurvey) {
+        if (this.step.result?.childSupportOrderAgreementSurvey) {
             this.survey.data = this.step.result.childSupportOrderAgreementSurvey.data; 
             if (this.survey.data.existingType == 'Neither') {
                 this.disableNextButton = true;
@@ -105,36 +103,25 @@ export default class ChildSupportOrderAgreement extends Vue {
         const existingOrderAgreementPages =    [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM]
         const existingOrderAgreementPagesAll = [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
 
-        if (this.survey.data.existingType == 'ExistingOrder') {
+        if ((this.survey.data?.existingType == 'ExistingOrder') ||
+             (this.survey.data?.existingType == 'ExistingAgreement')) {
+                 
             this.disableNextButton = false;
-            this.togglePages(existingOrderAgreementPages, true);
-            
-        } else if (this.survey.data.existingType == 'ExistingAgreement') {
-            this.disableNextButton = false;
-            this.togglePages(existingOrderAgreementPages, true);                
-        } else if (this.survey.data.existingType == "Neither") {
-            this.togglePages(existingOrderAgreementPagesAll, false);
+            togglePages(existingOrderAgreementPages, true, this.currentStep);            
+                
+        } else if (this.survey.data?.existingType == "Neither") {
+            togglePages(existingOrderAgreementPagesAll, false, this.currentStep);
             this.disableNextButton = true;
         }
     }
 
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
-
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     
@@ -144,8 +131,3 @@ export default class ChildSupportOrderAgreement extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

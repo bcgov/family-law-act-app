@@ -1,0 +1,88 @@
+{
+  "title": "Reply Existing Child Support",
+  "pages": [
+    {
+      "name": "Reply Existing Child Support",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "childSupportDescription",
+          "title": "The other party has made an application for an order about child support.<br><br>Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child. A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.<br><br>Although parents have the primary responsibility to pay child support, other guardians and step-parents may be responsible for paying child support. If you are a step-parent, and you need more information about step-parents and child support, see the fact sheet <a target='_blank' href='https://familylaw.lss.bc.ca/resources/fact_sheets/step_parents_rights.php'>Step-parents Rights and Responsibilities</a> by Legal Aid BC.<br><br>For more information about child support and referrals to other child support resources, visit the <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=9FC4E697F0204229BE702F32475C9107'>BC Government website</a> at <a target='_blank' href='http://www.gov.bc.ca'>www.gov.bc.ca</a>.<br><br>The details of the order the other party is asking for can be found in <b>Schedule 4 – Child Support Order or Written Agreement – Existing</b> of their Application About a Family Law Matter. You will need to refer to their application for these next questions.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "ExistingChildSupportPanel",
+          "elements": [          
+            {
+              "type": "yesno",
+              "name": "agreeCourtOrder",
+              "title": "Do you agree the court should make the order?",
+              "description": "Look at the order the other party is applying for. Their order may be set out in their response to <b>Question 5, Question 7, Question 8</b> and <b>Question 10</b> on <b>Schedule 4 – Child Support Order or Written Agreement – Existing</b> of their Application About a Family Law Matter. Should the court make the order?<br><br>If you agree to only part of the order, for example, you agree to pay child support monthly but not the amount they’ve set out, select NO. This service will help you to explain why the order should be different.",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ExistingChildSupportApplicationPanel",
+          "visible": false,
+          "visibleIf": "{agreeCourtOrder} = 'n'",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "existingType",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n'",
+              "title": "Is the other party’s application about an existing final order or an existing agreement?",  
+              "description": "Check the other party’s application. On <b>Schedule 4 – Child Support Order or Written Agreement – Existing, Question 3</b> would be completed for a final order, <b>Question 4</b> would be completed for an agreement.<br>Select the correct option.",            
+              "choices": [
+                {
+                  "value": "finalOrder",
+                  "text": "Final order"
+                },
+                {
+                  "value": "agreement",
+                  "text": "Agreement"
+                }
+              ]
+            },
+            {
+              "type": "yesno",
+              "name": "agreeFinalOrder",
+              "description": "The court can only change or cancel an order if there has been a change in circumstances since the final court order was made, including:<ul><li>a change in the circumstances of the child</li><li>a change in the circumstances of another person such as a parent</li><li>information was not available or not disclosed previously</li>",
+              "title": "Do you agree with the other party that circumstances have changed since the final order was made?",
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {existingType} = 'finalOrder'",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "agreeAgreement",
+              "description": "If there is an existing agreement, the court can set aside all or part of the existing agreement and replace it with a new order if something different would have been ordered in consideration of section 150 of the Family Law Act. Section 150 establishes the Federal Child Support Guidelines as the starting point for determining child support. Section 150 also provides flexibility so that parties may agree to an amount of child support that is different from the Child Support Guidelines if reasonable arrangements have been made or where other financial arrangements or special provisions have been made that benefit the child making the guideline amount inequitable.",
+              "title": "Do you believe the agreement would be different if <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_07#section150' target='_blank'>section 150</a> of the Family Law Act was considered?",
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and {existingType} = 'agreement'",
+              "isRequired": true
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "visible": false,
+              "visibleIf": "{agreeCourtOrder} = 'n' and ({existingType} = 'agreement' or {existingType} = 'finalOrder')",
+              "title": "I'm not sure. Where can I get help?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            }
+          ]
+        }
+   
+      ],
+      "title": "Reply Existing Child Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

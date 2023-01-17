@@ -1,0 +1,173 @@
+{
+  "title": "Enforce Agreement or Order",
+  "pages": [
+    {
+      "name": "Enforce Agreement or Order",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "enforceAgreementOrOrderPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "enforceOrder",
+              "isRequired": true,
+              "title": "Do you want to enforce a Provincial Court family order made in BC?",
+              "description": "Your order was probably made in Provincial Court in BC but you can also enforce a written agreement, order from outside BC, or an order from BC Supreme Court in Provincial Court. This service will help you apply to enforce those too, there are just some extra questions we need to ask you about those."
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocuments1",
+              "title": "You will need to include a copy of your court order when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'y'",
+              "messageStyle": "info"
+            },
+            {
+              "type": "yesno",
+              "name": "filedOrder",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n'",
+              "title": "Is your written agreement or court order already filed in a Provincial Court registry in BC?",
+              "description": "A document is filed in a Provincial Court registry when it is accepted for filing, a registry stamp is applied to the document, and it is put on a court file. Check your document to see if it has a registry stamp and court file number on it."
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocuments2",
+              "title": "You will need to include a copy of your filed written agreement or court order when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'y'",
+              "messageStyle": "info"
+            },
+            {
+              "type": "radiogroup",
+              "name": "existingType",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n'",
+              "choices": [
+                {
+                  "value": "writtenAgreement",
+                  "text": "Written Agreement"
+                },
+                {
+                  "value": "courtOrder",
+                  "text": "Court Order"
+                }
+              ],
+              "title": "Which do you have?",
+              "description": "Select the correct option."
+            },
+            {
+              "type": "panel",
+              "name": "writtenAgreementPanel",
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'writtenAgreement'",
+              "elements": [
+                {
+                  "type": "checkbox",
+                  "name": "agreementType",
+                  "title": "Select each option that applies to the agreement you’re trying to enforce.",
+                  "description": "A written agreement can be filed in Provincial Court under one or more sections of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_00' target='_blank'>Family Law Act</a>. When it is filed under the Family Law Act, it is enforceable under the Act as if it were an order of the Provincial Court.</br></br>Look at the terms in the written agreement to see what it is about. You can select more than one option below if your agreement is about different issues. ",
+                  "visible": false,
+                  "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'writtenAgreement'",
+                  "choices": [
+                    {
+                      "value": "section15",
+                      "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_02#section15' target='_blank'>Section 15</a> [when parenting coordinators may assist]</b></br><div style='font-size:12pt;'>A written agreement about when parenting coordinators may assist will include terms about having a parenting coordinator help you resolve parenting issues. It may include what issues they will help with, when they may help, how long they can help and how parenting coordination ends. Before you and the other party can involve a parenting coordinator in helping you with parenting issues, you must have an agreement or a court order in place.</br></br>"
+                    },
+                    {
+                      "value": "section44",
+                      "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section44' target='_blank'>Section 44(3)</a> [agreements respecting parenting arrangements]</b></br><div style='font-size:12pt;'>A written agreement about parenting arrangements is made by the parents or guardians of a child about the care of the child. It can include arrangements about where the children will live, parenting time, and who will be responsible for making decisions about the children such as medical care, schooling and more.</br></br>"
+                    },
+                    {
+                      "value": "section58",
+                      "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section58' target='_blank'>Section 58(3)</a> [agreements respecting contact]</b></br><div style='font-size:12pt;'>A written agreement about contact with a child is made between a guardian and a non-guardian of a child. It is about contact between a child and a non-guardian.</br></br>"
+                    },
+                    {
+                      "value": "section148",
+                      "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_07#section148' target='_blank'>Section 148(2)</a> [agreements respecting child support]</b></br><div style='font-size:12pt;'>A written agreement about child support may include terms about the amount of child support, when it must be paid and extraordinary and special expenses. If you need to enforce a written agreement about child support, you may want to contact the <a href='https://www.fmep.gov.bc.ca/' target='_blank'>Family Maintenance Enforcement Program</a> (FMEP) first to see if they can help. Once filed, you or FMEP can enforce it like a court order.</br></br>"
+                    },
+                    {
+                      "value": "section163",
+                      "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_07#section163' target='_blank'>Section 163(3)</a> [agreements respecting spousal support]</b></br><div style='font-size:12pt;'>A written agreement about spousal support may include terms about the amount of spousal support, when it must be paid and when or how spousal support will end. If you need to enforce a written agreement about spousal support, you may want to contact the <a href='https://www.fmep.gov.bc.ca/' target='_blank'>Family Maintenance Enforcement Program</a> first to see if they can help. Once filed, you or FMEP can enforce it like a court order.</br></br>"
+                    }
+                  ],
+                  "isRequired": true
+                },
+                {
+                  "type": "infotext",
+                  "name": "RequiredDocuments3",
+                  "title": "You will need to include a copy of your written agreement when you file your documents. You will be reminded to include a copy at the end of the service.",
+                  "titleLocation": "hidden",
+                  "visible": false,
+                  "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'writtenAgreement'",
+                  "messageStyle": "info"
+                },
+                {
+                  "type": "helptext",
+                  "name": "FAQLegalAdvice1",
+                  "visible": false,
+                  "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'writtenAgreement'",
+                  "title": "What if my written agreement is about property division or pension division?",
+                  "titleLocation": "hidden",
+                  "body": "The Provincial Court does not have jurisdiction to make an order or to enforce an order about property division or pension division. The Supreme Court has exclusive jurisdiction in BC about these issues. If you need to enforce a written agreement about property division or pension division, you will need to file it in Supreme Court.</br></br>For more information on filing a written agreement in Supreme Court, see <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/169_2009_01#rule2-1' target='_blank'>Supreme Court Family Rule 2-1 [Agreements]</a>. "
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "name": "courtOrderPanel",
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'courtOrder'",
+              "elements": [
+                {
+                  "type": "checkbox",
+                  "name": "orderType",
+                  "title": "Select each option that applies to the court order you’re trying to enforce.",
+                  "description": "Depending on what your court order from another jurisdiction is about, there are different laws and ways it must be filed in Provincial Court. When an order from another jurisdiction is filed in Provincial Court, it is enforceable under the Family Law Act as if it were an order of the Provincial Court.</br></br>Look at the terms in the court order to see what it is about. You can select more than one option below if your order is about different issues.",
+                  "visible": false,
+                  "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'courtOrder'",
+                  "choices": [
+                    {
+                      "value": "section195",
+                      "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section195' target='_blank'>Section 195</a> [Provincial Court enforcement of Supreme Court Orders] of the Family Law Act</b></br><div style='font-size:12pt;'>Select this option if you have a court order from BC Supreme Court about parenting arrangements or contact with a child that you want to enforce in Provincial Court. If a `certified copy` of the order is filed with Provincial Court, it can be enforced in Provincial Court under the Family Law Act.</br></br>"
+                    },
+                    {
+                      "value": "section15-3",
+                      "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/169_2009_03#subrule_d2e18698' target='_blank'>Section 15-3 (6)</a> [enforcement in Provincial Court] of the Supreme Court Family Rules</b></br><div style='font-size:12pt;'>Select this option if you have a court order from BC Supreme Court or registered in BC Supreme Court about child support or spousal support that you want to enforce in Provincial Court. Once filed, it can be enforced in Provincial Court as if it were contained in an order made in Provincial Court under the Family Law Act. If you need to enforce a Supreme Court order about child support or spousal support, you may want to contact the <a href='https://www.fmep.gov.bc.ca/' target='_blank'>Family Maintenance Enforcement Program</a> (FMEP) first to see if they can help.</br></br>"
+                    }
+                  ],
+                  "isRequired": true
+                },
+                {
+                  "type": "helptext",
+                  "name": "FAQLegalAdvice2",
+                  "visible": false,
+                  "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'courtOrder'",
+                  "title": "What if my court order is from outside BC?",
+                  "titleLocation": "hidden",
+                  "body": "A court order from outside BC can still be filed in Provincial Court and enforced under the Family Law Act. There are a few more steps involved in filing an order from outside BC.</br></br>If you have a <b>support order</b> from outside BC, it can be registered under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02029_01#section18' target='_blank'>section 18</a> of the <i>Interjurisdictional Support Orders Act</i> for enforcement in the BC Provincial Court. To register it, you must contact the designated authority. They will coordinate everything with you, the Provincial Court, and the other jurisdiction. After your order is filed, you may want to contact the <a href='https://www.fmep.gov.bc.ca/' target='_blank'>Family Maintenance Enforcement Program</a> (FMEP) first to see if they can help with enforcement.</br></br>Interjurisdictional Support Services</br><a href='https://www.isoforms.bc.ca/' target='_blank'>www.isoforms.bc.ca</a></br>Vancouver Main Office Boxes</br>P.O. Box 2074</br>Vancouver, BC V6B 3S3</br>Phone: 604-660-2528</br>Toll-free: 1-866-660-2684</br></br>If you have an <b>order about parenting arrangements, contact with a child or guardianship</b> from a jurisdiction outside BC, you must apply to the Provincial Court to recognize the order in BC. You can apply using the case management pathway through this service. Select Case Management in Step 1 Get Started then “Recognizing an order from outside British Columbia (other than a support order)” in the case management pathway.</br></br>After your order has been filed, you can apply for enforcement using this pathway. Select “Yes” to the question “Is your written agreement or court order already filed in a Provincial Court registry in BC?”"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "existingDate",
+              "title": "Please provide the date the written agreement or court order was made.",
+              "description": "For a written agreement, provide the date the written agreement was signed. For an order, the date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
+              "inputType": "date",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Enforce Agreement or Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

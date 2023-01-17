@@ -1,4 +1,3 @@
-import { addressInfoType, contactInfoType, lawyerStatementInfoType, nameInfoType } from "../../CommonInformation";
 
 export interface locationInfoDataInfoType {
     courtLocation: string;
@@ -7,25 +6,6 @@ export interface locationInfoDataInfoType {
     familyJusticeRegistry: boolean;
     earlyResolutionRegistry: boolean;
     none: boolean;
-}
-
-export interface childrenInfoSurveyInfoType {
-    fullName: string; 
-    dob: string;
-    myRelationship: string;
-    otherPartyRelationship: string; 
-    currentSituation: string; 
-}
-
-export interface yourInformationInfoDataInfoType {
-    dob: string;
-    name: string;
-    lawyer: boolean;
-    lawyerName: string;
-    address: addressInfoType;
-    contact: contactInfoType;
-    lawyerFiling: boolean;
-    lawyerStatement: lawyerStatementInfoType;
 }
 
 export interface relationshipBetweenPartiesInfoType {

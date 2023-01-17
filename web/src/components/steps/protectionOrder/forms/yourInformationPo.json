@@ -68,11 +68,10 @@
               "name": "ExplanationServiceAddress",
               "visible": false,
               "visibleIf": "{Lawyer} = 'n'",
-              "title": "You need to give an address where it is safe for you to receive court documents. The person protection is needed from will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.",
+              "title": "You need to give an address where it is safe for you to receive court documents. The person protection is needed from will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.\n<br>\n<br>\nIf the address is outside of Canada, please select the country first before entering the address information.",
               "isRequired": true,
               "titleLocation": "hidden"
-            },
-           
+            },           
             {
               "type": "panel",
               "name": "ApplicantContactPanel",
@@ -121,6 +120,15 @@
                   "visibleIf": "{Lawyer} = 'y'",
                   "title": "What is your lawyer's full name?",
                   "isRequired": true
+                },
+                {
+                  "type": "infotext",
+                  "name": "ExplanationLawyerAddress",
+                  "visible": false,
+                  "visibleIf": "{Lawyer} = 'y'",
+                  "title": "If the address is outside of Canada, please select the country first before entering the address information.",
+                  "isRequired": true,
+                  "titleLocation": "hidden"
                 },
                 {
                   "type": "address",

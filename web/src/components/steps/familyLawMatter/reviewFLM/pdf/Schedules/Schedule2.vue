@@ -7,13 +7,13 @@
             <div style="text-align:center;"><b> This is Schedule 2 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about parenting arrangements, or to set aside or replace all or part of an agreement about parenting arrangements, of the child or children identified in section 11 of this application.</i>
+                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about parenting arrangements, or to set aside or replace all or part of an agreement about parenting arrangements, of the child or children identified in section 12 of this application.</i>
             </div>
 <!-- <1> -->
             <section class="resetquestion"> 
                 I am:
                 <div style="margin-left:1rem;">
-                    <check-box style="" :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
+                    <check-box  :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
                     <check-box style="width:120%;" :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
                 </div>
             </section>
@@ -35,8 +35,8 @@
                     <div>
                         <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exParentArrInfo.type == 'ExistingOrder'?'yes':''" text="I am applying for the existing final order to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="changed"/>
-                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="cancelled"/>
+                            <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="changed"/>
+                            <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="cancelled"/>
                         </div>
                         <div style="margin:0 0 0 1rem;">Since the final order was made, needs or circumstances have changed as follows:</div>
                     
@@ -57,8 +57,8 @@
                     <div>
                         <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exParentArrInfo.type == 'ExistingAgreement'?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="set aside"/>
-                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="replaced"/>
+                            <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="set aside"/>
+                            <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="replaced"/>
                         </div>
                         <div style="margin:0 0 0 1rem;">I believe the agreement is not in the best interests of the child(ren) because:</div>
                         <div v-if="exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.changesSince" 
@@ -137,8 +137,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule2DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
@@ -169,20 +169,19 @@ export default class Schedule2 extends Vue {
     public getExistingParentingArrangementsInfo(){
         let existingParentingArrangements = {} as schedule2DataInfoType;
 
-        const generalCondition = (( this.result.aboutParentingArrangementsSurvey && 
-                                    this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' &&                                    
-                                    this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder')
+        const generalCondition = (( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingOrder' &&                                    
+                                    this.result.aboutParentingArrangementsSurvey?.orderDifferenceType == 'changeOrder')
                                  || 
-                                  ( this.result.aboutParentingArrangementsSurvey && 
-                                    this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement'&& 
-                                    this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement'))
+                                  ( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingAgreement'&& 
+                                    this.result.aboutParentingArrangementsSurvey?.agreementDifferenceType == 'replacedAgreement'))
 
-        
-        
-        if( this.result.aboutParentingArrangementsSurvey && this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' ){
+
+        if(this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingOrder' ){
+            
             existingParentingArrangements.type = 'ExistingOrder'
             existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.orderDate
             existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceOrder
+            
             if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder'){
                 existingParentingArrangements.subType = 'changeOrder'                
             } else if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'cancelOrder'){
@@ -190,10 +189,12 @@ export default class Schedule2 extends Vue {
             }
         }
         
-        if( this.result.aboutParentingArrangementsSurvey && this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' ){
+        if( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingAgreement' ){
+            
             existingParentingArrangements.type = 'ExistingAgreement'
             existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.agreementDate
             existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceAgreement
+            
             if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement'){
                 existingParentingArrangements.subType = 'replacedAgreement'                
             } else if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'setAsideAgreement'){
@@ -201,13 +202,11 @@ export default class Schedule2 extends Vue {
             }
         }        
         
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentalResponsibilities")){
-                existingParentingArrangements.parentResp = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription:''
-                }
+        if (generalCondition && this.result.parentingArrangementChangesSurvey?.orderChangeList?.includes("parentalResponsibilities")){
+            existingParentingArrangements.parentResp = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription:''
+            }
 
         } else {
             existingParentingArrangements.parentResp = {
@@ -216,13 +215,11 @@ export default class Schedule2 extends Vue {
             }
         }
 
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentingTime")){
-                existingParentingArrangements.parentTime = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription:''
-                }
+        if (generalCondition && this.result.parentingArrangementChangesSurvey?.orderChangeList?.includes("parentingTime")){
+            existingParentingArrangements.parentTime = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription:''
+            }
 
         } else {
             existingParentingArrangements.parentTime = {
@@ -231,13 +228,11 @@ export default class Schedule2 extends Vue {
             }
         }
 
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("conditionsOnParentingTime")){
-                existingParentingArrangements.parentCond = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription:''
-                }
+        if (generalCondition && this.result.parentingArrangementChangesSurvey?.orderChangeList?.includes("conditionsOnParentingTime")){
+            existingParentingArrangements.parentCond = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription:''
+            }
 
         } else {
             existingParentingArrangements.parentCond = {
@@ -246,13 +241,11 @@ export default class Schedule2 extends Vue {
             }           
         }
 
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("otherTermsAboutParentingArrangements")){
-                existingParentingArrangements.parentalArr = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription:''
-                }
+        if (generalCondition && this.result.parentingArrangementChangesSurvey?.orderChangeList?.includes("otherTermsAboutParentingArrangements")){
+            existingParentingArrangements.parentalArr = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription:''
+            }
         } else {
             existingParentingArrangements.parentalArr = {
                     applying: false,
@@ -260,8 +253,7 @@ export default class Schedule2 extends Vue {
                 }
         }         
         
-        if (this.result.bestInterestsOfChildSurvey 
-            && this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription){
+        if (this.result.bestInterestsOfChildSurvey?.existingParentingArrangementsChildBestInterestDescription){
                 existingParentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription;
         } else {            
             existingParentingArrangements.childBestInterest = '';

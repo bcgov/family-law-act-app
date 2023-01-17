@@ -12,9 +12,7 @@
                 <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
                 <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
             </div>
-            <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
-                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
-            </div>
+            <legal-assistance-faq v-if="showLegalAssistance"/>
         </div>
         <div>
             <b-form-group>
@@ -85,6 +83,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
+import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import * as _ from 'underscore';
 import { namespace } from "vuex-class";   
@@ -97,7 +97,8 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 @Component({
     components:{
         PageBase,
-        Tooltip
+        Tooltip,
+        LegalAssistanceFaq
     }
 })
 export default class FlmQuestionnaire extends Vue {
@@ -106,13 +107,7 @@ export default class FlmQuestionnaire extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;    
-
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
-
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    public stPgNo!: stepsAndPagesNumberInfoType;       
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -121,9 +116,9 @@ export default class FlmQuestionnaire extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
     
     selectedForm = [];
-    //returningUser = false
+
     showLegalAssistance = false
-    // preparationInfo = false
+
     currentStep = 0;
     currentPage = 0;
 
@@ -138,7 +133,7 @@ export default class FlmQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.flmQuestionnaireSurvey) {
+        if (this.step.result?.flmQuestionnaireSurvey) {
             this.selectedForm = this.step.result.flmQuestionnaireSurvey.data;
             this.determineSteps();
         }
@@ -152,21 +147,18 @@ export default class FlmQuestionnaire extends Vue {
         if(this.checkErrorOnPages())        
             this.setSteps(selectedForm);
         else{ 
-            this.selectedForm = [];            
-            //this.togglePages(this.allPages, false); 
+            this.selectedForm = [];                        
         }
-        Vue.filter('surveyChanged')('familyLawMatter')        
-       // console.log(selectedForm)
+        Vue.filter('surveyChanged')('familyLawMatter')               
     }
 
     public setSteps(selectedForm) {
-        // console.log(selectedForm)
+
         const p = this.stPgNo.FLM
         if (selectedForm) {
-            this.togglePages(this.allPages, false); 
+            togglePages(this.allPages, false, this.currentStep); 
             const progress = this.selectedForm.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-
 
             if (selectedForm.length > 0){
 
@@ -180,8 +172,7 @@ export default class FlmQuestionnaire extends Vue {
             
                 if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutParentingArrangements].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutParentingArrangements, 50, false);
-            
-                //if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
+                            
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 0, false);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.FlmAdditionalDocuments, 0, false);
 
@@ -209,8 +200,7 @@ export default class FlmQuestionnaire extends Vue {
                 if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportAgreement].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportAgreement, 50, false);
    
-            }   
-
+            }
         }
     }
 
@@ -219,53 +209,36 @@ export default class FlmQuestionnaire extends Vue {
         const p = this.stPgNo.FLM
         const stepCOM = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]
 
-        if( stepCOM.result &&
-            stepCOM.result.filingLocationSurvey &&
-            stepCOM.result.filingLocationSurvey.data){
-                const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-                formOneRequired = this.determineRequiredForm(filingLocationData);
+        if( stepCOM.result?.filingLocationSurvey?.data){
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
+            formOneRequired = this.determineRequiredForm(filingLocationData);
         }
 
         if (!formOneRequired){
-            this.togglePages([p.FlmBackground], true);
-            // this.togglePages(this.commonPages, false);
-            this.togglePages([p.PreviewFormsFLM], false);
+            togglePages([p.FlmBackground], true, this.currentStep);
+            togglePages([p.PreviewFormsFLM], false, this.currentStep);
             this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
             if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersFLM].progress==100)
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 50, false);
 
         } else {
-            this.togglePages([p.FlmBackground], false);
-            this.togglePages([p.ReviewYourAnswersFLM], true);
+            togglePages([p.FlmBackground], true, this.currentStep);
+            togglePages([p.FlmAdditionalDocuments], false, this.currentStep);
+            togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);
         }   
     }
 
     public determineRequiredForm(filingLocationData){
-
-        const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-        let location = ''
-
-        location = filingLocationData.ExistingCourt;                
         
-        if(courtsC.includes(location) && 
-            filingLocationData.MetEarlyResolutionRequirements == 'n'){
+        let location = ''
+        location = filingLocationData?.ExistingCourt;                
+        
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
             return true;
         } else {
             return false;
         }
-
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            //console.log('in step = '+this.currentStep+ ' and '+ i + ' page = '+pageArr[i])
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
+    }    
 
     public toggleSteps(stepId, activeIndicator) {       
         this.$store.commit("Application/setStepActive", {
@@ -282,7 +255,7 @@ export default class FlmQuestionnaire extends Vue {
             if(step.active){
                 for(const page of step.pages){
                     if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
-                        this.togglePages(this.allPages, false); 
+                        togglePages(this.allPages, false, this.currentStep); 
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
                         return false;
@@ -294,16 +267,15 @@ export default class FlmQuestionnaire extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage();
+        Vue.prototype.$UpdateGotoPrevStepPage();
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage();       
+        Vue.prototype.$UpdateGotoNextStepPage();       
     }   
 
     public getSelectedFormsNames(){
         let result = ''
-        // console.log(this.selectedForm)
         for(const form of this.selectedForm){
             if(form=='parentingArrangements')   result+='Parenting Arrangements'+'\n';
             if(form=='childSupport')            result+='Child Support'+'\n';
@@ -318,9 +290,9 @@ export default class FlmQuestionnaire extends Vue {
         const progress = this.selectedForm.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {flmQuestionnaireSurvey: {data: this.selectedForm, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        this.UpdateStepResultData({step:this.step, data: {flmQuestionnaireSurvey: {data: this.selectedForm, questions: questions, pageName:"Family Law Matter Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
-};
+}
 </script>
 
 <style lang="scss">

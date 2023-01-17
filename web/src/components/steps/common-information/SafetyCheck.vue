@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/safety-check.json";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -29,11 +29,9 @@ export default class SafetyCheck extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -48,10 +46,8 @@ export default class SafetyCheck extends Vue {
         surveyEnv.setCss(Survey);
     }
 
-
     mounted(){
-        this.initializeSurvey();
-        this.addSurveyListener();
+        this.initializeSurvey();       
         this.reloadPageInformation();
     }
 
@@ -61,17 +57,11 @@ export default class SafetyCheck extends Vue {
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }    
-    
-    public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            // console.log(this.survey.data);            
-        })   
-    }
+    } 
 
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.safetyCheckSurvey){
+
+        if (this.step.result?.safetyCheckSurvey){
             this.survey.data = this.step.result.safetyCheckSurvey.data;
         }
         
@@ -81,25 +71,19 @@ export default class SafetyCheck extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        //this.UpdateStepResultData({step:this.step, data: {safetyCheckSurvey: this.survey.data}});
+        
         this.UpdateStepResultData({step:this.step, data: {safetyCheckSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
-};
+}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

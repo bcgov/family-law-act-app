@@ -73,19 +73,13 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
     }
 })
 
-export default class ProtectionOrder extends Vue {
+export default class StepProtectionOrder extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
-
-
-};
+    
+}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-    @import "../../../styles/survey";
-</style>

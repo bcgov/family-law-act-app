@@ -7,10 +7,8 @@
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
-import * as _ from 'underscore';
-
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/flm-additional-documents.json";
 
 import PageBase from "../PageBase.vue";
@@ -39,11 +37,12 @@ export default class FlmAdditionalDocuments extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
+
+    
 
     @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -72,7 +71,6 @@ export default class FlmAdditionalDocuments extends Vue {
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
-        //console.log(this.allPages)
     }
 
     public initializeSurvey(){
@@ -87,9 +85,26 @@ export default class FlmAdditionalDocuments extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
-            // console.log(this.survey.data)
+
+            this.determineCaseMgntNeeded();
         })
+    }
+
+    public determineCaseMgntNeeded(){
+       
+        if ((this.survey.data?.criminalChecked && this.survey.data.criminalChecked == 'n') 
+            || (this.survey.data?.isFilingAdditionalDocs && this.survey.data.isFilingAdditionalDocs == 'n')) {
+            
+                
+                this.toggleSteps(this.stPgNo.CM._StepNo,  true);
+                const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
+               
+                if(selectedForms && !selectedForms.includes('caseMgmt')){
+                    selectedForms.push('caseMgmt')
+                }
+
+                this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
+        }
     }
 
     public adjustSurveyForAdditionalDocs(){  
@@ -98,8 +113,7 @@ export default class FlmAdditionalDocuments extends Vue {
         this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
         let descriptionHtml = "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:<br><br><ul>";
         for (const doc of this.requiredDocumentLists){
-            //console.log(doc)
-            //console.log(doc.includes('Form 5'))
+    
             if(doc.includes('Form 5'))
                 this.appointedAsGuardian = true;
             if(doc.includes('form') || doc.includes('Form')){
@@ -116,7 +130,7 @@ export default class FlmAdditionalDocuments extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.flmAdditionalDocumentsSurvey && this.step.result.flmAdditionalDocumentsSurvey.data){
+        if (this.step.result?.flmAdditionalDocumentsSurvey?.data){
             this.survey.data = this.step.result.flmAdditionalDocumentsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
@@ -124,16 +138,15 @@ export default class FlmAdditionalDocuments extends Vue {
         this.survey.setVariable('appointedAsGuardian', this.appointedAsGuardian);
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.determineCaseMgntNeeded(); 
     }
 
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
-        if(this.requiredDocuments.familyLawMatter && this.requiredDocuments.familyLawMatter.required){
+        if(this.requiredDocuments?.familyLawMatter?.required){
             this.requiredDocumentLists = this.requiredDocuments.familyLawMatter.required
             this.isRequiredDocument = true
-        }
-       // console.log(this.requiredDocuments.familyLawMatter)
-       // console.log(this.requiredDocumentLists)
+        }       
     }
 
     public getFLMResultData() {         
@@ -142,9 +155,9 @@ export default class FlmAdditionalDocuments extends Vue {
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of steps){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResult in stepResults){
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+            for(const stepResultInx in stepResults){
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }
 
@@ -160,22 +173,25 @@ export default class FlmAdditionalDocuments extends Vue {
         else
             Object.assign(result, result,{applicationLocation: userLocation});
         
-        
-        //console.log(result)
 
         Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
-
-        //return result;
     }    
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
+    }
+
+    public toggleSteps(stepId, activeIndicator) {       
+        this.$store.commit("Application/setStepActive", {
+            currentStep: stepId,
+            active: activeIndicator
+        });
     }
   
     beforeDestroy() {
@@ -185,8 +201,3 @@ export default class FlmAdditionalDocuments extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

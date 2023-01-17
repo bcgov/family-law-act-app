@@ -3,8 +3,7 @@
 
         <span class="text-primary" style='font-size:1.4rem;'>{{title}}</span> 
         
-        <ul class="mt-3">
-            <!-- <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application</li> -->
+        <ul class="mt-3">            
             <div class="mb-2" v-if="type=='Print'">Print or make copies of all documents, including your application and any supporting documents: one set for you, one set for the court and one set for each other party</div>
             <div v-if="type!='Print'" class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
                 <div style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
@@ -16,7 +15,8 @@
             <ul>
                 <li><b class="text-danger"> The following additional documents are required as part of your filing:</b> </li>                   
                 <ul class="mt-3" v-for="requiredDocument,index in requiredDocumentLists" :key="index" >
-                    <li v-if="requiredDocument.required.length>0"  class="mb-2"> For the Application About a {{requiredDocument.name}} :
+                    <li v-if="requiredDocument.required.length>0"  class="mb-2">
+                        {{requiredDocument.text}} {{requiredDocument.article}} {{requiredDocument.name}} :
                         <ul class="mt-3" v-for="requiredDoc,inx in requiredDocument.required" :key="inx">
                             <li class="mb-2 font-weight-normal" v-html="requiredDoc" >{{requiredDoc}}</li>
                         </ul>
@@ -53,6 +53,8 @@ import GetHelpScanning from "../helpPages/GetHelpScanning.vue"
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { requiredDocumentsInfoType } from '@/types/Common';
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+import { stepInfoType } from '@/types/Application';
 const applicationState = namespace("Application");
 
 @Component({
@@ -71,6 +73,12 @@ export default class RequiredDocument extends Vue {
     @applicationState.State
     public requiredDocuments!: requiredDocumentsInfoType;
 
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType; 
+
+    @applicationState.State
+    public steps!: stepInfoType[];
+
     showGetHelpScanning = false;
     isRequiredDocument = false;
     requiredDocumentLists = [];
@@ -83,17 +91,48 @@ export default class RequiredDocument extends Vue {
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
         this.isRequiredDocument = false;
-        for (const [key, value] of Object.entries(this.requiredDocuments)){
-            //  console.log(key)
-            //  console.log(value)
-            if(this.$store.state.Application.steps[0].result && 
-               this.$store.state.Application.steps[0].result.selectedForms &&
-               this.$store.state.Application.steps[0].result.selectedForms.includes(key)){
-                    this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})
-                    if(value['required'].length>0) this.isRequiredDocument = true;
+        
+        const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
+        const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
+        
+        const selectedForms = (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
+        const selectedReplyForms = (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
+        
+        for (const [key, value] of Object.entries(this.requiredDocuments)){           
+            if(key && value && 
+                ( selectedForms.includes(key) || selectedForms.includes(key.slice(0,-2)) 
+                || selectedReplyForms.includes(key) || selectedReplyForms.includes(key.slice(0,-2)) ) ){
+                
+                const name = Vue.filter('getFullOrderName')(key, '');
+                const vowelCondition = ['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a';
+                this.requiredDocumentLists.push({
+                    name:name, 
+                    required:JSON.parse(JSON.stringify(value['required'])), 
+                    reminder:value['reminder'],
+                    text:key.includes('agreementEnfrc2')?'For the Request to':'For the Application About',
+                    article:key.includes('agreementEnfrc2')? '':vowelCondition
+                })
+                if(value['required']?.length>0) this.isRequiredDocument = true;
             }
         }
-        // console.log(this.requiredDocumentLists)
+        
+
+        //Remove redundant docs        
+        for(const requiredDocList of this.requiredDocumentLists){
+            const requiredDoc = requiredDocList.required
+            //console.log(requiredDoc)
+            const inxToRemove = []
+            for(let i=0; i<requiredDoc.length; i++){
+                if(requiredDoc[i].includes('Financial Statement Form 4')){                    
+                    inxToRemove.push(i)
+                }                
+            }
+            //console.log(inxToRemove)
+            for (let i = inxToRemove.length -1; i > 0; i--)
+                requiredDoc.splice(inxToRemove[i],1);
+        }
+
+
     }
 }
 </script>

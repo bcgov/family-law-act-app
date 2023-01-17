@@ -37,12 +37,11 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/special-and-extraordinary-expenses.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -62,14 +61,9 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
-
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -93,11 +87,7 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         {name:'Total', child0:"0",},
     ]
     childrenSupportExpenseFields = [
-        {key:"name", label:"Name of Child:", tdClass:"border-top-0 align-middle", thClass:"text-primary text-right border-bottom-0", thStyle:"font-size:12pt; width:26%;"},
-       // {key:"child0", label:"",   tdClass:"align-middle", thClass:"", thStyle:"width:17%;"},
-       // {key:"child1", label:"",   tdClass:"align-middle", thClass:"", thStyle:"width:17%;"},
-       // {key:"amount3", label:"",   tdClass:"align-middle", thClass:"", thStyle:"width:17%;"},
-       // {key:"amount4", label:"",   tdClass:"align-middle", thClass:"", thStyle:"width:17%;"},        
+        {key:"name", label:"Name of Child:", tdClass:"border-top-0 align-middle", thClass:"text-primary text-right border-bottom-0", thStyle:"font-size:12pt; width:26%;"},       
     ]
    
     beforeCreate() {
@@ -123,7 +113,6 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')           
-            //console.log(options)
             this.determineShowingTable()
         })
     }
@@ -132,7 +121,7 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.specialAndExtraordinaryExpensesSurvey) {
+        if (this.step.result?.specialAndExtraordinaryExpensesSurvey) {
             this.survey.data = this.step.result.specialAndExtraordinaryExpensesSurvey.data;           
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
@@ -146,19 +135,18 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
 
     public populateChildrenInfo(){
 
-        //console.log(this.survey.data.childrenSupportExpenseItem)
-
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
+                
                 this.childData = this.step.result.childrenInfoSurvey.data;                           
-                //console.log(childData)                 
+                
                 for (const childInx in this.childData){
                     const child = this.childData[childInx];
                     const key = "child"+childInx
                     this.childrenSupportExpenseFields.push({key:key, label:Vue.filter('getFullName')(child.name),  tdClass:"align-middle", thClass:"text-primary text-center", thStyle:"width:10%;"})
                     this.childrenSupportExpenseItem[0][key]= 'Annual Amount';
                     for(let index=1; index<8; index++){
-                        //console.log(this.childrenSupportExpenseItem[index])
-                        if(this.survey.data.childrenSupportExpenseItem && this.survey.data.childrenSupportExpenseItem[index][key])
+
+                        if(this.survey.data?.childrenSupportExpenseItem?.[index]?.[key])
                             this.childrenSupportExpenseItem[index][key] = this.survey.data.childrenSupportExpenseItem[index][key]
                         else
                             this.childrenSupportExpenseItem[index][key] = 0
@@ -167,7 +155,7 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         }
     }
 
-    inputValueChanged(){ 0       
+    public inputValueChanged(){    
         Vue.filter('surveyChanged')('familyLawMatter')
         this.tableKey ++;
     }
@@ -182,17 +170,17 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 
     public determineShowingTable(){
-        if(this.survey.data && this.survey.data.applyForExtraordinaryExpenses=='y')
+        if(this.survey.data?.applyForExtraordinaryExpenses=='y')
             this.showTable=true;
         else
             this.showTable=false;
@@ -202,7 +190,7 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         let result = ''
         for (const [key, value] of Object.entries(this.childrenSupportExpenseItem[7]))
         {            
-            if(key!='name'){         
+            if(key && key != 'name'){         
                 if(!isNaN(Number(key.substring(5)))){
                     const child =this.childData[Number(key.substring(5))]
                    result += Vue.filter('getFullName')(child.name)+': Total  $'+value+'\n'
@@ -213,7 +201,7 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     }
     
     beforeDestroy() {
-        //console.log(this.childrenSupportExpenseItem)
+        
         this.survey.setValue("childrenSupportExpenseItem",this.childrenSupportExpenseItem)
         this.survey.setValue("childrenSupportExpenseFields",this.childrenSupportExpenseFields)
         
@@ -222,8 +210,3 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

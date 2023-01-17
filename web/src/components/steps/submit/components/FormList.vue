@@ -2,8 +2,8 @@
     <div>
 
         <b-card v-for="(form,inx) in formsList" :key="inx" style="margin:1rem 0;border-radius:10px; border:2px solid #DDEEFF;">
-            <div style="float:left; margin: 0.5rem 1rem;color:#5050AA; font-size:16px; font-weight:bold;" > 
-                {{form.title}}
+            <div style="float:left; margin: 0.5rem 1rem;color:#5050AA; font-size:16px; font-weight:bold;" v-html="form.title" > 
+                
             </div>
             <b-button 
                 style="float:right; margin: 0.25rem 1rem;"                  
@@ -24,8 +24,10 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {whichCaseMgmtForm} from "../../caseMgmt/reviewCM/RequiredForm"
+import {whichAgreementEnfrcForm} from '../../agreementEnfrc/reviewAE/RequiredFormEnfrc'
+
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-//import moment from 'moment-timezone';
 import { pathwayCompletedInfoType } from '@/types/Application';
 
 @Component({
@@ -41,6 +43,9 @@ export default class FormList extends Vue {
     @Prop({required: true})
     currentPage!: number;
 
+    @Prop({default: false})
+    ppmOnly!: boolean;
+
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
@@ -48,10 +53,10 @@ export default class FormList extends Vue {
     public generatedForms!: string[];
 
     @applicationState.State
-    public pathwayCompleted!: pathwayCompletedInfoType;
+    public pathwayCompleted!: pathwayCompletedInfoType;    
 
     @applicationState.Action
-    public UpdateGeneratedForms!: (newGeneratedForms) => void
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     selected=""
     currentStep = 0;
@@ -66,43 +71,71 @@ export default class FormList extends Vue {
     mounted(){
 
         this.formsListTemplate =[                
-            { name:'PK', appName:'protectionOrder', pdfType:'AAP',  chkSteps:[this.stPgNo.PO._StepNo],   color:"danger", title:"Application About a Protection Order (FORM 12)"},
-            { name:'P3', appName:'familyLawMatter', pdfType:'FLC',  chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
-            { name:'P1', appName:'familyLawMatter', pdfType:'NTRF', chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo], color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
+            { name:'PK',  appName:'protectionOrder',   pdfType: Vue.filter('getPathwayPdfType')("protectionOrder"),      chkSteps:[this.stPgNo.PO._StepNo],                                     color:"danger", title:"Application About a Protection Order (FORM 12)"},
+            { name:'P3',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatter"),      chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],         color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+            { name:'P1',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatterForm1"), chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],         color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
+            { name:'P15', appName:'priorityParenting', pdfType: Vue.filter('getPathwayPdfType')("priorityParenting"),    chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.PPM._StepNo],         color:"danger", title:"Application About Priority Parenting Matter (Form 15)"},        
+            { name:'P16', appName:'childReloc',        pdfType: Vue.filter('getPathwayPdfType')("childReloc"),           chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.RELOC._StepNo],       color:"danger", title:"Application for Order Prohibiting the Relocation of a Child (Form 16)"},
+            { name:'P10', appName:'caseMgmt',          pdfType: Vue.filter('getPathwayPdfType')("caseMgmt"),             chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.CM._StepNo],          color:"danger", title:"Application for Case Management Order (Form 10)"},
+            { name:'P11', appName:'caseMgmt',          pdfType: Vue.filter('getPathwayPdfType')("caseMgmtForm11"),       chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.CM._StepNo],          color:"danger", title:"Application for Case Management Order  Without Notice or Attendance (Form 11)"},
+            { name:'P26', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc26"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File an Agreement (Form 26)"}, 
+            { name:'P27', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc27"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File a Determination of Parenting Coordinator (Form 27)"},        
+            { name:'P28', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc28"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File an Order (Form 28)"},        
+            { name:'P29', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc"),       chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Application About Enforcement (Form 29)"}, 
+            { name:'P19', appName:'writtenResponse',   pdfType: Vue.filter('getPathwayPdfType')("writtenResponse"),      chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.WR._StepNo],          color:"danger", title:"Written Response to Application (Form 19)"},              
+            { name:'P6',  appName:'replyFlm',          pdfType: Vue.filter('getPathwayPdfType')("replyFlm"),             chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.RFLM._StepNo],        color:"danger", title:"Reply to an Application About a Family Law Matter (Form 6)"}            
+        
         ]
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.initFormsTitle();
-        Vue.nextTick(()=> this.setProgress());
-        //this.$emit('formsList',this.formsList)
+        Vue.nextTick(()=> this.setProgress());        
     } 
     
     public initFormsTitle(){
-        // console.log(this.pathwayCompleted)
+
         for(const form of this.formsListTemplate)        
-        {
+        {            
             if(this.pathwayCompleted[form.appName]){
 
-                if(form.name=='P1' && !this.isForm1()) continue
+                if (this.ppmOnly && form.name=='P15'){                    
 
-                if(form.name=='P3' && this.isForm1()) continue
+                    this.formsList.push(form);
 
-                if(this.generatedForms.includes(form.name))
-                    form.color = "success"
+                } else if (!this.ppmOnly) {
 
-                this.formsList.push(form);
+                    if(form.name=='P1' && !this.isForm1()) continue
+
+                    if(form.name=='P3' && this.isForm1()) continue
+
+                    if(form.name=='P10' && !whichCaseMgmtForm().includes("P10")) continue
+                    if(form.name=='P11' && !whichCaseMgmtForm().includes("P11")) continue
+
+                    if(form.name=='P26' && !whichAgreementEnfrcForm().includes("P26")) continue
+                    if(form.name=='P27' && !whichAgreementEnfrcForm().includes("P27")) continue
+                    if(form.name=='P28' && !whichAgreementEnfrcForm().includes("P28")) continue
+                    if(form.name=='P29' && !whichAgreementEnfrcForm().includes("P29")) continue
+
+
+                    if(this.generatedForms?.includes(form.name))
+                        form.color = "success"
+
+                    this.formsList.push(form);
+                }
+                
             }                           
         }
+        this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});
+        Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
 
     public isForm1(){
-        const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
         const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
        
-        if(locationSurvey && locationSurvey.filingLocationSurvey && locationSurvey.filingLocationSurvey.data){
-            //console.log(locationSurvey.filingLocationSurvey.data)
+        if(locationSurvey?.filingLocationSurvey?.data){
+            
             const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
-            if(courtsC.includes(location) && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
+            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
                 return true
             else 
                 return false
@@ -116,7 +149,6 @@ export default class FormList extends Vue {
             this.savePdf(this.formsList[inx].pdfType, inx);            
         }
     }
-
      
     public checkErrorOnPages(checkingSteps){
 
@@ -137,17 +169,13 @@ export default class FormList extends Vue {
     }
 
     public setProgress(){
-        // console.warn('Set Progress')
-        // console.log(this.currentStep)
-        // console.log(this.currentPage)
         if(this.currentPage <0) return
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.isFormReviewed()?100:50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.isFormReviewed()? 100 : 50, false);
     }
 
     public isFormReviewed(){
         for(const form of this.formsList)
-            if(!this.generatedForms.includes(form.name)){
-                // console.log(form)
+            if(!this.generatedForms?.includes(form.name)){
                 return false
             }
         return true
@@ -178,6 +206,5 @@ export default class FormList extends Vue {
             console.error(err);
         });
     }
-
 }
 </script>

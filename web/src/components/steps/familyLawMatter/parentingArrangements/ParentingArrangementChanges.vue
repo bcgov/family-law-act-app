@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary"
 import surveyJson from "./forms/parenting-order-changes.json";
 
 import PageBase from "../../PageBase.vue";
@@ -29,11 +29,9 @@ export default class ParentingArrangementChanges extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -64,7 +62,6 @@ export default class ParentingArrangementChanges extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)            
         })
     }
 
@@ -73,12 +70,12 @@ export default class ParentingArrangementChanges extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.parentingArrangementChangesSurvey){
+        if (this.step.result?.parentingArrangementChangesSurvey){
             this.survey.data = this.step.result.parentingArrangementChangesSurvey.data;            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        if (this.step.result && this.step.result.aboutParentingArrangementsSurvey){
+        if (this.step.result?.aboutParentingArrangementsSurvey){
             const aboutPA = this.step.result.aboutParentingArrangementsSurvey.data;            
             this.survey.setVariable("existingType", aboutPA.existingType);            
         }
@@ -87,12 +84,12 @@ export default class ParentingArrangementChanges extends Vue {
     }
     
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
   
@@ -102,10 +99,5 @@ export default class ParentingArrangementChanges extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {parentingArrangementChangesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

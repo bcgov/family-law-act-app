@@ -11,8 +11,8 @@ export interface parentingArrangementsSurveyInfoType {
     data: parentingArrangementsDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface parentalResponsibilitiesDataInfoType {
@@ -26,8 +26,8 @@ export interface parentalResponsibilitiesSurveyInfoType {
     data: parentalResponsibilitiesDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface parentingTimeDataInfoType {
@@ -44,8 +44,8 @@ export interface parentingTimeSurveyInfoType {
     data: parentingTimeDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface parentalArrangementsDataInfoType {
@@ -57,11 +57,13 @@ export interface otherParentingArrangementsSurveyInfoType {
     data: parentalArrangementsDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface parentingOrderAgreementDataInfoType {
+    FAQApplyingGuardian?: boolean;
+    FAQGuardian?: boolean;
     guardianApplicant?: string;
     applyingGuardianApplicant?: string;
 }
@@ -70,8 +72,8 @@ export interface parentingOrderAgreementSurveyInfoType {
     data: parentingOrderAgreementDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface aboutParentingArrangementsDataInfoType {
@@ -88,8 +90,8 @@ export interface aboutParentingArrangementsSurveyInfoType {
     data: aboutParentingArrangementsDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface parentingArrangementChangesDataInfoType {
@@ -104,8 +106,8 @@ export interface parentingArrangementChangesSurveyInfoType {
     data: parentingArrangementChangesDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 
@@ -118,6 +120,6 @@ export interface parentingArrangementsbestInterestsOfChildSurveyInfoType {
     data: parentingArrangementsbestInterestOfChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }

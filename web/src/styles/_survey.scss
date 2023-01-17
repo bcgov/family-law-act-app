@@ -89,6 +89,15 @@
     // font-size: 16px;
     margin-bottom: 1.5em;
   }
+
+  .sv_q_description_font {
+    font-size: 16px;
+    font-weight: normal;
+    color: #494949;
+    line-height: 1.6;
+    margin-bottom: 1.5em;
+  }
+
   .panel-footer {
     background: none;
     border: none;
@@ -408,3 +417,22 @@ a.util-nav {
   color: orange;
 
 }
+
+.date-select-hour{ 
+  margin: 0 0 0 5rem;
+}
+
+ol.resetcounteralpha {
+  list-style: none;
+  counter-reset: alpha-counter;
+}
+
+ol li.bracketalpha {
+  text-indent: -20px;
+  margin:0.25rem 0;
+  counter-increment: alpha;
+}
+
+ol li.bracketalpha:before {
+  content:counter(alpha, lower-alpha)") ";
+}		

@@ -1,25 +1,36 @@
 import { requiredDocumentsInfoType } from "../Common";
-import { nameInfoType, filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, safetyCheckSurveyInfoType, yourInformationSurveyInfoType } from "./CommonInformation";
+import { nameInfoType, filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, safetyCheckSurveyInfoType, yourInformationSurveyInfoType, noticeSurveyInfoType, filingOptionsSurveyInfoType, otherPartyCommonConfirmationSurveyInfoType, indigenousAncestryOfChildSurveyInfoType } from "./CommonInformation";
 import { childDetailsSurveyInfoType, flmAdditionalDocumentsSurveyInfoType, flmBackgroundSurveyInfoType, flmQuestionnaireSurveyInfoType } from "./FamilyLawMatter";
 import { aboutChildSupportChangesSurveyInfoType, aboutChildSupportOrderSurveyInfoType, aboutExistingChildSupportSurveyInfoType, calculatingChildSupportSurveyInfoType, childSupportCurrentArrangementsSurveyInfoType, incomeAndEarningPotentialSurveyInfoType, childSupportOrderAgreementSurveyInfoType, childSupportSurveyInfoType, specialAndExtraordinaryExpensesSurveyInfoType, undueHardshipSurveyInfoType, unpaidChildSupportSurveyInfoType } from "./FamilyLawMatter/ChildSupport";
 import { aboutContactWithChildOrderSurveyInfoType, contactWithChildOrderSurveyInfoType, contactWithChildBestInterestsOfChildSurveyInfoType, contactWithChildSurveyInfoType } from "./FamilyLawMatter/ContactWithChild";
-import { guardianOfChildBestInterestsOfChildSurveyInfoType, guardianOfChildSurveyInfoType, indigenousAncestryOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
+import { guardianOfChildBestInterestsOfChildSurveyInfoType, guardianOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
 import { aboutParentingArrangementsSurveyInfoType, otherParentingArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestsOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
 import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrderSurveyInfoType, calculatingSpousalSupportSurveyInfoType, existingSpousalSupportAgreementSurveyInfoType, existingSpousalSupportFinalOrderSurveyInfoType, existingSpousalSupportOrderAgreementSurveyInfoType, spousalSupportIncomeAndEarningPotentialSurveyInfoType, spousalSupportSurveyInfoType, unpaidSpousalSupportSurveyInfoType } from "./FamilyLawMatter/SpousalSupport";
-import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, selectedPOOrderInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
+import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
+import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType, ppmAdditionalDocumentsSurveyInfoType } from "./PriorityParentingMatter";
+import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
+import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
+import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpensesSurveyInfoType, detrermineArrearsSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
+import { aboutWrittenResponseOrderSurveyInfoType, agreeDisagreeSurveyInfoType, wrReplyingToApplicationSurveyInfoType } from "./WrittenResponse";
+import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmChildDetailsSurveyInfoType, rflmAdditionalDocumentsSurveyInfoType } from "./ReplyFamilyLawMatter";
+import { replyExistingParentingArrangementsSurveyInfoType, replyNewConditionsParentingTimeSurveyInfoType, replyNewParentalResponsibilitiesSurveyInfoType, replyNewParentingTimeSurveyInfoType } from "./ReplyFamilyLawMatter/ParentingArrangements";
+import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyInfoType, relationshipToChildSurveyInfoType, replyExistingChildSupportSurveyInfoType, replyNewChildSupportSurveyInfoType, rflmCalculatingChildSupportSurveyInfoType, rflmUnpaidChildSupportSurveyInfoType } from "./ReplyFamilyLawMatter/ChildSupport";
+import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
+import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType, disagreeCancellingGuardianOfChildSurveyInfoType, replyCancellingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
+import { disagreeExistingSpouseSupportSurveyInfoType, disagreeSpouseSupportSurveyInfoType, relationshipToOtherPartySurveyInfoType, replyExistingSpouseSupportSurveyInfoType, replyNewSpouseSupportSurveyInfoType, rflmCalculatingSpouseSupportSurveyInfoType, rflmSpouseSupportOrderSurveyInfoType, rflmUnpaidSpouseSupportSurveyInfoType } from "./ReplyFamilyLawMatter/SpousalSupport";
 
 
 //This is what our database saves.
 export interface applicationStepOnlyInfoType {
   steps: stepInfoType[];
-  types_version?: "1.1";
+  types_version?: "1.2.1";
 }
 
 export interface applicationInfoType extends applicationStepOnlyInfoType {   
     id?: string;
     types: string[];
     lastUpdate?: Date | null;
-    currentStep?: number;
+    currentStep?: number | string;
     allCompleted: boolean;
     lastPrinted: Date;
     userType: string;
@@ -27,8 +38,8 @@ export interface applicationInfoType extends applicationStepOnlyInfoType {
     userId: string;
     applicantName: string;
     respondentName: string;
-    protectedPartyName: string;
-    protectedChildName: string;
+    protectedPartyName: nameInfoType;
+    protectedChildName: allchildrenInfoType[];
     applicationLocation: string;
     version: string;
 }
@@ -39,10 +50,9 @@ export interface stepInfoType {
     type: string;
     label: string;
     icon: string;
-    result?: resultInfoType;
-    //metadata?: object;
+    result?: resultInfoType;    
     pages?: pageInfoType[];
-    currentPage?: number;
+    currentPage?: number | string;
     active: boolean;
     lastUpdate?: Date | null;
   }
@@ -64,7 +74,11 @@ export interface stepInfoType {
   export interface resultInfoType{
 
     //______Step 0 GettingStarted
+    selectedActivity?: string[];
+    selectedReplyApplications?: string[];
     selectedForms?: string[];
+    selectedFlmOption?: string;
+    selectedReplyForms?: string[];
     pathwayCompleted?: pathwayCompletedInfoType;
     applicantName?: nameInfoType;
     respondentsCommon?: nameInfoType[];
@@ -90,15 +104,64 @@ export interface stepInfoType {
     removePersonSurvey?: removePersonSurveyInfoType;
     weaponsFirearmsSurvey?: weaponsFirearmsSurveyInfoType;
     otherPartySurvey?: otherPartyCommonSurveyInfoType;
-    selectedPOOrder?: selectedPOOrderInfoType;
 
     //_____Step 2 COMMON_____________
     otherPartyCommonSurvey?: otherPartyCommonSurveyInfoType;
     filingLocationSurvey?: filingLocationSurveyInfoType;
     yourInformationSurvey?: yourInformationSurveyInfoType;
     safetyCheckSurvey?: safetyCheckSurveyInfoType;
+    noticeSurvey?: noticeSurveyInfoType;
+    
+    otherPartyCommonConfirmationSurvey? : otherPartyCommonConfirmationSurveyInfoType;
 
-    //__Step 3 FLM
+    //__Step 3 RFLM
+    rflmQuestionnaireSurvey?: rflmQuestionnaireSurveyInfoType;
+    rflmCounterAppSurvey?: rflmCounterAppSurveyInfoType;
+    rflmBackgroundSurvey?: rflmBackgroundSurveyInfoType;
+    selectedCounterApplications?: string[];
+    correctChildInfo?: string;
+    rflmChildBestInterestAcknowledgement?: boolean;
+    replyNewParentalResponsibilitiesSurvey?: replyNewParentalResponsibilitiesSurveyInfoType;
+    replyNewParentingTimeSurvey?: replyNewParentingTimeSurveyInfoType;
+    replyNewConditionsParentingTimeSurvey?: replyNewConditionsParentingTimeSurveyInfoType;
+    replyExistingParentingArrangementsSurvey?: replyExistingParentingArrangementsSurveyInfoType;
+    replyNewChildSupportSurvey?: replyNewChildSupportSurveyInfoType;
+    relationshipToChildSurvey?: relationshipToChildSurveyInfoType;
+    disagreeChildSupportSurvey?: disagreeChildSupportSurveyInfoType;
+    rflmCalculatingChildSupportSurvey?: rflmCalculatingChildSupportSurveyInfoType;
+
+    replyExistingChildSupportSurvey?: replyExistingChildSupportSurveyInfoType;
+    rflmUnpaidChildSupportSurvey?: rflmUnpaidChildSupportSurveyInfoType;
+    disagreeExistingChildSupportSurvey?: disagreeExistingChildSupportSurveyInfoType;
+
+    replyNewContactWithChildSurvey?: replyNewContactWithChildSurveyInfoType;
+    disagreeContactWithChildSurvey?: disagreeContactWithChildSurveyInfoType;
+    replyExistingContactWithChildSurvey?: replyExistingContactWithChildSurveyInfoType;
+
+    replyAppointingGuardianOfChildSurvey?: replyAppointingGuardianOfChildSurveyInfoType;
+    disagreeAppointingGuardianOfChildSurvey?: disagreeAppointingGuardianOfChildSurveyInfoType;
+
+    replyCancellingGuardianOfChildSurvey?: replyCancellingGuardianOfChildSurveyInfoType;
+    disagreeCancellingGuardianOfChildSurvey?: disagreeCancellingGuardianOfChildSurveyInfoType;
+    
+    replyNewSpouseSupportSurvey?: replyNewSpouseSupportSurveyInfoType;
+    relationshipToOtherPartySurvey?: relationshipToOtherPartySurveyInfoType;
+    disagreeSpouseSupportSurvey?: disagreeSpouseSupportSurveyInfoType;
+    rflmSpouseSupportOrderSurvey?: rflmSpouseSupportOrderSurveyInfoType;
+    rflmCalculatingSpouseSupportSurvey?: rflmCalculatingSpouseSupportSurveyInfoType;
+
+    replyExistingSpouseSupportSurvey?: replyExistingSpouseSupportSurveyInfoType;
+    rflmUnpaidSpouseSupportSurvey?: rflmUnpaidSpouseSupportSurveyInfoType;
+    disagreeExistingSpouseSupportSurvey?: disagreeExistingSpouseSupportSurveyInfoType; 
+
+    rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
+
+    //_____Step 4   WR_____________
+    wrReplyingToApplicationSurvey?: wrReplyingToApplicationSurveyInfoType;
+    agreeDisagreeSurvey?: agreeDisagreeSurveyInfoType;
+    aboutWrittenResponseOrderSurvey?: aboutWrittenResponseOrderSurveyInfoType;   
+    
+    //__Step 5 FLM
     flmQuestionnaireSurvey?: flmQuestionnaireSurveyInfoType;
     flmBackgroundSurvey?: flmBackgroundSurveyInfoType;
     childrenInfoSurvey?: childDetailsSurveyInfoType;
@@ -145,20 +208,60 @@ export interface stepInfoType {
     spousalSupportIncomeAndEarningPotentialSurvey?: spousalSupportIncomeAndEarningPotentialSurveyInfoType;
     unpaidSpousalSupportSurvey?: unpaidSpousalSupportSurveyInfoType;
 
-    //__Step 8 SUBMIT
-    filingOptionsSurvey?: any;
+    //__Step 6 CASE MANAGEMENT
+
+    cmQuestionnaireSurvey?: cmQuestionnaireSurveyInfoType;
+    otherPersonsSurvey?: otherPersonsSurveyInfoType;
+    withoutNoticeOrAttendanceSurvey?: withoutNoticeOrAttendanceSurveyInfoType;
+    byConsentSurvey?: byConsentSurveyInfoType;
+    cmNoticeSurvey?: cmNoticeSurveyInfoType;
+    schedulingSurvey?: schedulingSurveyInfoType;
+    aboutCaseManagementOrderSurvey?: aboutCaseManagementOrderSurveyInfoType;
+    cmChildrenInfoSurvey?: cmChildrenInfoSurveyInfoType;
+    childRelatedTypeSurvey?:string;
+    attendanceUsingElectronicCommunicationSurvey?: attendanceUsingElectronicCommunicationSurveyInfoType;
+
+    changingOrCancellingAServiceOrNoticeSurvey?: changingOrCancellingAServiceOrNoticeSurveyInfoType;
+    changingOrCancellingAnyOtherRequirementSurvey?: changingOrCancellingAnyOtherRequirementSurveyInfoType;
+    requiringAccessToInformationSurvey?: requiringAccessToInformationSurveyInfoType;
+    recognizingAnOrderFromOutsideBcSurvey?: recognizingAnOrderFromOutsideBcSurveyInfoType;
+    contactInformationOtherPartySurvey?: contactInformationOtherPartySurveyInfoType;   
+
+    //__Step 7 PRIORITY PARENTING
+    ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;
+    priorityParentingMatterOrderSurvey?: priorityParentingMatterOrderSurveyInfoType;
+    ppmChildrenInfoSurvey?: ppmChildrenInfoSurveyInfoType;
+    ppmBackgroundSurvey?: ppmBackgroundDataSurveyInfoType;
+    aboutPriorityParentingMatterOrderSurvey?: aboutPriorityParentingMatterOrderSurveyInfoType;
+
+    ppmIndigenousAncestryOfChildSurvey?: indigenousAncestryOfChildSurveyInfoType;
+    ppmAdditionalDocumentsSurvey?: ppmAdditionalDocumentsSurveyInfoType;
+
+    //__Step 8 RELOCATION OF CHILD
+    relocQuestionnaireSurvey?: relocQuestionnaireSurveyInfoType;
+    relocChildrenInfoSurvey?: relocChildrenInfoSurveyInfoType;
+    relocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
+
+    //__Step 9 AGREEMENT ENFORCEMENT
+    enfrcQuestionnaireSurvey?: enfrcQuestionnaireSurveySurveyInfoType;
+    determineAnAmountOwingForExpensesSurvey?: determineAnAmountOwingForExpensesSurveyInfoType;
+    enforceAgreementOrOrderSurvey?: enforceAgreementOrOrderSurveyInfoType;
+    enforceChangeSetAsideDeterminationSurvey?: enforceChangeSetAsideDeterminationSurveyInfoType;
+    detrermineArrearsSurvey?: detrermineArrearsSurveyInfoType;
+    aboutTheOrderEnforcementSurvey?: aboutTheOrderEnforcementSurveyInfoType;
+
+    //__Step 10 SUBMIT
+    filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
   export interface pathwayCompletedInfoType { 
-    protectionOrder?: boolean; 
+    protectionOrder?: boolean;
+    replyFlm?: boolean;
+    writtenResponse?: boolean;
+    replyCounterApplication?: boolean;    
     familyLawMatter?: boolean;
     caseMgmt?: boolean; 
     priorityParenting?: boolean; 
     childReloc?: boolean;
     agreementEnfrc?: boolean;
-  } 
-
-
-
-
-
+  }

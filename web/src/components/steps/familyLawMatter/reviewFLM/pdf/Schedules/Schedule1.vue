@@ -7,7 +7,7 @@
             <div style="text-align:center;"><b> This is Schedule 1 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are a guardian of a child or, are applying to be appointed as a guardian of a child, making a new application about parenting arrangements for a child or children identified in section 11 of this application. 
+                <i>Complete this schedule only if you are a guardian of a child or, are applying to be appointed as a guardian of a child, and you are making a new application about parenting arrangements for a child or children identified in section 12 of this application. 
                 Parenting arrangements include how each guardian of a child will parent their child(ren) together, including each guardian’s responsibilities for decision making about a child, and the time each guardian spends with a child.</i>
             </div>
 <!-- <1> -->
@@ -24,7 +24,7 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
                     <div style="margin-left:1rem">
-                        <check-box style="" :check="(parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp)?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>
+                        <check-box  :check="(parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp)?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>
                         <div class="answer">
                             <ul v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp">
                                 <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx"><span class="mx-3">{{child}}</span></li>
@@ -121,9 +121,10 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
-import { childrenInfoSurveyInfoType, schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import { schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 
 @Component({
     components:{
@@ -148,7 +149,7 @@ export default class Schedule1 extends Vue {
     } 
 
     public extractInfo(){        
-        if (this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){            
+        if (this.result.childrenInfoSurvey?.length > 0){            
             this.childrenInfo = this.getChildrenInfo();                      
         } else {            
             this.childrenInfo = [];            
@@ -178,7 +179,7 @@ export default class Schedule1 extends Vue {
     public getParentingArrangementsInfo(){
         let parentingArrangements = {} as schedule1DataInfoType;       
 
-        if (this.result.parentalResponsibilitiesSurvey && this.result.parentalResponsibilitiesSurvey.parentalResponsibilitiesOrder == 'y'){
+        if (this.result.parentalResponsibilitiesSurvey?.parentalResponsibilitiesOrder == 'y'){
             const allResponsibilities = this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y' && this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities;
             parentingArrangements.parentResp = {
                 applying: true,
@@ -198,7 +199,7 @@ export default class Schedule1 extends Vue {
             }
         }
 
-        if (this.result.parentingTimeSurvey && this.result.parentingTimeSurvey.parentingTimeOrder == 'y'){
+        if (this.result.parentingTimeSurvey?.parentingTimeOrder == 'y'){
             const parentingTime = this.result.parentingTimeSurvey
             parentingArrangements.parentTime = {
                 applying: true,
@@ -222,7 +223,7 @@ export default class Schedule1 extends Vue {
             }     
         }
 
-        if (this.result.otherParentingArrangementsSurvey && this.result.otherParentingArrangementsSurvey.parentalArrangements == 'y'){
+        if (this.result.otherParentingArrangementsSurvey?.parentalArrangements == 'y'){
             const parentalArrangements = this.result.otherParentingArrangementsSurvey
             parentingArrangements.parentalArr = {
                 applying: true,
@@ -235,15 +236,13 @@ export default class Schedule1 extends Vue {
             }
         }
         
-        if (this.result.bestInterestsOfChildSurvey 
-            && this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription){
-                parentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription
+        if (this.result.bestInterestsOfChildSurvey?.newParentingArrangementsChildBestInterestDescription){
+            parentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription
 
-        } else {
-            // console.log('here')
+        } else {            
             parentingArrangements.childBestInterest = '';
         }
-        //console.log(parentingArrangements)
+        
         return parentingArrangements;
     }
 }

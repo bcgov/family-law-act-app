@@ -1,7 +1,7 @@
 import { questionInfoType } from "../../CommonInformation";
 
 export interface contactWithChildDataInfoType {
-    parentGuardianApplicant: string;
+    parentGuardianApplicant?: string;
     FAQParentGuardian?: boolean;
 }
 
@@ -9,8 +9,8 @@ export interface contactWithChildSurveyInfoType {
     data: contactWithChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface aboutContactWithChildDataInfoType {
@@ -27,8 +27,8 @@ export interface aboutContactWithChildOrderSurveyInfoType {
     data: aboutContactWithChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface contactWithChildBestInterestOfChildDataInfoType {
@@ -41,8 +41,8 @@ export interface contactWithChildBestInterestsOfChildSurveyInfoType {
     data: contactWithChildBestInterestOfChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface contactOrderDataInfoType {
@@ -60,6 +60,6 @@ export interface contactWithChildOrderSurveyInfoType {
     data: contactOrderDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }

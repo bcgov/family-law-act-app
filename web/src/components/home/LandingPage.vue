@@ -3,29 +3,31 @@
         <b-container class="container home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Apply for a Provincial Court Family Law Act (FLA) Order</h1>
+                    <h1 class="text-center" style="width:50%; margin: auto;">Complete your Provincial Court Family Law Act (FLA) Forms</h1>
                     <div class="intro">
-                        <p>
-                            This service will help you fill out the forms needed to apply for family court orders:
-                        </p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ul>
-                                    <li>Protection Orders</li>
-                                    <li>Parenting Arrangements</li>
-                                    <li>Child Support</li>
-                                    <li>Contact with a child</li>
-                                    <li>Guardianship</li>
-                                </ul>
+                        <div class="intro-section">
+                            <div>
+                                This service will help you fill out the application and reply forms needed for family court orders:
                             </div>
-                            <div class="col-md-6">
-                                <ul>
-                                    <li>Spousal Support</li>
-                                    <li>Case Management</li>
-                                    <li>Priority Parenting Matters</li>
-                                    <li>Relocation of a child</li>
-                                    <li>Enforcement</li>
-                                </ul>
+                            <div class="row" style="font-size: 20px;">
+                                <div class="col-md-6">
+                                    <ul style="line-height: 1.45;">                                    
+                                        <li>Parenting Arrangements</li>
+                                        <li>Child Support</li>
+                                        <li>Contact with a child</li>
+                                        <li>Guardianship</li>
+                                        <li>Spousal Support</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul style="line-height: 1.45;">
+                                        <li>Protection Orders</li>
+                                        <li>Case Management</li>
+                                        <li>Priority Parenting Matters</li>
+                                        <li>Relocation of a child</li>
+                                        <li>Enforcement</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 
@@ -38,8 +40,8 @@
                                     <p style="font-weight: bold;">1. Register or Login</p>
                                     <p class="mb-3">
                                         To use the Online FLA Assistant you will need to set up a Basic BCeID account.
-                                        If you do not currently have Basic BCeID account you can register for one by 
-                                        clicking the New User button below.
+                                        If you do not currently have a Basic BCeID account you can register for one 
+                                        by clicking the Register button below.
                                     </p>
                                
                                     <p style="font-weight: bold;">2. Answer Questions</p>
@@ -49,13 +51,12 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                                    <p style="font-weight: bold;">3. Print Your Forms OR Submit Your Application electronically</p>
+                                    <p style="font-weight: bold;">3. Print Your Forms OR Submit Your Form Electronically</p>
                                     <p>
                                         Once you're done with the questions, you'll print your
                                         papers and file at your local court registry. 
                                         OR
-                                        Submit them through our eFiling system
-                                        by email.
+                                        Submit them electronically.
                                     </p>
                                 </div>
                             </div>
@@ -63,33 +64,33 @@
 
                         <div class="info-section mt-3" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555;">
                             <div class="row justify-content-center text-warning">
-                                <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
+                                <div class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 18px;">SAFETY CHECK</div>
                             </div>
                             <div style="font-size: 18px;" class="mx-3 mb-1">If you think someone is monitoring your devices 
                                 and you are concerned about your safety, visit this website from a computer, tablet, or 
                                 smartphone that isn't monitored. Exit from this website and delete it from your browser 
                                 history. For more information about creating a safety plan for using the internet and email,
-                                <a class="text-info" @click="safetyInst = true;">click here</a>.
+                                <a class="text-info" style="cursor: pointer;" @click="safetyInst = true;">click here</a>.
                             </div>
                         </div>
 
                         <div v-if="!isLoggedIn">
                             <div class="row justify-content-center">
-                                <a class="btn btn-success btn-lg survey-button" @click="navigate('new')">
-                                    <strong>New User</strong> - Let’s get started
-                                </a>
+                                <b-button 
+                                    class="bg-primary text-white survey-button"
+                                    size="lg" 
+                                    @click="navigate('new')">
+                                    Register for a <strong>Basic BCeID</strong>
+                                </b-button>
                             </div>
 
                             <div class="row justify-content-center">
-                                <a
-                                    class="btn btn-default btn-md login-button"
+                                <b-button
+                                    class="bg-warning login-button"
+                                    size="lg"
                                     @click="navigate('returning')"
-                                    >
-                                    <div>
-                                        <strong>Returning User?</strong>
-                                        <br />Log in with BCeID
-                                    </div>
-                                </a>
+                                    >Login with my <strong>Basic BCeID</strong>
+                                </b-button>
                             </div>
                         </div>
                     </div>
@@ -153,7 +154,7 @@ import { SessionManager } from "@/components/utils/utils";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/common";
-import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
+import { documentTypesJsonInfoType } from '@/types/Common';
 const commonState = namespace("Common");
 
 @Component
@@ -162,9 +163,6 @@ export default class LandingPage extends Vue {
     @commonState.Action
     public UpdateDocumentTypesJson!: (newDocumentTypesJson: documentTypesJsonInfoType[]) => void
     
-    @commonState.Action
-    public UpdateLocationsInfo!: (newLocationsInfo: locationsInfoType[]) => void
-
     isLoggedIn = false;
     pageReady = false;
     safetyInst = false;
@@ -176,11 +174,11 @@ export default class LandingPage extends Vue {
         if(this.$store.state.Common.userId !== ""){
             this.isLoggedIn = true
             this.$router.push({ name: "applicant-status" });
-            // this.determineUserType()
         }else{
             this.isLoggedIn = false;
             this.pageReady = true;
         } 
+        console.log('Welcome to FLAAP, version: '+ Vue.filter('get-current-version')())
     }
   
     public navigate(userType) {
@@ -188,14 +186,14 @@ export default class LandingPage extends Vue {
         this.$router.push({ name: "applicant-status" });       
     }
   
-};
+}
 </script>
 
 <style scoped lang="scss">
 @import "src/styles/common";
 
 .background {
-  // background-image: url("../../assets/landing-2.jpg");
+  background-image: url("../../assets/landing3.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -204,8 +202,9 @@ export default class LandingPage extends Vue {
 
 .home-content {
   padding-bottom: 20px;
-  padding-top: 2rem;
-  max-width: 950px;
+  padding-top: 0.75rem;
+  width: 85%;
+//   max-width: 950px;
   color: black;
 }
 .intro {
@@ -217,7 +216,7 @@ export default class LandingPage extends Vue {
   }
 }
 .how-works-section {
-  font-size: 18px;
+  font-size: 17px;
   p {
     margin: 0 0 0 0;
   }
@@ -229,10 +228,20 @@ export default class LandingPage extends Vue {
   margin-top: 0.5rem;
   color: $gov-white;
 }
+
+.intro-section {
+  border: 2px solid rgba($gov-pale-grey, 0.3);
+  border-radius: 18px;
+  background-color: rgba($gov-white, 0.7);
+  margin-top: 0.5rem;  
+  padding-top: 0.75rem; 
+  padding-left: 1.25rem;
+  color: black;
+}
 .survey-button {
   color: black;
   border: 2px solid rgba($gov-pale-grey, 0.3);
-  margin-top: 2.5rem;
+  margin-top: 1.25rem;
   &:hover,
   &:focus {
     color: rgb(247, 214, 126);
@@ -241,10 +250,9 @@ export default class LandingPage extends Vue {
     border: 2px solid rgba($gov-white, 0.8);
   }
 }
-.login-button {
-  //color: $gov-white !important;
+.login-button {  
   color: black;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   border: 2px solid rgb(231, 231, 231);
   &:hover,
   &:focus {

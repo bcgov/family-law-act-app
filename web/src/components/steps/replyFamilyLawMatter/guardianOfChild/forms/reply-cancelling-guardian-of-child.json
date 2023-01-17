@@ -1,0 +1,53 @@
+{
+  "title": "Reply Cancelling a Guardian of a Child",
+  "pages": [
+    {
+      "name": "Reply Cancelling a Guardian of a Child",
+      "elements": [
+        {
+          "type": "infotext",
+          "name": "cancellingGuardianshipDescription1",
+          "title": "The other party has made an application to cancel the guardianship of a child.<br><br>Guardianship is who is responsible for a child. Only guardians can have parental responsibilities and parenting time with a child.<br><br>The <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_01' target='_blank'>Family Law Act</a> provides that generally both parents will continue to be guardians even if the parents are not together, and each will have parenting time and parental responsibilities. This does not mean that parents must have equal time or responsibility for a child. An agreement or order about parenting arrangements can make all the child’s guardians share parenting responsibilities or parenting time. Or it can make only one or more guardians responsible for parenting decisions and time with the child to the exclusion of all other guardians.<br><br>In some cases, it may not be appropriate for a parent or guardian to remain a guardian. A parent can be removed as guardian by agreement with all the other guardians or by court order. If a parent is not a guardian, they can still have time with the child – contact – but will not have any parental responsibilities.<br><br>We recommend that you talk to a lawyer before you make decisions about your future parenting arrangements or guardianship of a child.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "helptext",
+          "name": "FAQLegalAdvice",
+          "title": "Where can I get legal assistance?",
+          "titleLocation": "hidden",              
+          "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"             
+        },
+        {
+          "type": "infotext",
+          "name": "cancellingGuardianshipDescription2",
+          "title": "The details of the order the other party is asking for can be found in <b>Schedule 8 – Cancelling Guardianship of a Child</b> of their Application About a Family Law Matter. You will need to refer to their application for these next questions.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "CancellingGuardianshipPanel",
+          "elements": [            
+            {
+              "type": "radiogroup",
+              "name": "agreeCourtOrder",
+              "title": "Do you agree the court should make the order?", 
+              "description": "Look at <b>Question 1</b> on <b>Schedule 8 – Cancelling Guardianship of a Child</b> of the other party’s Application About a Family Law Matter. The application may be about more than one guardian or more than one child.<br><br>Select the correct statement below:",           
+              "isRequired": true,                         
+              "choices": [
+                {"value": "agreeAll", "text": "I <b>agree</b> the court should make the order as requested by the other party"},
+                {"value": "agreeNotAll", "text": "I <b>agree to some but not all</b> of the order requested by the other party<br><div style='font-size: 14px; margin-left: 2rem;'>If the application is about more than one guardian or more than one child, you might agree to the order about only one of those people or children.</div>"},
+                {"value": "disagree", "text": "I <b>do not agree</b> the court should make the order requested by the other party."}                
+              ]
+            }
+          ]
+        }
+   
+      ],
+      "title": "Reply Cancelling a Guardian of a Child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

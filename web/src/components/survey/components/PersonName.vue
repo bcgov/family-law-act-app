@@ -51,7 +51,7 @@ export default {
   methods: {
     makeFields() {
       const q = this.question;
-      const fields = [
+      return [
         {
           name: "first",
           label: q.labelFirstName || "First Name",
@@ -71,7 +71,7 @@ export default {
           desc: q.descLastName
         }
       ];
-      return fields;
+      
     }
   },
   mounted() {
@@ -81,5 +81,5 @@ export default {
       this.value = q.value;
     };
   }
-};
+}
 </script>

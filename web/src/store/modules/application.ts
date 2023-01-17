@@ -31,6 +31,8 @@ class Application extends VuexModule {
     public packageNumber = ""
     public eFilingHubLink = ""
     public generatedForms: string[] = [];
+    public rflmRequiredDocsRequests = [];
+    public rflmRequiredDocsRequestsUpdateCounter = 0;
 
     public surveyChangedPO = false;
     
@@ -38,7 +40,17 @@ class Application extends VuexModule {
     public supportingDocumentForm4: number[] = [];
 
     public allCompleted = false;
-    public pathwayCompleted = { protectionOrder:false, familyLawMatter:false, caseMgmt:false, priorityParenting:false, childReloc:false, agreementEnfrc:false} //{Protection Order, Family Law Matters, Case management, Priority parenting, Relocation of a child, Enforcement of agreements}
+    public pathwayCompleted = { 
+        protectionOrder:false, 
+        replyFlm: false, 
+        writtenResponse: false, 
+        replyCounterApplication: false, 
+        familyLawMatter:false, 
+        caseMgmt:false, 
+        priorityParenting:false, 
+        childReloc:false, 
+        agreementEnfrc:false
+    }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
 
@@ -63,7 +75,7 @@ class Application extends VuexModule {
         s.id = "0";
         s.name = "GETSTART";
         s.label = "Get Started";
-        s.icon = "fa-users";
+        s.icon = "fa fa-rocket";
         s.lastUpdate = null;    
         s.type = "getInformationStep";
         s.pages = new Array<pageInfoType>();
@@ -71,9 +83,33 @@ class Application extends VuexModule {
     
         let p = {} as pageInfoType;
         p.key = "0";
-        p.name = "GettingStarted";
+        p.name = "SelectActivity";
         p.label = "Getting Started";
         p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReplyToApplication";
+        p.label = "Reply to an Application";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "GettingStarted";
+        p.label = "Apply for an Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "FlmInfo";
+        p.label = "Did You Know?";
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -86,7 +122,7 @@ class Application extends VuexModule {
         s.id = "1";
         s.name = "PO";
         s.label = "Protection Order";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepPO";
         s.pages = new Array<pageInfoType>();
@@ -127,7 +163,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "4";
         p.name = "RemovePerson";
-        p.label = "Remove person or belongings";
+        p.label = "Remove Person or Belongings";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -221,7 +257,7 @@ class Application extends VuexModule {
         s.id = "2";
         s.name = "COMMON";
         s.label = "Your Information";
-        s.icon = "fa-users";
+        s.icon = "fa fa-users";
         s.lastUpdate = null;
         s.type = "commonInformationStep";
         s.pages = new Array<pageInfoType>();
@@ -238,7 +274,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "1";
         p.name = "YourInformation";
-        p.label = "Your information";
+        p.label = "Your Information";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -253,6 +289,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "3";
+        p.name = "Notice";
+        p.label = "Notice";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
         p.name = "FilingLocation";
         p.label = "Filing Location";
         p.active = false;
@@ -263,13 +307,689 @@ class Application extends VuexModule {
 
         // Common Information STOP
 
+        // Reply Family Law Matter START
+        s = {} as stepInfoType;
+    
+        s.active = false;
+        s.id = "3";
+        s.name = "RFLM";
+        s.label = "Reply to Family Law Matter";
+        s.icon = "fa fa-reply-all";
+        s.lastUpdate = null;    
+        s.type = "stepRFLM";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "RflmQuestionnaire";
+        p.label = "Questionnaire";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "RflmCounterApp";
+        p.label = "Counter Application";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "RflmBackground";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "RflmChildrenInfo";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReplyNewParentingArrangements";
+        p.label = "Reply New Parenting Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ReplyNewParentalResponsibilities";
+        p.label = "Reply New Parental Responsibilities";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "ReplyNewParentingTime";
+        p.label = "Reply New Parenting Time";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "ReplyNewConditionsParentingTime";
+        p.label = "Reply New Conditions Parenting Time";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "ReplyExistingParentingArrangements";
+        p.label = "Reply Existing Parenting Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "ReplyNewChildSupport";
+        p.label = "Reply New Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "RelationshipToChild";
+        p.label = "Relationship To Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.name = "DisagreeChildSupport";
+        p.label = "Disagree Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "ReplyExistingChildSupport";
+        p.label = "Reply Existing Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "13";
+        p.name = "RflmUnpaidChildSupport";
+        p.label = "Unpaid Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.name = "DisagreeExistingChildSupport";
+        p.label = "Disagree Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "15";
+        p.name = "RflmCalculatingChildSupport";
+        p.label = "Calculating Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "16";
+        p.name = "ReplyNewContactWithChild";
+        p.label = "Reply New Contact With Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "17";
+        p.name = "DisagreeContactWithChild";
+        p.label = "Disagree Contact With Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "18";
+        p.name = "ReplyExistingContactWithChild";
+        p.label = "Reply Existing Contact With Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "19";
+        p.name = "ReplyAppointingGuardianOfChild";
+        p.label = "Reply Appointing a Guardian of a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "20";
+        p.name = "DisagreeAppointingGuardianOfChild";
+        p.label = "Disagree Appointing a Guardian";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "21";
+        p.name = "ReplyCancellingGuardianOfChild";
+        p.label = "Reply Cancelling a Guardian of a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "22";
+        p.name = "DisagreeCancellingGuardianOfChild";
+        p.label = "Disagree Cancelling a Guardian";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "23";
+        p.name = "ReplyNewSpouseSupport";
+        p.label = "Reply New Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "24";
+        p.name = "RelationshipToOtherParty";
+        p.label = "Relationship to Other Party";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "25";
+        p.name = "DisagreeSpouseSupport";
+        p.label = "Disagree – Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "26";
+        p.name = "RflmSpouseSupportOrder";
+        p.label = "Spousal Support Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "27";
+        p.name = "ReplyExistingSpouseSupport";
+        p.label = "Reply Existing Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "28";
+        p.name = "RflmUnpaidSpouseSupport";
+        p.label = "Unpaid Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "29";
+        p.name = "DisagreeExistingSpouseSupport";
+        p.label = "Disagree Existing Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "30";
+        p.name = "RflmCalculatingSpouseSupport";
+        p.label = "Calculating Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "31";
+        p.name = "RflmAdditionalDocuments";
+        p.label = "Additional Documents";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "32";
+        p.name = "YourApplication";
+        p.label = "Your Application";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Parenting Arrangements_________
+        p = {} as pageInfoType;
+        p.key = "33";
+        p.name = "ParentingArrangements";
+        p.label = "Parenting Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "34";
+        p.name = "ParentalResponsibilities";
+        p.label = "Parental Responsibilities";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "35";
+        p.name = "ParentingTime";
+        p.label = "Parenting Time";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "36";
+        p.name = "OtherParentingArrangements";
+        p.label = "Other Parenting Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "37";
+        p.name = "ParentingOrderAgreement";
+        p.label = "Parenting Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "38";
+        p.name = "AboutParentingArrangements";
+        p.label = "About Parenting Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "39";
+        p.name = "ParentingArrangementChanges";
+        p.label = "Parenting Arrangement Changes";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "40";
+        p.name = "BestInterestsOfChild";
+        p.label = "Best Interests of the Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
+//____________Child Support__________
+        p = {} as pageInfoType;
+        p.key = "41";
+        p.name = "ChildSupport";
+        p.label = "Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "42";
+        p.name = "ChildSupportCurrentArrangements";
+        p.label = "Current Arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "43";
+        p.name = "IncomeAndEarningPotential";
+        p.label = "Income and Earning Potential";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "44";
+        p.name = "AboutChildSupportOrder";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "45";
+        p.name = "ChildSupportOrderAgreement";
+        p.label = "Child Support Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "46";
+        p.name = "AboutExistingChildSupport";
+        p.label = "About Existing Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "47";
+        p.name = "CalculatingChildSupport";
+        p.label = "Calculating Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "48";
+        p.name = "UndueHardship";
+        p.label = "Undue Hardship";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "49";
+        p.name = "SpecialAndExtraordinaryExpenses";
+        p.label = "Special and Extraordinary Expenses";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "50";
+        p.name = "AboutChildSupportChanges";
+        p.label = "About Child Support Changes";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "51";
+        p.name = "UnpaidChildSupport";
+        p.label = "Unpaid Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
+
+//____________Contact with a Child
+        p = {} as pageInfoType;
+        p.key = "52";
+        p.name = "ContactWithChild";
+        p.label = "Contact with a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "53";
+        p.name = "ContactWithChildOrder";
+        p.label = "Contact Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "54";
+        p.name = "AboutContactWithChildOrder";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "55";
+        p.name = "ContactWithChildBestInterestsOfChild";
+        p.label = "Best Interests of the Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+//____________Guardianship of a Child
+        p = {} as pageInfoType;
+        p.key = "56";
+        p.name = "GuardianOfChild";
+        p.label = "Guardianship of a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "57";
+        p.name = "GuardianOfChildBestInterestsOfChild";
+        p.label = "Best Interests of the Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "58";
+        p.name = "IndigenousAncestryOfChild";
+        p.label = "Indigenous Ancestry of Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+//____________Spousal Support
+        p = {} as pageInfoType;
+        p.key = "59";
+        p.name = "SpousalSupport";
+        p.label = "Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);  
+        
+        p = {} as pageInfoType;
+        p.key = "60";
+        p.name = "SpousalSupportIncomeAndEarningPotential";
+        p.label = "Income and Earning Potential";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "61";
+        p.name = "AboutSpousalSupportOrder";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "62";
+        p.name = "ExistingSpousalSupportOrderAgreement";
+        p.label = "Spousal Support Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "63";
+        p.name = "ExistingSpousalSupportFinalOrder";
+        p.label = "Existing Final Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "64";
+        p.name = "ExistingSpousalSupportAgreement";
+        p.label = "Existing Written Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "65";
+        p.name = "CalculatingSpousalSupport";
+        p.label = "Calculating Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "66";
+        p.name = "AboutExistingSpousalSupportOrder";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "67";
+        p.name = "UnpaidSpousalSupport";
+        p.label = "Unpaid Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+//______ Additional Documents
+        p = {} as pageInfoType;
+        p.key = "68";
+        p.name = "FlmAdditionalDocuments";
+        p.label = "Additional Documents";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "69";
+        p.name = "ReviewYourAnswersRFLM";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "70";
+        p.name = "PreviewFormsRFLM";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Reply Family Law Matter STOP
+
+        // Written Response to Application START
+        s = {} as stepInfoType;
+
+        s.active = false;
+        s.id = "4";
+        s.name = "WR";
+        s.label = "Written Response to Application";
+        s.icon = "fa fa-pencil";
+        s.lastUpdate = null;    
+        s.type = "stepWR";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+    
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "WrReplyingToApplication";
+        p.label = "Replying to Application";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AgreeDisagree";
+        p.label = "Agree or Disagree";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "AboutWrittenResponseOrder";
+        p.label = "About the Order";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersWR";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsWR";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        this.steps.push(s);
+ 
+        // Written Response to Application STOP
+
+        // Reply to Counter Application START
+        s = {} as stepInfoType;
+
+        s.active = false;
+        s.id = "5";
+        s.name = "CA";
+        s.label = "Reply to Counter Application";
+        s.icon = "fa fa-reply";
+        s.lastUpdate = null;    
+        s.type = "stepCA";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+    
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "CounterApplication";
+        p.label = "Reply to Counter Application";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        this.steps.push(s);
+ 
+        // Reply to Counter Application STOP
+
         //Family Law Matter START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "3";
+        s.id = "6";
         s.name = "FLM";
         s.label = "Family Law Matter";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepFlm";
         s.pages = new Array<pageInfoType>();
@@ -551,7 +1271,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "33";
         p.name = "ExistingSpousalSupportFinalOrder";
-        p.label = "Existing final order";
+        p.label = "Existing Final Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -559,7 +1279,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "34";
         p.name = "ExistingSpousalSupportAgreement";
-        p.label = "Existing written agreement";
+        p.label = "Existing Written Agreement";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -575,7 +1295,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "36";
         p.name = "AboutExistingSpousalSupportOrder";
-        p.label = "About the order";
+        p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -620,10 +1340,10 @@ class Application extends VuexModule {
         // Case Mgmt START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "4";
+        s.id = "7";
         s.name = "CM";
         s.label = "Case Management";
-        s.icon = "fa-child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepCm";
         s.pages = new Array<pageInfoType>();
@@ -631,21 +1351,151 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "CaseManagementForm";
-        p.label = "Case Management Form";
+        p.name = "CmQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "OtherPersons";
+        p.label = "Other Persons";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "WithoutNoticeOrAttendance";
+        p.label = "Without Notice or Attendance";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ByConsent";
+        p.label = "By Consent";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "CmNotice";
+        p.label = "Notice";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "Scheduling";
+        p.label = "Scheduling";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "AboutCaseManagementOrder";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "CmChildrenInfo";
+        p.label = "Children";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "AttendanceUsingElectronicCommunication";
+        p.label = "Attendance Using Another Method of Attendance";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "ChangingOrCancellingAServiceOrNotice";
+        p.label = "Changing or Cancelling a Service or Notice";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "ChangingOrCancellingAnyOtherRequirement";
+        p.label = "Changing or Cancelling Any Other Requirement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.name = "RequiringAccessToInformation";
+        p.label = "Requiring Access to Information";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "RecognizingAnOrderFromOutsideBc";
+        p.label = "Recognizing an Order from Outside BC";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "13";
+        p.name = "ContactInformationOtherParty";
+        p.label = "Contact Information Other Party";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.name = "ReviewYourAnswersCM";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "15";
+        p.name = "PreviewForm10CM";
+        p.label = "Preview Form 10";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "16";
+        p.name = "PreviewForm11CM";
+        p.label = "Preview Form 11";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
         this.steps.push(s);
         //Case Mgmt STOP
         //Priority parenting matter START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "5";
+        s.id = "8";
         s.name = "PPM";
-        s.label = "Priority parenting matter";
-        s.icon = "fa-child";
+        s.label = "Priority Parenting Matter";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepPpm";
         s.pages = new Array<pageInfoType>();
@@ -653,32 +1503,130 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "PriorityParentingMatterForm";
-        p.label = "Priority Parenting Matter Form";
+        p.name = "PpmQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "PriorityParentingMatterOrder";
+        p.label = "Priority Parenting Matter";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PpmChildrenInfo";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "PpmBackground";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "AboutPriorityParentingMatterOrder";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);     
+        
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PpmIndigenousAncestryOfChild";
+        p.label = "Indigenous Ancestry of Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //______ Additional Documents
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PpmAdditionalDocuments";
+        p.label = "Additional Documents";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "ReviewYourAnswersPPM";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "PreviewFormsPPM";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
         this.steps.push(s);
 
         //Priority parenting matter STOP
         //Relocation of a child START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "6";
+        s.id = "9";
         s.name = "RELOC";
-        s.label = "Relocation of a child";
-        s.icon = "fa-child";
+        s.label = "Relocation of a Child";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepReloc";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
-    
+
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "RelocationOfChildForm";
-        p.label = "Relocation of a child Form";
+        p.name = "RelocQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "RelocChildrenInfo";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "RelocChildBestInterestInfo";
+        p.label = "Best Interests of the Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersRELOC";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsRELOC";
+        p.label = "Preview Forms";
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -688,19 +1636,123 @@ class Application extends VuexModule {
         //Enforcement START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "7";
+        s.id = "10";
         s.name = "ENFRC";
-        s.label = "Enforcement of agreements and court orders";
-        s.icon = "fa-child";
+        s.label = "Enforcement";
+        s.icon = "fa fa-child";
         s.lastUpdate = null;
         s.type = "stepEnfrc";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "EnfrcQuestionnaire";
+        p.label = "Questionnaire";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "EnforceAgreementOrOrder";
+        p.label = "Enforce Agreement or Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "EnforceChangeOrSetAsideDetermination";
+        p.label = "Enforce, Change or Set Aside Determination";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "DetermineAnAmountOwingForExpenses";
+        p.label = "Determine an Amount Owing for Expenses";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "DetermineArrears";
+        p.label = "Determine Arrears";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "AboutTheOrderEnforcement";
+        p.label = "About the Order - Enforcement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "ReviewYourAnswersENFRC";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "PreviewForm26ENFRC";
+        p.label = "Preview Form 26";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+        
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "PreviewForm27ENFRC";
+        p.label = "Preview Form 27";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "PreviewForm28ENFRC";
+        p.label = "Preview Form 28";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "PreviewForm29ENFRC";
+        p.label = "Preview Form 29";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        //Enforcement STOP
+        //Connect START  
+        s = {} as stepInfoType;
+        s.active = false;
+        s.id = "11";
+        s.name = "CONNECT";
+        s.label = "Review and Connect";
+        s.icon = "fas fa-user-friends";
+        s.lastUpdate = null;
+        s.type = "connect";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "EnforcementForms";
-        p.label = "Agreement and Court Orders Forms";
+        p.name = "ReviewAndConnect";
+        p.label = "Review and Connect";
         p.active = true;
         p.progress = 0;
     
@@ -708,15 +1760,15 @@ class Application extends VuexModule {
 
         this.steps.push(s);
 
-        //Enforcement STOP
+        // Connect STOP
         //Submit START
         s = {} as stepInfoType;
 
         s.active = false;
-        s.id = "8";
+        s.id = "12";
         s.name = "SUBMIT";
         s.label = "Review and File";
-        s.icon = "fa-paper-plane";
+        s.icon = "fa fa-paper-plane";
         s.lastUpdate = null;
         s.type = "submit";
         s.pages = new Array<pageInfoType>();
@@ -850,15 +1902,28 @@ class Application extends VuexModule {
     @Action
     public UpdateRequiredDocumentsByType({typeOfRequiredDocuments, requiredDocuments }) {
         this.context.commit("setRequiredDocumentsByType", {typeOfRequiredDocuments, requiredDocuments });
-        //console.log(this.requiredDocuments)
         this.context.commit("setCommonStepResults",{data:{'requiredDocuments':this.requiredDocuments}});
+    }
+
+
+    @Mutation
+    public setRflmRequiredDocsRequests(rflmRequiredDocsRequests): void {
+        this.rflmRequiredDocsRequests = rflmRequiredDocsRequests;
+    }    
+    @Action
+    public UpdateRflmRequiredDocsRequests(newRflmRequiredDocsRequests) {
+        this.context.commit("setRflmRequiredDocsRequests", newRflmRequiredDocsRequests);
+        //this.context.commit("setCommonStepResults",{data:{'rflmRequiredDocsRequests':this.rflmRequiredDocsRequests}});
+    }
+    @Mutation
+    public setRflmRequiredDocsRequestsUpdateCounter(rflmRequiredDocsRequestsUpdateCounter): void {
+        this.rflmRequiredDocsRequestsUpdateCounter = rflmRequiredDocsRequestsUpdateCounter;
     }
 
     @Mutation
     public setPackageNumber(packageNumber): void {
         this.packageNumber = packageNumber;
-    }
-    
+    }    
     @Action
     public UpdatePackageNumber(newPackageNumber) {
         this.context.commit("setPackageNumber", newPackageNumber);
@@ -867,8 +1932,7 @@ class Application extends VuexModule {
     @Mutation
     public setEFilingHubLink(eFilingHubLink): void {
         this.eFilingHubLink = eFilingHubLink;
-    }
-    
+    }    
     @Action
     public UpdateEFilingHubLink(newEFilingHubLink) {
         this.context.commit("setEFilingHubLink", newEFilingHubLink);
@@ -964,9 +2028,7 @@ class Application extends VuexModule {
     @Action
     public UpdateCommonStepResults({ data }) {
         this.context.commit("setCommonStepResults", { data });
-    } 
-    
-   
+    }   
 
     @Mutation
     public setPathwayCompletedFull(newPathwayCompleted): void {
@@ -984,10 +2046,9 @@ class Application extends VuexModule {
     @Action
     public checkAllCompleted() {
         let newAllCompleted = false;
-        if(this.steps[0].result){
-            //console.log(this.steps[0].result.selectedForms)
+        if(this.steps[0].result?.selectedForms){
             for(const selectedform of this.steps[0].result.selectedForms){
-                //console.log(selectedform)
+
                 if(this.pathwayCompleted[selectedform]) 
                     newAllCompleted = true;
                 else{
@@ -996,8 +2057,18 @@ class Application extends VuexModule {
                 }
             }            
         }
-        //console.log(newAllCompleted)
-        if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:8, currentPage:0 });
+        if(this.steps[0].result?.selectedReplyForms){
+            for(const selectedReplyform of this.steps[0].result.selectedReplyForms){
+
+                if(this.pathwayCompleted[selectedReplyform]) 
+                    newAllCompleted = true;
+                else{
+                    newAllCompleted = false;
+                    break;
+                }
+            }            
+        }
+        if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:0 });
         this.context.commit("setAllCompleted", newAllCompleted)
     }
 
@@ -1006,15 +2077,12 @@ class Application extends VuexModule {
         this.pathwayCompleted[pathway] = isCompleted;        
     }
     @Action
-    public UpdatePathwayCompleted({pathway, isCompleted}) {
-        //console.log(pathway,isCompleted)   
+    public UpdatePathwayCompleted({pathway, isCompleted}) { 
         this.context.commit("setPathwayCompleted", {pathway, isCompleted}); 
         this.context.commit("setCommonStepResults",{data:{'pathwayCompleted':this.pathwayCompleted}});            
-        //console.log(this.pathwayCompleted)
         this.context.dispatch("checkAllCompleted")
     }    
-    
-    
+        
     @Mutation
     public setApplicantName(applicantName): void {
         this.applicantName = applicantName;
@@ -1147,20 +2215,14 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
-        //console.log(this.$store.state.Application)
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
-            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)
-            // console.error(step.name)
-            // console.warn(stepsAndPagesNumber[step.name].StepNo)
+            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           
             for(const page of step.pages){
-                // console.log(page.key+' ' +page.name)
                 stepsAndPagesNumber[step.name][page.name] = Number(page.key)
             }
         }
-        //console.log(stepsAndPagesNumber)
-        //this.UpdateStPgNo(stepsAndPagesNumber)
         this.context.commit("setStPgNo", stepsAndPagesNumber);
     }
 
@@ -1170,9 +2232,9 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateSurveyChangedPO(newSurveyChangedPO: boolean) {
-        const stepPO = 1
-        const reviewPagePO = 12
-        const previewPagePO = 13
+        const stepPO = this.stPgNo.PO._StepNo
+        const reviewPagePO = this.stPgNo.PO.ReviewYourAnswers
+        const previewPagePO = this.stPgNo.PO.PreviewForms
         this.context.commit("setSurveyChangedPO", newSurveyChangedPO);
         if(newSurveyChangedPO && this.steps[stepPO].pages[reviewPagePO].progress ==100 ){//if changes, make review page incompelete
             this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:reviewPagePO, progress:50 });
@@ -1182,10 +2244,11 @@ class Application extends VuexModule {
         }  
         
         
-        this.context.commit("resetStep", 8);
-        for (let i=1; i<5; i++) {
-            this.context.commit("setPageActive", { currentStep: 8, currentPage: i, active: false });
-            this.context.commit("setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
+        this.context.commit("resetStep", this.stPgNo.SUBMIT._StepNo);
+        const submitTotalPages = (Object.keys(this.stPgNo.SUBMIT).length -1)
+        for (let i=1; i<submitTotalPages; i++) {
+            this.context.commit("setPageActive",   { currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: i, active: false });
+            this.context.commit("setPageProgress", { currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: i, progress:0 });
         }
         
     }
@@ -1222,34 +2285,30 @@ class Application extends VuexModule {
         let pIndex = Number(this.steps[sIndex].currentPage) - 1;
     
         while (prevStepPage == null && sIndex >= 0) {
-          const s = this.steps[sIndex];
-    
-          if (s.active) {
-            while (prevStepPage == null && pIndex >= 0) {
-              if (s.pages[pIndex].active) {
-                prevStepPage = { prevStep: sIndex, prevPage: pIndex };
-              } else {
-                pIndex--;
-              }
+            const s = this.steps[sIndex];
+        
+            if (s.active) {
+                while (prevStepPage == null && pIndex >= 0) {
+                    if (s.pages[pIndex].active) {
+                        prevStepPage = { prevStep: sIndex, prevPage: pIndex };
+                    } else {
+                        pIndex--;
+                    }
+                }
             }
-          }
-    
-          // go to previous step
-          sIndex--;
-    
-          if (sIndex >= 0) {
-            pIndex = this.steps[sIndex].pages.length - 1;
-          }
+        
+            // go to previous step
+            sIndex--;
+        
+            if (sIndex >= 0) {
+                pIndex = this.steps[sIndex].pages.length - 1;
+            }
         }
     
         return prevStepPage;
     }
 
-
-
     get getNextStepPage(): { nextStep: number; nextPage: number } {
-
-        //console.log("nextStep")
 
         let nextStepPage: { nextStep: number; nextPage: number };    
         let sIndex = Number(this.currentStep);       
@@ -1275,7 +2334,7 @@ class Application extends VuexModule {
                 pIndex = 0;
             }
         }
-        //console.log(nextStepPage)
+
         return nextStepPage;
     }
 

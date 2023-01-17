@@ -3,10 +3,10 @@
         <survey v-bind:survey="survey"></survey>
         <div class="row">
             <div class="col-6">
-                <button type="button" class="btn btn-primary" @click="goBack()">Back</button>
+                <button type="button" class="btn btn-secondary" @click="goBack()">Cancel</button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-primary" @click="saveChild()">Save Changes</button>
+                <button type="button" class="btn btn-success" @click="saveChild()">Save</button>
             </div>
         </div>
         <br />
@@ -18,20 +18,22 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import { childInfoType } from '@/types/Application/CommonInformation';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-childInfo.json";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-//import { addQuestionTypes } from "@/components/survey/question-types.ts";
 
 @Component
 export default class ChildrenSurvey extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;
+
+    @Prop({required: true})
+    formOneRequired!: boolean;
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
@@ -86,7 +88,8 @@ export default class ChildrenSurvey extends Vue {
             
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })   
+        this.survey.setVariable("formOneRequired", this.formOneRequired);    
     }
   
     public goBack() {
@@ -94,40 +97,21 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public saveChild() {
-        const p = this.stPgNo.FLM
-        const pages = [
-            p.ParentingArrangements,
-            p.ParentalResponsibilities,
-            p.ParentingTime,
-            p.ParentingOrderAgreement,
-            p.BestInterestsOfChild,
-            p.ChildSupportCurrentArrangements,
-            p.AboutChildSupportOrder,
-            p.SpecialAndExtraordinaryExpenses,
-            p.ContactWithChild,
-            p.ContactWithChildOrder,
-            p.AboutContactWithChildOrder,
-            p.ContactWithChildBestInterestsOfChild,
-            p.GuardianOfChild,
-            p.ReviewYourAnswersFLM
-        ]
-        Vue.filter('setProgressForPages')(this.currentStep, pages,50)
+        
         this.survey.completeLastPage();
     }
 
     public populateChildModel(childData) {
-        //console.log(childData)
-        this.child.name = childData.childName;
-        // this.child.name.middle = childData.childName.middle;
-        // this.child.name.last = childData.childName.last;
-        this.child.dob = childData.childDateOfBirth;
-        this.child.relation = childData.relationToChild;
-        this.child.opRelation = childData.childRelationToOtherParty;
-        this.child.currentLiving = childData.childCurrentlyLivingWith;
-        this.child.currentLivingComment = (childData.childCurrentlyLivingWith == 'other')?(childData.childCurrentlyLivingWithComment):"";        
-        this.child.ack = childData.childInfoAckknowledge;
-        this.child.additionalInfo = childData.childAdditionalInfo;
-        this.child.additionalInfoDetails = childData.additionInfoDetails;
+        if(childData){
+            this.child.name = childData.childName;       
+            this.child.dob = childData.childDateOfBirth;
+            this.child.relation = childData.relationToChild;
+            this.child.opRelation = childData.childRelationToOtherParty;
+            this.child.currentLiving = childData.childCurrentlyLivingWith;
+            this.child.ack = childData.childInfoAckknowledge;
+            this.child.additionalInfo = childData.childAdditionalInfo;
+            this.child.additionalInfoDetails = childData.additionInfoDetails;
+        }
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
@@ -138,7 +122,6 @@ export default class ChildrenSurvey extends Vue {
         survey.setValue("relationToChild", editRowProp.relation);
         survey.setValue("childRelationToOtherParty", editRowProp.opRelation);
         survey.setValue("childCurrentlyLivingWith", editRowProp.currentLiving);
-        survey.setValue("childCurrentlyLivingWithComment", editRowProp.currentLivingComment?editRowProp.currentLivingComment:'');
         survey.setValue("childInfoAckknowledge", editRowProp.ack);
         survey.setValue("childAdditionalInfo", editRowProp.additionalInfo);
         survey.setValue("additionInfoDetails", editRowProp.additionalInfoDetails);
@@ -149,5 +132,5 @@ export default class ChildrenSurvey extends Vue {
         const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
     }
-};
+}
 </script>

@@ -1,324 +1,322 @@
 {
-    "title": "Provincial Court Family Law Act Protection Order",
-    "pages": [
-     {
-      "name": "Background",
-      "elements": [
-       {
-        "type": "panel",
-        "name": "backgroundPanel",
-        "elements": [
-         {
-          "type": "comment",
-          "name": "howPartiesRelated",
-          "title": "Describe how the protected party/parties and the other party are related for the purposes of this application",
-          "description":"You do not need to use any special wording. Describe the relationship or connection in your own words, for example, we were living together in a relationship and are both parents of the child. If there is more than one protected party, be clear about the relationship or connection of the other party to each of them.",
-          "isRequired": true
-         },
-         
-         {
-          "type": "yesno",
-          "name": "werePOPartiesMarried",
-          "title": "Is the protected party a spouse (or has been a spouse) of the other party OR does the protected party live (or has lived) together in a marriage-like relationship with the other party?",
-          "description":"If the protection order is only for the protection of a child, please answer the question for the parent or guardian of the protected child and their relationship to the other party.",
-          "isRequired": true
-         },
-         {
-            "type": "helptext",
-            "name": "werePOPartiesMarriedFAQ",
-            "title": "What is a spouse?",
-            "titleLocation": "hidden",
-            "body": "Spouses can include both married and unmarried individuals. A spouse is a person: <ul><li>who is married to another person, or</li><li>has lived with another person in a marriage-like relationship (commonly called a common law relationship), and</li><ol style='list-style-type: lower-roman' ><li>has lived with the other person for at least 2 years without a break, or</li><li>has a child with the other person</li><ol/></ul>"
-         },
-         {
-          "type": "text",
-          "name": "liveTogetherPODate",
-          "visibleIf": "{werePOPartiesMarried} = \"y\"",
-          "title": " Date on which the parties began to live together in a marriage-like relationship",
-          "inputType": "date",
-          "description": "If you do not know the exact date, select the year and month and the 1<sup>st</sup> of the month.",
-          "isRequired": true
-         },
-         {
-          "type": "text",
-          "name": "dateOfMarriagePO",
-          "visibleIf": "{werePOPartiesMarried} = 'y' ",
-          "title": "Date of marriage",
-          "description": "Complete only if the parties were/are married",
-          "inputType": "date"
-         },
-         {
-          "type": "radiogroup",
-          "name": "isSeperatedPO",
-          "isRequired": true,
-          "title": "Are the protected party and the other party currently separated",
-          "description": "Spouses may be separated while continuing to live in the same residence",
-          "choices": [
-           {
-            "value": "Yes",
-            "text": "Yes"
-           },
-           {
-            "value": "No",
-            "text": "No"
-           },
-           {
-            "value": "Unknown",
-            "text": "Unknown"
-           }
-          ]
-         },
-         {
-          "type": "text",
-          "name": "separationDate",
-          "visibleIf": "{isSeperatedPO} = 'Yes' ",
-          "title": "Parties separated on",
-          "isRequired": true,
-          "inputType": "date"
-         },
-         {
-          "type": "radiogroup",
-          "name": "planningToSeparatePO",
-          "isRequired": true,
-          "visibleIf": "false",
-          "title": "Are the protected party and the other party planning to separate?",
-          "choices": [
-           {
-            "value": "Yes",
-            "text": "Yes"
-           },
-           {
-            "value": "No",
-            "text": "No"
-           },
-           {
-            "value": "Unknown",
-            "text": "Unknown"
-           }
-          ]
-         },
-
-         {
-            "type": "yesno",
-            "name": "PartiesHasOtherChilderen",
-            "visibleIf": "(!{protectedChildName}) ",
-            "title": "Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child: ",
-            "isRequired": true
-         },
-         {
-            "type": "html",
-            "name": "info",
-            "visibleIf": "{protectedChildName} notempty",
-            "html": "<div><h2 style='color: #556077'>Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list below:</h2><h4 class='m-2'>The list of child(ren) to be protected from {RespondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
-         },
-         {
-            "type": "yesno",
-            "name": "PartiesHasOtherChilderen",
-            "visibleIf": "({protectedChildName} notempty) ",
-            "title": "Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list",
-            "isRequired": true,
-            "titleLocation":"hidden"
-         },
-         {
-            "type": "paneldynamic",
-            "name": "allOtherChilderen",
-            "visibleIf": "{PartiesHasOtherChilderen} = \"y\"",
-            "title": "Other child(ren) information:",
-            "isRequired": true,
-            "templateElements": [          
-               {
-                  "type": "personname",
-                  "name": "childName",
-                  "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-                  "title": "What is the name of the child?",
-                  "defaultSubstitution": "{childName}",
-                  "isRequired": true
-               },
-               {
-                  "type": "text",
-                  "name": "childDOB",
-                  "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-                  "title": "What is the child's date of birth?",
-                  "inputType": "date",
-                  "isRequired": true
-               },
-               {
-                  "type": "text",
-                  "name": "childRelationshipWithProtected",
-                  "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-                  "title": "What is {ProtectedPartyName}'s relationship to the child?",
-                  "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                  "isRequired": true
-               },
-               {
-                  "type": "text",
-                  "name": "childRelationshipWithOther",
-                  "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-                  "title": "What is {RespondentName}'s relationship to the child?",
-                  "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                  "isRequired": true
-               },
-               {
-                  "type": "text",
-                  "name": "childLivingWith",
-                  "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-                  "title": "Who is the child currently living with?",
-                  "description": "You can use the name of the person or their relationship to the child.",
-                  "isRequired": true
-               }
-            ],
-            "panelCount": 1,
-            "panelAddText": "Add another child",
-            "panelRemoveText": "Remove above child"
-         },
-
-         {
-            "type": "yesno",
-            "name": "ExistingOrders",
-            "visibleIf": "({PartiesHasOtherChilderen} = \"y\") or ({protectedChildName} notempty)",
-            "isRequired": true,
-            "title": "Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, `child support`, contact with a child or guardianship of a child?",
-            "description": "A written agreement includes a separation agreement or mediation agreement. A court order may be from any court in any place, including the Supreme Court."
-         },
-         {
-            "type": "infotext",
-            "name": "ExplanationExistingOrders",
-            "visible": false,
-            "visibleIf": "({ExistingOrders} = 'y' and {PartiesHasOtherChilderen} = \"y\") or ({ExistingOrders} = 'y' and {protectedChildName} notempty) ",
-            "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
-            "titleLocation": "hidden"
-         },
-
-         {
-            "type": "yesno",
-            "name": "likeToAddCulturalExplanation",
-            "title": "Do you have any information you would like to share with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of your family, including, if a child is an Indigenous child, the child’s Indigenous identity?",
-            "description": "There is no requirement to share but sometimes there is information you may choose to share with the court to help them in considering your application.",
-            "isRequired": true
-         },
-         {
-            "type": "comment",
-            "visibleIf": "{likeToAddCulturalExplanation} = \"y\"",
-            "name": "culturalExplain",
-            "title": "I would like to share the following information about my family:",
-            "isRequired":true
-         },
-         {
-          "type": "yesno",
-          "name": "mentalHealthConcernPO",
-          "title": "I have concerns about the mental health of the protected party and/or the other party ",
-          "description": "Mental health conditions are disorders that affect your mood, thinking and behaviour. Mental health conditions include depression, anxiety disorders, bi-polar disorder and schizophrenia.",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "explainReasonsPO",
-          "visibleIf": "{mentalHealthConcernPO} = \"y\"",
-          "title": "Explain the reasons for your concerns",
-          "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "riskOfViolencePO",
-          "title": "Are there circumstances that may increase the risk of family violence?",
-          "description": "There are certain circumstances that may make a person or relationship more at-risk for family violence.<br/><p style='text-align: justify;'>The circumstances may contribute to family violence but might not be the cause of the family violence. To better understand the circumstances that may contribute to family violence in this case, indicate if you believe there are circumstances that may increase the risk of family violence in the relationship such as: substance abuse, employment or financial difficulties, relationship status, criminal history, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, strangling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances.</p>",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "describeCirumstancesPO",
-          "visibleIf": "{riskOfViolencePO} = \"y\"",
-          "title": "Describe the circumstances. You do not need to use any special wording. The key is to be clear about what you mean.",
-          "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "existingPOOrders",
-          "title": "Are there any existing court `orders` protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders?",
-          "description": "This includes:<ul><li>any family law protection order from Provincial Court, Supreme Court, or another jurisdiction</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>",
-          "isRequired": true
-         },
-         {
-            "type": "infotext",
-            "name": "attachCopyOfExistingPOOrders",
-            "visibleIf": "{existingPOOrders} = 'y'",
-            "title":"You will need to include a copy of the order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
-            "titleLocation": "hidden"            
-         },
-         {
-          "type": "radiogroup",
-          "name": "otherPartyDisobeyOrder",
-          "isRequired": true,
-          "title": "Has the other party ever failed to obey a court `order`?",
-          "choices": [
-           {
-            "value": "Yes",
-            "text": "Yes"
-           },
-           {
-            "value": "No",
-            "text": "No"
-           },
-           {
-            "value": "Unknown",
-            "text": "Unknown"
-           }
-          ]
-         },
-         {
-          "type": "comment",
-          "name": "describeDisobeyOrder",
-          "visibleIf": "{otherPartyDisobeyOrder} = \"Yes\"",
-          "title": "Describe the circumstances",
-          "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "concernForNotObeying",
-          "title": "I have concerns the other party may not obey a court `order`",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "explainReasonsForConcern",
-          "visibleIf": "{concernForNotObeying} = \"y\"",
-          "title": "Explain the reason for your concerns",
-          "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "reportedConcernsToPolice",
-          "title": "I have reported my safety concerns to the police",
-          "description": "If you are a victim of family violence or a witness to family violence, you may have reported safety concerns or an incident to your local police or RCMP.",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "describeActionsByPolice",
-          "visibleIf": "{reportedConcernsToPolice} = \"y\"",
-          "title": "Describe what action the police have taken",
-          "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "reportedConcernsToSW",
-          "title": "I have reported my safety concerns to a social worker (Ministry of Children and Family Development) ",
-          "description": "In situations where there is reason to believe a child (under 19 years of age) is being abused, neglected, sexually exploited, or otherwise in need of protection, and a parent or guardian is unable or unwilling to protect the child, the matter must be reported to a social worker at the <a href='https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/children-and-family-development' target='_blank'>Ministry of Children and Family Development</a>.<br/><br/>For more information or to receive help making a report about a child or youth who needs protection, please call the <a href='https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children/reporting-child-abuse' target='_blank'>Helpline for Children</a> at <b style='display:inline-block;' >1-800-663-9122</b> at any time of the day or night.",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "desrcibeSWAction",
-          "visibleIf": "{reportedConcernsToSW} = \"y\"",
-          "title": "Describe what action the social worker has taken",
-          "isRequired": true
-         }
-        ]
-       }
-      ],
-      "title": "Background"
-     }
-    ],
-    "showQuestionNumbers": "off",
-    "requiredText": ""
-   }
+   "title": "Provincial Court Family Law Act Protection Order",
+   "pages": [
+      {
+         "name": "Background",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "backgroundPanel",
+               "elements": [
+                  {
+                     "type": "comment",
+                     "name": "howPartiesRelated",
+                     "title": "Describe how the protected party/parties and the other party are related for the purposes of this application",
+                     "description": "You do not need to use any special wording. Describe the relationship or connection in your own words, for example, we were living together in a relationship and are both parents of the child. If there is more than one protected party, be clear about the relationship or connection of the other party to each of them.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "werePOPartiesMarried",
+                     "title": "Is the protected party a spouse (or has been a spouse) of the other party OR does the protected party live (or has lived) together in a marriage-like relationship with the other party?",
+                     "description": "If the protection order is only for the protection of a child, please answer the question for the parent or guardian of the protected child and their relationship to the other party.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "werePOPartiesMarriedFAQ",
+                     "title": "What is a spouse?",
+                     "titleLocation": "hidden",
+                     "body": "Spouses can include both married and unmarried individuals. A spouse is a person: <ul><li>who is married to another person, or</li><li>has lived with another person in a marriage-like relationship (commonly called a common law relationship), and</li><ol style='list-style-type: lower-roman' ><li>has lived with the other person for at least 2 years without a break, or</li><li>has a child with the other person</li><ol/></ul>"
+                  },
+                  {
+                     "type": "text",
+                     "name": "liveTogetherPODate",
+                     "visible": false,
+                     "visibleIf": "{werePOPartiesMarried} = 'y'",
+                     "title": " Date on which the parties began to live together in a marriage-like relationship",
+                     "inputType": "date",
+                     "description": "If you do not know the exact date, select the year and month and the 1<sup>st</sup> of the month.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "text",
+                     "name": "dateOfMarriagePO",
+                     "visible": false,
+                     "visibleIf": "{werePOPartiesMarried} = 'y' ",
+                     "title": "Date of marriage",
+                     "description": "Complete only if the parties were/are married",
+                     "inputType": "date"
+                  },
+                  {
+                     "type": "radiogroup",
+                     "name": "isSeperatedPO",
+                     "isRequired": true,
+                     "visible": false,
+                     "visibleIf": "{werePOPartiesMarried} = 'y' ",
+                     "title": "Are the protected party and the other party currently separated?",
+                     "description": "Spouses may be separated while continuing to live in the same residence",
+                     "choices": [
+                        {
+                           "value": "Yes",
+                           "text": "Yes"
+                        },
+                        {
+                           "value": "No",
+                           "text": "No"
+                        },
+                        {
+                           "value": "Unknown",
+                           "text": "Unknown"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "text",
+                     "name": "separationDate",
+                     "visible": false,
+                     "visibleIf": "({werePOPartiesMarried} = 'y') and ({isSeperatedPO} = 'Yes') ",
+                     "title": "Parties separated on",
+                     "isRequired": true,
+                     "inputType": "date"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "PartiesHasOtherChilderen",
+                     "visible": false,
+                     "visibleIf": "(!{protectedChildName}) ",
+                     "title": "Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child: ",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "html",
+                     "name": "info",
+                     "visible": false,
+                     "visibleIf": "{protectedChildName} notempty",
+                     "html": "<div><h2 style='color: #556077'>Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list below:</h2><h4 class='m-2'>The list of child(ren) to be protected from {RespondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "PartiesHasOtherChilderen",
+                     "visible": false,
+                     "visibleIf": "({protectedChildName} notempty) ",
+                     "title": "Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list",
+                     "isRequired": true,
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "paneldynamic",
+                     "name": "allOtherChilderen",
+                     "visible": false,
+                     "visibleIf": "{PartiesHasOtherChilderen} = 'y'",
+                     "title": "Other child(ren) information:",
+                     "isRequired": true,
+                     "templateElements": [
+                        {
+                           "type": "personname",
+                           "name": "childName",
+                           "visible": false,
+                           "visibleIf": "{PartiesHasOtherChilderen} = 'y'",
+                           "title": "What is the name of the child?",
+                           "defaultSubstitution": "{childName}",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "childDOB",
+                           "visible": false,
+                           "visibleIf": "{PartiesHasOtherChilderen} = 'y'",
+                           "title": "What is the child's date of birth?",
+                           "inputType": "date",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "childRelationshipWithProtected",
+                           "visible": false,
+                           "visibleIf": "{PartiesHasOtherChilderen} = 'y'",
+                           "title": "What is {ProtectedPartyName}'s relationship to the child?",
+                           "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "childRelationshipWithOther",
+                           "visible": false,
+                           "visibleIf": "{PartiesHasOtherChilderen} = 'y'",
+                           "title": "What is {RespondentName}'s relationship to the child?",
+                           "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "childLivingWith",
+                           "visible": false,
+                           "visibleIf": "{PartiesHasOtherChilderen} = 'y'",
+                           "title": "Who is the child currently living with?",
+                           "description": "You can use the name of the person or their relationship to the child.",
+                           "isRequired": true
+                        }
+                     ],
+                     "panelCount": 1,
+                     "panelAddText": "Add another child",
+                     "panelRemoveText": "Remove above child"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "ExistingOrders",
+                     "visible": false,
+                     "visibleIf": "({PartiesHasOtherChilderen} = 'y') or ({protectedChildName} notempty)",
+                     "isRequired": true,
+                     "title": "Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, `child support`, contact with a child or guardianship of a child?",
+                     "description": "A written agreement includes a separation agreement or mediation agreement. A court order may be from any court in any place, including the Supreme Court."
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationExistingOrders",
+                     "visible": false,
+                     "visibleIf": "({ExistingOrders} = 'y' and {PartiesHasOtherChilderen} = 'y') or ({ExistingOrders} = 'y' and {protectedChildName} notempty) ",
+                     "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "likeToAddCulturalExplanation",
+                     "title": "Do you have any information you would like to share with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of your family, including, if a child is an Indigenous child, the child’s Indigenous identity?",
+                     "description": "There is no requirement to share but sometimes there is information you may choose to share with the court to help them in considering your application.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "visible": false,
+                     "visibleIf": "{likeToAddCulturalExplanation} = 'y'",
+                     "name": "culturalExplain",
+                     "title": "I would like to share the following information about my family:",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "mentalHealthConcernPO",
+                     "title": "I have concerns about the mental health of the protected party and/or the other party ",
+                     "description": "Mental health conditions are disorders that affect your mood, thinking and behaviour. Mental health conditions include depression, anxiety disorders, bi-polar disorder and schizophrenia.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "explainReasonsPO",
+                     "visible": false,
+                     "visibleIf": "{mentalHealthConcernPO} = 'y'",
+                     "title": "Explain the reasons for your concerns",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "riskOfViolencePO",
+                     "title": "Are there circumstances that may increase the risk of family violence?",
+                     "description": "There are certain circumstances that may make a person or relationship more at-risk for family violence.<br/><p style='text-align: justify;'>The circumstances may contribute to family violence but might not be the cause of the family violence. To better understand the circumstances that may contribute to family violence in this case, indicate if you believe there are circumstances that may increase the risk of family violence in the relationship such as: substance abuse, employment or financial difficulties, relationship status, criminal history, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, strangling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances.</p>",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "describeCirumstancesPO",
+                     "visible": false,
+                     "visibleIf": "{riskOfViolencePO} = 'y'",
+                     "title": "Describe the circumstances. You do not need to use any special wording. The key is to be clear about what you mean.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "existingPOOrders",
+                     "title": "Are there any existing court `orders`, agreements or plans protecting one of the parties, or the child(ren), or restraining contact between the parties, including a protection order, an order, agreement or plan involving child protection services, or a peace bond, restraining order, bail condition or other criminal order?",
+                     "description": "This includes:<ul><li>any family law protection order from Provincial Court, BC Supreme Court, or another jurisdiction</li><li>any order, agreement or plan involving child protection services including a Protective Intervention Order or Supervision Order under the <i>Child, Family and Community Service Act</i>.</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "attachCopyOfExistingPOOrders",
+                     "visible": false,
+                     "visibleIf": "{existingPOOrders} = 'y'",
+                     "title": "You will need to include a copy of the order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "radiogroup",
+                     "name": "otherPartyDisobeyOrder",
+                     "isRequired": true,
+                     "title": "Has the other party ever failed to obey a court `order`?",
+                     "choices": [
+                        {
+                           "value": "Yes",
+                           "text": "Yes"
+                        },
+                        {
+                           "value": "No",
+                           "text": "No"
+                        },
+                        {
+                           "value": "Unknown",
+                           "text": "Unknown"
+                        }
+                     ]
+                  },
+                  {
+                     "type": "comment",
+                     "name": "describeDisobeyOrder",
+                     "visible": false,
+                     "visibleIf": "{otherPartyDisobeyOrder} = \"Yes\"",
+                     "title": "Describe the circumstances",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "concernForNotObeying",
+                     "title": "I have concerns the other party may not obey a court `order`",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "explainReasonsForConcern",
+                     "visible": false,
+                     "visibleIf": "{concernForNotObeying} = 'y'",
+                     "title": "Explain the reason for your concerns",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "reportedConcernsToPolice",
+                     "title": "I have reported my safety concerns to the police",
+                     "description": "If you are a victim of family violence or a witness to family violence, you may have reported safety concerns or an incident to your local police or RCMP.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "describeActionsByPolice",
+                     "visible": false,
+                     "visibleIf": "{reportedConcernsToPolice} = 'y'",
+                     "title": "Describe what action the police have taken",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "reportedConcernsToSW",
+                     "title": "I have reported my safety concerns to a social worker (Ministry of Children and Family Development) ",
+                     "description": "In situations where there is reason to believe a child (under 19 years of age) is being abused, neglected, sexually exploited, or otherwise in need of protection, and a parent or guardian is unable or unwilling to protect the child, the matter must be reported to a social worker at the <a href='https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/children-and-family-development' target='_blank'>Ministry of Children and Family Development</a>.<br/><br/>For more information or to receive help making a report about a child or youth who needs protection, please call the <a href='https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children/reporting-child-abuse' target='_blank'>Helpline for Children</a> at <b style='display:inline-block;' >1-800-663-9122</b> at any time of the day or night.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "desrcibeSWAction",
+                     "visible": false,
+                     "visibleIf": "{reportedConcernsToSW} = 'y'",
+                     "title": "Describe what action the social worker has taken",
+                     "isRequired": true
+                  }
+               ]
+            }
+         ],
+         "title": "Background"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

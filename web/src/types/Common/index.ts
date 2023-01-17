@@ -11,6 +11,9 @@ export interface requiredDocumentsInfoType {
     priorityParenting?: requiredReminderInfoType;
     childReloc?: requiredReminderInfoType;
     agreementEnfrc?: requiredReminderInfoType;
+    agreementEnfrc26?: requiredReminderInfoType;
+	agreementEnfrc27?: requiredReminderInfoType;
+	agreementEnfrc28?: requiredReminderInfoType;
 }
 
 export interface requiredReminderInfoType {
@@ -36,7 +39,7 @@ export interface  applicationJsonInfoType {
     lastUpdated?: number, 
     lastUpdatedDate?: string, 
     id?: number, 
-    app_type?: string, 
+    app_type?: string[], 
     lastFiled?: number, 
     lastFiledDate?: string, 
     packageNum?: string, 
@@ -45,4 +48,4 @@ export interface  applicationJsonInfoType {
         package_number?: string,
         package_url?: string
     }
-};
+}

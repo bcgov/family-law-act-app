@@ -3,6 +3,7 @@ import { aboutPOSurveydataInfoType } from "../ProtectionOrder";
 export interface otherPartyInfoType {
   name: nameInfoType;
   knowDob: string;
+  lawyer?: string;
   dob?: string;
   opRelation?: string;
   livedTogether?: string;
@@ -17,11 +18,11 @@ export interface otherPartyInfoType {
 }
 
 export interface otherPartyCommonSurveyInfoType {
-  data: otherPartyInfoType[];
+  data?: otherPartyInfoType[];
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
 
 export interface childInfoType {
@@ -43,9 +44,9 @@ export interface nameInfoType {
 }
 
 export interface contactInfoType {
-  phone: string;
-  fax: string;
-  email: string;
+  phone?: string;
+  fax?: string;
+  email?: string;
 }
 
 export interface addressInfoType {
@@ -69,8 +70,10 @@ export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
   ExplanationCourtLocation?: boolean;
   ExistingCourt?: string;
   ExistingFileNumber?: string;
-  MetEarlyResolutionRequirements?:string;
-  registryLocationReason?: string;
+  MetEarlyResolutionRequirements?:string;  
+  filingLocationReason?: string;
+  ExistingFMEPCase?:string;
+  ExistingFMEPNumber?: string;  
   earlyResolutionRegistry?: boolean;
   familyJusticeRegistry?: boolean;
   familyEducationProgram?: boolean;
@@ -84,8 +87,8 @@ export interface filingLocationSurveyInfoType {
   data: filingLocationDataInfoType;
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
 
 export interface safetyCheckSurveyDataInfoType {
@@ -96,8 +99,8 @@ export interface safetyCheckSurveyInfoType {
   data: safetyCheckSurveyDataInfoType;
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
 
 export interface yourInformationDataInfoType {
@@ -126,6 +129,52 @@ export interface yourInformationSurveyInfoType {
   data: yourInformationDataInfoType;
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
+}
+
+export interface noticeSurveyDataInfoType {
+  noticeType: string;
+}
+
+export interface noticeSurveyInfoType {
+  data: noticeSurveyDataInfoType;
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number | string;
+  currentPage: number | string;
+}
+
+export interface filingOptionsInfoType {
+  selectedFilingType?: string;
+}
+
+export interface filingOptionsSurveyInfoType {
+  data: filingOptionsInfoType;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number | string;
+  currentPage?: number | string;
+}
+
+export interface otherPartyCommonConfirmationSurveyInfoType {
+  data: {confirmation: string};
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number | string;
+  currentPage?: number | string;
+}
+
+export interface indigenousAncestryOfChildDataInfoType {
+  indigenousChild?: string;
+  indigenousAncestry?: string[];
+  ServeAcknowledgement?: string;
+}
+
+export interface indigenousAncestryOfChildSurveyInfoType {
+  data: indigenousAncestryOfChildDataInfoType;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }

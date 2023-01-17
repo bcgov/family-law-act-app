@@ -8,7 +8,8 @@ export interface cancelGuardianDetailInfoType {
 }
 
 export interface guardianOfChildDataInfoType {
-    applicationType: string[];
+    FAQLegalAdvice?: boolean;
+    applicationType?: string[];
     childrenList?: string[];
     cancelGuardianDetails?: cancelGuardianDetailInfoType[];
 }
@@ -17,8 +18,8 @@ export interface guardianOfChildSurveyInfoType {
     data: guardianOfChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface guardianOfChildBestInterestOfChildDataInfoType {
@@ -29,20 +30,6 @@ export interface guardianOfChildBestInterestsOfChildSurveyInfoType {
     data: guardianOfChildBestInterestOfChildDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
-}
-
-export interface indigenousAncestryOfChildDataInfoType {
-    indigenousChild?: string;
-    indigenousAncestry?: string[];
-    ServeAcknowledgement?: string;
-}
-
-export interface indigenousAncestryOfChildSurveyInfoType {
-    data: indigenousAncestryOfChildDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }

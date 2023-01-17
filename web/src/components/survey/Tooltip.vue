@@ -39,8 +39,6 @@
         mounted()
         {
             this.description = glossaryJson[this.title.toLowerCase()]
-            //console.log(glossaryJson)
-            //console.log(this.description)
         }
 
    
@@ -67,7 +65,7 @@
         padding:0.1rem 0.3rem ;
     }
 
-    .tooltip >>> .tooltip-inner {    
+    .tooltip :deep(.tooltip-inner) {    
         max-width: 600px !important;
         width: 600px !important;
         color: #fff;
@@ -80,9 +78,5 @@
         /* font-family: BCSans, "Noto Sans", Verdana, Arial, sans serif; */
 
     } 
-
-    
-    
-
 
 </style>

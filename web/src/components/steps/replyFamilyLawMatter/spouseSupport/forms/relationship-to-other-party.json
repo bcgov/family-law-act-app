@@ -1,0 +1,27 @@
+{
+  "title": "Relationship to Other Party",
+  "pages": [
+    {
+      "name": "Relationship to Other Party",
+      "elements": [        
+        {
+          "type": "panel",
+          "name": "RelationshipToOtherPartyPanel",          
+          "elements": [            
+            {
+              "type": "yesno",
+              "name": "spouse",
+              "title": "Was (is) the other party your spouse?",   
+              "description": "You were (are) spouses if:<ul><li>You were (are) married</li><li>You lived together in a marriage-like relationship for at least two years, or</li><li>You lived in a marriage-like relationship for less than two years, but you have a child together</li></ul>",
+              "isRequired": true
+            }
+          ]
+        }      
+        
+      ],
+      "title": "Relationship to Other Party"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

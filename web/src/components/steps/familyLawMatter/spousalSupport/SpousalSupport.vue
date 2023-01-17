@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/spousal-support.json";
 
 import PageBase from "../../PageBase.vue";
@@ -41,11 +41,9 @@ export default class SpousalSupport extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -53,8 +51,8 @@ export default class SpousalSupport extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;  
     otherPartyNames = [];  
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     applicantFullName ='';
 
     beforeCreate() {
@@ -87,7 +85,7 @@ export default class SpousalSupport extends Vue {
 
         const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]        
 
-        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
             const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
@@ -99,17 +97,33 @@ export default class SpousalSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data);
-            // console.log(options)
-            if (this.survey.data && this.survey.data.listOfSupportPayors && this.survey.data.listOfSupportPayors.length > 0 && this.otherPartyNames.length > 0){
-                for (const otherPartyName of this.otherPartyNames) {
-                    if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
-                        this.survey.setVariable("Payee", otherPartyName);
-                    }
+
+            this.setPayeeNames();                      
+        })
+    }
+
+    public setPayeeNames(){        
+        if (this.survey.data?.listOfSupportPayors?.length > 0 && this.otherPartyNames?.length > 0){
+
+            let payeeNames = ''
+            let numOfPayees = 0
+            
+            for (const otherPartyName of this.otherPartyNames) {
+                if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
+                    numOfPayees++;
+                    payeeNames += (numOfPayees>1?" and ":'') +otherPartyName;                    
                 }
             }
-            
-        })
+
+            if(!payeeNames) payeeNames = 'No one';
+
+            if(numOfPayees>1)
+                payeeNames += " are ";
+            else
+                payeeNames += " is ";
+
+            this.survey.setVariable("Payee", payeeNames );
+        } 
     }
     
     public reloadPageInformation() {
@@ -117,18 +131,12 @@ export default class SpousalSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.spousalSupportSurvey) {
+        if (this.step.result?.spousalSupportSurvey) {
             this.survey.data = this.step.result.spousalSupportSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.survey.data && this.survey.data.listOfSupportPayors && this.survey.data.listOfSupportPayors.length > 0 && this.otherPartyNames.length > 0){
-            for (const otherPartyName of this.otherPartyNames) {
-                if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
-                    this.survey.setVariable("Payee", otherPartyName);
-                }
-            }
-        }
+        this.setPayeeNames();        
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
         
@@ -136,12 +144,12 @@ export default class SpousalSupport extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }  
     
@@ -151,8 +159,3 @@ export default class SpousalSupport extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

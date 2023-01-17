@@ -1,5 +1,5 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
@@ -13,7 +13,6 @@
                                     <tr>
                                     <th scope="col">Other Party Name</th>
                                     <th scope="col">Birthdate</th>
-                                    <!-- <th scope="col">Your relationship to the other party</th> -->
                                     <th scope="col">Address Information</th>
                                     <th scope="col">Contact Information</th>
                                     <th scope="col"></th>
@@ -23,12 +22,11 @@
                                     <div></div>
                                     <tr v-for="op in otherPartyData" :key="op.id">
                                     <td>{{op.name.first}} {{op.name.middle}} {{op.name.last}}</td>
-                                    <td>{{op.dob}}</td>
-                                    <!-- <td>{{op.opRelation}}</td> -->
+                                    <td>{{op.dob}}</td>                                   
                                     <td>{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
                                     <td>{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
-                                    <td><a class="btn btn-light" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
-                                    <a class="btn btn-light" @click="openForm(op)"><i class="fa fa-edit"></i></a></td>
+                                    <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
+                                    <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(op)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                     <tr class="clickableRow" @click="openForm()">
                                     <td colspan = "7">
@@ -75,11 +73,9 @@ export default class OtherParty extends Vue {
     @Prop({required: true})
     step!: stepInfoType
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -90,8 +86,7 @@ export default class OtherParty extends Vue {
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
     {
-        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.otherPartyData}})
-
+        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.getOtherPartyResults()}})  
     }
 
     currentStep =0;
@@ -102,13 +97,13 @@ export default class OtherParty extends Vue {
     editId = null;
  
     created() {
-        if (this.step.result && this.step.result.otherPartySurvey) {
+        if (this.step.result?.otherPartySurvey) {
             this.otherPartyData = this.step.result.otherPartySurvey.data;
         }
     }
 
     mounted(){        
-        const progress = this.otherPartyData && this.otherPartyData.length>0? 100 : 50;            
+        const progress = this.otherPartyData?.length>0? 100 : 50;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
@@ -118,7 +113,6 @@ export default class OtherParty extends Vue {
         this.showTable = false;
         Vue.nextTick(()=>{
             const el = document.getElementById('other-party-survey')
-            // console.log(el)
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -134,8 +128,7 @@ export default class OtherParty extends Vue {
     }
 
     public populateSurveyData(opValue) {
-        const currentIndexValue =
-            this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
+        const currentIndexValue = this.otherPartyData?.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
 
@@ -146,7 +139,7 @@ export default class OtherParty extends Vue {
 
     public deleteRow(rowToBeDeleted) {
         this.otherPartyData = this.otherPartyData.filter(data => {
-        return data.id !== rowToBeDeleted;
+            return data.id !== rowToBeDeleted;
         });
     }
 
@@ -158,51 +151,45 @@ export default class OtherParty extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage();
+        Vue.prototype.$UpdateGotoNextStepPage();
     }
 
-    public isDisableNext() {
-        // demo
-        if(this.otherPartyData && this.otherPartyData.length > 0) return false;
+    public isDisableNext() {    
+        if(this.otherPartyData?.length > 0) return false;
         else return true;
-    }
-
-    public getDisableNextText() {
-        // demo
-        return "You will need to add at least one other party to continue";
-    }
+    }    
 
     beforeDestroy() {
 
-        //console.log(this.otherPartyData.map(otherParty=>otherParty.name))
-        if(this.otherPartyData && this.otherPartyData.length>0){
+        if(this.otherPartyData?.length>0){
             this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
             const respondentName = this.otherPartyData.map(otherParty=>otherParty.name)
             this.UpdateCommonStepResults({data:{'respondentsPO':respondentName}})
         } 
         this.mergeRespondants();
 
-        const progress = this.otherPartyData && this.otherPartyData.length>0? 100 : 50;
+        const progress = this.otherPartyData?.length>0? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
         this.UpdateStepResultData({step:this.step, data:{otherPartySurvey: this.getOtherPartyResults()}})       
     }
 
     public mergeRespondants(){
+
         const respondentName =[]
-        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsPO){
+        if(this.$store.state.Application.steps[0].result?.respondentsPO){
             const respondentPO = this.$store.state.Application.steps[0].result.respondentsPO        
             respondentName.push(...respondentPO)
         }
-        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsCommon){
+        if(this.$store.state.Application.steps[0].result?.respondentsCommon){
             const respondentCommon = this.$store.state.Application.steps[0].result.respondentsCommon
             respondentName.push(...respondentCommon)
         }
-        //console.log(respondentName)
+
         const fullNamesArray =[];
         for(const name of respondentName ){
             fullNamesArray.push(Vue.filter('getFullName')(name))
@@ -212,34 +199,34 @@ export default class OtherParty extends Vue {
             const fullName = Vue.filter('getFullName')(item)
             return fullNamesArray.indexOf(fullName) == index;
         })
-        //console.log(uniqueArray);
+
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
 
-
     public getOtherPartyResults(){
-        //console.log(this.otherPartyData)
-        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        const questionResults: {name:string; value: string[]; title:string; inputType:string}[] =[];
         if(this.otherPartyData)
             for(const otherParty of this.otherPartyData)
             {
                 questionResults.push({name:'otherPartySurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
             }
-        //console.log(questionResults)
+
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
     public getOtherPartyInfo(otherParty){
-        const resultString = [];
+        
+        const resultString: string[] = [];
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
-        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
-        resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
+        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob));
+        resultString.push(Vue.filter('styleTitle')("Lawyer: ")+(otherParty.lawyer?otherParty.lawyer:''));
+        resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address));
         resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
 
         return resultString
     }
 
-};
+}
 </script>
 
 <style scoped lang="scss">

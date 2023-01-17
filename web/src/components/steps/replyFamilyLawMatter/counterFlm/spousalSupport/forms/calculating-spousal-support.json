@@ -1,0 +1,55 @@
+{
+  "title": "Calculating Spousal Support",
+  "pages": [
+    {
+      "name": "Calculating Spousal Support",
+      "description":"To calculate how much spousal support should be paid, you can use the <a href='https://www.justice.gc.ca/eng/fl-df/spousal-epoux/ssag-ldfpae.html' target='_blank'>Spousal Support Advisory Guidelines</a> or DIVORCEmate’s free spousal support calculator at <a href='https://www.mysupportcalculator.ca/' target='_blank'>www.mysupportcalculator.ca</a>.<br><br>You can also talk with a <a href='https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C' target='_blank'>child support officer</a> (they can also help with spousal support), <a href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA' target='_blank'>family justice counsellor</a> or a lawyer.<br><br>It is helpful for both the court and the other party if you include a calculation with this application showing how much you believe should be paid in spousal support according to the spousal support guidelines.",         
+      "elements": [
+        {
+          "type": "panel",
+          "name": "incomePanel",             
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "attachingCalculations",
+              "title":"Will you be attaching calculations showing how much spousal support you believe should be paid according to the Spousal Support Advisory Guidelines?",
+              "isRequired": true,
+              "visible":false,
+              "visibleIf": "!({existing})"              
+            },
+            {
+              "type": "yesno",
+              "name": "attachingCalculations",
+              "title":"Will you be attaching calculations showing how much spousal support you believe should be paid according to the Spousal Support Advisory Guidelines?",
+              "description": "If you are applying to cancel or set aside an existing order or agreement, select no. There may also be other reasons why you aren’t able to do a calculation.",
+              "isRequired": true,
+              "visible":false,
+              "visibleIf": "{existing}"              
+            },
+            {
+              "type": "infotext",
+              "name": "attachingCalculationsReminder",
+              "visible":"false",
+              "visibleIf":"{attachingCalculations} == 'y'",
+              "title": "You will be reminded to include a copy at the end of the service.",            
+              "titleLocation":"hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "comment",
+              "name": "whyNotAttachingCalculations",
+              "visible":false,
+              "visibleIf":"{attachingCalculations} == 'n'",
+              "isRequired": true,
+              "title":"Please explain why you will not be attaching calculations:",
+              "description": "You do not need to use any special wording. The key is to be clear about why you are not providing calculations with your application."              
+            }                    
+          ]
+        }
+      ],
+      "title": "Calculating Spousal Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

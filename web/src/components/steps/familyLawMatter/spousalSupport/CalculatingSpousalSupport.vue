@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/calculating-spousal-support.json";
 
 import PageBase from "../../PageBase.vue";
@@ -32,11 +32,9 @@ export default class CalculatingSpousalSupport extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -70,25 +68,25 @@ export default class CalculatingSpousalSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {            
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data)
         })
     }
     
     public reloadPageInformation() {
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.calculatingSpousalSupportSurvey) {
+        if (this.step.result?.calculatingSpousalSupportSurvey) {
             this.survey.data = this.step.result.calculatingSpousalSupportSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        
 
-        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+        if (this.step.result?.flmBackgroundSurvey?.data){
             
             const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
-            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
-                && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Spousal Support")){
+            if ( backgroundSurveyData?.ExistingOrdersFLM == 'y' 
+                && backgroundSurveyData?.existingOrdersListFLM?.length > 0 
+                && backgroundSurveyData?.existingOrdersListFLM?.includes("Spousal Support")){
                     this.survey.setVariable("existing", true);                    
             } else {
                 this.survey.setVariable("existing", false);
@@ -99,12 +97,12 @@ export default class CalculatingSpousalSupport extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }  
     
@@ -115,8 +113,3 @@ export default class CalculatingSpousalSupport extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

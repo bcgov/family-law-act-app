@@ -60,8 +60,7 @@
                     <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td>Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td style="padding-left:50px"></td>
+                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
                     <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
                 </tr>
             </table>
@@ -85,7 +84,12 @@
                 <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
                 <table class="fullsize">
                     <tr style="border:1px solid #313132" >                        
-                        <td colspan="3">Lawyer (if applicable): </td>
+                        <td colspan="3">
+                            Lawyer (if applicable): 
+                            <div class="answer">
+                                {{otherParty.lawyer}}
+                            </div>
+                        </td>
                     </tr>
                     <tr style="border:1px solid #313132">          
                         <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
@@ -96,8 +100,7 @@
                         <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                     </tr>
                     <tr style="border:1px solid #313132">
-                        <td>Email: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.email:''}}</div> </td>
-                        <td style="padding-left:50px"></td>
+                        <td colspan="2">Email: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.email:''}}</div> </td>
                         <td>Telephone: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.phone:''}}</div> </td>
                     </tr>
                 </table>
@@ -118,49 +121,71 @@
             </section>
         </div>
 
+        <div class="print-block mt-0">
+            <div style="margin-top:1rem;"><b>Filing location</b></div>            
+<!-- <5> -->
+            <section>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
+                <div style="margin-left:1rem;">
+                    <i>Select only one of the options below</i>
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text="where my existing case with the same party/parties is located"/> 
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
+                        text="closest to where I live because my case does not involve a child-related issue"/>
+                    <check-box  
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="permitted by court order"/>                    
+                </div>
+            </section>
+        </div>
+
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Initial requirements</b></div>
-<!-- <5> -->
+<!-- <6> -->
             <section> 
                 I am filing my application in:
-                <check-box style="margin:0 0 0 1rem;" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
+                <check-box style="margin:0 0 0 1rem;" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you <span style='text-decoration: underline;'>completed or participated in</span>, or if <span style='text-decoration: underline;'>you were granted an exemption</span> from completing or participating in, the following: <br/>Select all options that apply.</i>"/>
                 <div style="margin:0 0 0 2.75rem;">
-                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="needs assessment"/>
-                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="parenting education program"/>
-                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="consensual dispute resolution"/>
+                    <check-box  :check="locationInfo.earlyResolutionRegistry?'yes':''" text="needs assessment"/>
+                    <check-box  :check="locationInfo.earlyResolutionRegistry?'yes':''" text="parenting education program"/>
+                    <check-box  :check="locationInfo.earlyResolutionRegistry?'yes':''" text="consensual dispute resolution"/>
                 </div>
                 <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.familyJusticeRegistry?'yes':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
                 <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.educationRegistry?'yes':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.none?'yes':''" text="none of the above "/>
             </section>
         </div>
 
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Make an application</b></div>
-<!-- <6> -->
+<!-- <7> -->
             <section>
                 <b style="margin-left:0.25rem">I am applying for a court order about the following family law matter(s):</b>
                 <div style="margin-left:1rem;">
                     <i>Select all options that apply, complete and attach the required schedule(s)</i>
                     <div style="margin-top:0.25rem;"><b>Parenting arrangements</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule1')?'yes':''" text="parenting arrangements – new <i>[complete and attach Schedule 1]</i> <br/>	including parental responsibilities and parenting time"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule2')?'yes':''" text="parenting arrangements order/agreement – existing <i>[complete and attach Schedule 2]</i><br/> including parental responsibilities and parenting time"/>
+                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="parenting arrangements – new <i>[complete and attach Schedule 1]</i> <br/>	including parental responsibilities and parenting time"/>
+                    <check-box  :check="selectedSchedules.includes('schedule2')?'yes':''" text="parenting arrangements order/agreement – existing <i>[complete and attach Schedule 2]</i><br/> including parental responsibilities and parenting time"/>
                 
                     <div style="margin-top:0.25rem;"><b>Child support</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule3')?'yes':''" text="child support – new <i>[complete and attach Schedule 3]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule4')?'yes':''" text="child support order/agreement – existing <i>[complete and attach Schedule 4]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule3')?'yes':''" text="child support – new <i>[complete and attach Schedule 3]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule4')?'yes':''" text="child support order/agreement – existing <i>[complete and attach Schedule 4]</i>"/>
                     
                     <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule5')?'yes':''" text="contact with a child – new <i>[complete and attach Schedule 5]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule6')?'yes':''" text="contact order/agreement – existing <i>[complete and attach Schedule 6]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule5')?'yes':''" text="contact with a child – new <i>[complete and attach Schedule 5]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule6')?'yes':''" text="contact order/agreement – existing <i>[complete and attach Schedule 6]</i>"/>
 
                     <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule7')?'yes':''" text="appointing a guardian of a child <i>[complete and attach Schedule 7]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule8')?'yes':''" text="cancelling guardianship of a child <i>[complete and attach Schedule 8]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule7')?'yes':''" text="appointing a guardian of a child <i>[complete and attach Schedule 7]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule8')?'yes':''" text="cancelling guardianship of a child <i>[complete and attach Schedule 8]</i>"/>
 
                     <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule9')?'yes':''" text="spousal support – new <i>[complete and attach Schedule 9]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule10')?'yes':''" text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule9')?'yes':''" text="spousal support – new <i>[complete and attach Schedule 9]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule10')?'yes':''" text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>
 
                 </div>
             </section>
@@ -168,39 +193,44 @@
 
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Existing written agreements or court orders</b></div>
-<!-- <7> -->
+<!-- <8> -->
             <section>
                 <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
                 <div style="margin-left:1rem">
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
-                    <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
+                    <i style="display:block">If yes, attach a copy of the agreement(s) or order(s) to your application</i>
                 </div>
             </section>
         </div>
 
- <!-- <8> -->
+ <!-- <9> -->
         <section> 
-            <div style="display:inline; margin-left:0.25rem">There is an existing court order protecting one of the parties, the child(ren), or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition and other criminal order</div>            
+            <div style="display:inline; margin-left:0.25rem">
+                There is an existing court order, agreement or plan protecting one of the parties or the child(ren), or
+                restraining contact between the parties, including a protection order, an order, agreement or plan involving
+                child protection services, or a peace bond, restraining order, bail condition or other criminal order
+            </div>            
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>
-                <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
+                <i style="display:block">If yes, attach a copy of the order(s), agreement(s) or plan(s) to your application</i>
             </div>
         </section>  
 
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Relationship between the parties</b></div>
-<!-- <9> -->
+<!-- <10> -->
             <section>
-                <div style="display:inline; margin-left:0.25rem">The parties are: </div> 
+                <div style="display:inline; margin-left:0.25rem">The parties are: </div>
+                <i style="display:block;margin-left:1.5rem" >Describe how you and the other party/parties are related for the purposes of this family law application</i> 
                 <div class="answer">         
                     <span style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</span>
                 </div>
             </section>
         </div>
 
-<!-- <10> -->
+<!-- <11> -->
         <section>
             <div style="display:inline; margin-left:0.25rem">I am or have been spouses, or live or have lived together in a marriage-like relationship, with the other party </div>          
             <div>
@@ -221,12 +251,12 @@
 
         <div class="print-block">
             <div style="margin-top:1rem;"><b>Identification of child(ren)</b></div>
-<!-- <11> -->
+<!-- <12> -->
             <section>
                 <i style="display:inline; margin-left:0.25rem">Select only one of the options below and complete the required information</i>          
                 <div style="margin-left:1.5rem">
-                    <check-box style="" :check="!aboutChildren?'yes':''" text="My application does not ask for any order(s) about a child or children <i>(skip section 12)</i>"/>
-                    <check-box style="" :check="aboutChildren?'yes':''" text="My application is asking for an order(s) about the following child or children:"/>
+                    <check-box  :check="!aboutChildren?'yes':''" text="My application does not ask for any order(s) about a child or children <i>(skip section 12)</i>"/>
+                    <check-box  :check="aboutChildren?'yes':''" text="My application is asking for an order(s) about the following child or children:"/>
                 </div>
                 <b-table
                     :items="childrenInfo"
@@ -244,7 +274,7 @@
             </section>
         </div>
 
-<!-- <12> -->
+<!-- <13> -->
         <section>
             <div style="margin:0 0 0 .5rem;display:inline;">
                 <check-box inline="inline" boxMargin="0" style="display:inline;" :check="childBestInterestAcknowledmentCheck?'yes':''" text=""/>
@@ -255,7 +285,7 @@
        
         <div class="print-block">
             <div style="margin-top:1rem;"><b>About us</b></div>
-<!-- <13> -->
+<!-- <14> -->
             <section>
                 <i style="display:inline; margin-left:0.25rem">You may choose to complete this section or leave this section blank</i>
                 <div style="margin-left:.5rem; text-indent:0rem;">I would like to share the following information with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of my family, including, if the child is an Indigenous child, the child’s Indigenous identity:</div>
@@ -273,12 +303,13 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType, childrenInfoSurveyInfoType, yourInformationInfoDataInfoType} from '@/types/Application/FamilyLawMatter/Pdf';
-import { yourInformationDataInfoType } from '@/types/Application/CommonInformation';
+import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+
 
 @Component({
     components:{
@@ -316,6 +347,7 @@ export default class CommonSection extends Vue {
     childrenInfo = []
     childBestInterestAcknowledmentCheck = false;
     culturalInfo = '';  
+    filingLocationReason = '';
     
    
     mounted(){
@@ -333,20 +365,26 @@ export default class CommonSection extends Vue {
     ]   
 
     public extractInfo(){ 
+
+        if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
+            this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
+        } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
+            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
+        }
         
         this.existingOrders = this.getExistingOrdersInfo();
         this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
         const childRelatedApplication = ( 
-            this.selectedSchedules.includes('schedule1') ||
-            this.selectedSchedules.includes('schedule2') || 
-            this.selectedSchedules.includes('schedule3') ||
-            this.selectedSchedules.includes('schedule4') ||
-            this.selectedSchedules.includes('schedule5') || 
-            this.selectedSchedules.includes('schedule6') ||
-            this.selectedSchedules.includes('schedule7') || 
-            this.selectedSchedules.includes('schedule8')
+            this.selectedSchedules?.includes('schedule1') ||
+            this.selectedSchedules?.includes('schedule2') || 
+            this.selectedSchedules?.includes('schedule3') ||
+            this.selectedSchedules?.includes('schedule4') ||
+            this.selectedSchedules?.includes('schedule5') || 
+            this.selectedSchedules?.includes('schedule6') ||
+            this.selectedSchedules?.includes('schedule7') || 
+            this.selectedSchedules?.includes('schedule8')
         )
-        if (childRelatedApplication && this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){
+        if (childRelatedApplication && this.result.childrenInfoSurvey?.length > 0){
             this.aboutChildren = true;
             this.childrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
@@ -356,14 +394,13 @@ export default class CommonSection extends Vue {
             this.childBestInterestAcknowledmentCheck = false;
         }
 
-        if (this.result.flmBackgroundSurvey.culturalExplain) {
+        if (this.result.flmBackgroundSurvey?.culturalExplain) {
             this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
         }       
         
-        this.otherPartyInfo=this.getOtherPartyInfo()
+        this.otherPartyInfo = this.getOtherPartyInfo()
         this.yourInfo = this.getYourInfo()     
         this.locationInfo = this.getLocationInfo();  
-
     }
 
     public getLocationInfo(){
@@ -372,8 +409,8 @@ export default class CommonSection extends Vue {
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
            
-            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
-            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
+            locationInformation.existingFileNumber = locationData?.ExistingFileNumber && locationData?.ExistingFamilyCase =='y'? locationData.ExistingFileNumber:'';
+            locationInformation.courtLocation = locationData?.ExistingCourt? locationData.ExistingCourt:'';
 
             locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
             locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
@@ -412,7 +449,7 @@ export default class CommonSection extends Vue {
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
             childInfo.myRelationship = child.relation;
             childInfo.otherPartyRelationship = child.opRelation;
-            childInfo.currentSituation = (child.currentLiving == 'other')? child.currentLivingComment:child.currentLiving;
+            childInfo.currentSituation = child.currentLiving;
             childrenInfo.push(childInfo)
         }        
 
@@ -422,38 +459,19 @@ export default class CommonSection extends Vue {
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrdersFLM == 'y';
-        existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
+        existing.existingFlm = this.result.flmBackgroundSurvey?.ExistingOrdersFLM == 'y';
+        existing.existingPO =  this.result.flmBackgroundSurvey?.existingPOOrders == 'y';
 
         return existing;
     }
 
-    public getYourInfo(){
+    public getYourInfo(){           
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;       
-
-        // console.log(this.result.filingLocationSurvey)
-
-        if(this.result.yourInformationSurvey){
-
-            const applicantInfo = this.result.yourInformationSurvey;
-            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-
-                lawyerFiling: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerFillingOut == 'y')?true:false,
-                lawyerStatement: (applicantInfo.Lawyer == 'y' && 
-                                applicantInfo.LawyerFillingOut == 'y' && 
-                                applicantInfo.lawyerStatement)?{lawyerName: applicantInfo.lawyerStatement.lawyerName, clientName: applicantInfo.lawyerStatement.clientName}:{lawyerName: '', clientName: ''}
-            }
-                     
-        }
-        return yourInformation;
+        if(this.result?.yourInformationSurvey){
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){
@@ -467,14 +485,15 @@ export default class CommonSection extends Vue {
             }               
         ];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];    
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',
-                    contactInfo: ''
+                    contactInfo: '',
+                    lawyer: ''
                 }                
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
@@ -488,6 +507,9 @@ export default class CommonSection extends Vue {
                 
                 if (party['contactInfo'])
                     otherParty.contactInfo = party['contactInfo']
+                
+                if (party.lawyer)
+                    otherParty.lawyer = party.lawyer
                 
                 OpInformation.push(otherParty)
             }

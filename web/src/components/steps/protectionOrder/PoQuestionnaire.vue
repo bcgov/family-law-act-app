@@ -9,10 +9,11 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/po-questionnaire.json";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -43,13 +44,7 @@ export default class PoQuestionnaire extends Vue {
     public types!: string[]
 
     @applicationState.Action
-    public UpdateApplicationType!: (newApplicationType: string[]) => void
-
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
-
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    public UpdateApplicationType!: (newApplicationType: string[]) => void    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -59,8 +54,8 @@ export default class PoQuestionnaire extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     
     allPageIndex = [];
     needPoPages =  [];
@@ -74,14 +69,13 @@ export default class PoQuestionnaire extends Vue {
 
     created() {
         this.disableNextButton = false; 
-        if (this.step.result && this.step.result.poQuestionnaireSurvey && this.step.result.poQuestionnaireSurvey.data) {            
+        if (this.step.result?.poQuestionnaireSurvey?.data) {            
             this.determinePeaceBondAndBlock();
         }
     }
 
     mounted(){
         this.initPageNumbers()
-        // console.log(this.changeTerminatePages)
         
         this.initializeSurvey();
         this.addSurveyListener();
@@ -90,7 +84,6 @@ export default class PoQuestionnaire extends Vue {
 
     public initPageNumbers(){
         const p = this.stPgNo.PO
-        //console.log( _.range(1,Object.keys(p).length-1))
         this.allPageIndex = _.range(p.YourinformationPO, Object.keys(this.stPgNo.PO).length-1) 
 
         this.needPoPages =  [p.YourinformationPO, p.ProtectionFromWhom, p.PoFilingLocation, p.RemovePerson, p.NoGo, p.NoContact, p.WeaponsFirearms, p.Background, p.YourStory, p.Urgency, p.ReviewYourAnswers];
@@ -108,8 +101,6 @@ export default class PoQuestionnaire extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
-            //console.log(options)
 
             Vue.filter('surveyChanged')('protectionOrder')
 
@@ -121,16 +112,14 @@ export default class PoQuestionnaire extends Vue {
                 this.resetProgress(this.commonPages); 
 
                 this.updateApplicantType(selectedOrder)
-                
-                this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: {data: this.survey.data, questions:null, pageName:'', currentStep: this.currentStep, currentPage:0}}})
-
+    
                 if (selectedOrder == "none") {
                     this.disableNextButton = true;
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
 
                 } else if (selectedOrder == "changePO" || selectedOrder == "terminatePO") {
                     this.disableNextButton = false;
-                    this.togglePages(this.changeTerminatePages, true);                    
+                    togglePages(this.changeTerminatePages, true, this.currentStep);                    
                     this.setConditionalProgress('aboutSurvey', this.stPgNo.PO.About)
                     this.resetProgress(this.stPgNo.PO.Urgency)
                    
@@ -138,11 +127,10 @@ export default class PoQuestionnaire extends Vue {
                     this.disableNextButton = false;
                     if (sender.data.PORConfirmed) {  
                         if(this.isSurveyAnsweredCorectly()){          
-                            this.togglePages(this.needPoPages, true);
-                            //this.determineNoContactPage(true);                            
+                            togglePages(this.needPoPages, true, this.currentStep);                                                
                             this.resetProgress(this.stPgNo.PO.Urgency)
                         }else{
-                            this.togglePages([this.stPgNo.PO.YourinformationPO, this.stPgNo.PO.ProtectionFromWhom], true);
+                            togglePages([this.stPgNo.PO.YourinformationPO, this.stPgNo.PO.ProtectionFromWhom], true, this.currentStep);
                         }
                     }
                 }
@@ -152,13 +140,10 @@ export default class PoQuestionnaire extends Vue {
             if (options.name == "PORConfirmed" && selectedOrder == "needPO" ) {
 
                 if (options.value.length !== 0) {
-                    this.togglePages(this.needPoPages, true);
-                    //this.determineNoContactPage(true);
-                   
+                    togglePages(this.needPoPages, true, this.currentStep);
                     this.resetProgress(this.stPgNo.PO.Urgency)
                 } else {
-                    this.togglePages(this.needPoPages, false);
-                    //this.determineNoContactPage(false);
+                    togglePages(this.needPoPages, false, this.currentStep);                    
                 }
             }           
 
@@ -171,8 +156,7 @@ export default class PoQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.poQuestionnaireSurvey && this.step.result.poQuestionnaireSurvey.data){
+        if (this.step.result?.poQuestionnaireSurvey?.data){
             this.survey.data = this.step.result.poQuestionnaireSurvey.data;
             if (this.survey.data.orderType == "none"){
                 this.disableNextButton = true;
@@ -182,16 +166,6 @@ export default class PoQuestionnaire extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         this.determinePeaceBondAndBlock();
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
     }
 
     public toggleStep(step, active) {
@@ -226,8 +200,9 @@ export default class PoQuestionnaire extends Vue {
     public setConditionalProgress(pagename, pagenumber: number){
 
         let progress = 0;
-        if(this.steps[this.currentStep].pages[pagenumber-1].progress >0 && this.step.result && this.step.result[pagename]) progress = 50;
-            this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage: pagenumber, progress:progress });
+        if(this.steps[this.currentStep].pages[pagenumber-1].progress >0 && this.step.result?.[pagename]) progress = 50;
+
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage: pagenumber, progress:progress });
     }
 
     public resetProgress(pages){
@@ -235,61 +210,48 @@ export default class PoQuestionnaire extends Vue {
             this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage: page, progress:0 });	
     }
 
-    public removePages() {
-        
-        this.togglePages(this.allPageIndex, false);
+    public removePages() {        
+        togglePages(this.allPageIndex, false, this.currentStep);
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 
     public getApplicationType(selectedOrder){
-        if (selectedOrder == "needPO") return "New Protection Order";
-        else if (selectedOrder == "changePO") return "Change Protection Order";
-        else if (selectedOrder == "terminatePO") return "Terminate Protection Order";
-        else return "Protection Order";
+        if(selectedOrder == "none") selectedOrder = ""
+        return Vue.filter('getFullOrderName')("protectionOrder", selectedOrder)
     }
     
     public determinePeaceBondAndBlock(){
-        if(this.survey &&((this.survey.data.familyUnsafe == 'n' && this.survey.data.orderType == 'needPO')||(this.survey.data.unsafe == 'n' && this.survey.data.orderType == 'needPO'))){ 
-            this.togglePages(this.needPoPages, false);
+        if((this.survey?.data?.familyUnsafe == 'n' || this.survey?.data?.unsafe == 'n') && this.survey?.data?.orderType == 'needPO'){ 
+            togglePages(this.needPoPages, false, this.currentStep);
             this.disableNextButton = true;  
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);          
         }else{
             this.disableNextButton = false;                
-            if (this.survey.data.PORConfirmed && this.survey.data.orderType == 'needPO') {
+            if (this.survey?.data?.PORConfirmed && this.survey?.data?.orderType == 'needPO') {
                 if (this.isSurveyAnsweredCorectly())
-                    this.togglePages(this.needPoPages, true);
+                    togglePages(this.needPoPages, true, this.currentStep);
                 else 
-                    this.togglePages([this.stPgNo.PO.YourinformationPO, this.stPgNo.PO.ProtectionFromWhom], true);
+                    togglePages([this.stPgNo.PO.YourinformationPO, this.stPgNo.PO.ProtectionFromWhom], true, this.currentStep);
             }      
         }
 
-        if (this.survey.data.orderType == 'none'){
+        if (this.survey?.data?.orderType == 'none'){
             this.disableNextButton = true;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         }
-    }
+    } 
 
-    // public determineNoContactPage(enablePage){
-    
-    //     if(enablePage && this.step.result && this.step.result.protectionFromWhomSurvey'] && this.step.result.protectionFromWhomSurvey'].data['ApplicantNeedsProtection']=='y')
-    //         this.togglePages(this.noContantPage, true);
-    //     else
-    //         this.togglePages(this.noContantPage, false);
-    //         //console.log(this.step.result.protectionFromWhomSurvey'].data['ApplicantNeedsProtection'])                    
-    // } 
-
-    public isSurveyAnsweredCorectly(){
-        //console.log(this.step.result.protectionFromWhomSurvey'].data)
-        if(this.step.result && this.step.result.protectionFromWhomSurvey && this.step.result.protectionFromWhomSurvey.data.ApplicantNeedsProtection== 'n' && this.step.result.protectionFromWhomSurvey.data.anotherAdultPO == 'n' && this.step.result.protectionFromWhomSurvey.data.childPO == 'n'){
+    public isSurveyAnsweredCorectly(){       
+        if(this.step.result?.protectionFromWhomSurvey?.data?.ApplicantNeedsProtection== 'n' && this.step.result?.protectionFromWhomSurvey?.data?.anotherAdultPO == 'n' && this.step.result?.protectionFromWhomSurvey?.data?.childPO == 'n'){
             return false;
         }
         else return true;
@@ -297,16 +259,9 @@ export default class PoQuestionnaire extends Vue {
 
     beforeDestroy() {
         if(!this.disableNextButton) Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        //this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: this.survey.data}});
         
-
-        this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
+        this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, {pageName:" Protection Order Questionnaire"})}})
     }
-};
+}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

@@ -1,0 +1,26 @@
+{
+  "title": "About the Order",
+  "pages": [
+    {
+      "name": "About the Order",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ExistingDetailsPanel",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "changesSinceOrder",
+              "title": "Please describe the order about spousal support you would like the court to make.",
+              "description": "Explain what you need the new court order to say about spousal support. You do not need to use any special wording. The key is to be clear about what part of the existing order or agreement you want to keep and what may need to be changed.",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "About the Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

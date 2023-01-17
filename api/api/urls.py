@@ -16,7 +16,6 @@ import logging
 import sys
 from django.urls import path, include
 from django.conf import settings
-from django.conf.urls import url
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.schemas import SchemaGenerator
@@ -32,6 +31,7 @@ from api.views import (
     EFilingSubmitView,
     SurveyPdfView,
     UserView,
+    FillablePdfView,
 )
 
 
@@ -50,7 +50,7 @@ class SwaggerSchemaView(APIView):
 urlpatterns = [
     # Swagger documentation
     # url(r'^$', SwaggerSchemaView.as_view()),
-    url(r"^accept-terms$", AcceptTermsView.as_view()),
+    #url(r"^accept-terms$", AcceptTermsView.as_view()),
     path("app/<int:pk>/", ApplicationView.as_view()),
     path("app-list/", ApplicationListView.as_view()),
     path("app/", ApplicationView.as_view()),
@@ -59,6 +59,7 @@ urlpatterns = [
     path("efiling/document-types/", EFilingDocumentTypesView.as_view()),
     path("efiling/locations/", EFilingLocationView.as_view()),
     path("efiling/<int:application_id>/submit/", EFilingSubmitView.as_view()),
+    path("print-fillable-pdf", FillablePdfView.as_view()),
 ]
 
 if settings.OIDC_ENABLED:

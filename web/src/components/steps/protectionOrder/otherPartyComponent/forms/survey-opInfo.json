@@ -76,6 +76,18 @@
         "visibleIf": "{OtherPartyName} notempty and {isMarriedWithOtherParty} = \"y\""
        },
        {
+        "type": "comment",
+        "name": "otherPartyLawyer",
+        "title": "<div style = 'font-size: 1.0em; font-weight: bold; margin: 2rem 0 -1rem 0'> Lawyer (if applicable):</b>",                       
+        "rows": 1
+       },
+       {
+        "type": "infotext",
+        "name": "ExplanationOpAddress",        
+        "title": "If the address is outside of Canada, please select the country first before entering the address information.",        
+        "titleLocation": "hidden"
+       },
+       {
         "type": "address",
         "name": "otherPartyAddress",
         "title": "Please provide the following address information for {OtherPartyName}."

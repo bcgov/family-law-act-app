@@ -12,8 +12,23 @@
               "type": "personname",
               "name": "ApplicantName",
               "title": "What is your full name?",
+              "description": "This is the name of the person replying to the application. If you are helping someone use this service, use their name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf":"{includesRflm}",
+              "defaultSubstitution": "(Applicant Name)",
+              "descFirstName": "First Name is also known as Given Name",
+              "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+              "descLastName": "Last Name is also known as Family Name or Surname"
+            },
+            {
+              "type": "personname",
+              "name": "ApplicantName",
+              "title": "What is your full name?",
               "description": "This is the name of the person making the application. If you are helping someone use this app, use their name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
               "isRequired": true,
+              "visible": false,
+              "visibleIf":"!({includesRflm})",
               "defaultSubstitution": "(Applicant Name)",
               "descFirstName": "First Name is also known as Given Name",
               "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
@@ -67,7 +82,7 @@
               "name": "ExplanationServiceAddress",
               "visible": false,
               "visibleIf": "{Lawyer} = 'n'",
-              "title": "You need to give an address where you can receive court documents by mail. It does not need to be your home address or the address where you are living. The other party will see this address on your court documents.\n<br>\n<br>\nIf you do not have a stable mailing address, or you are worried about your safety, you can give the address of a friend or family member, or somewhere that mail can be collected for you.",
+              "title": "You need to give an address where you can receive court documents by mail. It does not need to be your home address or the address where you are living. The other party will see this address on your court documents.\n<br>\n<br>\nIf you do not have a stable mailing address, or you are worried about your safety, you can give the address of a friend or family member, or somewhere that mail can be collected for you.\n<br>\n<br>\nIf the address is outside of Canada, please select the country first before entering the address information.",
               "isRequired": true,
               "titleLocation": "hidden"
             },
@@ -120,6 +135,14 @@
                   "isRequired": true
                 },
                 {
+                  "type": "infotext",
+                  "name": "ExplanationLawyerAddress",
+                  "visible": false,
+                  "visibleIf": "{Lawyer} = 'y'",
+                  "title": "If the address is outside of Canada, please select the country first before entering the address information.",                  
+                  "titleLocation": "hidden"
+                },
+                {
                   "type": "address",
                   "name": "LawyerAddress",
                   "visibleIf": "{Lawyer} = 'y'",
@@ -145,7 +168,15 @@
                   "type": "yesno",
                   "name": "LawyerFillingOut",
                   "visible": false,
-                  "visibleIf": "({Lawyer} = 'y') and {includesFlm}",
+                  "visibleIf": "({Lawyer} = 'y') and ({includesRflm})",
+                  "title": "Are you a lawyer completing this reply for your client?",
+                  "isRequired": true
+                },
+                {
+                  "type": "yesno",
+                  "name": "LawyerFillingOut",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and ({includesFlm}) and !({includesRflm})",
                   "title": "Are you a lawyer completing this application for your client?",
                   "isRequired": true
                 },
@@ -153,7 +184,7 @@
                   "type": "infotext",
                   "name": "ExplanationLawyerFilling",
                   "visible": false,
-                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'n')",
+                  "visibleIf": "({Lawyer} = 'y') and ({includesRflm} or {includesFlm}) and ({LawyerFillingOut} = 'n')",
                   "title": "Note: A lawyer consulted by a party to a family law dispute has a duty under s. 8 of the Family Law Act to:<ul><li>assess for any risk of family violence,</li><li>discuss ways to resolve the family law dispute and other issues out of court, and</li><li>advise the party that agreements and orders respecting guardianship, parenting arrangements and contact with a child must be made in the best interests of the child only.</li></ul>",
                   "titleLocation": "hidden"
                 },
@@ -161,14 +192,14 @@
                   "type": "html",
                   "name": "lawyerStatementHeading",
                   "visible": false,
-                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "visibleIf": "({Lawyer} = 'y') and ({includesRflm} or {includesFlm}) and ({LawyerFillingOut} = 'y')",
                   "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Lawyer’s statement</div>Complete the statement below.</div>"
                 },
                 {
                   "type": "multipletextinput",
                   "name": "lawyerStatement",
                   "visible": false,
-                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "visibleIf": "({Lawyer} = 'y') and ({includesRflm} or {includesFlm}) and ({LawyerFillingOut} = 'y')",
                   "title": "Lawyer acknowledgment",
                   "titleLocation":"hidden",
                   "inputNames":"{lawyerName},{clientName}",
@@ -183,7 +214,7 @@
                   "type": "helptext",
                   "name": "FAQLawyerStatement",
                   "visible": false,
-                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "visibleIf": "({Lawyer} = 'y') and ({includesRflm} or {includesFlm}) and ({LawyerFillingOut} = 'y')",
                   "title": "What are the requirements of section 8 of the Family Law Act?",
                   "titleLocation": "hidden",
                   "body": "Section 8 of the Family Law Act sets out the duties of family dispute resolution professionals as follows:<ol><li>A family dispute resolution professional consulted by a party to a family law dispute must assess, in accordance with the regulations, whether family violence may be present, and if it appears to the family dispute resolution professional that family violence is present, the extent to which the family violence may adversely affect<ol style='list-style-type: lower-alpha'><li>the safety of the party or a family member of that party, and</li><li>the ability of the party to negotiate a fair agreement.</li></ol></li><li>Having regard to the assessment made under subsection (1), a family dispute resolution professional consulted by a party to a family law dispute must<ol style='list-style-type: lower-alpha'><li>discuss with the party the advisability of using various types of family dispute resolution to resolve the matter, and</li><li>inform the party of the facilities and other resources, known to the family dispute resolution professional, that may be available to assist in resolving the dispute.</li></ol></li><li>A family dispute resolution professional consulted by a party to a family law dispute must advise the party that agreements and orders respecting the following matters must be made in the best interests of the child only:<ol style='list-style-type: lower-alpha'><li>guardianship;</li><li>parenting arrangements;</li><li>contact with a child.</li></ol></li></ol>"

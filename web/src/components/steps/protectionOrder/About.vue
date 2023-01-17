@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary"
 import surveyJson from "./forms/aboutPO.json";
 
 import PageBase from "../PageBase.vue";
@@ -44,11 +44,9 @@ export default class About extends Vue {
     @commonState.State
     public locationsInfo!: locationsInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -87,7 +85,6 @@ export default class About extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('protectionOrder')
-            // console.log(options);
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt)
                 this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
@@ -96,15 +93,12 @@ export default class About extends Vue {
     }
 
     public saveApplicationLocation(location){       
-        this.$store.commit("Application/setApplicationLocation", location);        
-       
+        this.$store.commit("Application/setApplicationLocation", location); 
     } 
 
     public adjustSurveyForLocations(){
 
-        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
-        // console.log(this.surveyJsonCopy.pages[0])
-        
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
         this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"] = [];        
         
         for(const location of this.locationsInfo){ 
@@ -117,13 +111,12 @@ export default class About extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.aboutSurvey){
+        if (this.step.result?.aboutSurvey){
             this.survey.data = this.step.result.aboutSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        // console.log(this.$store.state.Application.steps)
-        if(this.$store.state.Application.steps[this.currentStep].result.poQuestionnaireSurvey && this.$store.state.Application.steps[this.currentStep].result.poQuestionnaireSurvey.data) {
+        if(this.$store.state.Application.steps[this.currentStep].result?.poQuestionnaireSurvey?.data) {
             const order = this.$store.state.Application.steps[this.currentStep].result.poQuestionnaireSurvey.data;        
             this.survey.setVariable("userPreferredService", order.orderType);
         }       
@@ -132,17 +125,17 @@ export default class About extends Vue {
     }
     
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 
     public setExistingFileNumber(){
-        const fileType = 'AAP'
+        const fileType = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
 
         if(existingOrders){
@@ -151,6 +144,11 @@ export default class About extends Vue {
                 existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                                                                    
             }else{                
                 existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+            }
+
+            for(const inx in existingOrders){
+                existingOrders[inx].filingLocation = this.survey.data.ExistingCourt
+                existingOrders[inx].fileNumber = this.survey.data.ExistingFileNumber
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
@@ -170,21 +168,14 @@ export default class About extends Vue {
 
         const step = this.steps[this.stPgNo.COMMON._StepNo]
 
-        if (step.result && step.result.filingLocationSurvey && step.result.filingLocationSurvey.data) {
+        if (step.result?.filingLocationSurvey?.data) {
             const filingLocationSurveyCommon = step.result.filingLocationSurvey
             filingLocationSurveyCommon.data.ExistingCourt = this.survey.data["ExistingCourt"]
             filingLocationSurveyCommon.data.ExistingFileNumber = this.survey.data["ExistingFileNumber"]           
-            // console.log("common information already exists");
-            // console.log(step.result.filingLocationSurvey)
             this.UpdateStepResultData({step:step, data: {filingLocationSurvey: filingLocationSurveyCommon }})
         } else {
             this.UpdateStepResultData({step:step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.stPgNo.COMMON._StepNo, this.stPgNo.COMMON.FilingLocation)}});
         }
     }
-};
+}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

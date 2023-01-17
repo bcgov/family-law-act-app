@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer name="navigation-footer">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <!-- Navbar content -->
       <ul class="navbar-nav">

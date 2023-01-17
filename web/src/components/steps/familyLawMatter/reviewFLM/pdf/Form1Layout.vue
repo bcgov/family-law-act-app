@@ -6,8 +6,7 @@
         <div  class="form-one-header">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:11pt;"><b>Notice to Resolve a Family Law Matter</b></div>
-                <!-- <div style="font-size:11pt;"><b>a Family Law Matter</b></div> -->
+                <div style="font-size:11pt;"><b>Notice to Resolve a Family Law Matter</b></div>               
                 <div style="font-size:9pt;"><b>FORM 1</b></div>
                 <div style="font-size:8pt;">Provincial Court Family Rules</div>
                 <div style="font-size:8pt;">Rule 10</div>
@@ -48,8 +47,7 @@
                     <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td>Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td style="padding-left:50px"></td>
+                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
                     <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
                 </tr>
             </table>
@@ -104,7 +102,12 @@
                     <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
                     <table class="fullsize">
                         <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">Lawyer (if applicable): </td>
+                            <td colspan="3">
+                                Lawyer (if applicable): 
+                                <div class="answer">
+                                    {{firstOtherParty.lawyer}}
+                                </div>
+                            </td>
                         </tr>
                         <tr style="border:1px solid #313132">          
                             <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
@@ -115,8 +118,7 @@
                             <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>Email: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.email:''}}</div> </td>
-                            <td style="padding-left:50px"></td>
+                            <td colspan="2">Email: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.email:''}}</div> </td>
                             <td>Telephone: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.phone:''}}</div> </td>
                         </tr>
                     </table>
@@ -129,15 +131,19 @@
                     
                         <table class="fullsize">
                             <tr style="border:1px solid #313132">
-                                <td>Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>
-                                <td style="padding-left:50px"></td>
+                                <td colspan="2">Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>                                
                                 <td>Date of birth: <div class="answer">{{otherParty.dob | beautify-date}}</div> </td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
                                 <td colspan="3">Contact information</td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Lawyer (if applicable): </td>
+                                <td colspan="3">
+                                    Lawyer (if applicable): 
+                                    <div class="answer">
+                                        {{otherParty.lawyer}}
+                                    </div>
+                                </td>
                             </tr>
                             <tr style="border:1px solid #313132">          
                                 <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
@@ -148,8 +154,7 @@
                                 <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                             </tr>
                             <tr style="border:1px solid #313132">
-                                <td>Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
-                                <td style="padding-left:50px"></td>
+                                <td colspan="2">Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
                                 <td>Telephone: <div class="answer">{{otherParty.contact?otherParty.contact.phone:''}}</div> </td>
                             </tr>
                         </table>                    
@@ -161,8 +166,7 @@
                     
                         <table class="fullsize">
                             <tr style="border:1px solid #313132">
-                                <td>Full name: <div class="answer"></div> </td>
-                                <td style="padding-left:50px"></td>
+                                <td colspan="2">Full name: <div class="answer"></div> </td>
                                 <td>Date of birth: <div class="answer"></div> </td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
@@ -180,8 +184,7 @@
                                 <td>Postal Code: <div class="answer"></div> </td>
                             </tr>
                             <tr style="border:1px solid #313132">
-                                <td>Email: <div class="answer"></div> </td>
-                                <td style="padding-left:50px"></td>
+                                <td colspan="2">Email: <div class="answer"></div> </td>
                                 <td>Telephone: <div class="answer"></div> </td>
                             </tr>
                         </table>                    
@@ -190,24 +193,74 @@
             </section>
         </div> 
 
-        <div class="print-block mt-0">            
 <!-- <5> -->
+        <div class="print-block">
+            <div style="margin-top:1rem;"><b>Identification of child(ren)</b></div>
+            <section>
+                <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
+                <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
+                    <check-box marginLeft="1.5rem"  :check="!childRelatedType?'yes':''" text="My family law matter is not about a child or children"/>
+                    <check-box marginLeft="1.5rem"  :check="childRelatedType?'yes':''" text="My family law matter is about the following child or children:"/>
+                </div>
+                <b-table
+                    :items="childrenInfo"
+                    :fields="childrenFields"
+                    class="mt-2"
+                    small
+                    bordered>                    
+                        <template v-slot:cell()="data">
+                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                        </template>
+                        <template v-slot:head(dob)>
+                            Child's date of birth <br/><i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                        </template>
+                </b-table> 
+            </section>
+        </div>
+
+        <div class="print-block mt-0">
+            <div style="margin-top:1rem;"><b>Filing location</b></div>            
+<!-- <6> -->
             <section>
                 <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
                 <div style="margin-left:1rem;">
                     <i>Select only one of the options below</i>
-                    <check-box style="" 
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text="where my existing case with the same party/parties is located"/> 
+                    <check-box  
                         :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
                         text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
-                    <check-box style="" 
-                        :check="(filingLocationReason == 'It is the court location closest to where I live, because my case does not involve a child-related issue')?'yes':''" 
-                        text="closest to where I live, because my case does not involve a child-related issue"/>
-                    <check-box style="" 
-                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
-                        text="where my existing case with the same party/parties is located"/>                    
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
+                        text="closest to where I live because my case does not involve a child-related issue"/>
+                    <check-box  
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="permitted by court order"/>                    
                 </div>
             </section>
         </div>
+
+        <div class="print-block">
+            <div style="margin-top:1rem;"><b>Existing written agreements or court orders</b></div>
+<!-- <7> -->
+            <section>
+                <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
+                <div style="margin-left:1rem">
+                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
+                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>                    
+                </div>
+            </section>
+        </div>
+
+ <!-- <8> -->
+        <section> 
+            <div style="display:inline; margin-left:0.25rem">There is an existing court order protecting one of the parties, the child(ren), or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition and other criminal order</div>            
+            <div style="margin-left:1rem">
+                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>                
+            </div>
+        </section> 
 
         <div class="print-block">
                 <div style="margin-top:0rem;"><b>NOTE TO THE PARTIES:</b></div>
@@ -240,7 +293,7 @@
                 </div>
 
 
-                <ordered-check-box :order="2" style="" :check="false?'yes':''" text="<b>Participate in a needs assessment</b>"/>
+                <ordered-check-box :order="2"  :check="false?'yes':''" text="<b>Participate in a needs assessment</b>"/>
                 <div style="margin-left:3rem;margin-bottom:0.5rem">
                     A needs assessment is a one-on-one meeting with a needs assessor who is a neutral person trained
                     to help people understand this process and other ways that are available to resolve their family law
@@ -248,14 +301,14 @@
                     supports, including legal advice, and help identify the next steps that are right for you.
                 </div>
                 
-                <ordered-check-box :order="3" style="" :check="false?'yes':''" 
+                <ordered-check-box :order="3"  :check="false?'yes':''" 
                 text="<b>Complete a parenting education course</b>, unless you are exempt for one of the reasons identified in Rule 17."/>
                 <div style="margin-left:3rem;margin-bottom:0.5rem">
                     Your needs assessor will provide you with more information on the parenting education course right
                     for you and how to complete it.
                 </div>
 
-                <ordered-check-box :order="4" style="" :check="false?'yes':''" 
+                <ordered-check-box :order="4"  :check="false?'yes':''" 
                 text="<b>Participate in consensual dispute resolution</b>, unless your needs assessor determines that it is not appropriate."/>
                 <div style="margin-left:3rem;margin-bottom:0.25rem">
                     Your needs assessor will provide you with more information on what consensual dispute resolution
@@ -292,16 +345,18 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./Schedules/components/UnderlineForm.vue"
-import CheckBox from "./Schedules/components/CheckBox.vue"
-import OrderedCheckBox from "./Schedules/components/OrderedCheckBox.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { childrenInfoSurveyInfoType, yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
+import { childDetailsDataInfoType } from '@/types/Application/FamilyLawMatter';
+import { existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -310,7 +365,6 @@ import { yourInformationInfoDataInfoType } from '@/types/Application/FamilyLawMa
         OrderedCheckBox        
     }
 })
-
 export default class Form1Layout extends Vue {
 
     @Prop({required:true})
@@ -331,62 +385,86 @@ export default class Form1Layout extends Vue {
     additionalOtherParties = [];
     firstOtherParty = {} as any;
     yourInfo = {} as yourInformationInfoDataInfoType;
-
-    applicantList = []
+    childrenInfo: childrenInfoSurveyInfoType[] = []; 
+    applicantList = [];
+    childRelatedType = false;
+    filingLocationReason = '';  
+    existingOrders = {} as existingOrdersInfoType;
     
-    filingLocationReason = '';   
+    childrenFields=[
+        {key:"fullName", label:"Child's full name",                   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",      label:"Child's date of birth (mmm/dd/yyyy)", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+    ]
    
     mounted(){
         this.dataReady = false;
         this.extractInfo();       
         this.dataReady = true;
-    }
-   
-    childrenFields=[
-        {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"Other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
-        {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
-    ]   
+    } 
 
     public extractInfo(){        
         
-        if (this.result.filingLocationSurvey && this.result.filingLocationSurvey.registryLocationReason) {
-            this.filingLocationReason = this.result.filingLocationSurvey.registryLocationReason;
+        if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
+            this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
+        } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
+            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
         }
+
+        this.existingOrders = {existingFlm: false, existingPO: false}
+
+        this.existingOrders.existingFlm = this.result.flmBackgroundSurvey?.ExistingOrdersFLM == 'y';
+        this.existingOrders.existingPO =  this.result.flmBackgroundSurvey?.existingPOOrders == 'y';
+
         
         this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
-        if (this,this.otherPartyInfo.length > 1) {
+        if (this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
-        }        
+        }   
+        this.childrenInfo = this.getChildrenInfo();     
         this.yourInfo = this.getYourInfo();
-    }    
-
-    public getYourInfo(){
-
-        let yourInformation = {} as yourInformationInfoDataInfoType;
-        if(this.result.yourInformationSurvey){
-
-            const applicantInfo = this.result.yourInformationSurvey;            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-
-                lawyerFiling: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerFillingOut == 'y')?true:false,
-                lawyerStatement: (applicantInfo.Lawyer == 'y' && 
-                                applicantInfo.LawyerFillingOut == 'y' && 
-                                applicantInfo.lawyerStatement)?{lawyerName: applicantInfo.lawyerStatement.lawyerName, clientName: applicantInfo.lawyerStatement.clientName}:{lawyerName: '', clientName: ''}
-            }
-                     
+    }   
+    
+    public getChildrenInfo(){
+        
+        const selectedPathways = this.result?.flmQuestionnaireSurvey?this.result?.flmQuestionnaireSurvey:[];
+        
+        if (selectedPathways.includes("parentingArrangements") || 
+                selectedPathways.includes("childSupport") ||
+                selectedPathways.includes("contactWithChild") ||
+                selectedPathways.includes("guardianOfChild")){
+            this.childRelatedType = true;
+        } else {
+            this.childRelatedType = false;
         }
-        return yourInformation;
+
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];
+        let childInfo = {} as childrenInfoSurveyInfoType;
+        const childData: childDetailsDataInfoType[] = this.result?.childrenInfoSurvey? this.result.childrenInfoSurvey: [];
+        
+        if(this.childRelatedType){
+            for (const child of childData){            
+                childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+                childInfo.fullName = Vue.filter('getFullName')(child.name);
+                childInfo.dob = Vue.filter('beautify-date')(child.dob);            
+                childrenInfo.push(childInfo)
+            }        
+        }
+        else
+            childrenInfo.push({fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''});
+          
+
+        return childrenInfo;
+    }
+
+    public getYourInfo(){           
+
+        if(this.result?.yourInformationSurvey){
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){
@@ -397,18 +475,20 @@ export default class Form1Layout extends Vue {
                 name: {'first': '','middle': '', 'last': ''},
                 address: '',
                 contactInfo: ''
+                
             }               
         ];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];  
-            // console.log(this.result.otherPartyCommonSurvey)  
+ 
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',
-                    contactInfo: ''
+                    contactInfo: '',
+                    lawyer:''
                 }                
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
@@ -422,6 +502,9 @@ export default class Form1Layout extends Vue {
                 
                 if (party['contactInfo'])
                     otherParty.contactInfo = party['contactInfo']
+                
+                if (party.lawyer)
+                    otherParty.lawyer = party.lawyer
                 
                 OpInformation.push(otherParty)
             }

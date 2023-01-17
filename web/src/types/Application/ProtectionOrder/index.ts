@@ -8,6 +8,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
     }
 
     export interface poQuestionnaireSurveyDataInfoType {
+        FAQLegalAdvice?: boolean;
         orderType?: string;
         explanationQualifying?: boolean;
         unsafe?: string;
@@ -19,8 +20,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: poQuestionnaireSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }    
 
     export interface yourinformationPOSurveyDataInfoType {
@@ -34,6 +35,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         LawyerAddress?: addressInfoType;
         LawyerContact?: contactInfoType;
         FAQLawyer1?: boolean;
+        FAQLawyer2?: boolean;
         ApplicantOccupation?: string;
     }
 
@@ -41,8 +43,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: yourinformationPOSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface noContactSurveyDataInfoType {
@@ -55,8 +57,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: noContactSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface allchildrenInfoType {
@@ -82,7 +84,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         RespondentContact?: contactInfoType;
         ApplicantNeedsProtection?: string;
         anotherAdultPO?: string;
-        anotherAdultName?: string;
+        anotherAdultName?: string | object;
         anotherAdultDOB?: string;
         anotherAdultReasonForPO?: string;
         childPO?: string;
@@ -94,8 +96,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: protectionFromWhomSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface poFilingLocationSurveyDataInfoType {
@@ -113,8 +115,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: poFilingLocationSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface removePersonSurveyDataInfoType {
@@ -127,8 +129,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: removePersonSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface noGoSurveyDataInfoType {
@@ -141,8 +143,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: noGoSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface weaponsFirearmsSurveyDataInfoType {
@@ -161,8 +163,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: weaponsFirearmsSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface allOtherChilderenInfoType {
@@ -177,6 +179,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         allOtherChilderen?: allOtherChilderenInfoType[];
         howPartiesRelated?: string;
         werePOPartiesMarried?: string;
+        werePOPartiesMarriedFAQ?: boolean;
         liveTogetherPODate?: string;
         dateOfMarriagePO?: string;
         isSeperatedPO?: string;
@@ -204,8 +207,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: backgroundSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface yourStorySurveyDataInfoType {
@@ -221,8 +224,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: yourStorySurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface urgencySurveyDataInfoType {
@@ -235,12 +238,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: urgencySurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
-    }    
-
-    export interface filingOptionsSurveyInfoType {
-        selectedFilingType: string;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }
 
     export interface aboutPOSurveydataInfoType {
@@ -262,14 +261,6 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         data: aboutPOSurveydataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
-    }
-
-    export interface selectedPOOrderInfoType {
-        data: poQuestionnaireSurveyDataInfoType;
-        questions?: questionInfoType[];
-        pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
+        currentStep?: number | string;
+        currentPage?: number | string;
     }

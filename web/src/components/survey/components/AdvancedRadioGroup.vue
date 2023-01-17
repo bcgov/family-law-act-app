@@ -27,7 +27,7 @@
                     </b-form-radio>
                     <b-form-radio v-if="hasOther" value="other"   style="margin:1rem 0;">
                         <div :class="textClass" :style="{display:'inline-block', margin:'0'}">{{otherText}}</div>
-                        <textarea v-if="pendingValue['selected']=='other'" type="text" class="form-control" style="" v-model="pendingValue['otherComment']" @change="inputChanged" />
+                        <textarea v-if="pendingValue['selected']=='other'" type="text" class="form-control"  v-model="pendingValue['otherComment']" @change="inputChanged" />
                     </b-form-radio>
                 </b-form-radio-group>                
             </b-form-group>                
@@ -82,37 +82,18 @@ export default class AdvancedRadioGroup extends Vue {
         this.hasOther = this.question.hasOther || false;
         this.otherText = this.question.otherText || 'Other (describe)';
 
-        // console.log(this.hasOther)
-        // console.log(this.otherText)
-
         this.numberOfRows = this.inputTypes.length
-        //console.log(this.textBefore) 
-        // console.log(this.inputNames)
-        // console.log(this.inputTypes)
-        // console.log(this.inputWidths)
-        // console.log(this.numberOfRows)
-        // console.log(this.radioOutputValues)
-        // console.log(this.radioMargins)
-        
         this.readOnly = this.question.readOnly;
         
         this.fields = this.makeFields()
         this.pendingValue = Object.assign({}, this.question.value)
-        // this.value = this.question.value
-        // const q = this.question;
-        //     q.valueChangedCallback = () => {
-        //     this.pendingValue = Object.assign({}, q.value);
-        //     this.value = q.value;
-        // };
 
         this.questionValidator();
-        //console.log(this.pendingValue)
         this.dataReady = true
     }
 
     public questionValidator(){
         this.question.validateValueCallback = () => {
-            //console.log('validate')
             let row = 2;
             
             if(!this.pendingValue['selected']){
@@ -126,11 +107,10 @@ export default class AdvancedRadioGroup extends Vue {
             let error = null      
             for (const field of this.fields[row]) {
                 const newValue = (this.pendingValue[field.name] || "").trim();
-                // console.log(field)
-                // console.log(newValue)
+
                 if (!newValue ||(newValue && !newValue.length)){
                     error = new SurveyVue.SurveyError("Please enter all fields")
-                    //console.error('error')
+
                     break;
                 }                
             }
@@ -149,18 +129,15 @@ export default class AdvancedRadioGroup extends Vue {
     }
 
     public inputChanged(){
-        //console.log('changed')
+
         const currentVal = this.question.value || {};
         let updatedVal = {};
         let emptyField = true;
         let valueChanged = false;
-        //console.log(this.pendingValue)
 
         for(let j=0; j<this.numberOfRows; j++){
             for (const field of this.fields[j]) {
-                //console.log(field.name)
                 const newValue = (updatedVal[field.name] = (this.pendingValue[field.name] || "").trim());
-                //console.log(newValue)
                 if (newValue.length) emptyField = false;
                 if ((currentVal[field.name] || "") !== newValue) valueChanged = true;
             }
@@ -174,22 +151,21 @@ export default class AdvancedRadioGroup extends Vue {
         const fields = []
         const generalId = this.question.inputId;
         for(let j=0; j<this.numberOfRows; j++){
-            const fieldRow = [];
+            const fieldRows = [];
             const inputname = this.inputNames[j]
-            for(let i=0; i<inputname.length;i++){
-                fieldRow.push(
+            for(const inx in inputname){
+                fieldRows.push(
                 {
-                    name: inputname[i],
-                    id: generalId +"-"+inputname[i].toLowerCase() ,                
+                    name: inputname[inx],
+                    id: generalId +"-"+inputname[inx].toLowerCase() ,                
                 })            
             }
-            fields.push(fieldRow)
+            fields.push(fieldRows)
         } 
         const fieldRow = [{name:'selected', id:generalId +'-selected'}];
         if(this.hasOther) fieldRow.push({name:'otherComment', id:generalId +'-other-comment'})
         fields.push(fieldRow)
         this.numberOfRows++; 
-        //console.log(fields)
         return fields;
     }
             /* Example
@@ -210,5 +186,5 @@ export default class AdvancedRadioGroup extends Vue {
               "isRequired": true
             },
             */     
-};
+}
 </script>
