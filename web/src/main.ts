@@ -9,6 +9,7 @@ import http from "./plugins/http";
 import "./filters";
 import LoadingSpinner from "./components/utils/LoadingSpinner.vue";
 import Vuetify from 'vuetify';
+import '@mdi/font/css/materialdesignicons.css'
 
 import UpdateGotoStep from "./prototypes/UpdateGotoStep"
 
