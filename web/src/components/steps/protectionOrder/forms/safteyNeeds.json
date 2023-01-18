@@ -56,8 +56,7 @@
             "name": "ExplanationFamilyHomeAddress",
             "visible": false,
             "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y'",
-            "title": "If the address is outside of Canada, please select the country first before entering the address information.",
-            "isRequired": true,
+            "title": "If the address is outside of Canada, please select the country first before entering the address information.",            
             "titleLocation": "hidden"
         },
          {
@@ -93,7 +92,6 @@
             "visible": false,
             "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y'",
             "title": "If the address is outside of Canada, please select the country first before entering the address information.",
-            "isRequired": true,
             "titleLocation": "hidden"
         },
          {
