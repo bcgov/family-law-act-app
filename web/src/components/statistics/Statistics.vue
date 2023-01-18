@@ -11,14 +11,7 @@
                 <b-col cols="5">
                     <date-range-picker :key="updateReport" :reportRange="reportDateRange" @datesAdded="addReportDateRanges"/>
                 </b-col>
-                <b-col cols="2">
-                    <div :class="displayTopUser?'bg-success':'bg-primary'" style="border:1px solid green;border-radius:5px; width: 16rem; height: 100%;">
-                        <b-form-checkbox class="ml-2 my-2" v-model="displayTopUser" size="lg" switch>
-                            <div class="text-white" style="font-size: 12pt;">{{viewStatus}}</div>
-                        </b-form-checkbox>
-                    </div>  
-                </b-col> 
-                <b-col cols="1" />   
+                <b-col cols="3" />   
                 <b-col cols="2">
                     <b-button
                         name="search"
@@ -39,7 +32,7 @@
         <loading-spinner color="#000" v-if="searching && !dataLoaded" waitingText="Loading ..." />     
 
         <b-card v-else-if="!searching && dataLoaded" id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="my-4 container" no-body>   
-            <report :results="results" :displayTopUser="displayTopUser"/>
+            <report :results="results"/>
         </b-card>
 
         <b-card class="text-center bg-light border-0" >
@@ -85,18 +78,12 @@ export default class Statistics extends Vue {
     reportDateRange: dateRangeInfoType = {startDate:'', endDate:''};
 
     results;
-    searching = false;
-    displayTopUser = false; 
+    searching = false;    
 
-    mounted() {  
-        this.displayTopUser = false; 
+    mounted() {
         this.searching = false;
         this.dataLoaded = false;         
-    }
-
-    get viewStatus() {
-        if(this.displayTopUser) return 'Display Top User';else return 'Hide Top User'
-    }
+    }    
 
     public find(){   
        
