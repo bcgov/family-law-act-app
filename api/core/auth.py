@@ -32,8 +32,8 @@ def get_logout_uri(request: Request = None) -> str:
     if request:
         try:
             uri = (
-                settings.SITEMINDER_LOGOFF_URL
-                + "?returl={end_session}&retnow=1".format(
+                settings.OIDC_RP_PROVIDER_ENDPOINT
+                + "/protocol/openid-connect/logout?redirect_uri={end_session}&retnow=1".format(
                     end_session=reverse("oidc_end_session", request=request)
                 )
             )
