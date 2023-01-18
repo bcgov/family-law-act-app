@@ -46,7 +46,7 @@ def statistics_info(start_date, end_date, tz):
 
     return report
 
-# TEST PURPOSE ONLY
+#___TEST PURPOSE ONLY________________
 # def steps(applications):    
 #     stat=list()
 #     for app in applications.filter():
@@ -54,23 +54,25 @@ def statistics_info(start_date, end_date, tz):
 #         steps = json.loads(steps_dec)
 #         stat.append(steps)
 #     return stat
+#_____________________________________
 
 def application_details(applications):    
     stat={
-        "PO":{"total":0, "started":0, "draft":0, "completed":0},
-        "RFLM":{"total":0, "started":0, "draft":0, "completed":0},
-        "WR":{"total":0, "started":0, "draft":0, "completed":0},
-        "CA":{"total":0, "started":0, "draft":0, "completed":0},
-        "FLM":{"total":0, "started":0, "draft":0, "completed":0},
-        "CM":{"total":0, "started":0, "draft":0, "completed":0},
-        "PPM":{"total":0, "started":0, "draft":0, "completed":0},
-        "RELOC":{"total":0, "started":0, "draft":0, "completed":0},
-        "ENFRC":{"total":0, "started":0, "draft":0, "completed":0}
+        "PO":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "RFLM":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "WR":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "CA":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "FLM":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "CM":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "PPM":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "RELOC":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "ENFRC":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0}
     }
     for app in applications:
         steps_dec = settings.ENCRYPTOR.decrypt(app.key_id, app.steps)
         steps = json.loads(steps_dec)
         get_started=steps[0]
+        efiled = app.last_filed
 
         pdf={
             "PO":["AAP"],
@@ -90,6 +92,9 @@ def application_details(applications):
 
                 #TOTAL
                 stat[name]["total"]=stat[name]["total"]+1
+
+                if isinstance(efiled, datetime):
+                    stat[name]["efiled"]=stat[name]["efiled"]+1
 
                 if "result" not in step:
                     stat[name]["started"]=stat[name]["started"]+1
