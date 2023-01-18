@@ -39,8 +39,7 @@
                      "name": "ExplanationRespondentAddress",
                      "visible": false,
                      "visibleIf": "{RespondentName} notempty",
-                     "title": "If the address is outside of Canada, please select the country first before entering the address information.",
-                     "isRequired": true,
+                     "title": "If the address is outside of Canada, please select the country first before entering the address information.",                     
                      "titleLocation": "hidden"
                   },
                   {
