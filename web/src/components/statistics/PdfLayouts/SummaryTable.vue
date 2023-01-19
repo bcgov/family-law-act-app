@@ -6,56 +6,47 @@
             <b-table-simple small class="border" striped>
     
                 <b-thead>                    
-                    <b-tr  style="line-height: 1rem; height:2.5rem;">
+                    <b-tr style="line-height: 1rem; height:2.5rem; text-align: center; font-size:11pt;">
                         <b-th>Form Name</b-th>
-                        <b-th>Number of Applications</b-th>
-                        <b-th>Form Name</b-th>
-                        <b-th>Number of Applications</b-th>
-                        <b-th>Form Name</b-th>
-                        <b-th>Number of Applications</b-th>
-                        <b-th>Form Name</b-th>
-                        <b-th>Number of Applications</b-th>                          
+                        <b-th>Number of Applications</b-th>                        
                     </b-tr>
                 </b-thead>
                 <b-tbody>
                     <b-tr>                        
-                        <b-th>Form 1</b-th>
-                        <b-td>{{results.form1.total}}</b-td>
-                        <b-th>Form 3</b-th>
-                        <b-td>{{results.form3.total}}</b-td>
-                        <b-th>Form 6</b-th>
-                        <b-td>{{results.form6.total}}</b-td>
-                        <b-th>Form 10</b-th>
-                        <b-td>{{results.form10.total}}</b-td>
+                        <b-th>Reply to an Application About a Family Law Matter with Counter Application</b-th>
+                        <b-td>{{applicationDetailsInfo.CA.total}}</b-td>
+                    </b-tr>
+                    <b-tr> 
+                        <b-th>Case Management</b-th>
+                        <b-td>{{applicationDetailsInfo.CM.total}}</b-td>
+                    </b-tr>
+                    <b-tr>    
+                        <b-th>Application About Enforcement</b-th>
+                        <b-td>{{applicationDetailsInfo.ENFRC.total}}</b-td>
+                    </b-tr>
+                    <b-tr> 
+                        <b-th>Family Law Matter</b-th>
+                        <b-td>{{applicationDetailsInfo.FLM.total}}</b-td>
                     </b-tr>
                     <b-tr>                        
-                        <b-th>Form 11</b-th>
-                        <b-td>{{results.form11.total}}</b-td>
-                        <b-th>Form 12</b-th>
-                        <b-td>{{results.form12.total}}</b-td>
-                        <b-th>Form 15</b-th>
-                        <b-td>{{results.form15.total}}</b-td>
-                        <b-th>Form 16</b-th>
-                        <b-td>{{results.form16.total}}</b-td>
+                        <b-th>Protection Order</b-th>
+                        <b-td>{{applicationDetailsInfo.PO.total}}</b-td>
                     </b-tr>
-                    <b-tr>                        
-                        <b-th>Form 19</b-th>
-                        <b-td>{{results.form19.total}}</b-td>
-                        <b-th>Form 26</b-th>
-                        <b-td>{{results.form26.total}}</b-td>
-                        <b-th>Form 27</b-th>
-                        <b-td>{{results.form27.total}}</b-td>
-                        <b-th>Form 28</b-th>
-                        <b-td>{{results.form28.total}}</b-td>
+                    <b-tr> 
+                        <b-th>Priority Parenting Matter</b-th>
+                        <b-td>{{applicationDetailsInfo.PPM.total}}</b-td>
                     </b-tr>
+                    <b-tr>
+                        <b-th>Application for Order Prohibiting the Relocation of a Child</b-th>
+                        <b-td>{{applicationDetailsInfo.RELOC.total}}</b-td>
+                    </b-tr>
+                    <b-tr> 
+                        <b-th>Reply to an Application About a Family Law Matter</b-th>
+                        <b-td>{{applicationDetailsInfo.RFLM.total}}</b-td>
+                    </b-tr>                    
                     <b-tr>                        
-                        <b-th>Form 29</b-th>
-                        <b-td>{{results.form29.total}}</b-td>
-                        <b-td></b-td>
-                        <b-td></b-td>
-                        <b-td></b-td>
-                        <b-td></b-td>
-                        <b-td></b-td>                        
+                        <b-th>Written Response to Application</b-th>
+                        <b-td>{{applicationDetailsInfo.WR.total}}</b-td>                                          
                     </b-tr>
                     
                 </b-tbody>
@@ -67,16 +58,13 @@
                     </b-tr>
                 </b-tfoot> -->
             </b-table-simple>
-        </div>
-
-
-       
+        </div>       
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { reportInfoType } from '@/types/Common';
+import { applicationDetailsInfoType, reportInfoType } from '@/types/Common';
 
 @Component
 export default class SummaryTable extends Vue {
@@ -85,15 +73,7 @@ export default class SummaryTable extends Vue {
     results!: reportInfoType;
        
     dataReady = false;
-    form1_info = []; 
-    
-    fields = [
-        {key:"completed",    label:"Completed (not eFiled)", thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
-        {key:"submitted",    label:"Submitted (eFiled)",     thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
-        {key:"drafted",      label:"Drafted",                thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
-        {key:"unsuccessful", label:"Unsuccessful eFiling",   thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
-        {key:"users",        label:"Users filing form",      thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'}
-    ]; 
+    applicationDetailsInfo = {} as applicationDetailsInfoType; 
    
     mounted(){
         this.dataReady = false;
@@ -102,8 +82,15 @@ export default class SummaryTable extends Vue {
     }    
 
     public extractInfo(){
-       this.form1_info = [this.results.form1];
+        this.applicationDetailsInfo = this.results.application_details;
     }   
  
 }
 </script>
+
+<style scoped>
+
+.table td {
+    text-align: center;
+}
+</style>

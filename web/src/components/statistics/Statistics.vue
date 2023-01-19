@@ -8,10 +8,11 @@
                 <b-col cols="2" class="h2 mt-2 mb-n1 text-primary"> 
                     Dates:
                 </b-col>
-                <b-col cols="5">
+                <b-col cols="1" /> 
+                <b-col cols="6">
                     <date-range-picker :key="updateReport" :reportRange="reportDateRange" @datesAdded="addReportDateRanges"/>
                 </b-col>
-                <b-col cols="3" />   
+                <b-col cols="1" />   
                 <b-col cols="2">
                     <b-button
                         name="search"
@@ -23,8 +24,7 @@
                         ><spinner color="#FFF" v-if="searching" style="margin:0; padding: 0; height:2rem; transform:translate(0px,-24px);"/>
                         <span style="font-size: 20px;" v-else>Search</span>
                     </b-button>
-                </b-col>  
-                       
+                </b-col> 
             </b-row>
                    
         </b-card> 
@@ -38,15 +38,12 @@
         <b-card class="text-center bg-light border-0" >
             <b-button
                 v-if="!searching && dataLoaded" 
-                 
                 variant="success"
-                @click="onPrintSave()"
-                >
+                @click="onPrintSave()">
                 Print / Save 
                 <b-icon-printer-fill class="mx-1" variant="white" scale="1" ></b-icon-printer-fill>
             </b-button>
         </b-card>
-        
         
     </b-card>
 </template>
@@ -58,7 +55,7 @@ import moment from 'moment-timezone';
 import Report from "./Report.vue";
 import DateRangePicker from './DateRangePicker.vue';
 import Spinner from '@/components/utils/Spinner.vue'
-import { dateRangeInfoType } from '@/types/Common';
+import { dateRangeInfoType, reportInfoType } from '@/types/Common';
 
 @Component({
     components:{
@@ -77,7 +74,7 @@ export default class Statistics extends Vue {
     updateReport = 0;
     reportDateRange: dateRangeInfoType = {startDate:'', endDate:''};
 
-    results;
+    results = {} as reportInfoType;
     searching = false;    
 
     mounted() {
@@ -122,7 +119,7 @@ export default class Statistics extends Vue {
         
         const el= document.getElementById("print");
 
-        const bottomLeftText = `"COURT OF APPEAL FOR BRITISH COLUMBIA                    www.bccourts.ca/Court_of_Appeal/"`;
+        const bottomLeftText = `" "`;
         const bottomRightText = `" "`;        
         
         const url = '/statistics/'+'/?name=statistics_report' 
@@ -152,16 +149,11 @@ export default class Statistics extends Vue {
         },err => {
             console.error(err);        
         });
-    }
-      
-   
-    
-
+    }  
 
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
-// @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 </style>
