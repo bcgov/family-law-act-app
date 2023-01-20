@@ -1,52 +1,52 @@
 <template>
-    <div v-if="dataReady">
-        <div style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;" >Summary: </div>
+    <div v-if="dataReady" class="print-block">
+        <div style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;" >Applications' Summary: </div>
 
         <div style="font-size:9pt;">
-            <b-table-simple small class="border" striped>
+            <b-table-simple small class="border">
     
-                <b-thead>                    
-                    <b-tr style="line-height: 1rem; height:2.5rem; text-align: center; font-size:11pt;">
-                        <b-th>Form Name</b-th>
+                <b-thead style="background:#e9ecef">                    
+                    <b-tr style="line-height: 1.75rem; height:2.1rem; text-align: center; font-size:11pt;">
+                        <b-th class="text-left">Form Name</b-th>
                         <b-th>Number of Applications</b-th>                        
                     </b-tr>
                 </b-thead>
                 <b-tbody>
                     <b-tr>                        
                         <b-th>Reply to an Application About a Family Law Matter with Counter Application</b-th>
-                        <b-td>{{applicationDetailsInfo.CA.total}}</b-td>
+                        <b-td class="text-center">{{applicationDetailsInfo.CA.total}}</b-td>
                     </b-tr>
                     <b-tr> 
                         <b-th>Case Management</b-th>
-                        <b-td>{{applicationDetailsInfo.CM.total}}</b-td>
+                        <b-td class="text-center">{{applicationDetailsInfo.CM.total}}</b-td>
                     </b-tr>
                     <b-tr>    
                         <b-th>Application About Enforcement</b-th>
-                        <b-td>{{applicationDetailsInfo.ENFRC.total}}</b-td>
+                        <b-td class="text-center">{{applicationDetailsInfo.ENFRC.total}}</b-td>
                     </b-tr>
                     <b-tr> 
                         <b-th>Family Law Matter</b-th>
-                        <b-td>{{applicationDetailsInfo.FLM.total}}</b-td>
+                        <b-td class="text-center">{{applicationDetailsInfo.FLM.total}}</b-td>
                     </b-tr>
                     <b-tr>                        
                         <b-th>Protection Order</b-th>
-                        <b-td>{{applicationDetailsInfo.PO.total}}</b-td>
+                        <b-td class="text-center">{{applicationDetailsInfo.PO.total}}</b-td>
                     </b-tr>
                     <b-tr> 
                         <b-th>Priority Parenting Matter</b-th>
-                        <b-td>{{applicationDetailsInfo.PPM.total}}</b-td>
+                        <b-td class="text-center">{{applicationDetailsInfo.PPM.total}}</b-td>
                     </b-tr>
                     <b-tr>
                         <b-th>Application for Order Prohibiting the Relocation of a Child</b-th>
-                        <b-td>{{applicationDetailsInfo.RELOC.total}}</b-td>
+                        <b-td class="text-center">{{applicationDetailsInfo.RELOC.total}}</b-td>
                     </b-tr>
                     <b-tr> 
                         <b-th>Reply to an Application About a Family Law Matter</b-th>
-                        <b-td>{{applicationDetailsInfo.RFLM.total}}</b-td>
+                        <b-td class="text-center">{{applicationDetailsInfo.RFLM.total}}</b-td>
                     </b-tr>                    
                     <b-tr>                        
                         <b-th>Written Response to Application</b-th>
-                        <b-td>{{applicationDetailsInfo.WR.total}}</b-td>                                          
+                        <b-td class="text-center">{{applicationDetailsInfo.WR.total}}</b-td>                                          
                     </b-tr>
                     
                 </b-tbody>

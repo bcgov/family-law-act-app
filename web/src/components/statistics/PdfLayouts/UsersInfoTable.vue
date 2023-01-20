@@ -1,12 +1,25 @@
 <template>
-    <div v-if="dataReady">
+    <div v-if="dataReady" class="print-block">
         <div style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;" >Users: </div>
         <b-table            
             :items="usersInfo"
             :fields="fields"
             bordered            
-            small 
+            small
+            head-variant="light" 
             responsive="sm">
+            <template v-slot:head(joined_in_period)>
+                New Users Joined 
+                <div style="font-size:8pt; font-weight:300;">
+                  ( between: {{results.start_date|beautify-date}} - {{results.end_date|beautify-date}} )
+                </div>
+            </template>
+            <template v-slot:head(active_in_period)>
+                Active Users 
+                <div style="font-size:8pt; font-weight:300;">
+                   ( between: {{results.start_date|beautify-date}} - {{results.end_date|beautify-date}} )
+                </div>
+            </template>
         </b-table>
     </div>
 </template>

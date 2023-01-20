@@ -1,16 +1,23 @@
 <template>
-    <div>
+    <div class="report">
         <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-        <div class="row mx-1">
-            <div style="font-size:15pt;"><b>Family Law Act Reports</b></div>
-            <div class="font-italic ml-auto mt-2">
-                <b class="mr-2">Between:</b>
-                <span class="mr-2">{{results.start_date|beautify-date}}</span> <b>-</b> <span class="ml-2">{{results.end_date|beautify-date}}</span>
-            </div>                
+        <div class="court-header">
+            <div class="row m-0" style="border-bottom:1px solid #AAAAAA">
+                <div style="width:8%" >
+                    <img :src="src" alt="B.C. Gov"/>
+                </div>
+                <div style="width:3%;"/>
+                <div style="margin-top:1rem; width:50%; font-size:15pt;"><b>Family Law Act Reports</b></div>
+                <div style="margin-top:1.45rem; width:38%;" class="font-italic text-right">
+                    <b class="mr-2">Between:</b>
+                    <span class="mr-2">{{results.start_date|beautify-date}}</span> <b>-</b> <span class="ml-2">{{results.end_date|beautify-date}}</span>
+                </div>                
+            </div>
         </div>
 
-        <users-info-table class="mt-5" :results="results" />
-        <summary-table class="mt-5" :results="results" />
+        <users-info-table class="court-header-after" :results="results" />
+        <efiling-summary-table class="mt-5" :results="results" />
+        <summary-table class="mt-5" :results="results" />        
         <ca-table class="mt-5" :results="results"/>
         <cm-table class="mt-5" :results="results"/>
         <enfrc-table class="mt-5" :results="results"/>
@@ -28,6 +35,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UsersInfoTable from './PdfLayouts/UsersInfoTable.vue';
 import SummaryTable from './PdfLayouts/SummaryTable.vue';
+import EfilingSummaryTable from './PdfLayouts/EfilingSummaryTable.vue'
 import CaTable from './PdfLayouts/CaTable.vue';
 import CmTable from './PdfLayouts/CmTable.vue';
 import EnfrcTable from './PdfLayouts/EnfrcTable.vue';
@@ -37,6 +45,7 @@ import PpmTable from './PdfLayouts/PpmTable.vue';
 import RelocTable from './PdfLayouts/RelocTable.vue';
 import RflmTable from './PdfLayouts/RflmTable.vue';
 import WrTable from './PdfLayouts/WrTable.vue';
+import {srcFile} from './logo'
 
 import { reportInfoType } from '@/types/Common';
 
@@ -52,13 +61,19 @@ import { reportInfoType } from '@/types/Common';
         PpmTable,  
         RelocTable,       
         RflmTable,        
-        WrTable
+        WrTable,
+        EfilingSummaryTable
     }
 })
 export default class Report extends Vue {
 
     @Prop({required:true})
     results!: reportInfoType;
+
+    src =""
+    mounted(){        
+        this.src = srcFile;
+    }
  
 }
 </script>

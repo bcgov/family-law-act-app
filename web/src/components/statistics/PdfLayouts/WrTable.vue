@@ -1,15 +1,16 @@
 <template>
-    <div v-if="dataReady">
+    <div v-if="dataReady" class="print-block">
         <div style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;" >Written Response to Application: </div>
         <b-table            
             :items="wrInfo"
             :fields="fields"
             bordered            
-            small 
+            small
+            head-variant="light" 
             responsive="sm">
         </b-table>
-        <div style="font-size:10pt; margin-bottom: 0.5rem;">
-            <b>Total Number of 'Written Response to Application' Applications:</b> {{wrInfo[0].total}} 
+        <div style="font-size:9pt; margin-bottom: 0.5rem;">
+            <b>Total Number of 'Written Response to Application' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{wrInfo[0].total}} </span>
         </div>
         
     </div>

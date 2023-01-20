@@ -95,16 +95,16 @@ def application_details(applications):
 
                 if isinstance(efiled, datetime):
                     stat[name]["efiled"]=stat[name]["efiled"]+1
-
-                if "result" not in step:
-                    stat[name]["started"]=stat[name]["started"]+1
-                elif (
-                    "submittedPdfList" in get_started["result"] and 
-                    any(x in pdf[name] for x in get_started["result"]["submittedPdfList"])
-                ):
-                    stat[name]["completed"]=stat[name]["completed"]+1
                 else:
-                    stat[name]["draft"]=stat[name]["draft"]+1
+                    if "result" not in step:
+                        stat[name]["started"]=stat[name]["started"]+1
+                    elif (
+                        "submittedPdfList" in get_started["result"] and 
+                        any(x in pdf[name] for x in get_started["result"]["submittedPdfList"])
+                    ):
+                        stat[name]["completed"]=stat[name]["completed"]+1
+                    else:
+                        stat[name]["draft"]=stat[name]["draft"]+1
 
     return stat
 

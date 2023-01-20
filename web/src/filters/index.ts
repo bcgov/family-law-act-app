@@ -852,8 +852,9 @@ Vue.filter('includedInRegistries', function(locationName: string, registryType: 
 
 })
 
-Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
+Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight, margin?){
 
+	const pageMargin = margin? margin : '.7in 0.7in 0.9in 0.7in'
 	const body = 
 		`<!DOCTYPE html>
 		<html lang="en">
@@ -863,7 +864,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 		`<style>`+
 			`@page {
 				size: 8.5in 11in !important;
-				margin: .7in 0.7in 0.9in 0.7in !important;
+				margin: `+pageMargin+` !important;
 				font-size: 10pt !important;			
 				@bottom-left {
 					content:`+ pageFooterLeft +
@@ -888,6 +889,12 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 				}
 				.print-block{
 					page-break-inside: avoid;
+				}
+				div.court-header {
+					position: fixed;
+					top: -0.9in;
+					width:100%; 
+					display:inline-block;
 				}
 			}`+ customCss+
 			`@page label{font-size: 9pt;}
@@ -914,6 +921,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`table.compactfullsize {table-layout: fixed; width: 100%; margin-top:0rem;}`+
 			`table.compactfullsize tr{border:1px solid #313132;}`+
 			`table.compactfullsize td{padding:0 0 0 .5rem; color: #313132;}`+
+			`.report table>thead>tr>th{background-color: #e9ecef !important;}`+
 
 			`.answer{color: #000; display:inline; font-size:11pt;}`+
 			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
@@ -930,6 +938,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
 			`.form-header-cs{display:block; margin:-2rem 0 4rem 0;}`+
+			`.court-header-after{margin:-1rem 0 0 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+
