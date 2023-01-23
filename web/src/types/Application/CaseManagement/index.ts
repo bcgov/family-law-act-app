@@ -86,7 +86,7 @@ export interface aboutCaseManagementOrderSurveyDataInfoType {
 }
 
 export interface cmChildrenInfoSurveyInfoType {
-    data: {childData:cmChildrenInfoSurveyDataInfoType[], childRelatedType:string };
+    data: {childData: cmChildrenInfoSurveyDataInfoType[]; childRelatedType: string };
     questions: questionInfoType[];
     pageName: string;
     currentStep: number | string;
@@ -110,7 +110,7 @@ export interface attendanceUsingElectronicCommunicationSurveyInfoType {
 export interface attendanceUsingElectronicCommunicationSurveyDataInfoType {
     attendessList: string[];
     appearanceType: string;
-    appearanceTypeComment?:string;
+    appearanceTypeComment?: string;
     appearanceSchedule: string;
     attendanceMethod: string;    
     attendanceType: string;

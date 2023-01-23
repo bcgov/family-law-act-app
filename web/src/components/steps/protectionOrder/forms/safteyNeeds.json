@@ -52,6 +52,14 @@
           ]
          },
          {
+            "type": "infotext",
+            "name": "ExplanationFamilyHomeAddress",
+            "visible": false,
+            "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y'",
+            "title": "If the address is outside of Canada, please select the country first before entering the address information.",            
+            "titleLocation": "hidden"
+        },
+         {
           "type": "address",
           "name": "FamilyHomeAddress",
           "visible": false,
@@ -78,6 +86,14 @@
           "title": "Do you need a police officer to supervise while you get the personal belongings?\n",
           "description": "A judge can order a police officer to come with you to get the personal belongings. "
          },
+         {
+            "type": "infotext",
+            "name": "ExplanationRespondentAddress",
+            "visible": false,
+            "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y'",
+            "title": "If the address is outside of Canada, please select the country first before entering the address information.",
+            "titleLocation": "hidden"
+        },
          {
           "type": "address",
           "name": "RespondentHasStuffAddress",
