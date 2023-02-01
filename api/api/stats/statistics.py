@@ -89,24 +89,25 @@ def application_details(applications):
         }
         
         for step in steps:
-            name = step["name"]
-            if(step["active"] and name not in ["GETSTART","COMMON","CONNECT","SUBMIT"]):
+            if "name" in step:
+                name = step["name"]
+                if(step["active"] and name not in ["GETSTART","COMMON","CONNECT","SUBMIT"]):
 
-                #TOTAL
-                stat[name]["total"]=stat[name]["total"]+1
+                    #TOTAL
+                    stat[name]["total"]=stat[name]["total"]+1
 
-                if isinstance(efiled, datetime):
-                    stat[name]["efiled"]=stat[name]["efiled"]+1
-                else:
-                    if "result" not in step:
-                        stat[name]["started"]=stat[name]["started"]+1
-                    elif (
-                        "submittedPdfList" in get_started["result"] and 
-                        any(x in pdf[name] for x in get_started["result"]["submittedPdfList"])
-                    ):
-                        stat[name]["completed"]=stat[name]["completed"]+1
+                    if isinstance(efiled, datetime):
+                        stat[name]["efiled"]=stat[name]["efiled"]+1
                     else:
-                        stat[name]["draft"]=stat[name]["draft"]+1
+                        if "result" not in step:
+                            stat[name]["started"]=stat[name]["started"]+1
+                        elif (
+                            "submittedPdfList" in get_started["result"] and 
+                            any(x in pdf[name] for x in get_started["result"]["submittedPdfList"])
+                        ):
+                            stat[name]["completed"]=stat[name]["completed"]+1
+                        else:
+                            stat[name]["draft"]=stat[name]["draft"]+1
 
     return stat
 
