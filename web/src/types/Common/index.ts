@@ -60,7 +60,9 @@ export interface reportInfoType {
     end_date: string;
     users_registration_info: userInfoReportInfoType;
     application_details: applicationDetailsInfoType;
-    efiling_submissions: eFilingInfoType;  
+    efiling_submissions: eFilingInfoType; 
+    logged_in_users: string[][];
+ 
 }
 
 export interface applicationDetailsInfoType {

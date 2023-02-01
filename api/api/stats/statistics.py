@@ -4,7 +4,7 @@ from django.conf import settings
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
-
+from django.utils import timezone as django_timezone
 
 #__Models__
 from api.models.user import User
@@ -36,6 +36,8 @@ def statistics_info(start_date, end_date, tz):
     report["users_registration_info"] = get_users_info(start_date, end_date)
     
     report["users_with_application"] = users(applications_with_date)
+
+    report["logged_in_users"] = get_logged_in_users()
 
     report["prepared_pdfs"] = num_of_prepared_pdfs(start_date, end_date)
     report["efiling_submissions"] = num_of_efiling_submissions(start_date, end_date)
@@ -147,4 +149,31 @@ def get_users_info(start_date, end_date):
             date_joined__lte=end_date            
         ).count()
 
+    return users_info
+
+
+def get_logged_in_users():
+    users_info = list()
+
+    max_login_date =  django_timezone.now()+ django_timezone.timedelta(hours=-8)
+    print(max_login_date)
+
+    recent_hours =  django_timezone.now()+ django_timezone.timedelta(hours=-1)
+    print(recent_hours)
+    
+    users = User.objects.filter(
+            last_login__gte=max_login_date
+        ).all()
+    
+    for user in users:            
+        usr = list()
+         
+        app = Application.objects.filter(
+            user_id=user.id,
+            last_updated__gte=recent_hours
+        )
+        
+        usr = app.values_list('app_type', flat=True)
+
+        users_info.append(usr)
     return users_info
