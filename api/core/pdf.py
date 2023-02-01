@@ -5,6 +5,8 @@ import io
 import requests
 from django.template.loader import get_template
 from PIL import Image
+from django.http import HttpResponse
+
 
 PDF_URL = os.environ.get("PDF_SERVICE_URL")
 
@@ -67,3 +69,9 @@ def rotate_images_and_convert_pdf(files, rotations):
             ]
         }
     )
+
+def create_download_response(pdf_content):
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = 'attachment; filename="report.pdf"'
+    response.write(pdf_content)
+    return response

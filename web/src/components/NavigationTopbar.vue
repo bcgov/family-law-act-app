@@ -41,6 +41,9 @@
                                 </template>
                                 <b-dropdown-item-button @click="logout(false)"><b-icon-box-arrow-left class="mr-2"/>Logout </b-dropdown-item-button>
                                 <b-dropdown-item-button @click="viewStatus()"><b-icon-card-list class="mr-2"/>Previous Applications </b-dropdown-item-button>
+                                <b-dropdown-item-button  v-if="userHasStatisticsAccess" @click="viewStats()">
+                                    <b-icon-file-earmark-bar-graph class="mr-2"/>Reports
+                                </b-dropdown-item-button>
                             </b-dropdown>
                         </div>
                     </div>
@@ -98,8 +101,8 @@
                 <p>
                     <a href="https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc"
                         target="_blank">VictimLinkBC
-                    </a> is a toll-free, confidential multilingual service available across BC and Yukon 24 hours a day, 
-                    7 days a week and can be accessed by calling or texting 1-800-563-0808 or sending an email to 
+                    </a> is a toll-free, confidential multilingual service available across BC and Yukon 24 hours a day, 
+                    7 days a week and can be accessed by calling or texting 1-800-563-0808 or sending an email to
                     <a href="mailto:VictimLinkBC@bc211.ca"
                     target="_blank">VictimLinkBC@bc211.ca</a>. It provides information and referral services to all 
                     victims of crime and immediate crisis support to victims of family and sexual violence.                    
@@ -245,8 +248,8 @@
                     </p>
                     <p>
                         If you want legal help for only part of your case you can look for a lawyer that offers 
-                        “unbundled” services. The 
-                        <a href='https://sites.google.com/view/bfur/' target="_blank">BC Family Law Unbundling Roster (HelpMap)</a> 
+                        “unbundled” services. The
+                        <a href='https://sites.google.com/view/bfur/' target="_blank">BC Family Law Unbundling Roster (HelpMap)</a>
                         is a list of legal professionals near you who offer unbundled services. Many also offer 
                         their services remotely, through telephone, web conferencing or other tools.
                     </p>
@@ -256,7 +259,7 @@
             <div class="mx-5 mb-5">
                 <p class="text-dark" style="font-weight: 700;">Other Support Resources</p>
                 <p>
-                    The BC Government website has a page that 
+                    The BC Government website has a page that
                     <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help"
                         target="_blank">lists resources
                     </a>
@@ -307,7 +310,7 @@
                 
                 
                 <p>
-                    CSO Support -  
+                    CSO Support - 
                     <a 
                         href="mailto:Courts.CSO@gov.bc.ca"
                         target="_blank">Courts.CSO@gov.bc.ca
@@ -368,6 +371,10 @@ import NavigationTips from "./NavigationTips.vue";
 import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
 import moment from "moment-timezone";
 
+import { namespace } from "vuex-class";   
+import "@/store/modules/common";
+const commonState = namespace("Common");
+
 @Component({
     components: {
         NavigationTips,
@@ -375,6 +382,9 @@ import moment from "moment-timezone";
     }
 })
 export default class NavigationTopbar extends Vue {
+
+    @commonState.State
+    public userHasStatisticsAccess!: boolean;
 
     error = "";
     getHelp = false;
@@ -389,6 +399,10 @@ export default class NavigationTopbar extends Vue {
         this.showLegalAssistance = false;
         this.showFamilyLawIssueResolutionInfo = false;
         this.showHelpFillingForms = false;
+    }
+
+    public viewStats() {
+        this.$router.push({name: "statistics" })
     }
 
     get userName() {
