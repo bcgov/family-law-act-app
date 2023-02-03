@@ -1,5 +1,5 @@
 # Main
-django==4.0.7
+django==4.0.9
 django-filter>=21.1,<22
 djangorestframework>=3.13.1,<4
 djangorestframework-bulk>=0.2.1,<1
