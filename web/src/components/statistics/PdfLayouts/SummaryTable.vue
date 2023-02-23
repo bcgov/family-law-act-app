@@ -48,6 +48,10 @@
                         <b-th>Written Response to Application</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.WR.total}}</b-td>                                          
                     </b-tr>
+                    <b-tr>                        
+                        <b-th>Standalone Application</b-th>
+                        <!-- <b-td class="text-center">{{applicationDetailsInfo.STND.total}}</b-td>                                           -->
+                    </b-tr>
                     
                 </b-tbody>
                 <!-- <b-tfoot>

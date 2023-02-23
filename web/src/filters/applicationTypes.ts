@@ -29,5 +29,7 @@ export const FLA_Types = [
     {pathway:"replyAgreementEnfrc",         pdfType:"WRA",   appType:"RAE",   familyType:"WR",    fullName:"Reply to Application About Enforcement"},
     {pathway:"replyFamilyMaintenanceEnfrc", pdfType:"WRA",   appType:"RFME",  familyType:"WR",    fullName:"Reply to Application for Order Under the Family Maintenance Enforcement Act"},
     
-    {pathway:"replyCounterApplication",     pdfType:"RCA",   appType:"RCA",   familyType:"CA",    fullName:"Reply to an Application About a Family Law Matter with Counter Application"}
+    {pathway:"replyCounterApplication",     pdfType:"RCA",   appType:"RCA",   familyType:"CA",    fullName:"Reply to an Application About a Family Law Matter with Counter Application"},
+    {pathway:"standalonePackage",           pdfType:"STND",   appType:"STND", familyType:"STND",  fullName:"Standalone Package"}
+    
 ];

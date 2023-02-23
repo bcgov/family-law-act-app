@@ -20,7 +20,7 @@ class Application extends VuexModule {
     public userType = ""
     public userName = ""
     public userId = ""
-    public version: string = "";
+    public version = "";
     public applicantName = {} as nameInfoType;
     public respondentName = {} as nameInfoType;
     public protectedPartyName = {} as nameInfoType;
@@ -1809,9 +1809,18 @@ class Application extends VuexModule {
         p.progress = 0;
     
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "StandaloneEfile";
+        p.label = "Standalone eFile";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "5";
         p.name = "NextSteps";
         p.label = "Next Steps";
         p.active = false;

@@ -5,27 +5,27 @@
         bg-variant="white" 
         class="mt-4 mb-3">
         <h2 class="mt-4 text-center text-success">Success</h2>
-        <div class="my-2 font-weight-bold">You’ve successfully submitted your initial filing with the Court Registry.</div>
+        <div class="my-2 font-weight-bold">You've successfully submitted your initial filing with the Court Registry.</div>
         <div v-if="packageNumber">
-            <div class="mb-2"> Your CSO Online Package # is <b class="text-success"> {{packageNumber}} </b></div>
+            <div class="mb-2"> Your CSO Online Package # is <b class="text-success"> {{packageNumber}} </b></div>
         
             <div>
                 You can view the following items at any time:
             </div>
 
             <ul style="margin-top:.25rem">
-                <li><a :href="packageUrl" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
-                <li><a :href="packageUrl" target="_blank">The package of all documents</a> you have submitted for filing</li>
+                <li><a :href="packageUrl" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
+                <li><a :href="packageUrl" target="_blank">The package of all documents</a> you have submitted for filing</li>
             </ul>
             
 
             <div style="font-size:19px; font-weight:normal;">
                 If you have any questions, concerns or mistakes about your initial filing, 
-                please contact CSO Online Support at 
+                please contact CSO Online Support at 
                 <a 
                     href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca
                 </a> and include 
-                <span class="text-primary">your Online Package #{{packageNumber}}</span>.
+                <span class="text-primary">your Online Package #{{packageNumber}}</span>.
             </div>
 
             <div class="mt-5">
@@ -36,12 +36,12 @@
                     </li>                
                     <li class="mb-2">
                         If you are filing your application by email and you are asking for a protection order in your 
-                        application, you will need to be prepared to <tooltip title="swear or affirm" index="0" /> the 
+                        application, you will need to be prepared to <tooltip title="swear or affirm" index="0" /> the 
                         information in your application during your court appearance.
                     </li>
                     <li class="mb-2">
                         Once your application is complete, the registry staff will stamp the document, assign a court 
-                        file number (if there isn’t already one), schedule the court appearance, and return a copy 
+                        file number (if there isn't already one), schedule the court appearance, and return a copy 
                         of the application to you.
                     </li>
                     <li class="mb-2">
@@ -147,6 +147,12 @@
                     style="color:blue; cursor:pointer;">
                     Checklist for Reply to a Family Law Matter
                 </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('STND')" 
+                    @click="checklist=true;checklistType='STND';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Standalone
+                </div>
             </div>           
 
             <div class="mt-5">
@@ -178,7 +184,7 @@
                 <h3>Haven’t Heard Back?</h3>
                 If you don’t hear back within 1 week from the court registry. Please contact CSO Online Support at 
                 <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a> 
-                and include your <tooltip title="Court File Number" index="0"/> / Filing Location or 
+                and include your<tooltip title="Court File Number" index="0"/> / Filing Location or
                 <span class="text-primary">Online Package Number (<strong>{{packageNumber}}</strong>)</span>.
             </div>
 
@@ -320,6 +326,10 @@ export default class SuccessPage extends Vue {
 
             if (pathways.includes('replyFlm')){
                 this.applicationDocumentTypes.push('RFLM')
+            }
+
+            if (pathways.includes('standalonePackage')){
+                this.applicationDocumentTypes.push('STND')
             }
 
             if (includesFlm){

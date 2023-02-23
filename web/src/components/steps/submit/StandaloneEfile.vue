@@ -4,10 +4,10 @@
         <h2 class="mt-4">Review and Submit</h2>
         <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             
-            <div class="ml-0">
+            <!-- <div class="ml-0">
                 You have indicated that you will file at the following court registry:
                 <p class="h3 mt-2 ml-0 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
-            </div>
+            </div> -->
 
             <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
                 <div class="row justify-content-center text-warning">
@@ -17,7 +17,8 @@
                     By clicking on the 'Review and Print' button next to the document, a PDF version of the application
                      will download or open. Depending on your browser settings, your PDF might save the form to your 
                      computer or it will open in a new tab or window. For more information about opening and saving 
-                     PDF forms, click on <span @click="navigateToGuide" class="text-primary" ><span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
+                     PDF forms, click on <span @click="navigateToGuide" class="text-primary" >
+                        <span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
                      Get help opening and saving PDF forms</span> below. If you are concerned about 
                      having a copy saved to your computer, may want to review and print from a safe computer, tablet 
                      or device, for example a computer, tablet or device of a trusted friend, at work, a library, 
@@ -31,8 +32,8 @@
 
                 <span class="text-primary mb-2" style="display:block; font-size:1.4rem;">Review your application:</span> 
                 <span>
-                    If you are filing your application by electronically and you are asking for a protection 
-                    order in your application, you will need to be prepared to
+                    If you are filing your application by electronically and you are asking 
+                    for a protection order in your application, you will need to be prepared to
                     <tooltip :index="0" title='swear or affirm'/>the information in your application 
                     during your court appearance. 
                 </span>           
@@ -214,7 +215,7 @@
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
-    import { documentTypesJsonInfoType, locationsInfoType, requiredDocumentsInfoType } from '@/types/Common';
+    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
 
@@ -229,7 +230,7 @@
         }
     })
     
-    export default class ReviewAndSubmit extends Vue {
+    export default class StandaloneEfile extends Vue {
         
         @Prop({required: true})
         step!: stepInfoType;
@@ -259,10 +260,7 @@
         public documentTypesJson!: documentTypesJsonInfoType[];
 
         @applicationState.State
-        public supportingDocuments!: any;
-
-        @applicationState.State
-        public requiredDocuments!: requiredDocumentsInfoType;
+        public supportingDocuments!: any;        
 
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
@@ -300,7 +298,6 @@
         fileType = "";
         fileTypes: documentTypesJsonInfoType[] = [];
         ppmSchedule1FileType = {description: 'Schedule 1 completed by a director', type: 'Merge With Form15'};
-        scheduleOneText = "Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)<ul class='mt-3' style='line-height: 1.5; list-style-type:circle;'><li>When you upload your completed Schedule 1, you will need to select from the drop list of document types – Schedule 1, completed by the Director from the top of the drop list. Once uploaded, the Schedule 1 will be attached to your Application About a Priority Parenting Matter when you click the Proceed to Submit button.</li></ul>";
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
             { key: 'fileType', label: 'File Type',tdClass:'align-middle'},
@@ -347,8 +344,7 @@
 
             if (files && files[0]) 
             {
-                this.supportingFile = files;
-                this.handlePpmSchedule1();
+                this.supportingFile = files;                
                 this.showTypeOfDocuments= true;
             }
         } 
@@ -366,7 +362,7 @@
             if (event.target.files && event.target.files[0]) 
             {
                 this.supportingFile = event.target.files;
-                this.handlePpmSchedule1();
+                
                 this.showTypeOfDocuments= true;
             }
         }
@@ -379,22 +375,8 @@
             Vue.prototype.$UpdateGotoNextStepPage()
         }        
 
-        public onSubmit() {                     
-            
-            if (this.types.includes("Priority Parenting Matter") && this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText)){
-
-                const index = this.supportingDocuments.findIndex(doc => doc.documentType == this.ppmSchedule1FileType.type);
-
-                if (index == -1){
-                    this.error = 'You should include: Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)'
-                } else {
-                    this.eFile();
-                }
-
-            } else {
-                this.eFile();
-            }
-                       
+        public onSubmit() {
+            this.eFile();                       
         }
 
         public eFile() {
@@ -493,21 +475,6 @@
                     const el = document.getElementById('drop-area');
                     if(el) el.scrollIntoView();
                 })
-            }
-        }
-
-        public handlePpmSchedule1(){
-            
-            const index = this.fileTypes.findIndex(fileType => fileType.type == this.ppmSchedule1FileType.type);
-
-            if (this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText) && index == -1){
-
-                this.fileTypes.unshift(this.ppmSchedule1FileType);
-
-            } else if(!this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText) && index != -1) {                
-                                
-                this.fileTypes.splice(index, 1);
-                           
             }
         }
 

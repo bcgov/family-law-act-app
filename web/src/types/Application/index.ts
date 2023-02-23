@@ -75,6 +75,7 @@ export interface stepInfoType {
 
     //______Step 0 GettingStarted
     selectedActivity?: string[];
+    standaloneEfile?: boolean;
     selectedReplyApplications?: string[];
     selectedForms?: string[];
     selectedFlmOption?: string;
@@ -218,7 +219,7 @@ export interface stepInfoType {
     schedulingSurvey?: schedulingSurveyInfoType;
     aboutCaseManagementOrderSurvey?: aboutCaseManagementOrderSurveyInfoType;
     cmChildrenInfoSurvey?: cmChildrenInfoSurveyInfoType;
-    childRelatedTypeSurvey?:string;
+    childRelatedTypeSurvey?: string;
     attendanceUsingElectronicCommunicationSurvey?: attendanceUsingElectronicCommunicationSurveyInfoType;
 
     changingOrCancellingAServiceOrNoticeSurvey?: changingOrCancellingAServiceOrNoticeSurveyInfoType;

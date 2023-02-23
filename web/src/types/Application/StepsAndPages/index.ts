@@ -6,8 +6,8 @@ export interface stepsAndPagesNumberInfoType{
     WR: WRstPgTypes;
     CA: CAstPgTypes;    
     FLM: FLMstPgTypes;
-    CM: CMstPgTypes
-    PPM: PPMstPgTypes
+    CM: CMstPgTypes;
+    PPM: PPMstPgTypes;
     RELOC: RELOCstPgTypes;
     ENFRC: ENFRCstPgTypes;
     CONNECT: CONNECTstPgTypes;
@@ -251,7 +251,7 @@ export interface ENFRCstPgTypes{
     PreviewForm26ENFRC: number;
     PreviewForm27ENFRC: number;
     PreviewForm28ENFRC: number;
-    PreviewForm29ENFRC : number;   
+    PreviewForm29ENFRC: number;   
 }
 
 export interface CONNECTstPgTypes{
@@ -267,5 +267,6 @@ export interface SUBMITstPgTypes{
     ReviewAndPrint: number;
     ReviewAndSave: number;
     ReviewAndSubmit: number;
+    StandaloneEfile: number;
     NextSteps: number;    
 }
