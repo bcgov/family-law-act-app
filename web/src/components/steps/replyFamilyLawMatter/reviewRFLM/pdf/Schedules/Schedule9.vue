@@ -345,8 +345,8 @@ export default class Schedule9 extends Vue {
         
         } 
 
-        if (this.result.rflmAdditionalDocumentsSurvey){
-            newSpousalSupportInfo.filingForm4 = this.result.rflmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'y';
+        if (this.result.flmAdditionalDocumentsSurvey){
+            newSpousalSupportInfo.filingForm4 = this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'y';
         } else {
             newSpousalSupportInfo.filingForm4 = false;
         }        

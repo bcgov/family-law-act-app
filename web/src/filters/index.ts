@@ -439,10 +439,10 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 				requiredDocuments.push("Spousal Support calculation");
 
 		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 && newChildSupportAttachementRequired && 
-			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
+			questions.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
 			|| ( rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 && 
 				(newSpouseSupportAttachementRequired || existingSpouseSupportAttachementRequired) && 
-				questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))				
+				questions.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))				
 				requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
 
 
