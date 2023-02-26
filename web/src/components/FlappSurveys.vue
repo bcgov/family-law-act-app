@@ -17,7 +17,8 @@
             <child-relocation-step v-if="getCurrentStepIndex() == 9" v-bind:step="getStep(9)"></child-relocation-step>
             <enforcement-agree-step v-if="getCurrentStepIndex() == 10" v-bind:step="getStep(10)"></enforcement-agree-step>
             <step-connect v-if="getCurrentStepIndex() == 11" v-bind:step="getStep(11)"></step-connect>
-            <step-submit v-if="getCurrentStepIndex() == 12" v-bind:step="getStep(12)"></step-submit>
+            <admin-form-step v-if="getCurrentStepIndex() == 12" v-bind:step="getStep(12)"></admin-form-step>
+            <step-submit v-if="getCurrentStepIndex() == 13" v-bind:step="getStep(13)"></step-submit>
     
         </main>
     </div>
@@ -39,6 +40,7 @@ import CaseManagementStep from "./steps/caseMgmt/CaseManagementStep.vue";
 import ChildRelocationStep from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgreeStep from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
 import StepConnect from "./steps/connect/StepConnect.vue";
+import AdminFormStep from "./steps/adminFormSubmission/AdminFormStep.vue";
 import StepSubmit from "./steps/submit/StepSubmit.vue";
 
 import * as surveyEnv from "@/components/survey/survey-glossary";
@@ -58,7 +60,8 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
         GetStartedStep,
         ReplyFamilyLawStep,
         WrittenResponseStep,
-        CounterApplicationStep
+        CounterApplicationStep,
+        AdminFormStep
     }
 })
 

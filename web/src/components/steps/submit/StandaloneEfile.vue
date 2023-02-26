@@ -2,52 +2,7 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
         <h2 class="mt-4">Review and Submit</h2>
-        <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
-            
-            <!-- <div class="ml-0">
-                You have indicated that you will file at the following court registry:
-                <p class="h3 mt-2 ml-0 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
-            </div> -->
-
-            <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
-                <div class="row justify-content-center text-warning">
-                    <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
-                </div>
-                <div style="font-size: 18px;" class="mx-3 mb-1 pb-3">
-                    By clicking on the 'Review and Print' button next to the document, a PDF version of the application
-                     will download or open. Depending on your browser settings, your PDF might save the form to your 
-                     computer or it will open in a new tab or window. For more information about opening and saving 
-                     PDF forms, click on <span @click="navigateToGuide" class="text-primary" >
-                        <span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
-                     Get help opening and saving PDF forms</span> below. If you are concerned about 
-                     having a copy saved to your computer, may want to review and print from a safe computer, tablet 
-                     or device, for example a computer, tablet or device of a trusted friend, at work, a library, 
-                     school or an internet café.                    
-                </div>
-            </div>
-            
-            <h3 class="mt-4">To prepare the application for filing:</h3>
-
-            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
-
-                <span class="text-primary mb-2" style="display:block; font-size:1.4rem;">Review your application:</span> 
-                <span>
-                    If you are filing your application by electronically and you are asking 
-                    for a protection order in your application, you will need to be prepared to
-                    <tooltip :index="0" title='swear or affirm'/>the information in your application 
-                    during your court appearance. 
-                </span>           
-            
-                <form-list type="Print" :currentPage="currentPage"/>
-
-                <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
-                    <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
-                </div>
-
-                <div>    
-                    Note: If you need to edit any of your answers, go back to the "Review Your Answers" page, edit the answer and return to this page.
-                </div>
-            </b-card>
+        <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">            
 
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
@@ -120,9 +75,7 @@
                     </b-table>
                 </b-card>
 
-            </b-card>
-
-            <reminder-notes  type="Submit"/>
+            </b-card>            
 
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
                 <span class="text-primary" style='font-size:1.4rem;'>Filing with Court Services Online:</span>
@@ -200,36 +153,28 @@
 
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import Tooltip from "@/components/survey/Tooltip.vue";
-    
-    import { stepInfoType } from "@/types/Application";
-    import PageBase from "@/components/steps/PageBase.vue";   
-    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";
+    import { namespace } from "vuex-class";  
 
-    import FormList from "./components/FormList.vue";
-    import RequiredDocument from "./components/RequiredDocument.vue";
-    import ReminderNotes from "./components/ReminderNotes.vue";
-    
-    import { namespace } from "vuex-class";   
+    import Tooltip from "@/components/survey/Tooltip.vue";
+    import PageBase from "@/components/steps/PageBase.vue";   
+    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";    
+ 
     import "@/store/modules/application";
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
-    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
+    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
+    import { stepInfoType } from "@/types/Application";
 
     @Component({
         components:{
             PageBase,
             GetHelpForPdf,
-            Tooltip,
-            FormList,
-            RequiredDocument,
-            ReminderNotes
+            Tooltip
         }
-    })
-    
+    })    
     export default class StandaloneEfile extends Vue {
         
         @Prop({required: true})

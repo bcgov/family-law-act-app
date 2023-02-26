@@ -40,11 +40,11 @@
                 <b-button
                     style="height: 3rem;"
                     block
-                    @click="changeStandaloneEfile"
-                    :pressed.sync="standaloneEfile.state"
-                    :variant="standaloneEfile.state?'primary':'secondary'">
-                    <b-icon-check scale="1.5" class="mr-2" v-if="standaloneEfile.state" />
-                    {{ standaloneEfile.label }}
+                    @click="changeAdministrativeForms"
+                    :pressed.sync="administrativeForms.state"
+                    :variant="administrativeForms.state?'primary':'secondary'">
+                    <b-icon-check scale="1.5" class="mr-2" v-if="administrativeForms.state" />
+                    {{ administrativeForms.label }}
                 </b-button>
                 
             </b-row>
@@ -117,9 +117,9 @@ export default class SelectActivity extends Vue {
         }
     ];
     
-    standaloneEfile = {
-        label: 'Efile',
-        name: 'standaloneEfile',
+    administrativeForms = {
+        label: 'Administrative Forms',
+        name: 'administrativeForms',
         state: false
     };
    
@@ -145,7 +145,7 @@ export default class SelectActivity extends Vue {
 
             const results = this.steps[0].result;
             this.selectedActivity = results.selectedActivity;
-            this.standaloneEfile.state = this.steps[0].result.standaloneEfile;            
+            this.administrativeForms.state = this.steps[0].result.administrativeForms;            
 
             for (const activity of this.activityButtons){
                 activity.state = this.selectedActivity.includes(activity.name)
@@ -153,9 +153,9 @@ export default class SelectActivity extends Vue {
             
         }  
 
-        this.disableNextButton = !(this.selectedActivity.length > 0 || this.standaloneEfile.state);        
+        this.disableNextButton = !(this.selectedActivity.length > 0 || this.administrativeForms.state);        
 
-        const progress = (this.selectedActivity.length==0 || !this.standaloneEfile.state)? 50 : 100;
+        const progress = (this.selectedActivity.length==0 || !this.administrativeForms.state)? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
         this.dataReady = true;
     }
@@ -181,36 +181,36 @@ export default class SelectActivity extends Vue {
         toggleAllSteps([startPage._StepNo], false);
         incompleteProgressOfAllPages();
         if (this.selectedActivity.length > 0){
-            this.standaloneEfile.state = false;
+            this.administrativeForms.state = false;
         }
     }  
 
-    public changeStandaloneEfile(){
+    public changeAdministrativeForms(){
 
-        const submitPage = this.stPgNo.SUBMIT;
-        const startPage = this.stPgNo.GETSTART;
+        const adminStep = this.stPgNo.ADMIN;
+        const startStep = this.stPgNo.GETSTART;
         
-        if (this.standaloneEfile.state){
+        if (this.administrativeForms.state){
             
             for (const activity in this.activityButtons){
                 this.activityButtons[activity].state = false;               
             }  
             this.selectedActivity = [];
-            togglePages([startPage.FlmInfo], false, startPage._StepNo);
-            togglePages([startPage.GettingStarted], false, startPage._StepNo);
-            togglePages([startPage.ReplyToApplication], false, startPage._StepNo);
+            togglePages([startStep.FlmInfo], false, startStep._StepNo);
+            togglePages([startStep.GettingStarted], false, startStep._StepNo);
+            togglePages([startStep.ReplyToApplication], false, startStep._StepNo);
             
-            this.UpdateApplicationType(Array.from(new Set(['Standalone Package']))); 
+            this.UpdateApplicationType(Array.from(new Set(['Administrative Forms']))); 
 
         }         
 
-        toggleStep(submitPage._StepNo, this.standaloneEfile.state);
-        togglePages([submitPage.FilingOptions], !this.standaloneEfile.state, submitPage._StepNo);
-        togglePages([submitPage.StandaloneEfile, submitPage.NextSteps], this.standaloneEfile.state, submitPage._StepNo);
+        toggleStep(adminStep._StepNo, this.administrativeForms.state);
         
-        toggleAllSteps([startPage._StepNo, submitPage._StepNo], false);
+        // togglePages([adminPage.], this.administrativeForms.state, submitPage._StepNo);
+        
+        toggleAllSteps([startStep._StepNo, adminStep._StepNo], false);
         incompleteProgressOfAllPages();
-        this.disableNextButton = !this.standaloneEfile.state; 
+        this.disableNextButton = !this.administrativeForms.state; 
     }
 
     public onPrev() {
@@ -222,9 +222,9 @@ export default class SelectActivity extends Vue {
     }
   
     beforeDestroy() {
-        const progress = (this.selectedActivity.length!=0 || this.standaloneEfile.state)? 100 : 50;
+        const progress = (this.selectedActivity.length!=0 || this.administrativeForms.state)? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        this.UpdateStepResultData({step:this.step, data: {selectedActivity: this.selectedActivity, standaloneEfile: this.standaloneEfile.state}})
+        this.UpdateStepResultData({step:this.step, data: {selectedActivity: this.selectedActivity, administrativeForms: this.administrativeForms.state}})
     }
 }
 </script>

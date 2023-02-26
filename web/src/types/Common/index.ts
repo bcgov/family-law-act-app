@@ -75,7 +75,7 @@ export interface applicationDetailsInfoType {
     RELOC: formReportInfoType;
     RFLM: formReportInfoType;
     WR: formReportInfoType;
-    STND: formReportInfoType;
+    ADMIN: formReportInfoType;
 }
 
 export interface eFilingInfoType {

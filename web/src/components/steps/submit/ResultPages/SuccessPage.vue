@@ -14,7 +14,7 @@
             </div>
 
             <ul style="margin-top:.25rem">
-                <li><a :href="packageUrl" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
+                <li><a :href="packageUrl" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
                 <li><a :href="packageUrl" target="_blank">The package of all documents</a> you have submitted for filing</li>
             </ul>
             
@@ -24,7 +24,7 @@
                 please contact CSO Online Support at 
                 <a 
                     href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca
-                </a> and include 
+                </a> and include 
                 <span class="text-primary">your Online Package #{{packageNumber}}</span>.
             </div>
 
@@ -148,8 +148,8 @@
                     Checklist for Reply to a Family Law Matter
                 </div>
                 <div 
-                    v-if="applicationDocumentTypes.includes('STND')" 
-                    @click="checklist=true;checklistType='STND';" 
+                    v-if="applicationDocumentTypes.includes('ADMIN')" 
+                    @click="checklist=true;checklistType='ADMIN';" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Standalone
                 </div>
@@ -171,7 +171,7 @@
                         class="m-4 text-primary" 
                         @click="showLegalAssistance= !showLegalAssistance" 
                         style="border-bottom:1px solid; width:19rem;">
-                        <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Where can I get legal assistance? 
+                        <span style="font-size:1.2rem;" class="fa fa-question-circle" /> Where can I get legal assistance? 
                         <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
                         <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
                     </div>
@@ -328,8 +328,8 @@ export default class SuccessPage extends Vue {
                 this.applicationDocumentTypes.push('RFLM')
             }
 
-            if (pathways.includes('standalonePackage')){
-                this.applicationDocumentTypes.push('STND')
+            if (pathways.includes('administrativeForms')){
+                this.applicationDocumentTypes.push('ADMIN')
             }
 
             if (includesFlm){
