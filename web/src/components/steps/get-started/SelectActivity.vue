@@ -34,6 +34,20 @@
                     </b-button>
                 </b-col>                
             </b-row>           
+
+            <b-row class="my-5">                
+                
+                <b-button
+                    style="height: 3rem;"
+                    block
+                    @click="changeAdministrativeForms"
+                    :pressed.sync="administrativeForms.state"
+                    :variant="administrativeForms.state?'primary':'secondary'">
+                    <b-icon-check scale="1.5" class="mr-2" v-if="administrativeForms.state" />
+                    {{ administrativeForms.label }}
+                </b-button>
+                
+            </b-row>
             
         </b-card>   
 
@@ -42,18 +56,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { namespace } from "vuex-class"; 
+
 import PageBase from "../PageBase.vue";
-import { toggleAllSteps, togglePages } from '@/components/utils/TogglePages';
-import {incompleteProgressOfAllPages} from '@/components/utils/StepsAndPages/StepAndPageFunctions'
+
+import { toggleAllSteps, toggleStep, togglePages } from '@/components/utils/TogglePages';
+import {incompleteProgressOfAllPages} from '@/components/utils/StepsAndPages/StepAndPageFunctions';
 
 import { pathwayCompletedInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
-
-import { namespace } from "vuex-class";   
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
+  
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-
 
 @Component({
     components:{
@@ -75,16 +89,16 @@ export default class SelectActivity extends Vue {
     public types!: string[];
 
     @applicationState.Action
-    public UpdateApplicationType!: (newApplicationType: string[]) => void
+    public UpdateApplicationType!: (newApplicationType: string[]) => void;
 
     @applicationState.Action
-    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void;
 
     @applicationState.State
     public pathwayCompleted!: pathwayCompletedInfoType;
     
     @applicationState.Action
-    public UpdatePathwayCompletedFull!: (changedpathway: pathwayCompletedInfoType) => void   
+    public UpdatePathwayCompletedFull!: (changedpathway: pathwayCompletedInfoType) => void;   
 
     disableNextButton = false;
   
@@ -101,7 +115,13 @@ export default class SelectActivity extends Vue {
             name: 'replyToApplication',
             state: false
         }
-    ]    
+    ];
+    
+    administrativeForms = {
+        label: 'Administrative Forms',
+        name: 'administrativeForms',
+        state: false
+    };
    
     currentStep =0;
     currentPage =0;
@@ -121,40 +141,73 @@ export default class SelectActivity extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.steps[0].result?.selectedActivity) {
-            this.selectedActivity = this.steps[0].result.selectedActivity;
+        if (this.steps[0].result) {
+
+            const results = this.steps[0].result;
+            this.selectedActivity = results.selectedActivity;
+            this.administrativeForms.state = this.steps[0].result.administrativeForms;            
 
             for (const activity of this.activityButtons){
                 activity.state = this.selectedActivity.includes(activity.name)
             }
-        }
+            
+        }  
 
-        this.disableNextButton = !(this.selectedActivity.length > 0);        
+        this.disableNextButton = !(this.selectedActivity.length > 0 || this.administrativeForms.state);        
 
-        const progress = this.selectedActivity.length==0? 50 : 100;
+        const progress = (this.selectedActivity.length==0 || !this.administrativeForms.state)? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
         this.dataReady = true;
     }
 
     public changeSelectedActivity(){
+
+        const startPage = this.stPgNo.GETSTART;
         this.selectedActivity = [];
         for (const activity of this.activityButtons){
             if (activity.state){
                 this.selectedActivity.push(activity.name)
             }
-        }
+        }        
 
         if (!this.selectedActivity.includes('applyForOrder')){
-            togglePages([this.stPgNo.GETSTART.FlmInfo], false, this.stPgNo.GETSTART._StepNo);
+            togglePages([startPage.FlmInfo], false, startPage._StepNo);
         }
 
-        togglePages([this.stPgNo.GETSTART.GettingStarted], this.selectedActivity.includes('applyForOrder'), this.stPgNo.GETSTART._StepNo);
-        togglePages([this.stPgNo.GETSTART.ReplyToApplication], this.selectedActivity.includes('replyToApplication'), this.stPgNo.GETSTART._StepNo);
+        togglePages([startPage.GettingStarted], this.selectedActivity.includes('applyForOrder'), startPage._StepNo);
+        togglePages([startPage.ReplyToApplication], this.selectedActivity.includes('replyToApplication'), startPage._StepNo);
         this.disableNextButton = !(this.selectedActivity.length > 0)
 
-        toggleAllSteps([this.stPgNo.GETSTART._StepNo], false);
-        incompleteProgressOfAllPages()
+        toggleAllSteps([startPage._StepNo], false);
+        incompleteProgressOfAllPages();
+        if (this.selectedActivity.length > 0){
+            this.administrativeForms.state = false;
+        }
     }  
+
+    public changeAdministrativeForms(){
+
+        const adminStep = this.stPgNo.ADMIN;
+        const startStep = this.stPgNo.GETSTART;
+        
+        if (this.administrativeForms.state){
+            
+            for (const activity in this.activityButtons){
+                this.activityButtons[activity].state = false;               
+            }  
+            this.selectedActivity = [];
+            togglePages([startStep.FlmInfo], false, startStep._StepNo);
+            togglePages([startStep.GettingStarted], false, startStep._StepNo);
+            togglePages([startStep.ReplyToApplication], false, startStep._StepNo);
+            
+        }         
+
+        toggleStep(adminStep._StepNo, this.administrativeForms.state);       
+        
+        toggleAllSteps([startStep._StepNo, adminStep._StepNo], false);
+        incompleteProgressOfAllPages();
+        this.disableNextButton = !this.administrativeForms.state; 
+    }
 
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage();
@@ -165,9 +218,9 @@ export default class SelectActivity extends Vue {
     }
   
     beforeDestroy() {
-        const progress = this.selectedActivity.length==0? 50 : 100;
+        const progress = (this.selectedActivity.length!=0 || this.administrativeForms.state)? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        this.UpdateStepResultData({step:this.step, data: {selectedActivity: this.selectedActivity}})
+        this.UpdateStepResultData({step:this.step, data: {selectedActivity: this.selectedActivity, administrativeForms: this.administrativeForms.state}})
     }
 }
 </script>

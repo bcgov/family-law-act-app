@@ -30,8 +30,11 @@
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary mb-2" style="display:block; font-size:1.4rem;">Review your application:</span> 
-                <span>If you are filing your application by electronically and you are asking for a protection order in your application, you will need to be prepared to 
-                    <tooltip :index="0" title='swear or affirm'/> the information in your application during your court appearance. 
+                <span>
+                    If you are filing your application by electronically and you are asking for a protection 
+                    order in your application, you will need to be prepared to
+                    <tooltip :index="0" title='swear or affirm'/>the information in your application 
+                    during your court appearance. 
                 </span>           
             
                 <form-list type="Print" :currentPage="currentPage"/>
@@ -271,19 +274,7 @@
         public UpdateGotoNextStepPage!: () => void
 
         @applicationState.Action
-        public UpdateCurrentStep!: (newCurrentStep) => void
-
-        @applicationState.Action
-        public UpdateCurrentStepPage!: (newCurrentStepPage) => void
-
-        @applicationState.Action
         public UpdatePageProgress!: (newPageProgress) => void        
-
-        @applicationState.Action
-        public UpdateLastPrinted!: (newLastPrinted) => void
-
-        @applicationState.Action
-        public UpdateLastFiled!: (newLastFiled) => void
 
         error = "";
         showGetHelpForPDF = false;
@@ -466,7 +457,7 @@
                 this.showTypeOfDocuments = false;
 
                 const supportingdocuments = this.supportingDocuments 
-                let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
+                const typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
                 if(!typeIndex.includes(this.fileType))
                     typeIndex.push(this.fileType)
                 

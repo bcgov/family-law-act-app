@@ -36,16 +36,64 @@ export interface documentTypesJsonInfoType {
 }
 
 export interface  applicationJsonInfoType {
-    lastUpdated?: number, 
-    lastUpdatedDate?: string, 
-    id?: number, 
-    app_type?: string[], 
-    lastFiled?: number, 
-    lastFiledDate?: string, 
-    packageNum?: string, 
-    listOfPdfs?: string[], 
-    last_efiling_submission:{
-        package_number?: string,
-        package_url?: string
-    }
+    lastUpdated?: number; 
+    lastUpdatedDate?: string; 
+    id?: number; 
+    app_type?: string[]; 
+    lastFiled?: number; 
+    lastFiledDate?: string; 
+    packageNum?: string; 
+    listOfPdfs?: string[]; 
+    last_efiling_submission: {
+        package_number?: string;
+        package_url?: string;
+    };
 }
+
+export interface dateRangeInfoType {
+    startDate: string;
+    endDate: string;
+}
+
+export interface reportInfoType {
+    start_date: string;
+    end_date: string;
+    users_registration_info: userInfoReportInfoType;
+    application_details: applicationDetailsInfoType;
+    efiling_submissions: eFilingInfoType; 
+    logged_in_users: string[][];
+ 
+}
+
+export interface applicationDetailsInfoType {
+    CA: formReportInfoType;
+    CM: formReportInfoType;
+    ENFRC: formReportInfoType;
+    FLM: formReportInfoType;
+    PO: formReportInfoType;
+    PPM: formReportInfoType;
+    RELOC: formReportInfoType;
+    RFLM: formReportInfoType;
+    WR: formReportInfoType;
+    ADMIN: formReportInfoType;
+}
+
+export interface eFilingInfoType {
+    finalized_efile: number;
+    total_applications: number;
+    try_to_efile: number;
+}
+
+export interface formReportInfoType {    
+    completed: number;
+    draft: number;
+    efiled: number;    
+    started: number;
+    total: number; 
+}
+
+export interface userInfoReportInfoType {
+    total: number;
+    active_in_period: number;
+    joined_in_period: number;
+} 

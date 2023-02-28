@@ -8,6 +8,8 @@ import store from "@/store";
 import http from "./plugins/http";
 import "./filters";
 import LoadingSpinner from "./components/utils/LoadingSpinner.vue";
+import Vuetify from 'vuetify';
+import '@mdi/font/css/materialdesignicons.css'
 
 import UpdateGotoStep from "./prototypes/UpdateGotoStep"
 
@@ -18,6 +20,7 @@ import "font-awesome/css/font-awesome.min.css";
 import { SessionManager } from "@/components/utils/utils";
 
 Vue.config.productionTip = false;
+Vue.use(Vuetify);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VueRouter);
@@ -42,6 +45,7 @@ if(!location.pathname.includes('/result/'))
 SessionManager.redirectIfQuickExitCookie();
 
 new Vue({
+    vuetify: new Vuetify({}),
     router: router,
     render: (h) => h(App),
     store: store,

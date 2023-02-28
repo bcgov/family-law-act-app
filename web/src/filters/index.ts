@@ -12,12 +12,11 @@ import {EarlyResolutionsRegistries, FamilyJusticeRegistries} from './locationReg
 import { rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 
 
-
 Vue.filter('get-current-version', function(){	
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.6";
+    const CURRENT_VERSION = "1.2.7";
     //__________________________
     //___________________________
     //___________________________
@@ -37,6 +36,13 @@ Vue.filter('truncate-word-before', function (text: string, stop: number) {
 	if(text){
 		return (stop < text.length) ? text.slice(text.indexOf(' ',stop)) : ''
 	}
+	else
+		return ''
+})
+
+Vue.filter('beautify-date-full-no-weekday', function(date){
+	if(date)
+		return	moment(date).format('MMMM DD, YYYY');
 	else
 		return ''
 })
@@ -164,7 +170,7 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	if(index>=0) supportingDocumentForm4.splice(index,1);
 	let flagForm4 = false;
 	
-	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+	const questionResults: {name: string; value: any; title: string; inputType: string}[] =[];
 	for(const question of survey.currentPage.questions){		
 		
 		if(question.isVisible && question.name?.startsWith("parentFileForm4Info")){		
@@ -266,7 +272,7 @@ Vue.filter('getFullOrderName',function(orderName, specific){
 
 Vue.filter('translateTypes',function(applicationTypes: string[]) {
 
-	let types = [];
+	const types = [];
 
 	for (const applicationType of applicationTypes){
 		const pathwayInfo = FLA_Types.filter(type => type.fullName == applicationType);
@@ -278,7 +284,7 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 
 Vue.filter('fullNamesToFamilyTypes',function(applicationTypes: string[]) {
 
-	let types = [];
+	const types = [];
 
 	for (const applicationType of applicationTypes){
 		const pathwayInfo = FLA_Types.filter(type => type.fullName == applicationType);
@@ -297,7 +303,7 @@ Vue.filter('pdfTypeToFamilyType',function(applicationType) {
 
 Vue.filter('typesToFullnames',function(applicationTypes: string[]) {
 
-	let types = [];
+	const types = [];
 
 	for (const applicationType of applicationTypes){
 		const pathwayInfo = FLA_Types.filter(type => type.appType == applicationType);
@@ -408,10 +414,10 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		const rflmQuestionnaire: rflmQuestionnaireDataInfoType = questions.rflmQuestionnaireSurvey;
 
 		if(questions.rflmBackgroundSurvey?.existingPOOrdersAttached == "n")
-		  	requiredDocuments.push("Copy of the missed protection related written agreement(s), court order(s) or plan(s)");
-
+			requiredDocuments.push("Copy of the missed protection related written agreement(s), court order(s) or plan(s)");
+			
 		if(questions.rflmBackgroundSurvey?.ExistingOrdersFLM == "y" && questions.rflmBackgroundSurvey?.otherPartyAttach == 'n')
-		  	requiredDocuments.push("Copy of the missed existing agreement(s) or court order(s)");	
+			requiredDocuments.push("Copy of the missed existing agreement(s) or court order(s)");	
 
 		const newChildSupportAttachementRequired = rflmQuestionnaire.selectedChildSupportForm.includes('newChildSupport') && questions.replyNewChildSupportSurvey.agreeCourtOrder == 'n';
 		const existingChildSupportAttachementRequired = rflmQuestionnaire.selectedChildSupportForm.includes('existingChildSupport') && questions.replyExistingChildSupportSurvey.agreeCourtOrder == 'n';	  
@@ -433,10 +439,10 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 				requiredDocuments.push("Spousal Support calculation");
 
 		if( (rflmQuestionnaire?.selectedChildSupportForm?.length > 0 && newChildSupportAttachementRequired && 
-			questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
+			questions.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y')
 			|| ( rflmQuestionnaire?.selectedSpousalSupportForm?.length > 0 && 
 				(newSpouseSupportAttachementRequired || existingSpouseSupportAttachementRequired) && 
-				questions.rflmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))				
+				questions.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs == 'y'))				
 				requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
 
 
@@ -497,10 +503,10 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 
 		if(!RFLM && questions.flmBackgroundSurvey?.existingPOOrders == "y")
-		  	requiredDocuments.push("Copy of your existing protection related written agreement(s), court order(s) or plan(s)");
+			requiredDocuments.push("Copy of your existing protection related written agreement(s), court order(s) or plan(s)");
 
 		if(!RFLM && questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
-		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 			
 		if(Vue.filter('FLMform4Required')(RFLM))		
 			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
@@ -530,8 +536,8 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 		const flmDirectorMaintenanceCopyRequiredCondition = ( questions.flmQuestionnaireSurvey?.includes("childSupport") && 
 															questions.aboutExistingChildSupportSurvey?.filedWithDirector == "y") ||
-		  													( questions.flmQuestionnaireSurvey?.includes("spousalSupport") && 
-		  													questions.existingSpousalSupportOrderAgreementSurvey?.filedWithDirector == "y")
+															( questions.flmQuestionnaireSurvey?.includes("spousalSupport") && 
+															questions.existingSpousalSupportOrderAgreementSurvey?.filedWithDirector == "y")
 
 		const rflmDirectorMaintenanceCopyRequiredCondition = (counterList.includes("childSupport") && 
 																questions.aboutExistingChildSupportSurvey?.filedWithDirector == "y") ||
@@ -584,7 +590,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 		const stPgCM = store.state.Application.stPgNo.CM
 		const stepCM = store.state.Application.steps[stPgCM._StepNo]
-        		
+		
 		if(stepCM.pages[stPgCM.ByConsent].active && questions.byConsentSurvey?.giveConsentDirection == "fileForm18")
 			requiredDocuments.push("Completed <a target='blank' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa739.pdf?forcedownload=true'>Consent Order Form 18</a> form");
 		
@@ -823,6 +829,8 @@ Vue.filter('surveyChanged', function(type: string) {
 	}	
 })
 
+
+
 Vue.filter('includedInRegistries', function(locationName: string, registryType: string) {	
 	
 	const locationsInfo = store.state.Common.locationsInfo;
@@ -844,8 +852,9 @@ Vue.filter('includedInRegistries', function(locationName: string, registryType: 
 
 })
 
-Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
+Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight, margin?){
 
+	const pageMargin = margin? margin : '.7in 0.7in 0.9in 0.7in'
 	const body = 
 		`<!DOCTYPE html>
 		<html lang="en">
@@ -855,7 +864,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 		`<style>`+
 			`@page {
 				size: 8.5in 11in !important;
-				margin: .7in 0.7in 0.9in 0.7in !important;
+				margin: `+pageMargin+` !important;
 				font-size: 10pt !important;			
 				@bottom-left {
 					content:`+ pageFooterLeft +
@@ -880,6 +889,12 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 				}
 				.print-block{
 					page-break-inside: avoid;
+				}
+				div.court-header {
+					position: fixed;
+					top: -0.9in;
+					width:100%; 
+					display:inline-block;
 				}
 			}`+ customCss+
 			`@page label{font-size: 9pt;}
@@ -906,10 +921,11 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`table.compactfullsize {table-layout: fixed; width: 100%; margin-top:0rem;}`+
 			`table.compactfullsize tr{border:1px solid #313132;}`+
 			`table.compactfullsize td{padding:0 0 0 .5rem; color: #313132;}`+
+			`.report table>thead>tr>th{background-color: #e9ecef !important;}`+
 
 			`.answer{color: #000; display:inline; font-size:11pt;}`+
 			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
-    		`.uline{text-decoration: underline; display: inline;}`+
+			`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
 			`.form-header-rflm{display:block; margin:0 0 12rem 0;}`+
 			`.form-header-po{display:block; margin:0 0 6.25rem 0;}`+
@@ -922,6 +938,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
 			`.form-header-cs{display:block; margin:-2rem 0 4rem 0;}`+
+			`.court-header-after{margin:-1rem 0 0 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+

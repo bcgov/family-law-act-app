@@ -330,8 +330,8 @@ export default class Schedule3 extends Vue {
             }
         }
 
-        if (this.result.rflmAdditionalDocumentsSurvey){
-            const additionalDocsInfo: rflmAdditionalDocsDataInfoType = this.result.rflmAdditionalDocumentsSurvey;
+        if (this.result.flmAdditionalDocumentsSurvey){
+            const additionalDocsInfo: rflmAdditionalDocsDataInfoType = this.result.flmAdditionalDocumentsSurvey;
         
             newChildSupportInfo.filing = additionalDocsInfo.isFilingAdditionalDocs == 'y';
         

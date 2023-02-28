@@ -17,6 +17,7 @@
             <enfrc-file-order-checklist v-else-if="checklistType=='RORD'" :applicationId='applicationId'/>
             <wr-checklist v-else-if="checklistType=='WRA'" :applicationId='applicationId'/>
             <rflm-checklist v-if="checklistType=='RFLM'" :applicationId='applicationId'/>
+            <stnd-checklist v-if="checklistType=='ADMIN'" :applicationId='applicationId'/>
         </b-card>
     </div>
 </template>
@@ -38,6 +39,7 @@ import EnfrcFileDeterminationOfParentingCoordinatorChecklist from "./EnfrcFileDe
 import EnfrcFileOrderChecklist from "./EnfrcFileOrderChecklist.vue";
 import EarlyResolutionsChecklist from "./EarlyResolutionsChecklist.vue";
 import WrChecklist from "./WrChecklist.vue";
+import StndChecklist from "./StndChecklist.vue";
 
 @Component({
     components:{        
@@ -53,7 +55,8 @@ import WrChecklist from "./WrChecklist.vue";
         EnfrcFileDeterminationOfParentingCoordinatorChecklist,
         EnfrcFileOrderChecklist,
         EarlyResolutionsChecklist,
-        WrChecklist
+        WrChecklist,
+        StndChecklist
     }
 })
 export default class Checklists extends Vue {
@@ -80,7 +83,8 @@ export default class Checklists extends Vue {
         {name:'RDET', title:'Request to File a Determination of Parenting Coordinator', pdfName:'Checklist_for_Request_to_File_a_Determination_of_Parenting_Coordinator.pdf'},
         {name:'RORD', title:'Request to File an Order', pdfName:'Checklist_for_Request_to_File_an_Order.pdf'},
         {name:'WRA', title:'Request to File an Order', pdfName:'Checklist_for_Written_Response_to_Application.pdf'},
-        {name:'RFLM', title:'Reply to Application About a Family Law Matter', pdfName:'Checklist_for_Reply_to_Family_Law_Matter.pdf'}
+        {name:'RFLM', title:'Reply to Application About a Family Law Matter', pdfName:'Checklist_for_Reply_to_Family_Law_Matter.pdf'},
+        {name:'ADMIN', title:'Administrative Forms', pdfName:'Checklist_for_Administrative_Forms.pdf'}
     ]    
 
     mounted(){       

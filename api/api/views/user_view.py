@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.models.user import User
-from core.auth import build_get_user_object
+from core.auth import build_get_user_object, user_authorized_for_stats
 
 
 class UserView(APIView):
@@ -23,6 +23,7 @@ class UserView(APIView):
         logged_in = isinstance(request.user, User)
         info = build_get_user_object(logged_in, request)
         info["location"] = logged_in and request.user.location
+        info["stats"] = user_authorized_for_stats(request)
         ret = Response(info)
         ret.set_cookie("csrftoken", get_token(request))
         return ret

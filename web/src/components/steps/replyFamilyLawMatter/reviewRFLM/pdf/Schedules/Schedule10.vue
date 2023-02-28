@@ -213,7 +213,8 @@ export default class Schedule10 extends Vue {
         let existingSpouseSupportInfo = {} as schedule10DataInfoType; 
 
         if (this.result.replyExistingSpouseSupportSurvey && this.result.rflmUnpaidSpouseSupportSurvey 
-                && this.result.rflmCalculatingSpouseSupportSurvey && this.result.disagreeExistingSpouseSupportSurvey && this.result.rflmAdditionalDocumentsSurvey){
+                && this.result.rflmCalculatingSpouseSupportSurvey && this.result.disagreeExistingSpouseSupportSurvey 
+                && this.result.flmAdditionalDocumentsSurvey){
 
             const replyExistingSpouseSupportInfo: replyExistingSpouseSupportDataInfoType = this.result.replyExistingSpouseSupportSurvey;
             if (replyExistingSpouseSupportInfo.existingType == 'finalOrder'){
@@ -250,7 +251,7 @@ export default class Schedule10 extends Vue {
             existingSpouseSupportInfo.continue = disagreeExistingSpouseSupportInfo.requestedOrder == 'noChange';
             existingSpouseSupportInfo.change = disagreeExistingSpouseSupportInfo.requestedOrder == 'diffChange';
             existingSpouseSupportInfo.changeExpl = disagreeExistingSpouseSupportInfo.requestedOrder == 'diffChange'?disagreeExistingSpouseSupportInfo.requestedChangeDescription:'';  
-            existingSpouseSupportInfo.filingForm4 = this.result.rflmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'y'
+            existingSpouseSupportInfo.filingForm4 = this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'y'
           
         } else {
 
