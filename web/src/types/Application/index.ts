@@ -18,6 +18,7 @@ import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyI
 import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
 import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType, disagreeCancellingGuardianOfChildSurveyInfoType, replyCancellingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
 import { disagreeExistingSpouseSupportSurveyInfoType, disagreeSpouseSupportSurveyInfoType, relationshipToOtherPartySurveyInfoType, replyExistingSpouseSupportSurveyInfoType, replyNewSpouseSupportSurveyInfoType, rflmCalculatingSpouseSupportSurveyInfoType, rflmSpouseSupportOrderSurveyInfoType, rflmUnpaidSpouseSupportSurveyInfoType } from "./ReplyFamilyLawMatter/SpousalSupport";
+import { adminFormsFilingLocationSurveyInfoType, adminFormsSubmissionSurveyInfoType, adminFormsSurveyInfoType } from "./AdminForm";
 
 
 //This is what our database saves.
@@ -75,7 +76,7 @@ export interface stepInfoType {
 
     //______Step 0 GettingStarted
     selectedActivity?: string[];
-    standaloneEfile?: boolean;
+    administrativeForms?: boolean;
     selectedReplyApplications?: string[];
     selectedForms?: string[];
     selectedFlmOption?: string;
@@ -251,7 +252,12 @@ export interface stepInfoType {
     detrermineArrearsSurvey?: detrermineArrearsSurveyInfoType;
     aboutTheOrderEnforcementSurvey?: aboutTheOrderEnforcementSurveyInfoType;
 
-    //__Step 10 SUBMIT
+    //__Step 10 ADMINISTRATIVE FORMS
+    adminFormsSurvey?: adminFormsSurveyInfoType;
+    adminFormsSubmissionSurvey?: adminFormsSubmissionSurveyInfoType;
+    adminFormsFilingLocationSurvey?: adminFormsFilingLocationSurveyInfoType;
+    
+    //__Step 11 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 

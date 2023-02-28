@@ -200,13 +200,9 @@ export default class SelectActivity extends Vue {
             togglePages([startStep.GettingStarted], false, startStep._StepNo);
             togglePages([startStep.ReplyToApplication], false, startStep._StepNo);
             
-            this.UpdateApplicationType(Array.from(new Set(['Administrative Forms']))); 
-
         }         
 
-        toggleStep(adminStep._StepNo, this.administrativeForms.state);
-        
-        // togglePages([adminPage.], this.administrativeForms.state, submitPage._StepNo);
+        toggleStep(adminStep._StepNo, this.administrativeForms.state);       
         
         toggleAllSteps([startStep._StepNo, adminStep._StepNo], false);
         incompleteProgressOfAllPages();

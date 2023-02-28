@@ -274,19 +274,7 @@
         public UpdateGotoNextStepPage!: () => void
 
         @applicationState.Action
-        public UpdateCurrentStep!: (newCurrentStep) => void
-
-        @applicationState.Action
-        public UpdateCurrentStepPage!: (newCurrentStepPage) => void
-
-        @applicationState.Action
         public UpdatePageProgress!: (newPageProgress) => void        
-
-        @applicationState.Action
-        public UpdateLastPrinted!: (newLastPrinted) => void
-
-        @applicationState.Action
-        public UpdateLastFiled!: (newLastFiled) => void
 
         error = "";
         showGetHelpForPDF = false;

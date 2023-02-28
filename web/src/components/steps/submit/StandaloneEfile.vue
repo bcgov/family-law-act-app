@@ -1,12 +1,12 @@
 <template>   
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
-        <h2 class="mt-4">Review and Submit</h2>
+        <h2 class="mt-4">Submit</h2>
         <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">            
 
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
-                <required-document type="Submit" title="Upload Documents:" />
+                <admin-forms-list :requiredDocumentLists="requiredDocumentLists" title="Upload Documents:" />
                 
                 <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">
@@ -78,11 +78,13 @@
             </b-card>            
 
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
-                <span class="text-primary" style='font-size:1.4rem;'>Filing with Court Services Online:</span>
+                <span class="text-primary" style="font-size:1.4rem;">Filing with Court Services Online:</span>
 
                 <div class="mt-3">
-                    <div class="mb-3">When you click Submit Documents, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do
-                        a final review of the documents you are submitting for filing and (if completed successfully) receive a 
+                    <div class="mb-3">
+                        When you click Submit Documents, you will be taken to the Court Services Online 
+                        e-filing hub. In the next few steps you will be able to do a final review of 
+                        the documents you are submitting for filing and (if completed successfully) receive a 
                         <div style="display:inline;">
                             <b style="display:inline;" v-b-tooltip.hover class="text-primary" title="A number assigned by the system to track the documents you have submitted for filing."> 
                                 Package Number.
@@ -90,7 +92,8 @@
                             </b>
                         </div>
                     </div>
-                    <p>Once your filings have been reviewed by the Court Registry, you will be provided a Court File Number via e-mail. 
+                    <p>
+                        Once your filings have been reviewed by the Court Registry, you will be provided a Court File Number via e-mail. 
                         This may take up to one week.
                     </p>
                     <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
@@ -98,12 +101,12 @@
 
                 <div v-if="error" style="margin:1rem auto; display: block;">
                     <b-badge class="bg-danger" style="margin:1rem auto; display: block;">{{error}}</b-badge>
-                </div>
+                </div>                
 
                 <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application before submission'">
                     <loading-spinner v-if="submissionInProgress" waitingText="Waiting for eFiling Hub ..."/> 
                     <b-button v-else
-                        :disabled="!submitEnable"                   
+                        :disabled="!isSubmissionReady || !submitEnable"                   
                         v-on:click.prevent="onSubmit()"                        
                         variant="success">
                             <span class="fa fa-paper-plane btn-icon-left"/>
@@ -113,20 +116,7 @@
                 </div>
             </b-card>
 
-        </b-card>        
-
-        <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-white">
-            <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">Get Help Opening and Saving PDF forms</h1> 
-            </template>
-            <get-help-for-pdf/>        
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="showGetHelpForPDF=false">Close</b-button>
-            </template>            
-            <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showGetHelpForPDF=false">&times;</b-button>
-            </template>
-        </b-modal>
+        </b-card> 
 
         <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
             <b-card style="border-radius:10px" class="bg-light">
@@ -137,7 +127,7 @@
                         id="documentType"
                         v-model="fileType"
                         :state = "selectedDocumentTypeState?null:false">
-                        <b-form-select-option :class="docType.type == ppmSchedule1FileType.type?'font-weight-bold':''" v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
+                        <b-form-select-option v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
                     </b-form-select>
                 </b-form-group> 
             </b-card>
@@ -155,9 +145,9 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { namespace } from "vuex-class";  
 
-    import Tooltip from "@/components/survey/Tooltip.vue";
+
     import PageBase from "@/components/steps/PageBase.vue";   
-    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";    
+    import AdminFormsList from "./components/AdminFormsList.vue";  
  
     import "@/store/modules/application";
     const applicationState = namespace("Application");
@@ -165,14 +155,15 @@
     import "@/store/modules/common";
     const commonState = namespace("Common");
 
-    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
+    import { documentTypesJsonInfoType } from '@/types/Common';
     import { stepInfoType } from "@/types/Application";
+    import { FLA_Types } from '@/filters/applicationTypes';
+    import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 
     @Component({
         components:{
             PageBase,
-            GetHelpForPdf,
-            Tooltip
+            AdminFormsList
         }
     })    
     export default class StandaloneEfile extends Vue {
@@ -180,26 +171,17 @@
         @Prop({required: true})
         step!: stepInfoType;
 
-        @commonState.State
-        public userLocation!: string;
-
-        @commonState.State
-        public locationsInfo!: locationsInfoType[];
-
         @applicationState.State
         public id!: string;
 
         @applicationState.State
-        public types!: string[];
-
-        @applicationState.State
-        public steps!: stepInfoType[];
-
-        @applicationState.State
-        public applicationLocation!: string;
+        public steps!: stepInfoType[];       
 
         @applicationState.State
         public currentStep!: number;
+
+        @applicationState.State
+        public stPgNo!: stepsAndPagesNumberInfoType; 
 
         @commonState.State
         public documentTypesJson!: documentTypesJsonInfoType[];
@@ -217,24 +199,10 @@
         public UpdateGotoNextStepPage!: () => void
 
         @applicationState.Action
-        public UpdateCurrentStep!: (newCurrentStep) => void
-
-        @applicationState.Action
-        public UpdateCurrentStepPage!: (newCurrentStepPage) => void
-
-        @applicationState.Action
         public UpdatePageProgress!: (newPageProgress) => void        
 
-        @applicationState.Action
-        public UpdateLastPrinted!: (newLastPrinted) => void
-
-        @applicationState.Action
-        public UpdateLastFiled!: (newLastFiled) => void
-
         error = "";
-        showGetHelpForPDF = false;
-
-        applicantLocation = {} as locationsInfoType;        
+       
         submissionInProgress = false;
         
         supportingFile = null;
@@ -242,7 +210,8 @@
         selectedSupportingDocumentState = true;
         fileType = "";
         fileTypes: documentTypesJsonInfoType[] = [];
-        ppmSchedule1FileType = {description: 'Schedule 1 completed by a director', type: 'Merge With Form15'};
+        requiredDocumentLists: documentTypesJsonInfoType[] = [];
+
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
             { key: 'fileType', label: 'File Type',tdClass:'align-middle'},
@@ -261,13 +230,18 @@
             
             this.currentPage = Number(this.steps[this.currentStep].currentPage)
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
-       
-            let location = this.applicationLocation
-            if(!this.applicationLocation) location = this.userLocation;
 
-            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]              
-           
-            this.fileTypes = this.documentTypesJson;
+
+            const adminForms = FLA_Types.filter(type => type.familyType == "ADMIN");
+            this.fileTypes = [];            
+            
+            for (const adminForm of adminForms){
+                if (this.documentTypesJson.filter(docType => docType.type == adminForm.pdfType).length>0){
+                    this.fileTypes.push({description: adminForm.fullName, type: adminForm.pdfType})
+                }
+            }
+
+            this.getRequiredDocuments();
            
             const dropArea = document.getElementById('drop-area');
             dropArea.addEventListener('drop', this.handleFileDrop, false);
@@ -311,6 +285,22 @@
                 this.showTypeOfDocuments= true;
             }
         }
+
+        get isSubmissionReady(){          
+
+            if (this.supportingDocuments.length == 0){
+                return false;
+            } else {
+
+                const supportingDocumentTypes = this.supportingDocuments.map(doc => doc.documentType)
+
+                for (const doc of this.requiredDocumentLists){
+                    
+                    if (!supportingDocumentTypes.includes(doc.type)) return false;
+                }
+                return true;
+            }
+        }
         
         public onPrev() {
             Vue.prototype.$UpdateGotoPrevStepPage()
@@ -349,7 +339,7 @@
                 }
             }
             
-            docType.push({type:"FPO"})
+            // docType.push({type:"FPO"})
             
             const docTypeJson = JSON.stringify(docType);
             bodyFormData.append('documents', docTypeJson);          
@@ -423,9 +413,23 @@
             }
         }
 
-        public navigateToGuide(){
-            Vue.filter('scrollToLocation')("pdf-guide");
-        }  
+        public getRequiredDocuments(){
+
+            this.requiredDocumentLists = [];
+
+            const includesAdminForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.administrativeForms;
+            const selectedForms = this.steps[this.stPgNo.ADMIN._StepNo].result?.adminFormsSurvey?.data?this.steps[this.stPgNo.ADMIN._StepNo].result.adminFormsSurvey.data:[];
+
+            const requiredDocuments = (includesAdminForms && selectedForms.length > 0)?selectedForms:[];
+                        
+            for(const requiredDoc of requiredDocuments){
+
+                const name = Vue.filter('getFullOrderName')(requiredDoc, '');
+                const pdfType = Vue.filter('getPathwayPdfType')(requiredDoc, '');
+                this.requiredDocumentLists.push({description: name, type: pdfType});
+            }
+
+        }
 
     }
 </script>
