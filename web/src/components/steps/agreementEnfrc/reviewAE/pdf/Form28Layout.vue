@@ -255,10 +255,7 @@ export default class Form28Layout extends Vue {
     result!: any;    
     
     @applicationState.State
-    public applicantName!: nameInfoType;
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public applicantName!: nameInfoType;    
 
     dataReady = false;   
     
@@ -308,7 +305,7 @@ export default class Form28Layout extends Vue {
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as enfrcOtherPartyDataInfoType;               
+                const otherParty = {} as enfrcOtherPartyDataInfoType;               
 
                 if (party.knowDob == 'y' &&  party.dob)
                     otherParty.dob = party.dob

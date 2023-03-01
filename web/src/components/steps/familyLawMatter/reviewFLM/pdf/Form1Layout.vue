@@ -374,10 +374,7 @@ export default class Form1Layout extends Vue {
     selectedPathways!: string[];
     
     @applicationState.State
-    public applicantName!: nameInfoType;
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public applicantName!: nameInfoType;  
 
     dataReady = false;   
 
@@ -483,7 +480,7 @@ export default class Form1Layout extends Vue {
             OpInformation = [];  
  
             for(const party of this.result.otherPartyCommonSurvey){
-                let otherParty = {            
+                const otherParty = {            
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',

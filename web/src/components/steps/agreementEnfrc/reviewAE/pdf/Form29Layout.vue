@@ -338,10 +338,7 @@ export default class Form29Layout extends Vue {
     public applicantName!: nameInfoType;
     
     @applicationState.State
-    public requiredDocuments!: requiredDocumentsInfoType;
-
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public requiredDocuments!: requiredDocumentsInfoType;    
 
     dataReady = false;   
     
@@ -398,7 +395,7 @@ export default class Form29Layout extends Vue {
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as enfrcOtherPartyDataInfoType;               
+                const otherParty = {} as enfrcOtherPartyDataInfoType;               
 
                 if (party.knowDob == 'y' &&  party.dob)
                     otherParty.dob = party.dob
@@ -424,7 +421,7 @@ export default class Form29Layout extends Vue {
     
     public getForm29Info() {
 
-        let form29Information = {} as form29InformationDataInfoType;
+        const form29Information = {} as form29InformationDataInfoType;
         form29Information.orderList = [];
         form29Information.expenseList = [];
         form29Information.arrearsDate = '';

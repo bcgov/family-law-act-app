@@ -396,10 +396,7 @@ export default class Form16Layout extends Vue {
     result!: any;    
     
     @applicationState.State
-    public applicantName!: nameInfoType;
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public applicantName!: nameInfoType;    
 
     dataReady = false;   
 
@@ -485,7 +482,7 @@ export default class Form16Layout extends Vue {
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as relocationOfChildOtherPartyDataInfoType;               
+                const otherParty = {} as relocationOfChildOtherPartyDataInfoType;               
 
                 if (party.knowDob == 'y' &&  party.dob)
                     otherParty.dob = party.dob
@@ -511,7 +508,7 @@ export default class Form16Layout extends Vue {
     
     public getRelocInfo(){
 
-        let relocInformation = {} as relocationOfChildInformationDataInfoType;
+        const relocInformation = {} as relocationOfChildInformationDataInfoType;
 
         if (this.result.relocQuestionnaireSurvey) {
 
