@@ -70,7 +70,7 @@ export default class UnsuccessPage extends Vue {
     packageInfo!: any;
 
     @applicationState.Action
-    public checkAllCompleted! :() => void
+    public checkAllCompleted!: () => void
 
     disableResumeApplication = true;
 

@@ -10,8 +10,19 @@
             </p>
             <p>
                 If you need to reply to an application and make your own application, 
-                this service can help you to do both. You can select one or more options 
-                below. If you are replying to an Application About a Family Law Matter, 
+                this service can help you to do both. 
+            </p>
+            <p>
+                You can also use this service to complete and file other forms for 
+                your case like a Notice of Address Change, Request for Scheduling, 
+                Trial Readiness Statement or other administrative or supporting forms.
+            </p>
+            <p>
+                You can select one or more options below. When you’re finished, you 
+                can save or print your forms and file them electronically or in person.
+            </p>
+            <p>                
+                If you are replying to an Application About a Family Law Matter, 
                 the reply pathway will include options to make your own counter application. 
                 You may also want to apply for an order about protection from family violence, 
                 case management or a priority parenting matter. If you are not sure which option 
@@ -117,7 +128,7 @@ export default class SelectActivity extends Vue {
     ];
     
     administrativeForms = {
-        label: 'Administrative Forms',
+        label: 'Other family court form(s)',
         name: 'administrativeForms',
         state: false
     };
