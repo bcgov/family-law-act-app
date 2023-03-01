@@ -148,12 +148,10 @@ export default class AdminFormFilingLocation extends Vue {
         newExistingOrders.push({type: '', filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
            
        this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
-   }
+    }
 
     beforeDestroy() {
-        this.setExistingFileNumber(); 
-        // if(!this.survey.isCurrentPageHasErrors) this.$store.commit("Application/setAllCompleted", true)
-
+        this.setExistingFileNumber();
         const progress = !this.survey.isCurrentPageHasErrors?100:50;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, progress, true);
         this.UpdateStepResultData({step:this.step, data: {adminFormsFilingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}});         
