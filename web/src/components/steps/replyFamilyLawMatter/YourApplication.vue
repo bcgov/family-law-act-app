@@ -49,10 +49,7 @@ export default class RflmQuestionnaire extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
-
+    
     currentStep = 0;
     currentPage = 0;
 
@@ -79,7 +76,7 @@ export default class RflmQuestionnaire extends Vue {
 
     public getSelectedCounterApplicationNames(selectedApps){
         
-        let result = []
+        const result = []
         
         for(const form of selectedApps){
             if(form=='newParentingArrangements')   result.push('New Parenting Arrangements');

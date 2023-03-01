@@ -85,17 +85,10 @@ export default class CmQuestionnaire extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;    
-
-    
-
-    
+    public stPgNo!: stepsAndPagesNumberInfoType;      
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
     
     selectedCaseManagement = [];
 

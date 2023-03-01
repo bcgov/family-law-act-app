@@ -221,10 +221,7 @@ export default class Form19Layout extends Vue {
     public applicantName!: nameInfoType;
 
     @applicationState.State
-    public types!: string[];
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public types!: string[];    
 
     dataReady = false;  
    
@@ -271,7 +268,7 @@ export default class Form19Layout extends Vue {
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as writtenResponseOtherPartyDataInfoType;
+                const otherParty = {} as writtenResponseOtherPartyDataInfoType;
 
                 if (party.name)
                     otherParty.name = party.name;
@@ -285,7 +282,7 @@ export default class Form19Layout extends Vue {
     
     public getWrInfo() {
 
-        let wrInformation = {} as form19DataInfoType;
+        const wrInformation = {} as form19DataInfoType;
 
         wrInformation.caseList = getWrittenResponseApplications(this.types);
        

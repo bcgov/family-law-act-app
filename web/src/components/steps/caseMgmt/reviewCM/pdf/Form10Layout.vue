@@ -321,10 +321,7 @@ export default class Form10Layout extends Vue {
     result!: any;
     
     @applicationState.State
-    public applicantName!: nameInfoType;
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public applicantName!: nameInfoType;   
 
     dataReady = false;   
 
@@ -332,7 +329,7 @@ export default class Form10Layout extends Vue {
     otherPartyInfo = [];
     yourInfo = {} as yourInformationInfoDataInfoType;   
     
-    childRelatedType: string = '';   
+    childRelatedType = '';   
     childrenInfo: childrenInfoSurveyInfoType[] = []; 
     form10Info = {} as form10DataInfoType;  
     filingLocationReason = ''; 
@@ -364,7 +361,7 @@ export default class Form10Layout extends Vue {
     
     public getLocationInfo(){
 
-        let locationInformation = {} as cmLocationInfoDataInfoType;
+        const locationInformation = {} as cmLocationInfoDataInfoType;
         if (this.result?.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;           
             locationInformation.existingFileNumber = locationData.ExistingFileNumber && locationData?.ExistingFamilyCase =='y'? locationData.ExistingFileNumber:'';
@@ -416,7 +413,7 @@ export default class Form10Layout extends Vue {
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as caseManagementOtherPartyDataInfoType;
+                const otherParty = {} as caseManagementOtherPartyDataInfoType;
 
                 if (party.name)
                     otherParty.name = party.name;
@@ -430,7 +427,7 @@ export default class Form10Layout extends Vue {
 
     public getForm10Info() {
 
-        let form10Info = {} as form10DataInfoType;      
+        const form10Info = {} as form10DataInfoType;      
 
         if (this.result?.byConsentSurvey){
             const consentData: byConsentSurveyDataInfoType = this.result.byConsentSurvey;

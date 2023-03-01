@@ -49,8 +49,7 @@ export default class FilingOptions extends Vue {
     @applicationState.State
     public allCompleted!: boolean;
 
-    @applicationState.State
-    public steps!: stepInfoType[];      
+   
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -148,24 +147,16 @@ export default class FilingOptions extends Vue {
         const p = this.stPgNo.SUBMIT
 
         if(this.allCompleted && this.survey.data.selectedFilingType == 'byemail'){
-            togglePages([p.StandaloneEfile, p.ReviewAndSave, p.NextSteps], true, this.currentStep);
-            togglePages([p.StandaloneEfile, p.ReviewAndPrint, p.ReviewAndSubmit], false, this.currentStep);
+            togglePages([p.ReviewAndSave, p.NextSteps], true, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSubmit], false, this.currentStep);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'inperson'){
             togglePages([p.ReviewAndPrint, p.NextSteps], true, this.currentStep);
-            togglePages([p.StandaloneEfile, p.ReviewAndSave, p.ReviewAndSubmit], false, this.currentStep);
+            togglePages([p.ReviewAndSave, p.ReviewAndSubmit], false, this.currentStep);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'byefiling'){
-            const includesAdminForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.administrativeForms;
-            if (includesAdminForms){
-                togglePages([p.StandaloneEfile], true, this.currentStep);
-                togglePages([p.ReviewAndSubmit, p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false, this.currentStep);
-
-            } else {
-                togglePages([p.ReviewAndSubmit], true, this.currentStep);
-                togglePages([p.StandaloneEfile, p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false, this.currentStep);
-            }
-            
+            togglePages([p.ReviewAndSubmit], true, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false, this.currentStep);            
         }else{
-            togglePages([p.StandaloneEfile, p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false, this.currentStep);
         }
     }
 

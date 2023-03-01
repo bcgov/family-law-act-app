@@ -326,10 +326,7 @@ export default class CommonSection extends Vue {
     selectedSchedules!: string[];
     
     @applicationState.State
-    public applicantName!: nameInfoType;
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public applicantName!: nameInfoType;    
     
     dataReady = false;
     aboutChildren = false;
@@ -405,7 +402,7 @@ export default class CommonSection extends Vue {
 
     public getLocationInfo(){
 
-        let locationInformation = {} as locationInfoDataInfoType;
+        const locationInformation = {} as locationInfoDataInfoType;
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
            
@@ -425,7 +422,7 @@ export default class CommonSection extends Vue {
 
     public getRelationshipBetweenPartiesInfo(){
 
-        let relationshipInfo = {} as relationshipBetweenPartiesInfoType;
+        const relationshipInfo = {} as relationshipBetweenPartiesInfoType;
         relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
@@ -457,7 +454,7 @@ export default class CommonSection extends Vue {
     }
 
     public getExistingOrdersInfo(){
-        let existing = {existingFlm: false, existingPO: false}
+        const existing = {existingFlm: false, existingPO: false}
 
         existing.existingFlm = this.result.flmBackgroundSurvey?.ExistingOrdersFLM == 'y';
         existing.existingPO =  this.result.flmBackgroundSurvey?.existingPOOrders == 'y';
@@ -488,7 +485,7 @@ export default class CommonSection extends Vue {
         if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];    
             for(const party of this.result.otherPartyCommonSurvey){
-                let otherParty = {            
+                const otherParty = {            
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',
