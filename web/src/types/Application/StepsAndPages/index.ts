@@ -264,8 +264,7 @@ export interface CONNECTstPgTypes{
 export interface ADMINstPgTypes{
     _StepNo: number;
 
-    AdministrativeForms: number;
-    AdministrativeFormsSubmission: number;
+    AdministrativeForms: number;    
     AdminFormFilingLocation: number;
 }
 

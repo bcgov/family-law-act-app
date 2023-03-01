@@ -51,12 +51,14 @@ export default class AdminFormFilingLocation extends Vue {
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
 
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
     currentStep =0;
     currentPage =0;
-    locationInfo = false;   
-    existingFamilyCase = 'y';
+    locationInfo = false; 
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -88,8 +90,8 @@ export default class AdminFormFilingLocation extends Vue {
 
             toggleStep(this.stPgNo.SUBMIT._StepNo, !this.survey.isCurrentPageHasErrors);
 
-            togglePages([this.stPgNo.SUBMIT.FilingOptions], this.survey.isCurrentPageHasErrors, this.stPgNo.SUBMIT._StepNo);
-            togglePages([this.stPgNo.SUBMIT.StandaloneEfile], !this.survey.isCurrentPageHasErrors, this.stPgNo.SUBMIT._StepNo);            
+            // togglePages([this.stPgNo.SUBMIT.FilingOptions], this.survey.isCurrentPageHasErrors, this.stPgNo.SUBMIT._StepNo);
+            // togglePages([this.stPgNo.SUBMIT.StandaloneEfile], !this.survey.isCurrentPageHasErrors, this.stPgNo.SUBMIT._StepNo);            
         })   
     }   
 
@@ -97,13 +99,13 @@ export default class AdminFormFilingLocation extends Vue {
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
         
-        this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"] = [];
-        this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"] = [];
+        this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
+        this.surveyJsonCopy.pages[0].elements[0].elements[7]["choices"] = [];
         
         for(const location of this.locationsInfo){
             
-            this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"].push(location["name"])
-            this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push(location["name"])
+            this.surveyJsonCopy.pages[0].elements[0].elements[7]["choices"].push(location["name"])
+            this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"].push(location["name"])
         }
     }
 
@@ -115,12 +117,7 @@ export default class AdminFormFilingLocation extends Vue {
             if (this.survey.data.ExistingCourt){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
-        }
-
-        if (this.step.result?.adminFormsSubmissionSurvey?.data){
-            this.existingFamilyCase = this.step.result.adminFormsSubmissionSurvey.data.ExistingFamilyCase;
-            this.survey.setVariable("ExistingFamilyCase", this.existingFamilyCase)
-        }        
+        } 
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = Number(this.steps[this.currentStep].currentPage);
@@ -145,7 +142,7 @@ export default class AdminFormFilingLocation extends Vue {
     public setExistingFileNumber(){
         const newExistingOrders = [];      
         
-        const fileNumber = this.existingFamilyCase == "y"? this.survey.data.ExistingFileNumber: ''
+        const fileNumber = this.survey.data?.ExisingFamilyCase == 'y'? this.survey.data.ExistingFileNumber: ''
         newExistingOrders.push({type: '', filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
            
        this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
@@ -153,6 +150,8 @@ export default class AdminFormFilingLocation extends Vue {
 
     beforeDestroy() {
         this.setExistingFileNumber(); 
+        if(!this.survey.isCurrentPageHasErrors) this.$store.commit("Application/setAllCompleted", true)
+
         const progress = !this.survey.isCurrentPageHasErrors?100:50;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, progress, true);
         this.UpdateStepResultData({step:this.step, data: {adminFormsFilingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}});         

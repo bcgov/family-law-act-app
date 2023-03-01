@@ -1,13 +1,5 @@
 import { questionInfoType } from "../CommonInformation";
 
-export interface adminFormsSubmissionSurveyDataInfoType {
-    ExistingFamilyCaseFAQ1?: boolean;
-    ExistingFamilyCaseFAQ2?: boolean;
-    ExistingFamilyCase: string;  
-    // PreviouslyRejected: string;
-    // ExplanationPreviouslyRejected?: boolean;
-}   
-
 export interface adminFormsSurveyInfoType {
     data: string[];
     questions?: questionInfoType[];
@@ -16,23 +8,17 @@ export interface adminFormsSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface adminFormsSubmissionSurveyInfoType {
-    data: adminFormsSubmissionSurveyDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
 export interface adminFormsFilingLocationSurveyDataInfoType {
-    CourtLocationFAQ1?: boolean | string;
-    CourtLocationFAQ2?: boolean | string;
-    // ExistingFamilyCase: string;
+    ExistingFamilyCase: string;  
+    ExistingFamilyCaseFAQ1?: boolean;
+    ExistingFamilyCaseFAQ2?: boolean;    
     ExplanationCourtLocation?: boolean;
     ExistingCourt?: string;
-    // ExistingFamilyCaseFAQ1?: boolean;
-    // ExistingFamilyCaseFAQ2?: boolean;
     ExistingFileNumber?: string;        
+    CourtLocationFAQ1?: boolean | string;
+    CourtLocationFAQ2?: boolean | string;    
+    // PreviouslyRejected: string;
+    // ExplanationPreviouslyRejected?: boolean;
 }   
 
 export interface adminFormsFilingLocationSurveyInfoType {

@@ -2,7 +2,6 @@
     <step-base v-bind:step="step">
        
         <administrative-forms v-bind:step="step" v-if="step.currentPage == stPgNo.ADMIN.AdministrativeForms" />
-        <administrative-forms-submission v-bind:step="step" v-if="step.currentPage == stPgNo.ADMIN.AdministrativeFormsSubmission" />
         <admin-form-filing-location v-bind:step="step" v-if="step.currentPage == stPgNo.ADMIN.AdminFormFilingLocation" />
   
     </step-base>
@@ -10,27 +9,23 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
+import { namespace } from "vuex-class";   
 
 import StepBase from "../StepBase.vue";
-import { stepInfoType } from "@/types/Application";
-
 import AdminFormFilingLocation from "./AdminFormFilingLocation.vue";
 import AdministrativeForms from "./AdministrativeForms.vue";
-import AdministrativeFormsSubmission from "./AdministrativeFormsSubmission.vue";
 
-
-import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
+import { stepInfoType } from "@/types/Application";
 
 @Component({
     components:{
         StepBase,
         AdminFormFilingLocation,
-        AdministrativeForms,
-        AdministrativeFormsSubmission
+        AdministrativeForms
     }
 })
 
