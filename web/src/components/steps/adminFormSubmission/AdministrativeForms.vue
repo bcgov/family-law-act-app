@@ -3,8 +3,13 @@
         <div class="row">
             <div class="col-md-12 order-heading">
                 <div >
-                    <h1 >List of administrative forms:</h1>          
-                    <p>Select all that apply.</p>
+                    <h1>What administrative form(s) do you want to complete?</h1>          
+                    <p>Please select the administrative form(s) that you wish to complete.</p>
+                    <p>
+                        Note:  This service does not currently support the completion 
+                        of the forms listed.  You can complete the fillable PDFs and 
+                        upload them during the Review and File step of this process.
+                    </p>
                 </div>
 
                 <div>
@@ -267,10 +272,8 @@ export default class AdministrativeForms extends Vue {
   
     beforeDestroy() {
         const progress = this.selectedForm.length==0? 50 : 100;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        // const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);         
         this.UpdateStepResultData({step:this.step, data: {adminFormsSurvey: {data: this.selectedForm, currentStep:this.currentStep, currentPage:this.currentPage}}});
-        // this.UpdateStepResultData({step:this.step, data: {selectedForms: this.selected}})
     }
 }
 </script>

@@ -49,7 +49,8 @@ class Application extends VuexModule {
         caseMgmt:false, 
         priorityParenting:false, 
         childReloc:false, 
-        agreementEnfrc:false
+        agreementEnfrc:false,
+        //TODO: admin forms
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1783,18 +1784,9 @@ class Application extends VuexModule {
         p.progress = 0;
     
         s.pages.push(p);
-
+    
         p = {} as pageInfoType;
         p.key = "1";
-        p.name = "AdministrativeFormsSubmission";
-        p.label = "Administrative Forms Submission";
-        p.active = true;
-        p.progress = 0;
-    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "2";
         p.name = "AdminFormFilingLocation";
         p.label = "Admin Form Filing Location";
         p.active = true;
@@ -2098,6 +2090,7 @@ class Application extends VuexModule {
     @Action
     public checkAllCompleted() {
         let newAllCompleted = false;
+        //TODO: check the admin forms pathway as well
         if(this.steps[0].result?.selectedForms){
             for(const selectedform of this.steps[0].result.selectedForms){
 

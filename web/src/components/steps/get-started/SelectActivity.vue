@@ -35,11 +35,10 @@
                 </b-col>                
             </b-row>           
 
-            <b-row class="my-5">                
+            <b-row class="my-2 text-center" align-h="center">                
                 
                 <b-button
-                    style="height: 3rem;"
-                    block
+                    style="height: 3rem;"                    
                     @click="changeAdministrativeForms"
                     :pressed.sync="administrativeForms.state"
                     :variant="administrativeForms.state?'primary':'secondary'">
@@ -219,6 +218,7 @@ export default class SelectActivity extends Vue {
   
     beforeDestroy() {
         const progress = (this.selectedActivity.length!=0 || this.administrativeForms.state)? 100 : 50;
+        console.log(progress)
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         this.UpdateStepResultData({step:this.step, data: {selectedActivity: this.selectedActivity, administrativeForms: this.administrativeForms.state}})
     }

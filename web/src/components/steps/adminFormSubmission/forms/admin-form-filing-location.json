@@ -8,6 +8,27 @@
                "name": "ExistingFamilyCasePanel",
                "elements": [
                   {
+                     "type": "yesno",
+                     "name": "ExistingFamilyCase",
+                     "isRequired": true,
+                     "title": "Is there already a Family Law file open between the same parties in the Provincial Court of British Columbia?",
+                     "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "ExistingFamilyCaseFAQ1",
+                     "title": "If I have a Family Law file open in the Supreme Court of British Columbia, should I include that?",
+                     "titleLocation": "hidden",
+                     "body": "No, the file numbers are different between Provincial and Supreme Court. If you already have a Provincial Court file number, you will want to make sure that this document gets filed with the same file number."
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "ExistingFamilyCaseFAQ2",
+                     "title": "What if I already have a Family Law file open with different parties?",
+                     "titleLocation": "hidden",
+                     "body": "If you have a Family Law file open with different parties, select no. You will need to open a new court file. You must follow the rules about which registry to use if you do not have an existing case with the same parties. The next questions will help you determine the correct court location, it may be the same one your case with other parties is already at."
+                  },    
+                  {
                      "type": "dropdown",
                      "name": "ExistingCourt",
                      "visible": false,
@@ -70,6 +91,20 @@
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
                      "body": "If the child lives equally in two different locations closest to two different court locations, you will need to decide where you want to file your application. The rule about which court registry to use for filing an application is meant to ensure all applications are filed in the same registry and that the location is fair to the parties. Think about your family and which location is the most fair for everyone. If the other party doesn’t agree the registry you choose is the closest, they can ask the court to transfer the file to another location. It will then be up to the court to decide where the file is located."
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "PreviouslyRejected",
+                     "visible": false,
+                     "isRequired": true,
+                     "title": "Are you submitting a package that was previously rejected?"
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationPreviouslyRejected",
+                     "visible": false,                     
+                     "title": "If you are submitting documents that were previously rejected by the registry please use the <a  href='https://justice.gov.bc.ca/cso/index.do' target='_blank'>CSO website</a> to resubmit your documents.",
+                     "titleLocation": "hidden"
                   }
                ]
             }
