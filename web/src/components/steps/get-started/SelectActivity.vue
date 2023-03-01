@@ -218,7 +218,6 @@ export default class SelectActivity extends Vue {
   
     beforeDestroy() {
         const progress = (this.selectedActivity.length!=0 || this.administrativeForms.state)? 100 : 50;
-        console.log(progress)
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         this.UpdateStepResultData({step:this.step, data: {selectedActivity: this.selectedActivity, administrativeForms: this.administrativeForms.state}})
     }

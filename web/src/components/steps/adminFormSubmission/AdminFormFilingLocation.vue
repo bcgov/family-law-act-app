@@ -90,8 +90,8 @@ export default class AdminFormFilingLocation extends Vue {
 
             toggleStep(this.stPgNo.SUBMIT._StepNo, !this.survey.isCurrentPageHasErrors);
 
-            // togglePages([this.stPgNo.SUBMIT.FilingOptions], this.survey.isCurrentPageHasErrors, this.stPgNo.SUBMIT._StepNo);
-            // togglePages([this.stPgNo.SUBMIT.StandaloneEfile], !this.survey.isCurrentPageHasErrors, this.stPgNo.SUBMIT._StepNo);            
+            togglePages([this.stPgNo.SUBMIT.FilingOptions], this.survey.isCurrentPageHasErrors, this.stPgNo.SUBMIT._StepNo);
+            togglePages([this.stPgNo.SUBMIT.StandaloneEfile], !this.survey.isCurrentPageHasErrors, this.stPgNo.SUBMIT._StepNo);            
         })   
     }   
 
@@ -118,6 +118,8 @@ export default class AdminFormFilingLocation extends Vue {
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
         } 
+
+        toggleStep(this.stPgNo.SUBMIT._StepNo, !this.survey.isCurrentPageHasErrors);
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = Number(this.steps[this.currentStep].currentPage);
@@ -150,7 +152,7 @@ export default class AdminFormFilingLocation extends Vue {
 
     beforeDestroy() {
         this.setExistingFileNumber(); 
-        if(!this.survey.isCurrentPageHasErrors) this.$store.commit("Application/setAllCompleted", true)
+        // if(!this.survey.isCurrentPageHasErrors) this.$store.commit("Application/setAllCompleted", true)
 
         const progress = !this.survey.isCurrentPageHasErrors?100:50;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, progress, true);
