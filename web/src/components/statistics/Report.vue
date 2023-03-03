@@ -27,7 +27,7 @@
         <reloc-table class="mt-5" :results="results"/>
         <rflm-table class="mt-5" :results="results"/>
         <wr-table class="mt-5" :results="results"/>
-        <admin-table class="mt-5" :results="results"/>
+        <other-form-table class="mt-5" :results="results"/>
         
     </div>
 </template>
@@ -46,7 +46,7 @@ import PpmTable from './PdfLayouts/PpmTable.vue';
 import RelocTable from './PdfLayouts/RelocTable.vue';
 import RflmTable from './PdfLayouts/RflmTable.vue';
 import WrTable from './PdfLayouts/WrTable.vue';
-import AdminTable from './PdfLayouts/AdminTable.vue';
+import OtherFormTable from './PdfLayouts/OtherFormTable.vue';
 import {srcFile} from './logo'
 
 import { reportInfoType } from '@/types/Common';
@@ -64,7 +64,7 @@ import { reportInfoType } from '@/types/Common';
         RelocTable,       
         RflmTable,        
         WrTable,
-        AdminTable,
+        OtherFormTable,
         EfilingSummaryTable
     }
 })

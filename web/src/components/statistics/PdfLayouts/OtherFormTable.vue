@@ -2,7 +2,7 @@
     <div v-if="dataReady" class="print-block">
         <div style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;" >Standalone Application: </div>
         <b-table            
-            :items="adminInfo"
+            :items="otherInfo"
             :fields="fields"
             bordered            
             small
@@ -10,7 +10,7 @@
             responsive="sm">
         </b-table>
         <div style="font-size:9pt; margin-bottom: 0.5rem;">
-            <b>Total Number of 'Administrative Forms' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{adminInfo[0].total}} </span>
+            <b>Total Number of 'Administrative Forms' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{otherInfo[0].total}} </span>
         </div>
         
     </div>
@@ -21,13 +21,13 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { formReportInfoType, reportInfoType } from '@/types/Common';
 
 @Component
-export default class AdminTable extends Vue {
+export default class OtherFormTable extends Vue {
 
     @Prop({required:true})
     results!: reportInfoType;
        
     dataReady = false; 
-    adminInfo: formReportInfoType[] = [];
+    otherInfo: formReportInfoType[] = [];
     
     fields = [
         {key:"completed",    label:"Completed (not eFiled)", thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
@@ -43,7 +43,7 @@ export default class AdminTable extends Vue {
     }    
 
     public extractInfo(){
-       this.adminInfo = [this.results.application_details.ADMIN];
+       this.otherInfo = [this.results.application_details.OTHER];
     }
  
 }
