@@ -9,14 +9,10 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import { namespace } from "vuex-class";
 
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/admin-form-filing-location.json";
+import surveyJson from "./forms/other-form-filing-location.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import PageBase from "../PageBase.vue";
-
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
-import { locationsInfoType } from '@/types/Common';
 
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -26,12 +22,16 @@ const commonState = namespace("Common");
 
 import { togglePages, toggleStep } from '@/components/utils/TogglePages';
 
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
+import { locationsInfoType } from '@/types/Common';
+
 @Component({
     components:{
         PageBase
     }
 })
-export default class AdminFormFilingLocation extends Vue {
+export default class OtherFormFilingLocation extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType; 
@@ -111,8 +111,8 @@ export default class AdminFormFilingLocation extends Vue {
 
     public reloadPageInformation() {
 
-        if (this.step.result?.adminFormsFilingLocationSurvey){
-            this.survey.data = this.step.result.adminFormsFilingLocationSurvey.data;
+        if (this.step.result?.otherFormsFilingLocationSurvey){
+            this.survey.data = this.step.result.otherFormsFilingLocationSurvey.data;
            
             if (this.survey.data.ExistingCourt){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
@@ -154,7 +154,7 @@ export default class AdminFormFilingLocation extends Vue {
         this.setExistingFileNumber();
         const progress = !this.survey.isCurrentPageHasErrors?100:50;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, progress, true);
-        this.UpdateStepResultData({step:this.step, data: {adminFormsFilingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}});         
+        this.UpdateStepResultData({step:this.step, data: {otherFormsFilingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}});         
     }
 }
 </script>

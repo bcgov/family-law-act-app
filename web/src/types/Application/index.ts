@@ -18,7 +18,7 @@ import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyI
 import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
 import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType, disagreeCancellingGuardianOfChildSurveyInfoType, replyCancellingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
 import { disagreeExistingSpouseSupportSurveyInfoType, disagreeSpouseSupportSurveyInfoType, relationshipToOtherPartySurveyInfoType, replyExistingSpouseSupportSurveyInfoType, replyNewSpouseSupportSurveyInfoType, rflmCalculatingSpouseSupportSurveyInfoType, rflmSpouseSupportOrderSurveyInfoType, rflmUnpaidSpouseSupportSurveyInfoType } from "./ReplyFamilyLawMatter/SpousalSupport";
-import { adminFormsFilingLocationSurveyInfoType, adminFormsSubmissionSurveyInfoType, adminFormsSurveyInfoType } from "./AdminForm";
+import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoType, otherFormsSurveyInfoType } from "./OtherFamilyForm";
 
 
 //This is what our database saves.
@@ -76,7 +76,7 @@ export interface stepInfoType {
 
     //______Step 0 GettingStarted
     selectedActivity?: string[];
-    administrativeForms?: boolean;
+    otherForms?: boolean;
     selectedReplyApplications?: string[];
     selectedForms?: string[];
     selectedFlmOption?: string;
@@ -253,9 +253,9 @@ export interface stepInfoType {
     aboutTheOrderEnforcementSurvey?: aboutTheOrderEnforcementSurveyInfoType;
 
     //__Step 10 ADMINISTRATIVE FORMS
-    adminFormsSurvey?: adminFormsSurveyInfoType;
-    adminFormsSubmissionSurvey?: adminFormsSubmissionSurveyInfoType;
-    adminFormsFilingLocationSurvey?: adminFormsFilingLocationSurveyInfoType;
+    otherFormsSurvey?: otherFormsSurveyInfoType;
+    completeOtherFormsSurvey?: completeOtherFormsSurveyInfoType;
+    otherFormsFilingLocationSurvey?: otherFormsFilingLocationSurveyInfoType;
     
     //__Step 11 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

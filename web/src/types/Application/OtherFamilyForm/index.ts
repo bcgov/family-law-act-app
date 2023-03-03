@@ -1,14 +1,19 @@
 import { questionInfoType } from "../CommonInformation";
 
-export interface adminFormsSurveyInfoType {
-    data: string[];
+export interface otherFormsSurveyDataInfoType {
+    selectedOtherForms: string[];
+    filingMethod: string;
+}
+
+export interface otherFormsSurveyInfoType {
+    data: otherFormsSurveyDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface adminFormsFilingLocationSurveyDataInfoType {
+export interface otherFormsFilingLocationSurveyDataInfoType {
     ExistingFamilyCase: string;  
     ExistingFamilyCaseFAQ1?: boolean;
     ExistingFamilyCaseFAQ2?: boolean;    
@@ -21,8 +26,21 @@ export interface adminFormsFilingLocationSurveyDataInfoType {
     // ExplanationPreviouslyRejected?: boolean;
 }   
 
-export interface adminFormsFilingLocationSurveyInfoType {
-    data: adminFormsFilingLocationSurveyDataInfoType;
+export interface otherFormsFilingLocationSurveyInfoType {
+    data: otherFormsFilingLocationSurveyDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface completeOtherFormsSurveyDataInfoType {
+    ExistingFamilyCase: string;      
+}
+
+
+export interface completeOtherFormsSurveyInfoType {
+    data: completeOtherFormsSurveyDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
