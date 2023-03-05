@@ -11,7 +11,7 @@ export interface stepsAndPagesNumberInfoType{
     RELOC: RELOCstPgTypes;
     ENFRC: ENFRCstPgTypes;
     CONNECT: CONNECTstPgTypes;
-    ADMIN: ADMINstPgTypes;
+    OTHER: OTHERstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -261,11 +261,12 @@ export interface CONNECTstPgTypes{
     ReviewAndConnect: number;   
 }
 
-export interface ADMINstPgTypes{
+export interface OTHERstPgTypes{
     _StepNo: number;
 
-    AdministrativeForms: number;    
-    AdminFormFilingLocation: number;
+    OtherForms: number; 
+    CompleteOtherForms: number;   
+    OtherFormFilingLocation: number;
 }
 
 export interface SUBMITstPgTypes{
@@ -275,6 +276,6 @@ export interface SUBMITstPgTypes{
     ReviewAndPrint: number;
     ReviewAndSave: number;
     ReviewAndSubmit: number;
-    StandaloneEfile: number;
+    OtherFile: number;
     NextSteps: number;    
 }

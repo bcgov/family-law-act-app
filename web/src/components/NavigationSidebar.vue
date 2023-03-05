@@ -85,7 +85,6 @@ export default class NavigationSidebar extends Vue {
     
         const next = event.currentTarget;
         const nextIndex = parseInt(next.getAttribute("index"));
-        
         if(nextIndex == this.stPgNo.SUBMIT._StepNo && !this.allCompleted){
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: this.stPgNo.SUBMIT.FilingOptions });
         }

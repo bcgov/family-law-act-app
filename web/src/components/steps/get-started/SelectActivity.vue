@@ -50,11 +50,11 @@
                 
                 <b-button
                     style="height: 3rem;"                    
-                    @click="changeAdministrativeForms"
-                    :pressed.sync="administrativeForms.state"
-                    :variant="administrativeForms.state?'primary':'secondary'">
-                    <b-icon-check scale="1.5" class="mr-2" v-if="administrativeForms.state" />
-                    {{ administrativeForms.label }}
+                    @click="changeOtherForms"
+                    :pressed.sync="otherForms.state"
+                    :variant="otherForms.state?'primary':'secondary'">
+                    <b-icon-check scale="1.5" class="mr-2" v-if="otherForms.state" />
+                    {{ otherForms.label }}
                 </b-button>
                 
             </b-row>
@@ -127,9 +127,9 @@ export default class SelectActivity extends Vue {
         }
     ];
     
-    administrativeForms = {
+    otherForms = {
         label: 'Other family court form(s)',
-        name: 'administrativeForms',
+        name: 'otherForms',
         state: false
     };
    
@@ -155,7 +155,7 @@ export default class SelectActivity extends Vue {
 
             const results = this.steps[0].result;
             this.selectedActivity = results.selectedActivity;
-            this.administrativeForms.state = this.steps[0].result.administrativeForms;            
+            this.otherForms.state = this.steps[0].result.otherForms;            
 
             for (const activity of this.activityButtons){
                 activity.state = this.selectedActivity.includes(activity.name)
@@ -163,9 +163,9 @@ export default class SelectActivity extends Vue {
             
         }  
 
-        this.disableNextButton = !(this.selectedActivity.length > 0 || this.administrativeForms.state);        
+        this.disableNextButton = !(this.selectedActivity.length > 0 || this.otherForms.state);        
 
-        const progress = (this.selectedActivity.length==0 || !this.administrativeForms.state)? 50 : 100;
+        const progress = (this.selectedActivity.length==0 || !this.otherForms.state)? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
         this.dataReady = true;
     }
@@ -191,16 +191,16 @@ export default class SelectActivity extends Vue {
         toggleAllSteps([startPage._StepNo], false);
         incompleteProgressOfAllPages();
         if (this.selectedActivity.length > 0){
-            this.administrativeForms.state = false;
+            this.otherForms.state = false;
         }
     }  
 
-    public changeAdministrativeForms(){
+    public changeOtherForms(){
 
-        const adminStep = this.stPgNo.ADMIN;
+        const otherFormStep = this.stPgNo.OTHER;
         const startStep = this.stPgNo.GETSTART;
         
-        if (this.administrativeForms.state){
+        if (this.otherForms.state){
             
             for (const activity in this.activityButtons){
                 this.activityButtons[activity].state = false;               
@@ -212,11 +212,11 @@ export default class SelectActivity extends Vue {
             
         }         
 
-        toggleStep(adminStep._StepNo, this.administrativeForms.state);       
+        toggleStep(otherFormStep._StepNo, this.otherForms.state);       
         
-        toggleAllSteps([startStep._StepNo, adminStep._StepNo], false);
+        toggleAllSteps([startStep._StepNo, otherFormStep._StepNo], false);
         incompleteProgressOfAllPages();
-        this.disableNextButton = !this.administrativeForms.state; 
+        this.disableNextButton = !this.otherForms.state; 
     }
 
     public onPrev() {
@@ -228,9 +228,9 @@ export default class SelectActivity extends Vue {
     }
   
     beforeDestroy() {
-        const progress = (this.selectedActivity.length!=0 || this.administrativeForms.state)? 100 : 50;
+        const progress = (this.selectedActivity.length!=0 || this.otherForms.state)? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        this.UpdateStepResultData({step:this.step, data: {selectedActivity: this.selectedActivity, administrativeForms: this.administrativeForms.state}})
+        this.UpdateStepResultData({step:this.step, data: {selectedActivity: this.selectedActivity, otherForms: this.otherForms.state}})
     }
 }
 </script>

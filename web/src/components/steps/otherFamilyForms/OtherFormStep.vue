@@ -1,8 +1,9 @@
 <template>
     <step-base v-bind:step="step">
        
-        <administrative-forms v-bind:step="step" v-if="step.currentPage == stPgNo.ADMIN.AdministrativeForms" />
-        <admin-form-filing-location v-bind:step="step" v-if="step.currentPage == stPgNo.ADMIN.AdminFormFilingLocation" />
+        <other-forms v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.OtherForms" />
+        <complete-other-forms v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.CompleteOtherForms" />
+        <other-form-filing-location v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.OtherFormFilingLocation" />
   
     </step-base>
 </template>
@@ -12,8 +13,9 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import { namespace } from "vuex-class";   
 
 import StepBase from "../StepBase.vue";
-import AdminFormFilingLocation from "./AdminFormFilingLocation.vue";
-import AdministrativeForms from "./AdministrativeForms.vue";
+import OtherFormFilingLocation from "./OtherFormFilingLocation.vue";
+import OtherForms from "./OtherForms.vue";
+import CompleteOtherForms from "./CompleteOtherForms.vue";
 
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -24,12 +26,13 @@ import { stepInfoType } from "@/types/Application";
 @Component({
     components:{
         StepBase,
-        AdminFormFilingLocation,
-        AdministrativeForms
+        OtherFormFilingLocation,
+        OtherForms,
+        CompleteOtherForms
     }
 })
 
-export default class AdminFormStep extends Vue {
+export default class OtherFormStep extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;

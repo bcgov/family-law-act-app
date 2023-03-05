@@ -50,7 +50,7 @@ class Application extends VuexModule {
         priorityParenting:false, 
         childReloc:false, 
         agreementEnfrc:false,
-        //TODO: admin forms
+        other: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1768,28 +1768,37 @@ class Application extends VuexModule {
 
         s.active = false;
         s.id = "12";
-        s.name = "ADMIN";
-        s.label = "Administrative Forms";
+        s.name = "OTHER";
+        s.label = "Other Forms";
         s.icon = "fa fa-pencil";
         s.lastUpdate = null;
-        s.type = "admin";
+        s.type = "other";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "AdministrativeForms";
-        p.label = "Administrative Forms";
+        p.name = "OtherForms";
+        p.label = "Other Forms";
         p.active = true;
+        p.progress = 0;
+    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "CompleteOtherForms";
+        p.label = "Complete Other Forms";
+        p.active = false;
         p.progress = 0;
     
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "1";
-        p.name = "AdminFormFilingLocation";
-        p.label = "Admin Form Filing Location";
-        p.active = true;
+        p.key = "2";
+        p.name = "OtherFormFilingLocation";
+        p.label = "Other Form Filing Location";
+        p.active = false;
         p.progress = 0;
     
         s.pages.push(p); 
@@ -1847,8 +1856,8 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "4";
-        p.name = "StandaloneEfile";
-        p.label = "Standalone eFile";
+        p.name = "OtherFile";
+        p.label = "File";
         p.active = false;
         p.progress = 0;
     
@@ -2113,7 +2122,19 @@ class Application extends VuexModule {
                 }
             }            
         }
-        if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:0 });
+
+        const includesOtherForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.otherForms;
+        if(includesOtherForms){
+
+            if(this.pathwayCompleted.other) 
+                newAllCompleted = true;
+            else{
+                newAllCompleted = false;
+            }
+
+        }
+            
+        if(!newAllCompleted && !includesOtherForms)this.context.commit("setCurrentStepPage", { currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:0 });
         this.context.commit("setAllCompleted", newAllCompleted)
     }
 
@@ -2260,7 +2281,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, ADMIN:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

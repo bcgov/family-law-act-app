@@ -1,12 +1,75 @@
 <template>   
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+    <page-base v-if="dataReady" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
-        <h2 class="mt-4">Submit</h2>
+        <h2 v-if="eFiling" class="mt-4">
+            <span v-if="includesGuidedPathway()">Review and Submit</span>
+            <span v-else>Submit</span>            
+        </h2>
+        <h2 v-else class="mt-4">
+            Review and Print
+        </h2>
+
+        <div class="ml-0">
+            You have indicated that you will file at the following court registry:
+            <p class="h3 mt-2 ml-0 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
+        </div>
+
+        <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
+            <div class="row justify-content-center text-warning">
+                <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
+            </div>
+            <div style="font-size: 18px;" class="mx-3 mb-1 pb-3">
+                By clicking on the 'Review and Print' button next to the document, a PDF version of the application
+                    will download or open. Depending on your browser settings, your PDF might save the form to your 
+                    computer or it will open in a new tab or window. For more information about opening and saving 
+                    PDF forms, click on <span @click="navigateToGuide" class="text-primary" ><span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
+                    Get help opening and saving PDF forms</span> below. If you are concerned about 
+                    having a copy saved to your computer, may want to review and print from a safe computer, tablet 
+                    or device, for example a computer, tablet or device of a trusted friend, at work, a library, 
+                    school or an internet café.                    
+            </div>
+        </div>
+
         <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">            
 
-            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+            <h3 v-if="includesGuidedPathway()" class="mt-4">To prepare the application for filing:</h3>
 
-                <admin-forms-list :requiredDocumentLists="requiredDocumentLists" title="Upload Documents:" />
+            <b-card v-if="includesGuidedPathway()" 
+                style="border:1px solid #ddebed; border-radius:10px;" 
+                bg-variant="white" 
+                class="mt-4 mb-2">
+
+                <span 
+                    class="text-primary mb-2" 
+                    style="display:block; font-size:1.4rem;">
+                    Review your forms(s):
+                </span> 
+                <span>
+                    If you are filing an affidavit, you will need to be prepared to
+                    <tooltip :index="0" title='swear or affirm'/> in your affidavit. 
+                    If you are filing the affidavit electronically, you can 
+                    <tooltip :index="1" title='swear or affirm'/> the information 
+                    during your court appearance.
+                </span>           
+            
+                <form-list type="Print" :currentPage="currentPage"/>
+
+                <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
+                    <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
+                </div>
+
+                <div>    
+                    Note: If you need to edit any of your answers, go back to the "Review Your Answers" page, edit the answer and return to this page.
+                </div>
+            </b-card>            
+            
+            <b-card 
+                v-if="requiredDocumentLists.length>0" 
+                style="border:1px solid #ddebed; border-radius:10px;" 
+                bg-variant="white" 
+                class="mt-4 mb-2">
+
+                <other-forms-list :requiredDocumentLists="requiredDocumentLists" title="Upload Documents:" />
                 
                 <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">
@@ -77,7 +140,7 @@
 
             </b-card>            
 
-            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+            <b-card v-if="eFiling" style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
                 <span class="text-primary" style="font-size:1.4rem;">Filing with Court Services Online:</span>
 
                 <div class="mt-3">
@@ -116,7 +179,37 @@
                 </div>
             </b-card>
 
+            <b-card 
+                v-else-if="!eFiling && this.includesGuidedPathway()" 
+                style="border:1px solid #ddebed;border-radius:10px;" 
+                bg-variant="white" 
+                class="mt-4 mb-2">
+
+                <span class="text-primary" style="font-size:1.4rem;">Submit Documents:</span>
+                <ul class="mt-3">                    
+                    <li>Bring all copies to the court registry for filing  
+                        <br/> 
+                        <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
+                        <p class="my-0 ml-2 " style="display:block"> {{applicantLocation.address}} </p>
+                        <p class="my-0 ml-2" style="display:block"> {{applicantLocation.postalCode}} </p>                
+                    </li>
+                </ul>
+            </b-card>
+
         </b-card> 
+
+        <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-white">
+            <template v-slot:modal-title>
+                <h1 class="mb-0 text-primary">Get Help Opening and Saving PDF forms</h1> 
+            </template>
+            <get-help-for-pdf :isForm="true"/>        
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="showGetHelpForPDF=false">Close</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="outline-dark" class="closeButton" @click="showGetHelpForPDF=false">&times;</b-button>
+            </template>
+        </b-modal>
 
         <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
             <b-card style="border-radius:10px" class="bg-light">
@@ -147,7 +240,10 @@
 
 
     import PageBase from "@/components/steps/PageBase.vue";   
-    import AdminFormsList from "./components/AdminFormsList.vue";  
+    import OtherFormsList from "./components/OtherFormsList.vue";  
+    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";
+    import Tooltip from "@/components/survey/Tooltip.vue";
+    import FormList from "./components/FormList.vue";
  
     import "@/store/modules/application";
     const applicationState = namespace("Application");
@@ -155,7 +251,7 @@
     import "@/store/modules/common";
     const commonState = namespace("Common");
 
-    import { documentTypesJsonInfoType } from '@/types/Common';
+    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
     import { stepInfoType } from "@/types/Application";
     import { FLA_Types } from '@/filters/applicationTypes';
     import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
@@ -163,10 +259,13 @@
     @Component({
         components:{
             PageBase,
-            AdminFormsList
+            OtherFormsList,
+            GetHelpForPdf,
+            Tooltip,
+            FormList
         }
     })    
-    export default class StandaloneEfile extends Vue {
+    export default class OtherFile extends Vue {
         
         @Prop({required: true})
         step!: stepInfoType;
@@ -186,8 +285,17 @@
         @commonState.State
         public documentTypesJson!: documentTypesJsonInfoType[];
 
+        @commonState.State
+        public userLocation!: string;
+
+        @commonState.State
+        public locationsInfo!: locationsInfoType[];
+
         @applicationState.State
-        public supportingDocuments!: any;        
+        public supportingDocuments!: any;      
+        
+        @applicationState.State
+        public applicationLocation!: string;
 
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
@@ -201,7 +309,11 @@
         @applicationState.Action
         public UpdatePageProgress!: (newPageProgress) => void        
 
+        dataReady = false;
         error = "";
+
+        showGetHelpForPDF = false;
+        applicantLocation = {} as locationsInfoType; 
        
         submissionInProgress = false;
         
@@ -211,6 +323,7 @@
         fileType = "";
         fileTypes: documentTypesJsonInfoType[] = [];
         requiredDocumentLists: documentTypesJsonInfoType[] = [];
+        eFiling = false;       
 
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
@@ -218,12 +331,15 @@
             { key: 'edit', thClass: 'd-none',tdClass:'align-middle'},
             { key: 'preview', thClass: 'd-none'}
         ];
-       
+             
         showTypeOfDocuments = false;
         submitEnable = true;
         currentPage=0;
 
         mounted(){
+
+            this.dataReady = false;
+            this.eFiling = false;            
 
             this.submitEnable =  true;
             const progress = 50;
@@ -232,22 +348,33 @@
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
 
 
-            const adminForms = FLA_Types.filter(type => type.familyType == "ADMIN");
+            const otherForms = FLA_Types.filter(type => type.familyType == "OTHER");
             this.fileTypes = [];            
             
-            for (const adminForm of adminForms){
-                if (this.documentTypesJson.filter(docType => docType.type == adminForm.pdfType).length>0){
-                    this.fileTypes.push({description: adminForm.fullName, type: adminForm.pdfType})
+            for (const otherForm of otherForms){
+                if (this.documentTypesJson.filter(docType => docType.type == otherForm.pdfType).length>0){
+                    this.fileTypes.push({description: otherForm.fullName, type: otherForm.pdfType})
                 }
             }
 
-            this.getRequiredDocuments();
+            this.extractInfo();
+            this.dataReady = true;
+
+            Vue.nextTick().then(()=>{
+                const dropArea = document.getElementById('drop-area');
+                dropArea.addEventListener('drop', this.handleFileDrop, false);
+                dropArea.addEventListener('dragenter', this.dragPreventDefaults, false);
+                dropArea.addEventListener('dragleave', this.dragPreventDefaults, false);
+                dropArea.addEventListener('dragover', this.dragPreventDefaults, false);             
+            
+            });
            
-            const dropArea = document.getElementById('drop-area');
-            dropArea.addEventListener('drop', this.handleFileDrop, false);
-            dropArea.addEventListener('dragenter', this.dragPreventDefaults, false);
-            dropArea.addEventListener('dragleave', this.dragPreventDefaults, false);
-            dropArea.addEventListener('dragover', this.dragPreventDefaults, false);            
+            // const dropArea = document.getElementById('drop-area');
+            // dropArea.addEventListener('drop', this.handleFileDrop, false);
+            // dropArea.addEventListener('dragenter', this.dragPreventDefaults, false);
+            // dropArea.addEventListener('dragleave', this.dragPreventDefaults, false);
+            // dropArea.addEventListener('dragover', this.dragPreventDefaults, false);              
+            
         }
 
         public dragPreventDefaults (e) {
@@ -413,23 +540,58 @@
             }
         }
 
-        public getRequiredDocuments(){
+        public extractInfo(){
 
+            let location = this.applicationLocation
+            if(!this.applicationLocation) location = this.userLocation;
+
+            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]              
+           
+
+            const otherFormsStepResults = this.steps[this.stPgNo.OTHER._StepNo].result;  
+            this.eFiling = otherFormsStepResults?.otherFormsSurvey?.data?.filingMethod == 'eFile'; 
             this.requiredDocumentLists = [];
 
-            const includesAdminForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.administrativeForms;
-            const selectedForms = this.steps[this.stPgNo.ADMIN._StepNo].result?.adminFormsSurvey?.data?this.steps[this.stPgNo.ADMIN._StepNo].result.adminFormsSurvey.data:[];
+            const includesOtherForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.otherForms;
+            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
+            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
 
-            const requiredDocuments = (includesAdminForms && selectedForms.length > 0)?selectedForms:[];
-                        
-            for(const requiredDoc of requiredDocuments){
+            if (includesOtherForms && selectedFormInfoList.length>0){
 
-                const name = Vue.filter('getFullOrderName')(requiredDoc, '');
-                const pdfType = Vue.filter('getPathwayPdfType')(requiredDoc, '');
-                this.requiredDocumentLists.push({description: name, type: pdfType});
-            }
+                for (const selectedForm of selectedFormInfoList){                
+                    if (selectedForm.manualState){                       
+                        const name = Vue.filter('getFullOrderName')(selectedForm.pathwayName, '');
+                        const pdfType = Vue.filter('getPathwayPdfType')(selectedForm.pathwayName, '');
+                        this.requiredDocumentLists.push({description: name, type: pdfType});                       
+                    }            
+                }
+
+            }           
 
         }
+
+        public includesGuidedPathway(){
+
+            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
+
+            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
+
+            let includesGuided = false;
+            for (const selectedForm of selectedFormInfoList){
+                
+                if (selectedForm.pathwayExists && selectedForm.pathwayState){
+                    includesGuided = true;
+                    break;
+                }            
+            }
+            return includesGuided;
+        }   
+
+        public navigateToGuide(){
+            Vue.filter('scrollToLocation')("pdf-guide");
+        } 
+
+        
 
     }
 </script>

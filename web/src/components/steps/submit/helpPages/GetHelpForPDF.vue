@@ -1,11 +1,13 @@
 <template>
     <div style="height:30rem; overflow: auto ">
         <h2 class="mb-2">
-            Your application
+            Your <span v-if="isForm">form</span><span v-else>application</span>
         </h2>
         <p>
-            You can review, print, or save your application by clicking on the “Review and Print” 
-            button next to the document. This will open or download a PDF version of the application.
+            You can review, print, or save your <span v-if="isForm">form</span><span v-else>application</span>
+            by clicking on the “Review and Print” button next to the document. 
+            This will open or download a PDF version of the 
+            <span v-if="isForm">form</span><span v-else>application</span>.
         </p>
         <p>
             “PDF” stand for Portable Document Format, which is a file format created by Adobe and 
@@ -99,10 +101,13 @@
 </template>
 
 <script lang="ts">
-    import {Component,Vue} from 'vue-property-decorator';
+    import {Component,Prop,Vue} from 'vue-property-decorator';
 
     @Component
     export default class GetHelpForPdf extends Vue {     
+
+        @Prop({required: false, default: false})
+        isForm!: boolean;
         
     }
 </script>
