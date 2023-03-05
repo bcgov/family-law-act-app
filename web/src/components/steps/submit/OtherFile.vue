@@ -6,7 +6,7 @@
 
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
-                <admin-forms-list :requiredDocumentLists="requiredDocumentLists" title="Upload Documents:" />
+                <other-forms-list :requiredDocumentLists="requiredDocumentLists" title="Upload Documents:" />
                 
                 <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">
@@ -166,7 +166,7 @@
             AdminFormsList
         }
     })    
-    export default class StandaloneEfile extends Vue {
+    export default class OtherFile extends Vue {
         
         @Prop({required: true})
         step!: stepInfoType;
@@ -232,7 +232,7 @@
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
 
 
-            const adminForms = FLA_Types.filter(type => type.familyType == "ADMIN");
+            const adminForms = FLA_Types.filter(type => type.familyType == "OTHER");
             this.fileTypes = [];            
             
             for (const adminForm of adminForms){
@@ -417,8 +417,8 @@
 
             this.requiredDocumentLists = [];
 
-            const includesAdminForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.administrativeForms;
-            const selectedForms = this.steps[this.stPgNo.ADMIN._StepNo].result?.adminFormsSurvey?.data?this.steps[this.stPgNo.ADMIN._StepNo].result.adminFormsSurvey.data:[];
+            const includesAdminForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.otherForms;
+            const selectedForms = this.steps[this.stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.selectedOtherForms?this.steps[this.stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.selectedOtherForms:[];
 
             const requiredDocuments = (includesAdminForms && selectedForms.length > 0)?selectedForms:[];
                         

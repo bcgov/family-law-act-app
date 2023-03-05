@@ -794,7 +794,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other']
 	
 	if(type == 'allExPO'){
         
@@ -806,7 +806,8 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.caseMgmt = false;       
 		pathwayCompleted.priorityParenting = false;       
 		pathwayCompleted.childReloc = false;       
-		pathwayCompleted.agreementEnfrc = false;		
+		pathwayCompleted.agreementEnfrc = false;	
+		pathwayCompleted.other = false;	
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

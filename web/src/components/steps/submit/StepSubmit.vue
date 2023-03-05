@@ -4,7 +4,7 @@
         <review-and-print  v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndPrint"/>
         <review-and-save   v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndSave"/>
         <review-and-submit v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndSubmit"/>
-        <standalone-efile  v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.StandaloneEfile"/>
+        <other-file        v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.OtherFile"/>
         <next-steps        v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.NextSteps"/>
     </step-base>
 </template>
@@ -19,7 +19,7 @@
     import ReviewAndPrint from "./ReviewAndPrint.vue";
     import ReviewAndSave from "./ReviewAndSave.vue";
     import ReviewAndSubmit from "./ReviewAndSubmit.vue";
-    import StandaloneEfile from "./StandaloneEfile.vue";
+    import OtherFile from "./OtherFile.vue";
     import NextSteps from "./NextSteps.vue";
 
     import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
@@ -35,7 +35,7 @@
             ReviewAndPrint,
             ReviewAndSave,
             ReviewAndSubmit,
-            StandaloneEfile,
+            OtherFile,
             NextSteps
         }
     })
@@ -47,7 +47,6 @@
 
         @applicationState.State
         public stPgNo!: stepsAndPagesNumberInfoType;
-
         
     }
 </script>

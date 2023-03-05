@@ -50,7 +50,7 @@ class Application extends VuexModule {
         priorityParenting:false, 
         childReloc:false, 
         agreementEnfrc:false,
-        //TODO: admin forms
+        other: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1789,7 +1789,7 @@ class Application extends VuexModule {
         p.key = "1";
         p.name = "CompleteOtherForms";
         p.label = "Complete Other Forms";
-        p.active = true;
+        p.active = false;
         p.progress = 0;
     
         s.pages.push(p);
@@ -1798,7 +1798,7 @@ class Application extends VuexModule {
         p.key = "2";
         p.name = "OtherFormFilingLocation";
         p.label = "Other Form Filing Location";
-        p.active = true;
+        p.active = false;
         p.progress = 0;
     
         s.pages.push(p); 
@@ -1856,8 +1856,8 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "4";
-        p.name = "StandaloneEfile";
-        p.label = "Standalone eFile";
+        p.name = "OtherFile";
+        p.label = "File";
         p.active = false;
         p.progress = 0;
     

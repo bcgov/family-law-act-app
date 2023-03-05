@@ -252,7 +252,7 @@ export interface stepInfoType {
     detrermineArrearsSurvey?: detrermineArrearsSurveyInfoType;
     aboutTheOrderEnforcementSurvey?: aboutTheOrderEnforcementSurveyInfoType;
 
-    //__Step 10 ADMINISTRATIVE FORMS
+    //__Step 10 OTHER FORMS
     otherFormsSurvey?: otherFormsSurveyInfoType;
     completeOtherFormsSurvey?: completeOtherFormsSurveyInfoType;
     otherFormsFilingLocationSurvey?: otherFormsFilingLocationSurveyInfoType;
@@ -271,4 +271,5 @@ export interface stepInfoType {
     priorityParenting?: boolean; 
     childReloc?: boolean;
     agreementEnfrc?: boolean;
+    other?: boolean;
   }

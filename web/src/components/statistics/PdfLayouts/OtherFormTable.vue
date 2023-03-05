@@ -1,6 +1,6 @@
 <template>
     <div v-if="dataReady" class="print-block">
-        <div style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;" >Standalone Application: </div>
+        <div style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;" >Other Application: </div>
         <b-table            
             :items="otherInfo"
             :fields="fields"

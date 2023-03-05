@@ -276,6 +276,6 @@ export interface SUBMITstPgTypes{
     ReviewAndPrint: number;
     ReviewAndSave: number;
     ReviewAndSubmit: number;
-    StandaloneEfile: number;
+    OtherFile: number;
     NextSteps: number;    
 }

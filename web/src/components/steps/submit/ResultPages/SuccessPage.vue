@@ -148,10 +148,10 @@
                     Checklist for Reply to a Family Law Matter
                 </div>
                 <div 
-                    v-if="applicationDocumentTypes.includes('ADMIN')" 
-                    @click="checklist=true;checklistType='ADMIN';" 
+                    v-if="applicationDocumentTypes.includes('OTHER')" 
+                    @click="checklist=true;checklistType='OTHER';" 
                     style="color:blue; cursor:pointer;">
-                    Checklist for Standalone
+                    Checklist for Other Files
                 </div>
             </div>           
 
@@ -328,8 +328,10 @@ export default class SuccessPage extends Vue {
                 this.applicationDocumentTypes.push('RFLM')
             }
 
+            //TODO: adjust based on files
+
             if (pathways.includes('administrativeForms')){
-                this.applicationDocumentTypes.push('ADMIN')
+                this.applicationDocumentTypes.push('OTHER')
             }
 
             if (includesFlm){

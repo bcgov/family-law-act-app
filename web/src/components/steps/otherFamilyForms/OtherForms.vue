@@ -1,0 +1,280 @@
+<template>
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+        <div class="row">
+            <div class="col-md-12 order-heading">
+                <div>
+                    <h1>What other family court form(s) do you want to complete?</h1>          
+                    <p>
+                        If you already have a family law case before the Provincial 
+                        Court, there may be more forms you need to file.
+                    </p>
+                    <p>You can select one or more options below.</p>
+                    <p>
+                        When you’re finished, you can save or print your forms and 
+                        file them electronically using this service or in person.
+                    </p>
+                </div>
+
+                <div>
+                    <h2>Filing Options</h2>
+                    <b-card class="bg-info border-primary">
+                        You can file your application in different ways.
+                        <ol class='mt-3' >
+                            <li class='mb-2'>You can print your application and bring it (or mail it) to the court registry to file.</li>                            
+                            <li>You can submit your application to the court registry through E-Filing online system.</li>
+                        </ol>
+                        To file your documents <b>in person</b>, you will need:
+                        <ul>
+                            <li>a printer (or print service)</li>                            
+                            <li>a copy of your exhibits (if applicable)</li>
+                            <li>Photo ID (to have your affidavit sworn/affirmed)</li>
+                        </ul>
+                        To file your documents <b>by electronic filing</b>, you will need:
+                        <ul>                            
+                            <li>scanned or electronic copy of your exhibits (if applicable)</li>
+                            <li>scanner or phone with a camera (to scan the documents above)</li>
+                        </ul>                
+                    </b-card>
+                </div>
+
+                <div class="mt-3">
+                    <h3 class="primary">I want to file my application</h3>
+                    <b-form-radio-group
+                    stacked
+                        v-model="filingMethod"
+                        class="mt-2 ml-3"
+                        style="font-size:1.40em; display: inline-block;"
+                        v-on:change="onChangeFilingMethod($event)">
+                        <b-form-radio class="mr-5" value="inPerson"><div style="transform:translate(5px,-5px);">In Person</div></b-form-radio>
+                        <b-form-radio value="eFile"><div style="transform:translate(5px,-5px);">By Electronic Filing</div></b-form-radio>               
+                    </b-form-radio-group>
+
+                </div>
+
+                <div v-if="filingMethod != null" class="mt-3">
+                    <h3 class="primary">Please select the form(s) that you wish to complete.</h3>
+
+                    <div>
+                        <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
+                            <span style="font-size:1.2rem;" class="fa fa-question-circle" /> Where can I get legal assistance? 
+                            <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
+                            <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
+                        </div>
+                        <legal-assistance-faq v-if="showLegalAssistance"/>
+                    </div>
+
+                    <b-table            
+                        :items="formList"
+                        :fields="fields"
+                        bordered   
+                        responsive="sm"
+                        small
+                        selectable
+                        select-mode="multi"  
+                        @row-selected="onFormSelected"    
+                        ref="formsTable">                        
+                    </b-table>
+                   
+                </div>              
+            </div>
+        </div>       
+
+    </page-base>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { namespace } from "vuex-class";   
+
+import PageBase from "../PageBase.vue";
+import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
+
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
+import {stepInfoType, stepResultInfoType } from "@/types/Application";
+import { otherFormInfoType } from '@/types/Application/OtherFamilyForm';
+import { togglePages } from '@/components/utils/TogglePages';
+
+@Component({
+    components:{
+        PageBase,
+        LegalAssistanceFaq
+    }
+})
+export default class OtherForms extends Vue {
+    
+    @Prop({required: true})
+    step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
+    @applicationState.Action
+    public UpdateApplicationType!: (newApplicationType: string[]) => void
+
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void      
+    
+    selectedForms: otherFormInfoType[] = [];
+    filingMethod = null;
+    showLegalAssistance = false;    
+    disableNextButton = false;
+
+    currentStep =0;
+    currentPage =0;
+
+    formList: otherFormInfoType[] = [
+        {formName: 'Affidavit – General',                                   formNumber: 'Form 3'},
+        {formName: 'Affidavit of Personal service',                         formNumber: 'Form 48'},
+        {formName: 'Affidavit of Personal Service of Protection Order',     formNumber: 'Form 49'},
+        {formName: 'Certificate of Service',                                formNumber: 'Form 7'},
+        {formName: 'Consent adjournment',                                   formNumber: 'PFA920'},
+        {formName: 'Consent Order',                                         formNumber: 'Form 18'},
+        {formName: 'Consent to an Informal Trial (Kamloops only)',          formNumber: 'PFA709'},
+        {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51'},
+        {formName: 'Fax Filing Cover Page',                                 formNumber: 'Form 52'},
+        {formName: 'Financial Statement',                                   formNumber: 'Form 52'},
+        {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5'},
+        {formName: 'Notice of Address Change',                              formNumber: 'Form 46'},
+        {formName: 'Notice of Discontinuance',                              formNumber: 'Form 50'},
+        {formName: 'Notice of Exemption from Parenting Education Program',  formNumber: 'Form 20'},
+        {formName: 'Notice of Intention to Proceed',                        formNumber: 'Form 2'},
+        {formName: 'Notice of Lawyer for Child',                            formNumber: 'Form 40'},
+        {formName: 'Notice of Lawyer for Party',                            formNumber: 'Form 42'},
+        {formName: 'Notice of Participation',                               formNumber: 'PFA747'},
+        {formName: 'Notice of Removal of Lawyer for Child',                 formNumber: 'Form 41'},
+        {formName: 'Notice of Removal of Lawyer for Party',                 formNumber: 'Form 43'},
+        {formName: 'Order – General',                                       formNumber: 'Form 44'},
+        {formName: 'Referral Request',                                      formNumber: 'Form 21'},
+        {formName: 'Request for Scheduling',                                formNumber: 'Form 39'},
+        {formName: 'Request for Service of Documents',                      formNumber: 'PFA110'},
+        {formName: 'Request for Service of Family Protection Order',        formNumber: 'PFA916'},
+        {formName: 'Trial Readiness Statement',                             formNumber: 'Form 22'}
+    ];
+
+    fields = [        
+        {
+            key:"formName",    
+            label:"Name",    
+            sortable: true,    
+            thClass: 'border-bottom align-middle text-center text-primary bg-info', 
+            tdClass:'align-middle text-center'},
+        {
+            key:"formNumber",  
+            label:"Number",  
+            sortable: true,    
+            thClass: 'border-bottom align-middle text-center text-primary bg-info', 
+            tdClass:'align-middle text-center'}
+                
+    ]; 
+
+    created() {
+        this.disableNextButton = true;       
+    }   
+
+    mounted(){            
+        this.reloadPageInformation();
+    }
+
+    public reloadPageInformation(){               
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.otherFormsSurvey?.data) {
+            this.selectedForms = this.step.result.otherFormsSurvey.data.selectedOtherForms;
+            this.filingMethod = this.step.result.otherFormsSurvey.data.filingMethod;
+            this.determineSteps();
+        }
+        Vue.nextTick().then(()=>{this.selectForms(this.selectedForms)});
+        
+        this.disableNextButton = !this.allRequiredInfoExists();
+
+        const progress = (this.filingMethod == null || this.selectedForms.length == 0)? 50 : 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+    }
+
+    public selectForms(forms: otherFormInfoType[]){        
+
+        const tableRef: any = this.$refs.formsTable;
+
+        for (const form of forms){
+            const index = this.formList.findIndex((otherForm) => {if(otherForm.formName == form.formName)return true});
+            tableRef.selectRow(index);            
+        }
+
+    }
+
+    public onChangeFilingMethod(method){
+
+        this.resetPages();
+        this.determineSteps();
+        this.UpdatePathwayCompleted({pathway:"other", isCompleted:false})        
+        // Vue.filter('surveyChanged')('other')        
+
+    }
+
+    public resetPages() { 
+
+        const p = this.stPgNo.OTHER                              
+        togglePages([p.CompleteOtherForms, p.OtherFormFilingLocation], false, this.currentStep); 
+
+        if(this.$store.state.Application.steps[this.currentStep].pages[p.CompleteOtherForms].progress>0)               
+            Vue.filter('setSurveyProgress')(null, this.currentStep, p.CompleteOtherForms, 50, false);       
+
+        if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherFormFilingLocation].progress>0) 
+            Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherFormFilingLocation, 50, false);
+    }
+
+    public determineSteps(){
+        const p = this.stPgNo.OTHER;
+        togglePages([p.CompleteOtherForms], this.allRequiredInfoExists(), this.currentStep);
+    }
+
+    public onFormSelected(forms: otherFormInfoType[]){
+
+        this.selectedForms = forms;
+
+        this.disableNextButton = !this.allRequiredInfoExists();
+
+        const applicationTypes = []; 
+
+        for (const form of forms){
+            applicationTypes.push(form.formName);            
+        }
+      
+        this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
+        this.determineSteps();
+    }
+    
+    public allRequiredInfoExists(){        
+
+        return this.filingMethod != null && this.selectedForms.length > 0
+
+    }    
+    
+    public onPrev() {
+        Vue.prototype.$UpdateGotoPrevStepPage();
+    }    
+
+    public onNext() { 
+        Vue.prototype.$UpdateGotoNextStepPage();
+    }    
+  
+    beforeDestroy() {
+        const progress = this.allRequiredInfoExists()? 100 : 50;
+        const pageData = {selectedOtherForms: this.selectedForms, filingMethod: this.filingMethod};
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);         
+        this.UpdateStepResultData({step:this.step, data: {otherFormsSurvey: {data: pageData, currentStep:this.currentStep, currentPage:this.currentPage}}});
+    }
+}
+</script>
+
+<style lang="scss">
+@import "../../../styles/survey";
+
+</style>

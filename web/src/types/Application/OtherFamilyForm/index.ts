@@ -1,7 +1,21 @@
 import { questionInfoType } from "../CommonInformation";
 
+export interface otherFormInfoType {
+    formName: string;
+    formNumber: string;
+}
+
+export interface otherFormPathwayInfoType {
+    formName: string;
+    formNumber: string;
+    pathwayExists: boolean;
+    formLink: string;
+    pathwayState: boolean;
+    manualState: boolean; 
+}
+
 export interface otherFormsSurveyDataInfoType {
-    selectedOtherForms: string[];
+    selectedOtherForms: otherFormInfoType[];
     filingMethod: string;
 }
 
@@ -35,7 +49,7 @@ export interface otherFormsFilingLocationSurveyInfoType {
 }
 
 export interface completeOtherFormsSurveyDataInfoType {
-    ExistingFamilyCase: string;      
+    selectedFormInfoList: otherFormPathwayInfoType[];      
 }
 
 

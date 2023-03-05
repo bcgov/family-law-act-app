@@ -232,7 +232,7 @@ export default class ApplicationStatus extends Vue {
     public UpdateLocationsInfo!: (newLocationsInfo) => void
 
     @applicationState.Action
-    public checkAllCompleted! :() => void
+    public checkAllCompleted!: () => void
 
     dataLoaded = false;
     showDisclaimer = false;
@@ -414,7 +414,7 @@ export default class ApplicationStatus extends Vue {
     public confirmRemoveApplication() {
         this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
         .then((response) => {
-            var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
+            const indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
             if(indexToDelete>=0){
                 this.previousApplications.splice(indexToDelete, 1);  
                 this.tableUpdated++;
