@@ -125,7 +125,6 @@ export default class OtherFormFilingLocation extends Vue {
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
         } 
-
         this.determineSteps();
         const progress = (this.determineContinue())? 100 : 50;        
 
@@ -157,6 +156,7 @@ export default class OtherFormFilingLocation extends Vue {
         if (this.determineContinue()){
             toggleStep(submitStep._StepNo, true);  
             togglePages([submitStep.OtherFile], true, submitStep._StepNo);
+            this.UpdatePathwayCompleted({pathway:"other", isCompleted:true});
         }
     }
 

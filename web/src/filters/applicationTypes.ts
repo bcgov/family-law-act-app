@@ -63,7 +63,6 @@ export const FLA_Types = [
     {pathway:"summons",                                     pdfType:"SUM",   appType:"SUM",          familyType:"OTHER",  fullName:"Summons – General"},
     {pathway:"summonsCommintal",                            pdfType:"SCH",   appType:"SCH",          familyType:"OTHER",  fullName:"Summons to a Committal Hearing"},
     {pathway:"summonsDefault",                              pdfType:"SDH",   appType:"SDH",          familyType:"OTHER",  fullName:"Summons to a Default Hearing"},
-    {pathway:"electronicFilingStatement",                   pdfType:"EFSP",  appType:"EFSP",         familyType:"OTHER",  fullName:"Electronic Filing Statement"}, 
     {pathway:"requisition",                                 pdfType:"REQ",   appType:"REQ",          familyType:"OTHER",  fullName:"Requisition"},
     {pathway:"requestTeleconference",                       pdfType:"RFT",   appType:"RFT",          familyType:"OTHER",  fullName:"Request to be heard by teleconference or videoconference"}    
 ];

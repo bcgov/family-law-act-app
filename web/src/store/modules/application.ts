@@ -2122,7 +2122,19 @@ class Application extends VuexModule {
                 }
             }            
         }
-        if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:0 });
+
+        const includesOtherForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.otherForms;
+        if(includesOtherForms){
+
+            if(this.pathwayCompleted.other) 
+                newAllCompleted = true;
+            else{
+                newAllCompleted = false;
+            }
+
+        }
+            
+        if(!newAllCompleted && !includesOtherForms)this.context.commit("setCurrentStepPage", { currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:0 });
         this.context.commit("setAllCompleted", newAllCompleted)
     }
 

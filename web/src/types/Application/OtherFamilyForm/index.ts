@@ -12,6 +12,7 @@ export interface otherFormPathwayInfoType {
     formLink: string;
     pathwayState: boolean;
     manualState: boolean; 
+    pathwayName: string;
 }
 
 export interface otherFormsSurveyDataInfoType {

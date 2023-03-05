@@ -148,6 +148,9 @@ export default class CompleteOtherForms extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void      
+
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
     
     selectedForms: otherFormInfoType[] = [];
     selectedFormInfoList: otherFormPathwayInfoType[] = [];
@@ -159,32 +162,32 @@ export default class CompleteOtherForms extends Vue {
     currentPage =0;  
 
     otherFormsList: otherFormPathwayInfoType[] = [
-        {formName: 'Affidavit – General',                                   formNumber: 'Form 3',   pathwayExists: false,    pathwayState: false, manualState: false, formLink: 'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true'},
-        {formName: 'Affidavit of Personal service',                         formNumber: 'Form 48',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Affidavit of Personal Service of Protection Order',     formNumber: 'Form 49',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Certificate of Service',                                formNumber: 'Form 7',   pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Consent adjournment',                                   formNumber: 'PFA920',   pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Consent Order',                                         formNumber: 'Form 18',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Consent to an Informal Trial (Kamloops only)',          formNumber: 'PFA709',   pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa768.pdf?forcedownload=true'},
-        {formName: 'Fax Filing Cover Page',                                 formNumber: 'Form 52',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Financial Statement',                                   formNumber: 'Form 52',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5',   pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Notice of Address Change',                              formNumber: 'Form 46',  pathwayExists: true,     pathwayState: false, manualState: false, formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa763.pdf?forcedownload=true'},
-        {formName: 'Notice of Discontinuance',                              formNumber: 'Form 50',  pathwayExists: true,     pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Notice of Exemption from Parenting Education Program',  formNumber: 'Form 20',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Notice of Intention to Proceed',                        formNumber: 'Form 2',   pathwayExists: true,     pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Notice of Lawyer for Child',                            formNumber: 'Form 40',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa758.pdf?forcedownload=true'},
-        {formName: 'Notice of Lawyer for Party',                            formNumber: 'Form 42',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa761.pdf?forcedownload=true'},
-        {formName: 'Notice of Participation',                               formNumber: 'PFA747',   pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Notice of Removal of Lawyer for Child',                 formNumber: 'Form 41',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa761.pdf?forcedownload=true'},
-        {formName: 'Notice of Removal of Lawyer for Party',                 formNumber: 'Form 43',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa759.pdf?forcedownload=true'},
-        {formName: 'Order – General',                                       formNumber: 'Form 44',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Referral Request',                                      formNumber: 'Form 21',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Request for Scheduling',                                formNumber: 'Form 39',  pathwayExists: true,     pathwayState: false, manualState: false, formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa732.pdf?forcedownload=true'},
-        {formName: 'Request for Service of Documents',                      formNumber: 'PFA110',   pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Request for Service of Family Protection Order',        formNumber: 'PFA916',   pathwayExists: false,    pathwayState: false, manualState: false, formLink:''},
-        {formName: 'Trial Readiness Statement',                             formNumber: 'Form 22',  pathwayExists: false,    pathwayState: false, manualState: false, formLink:''}
+        {formName: 'Affidavit – General',                                   formNumber: 'Form 3',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'affidavit',                    formLink: 'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true'},
+        {formName: 'Affidavit of Personal service',                         formNumber: 'Form 48',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'affidavitPersonalService',     formLink:''},
+        {formName: 'Affidavit of Personal Service of Protection Order',     formNumber: 'Form 49',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'affidavitPersonalServicePO',   formLink:''},
+        {formName: 'Certificate of Service',                                formNumber: 'Form 7',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'certificateOfService',         formLink:''},
+        {formName: 'Consent adjournment',                                   formNumber: 'PFA920',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentAdjournment',           formLink:''},
+        {formName: 'Consent Order',                                         formNumber: 'Form 18',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentOrder',                 formLink:''},
+        {formName: 'Consent to an Informal Trial (Kamloops only)',          formNumber: 'PFA709',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentInformalTrial',         formLink:''},
+        {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'electronicFilingStatement',    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa768.pdf?forcedownload=true'},
+        {formName: 'Fax Filing Cover Page',                                 formNumber: 'Form 52',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'faxFilingCoverPage',           formLink:''},
+        {formName: 'Financial Statement',                                   formNumber: 'Form 52',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'financialStatement',           formLink:''},
+        {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'guardianshipAffidavit',        formLink:''},
+        {formName: 'Notice of Address Change',                              formNumber: 'Form 46',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeOfAddressChange',        formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa763.pdf?forcedownload=true'},
+        {formName: 'Notice of Discontinuance',                              formNumber: 'Form 50',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeDiscontinuance',         formLink:''},
+        {formName: 'Notice of Exemption from Parenting Education Program',  formNumber: 'Form 20',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'',                             formLink:''},
+        {formName: 'Notice of Intention to Proceed',                        formNumber: 'Form 2',   pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeIntentionProceed',       formLink:''},
+        {formName: 'Notice of Lawyer for Child',                            formNumber: 'Form 40',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeLawyerChild',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa758.pdf?forcedownload=true'},
+        {formName: 'Notice of Lawyer for Party',                            formNumber: 'Form 42',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeLawyerParty',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa761.pdf?forcedownload=true'},
+        {formName: 'Notice of Participation',                               formNumber: 'PFA747',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeParticipation',          formLink:''},
+        {formName: 'Notice of Removal of Lawyer for Child',                 formNumber: 'Form 41',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeRemoveLawyerChild',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa761.pdf?forcedownload=true'},
+        {formName: 'Notice of Removal of Lawyer for Party',                 formNumber: 'Form 43',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeRemoveLawyerParty',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa759.pdf?forcedownload=true'},
+        {formName: 'Order – General',                                       formNumber: 'Form 44',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'order',                        formLink:''},
+        {formName: 'Referral Request',                                      formNumber: 'Form 21',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'referralRequest',              formLink:''},
+        {formName: 'Request for Scheduling',                                formNumber: 'Form 39',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'requestScheduling',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa732.pdf?forcedownload=true'},
+        {formName: 'Request for Service of Documents',                      formNumber: 'PFA110',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'requestServiceDocuments',      formLink:''},
+        {formName: 'Request for Service of Family Protection Order',        formNumber: 'PFA916',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'',                             formLink:''},
+        {formName: 'Trial Readiness Statement',                             formNumber: 'Form 22',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'trialReadinessStatement',      formLink:''}
     ]   
 
     mounted(){            
@@ -254,11 +257,14 @@ export default class CompleteOtherForms extends Vue {
                 if (this.requiresGuidedPathway()){                  
                     
                     togglePages([p.OtherFormFilingLocation], true, this.currentStep);
+                    //TODO: check pathways and activate steps
                     
                 } else {
-                    togglePages([p.OtherFormFilingLocation], false, this.currentStep);
+                    
                     toggleStep(submitStep._StepNo, true);                    
+
                     togglePages([submitStep.NextSteps], true, submitStep._StepNo);
+                    this.UpdatePathwayCompleted({pathway:"other", isCompleted:true})
                 }
 
             } else {
