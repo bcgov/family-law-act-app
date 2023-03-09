@@ -25,6 +25,7 @@ import { togglePages, toggleStep } from '@/components/utils/TogglePages';
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import { locationsInfoType } from '@/types/Common';
+import { otherFormPathwayInfoType } from '@/types/Application/OtherFamilyForm';
 
 @Component({
     components:{
@@ -60,6 +61,8 @@ export default class OtherFormFilingLocation extends Vue {
     currentPage =0;
     locationInfo = false; 
     filingMethod = null;
+    selectedFormInfoList: otherFormPathwayInfoType[] = [];
+    requiredGuidedPathways = [];
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -118,6 +121,10 @@ export default class OtherFormFilingLocation extends Vue {
             this.filingMethod = stepResults.otherFormsSurvey.data.filingMethod;
         }
 
+        if (stepResults.completeOtherFormsSurvey?.data?.selectedFormInfoList){
+            this.selectedFormInfoList = stepResults.completeOtherFormsSurvey.data.selectedFormInfoList;
+        }
+
         if (stepResults?.otherFormsFilingLocationSurvey){
             this.survey.data = stepResults.otherFormsFilingLocationSurvey.data;
            
@@ -154,11 +161,32 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(submitStep._StepNo, false);  
 
         if (this.determineContinue()){
+            
+                //TODO: check pathways and activate steps
+            this.setGuidedPathwaySteps();                    
+            
             toggleStep(submitStep._StepNo, true);  
             togglePages([submitStep.OtherFile], true, submitStep._StepNo);
             this.UpdatePathwayCompleted({pathway:"other", isCompleted:true});
         }
     }
+
+    public setGuidedPathwaySteps(){
+
+        this.requiredGuidedPathways = [];
+
+        console.log(this.selectedFormInfoList)
+
+        
+        for (const selectedForm of this.selectedFormInfoList){
+            
+            if (selectedForm.pathwayExists && selectedForm.pathwayState){
+                this.requiredGuidedPathways.push(selectedForm.pathwayName);                
+            }            
+        }
+        console.log(this.requiredGuidedPathways)
+        toggleStep(this.stPgNo.NAC._StepNo, this.requiredGuidedPathways.includes("noticeOfAddressChange"));        
+    }   
 
     public saveApplicationLocation(location){       
         this.$store.commit("Application/setApplicationLocation", location);

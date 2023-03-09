@@ -19,6 +19,7 @@ import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyI
 import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType, disagreeCancellingGuardianOfChildSurveyInfoType, replyCancellingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
 import { disagreeExistingSpouseSupportSurveyInfoType, disagreeSpouseSupportSurveyInfoType, relationshipToOtherPartySurveyInfoType, replyExistingSpouseSupportSurveyInfoType, replyNewSpouseSupportSurveyInfoType, rflmCalculatingSpouseSupportSurveyInfoType, rflmSpouseSupportOrderSurveyInfoType, rflmUnpaidSpouseSupportSurveyInfoType } from "./ReplyFamilyLawMatter/SpousalSupport";
 import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoType, otherFormsSurveyInfoType } from "./OtherFamilyForm";
+import { addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "./AddressChange";
 
 
 //This is what our database saves.
@@ -256,8 +257,12 @@ export interface stepInfoType {
     otherFormsSurvey?: otherFormsSurveyInfoType;
     completeOtherFormsSurvey?: completeOtherFormsSurveyInfoType;
     otherFormsFilingLocationSurvey?: otherFormsFilingLocationSurveyInfoType;
+
+     //_____Step 11 ADDRESS CHANGE_____________    
+    addressChangeSurvey?: addressChangeSurveyInfoType;    
+    addressChangeNoticeSurvey?: addressChangeNoticeSurveyInfoType;
     
-    //__Step 11 SUBMIT
+    //__Step 12 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -272,4 +277,5 @@ export interface stepInfoType {
     childReloc?: boolean;
     agreementEnfrc?: boolean;
     other?: boolean;
+    noticeOfAddressChange?: boolean;
   }

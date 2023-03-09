@@ -254,14 +254,12 @@ export default class CompleteOtherForms extends Vue {
 
             if (this.filingMethod == "inPerson"){
 
-                if (this.requiresGuidedPathway()){                  
-                    
+                if (this.requiresGuidedPathway()){ 
                     togglePages([p.OtherFormFilingLocation], true, this.currentStep);
-                    //TODO: check pathways and activate steps
-                    
                 } else {
                     
-                    toggleStep(submitStep._StepNo, true);                    
+                    toggleStep(submitStep._StepNo, true);  
+                    //TODO: reset steps for required pathway options                
 
                     togglePages([submitStep.NextSteps], true, submitStep._StepNo);
                     this.UpdatePathwayCompleted({pathway:"other", isCompleted:true})
@@ -271,7 +269,7 @@ export default class CompleteOtherForms extends Vue {
                 togglePages([p.OtherFormFilingLocation], true, this.currentStep);                
             }
         }
-    }
+    }   
 
     public requiresGuidedPathway(){
 
