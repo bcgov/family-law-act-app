@@ -46,7 +46,7 @@ export const FLA_Types = [
     {pathway:"guardianshipAffidavit",                       pdfType:"GA",    appType:"GA",           familyType:"OTHER",  fullName:"Guardianship Affidavit"},  
     {pathway:"noticeOfAddressChange",                       pdfType:"NCD",   appType:"NCD",          familyType:"OTHER",  fullName:"Notice of Address Change"},         
     {pathway:"noticeDiscontinuance",                        pdfType:"NDT",   appType:"NDT",          familyType:"OTHER",  fullName:"Notice of Discontinuance"},
-    // {pathway:"noticeExemptionParentingEducationProgram",    pdfType:"AFF",   appType:"AFF",          familyType:"OTHER",  fullName:"Notice of Exemption from Parenting Education Program"},
+    {pathway:"noticeExemptionParentingEducationProgram",    pdfType:"PASE",   appType:"PASE",        familyType:"OTHER",  fullName:"Notice of Exemption from Parenting Education Program"},
     {pathway:"noticeIntentionProceed",                      pdfType:"NPR",   appType:"NPR",          familyType:"OTHER",  fullName:"Notice of Intention to Proceed"},        
     {pathway:"noticeLawyerChild",                           pdfType:"NLC",   appType:"NLC",          familyType:"OTHER",  fullName:"Notice of Lawyer for Child"},
     {pathway:"noticeLawyerParty",                           pdfType:"NLP",   appType:"NLP",          familyType:"OTHER",  fullName:"Notice of Lawyer for Party"},    
@@ -57,7 +57,7 @@ export const FLA_Types = [
     {pathway:"referralRequest",                             pdfType:"REF",   appType:"REF",          familyType:"OTHER",  fullName:"Referral Request"},
     {pathway:"requestScheduling",                           pdfType:"RQS",   appType:"RQS",          familyType:"OTHER",  fullName:"Request for Scheduling"},    
     {pathway:"requestServiceDocuments",                     pdfType:"RFS",   appType:"RFS",          familyType:"OTHER",  fullName:"Request for Service of Documents"},
-    //{pathway:"requestServiceFPO",                           pdfType:"NLP",   appType:"NLP",          familyType:"OTHER",  fullName:"Request for Service of Family Protection Order"},
+    {pathway:"requestServiceFPO",                           pdfType:"RPS",   appType:"RPS",          familyType:"OTHER",  fullName:"Request for Service of Family Protection Order"},
     {pathway:"trialReadinessStatement",                     pdfType:"TRIS",  appType:"TRIS",         familyType:"OTHER",  fullName:"Trial Readiness Statement"},
 
     {pathway:"summons",                                     pdfType:"SUM",   appType:"SUM",          familyType:"OTHER",  fullName:"Summons – General"},

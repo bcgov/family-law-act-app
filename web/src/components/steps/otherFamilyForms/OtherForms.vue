@@ -160,16 +160,18 @@ export default class OtherForms extends Vue {
     fields = [        
         {
             key:"formName",    
-            label:"Name",    
+            label:"Form Name",    
             sortable: true,    
             thClass: 'border-bottom align-middle text-center text-primary bg-info', 
-            tdClass:'align-middle text-center'},
+            thStyle:{width: "40%"},
+            tdClass:'align-middle text-left'},
         {
             key:"formNumber",  
-            label:"Number",  
+            label:"Form Number",  
             sortable: true,    
             thClass: 'border-bottom align-middle text-center text-primary bg-info', 
-            tdClass:'align-middle text-center'}
+            thStyle:{width: "60%"},
+            tdClass:'align-middle text-left'}
                 
     ]; 
 
