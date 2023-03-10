@@ -1,6 +1,5 @@
 <template>
-<div v-if="dataReady">    
-   
+<div v-if="dataReady">
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <form-46-layout v-bind:result="result"/>
     </b-card>
@@ -37,19 +36,19 @@ export default class Form46 extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getRELOCResultData();       
+        this.result = this.getNACResultData();       
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
            
     public onPrint() { 
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("childReloc")
-        const pdf_name = "application-for-order-prohibiting-the-relocation-of-a-child"       
+        const pdf_type = Vue.filter('getPathwayPdfType')("noticeOfAddressChange")
+        const pdf_name = "notice-of-address-change"       
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA724    `+moment().format("MMMM D, YYYY")+` \\a           Form 16";`;
+        const bottomLeftText = `"PFA763    `+moment().format("MMMM D, YYYY")+` \\a           Form 46";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
@@ -70,17 +69,18 @@ export default class Form46 extends Vue {
         .then(res => {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"childReloc", isCompleted:true})
+            this.UpdatePathwayCompleted({pathway:"noticeOfAddressChange", isCompleted:true});
+
             this.$emit('enableNext',true)                   
         },err => {
             console.error(err);        
         });
     }
  
-    public getRELOCResultData() {         
+    public getNACResultData() {         
         
         const result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.RELOC._StepNo]){
+        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.NAC._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])
@@ -96,8 +96,7 @@ export default class Form46 extends Vue {
         else
             Object.assign(result, result,{applicationLocation: userLocation});
 
-        Vue.filter('extractRequiredDocuments')(result, 'childReloc')
-
+        
         return result;
     } 
 

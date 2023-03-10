@@ -162,7 +162,7 @@ export default class OtherFormFilingLocation extends Vue {
 
         if (this.determineContinue()){
             
-                //TODO: check pathways and activate steps
+            //TODO: check pathways and activate steps
             this.setGuidedPathwaySteps();                    
             
             toggleStep(submitStep._StepNo, true);  
@@ -174,17 +174,13 @@ export default class OtherFormFilingLocation extends Vue {
     public setGuidedPathwaySteps(){
 
         this.requiredGuidedPathways = [];
-
-        console.log(this.selectedFormInfoList)
-
-        
+                
         for (const selectedForm of this.selectedFormInfoList){
             
             if (selectedForm.pathwayExists && selectedForm.pathwayState){
                 this.requiredGuidedPathways.push(selectedForm.pathwayName);                
             }            
-        }
-        console.log(this.requiredGuidedPathways)
+        }        
         toggleStep(this.stPgNo.NAC._StepNo, this.requiredGuidedPathways.includes("noticeOfAddressChange"));        
     }   
 

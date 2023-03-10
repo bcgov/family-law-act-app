@@ -33,11 +33,7 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     step!: stepInfoType; 
     
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
-    
-
-    
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

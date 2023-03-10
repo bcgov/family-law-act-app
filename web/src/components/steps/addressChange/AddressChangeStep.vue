@@ -9,23 +9,27 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import StepBase from "../StepBase.vue";
-import AddressChange from "./AddressChange.vue";
-
-import AddressChangeNotice from "./AddressChangeNotice.vue";
-import { stepInfoType } from "@/types/Application";
-
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-
 import { namespace } from "vuex-class";   
+
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import StepBase from "../StepBase.vue";
+import AddressChange from "./AddressChange.vue";
+import AddressChangeNotice from "./AddressChangeNotice.vue";
+import ReviewYourAnswersNac from "./reviewNAC/ReviewYourAnswersNAC.vue";
+import PreviewFormsNac from "./reviewNAC/PreviewFormsNAC.vue";
+
+import { stepInfoType } from "@/types/Application";
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 @Component({
     components:{
         StepBase,        
         AddressChange,        
-        AddressChangeNotice        
+        AddressChangeNotice,
+        ReviewYourAnswersNac,
+        PreviewFormsNac        
     }
 })
 export default class AddressChangeStep extends Vue {

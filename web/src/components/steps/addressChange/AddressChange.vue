@@ -14,8 +14,6 @@ import surveyJson from "./forms/address-change.json";
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -25,20 +23,10 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-
 export default class AddressChange extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
-    @applicationState.State
-    public steps!: stepInfoType[];
-
-    @applicationState.State
-    public types!: string[];    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -72,7 +60,7 @@ export default class AddressChange extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('allExPO')//TODO: decide is this is required           
+            // Vue.filter('surveyChanged')('allExPO')//TODO: decide is this is required           
 
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);

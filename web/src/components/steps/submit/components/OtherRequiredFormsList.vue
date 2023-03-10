@@ -36,11 +36,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
 import { documentTypesJsonInfoType } from '@/types/Common';
 
 @Component
-export default class OtherFormsList extends Vue {    
+export default class OtherRequiredFormsList extends Vue {    
 
     @Prop({required: true})
     requiredDocumentLists!: documentTypesJsonInfoType[];   

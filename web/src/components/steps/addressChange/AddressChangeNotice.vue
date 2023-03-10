@@ -5,20 +5,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';    
+import { Component, Vue, Prop} from 'vue-property-decorator';   
+import { namespace } from "vuex-class";  
+import * as _ from 'underscore';  
 
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/address-change-notice.json";
-import * as surveyEnv from "@/components/survey/survey-glossary"
+import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import * as _ from 'underscore';
 
-import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
+
+import { togglePages } from '@/components/utils/TogglePages';
 
 @Component({
     components:{
@@ -38,9 +40,6 @@ export default class AddressChangeNotice extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
-
-    @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
     survey = new SurveyVue.Model(surveyJson);
@@ -51,6 +50,10 @@ export default class AddressChangeNotice extends Vue {
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
+    }
+
+    created() {
+        this.disableNextButton = false;       
     }
 
     mounted(){
@@ -69,8 +72,7 @@ export default class AddressChangeNotice extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            
-            // this.determineCaseMgntNeeded();                       
+            this.setPages();                     
         })   
     }
 
@@ -81,10 +83,38 @@ export default class AddressChangeNotice extends Vue {
 
         if (this.step.result?.addressChangeNoticeSurvey){
             this.survey.data = this.step.result.addressChangeNoticeSurvey.data;
+            this.setPages();
         }
 
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-        // this.determineCaseMgntNeeded();        
+        this.determineProgress();
+
+        //Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);     
+    }
+
+    public setPages() {
+
+        const p = this.stPgNo.NAC;
+        const noticeOfAddressChangePagesAll = [p.ReviewYourAnswersNAC ]
+
+        if (this.survey.data?.acknowledgement?.length > 0) {
+
+            togglePages(noticeOfAddressChangePagesAll, true, this.currentStep);
+            this.disableNextButton = false;
+                
+        } else { 
+            togglePages(noticeOfAddressChangePagesAll, false, this.currentStep);
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
+            this.disableNextButton = true;
+        }
+    }
+
+    public determineProgress(){
+        if (this.survey.data?.acknowledgement?.length > 0 ) {            
+            Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 100, false);
+            
+        } else {
+            Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        }
     }
 
     public onPrev() {
@@ -97,8 +127,9 @@ export default class AddressChangeNotice extends Vue {
         }
     }
 
-    beforeDestroy() {        
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
+    beforeDestroy() {      
+        this.determineProgress();  
+        //Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {addressChangeNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
