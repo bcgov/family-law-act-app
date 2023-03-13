@@ -25,11 +25,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 export default class PreviewFormsReloc extends Vue {
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
-    
-
-    
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     currentStep = 0;
     currentPage = 0;

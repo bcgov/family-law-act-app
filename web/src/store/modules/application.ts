@@ -2210,7 +2210,7 @@ class Application extends VuexModule {
     @Action
     public checkAllCompleted() {
         let newAllCompleted = false;
-        //TODO: check the admin forms pathway as well
+        //TODO: check the other forms pathway and each one of the corresponding pathways as well
         if(this.steps[0].result?.selectedForms){
             for(const selectedform of this.steps[0].result.selectedForms){
 

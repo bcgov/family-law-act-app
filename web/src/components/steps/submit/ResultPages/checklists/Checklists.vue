@@ -17,6 +17,7 @@
             <enfrc-file-order-checklist v-else-if="checklistType=='RORD'" :applicationId='applicationId'/>
             <wr-checklist v-else-if="checklistType=='WRA'" :applicationId='applicationId'/>
             <rflm-checklist v-if="checklistType=='RFLM'" :applicationId='applicationId'/>
+            <dis-checklist v-if="checklistType=='DIS'" :applicationId='applicationId'/>
             <stnd-checklist v-if="checklistType=='OTHER'" :applicationId='applicationId'/>
         </b-card>
     </div>
@@ -40,6 +41,7 @@ import EnfrcFileOrderChecklist from "./EnfrcFileOrderChecklist.vue";
 import EarlyResolutionsChecklist from "./EarlyResolutionsChecklist.vue";
 import WrChecklist from "./WrChecklist.vue";
 import StndChecklist from "./StndChecklist.vue";
+import DisChecklist from "./DisChecklist.vue";
 
 @Component({
     components:{        
@@ -56,7 +58,8 @@ import StndChecklist from "./StndChecklist.vue";
         EnfrcFileOrderChecklist,
         EarlyResolutionsChecklist,
         WrChecklist,
-        StndChecklist
+        StndChecklist,
+        DisChecklist
     }
 })
 export default class Checklists extends Vue {
@@ -71,20 +74,21 @@ export default class Checklists extends Vue {
     checklist;
 
     checklists=[
-        {name:'FLM', title:'Application About a Family Law Matter', pdfName:'Checklist_for_Family_Law_Matter.pdf'},
-        {name:'PO', title:'Application about a Protection Order', pdfName:'Checklist_for_Protection_Order.pdf'},
-        {name:'RFC', title:'Notice to Resolve Family Claim', pdfName:'Checklist_for_Notice_To_Resolve_Family_Claim.pdf'},
-        {name:'PPM', title:'Application About Priority Parenting Matter', pdfName:'Checklist_for_Priority_Parenting_Matter.pdf'},
-        {name:'RELOC', title:'Application for Order Prohibiting the Relocation of a Child', pdfName:'Checklist_for_Order_Prohibiting_the_Relocation_of_a_Child.pdf'},
-        {name:'ACMW', title:'Application for Case Management Order Without Notice or Attendance', pdfName:'Checklist_for_Case_Management_Order_Without_Notice_or_Attendance.pdf'},
-        {name:'ACMO', title:'Application for Case Management Order', pdfName:'Checklist_for_Application_for_Case_Management_Order.pdf'},        
-        {name:'RFA', title:'Request to File an Agreement', pdfName:'Checklist_for_Request_to_File_an_Agreement.pdf'},
-        {name:'AFET', title:'Application About Enforcement', pdfName:'Checklist_for_Application_About_Enforcement.pdf'},
-        {name:'RDET', title:'Request to File a Determination of Parenting Coordinator', pdfName:'Checklist_for_Request_to_File_a_Determination_of_Parenting_Coordinator.pdf'},
-        {name:'RORD', title:'Request to File an Order', pdfName:'Checklist_for_Request_to_File_an_Order.pdf'},
-        {name:'WRA', title:'Request to File an Order', pdfName:'Checklist_for_Written_Response_to_Application.pdf'},
-        {name:'RFLM', title:'Reply to Application About a Family Law Matter', pdfName:'Checklist_for_Reply_to_Family_Law_Matter.pdf'},
-        {name:'OTHER', title:'Other Forms', pdfName:'Checklist_for_Other_Forms.pdf'}
+        {name:'FLM',    title:'Application About a Family Law Matter', pdfName:'Checklist_for_Family_Law_Matter.pdf'},
+        {name:'PO',     title:'Application about a Protection Order', pdfName:'Checklist_for_Protection_Order.pdf'},
+        {name:'RFC',    title:'Notice to Resolve Family Claim', pdfName:'Checklist_for_Notice_To_Resolve_Family_Claim.pdf'},
+        {name:'PPM',    title:'Application About Priority Parenting Matter', pdfName:'Checklist_for_Priority_Parenting_Matter.pdf'},
+        {name:'RELOC',  title:'Application for Order Prohibiting the Relocation of a Child', pdfName:'Checklist_for_Order_Prohibiting_the_Relocation_of_a_Child.pdf'},
+        {name:'ACMW',   title:'Application for Case Management Order Without Notice or Attendance', pdfName:'Checklist_for_Case_Management_Order_Without_Notice_or_Attendance.pdf'},
+        {name:'ACMO',   title:'Application for Case Management Order', pdfName:'Checklist_for_Application_for_Case_Management_Order.pdf'},        
+        {name:'RFA',    title:'Request to File an Agreement', pdfName:'Checklist_for_Request_to_File_an_Agreement.pdf'},
+        {name:'AFET',   title:'Application About Enforcement', pdfName:'Checklist_for_Application_About_Enforcement.pdf'},
+        {name:'RDET',   title:'Request to File a Determination of Parenting Coordinator', pdfName:'Checklist_for_Request_to_File_a_Determination_of_Parenting_Coordinator.pdf'},
+        {name:'RORD',   title:'Request to File an Order', pdfName:'Checklist_for_Request_to_File_an_Order.pdf'},
+        {name:'WRA',    title:'Request to File an Order', pdfName:'Checklist_for_Written_Response_to_Application.pdf'},
+        {name:'RFLM',   title:'Reply to Application About a Family Law Matter', pdfName:'Checklist_for_Reply_to_Family_Law_Matter.pdf'},
+        {name:'OTHER',  title:'Other Forms', pdfName:'Checklist_for_Other_Forms.pdf'},
+        {name:'DIS',    title:'Notice of Discontinuance', pdfName:'Checklist_for_Notice_of_Discontinuance.pdf'}
     ]    
 
     mounted(){       

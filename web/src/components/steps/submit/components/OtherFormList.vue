@@ -71,9 +71,14 @@ export default class OtherFormList extends Vue {
     
     public initFormsTitle(){
 
+        const completeOtherFormsPageResults = this.$store.state.Application.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
+        const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
+        
         for(const form of this.formsListTemplate)        
-        {            
-            if(this.pathwayCompleted[form.appName]){
+        {
+            const pathwayInfo = selectedFormInfoList.filter(selectedForm => {if(selectedForm.pathwayName == form.appName) return form;})[0]
+                     
+            if(pathwayInfo?.pathwayState &&  this.pathwayCompleted[form.appName]){
 
                 if(this.generatedForms?.includes(form.name))
                     form.color = "success"

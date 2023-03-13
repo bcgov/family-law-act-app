@@ -148,6 +148,12 @@
                     Checklist for Reply to a Family Law Matter
                 </div>
                 <div 
+                    v-if="applicationDocumentTypes.includes('DIS')" 
+                    @click="checklist=true;checklistType='DIS';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Notice of Discontinuance
+                </div>
+                <div 
                     v-if="applicationDocumentTypes.includes('OTHER')" 
                     @click="checklist=true;checklistType='OTHER';" 
                     style="color:blue; cursor:pointer;">
@@ -328,7 +334,11 @@ export default class SuccessPage extends Vue {
                 this.applicationDocumentTypes.push('RFLM')
             }
 
-            //TODO: adjust based on files
+            if (pathways.includes('noticeDiscontinuance')){
+                this.applicationDocumentTypes.push('DIS')
+            }
+
+            //TODO: adjust based on files  
 
             if (pathways.includes('administrativeForms')){
                 this.applicationDocumentTypes.push('OTHER')

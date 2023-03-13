@@ -415,20 +415,27 @@
             }
         }
 
-        get isSubmissionReady(){          
+        get isSubmissionReady(){ 
+            
+            if (this.requiredDocumentLists.length > 0){
 
-            if (this.supportingDocuments.length == 0){
-                return false;
-            } else {
+                if (this.supportingDocuments.length == 0){
+                    return false;
+                } else {
 
-                const supportingDocumentTypes = this.supportingDocuments.map(doc => doc.documentType)
+                    const supportingDocumentTypes = this.supportingDocuments.map(doc => doc.documentType)
 
-                for (const doc of this.requiredDocumentLists){
-                    
-                    if (!supportingDocumentTypes.includes(doc.type)) return false;
+                    for (const doc of this.requiredDocumentLists){
+                        
+                        if (!supportingDocumentTypes.includes(doc.type)) return false;
+                    }
+                    return true;
                 }
+
+            } else {
                 return true;
             }
+            
         }
         
         public onPrev() {
