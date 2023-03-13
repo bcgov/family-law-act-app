@@ -103,7 +103,7 @@ import { getYourInformationResults, getLocationInfo } from '@/components/utils/P
     }
 })
 
-export default class Form16Layout extends Vue {
+export default class Form46Layout extends Vue {
 
     @Prop({required:true})
     result!: any;    

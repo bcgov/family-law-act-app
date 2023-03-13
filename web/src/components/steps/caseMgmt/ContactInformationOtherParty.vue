@@ -34,11 +34,7 @@ export default class ContactInformationOtherParty extends Vue {
     public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
-    public steps!: stepInfoType[];    
-
-    
-
-    
+    public steps!: stepInfoType[];       
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

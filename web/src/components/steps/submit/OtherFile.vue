@@ -348,7 +348,9 @@
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
 
 
-            const otherForms = FLA_Types.filter(type => type.familyType == "OTHER" || type.familyType == "NAC");
+            const otherForms = FLA_Types.filter(type => type.familyType == "OTHER" 
+                                || type.familyType == "NAC"
+                                || type.familyType == "DIS");
             this.fileTypes = [];            
             
             for (const otherForm of otherForms){

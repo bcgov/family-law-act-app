@@ -20,6 +20,7 @@ import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardia
 import { disagreeExistingSpouseSupportSurveyInfoType, disagreeSpouseSupportSurveyInfoType, relationshipToOtherPartySurveyInfoType, replyExistingSpouseSupportSurveyInfoType, replyNewSpouseSupportSurveyInfoType, rflmCalculatingSpouseSupportSurveyInfoType, rflmSpouseSupportOrderSurveyInfoType, rflmUnpaidSpouseSupportSurveyInfoType } from "./ReplyFamilyLawMatter/SpousalSupport";
 import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoType, otherFormsSurveyInfoType } from "./OtherFamilyForm";
 import { addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "./AddressChange";
+import { noticeDiscontinuanceSurveyInfoType, discontinuanceInformationSurveyInfoType, moreInformationSurveyInfoType } from "./Discontinuance";
 
 
 //This is what our database saves.
@@ -258,11 +259,16 @@ export interface stepInfoType {
     completeOtherFormsSurvey?: completeOtherFormsSurveyInfoType;
     otherFormsFilingLocationSurvey?: otherFormsFilingLocationSurveyInfoType;
 
-     //_____Step 11 ADDRESS CHANGE_____________    
+    //_____Step 11 ADDRESS CHANGE_____________    
     addressChangeSurvey?: addressChangeSurveyInfoType;    
     addressChangeNoticeSurvey?: addressChangeNoticeSurveyInfoType;
+
+    //_____Step 12 NOTICE OF DISCONTINUANCE_____________    
+    noticeDiscontinuanceSurvey?: noticeDiscontinuanceSurveyInfoType;    
+    discontinuanceInformationSurvey?: discontinuanceInformationSurveyInfoType;
+    moreInformationSurvey?: moreInformationSurveyInfoType;
     
-    //__Step 12 SUBMIT
+    //__Step 13 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -278,4 +284,5 @@ export interface stepInfoType {
     agreementEnfrc?: boolean;
     other?: boolean;
     noticeOfAddressChange?: boolean;
+    noticeDiscontinuance?: boolean;
   }

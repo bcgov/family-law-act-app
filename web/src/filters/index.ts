@@ -732,6 +732,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepCM = store.state.Application.stPgNo.CM;
 		const stepENFRC = store.state.Application.stPgNo.ENFRC;
 		const stepNAC = store.state.Application.stPgNo.NAC;
+		const stepDIS = store.state.Application.stPgNo.DIS;		
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -779,6 +780,11 @@ Vue.filter('surveyChanged', function(type: string) {
 			reviewPage = stepNAC.ReviewYourAnswersNAC; 
 			previewPages = [stepNAC.PreviewFormsNAC];
 		}
+		else if(typeName == 'noticeDiscontinuance'){
+			step = stepDIS._StepNo; 
+			reviewPage = stepDIS.ReviewYourAnswersDIS; 
+			previewPages = [stepDIS.PreviewFormsDIS];
+		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
@@ -800,7 +806,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance']
 	
 	if(type == 'allExPO'){
         
@@ -814,7 +820,8 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.childReloc = false;       
 		pathwayCompleted.agreementEnfrc = false;	
 		pathwayCompleted.other = false;	
-		pathwayCompleted.noticeOfAddressChange = false,
+		pathwayCompleted.noticeOfAddressChange = false;
+		pathwayCompleted.noticeDiscontinuance = false; 
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

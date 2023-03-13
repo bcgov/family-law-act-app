@@ -168,6 +168,7 @@ export class MigrateStore{
         pathwayCompleted.childReloc = false;       
         pathwayCompleted.agreementEnfrc = false;
         pathwayCompleted.noticeOfAddressChange = false;
+        pathwayCompleted.noticeDiscontinuance = false;
         //TODO: add the other pathway
         return pathwayCompleted;        
     }

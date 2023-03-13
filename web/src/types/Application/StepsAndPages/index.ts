@@ -13,6 +13,7 @@ export interface stepsAndPagesNumberInfoType{
     CONNECT: CONNECTstPgTypes;
     OTHER: OTHERstPgTypes;
     NAC: NACstPgTypes;
+    DIS: DISstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -277,6 +278,16 @@ export interface NACstPgTypes{
     AddressChangeNotice: number; 
     ReviewYourAnswersNAC: number;
     PreviewFormsNAC: number;
+}
+
+export interface DISstPgTypes{
+    _StepNo: number;    
+    
+    NoticeDiscontinuance: number;
+    DiscontinuanceInformation: number;
+    MoreInformation: number;
+    ReviewYourAnswersDIS: number;
+    PreviewFormsDIS: number;
 }
 
 export interface SUBMITstPgTypes{

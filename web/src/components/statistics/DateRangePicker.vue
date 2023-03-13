@@ -95,7 +95,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import moment from 'moment-timezone'
+import moment from 'moment-timezone';
 
 import * as _ from 'underscore';
 import { dateRangeInfoType } from '@/types/Common';
