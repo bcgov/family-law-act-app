@@ -76,6 +76,8 @@ export interface applicationDetailsInfoType {
     RFLM: formReportInfoType;
     WR: formReportInfoType;
     OTHER: formReportInfoType;
+    NAC: formReportInfoType;
+    DIS: formReportInfoType;
 }
 
 export interface eFilingInfoType {

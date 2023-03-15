@@ -31,7 +31,7 @@ export const FLA_Types = [
     
     {pathway:"replyCounterApplication",                     pdfType:"RCA",   appType:"RCA",          familyType:"CA",    fullName:"Reply to an Application About a Family Law Matter with Counter Application"},
     
-    {pathway:"affidavit",                                   pdfType:"AFF",   appType:"AFF",          familyType:"OTHER",  fullName:"Affidavit - General"}, 
+    {pathway:"affidavit",                                   pdfType:"AFF",   appType:"AFF",          familyType:"OTHER",  fullName:"Affidavit – General"}, 
     {pathway:"affidavitPersonalService",                    pdfType:"APS",   appType:"APS",          familyType:"OTHER",  fullName:"Affidavit of Personal service"},
     {pathway:"affidavitPersonalServicePO",                  pdfType:"APSP",  appType:"APSP",         familyType:"OTHER",  fullName:"Affidavit of Personal Service of Protection Order"},
         
@@ -44,9 +44,9 @@ export const FLA_Types = [
     
     {pathway:"financialStatement",                          pdfType:"FS",    appType:"FS",           familyType:"OTHER",  fullName:"Financial Statement"},
     {pathway:"guardianshipAffidavit",                       pdfType:"GA",    appType:"GA",           familyType:"OTHER",  fullName:"Guardianship Affidavit"},  
-    {pathway:"noticeOfAddressChange",                       pdfType:"NCD",   appType:"NCD",          familyType:"OTHER",  fullName:"Notice of Address Change"},         
-    {pathway:"noticeDiscontinuance",                        pdfType:"NDT",   appType:"NDT",          familyType:"OTHER",  fullName:"Notice of Discontinuance"},
-    {pathway:"noticeExemptionParentingEducationProgram",    pdfType:"PASE",   appType:"PASE",        familyType:"OTHER",  fullName:"Notice of Exemption from Parenting Education Program"},
+    {pathway:"noticeOfAddressChange",                       pdfType:"NCD",   appType:"NAC",          familyType:"NAC",    fullName:"Notice of Address Change"},         
+    {pathway:"noticeDiscontinuance",                        pdfType:"NDT",   appType:"DIS",          familyType:"DIS",    fullName:"Notice of Discontinuance"},
+    {pathway:"noticeExemptionParentingEducationProgram",    pdfType:"PASE",  appType:"PASE",         familyType:"OTHER",  fullName:"Notice of Exemption from Parenting Education Program"},
     {pathway:"noticeIntentionProceed",                      pdfType:"NPR",   appType:"NPR",          familyType:"OTHER",  fullName:"Notice of Intention to Proceed"},        
     {pathway:"noticeLawyerChild",                           pdfType:"NLC",   appType:"NLC",          familyType:"OTHER",  fullName:"Notice of Lawyer for Child"},
     {pathway:"noticeLawyerParty",                           pdfType:"NLP",   appType:"NLP",          familyType:"OTHER",  fullName:"Notice of Lawyer for Party"},    

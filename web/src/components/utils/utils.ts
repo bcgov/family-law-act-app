@@ -1,3 +1,4 @@
+import { nameInfoType } from "@/types/Application/CommonInformation";
 import Axios from "axios";
 import Vue from "vue";
 
@@ -33,7 +34,16 @@ export const SessionManager = {
                     this.logout(store);
                 }
                 const userName = response.data.display_name || response.data.first_name + " " + response.data.last_name;
+                const loggedInUserName = {} as nameInfoType;
+
+                if (response.data.first_name && response.data.last_name){
+                    loggedInUserName.first = response.data.first_name;
+                    loggedInUserName.middle = '';
+                    loggedInUserName.last = response.data.last_name;
+                }
+                 
                 store.commit("Application/setUserName", userName);
+                store.commit("Application/setLoggedInUserName", loggedInUserName);
                 store.commit("Common/setUserId", userId);
                 store.commit("Common/setUserLocation",userLocation);
                 store.commit("Common/setEfilingEnabled", efilingEnabled);

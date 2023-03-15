@@ -1,25 +1,26 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';   
+import { namespace } from "vuex-class";  
+import * as _ from 'underscore';  
 
 import * as SurveyVue from "survey-vue";
+import surveyJson from "./forms/address-change-notice.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/reloc-questionnaire.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { togglePages } from '@/components/utils/TogglePages';
 
-import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import { togglePages } from '@/components/utils/TogglePages';
 
 @Component({
     components:{
@@ -27,21 +28,24 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
     }
 })
 
-export default class RelocationOfChildQuestionnaire extends Vue {
-    
+export default class AddressChangeNotice extends Vue {
+        
     @Prop({required: true})
-    step!: stepInfoType; 
-    
+    step!: stepInfoType;
+
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
     currentStep =0;
-    currentPage =0;
+    currentPage =0;   
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -64,50 +68,49 @@ export default class RelocationOfChildQuestionnaire extends Vue {
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }
+    }    
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('childReloc')
-
-            this.setPages();
-        })
+            this.setPages();                     
+        })   
     }
-    
-    public reloadPageInformation() {
 
+    public reloadPageInformation() {
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.relocQuestionnaireSurvey?.data) {
-            this.survey.data = this.step.result.relocQuestionnaireSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName); 
-            this.setPages();                 
-        }        
+        if (this.step.result?.addressChangeNoticeSurvey){
+            this.survey.data = this.step.result.addressChangeNoticeSurvey.data;
+            this.setPages();
+        }
 
         this.determineProgress();
+
+        //Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);     
     }
 
     public setPages() {
 
-        const p = this.stPgNo.RELOC;
-        const relocationOfChildPagesAll = [p.RelocChildrenInfo, p.RelocChildBestInterestInfo, p.ReviewYourAnswersRELOC ]
+        const p = this.stPgNo.NAC;
+        const noticeOfAddressChangePagesAll = [p.ReviewYourAnswersNAC ]
 
-        if (this.survey.data?.ExistingParentingArrangements == 'n' || 
-           (this.survey.data?.ExistingParentingArrangements == 'y' && this.survey.data?.impactOnChild == 'n')) {
-                togglePages(relocationOfChildPagesAll, false, this.currentStep);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-                this.disableNextButton = true;
-        } else {
-            togglePages(relocationOfChildPagesAll, true, this.currentStep);
+        if (this.survey.data?.acknowledgement?.length > 0) {
+
+            togglePages(noticeOfAddressChangePagesAll, true, this.currentStep);
             this.disableNextButton = false;
+                
+        } else { 
+            togglePages(noticeOfAddressChangePagesAll, false, this.currentStep);
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
+            this.disableNextButton = true;
         }
     }
 
     public determineProgress(){
-        if (this.survey.data?.ExistingParentingArrangements == 'n' || 
-            (this.survey.data?.ExistingParentingArrangements == 'y' && this.survey.data?.impactOnChild == 'n')) {            
-            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
+        if (this.survey.data?.acknowledgement?.length > 0 ) {            
+            Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 100, false);
             
         } else {
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
@@ -123,10 +126,11 @@ export default class RelocationOfChildQuestionnaire extends Vue {
             Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
-    
-    beforeDestroy() {
-        this.determineProgress();
-        this.UpdateStepResultData({step:this.step, data: {relocQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}});
+
+    beforeDestroy() {      
+        this.determineProgress();  
+        //Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
+        this.UpdateStepResultData({step:this.step, data: {addressChangeNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

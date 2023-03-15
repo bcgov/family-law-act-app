@@ -19,6 +19,7 @@ class Application extends VuexModule {
     public currentStep = 1    
     public userType = ""
     public userName = ""
+    public loggedInUserName = {} as nameInfoType;
     public userId = ""
     public version = "";
     public applicantName = {} as nameInfoType;
@@ -50,7 +51,9 @@ class Application extends VuexModule {
         priorityParenting:false, 
         childReloc:false, 
         agreementEnfrc:false,
-        other: false
+        other: false,
+        noticeOfAddressChange: false,
+        noticeDiscontinuance: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1805,11 +1808,120 @@ class Application extends VuexModule {
     
         this.steps.push(s);
 
+        // OTHER Stop
+
+        // Address Change START
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "13";
+        s.name = "NAC";
+        s.label = "Address Change";
+        s.icon = "fa fa-envelope";
+        s.lastUpdate = null;
+        s.type = "addressChange";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "AddressChange";
+        p.label = "Address Change";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AddressChangeNotice";
+        p.label = "Notice";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "ReviewYourAnswersNAC";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "PreviewFormsNAC";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Address Change STOP
+
+        // Discontinuance START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "14";
+        s.name = "DIS";
+        s.label = "Notice of Discontinuance";
+        s.icon = "fa fa-ban";
+        s.lastUpdate = null;
+        s.type = "discontinuance";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeDiscontinuance";
+        p.label = "Notice of Discontinuance";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "DiscontinuanceInformation";
+        p.label = "Discontinuance Information ";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+        
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "MoreInformation";
+        p.label = "More Information ";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersDIS";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsDIS";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Discontinuance STOP
+
         //Submit START
         s = {} as stepInfoType;
 
         s.active = false;
-        s.id = "13";
+        s.id = "15";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -1928,6 +2040,16 @@ class Application extends VuexModule {
     @Action
     public UpdateUserName(newUserName) {
         this.context.commit("setUserName", newUserName);
+    }
+
+    @Mutation
+    public  setLoggedInUserName(loggedInUserName: nameInfoType): void {
+        this.loggedInUserName = loggedInUserName;
+    }
+
+    @Action
+    public UpdateLoggedInUserName(newLoggedInUserName: nameInfoType) {
+        this.context.commit("setLoggedInUserName", newLoggedInUserName);
     }
     
     @Mutation
@@ -2099,7 +2221,7 @@ class Application extends VuexModule {
     @Action
     public checkAllCompleted() {
         let newAllCompleted = false;
-        //TODO: check the admin forms pathway as well
+        //TODO: check the other forms pathway and each one of the corresponding pathways as well
         if(this.steps[0].result?.selectedForms){
             for(const selectedform of this.steps[0].result.selectedForms){
 
@@ -2281,7 +2403,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NAC:{}, DIS:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

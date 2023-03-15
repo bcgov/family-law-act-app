@@ -18,7 +18,9 @@
             <enforcement-agree-step v-if="getCurrentStepIndex() == 10" v-bind:step="getStep(10)"></enforcement-agree-step>
             <step-connect v-if="getCurrentStepIndex() == 11" v-bind:step="getStep(11)"></step-connect>
             <other-form-step v-if="getCurrentStepIndex() == 12" v-bind:step="getStep(12)"></other-form-step>
-            <step-submit v-if="getCurrentStepIndex() == 13" v-bind:step="getStep(13)"></step-submit>
+            <address-change-step v-if="getCurrentStepIndex() == 13" v-bind:step="getStep(13)"></address-change-step>
+            <discontinuance-step v-if="getCurrentStepIndex() == 14" v-bind:step="getStep(14)"></discontinuance-step>
+            <step-submit v-if="getCurrentStepIndex() == 15" v-bind:step="getStep(15)"></step-submit>
     
         </main>
     </div>
@@ -41,6 +43,8 @@ import ChildRelocationStep from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgreeStep from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
 import StepConnect from "./steps/connect/StepConnect.vue";
 import OtherFormStep from "./steps/otherFamilyForms/OtherFormStep.vue";
+import AddressChangeStep from "./steps/addressChange/AddressChangeStep.vue";
+import DiscontinuanceStep from "./steps/discontinuance/DiscontinuanceStep.vue";
 import StepSubmit from "./steps/submit/StepSubmit.vue";
 
 import * as surveyEnv from "@/components/survey/survey-glossary";
@@ -61,7 +65,9 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
         ReplyFamilyLawStep,
         WrittenResponseStep,
         CounterApplicationStep,
-        OtherFormStep
+        OtherFormStep,
+        AddressChangeStep,
+        DiscontinuanceStep
     }
 })
 

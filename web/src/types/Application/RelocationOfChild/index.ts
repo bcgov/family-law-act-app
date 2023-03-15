@@ -11,8 +11,8 @@ export interface relocChildrenInfoSurveyInfoType {
 export interface relocChildrenInfoDataInfoType {
     name: nameInfoType;
     dob: string;
-    currentLiving:string;
-    id:number;
+    currentLiving: string;
+    id: number;
 }
 
 export interface relocQuestionnaireSurveyInfoType {

@@ -1,14 +1,14 @@
 <template>
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">           
-            <form16 @enableNext="EnableNext"/>
+            <form46 @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue} from 'vue-property-decorator';
-import Form16 from  "./pdf/Form16.vue"
+import Form46 from  "./pdf/Form46.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -18,11 +18,11 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{       
-        Form16,
+        Form46,
         PageBase
     }
 })
-export default class PreviewFormsReloc extends Vue {
+export default class PreviewFormsNac extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
@@ -38,7 +38,7 @@ export default class PreviewFormsReloc extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);       
-        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.RELOC._StepNo])) this.dataReady = true;
+        if(this.checkErrorOnPages([this.stPgNo.OTHER._StepNo, this.stPgNo.NAC._StepNo])) this.dataReady = true;
         window.scrollTo(0, 0);
     }   
 
@@ -57,7 +57,7 @@ export default class PreviewFormsReloc extends Vue {
 
     public checkErrorOnPages(steps){
 
-        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms"]
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms", "File"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){

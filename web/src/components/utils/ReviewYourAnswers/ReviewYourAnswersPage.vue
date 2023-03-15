@@ -34,7 +34,6 @@
                     striped
                     bordered
                     fixed>
-                    
                         <template v-slot:table-colgroup>
                             <col style="width:35rem"> 
                             <col style="width:25rem"> 
@@ -125,6 +124,7 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{applicationList}/g, getWrittenResponseApplications(this.$store.state.Application.types).join(' and '));
         adjQuestion = adjQuestion.replace(/{calculationDate}/g,'the above mentioned date');
         adjQuestion = adjQuestion.replace(/{disagreeReasonQuestion}/g,'Why don’t you agree with the requested order?');
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>", "What is the full name of the other party?");
         return adjQuestion
     }
 
@@ -144,7 +144,7 @@ export default class ReviewYourAnswersPage extends Vue {
            return this.getMultipleCommentCheckboxResults(value)
         }    
         else if(Array.isArray(value))
-        {        
+        {   
             if(value[0]?.date && value[0]?.name && value[0]?.nameOther && value[0]?.relationship) return this.getGuardianOfChildTable(value)    
             if(value[0] && value[0] instanceof String && value[0]?.substring(0,5)=='child') return this.getChildrenNames(value)  
             if(value[0]?.childName)return this.getChildInfo(value) 
@@ -155,10 +155,13 @@ export default class ReviewYourAnswersPage extends Vue {
                 else
                     return value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');                
             }
+            if (dataItem.name == 'otherPartyInfoDis'){
+                return this.getOtherPartyInfo(value);
+            }
             else{
                 this.pageHasError = true;
                 return "REQUIRED";
-            } 
+            }            
         }
         else if(value == 'y')
             return 'Yes';
@@ -251,6 +254,18 @@ export default class ReviewYourAnswersPage extends Vue {
             }
         }
         return result
+    }
+
+    public getOtherPartyInfo(otherPartyList){
+
+        let result = '';
+
+        if(otherPartyList.length>0){
+            for(const otherParty of otherPartyList ){
+                result += Vue.filter('getFullName')(otherParty.name)+'\n'                
+            }
+        }
+        return result;
     }
 
     public getAnotherAdultInfo(adults){

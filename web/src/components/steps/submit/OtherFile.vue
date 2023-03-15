@@ -52,7 +52,7 @@
                     during your court appearance.
                 </span>           
             
-                <form-list type="Print" :currentPage="currentPage"/>
+                <other-form-list :type="eFiling?'Submit':'Print'" :currentPage="currentPage"/>
 
                 <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
@@ -69,7 +69,7 @@
                 bg-variant="white" 
                 class="mt-4 mb-2">
 
-                <other-forms-list :requiredDocumentLists="requiredDocumentLists" title="Upload Documents:" />
+                <other-required-forms-list :requiredDocumentLists="requiredDocumentLists"/>
                 
                 <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">
@@ -240,10 +240,10 @@
 
 
     import PageBase from "@/components/steps/PageBase.vue";   
-    import OtherFormsList from "./components/OtherFormsList.vue";  
+    import OtherRequiredFormsList from "./components/OtherRequiredFormsList.vue";  
     import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";
     import Tooltip from "@/components/survey/Tooltip.vue";
-    import FormList from "./components/FormList.vue";
+    import OtherFormList from "./components/OtherFormList.vue";
  
     import "@/store/modules/application";
     const applicationState = namespace("Application");
@@ -259,10 +259,10 @@
     @Component({
         components:{
             PageBase,
-            OtherFormsList,
+            OtherRequiredFormsList,
             GetHelpForPdf,
             Tooltip,
-            FormList
+            OtherFormList
         }
     })    
     export default class OtherFile extends Vue {
@@ -348,7 +348,9 @@
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
 
 
-            const otherForms = FLA_Types.filter(type => type.familyType == "OTHER");
+            const otherForms = FLA_Types.filter(type => type.familyType == "OTHER" 
+                                || type.familyType == "NAC"
+                                || type.familyType == "DIS");
             this.fileTypes = [];            
             
             for (const otherForm of otherForms){
@@ -413,20 +415,27 @@
             }
         }
 
-        get isSubmissionReady(){          
+        get isSubmissionReady(){ 
+            
+            if (this.requiredDocumentLists.length > 0){
 
-            if (this.supportingDocuments.length == 0){
-                return false;
-            } else {
+                if (this.supportingDocuments.length == 0){
+                    return false;
+                } else {
 
-                const supportingDocumentTypes = this.supportingDocuments.map(doc => doc.documentType)
+                    const supportingDocumentTypes = this.supportingDocuments.map(doc => doc.documentType)
 
-                for (const doc of this.requiredDocumentLists){
-                    
-                    if (!supportingDocumentTypes.includes(doc.type)) return false;
+                    for (const doc of this.requiredDocumentLists){
+                        
+                        if (!supportingDocumentTypes.includes(doc.type)) return false;
+                    }
+                    return true;
                 }
+
+            } else {
                 return true;
             }
+            
         }
         
         public onPrev() {
@@ -466,12 +475,18 @@
                 }
             }
             
-            // docType.push({type:"FPO"})
+            docType.push({type:"FPO"})
             
             const docTypeJson = JSON.stringify(docType);
-            bodyFormData.append('documents', docTypeJson);          
-
-            const url = "/efiling/"+this.id+"/submit/" 
+            bodyFormData.append('documents', docTypeJson);    
+            
+            let url = "";
+            if (this.includesGuidedPathway()){
+                url = "/efiling/"+this.id+"/submit/";
+            } else {
+                url = "/efiling/"+this.id+"/submit/?standalone=true"; 
+            }
+            
             const header = {
                 responseType: "json",
                 headers: {
@@ -547,7 +562,6 @@
 
             this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]              
            
-
             const otherFormsStepResults = this.steps[this.stPgNo.OTHER._StepNo].result;  
             this.eFiling = otherFormsStepResults?.otherFormsSurvey?.data?.filingMethod == 'eFile'; 
             this.requiredDocumentLists = [];
@@ -565,7 +579,6 @@
                         this.requiredDocumentLists.push({description: name, type: pdfType});                       
                     }            
                 }
-
             }           
 
         }
@@ -589,9 +602,7 @@
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");
-        } 
-
-        
+        }         
 
     }
 </script>

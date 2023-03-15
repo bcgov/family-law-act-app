@@ -10,7 +10,7 @@ export interface relocationOfChildInformationDataInfoType {
     impactOnChild: boolean;
     presumedRelocationDate?: string;
     presumedLocation?: string;
-    childBestInterestAcknowledgement?:boolean;
+    childBestInterestAcknowledgement?: boolean;
     childBestInterestReason?: string;
 }
 

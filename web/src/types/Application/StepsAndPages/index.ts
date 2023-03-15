@@ -12,6 +12,8 @@ export interface stepsAndPagesNumberInfoType{
     ENFRC: ENFRCstPgTypes;
     CONNECT: CONNECTstPgTypes;
     OTHER: OTHERstPgTypes;
+    NAC: NACstPgTypes;
+    DIS: DISstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -267,6 +269,25 @@ export interface OTHERstPgTypes{
     OtherForms: number; 
     CompleteOtherForms: number;   
     OtherFormFilingLocation: number;
+}
+
+export interface NACstPgTypes{
+    _StepNo: number;
+    
+    AddressChange: number;
+    AddressChangeNotice: number; 
+    ReviewYourAnswersNAC: number;
+    PreviewFormsNAC: number;
+}
+
+export interface DISstPgTypes{
+    _StepNo: number;    
+    
+    NoticeDiscontinuance: number;
+    DiscontinuanceInformation: number;
+    MoreInformation: number;
+    ReviewYourAnswersDIS: number;
+    PreviewFormsDIS: number;
 }
 
 export interface SUBMITstPgTypes{

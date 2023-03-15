@@ -131,6 +131,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import {stepInfoType, stepResultInfoType } from "@/types/Application";
 import { otherFormInfoType, otherFormPathwayInfoType } from '@/types/Application/OtherFamilyForm';
 import { togglePages, toggleStep } from '@/components/utils/TogglePages';
+import { nameInfoType } from '@/types/Application/CommonInformation';
 
 @Component({
     components:{
@@ -146,11 +147,17 @@ export default class CompleteOtherForms extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
+    @applicationState.State
+    public loggedInUserName!: nameInfoType;
+
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void      
 
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
+
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
     
     selectedForms: otherFormInfoType[] = [];
     selectedFormInfoList: otherFormPathwayInfoType[] = [];
@@ -254,14 +261,12 @@ export default class CompleteOtherForms extends Vue {
 
             if (this.filingMethod == "inPerson"){
 
-                if (this.requiresGuidedPathway()){                  
-                    
+                if (this.requiresGuidedPathway()){ 
                     togglePages([p.OtherFormFilingLocation], true, this.currentStep);
-                    //TODO: check pathways and activate steps
-                    
                 } else {
                     
-                    toggleStep(submitStep._StepNo, true);                    
+                    toggleStep(submitStep._StepNo, true);  
+                    //TODO: reset steps for required pathway options                
 
                     togglePages([submitStep.NextSteps], true, submitStep._StepNo);
                     this.UpdatePathwayCompleted({pathway:"other", isCompleted:true})
@@ -271,7 +276,7 @@ export default class CompleteOtherForms extends Vue {
                 togglePages([p.OtherFormFilingLocation], true, this.currentStep);                
             }
         }
-    }
+    }   
 
     public requiresGuidedPathway(){
 
@@ -325,8 +330,19 @@ export default class CompleteOtherForms extends Vue {
     beforeDestroy() {
         const progress = this.allFormsDecided? 100 : 50;
         const pageData = {selectedFormInfoList: this.selectedFormInfoList};
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);         
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);  
         this.UpdateStepResultData({step:this.step, data: {completeOtherFormsSurvey: {data: pageData, currentStep:this.currentStep, currentPage:this.currentPage}}});
+        
+        if (!this.requiresGuidedPathway()) {
+
+            const commonData = {
+                'applicantName':{first:this.loggedInUserName.first, middle:"", last:this.loggedInUserName.last},
+                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}]
+            };
+
+            this.UpdateCommonStepResults({data:commonData});
+        }      
+        
     }
 }
 </script>

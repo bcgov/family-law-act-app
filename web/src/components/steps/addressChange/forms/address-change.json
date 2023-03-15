@@ -1,0 +1,151 @@
+{
+  "title": "Address Change",
+  "pages": [
+    {
+      "name": "Address Change",
+      "description": "Have you moved? Hired a lawyer? Decided to start representing yourself?<br><br><a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section175'>Rule 175</a> requires you to file a notice of change of address in Form 46 <i>[Notice of Address Change]</i> and serve a copy on each other party as soon as possible if your address for service changes. The court must always have current contact information for you.<br><br>Use this pathway to complete your change of address for service.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "elements": [
+            {
+              "type": "personname",
+              "name": "ApplicantName",
+              "title": "What is your full name?",
+              "description": "This is the name of the person who is changing their address for service. Copy the name from any filed court document.",
+              "isRequired": true,              
+              "defaultSubstitution": "(Applicant Name)",
+              "descFirstName": "First Name is also known as Given Name",
+              "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+              "descLastName": "Last Name is also known as Family Name or Surname"
+            },
+            {
+              "type": "yesno",
+              "name": "Lawyer",
+              "title": "Has a lawyer agreed to receive court documents for you?",
+              "description": "You do not need a lawyer to go to court. Some lawyers are hired for a limited purpose. For example, you may hire a lawyer only to give you legal advice, help you to complete court documents or come to a court appearance with you. You will still be responsible for all other aspects of your case. If you hire a lawyer for a limited purpose, make sure you and the lawyer are clear about whether their name and address goes on the court documents. Usually it won’t.",
+              "isRequired": true
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLawyer1",
+              "title": "What if I plan to get a lawyer but I haven't done that yet?",
+              "titleLocation": "hidden",
+              "body": "Until you hire a lawyer, you will need to provide a different address where you can receive court document. Select no for the question above.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLawyer2",
+              "title": "What if I used to have a lawyer but not anymore?",
+              "titleLocation": "hidden",
+              "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.\n<br>\n<br>\nIf you already have a Provincial Court Family Law file and you don't have a lawyer anymore, you may need to update your address for service.\n<br>\n<br>\n<a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa763.pdf?forcedownload=true' target='_blank'>Click here to download the form.</a> (This link will open in a new tab.)"
+            },
+            {
+              "type": "infotext",
+              "name": "ExplanationServiceAddress",
+              "visible": false,
+              "visibleIf": "{Lawyer} = 'n'",
+              "title": "Remember, you need to give an address where you can receive court documents by mail. It does not need to be your home address or the address where you are living. The other party will see this address on your court documents.\n<br>\n<br>\nIf you do not have a stable mailing address, or you are worried about your safety, you can give the address of a friend or family member, or somewhere that mail can be collected for you.\n<br>\n<br>\nIf the address is outside of Canada, please select the country first before entering the address information.",
+              "isRequired": true,
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "panel",
+              "name": "ApplicantContactPanel",
+              "elements": [
+                {
+                  "type": "address",
+                  "name": "ApplicantAddress",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'n')",
+                  "title": "What is the address where you want to receive court documents?",
+                  "description": "The other party will see this address on court documents.",
+                  "isRequired": true,
+                  "referLabel": "Applicant's Address",
+                  "validators": [
+                    {
+                      "type": "expression",
+                      "text": "Please Fill in all Required Fields.",
+                      "expression": "{ApplicantAddress.street} notempty and {ApplicantAddress.postcode} notempty and {ApplicantAddress.city} notempty"
+                    }
+                  ]
+                },
+                {
+                  "type": "contactinfo",
+                  "name": "ApplicantContact",
+                  "visible": false,
+                  "visibleIf": "{Lawyer} = 'n'",
+                  "title": "Contact Information",
+                  "description": "The other party will see this contact information on your court documents. <br/><br/>If you provide an email address, the court registry and the other party can send documents or communicate with you by email instead of using mail. If you can’t or don’t want to use email, you don’t have to give an email address.",
+                  "isRequired": true,
+                  "labelEmail": "Email",
+                  "labelFax": "Fax Number (Optional)",
+                  "labelPhone": "Daytime Phone Number"
+                }
+              ],
+              "visible": false,
+              "visibleIf": "{Lawyer} = 'n' and {ExplanationServiceAddress} > 0"
+            },
+            {
+              "type": "panel",
+              "name": "LawyerContactPanel",
+              "elements": [
+                {
+                  "type": "personname",
+                  "name": "LawyerName",
+                  "visibleIf": "{Lawyer} = 'y'",
+                  "title": "What is your lawyer's full name?",
+                  "isRequired": true
+                },
+                {
+                  "type": "infotext",
+                  "name": "ExplanationLawyerAddress",
+                  "visible": false,
+                  "visibleIf": "{Lawyer} = 'y'",
+                  "title": "If the address is outside of Canada, please select the country first before entering the address information.",                  
+                  "titleLocation": "hidden"
+                },
+                {
+                  "type": "address",
+                  "name": "LawyerAddress",
+                  "visibleIf": "{Lawyer} = 'y'",
+                  "title": "What is your lawyer's address?",
+                  "isRequired": true,
+                  "referLabel": "Applicant's Lawyer's Address",
+                  "validators": [
+                    {
+                      "type": "expression",
+                      "text": "Please Fill in all Required Fields.",
+                      "expression": "{LawyerAddress.street} notempty and {LawyerAddress.postcode} notempty and {LawyerAddress.city} notempty"
+                    }
+                  ]
+                },
+                {
+                  "type": "contactinfo",
+                  "name": "LawyerContact",
+                  "visibleIf": "{Lawyer} = 'y'",
+                  "title": "Lawyer's Contact Information",
+                  "isRequired": true
+                }
+              ],
+              "visible": false,
+              "visibleIf": "{Lawyer} = 'y'"
+            },            
+            {
+              "type": "text",
+              "name": "ChangeOfAddressDate",
+              "title": "On what date is your change of address current?",
+              "description": "Remember, the court needs a current, up-to-date, address for you.<br><br>If your address has already changed, you should give the date in the past that your address changed. If this applies to you, and there has been a delay filing your Notice of Address Change, you may want to check with the court registry to make sure you didn’t miss any important notice.<br><br>If you know your address will be changing, you can also file your Notice of Address Change before it does. This helps make sure you don’t miss any important notice. Give the date in the future that your new address will apply.<br><br>If the change starts today, use today’s date.",
+              "isRequired": true,
+              "inputType": "date"
+            }
+          ]
+        }
+      ],
+      "title": "Address Change"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

@@ -153,9 +153,14 @@ class EFilingSubmitView(generics.GenericAPIView):
         return output
 
     def _process_incoming_files_and_documents(
-        self, application, application_steps, incoming_documents, incoming_files
+        self, standalone, application, application_steps, incoming_documents, incoming_files
     ):
-        outgoing_documents = self._get_pdf_content(application, application_steps)
+        outgoing_documents = list() 
+
+        if standalone==False:
+            application_document = self._get_pdf_content(application, application_steps)
+            outgoing_documents.append(application_document)
+
         for incoming_document in incoming_documents:
             if "files" not in incoming_document:
                 continue
@@ -219,6 +224,8 @@ class EFilingSubmitView(generics.GenericAPIView):
         documents_string = request.POST.get("documents")
         request_files = request.FILES.getlist("files")
 
+        standalone = bool(request.query_params.get("standalone"))        
+
         # Validations.
         validations_errors = self._get_validation_errors(
             request_files, documents_string
@@ -240,7 +247,7 @@ class EFilingSubmitView(generics.GenericAPIView):
         incoming_documents = json.loads(documents_string)
 
         outgoing_documents = self._process_incoming_files_and_documents(
-            application, application_steps, incoming_documents, request_files
+            standalone, application, application_steps, incoming_documents, request_files
         )
         del request_files
 
