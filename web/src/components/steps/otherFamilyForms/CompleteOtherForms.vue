@@ -151,6 +151,9 @@ export default class CompleteOtherForms extends Vue {
 
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
+
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
     
     selectedForms: otherFormInfoType[] = [];
     selectedFormInfoList: otherFormPathwayInfoType[] = [];
@@ -325,6 +328,7 @@ export default class CompleteOtherForms extends Vue {
         const pageData = {selectedFormInfoList: this.selectedFormInfoList};
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);         
         this.UpdateStepResultData({step:this.step, data: {completeOtherFormsSurvey: {data: pageData, currentStep:this.currentStep, currentPage:this.currentPage}}});
+        this.UpdateCommonStepResults({data:{'applicantName':{first:"firstApp", middle:"", last:"lastApp"},'respondents':[{first:"firstRes", middle:"", last:"lastRes"}]}})
     }
 }
 </script>
