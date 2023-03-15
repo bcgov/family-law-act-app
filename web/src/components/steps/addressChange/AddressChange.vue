@@ -96,7 +96,13 @@ export default class AddressChange extends Vue {
 
         if(this.survey.data?.["ApplicantName"]) {
             this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-            this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
+            // this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
+            const commonData = {
+                'applicantName':this.survey.data["ApplicantName"],
+                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}]
+            };
+
+            this.UpdateCommonStepResults({data:commonData});
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
