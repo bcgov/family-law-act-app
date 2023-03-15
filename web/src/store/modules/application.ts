@@ -19,6 +19,7 @@ class Application extends VuexModule {
     public currentStep = 1    
     public userType = ""
     public userName = ""
+    public loggedInUserName = {} as nameInfoType;
     public userId = ""
     public version = "";
     public applicantName = {} as nameInfoType;
@@ -2039,6 +2040,16 @@ class Application extends VuexModule {
     @Action
     public UpdateUserName(newUserName) {
         this.context.commit("setUserName", newUserName);
+    }
+
+    @Mutation
+    public  setLoggedInUserName(loggedInUserName: nameInfoType): void {
+        this.loggedInUserName = loggedInUserName;
+    }
+
+    @Action
+    public UpdateLoggedInUserName(newLoggedInUserName: nameInfoType) {
+        this.context.commit("setLoggedInUserName", newLoggedInUserName);
     }
     
     @Mutation

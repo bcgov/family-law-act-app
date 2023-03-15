@@ -478,9 +478,15 @@
             docType.push({type:"FPO"})
             
             const docTypeJson = JSON.stringify(docType);
-            bodyFormData.append('documents', docTypeJson);          
-
-            const url = "/efiling/"+this.id+"/submit/?standalone=true" 
+            bodyFormData.append('documents', docTypeJson);    
+            
+            let url = "";
+            if (this.includesGuidedPathway()){
+                url = "/efiling/"+this.id+"/submit/";
+            } else {
+                url = "/efiling/"+this.id+"/submit/?standalone=true"; 
+            }
+            
             const header = {
                 responseType: "json",
                 headers: {

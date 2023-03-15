@@ -31,7 +31,7 @@ export const FLA_Types = [
     
     {pathway:"replyCounterApplication",                     pdfType:"RCA",   appType:"RCA",          familyType:"CA",    fullName:"Reply to an Application About a Family Law Matter with Counter Application"},
     
-    {pathway:"affidavit",                                   pdfType:"AFF",   appType:"AFF",          familyType:"OTHER",  fullName:"Affidavit - General"}, 
+    {pathway:"affidavit",                                   pdfType:"AFF",   appType:"AFF",          familyType:"OTHER",  fullName:"Affidavit – General"}, 
     {pathway:"affidavitPersonalService",                    pdfType:"APS",   appType:"APS",          familyType:"OTHER",  fullName:"Affidavit of Personal service"},
     {pathway:"affidavitPersonalServicePO",                  pdfType:"APSP",  appType:"APSP",         familyType:"OTHER",  fullName:"Affidavit of Personal Service of Protection Order"},
         

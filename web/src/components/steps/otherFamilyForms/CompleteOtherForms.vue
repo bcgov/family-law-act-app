@@ -131,6 +131,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import {stepInfoType, stepResultInfoType } from "@/types/Application";
 import { otherFormInfoType, otherFormPathwayInfoType } from '@/types/Application/OtherFamilyForm';
 import { togglePages, toggleStep } from '@/components/utils/TogglePages';
+import { nameInfoType } from '@/types/Application/CommonInformation';
 
 @Component({
     components:{
@@ -145,6 +146,9 @@ export default class CompleteOtherForms extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public loggedInUserName!: nameInfoType;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void      
@@ -326,9 +330,19 @@ export default class CompleteOtherForms extends Vue {
     beforeDestroy() {
         const progress = this.allFormsDecided? 100 : 50;
         const pageData = {selectedFormInfoList: this.selectedFormInfoList};
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);         
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);  
         this.UpdateStepResultData({step:this.step, data: {completeOtherFormsSurvey: {data: pageData, currentStep:this.currentStep, currentPage:this.currentPage}}});
-        this.UpdateCommonStepResults({data:{'applicantName':{first:"firstApp", middle:"", last:"lastApp"},'respondents':[{first:"firstRes", middle:"", last:"lastRes"}]}})
+        
+        if (!this.requiresGuidedPathway()) {
+
+            const commonData = {
+                'applicantName':{first:this.loggedInUserName.first, middle:"", last:this.loggedInUserName.last},
+                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}]
+            };
+
+            this.UpdateCommonStepResults({data:commonData});
+        }      
+        
     }
 }
 </script>
