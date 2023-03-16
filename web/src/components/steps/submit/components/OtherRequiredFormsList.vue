@@ -18,16 +18,16 @@
             Upload the documents below:
         </span>
 
-        <b-modal size="xl" v-model="showGetHelpScanning" header-class="bg-white">
+        <b-modal size="xl" v-model="showGetHelpScanning" header-class="bg-primary text-white">
             <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">Get Help Scanning Documents</h1> 
+                <h1 class="mb-0 mt-2 ml-4">Get Help Scanning Documents</h1> 
             </template>
             <get-help-scanning/>        
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="showGetHelpScanning=false">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showGetHelpScanning=false">&times;</b-button>
+                <b-button variant="primary" class="closeButton" @click="showGetHelpScanning=false">&times;</b-button>
             </template>
         </b-modal>
         
@@ -36,9 +36,15 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import GetHelpScanning from "@/components/steps/submit/helpPages/GetHelpScanning.vue";
+
 import { documentTypesJsonInfoType } from '@/types/Common';
 
-@Component
+@Component({
+    components:{
+        GetHelpScanning
+    }
+})
 export default class OtherRequiredFormsList extends Vue {    
 
     @Prop({required: true})
@@ -48,3 +54,19 @@ export default class OtherRequiredFormsList extends Vue {
    
 }
 </script>
+
+
+<style lang="scss">
+@import "src/styles/common";
+
+.closeButton {
+	background-color: transparent !important;
+	color: white;
+	border: white;
+	font-weight: 700;
+	font-size: 2rem;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+</style>
