@@ -29,16 +29,16 @@
             <li>Upload the documents below:</li>
         </ul>
 
-        <b-modal size="xl" v-model="showGetHelpScanning" header-class="bg-white">
+        <b-modal size="xl" v-model="showGetHelpScanning" header-class="bg-primary text-white">
             <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">Get Help Scanning Documents</h1> 
+                <h1 class="mb-0 mt-2 ml-4">Get Help Scanning Documents</h1> 
             </template>
             <get-help-scanning/>        
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="showGetHelpScanning=false">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showGetHelpScanning=false">&times;</b-button>
+                <b-button variant="primary" class="closeButton" @click="showGetHelpScanning=false">&times;</b-button>
             </template>
         </b-modal>
        
@@ -132,7 +132,21 @@ export default class RequiredDocument extends Vue {
                 requiredDoc.splice(inxToRemove[i],1);
         }
 
-
     }
 }
 </script>
+
+<style lang="scss">
+@import "src/styles/common";
+
+.closeButton {
+	background-color: transparent !important;
+	color: white;
+	border: white;
+	font-weight: 700;
+	font-size: 2rem;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+</style>
