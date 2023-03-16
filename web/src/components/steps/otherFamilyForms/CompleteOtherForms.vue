@@ -101,16 +101,16 @@
            
         </b-card>
         
-        <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-white">
+        <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-primary text-white">
             <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">Get Help Opening and Saving PDF forms</h1> 
+                <h1 class="mb-0 mt-2 ml-4">Get Help Opening and Saving PDF forms</h1> 
             </template>
             <get-help-for-pdf :isForm="true"/>        
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="showGetHelpForPDF=false">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showGetHelpForPDF=false">&times;</b-button>
+                <b-button variant="primary" class="closeButton" @click="showGetHelpForPDF=false">&times;</b-button>
             </template>
         </b-modal>
 
@@ -349,5 +349,19 @@ export default class CompleteOtherForms extends Vue {
 
 <style lang="scss">
 @import "../../../styles/survey";
+@import "../../../styles/common";
+
+.closeButton {
+	background-color: transparent !important;
+	color: white;
+	border: white;
+	font-weight: 700;
+	font-size: 2rem;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+
+
 
 </style>
