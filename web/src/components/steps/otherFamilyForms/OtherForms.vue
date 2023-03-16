@@ -268,7 +268,7 @@ export default class OtherForms extends Vue {
     }    
   
     beforeDestroy() {
-        const progress = this.allRequiredInfoExists()? 100 : 50;
+        const progress = this.allRequiredInfoExists()?100:50;
         const pageData = {selectedOtherForms: this.selectedForms, filingMethod: this.filingMethod};
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);         
         this.UpdateStepResultData({step:this.step, data: {otherFormsSurvey: {data: pageData, currentStep:this.currentStep, currentPage:this.currentPage}}});

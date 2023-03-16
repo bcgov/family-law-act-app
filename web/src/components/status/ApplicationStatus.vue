@@ -127,7 +127,7 @@
                 </b-badge>                    
             </b-row>            
             <template v-slot:modal-title>
-                <h2 class="mb-0 text-light">Confirm Delete Application</h2>                                  
+                <h2 class="mb-0 mt-2 ml-4">Confirm Delete Application</h2>                                  
             </template>
             <h4 >Are you sure you want to delete your <b class="text-primary" v-for="app,inx in applicationToDelete.app_type" :key="inx">"{{app}}"<b v-if="(inx+1)<applicationToDelete.app_type.length">, </b> </b> application?</h4>            
             <template v-slot:modal-footer>
@@ -135,14 +135,14 @@
                 <b-button variant="primary" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
+                <b-button variant="warning" class="closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
                 >&times;</b-button>
             </template>
         </b-modal>
 
-        <b-modal v-model="showSelectFileForPrint" id="bv-modal-select-pdf" header-class="bg-info">                        
+        <b-modal v-model="showSelectFileForPrint" id="bv-modal-select-pdf" header-class="bg-info text-primary">                        
             <template v-slot:modal-title>
-                <h2 class="mb-0 text-primary">Click on File to Download</h2>                                  
+                <h2 class="mb-0 mt-2 ml-4">Click on File to Download</h2>                                  
             </template>
             <b-row v-for="(pdf,inx) in printingListOfPdfs" :key="inx"> 
                 <b-button size="sm" variant="light" class="py-2 my-2 mx-auto px-5" style="width:20rem;"
@@ -158,14 +158,14 @@
                 <b-button variant="primary" @click="$bvModal.hide('bv-modal-select-pdf')">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-select-pdf')"
+                <b-button variant="info" class="closeButton" @click="$bvModal.hide('bv-modal-select-pdf')"
                 >&times;</b-button>
             </template>
         </b-modal>
 
-        <b-modal size="xl" v-model="showInstructions" id="bv-modal-show-instructions" header-class="bg-info">                        
+        <b-modal size="xl" v-model="showInstructions" id="bv-modal-show-instructions" header-class="bg-info text-primary">                        
             <template v-slot:modal-title>
-                <h2 class="mb-0 text-primary">Instructions</h2>                                  
+                <h2 class="mb-0 mt-2 ml-4">Instructions</h2>                                  
             </template>
 
             <b-card no-body border-variant="white" class="m-3">
@@ -176,7 +176,7 @@
                 <b-button variant="primary" @click="$bvModal.hide('bv-modal-show-instructions')">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-show-instructions')"
+                <b-button variant="info" class="closeButton" @click="$bvModal.hide('bv-modal-show-instructions')"
                 >&times;</b-button>
             </template>
         </b-modal>  
@@ -549,6 +549,16 @@ export default class ApplicationStatus extends Vue {
     .terms{
         color: $gov-mid-blue;
         margin-top: auto 0;
+    }
+
+    .closeButton {
+        background-color: transparent !important;
+        color: white;
+        border: white;
+        font-weight: 700;
+        font-size: 2rem;
+        padding-top: 0;
+        margin-top: 0;
     }
 
     button{
