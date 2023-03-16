@@ -41,9 +41,9 @@
 			</ul>
 		</nav>
 
-		<b-modal size="xl" v-model="contactUs" header-class="bg-white">
+		<b-modal size="xl" v-model="contactUs" header-class="bg-primary text-white">
 			<template v-slot:modal-title>
-				<h1 class="mb-0 text-primary">General and Technical Enquiries</h1>
+				<h1 class="mb-0">General and Technical Enquiries</h1>
 			</template>
 			<div class="m-3">
 				<p>Can't find what you are looking for? Have a technical issue?</p>
@@ -61,17 +61,17 @@
 			</template>
 			<template v-slot:modal-header-close>
 				<b-button
-					variant="outline-dark"
+					variant="primary"
 					class="closeButton"
 					@click="contactUs = false">&times;
 				</b-button>
 			</template>
 		</b-modal>
 
-		<b-modal size="xl" v-model="languageResource" header-class="bg-white">
+		<b-modal size="xl" v-model="languageResource" header-class="bg-primary">
 
 			<template v-slot:modal-title>
-				<h1 class="mb-0 text-primary">Language Resources</h1>
+				<h1 class="mb-0 text-white">Language Resources</h1>
 			</template>
 
 			<language-resources/>
@@ -81,7 +81,7 @@
 			</template>
 			<template v-slot:modal-header-close>
 				<b-button
-					variant="outline-dark"
+					variant="primary"
 					class="closeButton"
 					@click="languageResource = false">&times;
 				</b-button>
@@ -116,3 +116,20 @@ export default class NavigationFooter extends Vue {
 	}
 }
 </script>
+
+
+<style scoped lang="scss">
+@import "../styles/common";
+
+
+.closeButton {
+	background-color: transparent !important;
+	color: white;
+	border: white;
+	font-weight: 700;
+	font-size: 2rem;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+</style>

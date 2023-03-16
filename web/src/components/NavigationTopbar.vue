@@ -303,6 +303,17 @@
                     </a>                                       
                 </p>
 
+                <div class="mb-5">
+                    <div class="m-4 help-header" @click="languageResource= !languageResource" style="border-bottom:1px solid; width:13rem;">
+                        <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Language Resources 
+                        <span v-if="languageResource" class='ml-2 fa fa-chevron-up'/>
+                        <span v-if="!languageResource" class='ml-2 fa fa-chevron-down'/>
+                    </div>
+                    <div class="ml-1" v-if="languageResource">
+                        <language-resources/>
+                    </div>
+                </div>              
+
             </div>
 
             <div class="mx-5 mb-4">
@@ -319,7 +330,7 @@
                 <p>
                     Hours of Operation: 8:00 am to 4:30 pm Pacific Time - Monday to Friday except Statutory Holidays.
                 </p>
-            </div>            
+            </div>             
 
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="getHelp = false">Close</b-button>
@@ -369,6 +380,8 @@ import { Component, Vue } from "vue-property-decorator";
 import { SessionManager } from "@/components/utils/utils";
 import NavigationTips from "./NavigationTips.vue";
 import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
+import LanguageResources from '@/components/utils/LanguageResources.vue';
+
 import moment from "moment-timezone";
 
 import { namespace } from "vuex-class";   
@@ -378,7 +391,8 @@ const commonState = namespace("Common");
 @Component({
     components: {
         NavigationTips,
-        LegalAssistanceFaq
+        LegalAssistanceFaq,
+        LanguageResources
     }
 })
 export default class NavigationTopbar extends Vue {
@@ -392,6 +406,7 @@ export default class NavigationTopbar extends Vue {
     showLegalAssistance = false;
     showFamilyLawIssueResolutionInfo = false;
     showHelpFillingForms = false;
+    languageResource = false;
 
     mounted() {
         this.getHelp = false;
@@ -399,6 +414,7 @@ export default class NavigationTopbar extends Vue {
         this.showLegalAssistance = false;
         this.showFamilyLawIssueResolutionInfo = false;
         this.showHelpFillingForms = false;
+        this.languageResource = false;
     }
 
     public viewStats() {
