@@ -27,10 +27,6 @@
                     <a  class="mx-1"
                         href="https://www.mediatebc.com/"
                         target="_blank">private mediator
-                    </a> or use 
-                    <a
-                        href="https://mylawbc.com/mediation/"
-                        target="_blank">MyLawBC’s free online mediation tool
                     </a>.
                 </b-row>
             </b-card>
