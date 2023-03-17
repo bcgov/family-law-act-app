@@ -27,10 +27,6 @@
                     <a  class="mx-1"
                         href="https://www.mediatebc.com/"
                         target="_blank">private mediator
-                    </a> or use 
-                    <a
-                        href="https://mylawbc.com/mediation/"
-                        target="_blank">MyLawBC’s free online mediation tool
                     </a>.
                 </b-row>
             </b-card>
@@ -68,7 +64,7 @@
                 <b-row>                   
                     Negotiation involves discussing issues to try to reach an agreement. You work out a 
                     solution together that fits both of your interests. 
-                    <br>A lawyer or other professional can help, or you could negotiate on your own. 
+                    <br>A lawyer or other professional can help, or you could negotiate on your own. 
                     <br>Family Justice Services Division provides free facilitated negotiation of 
                     child support and spousal support issues with a 
                     <a 
