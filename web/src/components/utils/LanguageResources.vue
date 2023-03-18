@@ -42,7 +42,7 @@
 		</p>
 
 		<p>
-			A <a 
+			Staff at <a 
 				target="_blank" 
 				href="https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA">
 				Family Justice Centre
@@ -52,8 +52,9 @@
 				href="https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F">
 				Justice Access Centre
 			</a> 
-			can arrange a <b>free</b> interpreter for meetings with a Family Justice Counsellor or 
-			their other services.                 
+			can arrange a <b>free</b> interpreter (spoken language and visual language) for 
+			all in-person and virtual services offered by the centre (including meetings 
+			with a Family Justice Counsellor).
 		</p>
 
 		<h3 class="mb-0 text-primary">How do I ask for an interpreter for a court appearance?</h3>
