@@ -147,18 +147,42 @@
                     style="color:blue; cursor:pointer;">
                     Checklist for Reply to a Family Law Matter
                 </div>
+                <div v-if="includesOtherForms">
+                    <div v-for="(docType, docIndex) in applicationDocumentTypes"           
+                         v-bind:key="docIndex">
+                        <div 
+                            v-if="otherApplicationTypes.includes(docType)" 
+                            @click="checklist=true;checklistType=docType;" 
+                            style="color:blue; cursor:pointer;">
+                            Checklist for {{ otherApplicationTypesInfo.filter(appType => appType.name == docType)[0].title }}
+                        </div>
+                    </div>
+                </div>
+                
                 <div 
-                    v-if="applicationDocumentTypes.includes('DIS')" 
-                    @click="checklist=true;checklistType='DIS';" 
+                    v-if="applicationDocumentTypes.includes('FS')" 
+                    @click="checklist=true;checklistType='FS';" 
                     style="color:blue; cursor:pointer;">
-                    Checklist for Notice of Discontinuance
+                    Checklist for Financial Statement
                 </div>
                 <div 
-                    v-if="applicationDocumentTypes.includes('OTHER')" 
-                    @click="checklist=true;checklistType='OTHER';" 
+                    v-if="applicationDocumentTypes.includes('NPR')" 
+                    @click="checklist=true;checklistType='NPR';" 
                     style="color:blue; cursor:pointer;">
-                    Checklist for Other Files
+                    Checklist for Notice of Intention to Proceed
                 </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('RQS')" 
+                    @click="checklist=true;checklistType='RQS';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Request for Scheduling
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('TRIS')" 
+                    @click="checklist=true;checklistType='TRIS';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Trial Readiness Statment
+                </div>                
             </div>           
 
             <div class="mt-5">
@@ -201,7 +225,7 @@
         </b-row>
 
         <b-modal size="lg" v-model="checklist" header-class="bg-white border-0" no-close-on-backdrop hide-footer>
-            <checklists :checklistType='checklistType' :applicationId='applicationId'/>            
+            <checklists :checklistType='checklistType' :applicationId='applicationId' :otherFormType="includesOtherForms"/>            
             <template v-slot:modal-header>                
                 <b-button style="margin-left:auto; height:2rem; padding:0 0.65rem; font-weight: 700; font-size: 1.25rem;" variant="primary" @click="checklist=false;">&times;</b-button>
             </template>
@@ -245,6 +269,22 @@ export default class SuccessPage extends Vue {
     checklistType='';
     applicationId = '';
     applicationDocumentTypes = [];
+    otherApplicationTypes = ['NAC', 'DIS', 'NLC', 'NLP', 'NP', 'NLCR', 'NLPR', 'ORD', 'REF', 'RFS', 'RPS'];
+    includesOtherForms = false;
+
+    otherApplicationTypesInfo = [        
+        {name:'NAC',    title:'Notice of Address Change'},
+        {name:'DIS',    title:'Notice of Discontinuance'},
+        {name:'NLC',    title:'Notice of Lawyer for Child'},
+        {name:'NLP',    title:'Notice of Lawyer for Party'},
+        {name:'NP',     title:'Notice of Participation'},
+        {name:'NLCR',   title:'Notice of Removal of Lawyer for Child'},
+        {name:'NLPR',   title:'Notice of Removal of Lawyer for Party'},
+        {name:'ORD',    title:'Order – General'},
+        {name:'REF',    title:'Referral Request'},
+        {name:'RFS',    title:'Request for Service of Documents'},
+        {name:'RPS',    title:'Request for Service of Family Protection Order'}
+    ];  
         
     public viewStatus() {
         this.$router.push({ name: "applicant-status" });
@@ -260,6 +300,7 @@ export default class SuccessPage extends Vue {
         this.applicationId = this.packageInfo.fileNumber;
         this.packageUrl = this.packageInfo.eFilingUrl;
         this.packageNumber = this.packageInfo.packageNumber;
+        this.includesOtherForms = false;
 
         this.saveApplication(this.applicationId, this.packageNumber, this.packageUrl);
     }
@@ -301,6 +342,9 @@ export default class SuccessPage extends Vue {
 
             let pathways: string[] = [];
 
+            console.log(stepGETSTART)
+            //TODO: handle otherForms
+
             const includesOrderActivities = stepGETSTART?.selectedActivity.includes('applyForOrder');
             const includesReplyActivities = stepGETSTART?.selectedActivity.includes('replyToApplication');
 
@@ -308,7 +352,7 @@ export default class SuccessPage extends Vue {
 
             const selectedReplyForms = (includesReplyActivities && stepGETSTART?.selectedReplyForms)?stepGETSTART.selectedReplyForms:[];
          
-            pathways = selectedForms.concat(selectedReplyForms);  
+            pathways = selectedForms.concat(selectedReplyForms);              
 
             const includesFlm = pathways.includes('familyLawMatter');
             const includesEnfrc = pathways.includes('agreementEnfrc');
@@ -334,15 +378,13 @@ export default class SuccessPage extends Vue {
                 this.applicationDocumentTypes.push('RFLM')
             }
 
+            //TODO: may need to remove this
+
             if (pathways.includes('noticeDiscontinuance')){
                 this.applicationDocumentTypes.push('DIS')
             }
 
-            //TODO: adjust based on files  
-
-            if (pathways.includes('administrativeForms')){
-                this.applicationDocumentTypes.push('OTHER')
-            }
+            //TODO: adjust based on new file types            
 
             if (includesFlm){
 
@@ -372,6 +414,12 @@ export default class SuccessPage extends Vue {
                 if(EnfrcForm?.includes('P26')) this.applicationDocumentTypes.push('RFA');
                 if(EnfrcForm?.includes('P27')) this.applicationDocumentTypes.push('RDET');
                 if(EnfrcForm?.includes('P28')) this.applicationDocumentTypes.push('RORD');
+            } 
+            
+            if (pathways.length == 0 && stepGETSTART?.otherForms){
+                this.applicationDocumentTypes = stepGETSTART?.submittedPdfList;
+                this.includesOtherForms = this.otherApplicationTypes.some(otherAppType => this.applicationDocumentTypes.includes(otherAppType))
+                
             }            
 
             this.mountedData = true;

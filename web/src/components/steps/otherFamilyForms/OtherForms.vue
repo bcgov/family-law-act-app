@@ -54,6 +54,15 @@
                 <div v-if="filingMethod != null" class="mt-3">
                     <h3 class="primary">Please select the form(s) that you wish to complete.</h3>
 
+                    <p>
+                        To select a form or multiple forms click on either the Form Name or 
+                        Form Number and the column will be hi-lighted. To de-select a form, 
+                        simply click on the Form Name or Form Number again.  
+                    </p>
+                    <p>
+                        After selecting the form(s) to complete, click the next button.
+                    </p>
+
                     <div>
                         <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
                             <span style="font-size:1.2rem;" class="fa fa-question-circle" /> Where can I get legal assistance? 

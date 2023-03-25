@@ -3,7 +3,7 @@
         <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
         <div 
             style="font-size:14pt;font-weight:600; margin-bottom:1rem;">
-            CHECKLIST FOR NOTICE OF DISCONTINUANCE
+            CHECKLIST FOR REQUEST FOR SCHEDULING
         </div>
 
 <!-- <Step 1> -->
@@ -15,7 +15,7 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 1rem 0; font-weight: 600;" 
                     check="'yes'" 
-                    text="Step 1: Complete the Notice of Discontinuance form"/>               
+                    text="Step 1: Complete the Request for Scheduling form"/>               
             </div>   
            
             <p style="margin:0.5rem 0 0.5rem 0;">
@@ -56,10 +56,10 @@
             <div style="margin:0;" class="margintop-1vue">
                 To prepare the form for filing:
             </div>
-            <ul>
+            <ul>                
                 <li>
-                    print or make copies of the completed form: one for you, one for the Court, and one for each other party
-                </li>
+                    print or make copies of the completed form: one set for you, one set for the Court, and one set for each other party
+                </li>               
                 <li>
                     bring all copies to the court registry for filing <b>or</b> send by mail or by fax filing using the 
                     <a 
@@ -70,7 +70,7 @@
                 </li>
             </ul>
          
-        </div>
+        </div>    
 
 <!-- <Step 2> -->
         <div>
@@ -80,8 +80,8 @@
                     boxMargin="0" 
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
-                    check="'yes'" 
-                    text="Step 2: File the Notice of Discontinuance form at the Provincial Court Registry"/>               
+                    check="" 
+                    text="Step 2: File the Request for Scheduling form at the Provincial Court Registry"/>               
             </div>  
            
             <div style="margin:0 0 0.5rem 0;">
@@ -93,10 +93,13 @@
                 </a>
                 where your existing case is filed.
             </div>
-            <div>
+            <div style="margin:0 0 0.5rem 0;">
                 The registry clerk will review your form to make sure it is complete before filing it. 
-                You will be given a copy for your records. There are no fees for filing Provincial Court family matters.
-            </div>           
+                You will be given a copy for your records.
+            </div> 
+            <div style="margin:0 0 0.5rem 0;">
+                There are no fees for filing Provincial Court family matters.
+            </div>                
         </div>
 
 <!-- <Step 3> -->
@@ -108,23 +111,27 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
                     check="" 
-                    text="Step 3: Serve the filed Notice of Discontinuance on each other party"/>               
-            </div>  
+                    text="Step 3: Serve the filed Request for Scheduling on each other party"/>               
+            </div> 
 
-            <p style="margin:0.5rem 0 0.5rem 0;">
-                Service is the act of giving or leaving documents with the required person. It is important 
-                that each other party know that a case is going on, are aware of what step is being taken, 
-                and are given a chance to tell their side of the story to the court.
-            </p>
-
-            <p style="margin:0 0 0.5rem 0;">
-                You must serve the other party within 14 days of filing the notice, or before the date 
-                of the next scheduled court appearance, whichever is sooner.
-            </p>
+            <div style="margin:0 0 0.5rem 0;">
+                Service is the act of giving or leaving documents with the required person. 
+                It is important that each other party know that a case is going on, are aware 
+                of what step is being taken and are given a chance to tell their side of the 
+                story to the court.
+            </div>   
             
             <div style="margin:0 0 0.5rem 0;">
-                A Notice of Discontinuance must be served to the address of service of each other 
-                party in any of the following ways:
+                You must serve each other party with at least 7 days' notice of the date 
+                and time of the court appearance, unless the court has ordered something 
+                else. This means there must be at least 7 days between the date the 
+                application document is served on the other party and the date and time 
+                of the court appearance.
+            </div>
+            
+            <div style="margin:0 0 0.5rem 0;">                
+                A Request for Scheduling must be served to the address of service of each 
+                other party in any of the following ways:
             </div>
             <ul>
                 <li>by leaving the documents at the party’s address for service</li>
@@ -138,31 +145,52 @@
                     if the party’s address for service includes a fax number, by faxing the 
                     documents to that fax number                  
                 </li>
-            </ul>
-
+            </ul>  
+            
             <p>
-                A party's address for service is the address they have provided to the court. A party 
-                who does not have an address for service must be served by leaving a copy of the 
-                documents directly with the person (this is called personal service).
+                A party's address for service is the address they have provided to the court. 
+                A party who does not have an address for service must be served by leaving a 
+                copy of the application document(s) directly with the person (this is called 
+                personal service).
+            </p>
+           
+            <p>
+                Personal service requires that an adult (at least 19 years old) who is not 
+                a party, hand-deliver the documents to the party to be served.
             </p>
 
             <p>
-                Personal service requires that an adult (at least 19 years old) who is not a party 
-                hand deliver the documents to the party to be served.
-            </p>
-
-            <p>
-                The court may need proof you had the documents personally served. The person serving 
-                the documents must complete a 
+                The court will need proof you had the documents served. The person serving the 
+                documents must complete a  
                 <a 
                     target="_blank" 
                     href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa714.pdf">
                     Certificate of Service Form 7
-                </a> so that you can prove personal service of the documents. You must attach 
-                a copy of the documents to the Certificate of Service. Remember to make a copy 
-                before the documents are served.
+                </a> so that you can prove service of the documents. You must attach a copy of 
+                the documents to the Certificate of Service. Remember to make a copy before the 
+                documents are served.
             </p>
 
+        </div>
+
+<!-- <Step 4> -->
+        <div>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 4: Attend the Court Appearance"/>               
+            </div>                       
+            
+            <div style="margin:0 0 0.5rem 0;">                
+                A judge can make decisions based only on the information presented 
+                by the parties as evidence. Your evidence includes your application, 
+                any additional affidavit(s), and spoken evidence provided in court.
+            </div>
+           
         </div>
 
     </div>
@@ -177,8 +205,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
         CheckBox
     }
 })
-
-export default class DisChecklist extends Vue {
+export default class RqsChecklist extends Vue {
 
 }
 </script>

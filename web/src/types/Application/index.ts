@@ -87,7 +87,8 @@ export interface stepInfoType {
     applicantName?: nameInfoType;
     respondentsCommon?: nameInfoType[];
     respondents?: nameInfoType[];
-    existingOrders?: ExistingOrderInfoType[];    
+    existingOrders?: ExistingOrderInfoType[];   
+    submittedPdfList?: string[]; 
     requiredDocuments?: requiredDocumentsInfoType;
     respondentsPO?: nameInfoType[];
     protectedPartyName?: nameInfoType;    
