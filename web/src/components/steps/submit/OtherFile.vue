@@ -466,7 +466,7 @@
 
             console.log(submittedPdfList.concat(supportingDocTypes))
 
-            this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList.concat(supportingDocTypes)}});
+            this.UpdateCommonStepResults({data:{'submittedPdfList':Array.from(new Set(submittedPdfList.concat(supportingDocTypes)))}});
             Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
 
 
@@ -514,18 +514,21 @@
             }
             
             this.submissionInProgress = true;
-            
-            this.$http.post(url, bodyFormData, header)
-            .then(res => {
 
-                if(res?.data?.message=="success")
-                {
-                    this.generateUrl(res.data.redirectUrl)                   
-                }
-            }, err => {
-                this.error = err.response.data.message;
-                this.submissionInProgress = false;
-            });           
+            Vue.nextTick().then(()=>{
+            
+                this.$http.post(url, bodyFormData, header)
+                .then(res => {
+
+                    if(res?.data?.message=="success")
+                    {
+                        this.generateUrl(res.data.redirectUrl)                   
+                    }
+                }, err => {
+                    this.error = err.response.data.message;
+                    this.submissionInProgress = false;
+                });         
+            })  
         }
         
         public generateUrl(eFilingUrl) {            
