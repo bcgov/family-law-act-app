@@ -99,3 +99,9 @@ export interface userInfoReportInfoType {
     active_in_period: number;
     joined_in_period: number;
 } 
+
+export interface checklistInfoType {
+    name: string;
+    title: string;
+    pdfName: string;
+}
