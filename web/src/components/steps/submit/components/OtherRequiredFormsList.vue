@@ -3,6 +3,12 @@
 
         <span class="text-primary" style="font-size:1.4rem;">Completed PDF forms to upload:</span> 
 
+        <p>
+            You will need to upload the pdf document you completed and then you will be prompted 
+            to select the name of the document.  Please ensure that the name of the document 
+            selected matches what has populated below.
+        </p>
+
         <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
             <div style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
         </div>

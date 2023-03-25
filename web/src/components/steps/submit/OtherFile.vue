@@ -309,6 +309,9 @@
         @applicationState.Action
         public UpdatePageProgress!: (newPageProgress) => void        
 
+        @applicationState.Action
+        public UpdateCommonStepResults!: (newCommonStepResults) => void
+
         dataReady = false;
         error = "";
 
@@ -346,12 +349,12 @@
             
             this.currentPage = Number(this.steps[this.currentStep].currentPage)
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
-
-
-            const otherForms = FLA_Types.filter(type => type.familyType == "OTHER" 
-                                || type.familyType == "NAC"
-                                || type.familyType == "DIS");
-            this.fileTypes = [];            
+            
+            const otherFormFamilyTypes = ["AFF", "APS", "APSP", "CSV", "CONA", "COR", "CIFT", "EFSP", "FF", "FS", "GA", "NAC", "DIS", "NCD", "NDT", "PASE", "NPR", "NLC", "NLP", "NP", "NLCR", "NLPR", "ORD", "REF", "RQS", "RFS", "RPS", "TRIS", "SUM", "SCH", "SDH", "REQ", "RFT"];
+            const otherForms = FLA_Types.filter(type => otherFormFamilyTypes.includes(type.familyType));
+            this.fileTypes = []; 
+            
+            console.log(otherForms)
             
             for (const otherForm of otherForms){
                 if (this.documentTypesJson.filter(docType => docType.type == otherForm.pdfType).length>0){
@@ -451,7 +454,20 @@
         }
 
         public eFile() {
+            //TODO: update the submittedPdfList to include the standalone forms
+            const stepGETSTART = this.steps[this.stPgNo.GETSTART._StepNo].result;
+            let submittedPdfList = [];
+
+            if (stepGETSTART?.submittedPdfList){
+                submittedPdfList = stepGETSTART.submittedPdfList;
+            }      
             
+            const supportingDocTypes = this.supportingDocuments.map(form => form.documentType)
+
+            this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList.concat(supportingDocTypes)}});
+            Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
+
+
             this.error = "";
             const bodyFormData = new FormData();
             const docType = []
