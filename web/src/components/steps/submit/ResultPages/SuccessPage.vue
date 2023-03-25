@@ -340,10 +340,7 @@ export default class SuccessPage extends Vue {
             const stepCM = this.getStepResultByName(applicationData, 'CM');
             const stepENFRC = this.getStepResultByName(applicationData, 'ENFRC');
 
-            let pathways: string[] = [];
-
-            console.log(stepGETSTART)
-            //TODO: handle otherForms
+            let pathways: string[] = [];            
 
             const includesOrderActivities = stepGETSTART?.selectedActivity.includes('applyForOrder');
             const includesReplyActivities = stepGETSTART?.selectedActivity.includes('replyToApplication');
@@ -416,8 +413,7 @@ export default class SuccessPage extends Vue {
                 if(EnfrcForm?.includes('P28')) this.applicationDocumentTypes.push('RORD');
             } 
             
-            if (pathways.length == 0 && stepGETSTART?.otherForms){
-                console.log(stepGETSTART)
+            if (pathways.length == 0 && stepGETSTART?.otherForms){                
                 this.applicationDocumentTypes = stepGETSTART?.submittedPdfList;
                 this.includesOtherForms = this.otherApplicationTypes.some(otherAppType => this.applicationDocumentTypes.includes(otherAppType))
                 

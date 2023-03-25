@@ -352,9 +352,7 @@
             
             const otherFormFamilyTypes = ["AFF", "APS", "APSP", "CSV", "CONA", "COR", "CIFT", "EFSP", "FF", "FS", "GA", "NAC", "DIS", "NCD", "NDT", "PASE", "NPR", "NLC", "NLP", "NP", "NLCR", "NLPR", "ORD", "REF", "RQS", "RFS", "RPS", "TRIS", "SUM", "SCH", "SDH", "REQ", "RFT"];
             const otherForms = FLA_Types.filter(type => otherFormFamilyTypes.includes(type.familyType));
-            this.fileTypes = []; 
-            
-            console.log(otherForms)
+            this.fileTypes = [];             
             
             for (const otherForm of otherForms){
                 if (this.documentTypesJson.filter(docType => docType.type == otherForm.pdfType).length>0){
@@ -462,9 +460,7 @@
                 submittedPdfList = stepGETSTART.submittedPdfList;
             }      
             
-            const supportingDocTypes = this.supportingDocuments.map(form => form.documentType)
-
-            console.log(submittedPdfList.concat(supportingDocTypes))
+            const supportingDocTypes = this.supportingDocuments.map(form => form.documentType)            
 
             this.UpdateCommonStepResults({data:{'submittedPdfList':Array.from(new Set(submittedPdfList.concat(supportingDocTypes)))}});
             Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
@@ -515,7 +511,9 @@
             
             this.submissionInProgress = true;
 
-            Vue.nextTick().then(()=>{
+            // Vue.nextTick().then(()=>{
+
+            setTimeout(()=>{
             
                 this.$http.post(url, bodyFormData, header)
                 .then(res => {
@@ -528,7 +526,7 @@
                     this.error = err.response.data.message;
                     this.submissionInProgress = false;
                 });         
-            })  
+            }, 50)  
         }
         
         public generateUrl(eFilingUrl) {            
