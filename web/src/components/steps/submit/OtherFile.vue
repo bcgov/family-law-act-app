@@ -464,6 +464,8 @@
             
             const supportingDocTypes = this.supportingDocuments.map(form => form.documentType)
 
+            console.log(submittedPdfList.concat(supportingDocTypes))
+
             this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList.concat(supportingDocTypes)}});
             Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
 
