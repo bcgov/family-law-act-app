@@ -44,7 +44,7 @@ export const FLA_Types = [
     
     {pathway:"financialStatement",                          pdfType:"FS",    appType:"FS",           familyType:"FS",     fullName:"Financial Statement"},
     {pathway:"guardianshipAffidavit",                       pdfType:"GA",    appType:"GA",           familyType:"GA",     fullName:"Guardianship Affidavit"},  
-    {pathway:"noticeOfAddressChange",                       pdfType:"NCD",   appType:"NAC",          familyType:"NAC",    fullName:"Notice of Address Change"},         
+    {pathway:"noticeOfAddressChange",                       pdfType:"NCD",   appType:"NCD",          familyType:"NCD",    fullName:"Notice of Address Change"},         
     {pathway:"noticeDiscontinuance",                        pdfType:"NDT",   appType:"DIS",          familyType:"DIS",    fullName:"Notice of Discontinuance"},
     {pathway:"noticeExemptionParentingEducationProgram",    pdfType:"PASE",  appType:"PASE",         familyType:"PASE",   fullName:"Notice of Exemption from Parenting Education Program"},
     {pathway:"noticeIntentionProceed",                      pdfType:"NPR",   appType:"NPR",          familyType:"NPR",    fullName:"Notice of Intention to Proceed"},        

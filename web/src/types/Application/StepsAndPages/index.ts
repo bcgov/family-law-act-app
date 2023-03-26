@@ -12,7 +12,7 @@ export interface stepsAndPagesNumberInfoType{
     ENFRC: ENFRCstPgTypes;
     CONNECT: CONNECTstPgTypes;
     OTHER: OTHERstPgTypes;
-    NAC: NACstPgTypes;
+    NCD: NCDstPgTypes;
     DIS: DISstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
@@ -271,13 +271,13 @@ export interface OTHERstPgTypes{
     OtherFormFilingLocation: number;
 }
 
-export interface NACstPgTypes{
+export interface NCDstPgTypes{
     _StepNo: number;
     
     AddressChange: number;
     AddressChangeNotice: number; 
-    ReviewYourAnswersNAC: number;
-    PreviewFormsNAC: number;
+    ReviewYourAnswersNCD: number;
+    PreviewFormsNCD: number;
 }
 
 export interface DISstPgTypes{

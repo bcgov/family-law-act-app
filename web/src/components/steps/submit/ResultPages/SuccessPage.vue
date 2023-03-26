@@ -269,11 +269,11 @@ export default class SuccessPage extends Vue {
     checklistType='';
     applicationId = '';
     applicationDocumentTypes = [];
-    otherApplicationTypes = ['NAC', 'DIS', 'NLC', 'NLP', 'NP', 'NLCR', 'NLPR', 'ORD', 'REF', 'RFS', 'RPS'];
+    otherApplicationTypes = ['NCD', 'DIS', 'NLC', 'NLP', 'NP', 'NLCR', 'NLPR', 'ORD', 'REF', 'RFS', 'RPS'];
     includesOtherForms = false;
 
     otherApplicationTypesInfo = [        
-        {name:'NAC',    title:'Notice of Address Change'},
+        {name:'NCD',    title:'Notice of Address Change'},
         {name:'DIS',    title:'Notice of Discontinuance'},
         {name:'NLC',    title:'Notice of Lawyer for Child'},
         {name:'NLP',    title:'Notice of Lawyer for Party'},

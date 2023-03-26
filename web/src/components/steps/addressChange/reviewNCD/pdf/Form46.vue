@@ -36,7 +36,7 @@ export default class Form46 extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getNACResultData();       
+        this.result = this.getNCDResultData();       
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
@@ -77,10 +77,10 @@ export default class Form46 extends Vue {
         });
     }
  
-    public getNACResultData() {         
+    public getNCDResultData() {         
         
         const result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.NAC._StepNo]){
+        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.NCD._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])

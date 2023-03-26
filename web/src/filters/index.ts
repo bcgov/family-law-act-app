@@ -731,7 +731,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepRELOC = store.state.Application.stPgNo.RELOC;
 		const stepCM = store.state.Application.stPgNo.CM;
 		const stepENFRC = store.state.Application.stPgNo.ENFRC;
-		const stepNAC = store.state.Application.stPgNo.NAC;
+		const stepNCD = store.state.Application.stPgNo.NCD;
 		const stepDIS = store.state.Application.stPgNo.DIS;		
 		
 		let step = stepPO._StepNo; 
@@ -776,9 +776,9 @@ Vue.filter('surveyChanged', function(type: string) {
 			previewPages = [stepENFRC.PreviewForm29ENFRC, stepENFRC.PreviewForm28ENFRC, stepENFRC.PreviewForm27ENFRC, stepENFRC.PreviewForm26ENFRC];
 		}
 		else if(typeName == 'noticeOfAddressChange'){
-			step = stepNAC._StepNo; 
-			reviewPage = stepNAC.ReviewYourAnswersNAC; 
-			previewPages = [stepNAC.PreviewFormsNAC];
+			step = stepNCD._StepNo; 
+			reviewPage = stepNCD.ReviewYourAnswersNCD; 
+			previewPages = [stepNCD.PreviewFormsNCD];
 		}
 		else if(typeName == 'noticeDiscontinuance'){
 			step = stepDIS._StepNo; 
