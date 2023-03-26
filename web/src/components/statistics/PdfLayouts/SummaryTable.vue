@@ -50,7 +50,7 @@
                     </b-tr>
                     <b-tr>                        
                         <b-th>Notice of Address Change</b-th>
-                        <b-td class="text-center">{{applicationDetailsInfo.NAC.total}}</b-td>                                          
+                        <b-td class="text-center">{{applicationDetailsInfo.NCD.total}}</b-td>                                          
                     </b-tr>
                     <b-tr>                        
                         <b-th>Notice of Discontinuance</b-th>

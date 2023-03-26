@@ -60,7 +60,7 @@ export default class OtherFormList extends Vue {
     mounted(){
 
         this.formsListTemplate =[                
-            { name:'P46',  appName:'noticeOfAddressChange',   pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NAC._StepNo],        color:"danger", title:"Notice of Address Change (Form 46)"},            
+            { name:'P46',  appName:'noticeOfAddressChange',   pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],        color:"danger", title:"Notice of Address Change (Form 46)"},            
             { name:'P50',  appName:'noticeDiscontinuance',    pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.DIS._StepNo],        color:"danger", title:"Notice of Discontinuance (Form 50)"}
         ]
 

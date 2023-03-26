@@ -93,8 +93,8 @@ export default class AddressChangeNotice extends Vue {
 
     public setPages() {
 
-        const p = this.stPgNo.NAC;
-        const noticeOfAddressChangePagesAll = [p.ReviewYourAnswersNAC ]
+        const p = this.stPgNo.NCD;
+        const noticeOfAddressChangePagesAll = [p.ReviewYourAnswersNCD ]
 
         if (this.survey.data?.acknowledgement?.length > 0) {
 

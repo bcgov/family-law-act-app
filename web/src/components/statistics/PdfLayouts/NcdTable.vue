@@ -5,7 +5,7 @@
             Notice of Address Change: 
         </div>
         <b-table            
-            :items="nacInfo"
+            :items="ncdInfo"
             :fields="fields"
             bordered            
             small
@@ -13,7 +13,7 @@
             responsive="sm">
         </b-table>
         <div style="font-size:9pt; margin-bottom: 0.5rem;">
-            <b>Total Number of 'Notice of Address Change' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{nacInfo[0].total}} </span>
+            <b>Total Number of 'Notice of Address Change' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{ncdInfo[0].total}} </span>
         </div>
         
     </div>
@@ -24,13 +24,13 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { formReportInfoType, reportInfoType } from '@/types/Common';
 
 @Component
-export default class NacTable extends Vue {
+export default class NcdTable extends Vue {
 
     @Prop({required:true})
     results!: reportInfoType;
        
     dataReady = false; 
-    nacInfo: formReportInfoType[] = [];
+    ncdInfo: formReportInfoType[] = [];
     
     fields = [
         {key:"completed",    label:"Completed (not eFiled)", thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
@@ -46,7 +46,7 @@ export default class NacTable extends Vue {
     }    
 
     public extractInfo(){
-       this.nacInfo = [this.results.application_details.NAC];
+       this.ncdInfo = [this.results.application_details.NCD];
     }
  
 }

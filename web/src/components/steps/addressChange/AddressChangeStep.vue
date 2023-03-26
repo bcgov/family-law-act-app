@@ -1,9 +1,9 @@
 <template>
     <step-base v-bind:step="step">        
-        <address-change           v-bind:step="step"     v-if="step.currentPage == stPgNo.NAC.AddressChange" />
-        <address-change-notice    v-bind:step="step"     v-if="step.currentPage == stPgNo.NAC.AddressChangeNotice" />
-        <review-your-answers-nac  v-bind:step="step"     v-if="step.currentPage == stPgNo.NAC.ReviewYourAnswersNAC"/>
-        <preview-forms-nac        v-bind:step="step"     v-if="step.currentPage == stPgNo.NAC.PreviewFormsNAC"/> 
+        <address-change           v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.AddressChange" />
+        <address-change-notice    v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.AddressChangeNotice" />
+        <review-your-answers-ncd  v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.ReviewYourAnswersNCD"/>
+        <preview-forms-ncd        v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.PreviewFormsNCD"/> 
     </step-base>
 </template>
 
@@ -17,8 +17,8 @@ const applicationState = namespace("Application");
 import StepBase from "../StepBase.vue";
 import AddressChange from "./AddressChange.vue";
 import AddressChangeNotice from "./AddressChangeNotice.vue";
-import ReviewYourAnswersNac from "./reviewNAC/ReviewYourAnswersNAC.vue";
-import PreviewFormsNac from "./reviewNAC/PreviewFormsNAC.vue";
+import ReviewYourAnswersNcd from "./reviewNCD/ReviewYourAnswersNCD.vue";
+import PreviewFormsNcd from "./reviewNCD/PreviewFormsNCD.vue";
 
 import { stepInfoType } from "@/types/Application";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
@@ -28,8 +28,8 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
         StepBase,        
         AddressChange,        
         AddressChangeNotice,
-        ReviewYourAnswersNac,
-        PreviewFormsNac        
+        ReviewYourAnswersNcd,
+        PreviewFormsNcd        
     }
 })
 export default class AddressChangeStep extends Vue {
