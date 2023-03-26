@@ -61,15 +61,19 @@
                 <div>    
                     Note: If you need to edit any of your answers, go back to the "Review Your Answers" page, edit the answer and return to this page.
                 </div>
-            </b-card>            
+            </b-card>     
+            
+            <b-card v-if="!eFiling && requiredDocumentLists.length>0" style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+                <other-required-forms-list :requiredDocumentLists="requiredDocumentLists" :eFiling="eFiling" />
+            </b-card>
             
             <b-card 
-                v-if="requiredDocumentLists.length>0" 
+                v-if="eFiling && requiredDocumentLists.length>0" 
                 style="border:1px solid #ddebed; border-radius:10px;" 
                 bg-variant="white" 
                 class="mt-4 mb-2">
 
-                <other-required-forms-list :requiredDocumentLists="requiredDocumentLists"/>
+                <other-required-forms-list :requiredDocumentLists="requiredDocumentLists" :eFiling="eFiling"/>
                 
                 <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">

@@ -1,15 +1,22 @@
 <template>
     <div>
 
-        <span class="text-primary" style="font-size:1.4rem;">Completed PDF forms to upload:</span> 
+        <span v-if="eFiling" class="text-primary" style="font-size:1.4rem;">Completed PDF forms to upload:</span> 
+        <span v-else class="text-primary" style="font-size:1.4rem;">Completed PDF forms to include:</span> 
 
-        <p>
+        <p v-if="eFiling">
             You will need to upload the pdf document you completed and then you will be prompted 
             to select the name of the document.  Please ensure that the name of the document 
             selected matches what has populated below.
         </p>
+        <p v-else>
+            Print or make copies of all documents, including your application and any supporting documents: 
+            one set for you, one set for the court and one set for each other party.
+            <br>
+            The following forms are required as part of your filing:
+        </p>
 
-        <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
+        <div v-if="eFiling" class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
             <div style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
         </div>
 
@@ -20,7 +27,7 @@
                 </li>                        
             </ul>
         </div>
-        <span class="text-primary" style="font-size:1.4rem;">
+        <span v-if="eFiling" class="text-primary" style="font-size:1.4rem;">
             Upload the documents below:
         </span>
 
@@ -55,6 +62,9 @@ export default class OtherRequiredFormsList extends Vue {
 
     @Prop({required: true})
     requiredDocumentLists!: documentTypesJsonInfoType[];   
+
+    @Prop({required: true})
+    eFiling!: boolean;   
 
     showGetHelpScanning = false;
    

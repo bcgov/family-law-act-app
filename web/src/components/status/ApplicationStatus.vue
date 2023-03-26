@@ -26,7 +26,8 @@
                 </b-card>
 
                 <b-card :key="tableUpdated" :style="{height:getTableHeight}" v-else no-body border-variant="white" bg-variant="white" >
-                    <b-table  :items="previousApplications"
+                    <b-table
+                        :items="previousApplications"
                         :fields="previousApplicationFields"
                         class="mx-4"
                         style="overflow-y: auto;"
@@ -55,7 +56,7 @@
                                 <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
                             </b-button>                                
 
-                            <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
+                            <b-button v-if="row.item.lastFiled != 0 && row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
                                 v-b-tooltip.hover.noninteractive.left.v-success
                                 title="View/Download the Submitted Application">
