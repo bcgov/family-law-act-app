@@ -54,7 +54,7 @@
                     </b-tr>
                     <b-tr>                        
                         <b-th>Notice of Discontinuance</b-th>
-                        <b-td class="text-center">{{applicationDetailsInfo.DIS.total}}</b-td>                                          
+                        <b-td class="text-center">{{applicationDetailsInfo.NDT.total}}</b-td>                                          
                     </b-tr>
                     <b-tr>                        
                         <b-th>Other Applications</b-th>

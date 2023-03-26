@@ -1,10 +1,10 @@
 <template>
     <step-base v-bind:step="step">    
-        <notice-discontinuance      v-bind:step="step"     v-if="step.currentPage == stPgNo.DIS.NoticeDiscontinuance" />
-        <discontinuance-information v-bind:step="step"     v-if="step.currentPage == stPgNo.DIS.DiscontinuanceInformation" />
-        <more-information           v-bind:step="step"     v-if="step.currentPage == stPgNo.DIS.MoreInformation" />
-        <review-your-answers-dis    v-bind:step="step"     v-if="step.currentPage == stPgNo.DIS.ReviewYourAnswersDIS"/>
-        <preview-forms-dis          v-bind:step="step"     v-if="step.currentPage == stPgNo.DIS.PreviewFormsDIS"/> 
+        <notice-discontinuance      v-bind:step="step"     v-if="step.currentPage == stPgNo.NDT.NoticeDiscontinuance" />
+        <discontinuance-information v-bind:step="step"     v-if="step.currentPage == stPgNo.NDT.DiscontinuanceInformation" />
+        <more-information           v-bind:step="step"     v-if="step.currentPage == stPgNo.NDT.MoreInformation" />
+        <review-your-answers-ndt    v-bind:step="step"     v-if="step.currentPage == stPgNo.NDT.ReviewYourAnswersNDT"/>
+        <preview-forms-ndt          v-bind:step="step"     v-if="step.currentPage == stPgNo.NDT.PreviewFormsNDT"/> 
     </step-base>
 </template>
 
@@ -19,8 +19,8 @@ import StepBase from "../StepBase.vue";
 import NoticeDiscontinuance from "./NoticeDiscontinuance.vue";
 import DiscontinuanceInformation from "./DiscontinuanceInformation.vue";
 import MoreInformation from "./MoreInformation.vue";
-import ReviewYourAnswersDis from "./reviewDIS/ReviewYourAnswersDIS.vue";
-import PreviewFormsDis from "./reviewDIS/PreviewFormsDIS.vue";
+import ReviewYourAnswersNdt from "./reviewNDT/ReviewYourAnswersNDT.vue";
+import PreviewFormsNdt from "./reviewNDT/PreviewFormsNDT.vue";
 
 import { stepInfoType } from "@/types/Application";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
@@ -31,8 +31,8 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
         NoticeDiscontinuance,        
         DiscontinuanceInformation,
         MoreInformation,
-        ReviewYourAnswersDis,
-        PreviewFormsDis        
+        ReviewYourAnswersNdt,
+        PreviewFormsNdt        
     }
 })
 export default class DiscontinuanceStep extends Vue {

@@ -28,7 +28,7 @@
         <rflm-table class="mt-5" :results="results"/>
         <wr-table class="mt-5" :results="results"/>
         <ncd-table class="mt-5" :results="results"/>
-        <dis-table class="mt-5" :results="results"/>
+        <ndt-table class="mt-5" :results="results"/>
         <other-form-table class="mt-5" :results="results"/>
         
     </div>
@@ -49,7 +49,7 @@ import RelocTable from './PdfLayouts/RelocTable.vue';
 import RflmTable from './PdfLayouts/RflmTable.vue';
 import WrTable from './PdfLayouts/WrTable.vue';
 import NcdTable from './PdfLayouts/NcdTable.vue';
-import DisTable from './PdfLayouts/DisTable.vue';
+import NdtTable from './PdfLayouts/NdtTable.vue';
 import OtherFormTable from './PdfLayouts/OtherFormTable.vue';
 import {srcFile} from './logo'
 
@@ -69,7 +69,7 @@ import { reportInfoType } from '@/types/Common';
         RflmTable,        
         WrTable,
         NcdTable,
-        DisTable,
+        NdtTable,
         OtherFormTable,
         EfilingSummaryTable
     }

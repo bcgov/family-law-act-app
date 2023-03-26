@@ -77,7 +77,7 @@ export interface applicationDetailsInfoType {
     WR: formReportInfoType;
     OTHER: formReportInfoType;
     NCD: formReportInfoType;
-    DIS: formReportInfoType;
+    NDT: formReportInfoType;
 }
 
 export interface eFilingInfoType {

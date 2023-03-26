@@ -27,7 +27,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
     }
 })
 
-export default class ReviewYourAnswersDis extends Vue {
+export default class ReviewYourAnswersNdt extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -47,9 +47,9 @@ export default class ReviewYourAnswersDis extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        togglePages([this.stPgNo.DIS.PreviewFormsDIS], !this.pageHasError, this.currentStep);
+        togglePages([this.stPgNo.NDT.PreviewFormsNDT], !this.pageHasError, this.currentStep);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"noticeDiscontinuance", isCompleted:false})
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.DIS.PreviewFormsDIS,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.NDT.PreviewFormsNDT,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
@@ -68,13 +68,13 @@ export default class ReviewYourAnswersDis extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){            
-           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.DIS.PreviewFormsDIS,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.NDT.PreviewFormsNDT,  50, false);
         }
 
-        this.questionResults = getQuestionResults([this.stPgNo.OTHER._StepNo, this.stPgNo.DIS._StepNo], this.currentStep)
+        this.questionResults = getQuestionResults([this.stPgNo.OTHER._StepNo, this.stPgNo.NDT._StepNo], this.currentStep)
            
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        togglePages([this.stPgNo.DIS.PreviewFormsDIS], !this.pageHasError, this.currentStep); 
+        togglePages([this.stPgNo.NDT.PreviewFormsNDT], !this.pageHasError, this.currentStep); 
         
     }
     

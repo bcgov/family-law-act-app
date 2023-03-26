@@ -5,7 +5,7 @@
             Notice of Discontinuance: 
         </div>
         <b-table            
-            :items="disInfo"
+            :items="ndtInfo"
             :fields="fields"
             bordered            
             small
@@ -13,7 +13,7 @@
             responsive="sm">
         </b-table>
         <div style="font-size:9pt; margin-bottom: 0.5rem;">
-            <b>Total Number of 'Notice of Discontinuance' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{disInfo[0].total}} </span>
+            <b>Total Number of 'Notice of Discontinuance' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{ndtInfo[0].total}} </span>
         </div>
         
     </div>
@@ -24,13 +24,13 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { formReportInfoType, reportInfoType } from '@/types/Common';
 
 @Component
-export default class DisTable extends Vue {
+export default class NdtTable extends Vue {
 
     @Prop({required:true})
     results!: reportInfoType;
        
     dataReady = false; 
-    disInfo: formReportInfoType[] = [];
+    ndtInfo: formReportInfoType[] = [];
     
     fields = [
         {key:"completed",    label:"Completed (not eFiled)", thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
@@ -46,7 +46,7 @@ export default class DisTable extends Vue {
     }    
 
     public extractInfo(){
-       this.disInfo = [this.results.application_details.DIS];
+       this.ndtInfo = [this.results.application_details.NDT];
     }
  
 }

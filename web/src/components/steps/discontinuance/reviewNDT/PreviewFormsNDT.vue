@@ -22,7 +22,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
         PageBase
     }
 })
-export default class PreviewFormsDis extends Vue {
+export default class PreviewFormsNdt extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
@@ -38,7 +38,7 @@ export default class PreviewFormsDis extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);       
-        if(this.checkErrorOnPages([this.stPgNo.OTHER._StepNo, this.stPgNo.DIS._StepNo])) this.dataReady = true;
+        if(this.checkErrorOnPages([this.stPgNo.OTHER._StepNo, this.stPgNo.NDT._StepNo])) this.dataReady = true;
         window.scrollTo(0, 0);
     }   
 
