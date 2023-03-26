@@ -1864,7 +1864,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "14";
-        s.name = "DIS";
+        s.name = "NDT";
         s.label = "Notice of Discontinuance";
         s.icon = "fa fa-ban";
         s.lastUpdate = null;
@@ -1899,7 +1899,7 @@ class Application extends VuexModule {
         //____________Review
         p = {} as pageInfoType;
         p.key = "3";
-        p.name = "ReviewYourAnswersDIS";
+        p.name = "ReviewYourAnswersNDT";
         p.label = "Review Your Answers";
         p.active = false;
         p.progress = 0;    
@@ -1907,7 +1907,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "4";
-        p.name = "PreviewFormsDIS";
+        p.name = "PreviewFormsNDT";
         p.label = "Preview Forms";
         p.active = false;
         p.progress = 0;    
@@ -2403,7 +2403,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, DIS:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

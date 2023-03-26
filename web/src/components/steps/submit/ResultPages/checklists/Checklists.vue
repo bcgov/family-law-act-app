@@ -105,7 +105,7 @@ export default class Checklists extends Vue {
         {name:'RQS',    title:'Request for Scheduling',                                             pdfName:'Checklist_for_Request_for_Scheduling.pdf'},
         {name:'TRIS',   title:'Trial Readiness Statment',                                           pdfName:'Checklist_for_Trial_Readiness_Statment.pdf'},
         {name:'NCD',    title:'Notice of Address Change',                                           pdfName:'Checklist_for_Notice_of_Address_Change.pdf'},
-        {name:'DIS',    title:'Notice of Discontinuance',                                           pdfName:'Checklist_for_Notice_of_Discontinuance.pdf'},
+        {name:'NDT',    title:'Notice of Discontinuance',                                           pdfName:'Checklist_for_Notice_of_Discontinuance.pdf'},
         {name:'NLC',    title:'Notice of Lawyer for Child',                                         pdfName:'Checklist_for_Notice_of_Lawyer_for_Child.pdf'},
         {name:'NLP',    title:'Notice of Lawyer for Party',                                         pdfName:'Checklist_for_Notice_of_Lawyer_for_Party.pdf'},
         {name:'NP',     title:'Notice of Participation',                                            pdfName:'Checklist_for_Notice_of_Participation.pdf'},

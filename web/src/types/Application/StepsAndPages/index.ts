@@ -13,7 +13,7 @@ export interface stepsAndPagesNumberInfoType{
     CONNECT: CONNECTstPgTypes;
     OTHER: OTHERstPgTypes;
     NCD: NCDstPgTypes;
-    DIS: DISstPgTypes;
+    NDT: NDTstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -280,14 +280,14 @@ export interface NCDstPgTypes{
     PreviewFormsNCD: number;
 }
 
-export interface DISstPgTypes{
+export interface NDTstPgTypes{
     _StepNo: number;    
     
     NoticeDiscontinuance: number;
     DiscontinuanceInformation: number;
     MoreInformation: number;
-    ReviewYourAnswersDIS: number;
-    PreviewFormsDIS: number;
+    ReviewYourAnswersNDT: number;
+    PreviewFormsNDT: number;
 }
 
 export interface SUBMITstPgTypes{

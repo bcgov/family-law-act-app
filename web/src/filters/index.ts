@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.10";
+    const CURRENT_VERSION = "1.2.11";
     //__________________________
     //___________________________
     //___________________________
@@ -732,7 +732,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepCM = store.state.Application.stPgNo.CM;
 		const stepENFRC = store.state.Application.stPgNo.ENFRC;
 		const stepNCD = store.state.Application.stPgNo.NCD;
-		const stepDIS = store.state.Application.stPgNo.DIS;		
+		const stepNDT = store.state.Application.stPgNo.NDT;		
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -781,9 +781,9 @@ Vue.filter('surveyChanged', function(type: string) {
 			previewPages = [stepNCD.PreviewFormsNCD];
 		}
 		else if(typeName == 'noticeDiscontinuance'){
-			step = stepDIS._StepNo; 
-			reviewPage = stepDIS.ReviewYourAnswersDIS; 
-			previewPages = [stepDIS.PreviewFormsDIS];
+			step = stepNDT._StepNo; 
+			reviewPage = stepNDT.ReviewYourAnswersNDT; 
+			previewPages = [stepNDT.PreviewFormsNDT];
 		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})

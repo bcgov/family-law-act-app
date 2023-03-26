@@ -269,12 +269,12 @@ export default class SuccessPage extends Vue {
     checklistType='';
     applicationId = '';
     applicationDocumentTypes = [];
-    otherApplicationTypes = ['NCD', 'DIS', 'NLC', 'NLP', 'NP', 'NLCR', 'NLPR', 'ORD', 'REF', 'RFS', 'RPS'];
+    otherApplicationTypes = ['NCD', 'NDT', 'NLC', 'NLP', 'NP', 'NLCR', 'NLPR', 'ORD', 'REF', 'RFS', 'RPS'];
     includesOtherForms = false;
 
     otherApplicationTypesInfo = [        
         {name:'NCD',    title:'Notice of Address Change'},
-        {name:'DIS',    title:'Notice of Discontinuance'},
+        {name:'NDT',    title:'Notice of Discontinuance'},
         {name:'NLC',    title:'Notice of Lawyer for Child'},
         {name:'NLP',    title:'Notice of Lawyer for Party'},
         {name:'NP',     title:'Notice of Participation'},
@@ -378,7 +378,7 @@ export default class SuccessPage extends Vue {
             //TODO: may need to remove this
 
             if (pathways.includes('noticeDiscontinuance')){
-                this.applicationDocumentTypes.push('DIS')
+                this.applicationDocumentTypes.push('NDT')
             }
 
             //TODO: adjust based on new file types            

@@ -98,8 +98,8 @@ export default class NoticeDiscontinuance extends Vue {
 
     public setPages() {
 
-        const p = this.stPgNo.DIS;
-        const noticeDiscontinuancePagesAll = [p.DiscontinuanceInformation, p.MoreInformation, p.ReviewYourAnswersDIS]
+        const p = this.stPgNo.NDT;
+        const noticeDiscontinuancePagesAll = [p.DiscontinuanceInformation, p.MoreInformation, p.ReviewYourAnswersNDT]
 
         if (this.survey.data) {
 

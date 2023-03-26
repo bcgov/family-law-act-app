@@ -182,7 +182,7 @@ export default class OtherFormFilingLocation extends Vue {
             }            
         }        
         toggleStep(this.stPgNo.NCD._StepNo, this.requiredGuidedPathways.includes("noticeOfAddressChange"));
-        toggleStep(this.stPgNo.DIS._StepNo, this.requiredGuidedPathways.includes("noticeDiscontinuance"));
+        toggleStep(this.stPgNo.NDT._StepNo, this.requiredGuidedPathways.includes("noticeDiscontinuance"));
            
              
     }   

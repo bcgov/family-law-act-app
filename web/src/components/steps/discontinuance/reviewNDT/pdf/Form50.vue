@@ -36,7 +36,7 @@ export default class Form50 extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getDISResultData();       
+        this.result = this.getNDTResultData();       
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
@@ -77,10 +77,10 @@ export default class Form50 extends Vue {
         });
     }
  
-    public getDISResultData() {         
+    public getNDTResultData() {         
         
         const result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.DIS._StepNo]){
+        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.NDT._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])
