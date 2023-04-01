@@ -182,7 +182,55 @@
                     @click="checklist=true;checklistType='TRIS';" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Trial Readiness Statment
-                </div>                
+                </div>     
+                <div 
+                    v-if="applicationDocumentTypes.includes('AFF')" 
+                    @click="checklist=true;checklistType='AFF';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Affidavit – General
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('APS')" 
+                    @click="checklist=true;checklistType='APS';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Affidavit of Personal Service
+                </div>  
+                <div 
+                    v-if="applicationDocumentTypes.includes('APSP')" 
+                    @click="checklist=true;checklistType='APSP';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Affidavit of Personal Service of Protection Order
+                </div>    
+                <div 
+                    v-if="applicationDocumentTypes.includes('CSV')" 
+                    @click="checklist=true;checklistType='CSV';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Certificate of Service
+                </div>    
+                <div 
+                    v-if="applicationDocumentTypes.includes('CONA')" 
+                    @click="checklist=true;checklistType='CONA';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Consent Adjournment
+                </div>    
+                <div 
+                    v-if="applicationDocumentTypes.includes('CIFT')" 
+                    @click="checklist=true;checklistType='CIFT';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Consent to an Informal Trial (Kamloops only)
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('EFSP')" 
+                    @click="checklist=true;checklistType='EFSP';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Electronic Filing Statement
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('PASE')" 
+                    @click="checklist=true;checklistType='PASE';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Notice of Exemption from Parenting Education Program
+                </div>
             </div>           
 
             <div class="mt-5">
@@ -214,7 +262,7 @@
                 <h3>Haven’t Heard Back?</h3>
                 If you don’t hear back within 1 week from the court registry. Please contact CSO Online Support at 
                 <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a> 
-                and include your<tooltip title="Court File Number" index="0"/> / Filing Location or
+                and include your <tooltip title="Court File Number" index="0"/> / Filing Location or
                 <span class="text-primary">Online Package Number (<strong>{{packageNumber}}</strong>)</span>.
             </div>
 

@@ -22,6 +22,14 @@
             <npr-checklist v-if="checklistType=='NPR'" :applicationId='applicationId'/>
             <rqs-checklist v-if="checklistType=='RQS'" :applicationId='applicationId'/>
             <tris-checklist v-if="checklistType=='TRIS'" :applicationId='applicationId'/>
+            <aff-checklist v-if="checklistType=='AFF'" :applicationId='applicationId'/>
+            <aps-checklist v-if="checklistType=='APS'" :applicationId='applicationId'/>
+            <apsp-checklist v-if="checklistType=='APSP'" :applicationId='applicationId'/>
+            <csv-checklist v-if="checklistType=='CSV'" :applicationId='applicationId'/>
+            <cona-checklist v-if="checklistType=='CONA'" :applicationId='applicationId'/>
+            <cift-checklist v-if="checklistType=='CIFT'" :applicationId='applicationId'/>
+            <efsp-checklist v-if="checklistType=='EFSP'" :applicationId='applicationId'/>
+            <pase-checklist v-if="checklistType=='PASE'" :applicationId='applicationId'/>
         </b-card>
     </div>
 </template>
@@ -48,6 +56,14 @@ import FsChecklist from "./FsChecklist.vue";
 import NprChecklist from "./NprChecklist.vue";
 import TrisChecklist from "./TrisChecklist.vue";
 import RqsChecklist from "./RqsChecklist.vue";
+import AffChecklist from "./AffChecklist.vue";
+import ApsChecklist from "./ApsChecklist.vue";
+import ApspChecklist from "./ApspChecklist.vue";
+import CsvChecklist from "./CsvChecklist.vue";
+import ConaChecklist from "./ConaChecklist.vue";
+import CiftChecklist from "./CiftChecklist.vue";
+import EfspChecklist from "./EfspChecklist.vue";
+import PaseChecklist from "./PaseChecklist.vue";
 
 @Component({
     components:{        
@@ -68,7 +84,15 @@ import RqsChecklist from "./RqsChecklist.vue";
         FsChecklist,
         NprChecklist,
         TrisChecklist,
-        RqsChecklist
+        RqsChecklist,
+        AffChecklist,
+        ApsChecklist,
+        ApspChecklist,
+        CsvChecklist,
+        ConaChecklist,
+        CiftChecklist,
+        EfspChecklist,
+        PaseChecklist
     }
 })
 export default class Checklists extends Vue {
@@ -115,6 +139,15 @@ export default class Checklists extends Vue {
         {name:'REF',    title:'Referral Request',                                                   pdfName:'Checklist_for_Referral_Request.pdf'},
         {name:'RFS',    title:'Request for Service of Documents',                                   pdfName:'Checklist_for_Request_for_Service_of_Documents.pdf'},
         {name:'RPS',    title:'Request for Service of Family Protection Order',                     pdfName:'Checklist_for_Request_for_Service_of_Family_Protection_Order.pdf'},
+        {name:'AFF',    title:'Affidavit – General',                                                pdfName:'Checklist_for_Affidavit_General.pdf'},
+        {name:'APS',    title:'Affidavit of Personal Service',                                      pdfName:'Checklist_for_Affidavit_of_Personal_Service.pdf'},
+        {name:'APSP',   title:'Affidavit of Personal Service of Protection Order',                  pdfName:'Checklist_for_Affidavit_of_Personal_Service_of_Protection_Order.pdf'},
+        {name:'CSV',    title:'Certificate of Service',                                             pdfName:'Checklist_for_Certificate_of_Service.pdf'},
+        {name:'CONA',   title:'Consent adjournment',                                                pdfName:'Checklist_for_Consent_Adjournment.pdf'},
+        {name:'CIFT',   title:'Consent to an Informal Trial (Kamloops only)',                       pdfName:'Checklist_for_Consent_to_an_Informal_Trial_(Kamloops_only).pdf'},
+        {name:'EFSP',   title:'Electronic Filing Statement',                                        pdfName:'Checklist_for_Electronic_Filing_Statement.pdf'},
+        {name:'PASE',   title:'Notice of Exemption from Parenting Education Program',               pdfName:'Checklist_for_Notice_of_Exemption_from_Parenting_Education_Program.pdf'},
+    
     ]    
 
     mounted(){       

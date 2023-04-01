@@ -148,7 +148,7 @@ export default class OtherForms extends Vue {
         {formName: 'Consent to an Informal Trial (Kamloops only)',          formNumber: 'PFA709'},
         {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51'},
         {formName: 'Fax Filing Cover Page',                                 formNumber: 'Form 52'},
-        {formName: 'Financial Statement',                                   formNumber: 'Form 52'},
+        {formName: 'Financial Statement',                                   formNumber: 'Form 4'},
         {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5'},
         {formName: 'Notice of Address Change',                              formNumber: 'Form 46'},
         {formName: 'Notice of Discontinuance',                              formNumber: 'Form 50'},
