@@ -161,8 +161,7 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(submitStep._StepNo, false);  
 
         if (this.determineContinue()){
-            
-            //TODO: check pathways and activate steps
+             
             this.setGuidedPathwaySteps();                    
             
             toggleStep(submitStep._StepNo, true);  
@@ -193,12 +192,18 @@ export default class OtherFormFilingLocation extends Vue {
     }     
 
     public setExistingFileNumber(){
-        const newExistingOrders = [];      
+        const newExistingOrders = []; 
         
-        const fileNumber = this.survey.data?.ExisingFamilyCase == 'y'? this.survey.data.ExistingFileNumber: ''
-        newExistingOrders.push({type: '', filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
-           
-       this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
+        if(this.step?.result?.completeOtherFormsSurvey?.data?.selectedFormInfoList?.length>0){
+            const fileNumber = this.survey.data?.ExisingFamilyCase == 'y'? this.survey.data.ExistingFileNumber: ''
+            for(const selectedform of this.step.result.completeOtherFormsSurvey.data.selectedFormInfoList){
+                if(!selectedform.pathwayExists || selectedform.manualState) continue
+                const pdfType = (Vue.filter('getPathwayPdfType')(selectedform.pathwayName))
+                newExistingOrders.push({type: pdfType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
+            }
+            
+            this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
+        }
     }
 
     public onPrev() {

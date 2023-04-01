@@ -120,8 +120,7 @@ export default class MoreInformation extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            // Vue.filter('surveyChanged')('allExPO')//TODO: decide is this is required  
+        this.survey.onValueChanged.add((sender, options) => {  
 
             this.validateDates();
 

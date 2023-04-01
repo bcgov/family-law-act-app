@@ -37,7 +37,7 @@
                     </b-card>
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-3 mb-4">
                     <h3 class="primary">I want to file my application</h3>
                     <b-form-radio-group
                     stacked
@@ -104,7 +104,7 @@ const applicationState = namespace("Application");
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import {stepInfoType, stepResultInfoType } from "@/types/Application";
 import { otherFormInfoType } from '@/types/Application/OtherFamilyForm';
-import { togglePages } from '@/components/utils/TogglePages';
+import { togglePages ,toggleSteps } from '@/components/utils/TogglePages';
 
 @Component({
     components:{
@@ -133,6 +133,7 @@ export default class OtherForms extends Vue {
     filingMethod = null;
     showLegalAssistance = false;    
     disableNextButton = false;
+    reloadPageInProgress = false;
 
     currentStep =0;
     currentPage =0;
@@ -147,7 +148,7 @@ export default class OtherForms extends Vue {
         {formName: 'Consent to an Informal Trial (Kamloops only)',          formNumber: 'PFA709'},
         {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51'},
         {formName: 'Fax Filing Cover Page',                                 formNumber: 'Form 52'},
-        {formName: 'Financial Statement',                                   formNumber: 'Form 52'},
+        {formName: 'Financial Statement',                                   formNumber: 'Form 4'},
         {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5'},
         {formName: 'Notice of Address Change',                              formNumber: 'Form 46'},
         {formName: 'Notice of Discontinuance',                              formNumber: 'Form 50'},
@@ -192,7 +193,8 @@ export default class OtherForms extends Vue {
         this.reloadPageInformation();
     }
 
-    public reloadPageInformation(){               
+    public reloadPageInformation(){ 
+        this.reloadPageInProgress = true;              
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
@@ -207,6 +209,7 @@ export default class OtherForms extends Vue {
 
         const progress = (this.filingMethod == null || this.selectedForms.length == 0)? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        setTimeout(()=>{this.reloadPageInProgress = false},5);
     }
 
     public selectForms(forms: otherFormInfoType[]){        
@@ -221,7 +224,7 @@ export default class OtherForms extends Vue {
     }
 
     public onChangeFilingMethod(method){
-
+        this.resetSteps();
         this.resetPages();
         this.determineSteps();
         this.UpdatePathwayCompleted({pathway:"other", isCompleted:false})        
@@ -239,6 +242,10 @@ export default class OtherForms extends Vue {
 
         if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherFormFilingLocation].progress>0) 
             Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherFormFilingLocation, 50, false);
+    }
+
+    public resetSteps(){ //TODO add all new steps here    
+        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo,], false);
     }
 
     public determineSteps(){
@@ -259,7 +266,10 @@ export default class OtherForms extends Vue {
         }
       
         this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
-        this.determineSteps();
+        if(this.reloadPageInProgress)
+            this.determineSteps();
+        else
+            this.onChangeFilingMethod(null)
     }
     
     public allRequiredInfoExists(){        

@@ -155,11 +155,10 @@ class EFilingSubmitView(generics.GenericAPIView):
     def _process_incoming_files_and_documents(
         self, standalone, application, application_steps, incoming_documents, incoming_files
     ):
-        outgoing_documents = list() 
+        outgoing_documents = [] 
 
         if standalone==False:
-            application_document = self._get_pdf_content(application, application_steps)
-            outgoing_documents.append(application_document)
+            outgoing_documents = self._get_pdf_content(application, application_steps)            
 
         for incoming_document in incoming_documents:
             if "files" not in incoming_document:

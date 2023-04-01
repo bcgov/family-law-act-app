@@ -165,7 +165,7 @@ export default class SelectActivity extends Vue {
 
         this.disableNextButton = !(this.selectedActivity.length > 0 || this.otherForms.state);        
 
-        const progress = (this.selectedActivity.length==0 || !this.otherForms.state)? 50 : 100;
+        const progress = (this.selectedActivity.length==0 && !this.otherForms.state)? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
         this.dataReady = true;
     }
@@ -209,6 +209,7 @@ export default class SelectActivity extends Vue {
             togglePages([startStep.FlmInfo], false, startStep._StepNo);
             togglePages([startStep.GettingStarted], false, startStep._StepNo);
             togglePages([startStep.ReplyToApplication], false, startStep._StepNo);
+            Vue.nextTick(()=>Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true));
             
         }         
 
