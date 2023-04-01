@@ -265,8 +265,7 @@ export default class CompleteOtherForms extends Vue {
                     togglePages([p.OtherFormFilingLocation], true, this.currentStep);
                 } else {
                     
-                    toggleStep(submitStep._StepNo, true);  
-                    //TODO: reset steps for required pathway options                
+                    toggleStep(submitStep._StepNo, true);                
 
                     togglePages([submitStep.NextSteps], true, submitStep._StepNo);
                     this.UpdatePathwayCompleted({pathway:"other", isCompleted:true})

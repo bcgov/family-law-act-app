@@ -69,7 +69,6 @@ export default class NoticeDiscontinuance extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            // Vue.filter('surveyChanged')('allExPO')//TODO: decide is this is required 
 
             this.setPages();
 

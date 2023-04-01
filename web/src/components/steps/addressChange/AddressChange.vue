@@ -59,8 +59,7 @@ export default class AddressChange extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            // Vue.filter('surveyChanged')('allExPO')//TODO: decide is this is required           
+        this.survey.onValueChanged.add((sender, options) => {          
 
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);

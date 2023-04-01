@@ -52,7 +52,7 @@
                     during your court appearance.
                 </span>           
             
-                <other-form-list :type="eFiling?'Submit':'Print'" :currentPage="currentPage"/>
+                <other-form-list @downloaded="downloaded" :type="eFiling?'Submit':'Print'" :currentPage="currentPage"/>
 
                 <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
@@ -369,11 +369,12 @@
 
             Vue.nextTick().then(()=>{
                 const dropArea = document.getElementById('drop-area');
-                dropArea.addEventListener('drop', this.handleFileDrop, false);
-                dropArea.addEventListener('dragenter', this.dragPreventDefaults, false);
-                dropArea.addEventListener('dragleave', this.dragPreventDefaults, false);
-                dropArea.addEventListener('dragover', this.dragPreventDefaults, false);             
-            
+                if(dropArea){
+                    dropArea.addEventListener('drop', this.handleFileDrop, false);
+                    dropArea.addEventListener('dragenter', this.dragPreventDefaults, false);
+                    dropArea.addEventListener('dragleave', this.dragPreventDefaults, false);
+                    dropArea.addEventListener('dragover', this.dragPreventDefaults, false);                                          
+                }
             });
            
             // const dropArea = document.getElementById('drop-area');
@@ -625,7 +626,11 @@
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");
-        }         
+        } 
+        
+        public downloaded(){
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
+        }        
 
     }
 </script>
