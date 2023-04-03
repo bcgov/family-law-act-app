@@ -29,7 +29,6 @@
         <wr-table class="mt-5" :results="results"/>
         <ncd-table class="mt-5" :results="results"/>
         <ndt-table class="mt-5" :results="results"/>
-        <other-form-table class="mt-5" :results="results"/>
         
     </div>
 </template>
@@ -38,19 +37,44 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UsersInfoTable from './PdfLayouts/UsersInfoTable.vue';
 import SummaryTable from './PdfLayouts/SummaryTable.vue';
-import EfilingSummaryTable from './PdfLayouts/EfilingSummaryTable.vue'
+import EfilingSummaryTable from './PdfLayouts/EfilingSummaryTable.vue';
+
+import AffTable from './PdfLayouts/AffTable.vue';
+import ApspTable from './PdfLayouts/ApspTable.vue';
+import ApsTable from './PdfLayouts/ApsTable.vue';
 import CaTable from './PdfLayouts/CaTable.vue';
+import CiftTable from './PdfLayouts/CiftTable.vue';
 import CmTable from './PdfLayouts/CmTable.vue';
+import ConaTable from './PdfLayouts/ConaTable.vue';
+import CorTable from './PdfLayouts/CorTable.vue';
+import CsvTable from './PdfLayouts/CsvTable.vue';
+import EfspTable from './PdfLayouts/EfspTable.vue';
 import EnfrcTable from './PdfLayouts/EnfrcTable.vue';
+import FfTable from './PdfLayouts/FfTable.vue';
 import FlmTable from './PdfLayouts/FlmTable.vue';
-import PoTable from './PdfLayouts/PoTable.vue';
-import PpmTable from './PdfLayouts/PpmTable.vue';
-import RelocTable from './PdfLayouts/RelocTable.vue';
-import RflmTable from './PdfLayouts/RflmTable.vue';
-import WrTable from './PdfLayouts/WrTable.vue';
+import FsTable from './PdfLayouts/FsTable.vue';
+import GaTable from './PdfLayouts/GaTable.vue';
 import NcdTable from './PdfLayouts/NcdTable.vue';
 import NdtTable from './PdfLayouts/NdtTable.vue';
-import OtherFormTable from './PdfLayouts/OtherFormTable.vue';
+import NlcrTable from './PdfLayouts/NlcrTable.vue';
+import NlcTable from './PdfLayouts/NlcTable.vue';
+import NlprTable from './PdfLayouts/NlprTable.vue';
+import NlpTable from './PdfLayouts/NlpTable.vue';
+import NprTable from './PdfLayouts/NprTable.vue';
+import NpTable from './PdfLayouts/NpTable.vue';
+import OrdTable from './PdfLayouts/OrdTable.vue';
+import PaseTable from './PdfLayouts/PaseTable.vue';
+import PoTable from './PdfLayouts/PoTable.vue';
+import PpmTable from './PdfLayouts/PpmTable.vue';
+import RefTable from './PdfLayouts/RefTable.vue';
+import RelocTable from './PdfLayouts/RelocTable.vue';
+import RflmTable from './PdfLayouts/RflmTable.vue';
+import RfsTable from './PdfLayouts/RfsTable.vue';
+import RpsTable from './PdfLayouts/RpsTable.vue';
+import RqsTable from './PdfLayouts/RqsTable.vue';
+import TrisTable from './PdfLayouts/TrisTable.vue';
+import WrTable from './PdfLayouts/WrTable.vue';
+
 import {srcFile} from './logo'
 
 import { reportInfoType } from '@/types/Common';
@@ -59,18 +83,41 @@ import { reportInfoType } from '@/types/Common';
     components:{       
         UsersInfoTable,
         SummaryTable, 
+        AffTable,
+        ApspTable,
+        ApsTable,
         CaTable,
+        CiftTable,
         CmTable,
+        ConaTable,
+        CorTable,
+        CsvTable,
+        EfspTable,
+        FfTable,
         EnfrcTable,
-        FlmTable,   
-        PoTable,
-        PpmTable,  
-        RelocTable,       
-        RflmTable,        
-        WrTable,
+        FsTable,        
+        FlmTable,  
+        GaTable, 
         NcdTable,
         NdtTable,
-        OtherFormTable,
+        NlcrTable,
+        NlcTable,
+        NlprTable,
+        NlpTable,
+        NprTable,
+        NpTable,
+        OrdTable,
+        PaseTable,
+        PoTable,
+        PpmTable,  
+        RefTable,
+        RelocTable,       
+        RflmTable,   
+        RfsTable,
+        RpsTable,
+        RqsTable,
+        TrisTable,     
+        WrTable,
         EfilingSummaryTable
     }
 })

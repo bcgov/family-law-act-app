@@ -231,6 +231,24 @@
                     style="color:blue; cursor:pointer;">
                     Checklist for Notice of Exemption from Parenting Education Program
                 </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('GA')" 
+                    @click="checklist=true;checklistType='GA';"
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Guardianship Affidavit
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('FF')" 
+                    @click="checklist=true;checklistType='FF';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Fax Filing Cover Page
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('COR')" 
+                    @click="checklist=true;checklistType='COR';" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Consent Orders
+                </div>
             </div>           
 
             <div class="mt-5">
