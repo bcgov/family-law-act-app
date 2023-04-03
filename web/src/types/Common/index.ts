@@ -75,9 +75,32 @@ export interface applicationDetailsInfoType {
     RELOC: formReportInfoType;
     RFLM: formReportInfoType;
     WR: formReportInfoType;
-    OTHER: formReportInfoType;
     NCD: formReportInfoType;
     NDT: formReportInfoType;
+    AFF: formReportInfoType;
+    APS: formReportInfoType;
+    APSP: formReportInfoType;
+    CSV: formReportInfoType;
+    CONA: formReportInfoType;
+    COR: formReportInfoType;
+    CIFT: formReportInfoType;
+    EFSP: formReportInfoType;
+    FF: formReportInfoType;
+    FS: formReportInfoType;
+    GA: formReportInfoType;
+    PASE: formReportInfoType;
+    NPR: formReportInfoType;
+    NLC: formReportInfoType;
+    NLP: formReportInfoType;
+    NP: formReportInfoType;
+    NLCR: formReportInfoType;
+    NLPR: formReportInfoType;
+    ORD: formReportInfoType;
+    REF: formReportInfoType;
+    RQS: formReportInfoType;
+    RFS: formReportInfoType;
+    RPS: formReportInfoType;
+    TRIS: formReportInfoType;
 }
 
 export interface eFilingInfoType {

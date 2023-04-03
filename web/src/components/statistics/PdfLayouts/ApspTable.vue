@@ -1,8 +1,11 @@
 <template>
     <div v-if="dataReady" class="print-block">
-        <div style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;" >Other Application: </div>
+        <div 
+            style="font-size:12pt; font-weight:600; margin-bottom: 0.5rem;">
+            Affidavit of Personal Service of Protection Order: 
+        </div>
         <b-table            
-            :items="otherInfo"
+            :items="apspInfo"
             :fields="fields"
             bordered            
             small
@@ -10,7 +13,7 @@
             responsive="sm">
         </b-table>
         <div style="font-size:9pt; margin-bottom: 0.5rem;">
-            <b>Total Number of 'Administrative Forms' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{otherInfo[0].total}} </span>
+            <b>Total Number of 'Affidavit of Personal Service of Protection Order' Applications:</b> <span style="font-size:11pt;" class="text-primary">{{apspInfo[0].total}} </span>
         </div>
         
     </div>
@@ -21,20 +24,20 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { formReportInfoType, reportInfoType } from '@/types/Common';
 
 @Component
-export default class OtherFormTable extends Vue {
+export default class ApspTable extends Vue {
 
     @Prop({required:true})
     results!: reportInfoType;
        
     dataReady = false; 
-    otherInfo: formReportInfoType[] = [];
+    apspInfo: formReportInfoType[] = [];
     
     fields = [
         {key:"completed",    label:"Completed (not eFiled)", thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
         {key:"efiled",       label:"Submitted (eFiled)",     thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
         {key:"draft",        label:"Drafted",                thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'},
         {key:"started",      label:"Started",                thClass: 'border-bottom align-middle text-center', tdClass:'align-middle text-center'}        
-    ];     
+    ];    
    
     mounted(){
         this.dataReady = false;
@@ -43,7 +46,7 @@ export default class OtherFormTable extends Vue {
     }    
 
     public extractInfo(){
-       this.otherInfo = [this.results.application_details.OTHER];
+       this.apspInfo = [this.results.application_details.APSP];
     }
  
 }

@@ -23,10 +23,16 @@
                 to the registry.
             </p>
            
-            <p style="margin:0.5rem 0 2rem 0;">
+            <p style="margin:0.5rem 0 0.5rem 0;">
                 Ensure that you follow the instructions provided in the form and include all 
                 the information that is asked for.  You can print or save the form.
-            </p>              
+            </p>   
+            
+            <p v-if="checklistInfo.name =='NLC'" style="margin:0.5rem 0 2rem 0;">
+                NOTE TO THE PARTIES: You are required to serve the lawyer for the child(ren) 
+                with copies of any court documents, including any application and supporting 
+                documents, as you would the other party, unless otherwise ordered by the court.
+            </p>
          
         </div>
 

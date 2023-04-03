@@ -30,6 +30,9 @@
             <cift-checklist v-if="checklistType=='CIFT'" :applicationId='applicationId'/>
             <efsp-checklist v-if="checklistType=='EFSP'" :applicationId='applicationId'/>
             <pase-checklist v-if="checklistType=='PASE'" :applicationId='applicationId'/>
+            <ga-checklist v-if="checklistType=='GA'" :applicationId='applicationId'/>
+            <ff-checklist v-if="checklistType=='FF'" :applicationId='applicationId'/>
+            <cor-checklist v-if="checklistType=='COR'" :applicationId='applicationId'/>
         </b-card>
     </div>
 </template>
@@ -64,6 +67,9 @@ import ConaChecklist from "./ConaChecklist.vue";
 import CiftChecklist from "./CiftChecklist.vue";
 import EfspChecklist from "./EfspChecklist.vue";
 import PaseChecklist from "./PaseChecklist.vue";
+import GaChecklist from "./GaChecklist.vue";
+import FfChecklist from "./FfChecklist.vue";
+import CorChecklist from "./CorChecklist.vue";
 
 @Component({
     components:{        
@@ -92,7 +98,10 @@ import PaseChecklist from "./PaseChecklist.vue";
         ConaChecklist,
         CiftChecklist,
         EfspChecklist,
-        PaseChecklist
+        PaseChecklist,
+        GaChecklist,
+        FfChecklist,
+        CorChecklist
     }
 })
 export default class Checklists extends Vue {
@@ -147,6 +156,9 @@ export default class Checklists extends Vue {
         {name:'CIFT',   title:'Consent to an Informal Trial (Kamloops only)',                       pdfName:'Checklist_for_Consent_to_an_Informal_Trial_(Kamloops_only).pdf'},
         {name:'EFSP',   title:'Electronic Filing Statement',                                        pdfName:'Checklist_for_Electronic_Filing_Statement.pdf'},
         {name:'PASE',   title:'Notice of Exemption from Parenting Education Program',               pdfName:'Checklist_for_Notice_of_Exemption_from_Parenting_Education_Program.pdf'},
+        {name:'GA',     title:'Guardianship Affidavit',                                             pdfName:'Checklist_for_Guardianship_Affidavit.pdf'},
+        {name:'FF',     title:'Fax Filing Cover Page',                                              pdfName:'Checklist_for_Fax_Filing_Cover_Page.pdf'},
+        {name:'COR',     title:'Consent Order',                                                     pdfName:'Checklist_for_Consent_Order.pdf'}
     
     ]    
 
