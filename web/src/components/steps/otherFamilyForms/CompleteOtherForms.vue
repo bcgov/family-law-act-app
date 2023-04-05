@@ -53,7 +53,7 @@
                                 <b-button  
                                     v-if="otherForm.pathwayExists"
                                     style="min-height: 2.5rem; font-size: 0.8rem; width: 100%;"
-                                    @click="changeSelectedActivity(inx, true)"
+                                    @click="changeSelectedActivity(inx, true, otherForm.formName)"
                                     :pressed.sync="otherForm.pathwayState"
                                     :variant="otherForm.pathwayState?'primary':'secondary'">
                                     Complete form using guided pathway
@@ -62,7 +62,7 @@
                             <b-col>
                                 <b-button
                                     style="min-height: 2.5rem; font-size: 0.8rem; width: 100%;"
-                                    @click="changeSelectedActivity(inx, false)"
+                                    @click="changeSelectedActivity(inx, false, otherForm.formName)"
                                     :pressed.sync="otherForm.manualState"
                                     :variant="otherForm.manualState?'primary':'secondary'">
                                     Complete PDF form
@@ -290,15 +290,34 @@ export default class CompleteOtherForms extends Vue {
         return includesGuided;
     }   
 
-    public changeSelectedActivity(index: number, pathwaySelected: boolean){      
+    async changeSelectedActivity(index: number, pathwaySelected: boolean, formName){      
 
         this.selectedFormInfoList[index].pathwayState = pathwaySelected;
         this.selectedFormInfoList[index].manualState = !pathwaySelected;
         if (!pathwaySelected){
-            window.open(this.selectedFormInfoList[index].formLink, '_blank');
+            window.open(this.selectedFormInfoList[index].formLink, '_blank');        
+
+            //_____TODO___ add other generated pathways here 
+            let pdf_type=''
+            if(formName=='Notice of Address Change') {
+                const step = this.stPgNo.NCD._StepNo
+                const page = this.stPgNo.NCD.PreviewFormsNCD
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)                
+            }else if(formName=='Notice of Discontinuance'){
+                const step = this.stPgNo.NDT
+                const page = this.stPgNo.NDT.PreviewFormsNDT
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }
+            
+            if(pdf_type) await this.removeGeneratedPDF(pdf_type)
         }
 
-        this.determineSteps();        
+        this.determineSteps();
+                
     } 
 
     public allFormsDecided(){
@@ -312,7 +331,19 @@ export default class CompleteOtherForms extends Vue {
             }            
         }
         return decided;
-    }    
+    } 
+    
+    async removeGeneratedPDF(pdf_type){
+        const applicationId = this.$store.state.Application.id;       
+        const url = '/survey-print/'+applicationId+'/?pdf_type=' + pdf_type
+       
+        return this.$http.delete(url)
+        .then(res => {
+            // console.log(res)            
+        },err => {
+            console.error(err);        
+        });
+    }
 
     public navigateToGuide(){
         Vue.filter('scrollToLocation')("pdf-guide");

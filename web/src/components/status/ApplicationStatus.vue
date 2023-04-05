@@ -169,8 +169,11 @@
                 <h2 class="mb-0 mt-2 ml-4">Instructions</h2>                                  
             </template>
 
-            <b-card no-body border-variant="white" class="m-3">
+            <b-card v-if='!includesOtherForms(instructionsApplicationId)' no-body border-variant="white" class="m-3">
                 <instructions :applicationId='instructionsApplicationId' ></instructions>                
+            </b-card>
+            <b-card v-else no-body border-variant="white" class="m-3">
+                <instructions-other-forms :applicationId='instructionsApplicationId' />
             </b-card>
             
             <template v-slot:modal-footer>                
@@ -219,10 +222,11 @@ import {GetFilingLocations} from './GetFilingLocations'
 import {RestoreCommonStep} from './RestoreCommonStep'
 import {MigrateStore} from './MigrateStore'
 import Instructions from './Instructions.vue';
+import InstructionsOtherForms from './InstructionsOtherForms.vue'
 
 
 @Component({
-    components: {Instructions}
+    components: {Instructions, InstructionsOtherForms}
 })
 export default class ApplicationStatus extends Vue {
 
@@ -310,7 +314,7 @@ export default class ApplicationStatus extends Vue {
         .then((response) => {
             
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], app_type_code:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
@@ -318,6 +322,7 @@ export default class ApplicationStatus extends Vue {
                 app.id = appJson.id;
                 app.listOfPdfs = appJson.prepared_pdfs?appJson.prepared_pdfs.map(pdf=>pdf.pdf_type) :[]
                 app.app_type = this.extractTypes(appJson.app_type.split(','));
+                app.app_type_code = appJson.app_type.split(',');
                 if(appJson.last_efiling_submission){
                     app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
                     if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
@@ -507,6 +512,23 @@ export default class ApplicationStatus extends Vue {
         },(err) => {            
             console.log(err)
         });
+    }
+
+    public includesOtherForms(applicationId){
+        const application = this.previousApplications.filter(app => app.id==applicationId)
+        // console.log(applicationId)
+        // console.log(application)
+        if(application[0]){
+            const app_type_code = application[0].app_type_code
+            console.log(app_type_code)
+            const app_types = Vue.filter('getOtherFormsType')()
+            // console.log(app_types) 
+            for(const app_type of app_type_code){
+                if(!app_types.includes(app_type)) return false
+            }
+            return true
+        }
+        return false
     }
 
     public extractFilingLocations() {

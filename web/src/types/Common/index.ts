@@ -40,6 +40,7 @@ export interface  applicationJsonInfoType {
     lastUpdatedDate?: string; 
     id?: number; 
     app_type?: string[]; 
+    app_type_code?: string[];
     lastFiled?: number; 
     lastFiledDate?: string; 
     packageNum?: string; 

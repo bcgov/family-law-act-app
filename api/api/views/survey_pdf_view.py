@@ -99,3 +99,20 @@ class SurveyPdfView(generics.GenericAPIView):
             return HttpResponse(status=204)
         else:
             return self.create_download_response(pdf_content)
+    
+    
+    def delete(self, request, application_id):
+        user_id = request.user.id
+
+        app = get_application_for_user(application_id, user_id)
+        if not app:
+            return HttpResponseNotFound(no_record_found)
+
+        pdf_type = request.query_params.get("pdf_type") 
+        pdf_result = self.get_pdf_by_application_id_and_type(application_id, pdf_type)
+
+        if pdf_result:
+            pdf_result.version = 'Delete'
+            pdf_result.save()
+
+        return HttpResponse(status=204)
