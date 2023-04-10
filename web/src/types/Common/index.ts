@@ -76,6 +76,7 @@ export interface applicationDetailsInfoType {
     RELOC: formReportInfoType;
     RFLM: formReportInfoType;
     WR: formReportInfoType;
+    OTHER: formReportInfoType;
     NCD: formReportInfoType;
     NDT: formReportInfoType;
     AFF: formReportInfoType;

@@ -254,7 +254,7 @@ export default class CompleteOtherForms extends Vue {
         const submitStep = this.stPgNo.SUBMIT;
         const p = this.stPgNo.OTHER;
 
-        togglePages([submitStep.FilingOptions, submitStep.OtherFile, submitStep.NextSteps], false, submitStep._StepNo);
+        togglePages([submitStep.FilingOptions, submitStep.ReviewAndPrint,submitStep.ReviewAndSave,submitStep.ReviewAndSubmit, submitStep.OtherFile, submitStep.NextSteps], false, submitStep._StepNo);
         toggleStep(submitStep._StepNo, false);  
 
         if (this.allFormsDecided()){            
