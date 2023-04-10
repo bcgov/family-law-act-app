@@ -40,6 +40,7 @@ export interface  applicationJsonInfoType {
     lastUpdatedDate?: string; 
     id?: number; 
     app_type?: string[]; 
+    app_type_code?: string[];
     lastFiled?: number; 
     lastFiledDate?: string; 
     packageNum?: string; 
@@ -75,6 +76,7 @@ export interface applicationDetailsInfoType {
     RELOC: formReportInfoType;
     RFLM: formReportInfoType;
     WR: formReportInfoType;
+    OTHER: formReportInfoType;
     NCD: formReportInfoType;
     NDT: formReportInfoType;
     AFF: formReportInfoType;

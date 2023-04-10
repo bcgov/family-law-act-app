@@ -56,7 +56,7 @@ class ApplicationListSerializer(serializers.ModelSerializer):
 
     def get_prepared_pdfs(self, obj):
         return PreparedPdfSerializer(
-            PreparedPdf.objects.filter(application_id=obj.id), many=True
+            PreparedPdf.objects.filter(application_id=obj.id).exclude(version='Delete'), many=True
         ).data
 
 

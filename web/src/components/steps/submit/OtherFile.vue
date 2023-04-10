@@ -105,8 +105,8 @@
                         fixed>
 
                         <template v-slot:table-colgroup>
-                            <col style="width:20rem">
-                            <col style="width:10rem">
+                            <col style="width:15rem">
+                            <col style="width:15rem">
                             <col style="width:5rem">
                             <col style="width:6rem">
                         </template>
@@ -120,7 +120,7 @@
                             <span>{{row.item.fileName}}</span>
                         </template>
                         <template v-slot:cell(fileType)="row">                  
-                            <span>{{row.item.documentType}}</span>
+                           <span>{{row.item.documentType | pdfTypeToFullName}} ({{row.item.documentType}})</span>
                         </template>
                         
                         <template v-slot:cell(preview)="data">                            
@@ -241,7 +241,7 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import { namespace } from "vuex-class";  
-
+    import _ from 'underscore';
 
     import PageBase from "@/components/steps/PageBase.vue";   
     import OtherRequiredFormsList from "./components/OtherRequiredFormsList.vue";  
@@ -365,7 +365,8 @@
             }
 
             this.extractInfo();
-            this.dataReady = true;
+            
+            this.dataReady = this.checkErrorOnPages();
 
             Vue.nextTick().then(()=>{
                 const dropArea = document.getElementById('drop-area');
@@ -497,10 +498,11 @@
             docType.push({type:"FPO"})
             
             const docTypeJson = JSON.stringify(docType);
-            bodyFormData.append('documents', docTypeJson);    
+            bodyFormData.append('documents', docTypeJson);
+
             
             let url = "";
-            if (this.includesGuidedPathway()){
+            if (this.includesGuidedPathway() && !this.exemptGuidedPathway()){
                 url = "/efiling/"+this.id+"/submit/";
             } else {
                 url = "/efiling/"+this.id+"/submit/?standalone=true"; 
@@ -559,7 +561,7 @@
                 for(const supportingfile of this.supportingFile){
                
                     const newFile = {
-                        "fileName": supportingfile.name,
+                        "fileName": Vue.filter('cleanFileName')(supportingfile.name),
                         "file": supportingfile,
                         "documentType": this.fileType,
                         "image": URL.createObjectURL(supportingfile),
@@ -597,7 +599,7 @@
             if (includesOtherForms && selectedFormInfoList.length>0){
 
                 for (const selectedForm of selectedFormInfoList){                
-                    if (selectedForm.manualState){                       
+                    if (selectedForm.manualState || selectedForm.formName=="Notice of Discontinuance"){                       
                         const name = Vue.filter('getFullOrderName')(selectedForm.pathwayName, '');
                         const pdfType = Vue.filter('getPathwayPdfType')(selectedForm.pathwayName, '');
                         this.requiredDocumentLists.push({description: name, type: pdfType});                       
@@ -622,6 +624,19 @@
                 }            
             }
             return includesGuided;
+        } 
+        
+        public  exemptGuidedPathway(){
+
+            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
+            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
+
+            for (const selectedForm of selectedFormInfoList){                
+                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Notice of Discontinuance"){
+                    return true
+                }            
+            }
+            return false;
         }   
 
         public navigateToGuide(){
@@ -630,7 +645,28 @@
         
         public downloaded(){
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
-        }        
+        }
+        
+        public checkErrorOnPages(){
+
+        const stepsArr = _.range(0, Object.keys(this.stPgNo).length)  
+        const optionalLabels = ["File", "Filing Options", "Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
+        for(const stepIndex of stepsArr){
+            const step = this.$store.state.Application.steps[stepIndex]
+            if(step.active){
+                for(const page of step.pages){
+                    // console.log(step.id +'-'+ page.key)
+
+                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
+                        return false;
+                    }
+                }
+            }            
+        }
+        return true;        
+    }
 
     }
 </script>

@@ -2245,7 +2245,7 @@ class Application extends VuexModule {
             }            
         }
 
-        const includesOtherForms = this.steps[this.stPgNo.GETSTART._StepNo].result?.otherForms;
+        const includesOtherForms = this.steps[0].result?.otherForms;
         if(includesOtherForms){
 
             if(this.pathwayCompleted.other) 

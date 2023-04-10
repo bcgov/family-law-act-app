@@ -173,6 +173,8 @@ export default class SelectActivity extends Vue {
     public changeSelectedActivity(){
 
         const startPage = this.stPgNo.GETSTART;
+        const submitStep = this.stPgNo.SUBMIT;
+
         this.selectedActivity = [];
         for (const activity of this.activityButtons){
             if (activity.state){
@@ -192,6 +194,7 @@ export default class SelectActivity extends Vue {
         incompleteProgressOfAllPages();
         if (this.selectedActivity.length > 0){
             this.otherForms.state = false;
+            togglePages([submitStep.FilingOptions], true, submitStep._StepNo);
         }
     }  
 
@@ -199,6 +202,7 @@ export default class SelectActivity extends Vue {
 
         const otherFormStep = this.stPgNo.OTHER;
         const startStep = this.stPgNo.GETSTART;
+        const submitStep = this.stPgNo.SUBMIT;
         
         if (this.otherForms.state){
             
@@ -206,9 +210,8 @@ export default class SelectActivity extends Vue {
                 this.activityButtons[activity].state = false;               
             }  
             this.selectedActivity = [];
-            togglePages([startStep.FlmInfo], false, startStep._StepNo);
-            togglePages([startStep.GettingStarted], false, startStep._StepNo);
-            togglePages([startStep.ReplyToApplication], false, startStep._StepNo);
+            togglePages([startStep.FlmInfo, startStep.GettingStarted, startStep.ReplyToApplication], false, startStep._StepNo);
+            togglePages([submitStep.FilingOptions], false, submitStep._StepNo);
             Vue.nextTick(()=>Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true));
             
         }         

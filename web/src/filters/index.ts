@@ -294,6 +294,16 @@ Vue.filter('fullNamesToFamilyTypes',function(applicationTypes: string[]) {
 	return types;
 })
 
+Vue.filter('fullNameToPdfType',function(applicationType: string) {
+
+	let type = '';
+
+	const pathwayInfo = FLA_Types.filter(type => type.fullName == applicationType);
+	if (pathwayInfo.length == 1) type = (pathwayInfo[0].pdfType);
+
+	return type;
+})
+
 Vue.filter('pdfTypeToFamilyType',function(applicationType) {
 
 	const pathwayInfo = FLA_Types.filter(type => type.pdfType == applicationType);
@@ -310,6 +320,16 @@ Vue.filter('typesToFullnames',function(applicationTypes: string[]) {
 		if (pathwayInfo.length == 1) types.push(pathwayInfo[0].fullName);
 	}
 	return types;
+})
+
+Vue.filter('getOtherFormsType',function(){
+	const app_type = FLA_Types.filter(type => type.otherForms).map(type => type.appType)
+	return app_type
+})
+
+Vue.filter('cleanFileName',function(fileName){
+	const name = fileName.replace(/\s/g, '');
+	return name
 })
 
 Vue.filter('FLMform4Required', function(RFLM){

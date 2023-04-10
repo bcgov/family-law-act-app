@@ -34,14 +34,21 @@ export const SessionManager = {
                     this.logout(store);
                 }
                 const userName = response.data.display_name || response.data.first_name + " " + response.data.last_name;
-                const loggedInUserName = {} as nameInfoType;
+                let loggedInUserName = {} as nameInfoType;
 
-                if (response.data.first_name && response.data.last_name){
-                    loggedInUserName.first = response.data.first_name;
-                    loggedInUserName.middle = '';
-                    loggedInUserName.last = response.data.last_name;
-                }
-                 
+                const firstname=response.data.first_name;
+                const lastname=response.data.last_name;
+
+                loggedInUserName.first = firstname;
+                loggedInUserName.middle = '';
+                loggedInUserName.last = lastname;
+
+                if(!lastname)
+                    loggedInUserName = extractName(firstname)
+                else if(!firstname)
+                    loggedInUserName = extractName(lastname)
+                               
+            
                 store.commit("Application/setUserName", userName);
                 store.commit("Application/setLoggedInUserName", loggedInUserName);
                 store.commit("Common/setUserId", userId);
@@ -55,5 +62,24 @@ export const SessionManager = {
         catch (error) {
             console.log(error);  
         }
+    }
+}
+
+
+function extractName(name) {        
+    name = name?.replace(/\s\s+/g, ' ');
+    const names = name?.split(' ')
+    if(!names || names.length==0 || !names[0]){
+        return {first:'FirstName', middle:'', last:'LastName'}
+    }
+    if(names.length==1){
+        return {first:'FirstName', middle:'', last:names[0]}
+    }
+    if(names.length==2){
+        return {first:names[0], middle:'', last:names[1]}
+    }
+    if(names.length>2){
+        const middle = names.slice(1,-1)
+        return {first:names[0], middle:middle.join(' '), last:names[names.length-1]}
     }
 }

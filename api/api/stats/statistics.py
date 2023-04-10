@@ -1,4 +1,5 @@
 import json
+import logging
 
 from django.conf import settings
 from datetime import datetime
@@ -12,7 +13,7 @@ from api.models.application import Application
 from api.models.prepared_pdf import PreparedPdf
 from api.models.efiling_submission import EFilingSubmission
 #__________
-
+LOGGER = logging.getLogger(__name__)
 
 
 
@@ -68,8 +69,13 @@ def application_details(applications):
         "CM":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "PPM":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "RELOC":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
-        "ENFRC":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0}
+        "ENFRC":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "OTHER":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "NCD":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "NDT":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
     }
+    stat_keys = list(stat.keys())
+    
     for app in applications:
         steps_dec = settings.ENCRYPTOR.decrypt(app.key_id, app.steps)
         steps = json.loads(steps_dec)
@@ -85,13 +91,32 @@ def application_details(applications):
             "CM":["ACMO","ACMW"],
             "PPM":["AXP"],
             "RELOC":["APRC"],
-            "ENFRC":["AFET","RFA","RDET","RORD"]
+            "ENFRC":["AFET","RFA","RDET","RORD"],
+            "OTHER":[],
+            "NCD":["NCD"],
+            "NDT":["NDT"]
         }
-        
+
         for step in steps:
-            if "name" in step:
+            if "name" in step and step["name"] in stat_keys :
                 name = step["name"]
                 if(step["active"] and name not in ["GETSTART","COMMON","CONNECT","SUBMIT"]):
+                    
+                    # OTHER
+                    other_form = False
+                    if ( name == 'OTHER' and "completeOtherFormsSurvey" in step["result"]):
+                        try:
+                            forms = step["result"]["completeOtherFormsSurvey"]["data"]["selectedFormInfoList"]
+                            for form in forms:                                
+                                if bool(form["manualState"]):
+                                    other_form = True
+                                    break
+                        except Exception as err:
+                            LOGGER.debug(err)
+
+                    if (name == 'OTHER' and not other_form):
+                        continue
+
 
                     #TOTAL
                     stat[name]["total"]=stat[name]["total"]+1
@@ -104,6 +129,9 @@ def application_details(applications):
                         elif (
                             "submittedPdfList" in get_started["result"] and 
                             any(x in pdf[name] for x in get_started["result"]["submittedPdfList"])
+                        ):
+                            stat[name]["completed"]=stat[name]["completed"]+1
+                        elif (name == 'OTHER' and other_form
                         ):
                             stat[name]["completed"]=stat[name]["completed"]+1
                         else:

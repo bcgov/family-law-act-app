@@ -178,7 +178,7 @@ class EFilingSubmitView(generics.GenericAPIView):
             
             for file in pdf_files:
                 data = file.read()
-                file_name = file.name
+                file_name = file.name.replace(' ', '')
                 outgoing_documents.append(
                     {
                         "type": incoming_document["type"],
