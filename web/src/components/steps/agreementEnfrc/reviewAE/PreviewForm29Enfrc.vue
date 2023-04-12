@@ -104,7 +104,7 @@ export default class PreviewForm29Enfrc extends Vue {
     }
 
     beforeDestroy() {
-        const progress = this.dataReady? 100: 50
+        const progress = this.dataReady && !this.disableNext? 100: 50
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
     }
 

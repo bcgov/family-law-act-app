@@ -16,23 +16,23 @@
             <enfrc-file-determination-of-parenting-coordinator-checklist v-else-if="checklistType=='RDET'" :applicationId='applicationId'/>
             <enfrc-file-order-checklist v-else-if="checklistType=='RORD'" :applicationId='applicationId'/>
             <wr-checklist v-else-if="checklistType=='WRA'" :applicationId='applicationId'/>
-            <rflm-checklist v-if="checklistType=='RFLM'" :applicationId='applicationId'/>
-            <stnd-checklist v-if="otherFormType" :applicationId='applicationId' :checklistInfo="checklist"/>
-            <fs-checklist v-if="checklistType=='FS'" :applicationId='applicationId'/>
-            <npr-checklist v-if="checklistType=='NPR'" :applicationId='applicationId'/>
-            <rqs-checklist v-if="checklistType=='RQS'" :applicationId='applicationId'/>
-            <tris-checklist v-if="checklistType=='TRIS'" :applicationId='applicationId'/>
-            <aff-checklist v-if="checklistType=='AFF'" :applicationId='applicationId'/>
-            <aps-checklist v-if="checklistType=='APS'" :applicationId='applicationId'/>
-            <apsp-checklist v-if="checklistType=='APSP'" :applicationId='applicationId'/>
-            <csv-checklist v-if="checklistType=='CSV'" :applicationId='applicationId'/>
-            <cona-checklist v-if="checklistType=='CONA'" :applicationId='applicationId'/>
-            <cift-checklist v-if="checklistType=='CIFT'" :applicationId='applicationId'/>
-            <efsp-checklist v-if="checklistType=='EFSP'" :applicationId='applicationId'/>
-            <pase-checklist v-if="checklistType=='PASE'" :applicationId='applicationId'/>
-            <ga-checklist v-if="checklistType=='GA'" :applicationId='applicationId'/>
-            <ff-checklist v-if="checklistType=='FF'" :applicationId='applicationId'/>
-            <cor-checklist v-if="checklistType=='COR'" :applicationId='applicationId'/>
+            <rflm-checklist v-else-if="checklistType=='RFLM'" :applicationId='applicationId'/>
+            <stnd-checklist v-else-if="otherFormType" :applicationId='applicationId' :checklistInfo="checklist"/>
+            <fs-checklist v-else-if="checklistType=='FS'" :applicationId='applicationId'/>
+            <npr-checklist v-else-if="checklistType=='NPR'" :applicationId='applicationId'/>
+            <rqs-checklist v-else-if="checklistType=='RQS'" :applicationId='applicationId'/>
+            <tris-checklist v-else-if="checklistType=='TRIS'" :applicationId='applicationId'/>
+            <aff-checklist v-else-if="checklistType=='AFF'" :applicationId='applicationId'/>
+            <aps-checklist v-else-if="checklistType=='APS'" :applicationId='applicationId'/>
+            <apsp-checklist v-else-if="checklistType=='APSP'" :applicationId='applicationId'/>
+            <csv-checklist v-else-if="checklistType=='CSV'" :applicationId='applicationId'/>
+            <cona-checklist v-else-if="checklistType=='CONA'" :applicationId='applicationId'/>
+            <cift-checklist v-else-if="checklistType=='CIFT'" :applicationId='applicationId'/>
+            <efsp-checklist v-else-if="checklistType=='EFSP'" :applicationId='applicationId'/>
+            <pase-checklist v-else-if="checklistType=='PASE'" :applicationId='applicationId'/>
+            <ga-checklist v-else-if="checklistType=='GA'" :applicationId='applicationId'/>
+            <ff-checklist v-else-if="checklistType=='FF'" :applicationId='applicationId'/>
+            <cor-checklist v-else-if="checklistType=='COR'" :applicationId='applicationId'/>
         </b-card>
     </div>
 </template>

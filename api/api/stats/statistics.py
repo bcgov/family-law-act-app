@@ -104,7 +104,7 @@ def application_details(applications):
                     
                     # OTHER
                     other_form = False
-                    if ( name == 'OTHER' and "completeOtherFormsSurvey" in step["result"]):
+                    if ( (name == 'OTHER') and ("result" in step) and ("completeOtherFormsSurvey" in step["result"]) ):
                         try:
                             forms = step["result"]["completeOtherFormsSurvey"]["data"]["selectedFormInfoList"]
                             for form in forms:                                

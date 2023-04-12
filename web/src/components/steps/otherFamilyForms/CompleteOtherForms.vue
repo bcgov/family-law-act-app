@@ -243,19 +243,21 @@ export default class CompleteOtherForms extends Vue {
             }   
         }
 
-        this.determineSteps();      
+        this.determineSteps(false);      
 
         const progress = (this.allFormsDecided())? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
-    public determineSteps(){
+    public determineSteps(selectionChanged){
 
         const submitStep = this.stPgNo.SUBMIT;
         const p = this.stPgNo.OTHER;
-
+        
+        togglePages([p.OtherFormFilingLocation], false, this.currentStep);
+        
         togglePages([submitStep.FilingOptions, submitStep.ReviewAndPrint,submitStep.ReviewAndSave,submitStep.ReviewAndSubmit, submitStep.OtherFile, submitStep.NextSteps], false, submitStep._StepNo);
-        toggleStep(submitStep._StepNo, false);  
+        if(selectionChanged) toggleStep(submitStep._StepNo, false);  
 
         if (this.allFormsDecided()){            
 
@@ -316,7 +318,11 @@ export default class CompleteOtherForms extends Vue {
             if(pdf_type) await this.removeGeneratedPDF(pdf_type)
         }
 
-        this.determineSteps();
+        const step = this.stPgNo.OTHER._StepNo
+        const page = this.stPgNo.OTHER.OtherFormFilingLocation
+        Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+
+        this.determineSteps(true);
                 
     } 
 

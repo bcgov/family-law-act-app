@@ -457,21 +457,28 @@
             this.eFile();                       
         }
 
+        public updateSubmittedPdf(){                        
+            // Array.from(new Set(submittedPdfList.concat(supportingDocTypes)))
+                        
+            const submittedPdfList = this.requiredDocumentLists.map(form => form.type)
+            // console.log(submittedPdfList)
+            const stepResults = this.steps[this.stPgNo.OTHER._StepNo].result;
+            const selectedFormInfoList = stepResults.completeOtherFormsSurvey?.data?.selectedFormInfoList? stepResults.completeOtherFormsSurvey.data.selectedFormInfoList: [];
+            // console.log(selectedFormInfoList)
+            for(const selectedForm of selectedFormInfoList){
+                const pdfType = Vue.filter('getPathwayPdfType')(selectedForm.pathwayName)
+                if (selectedForm.pathwayExists && selectedForm.pathwayState && !submittedPdfList.includes(pdfType) ){
+                    submittedPdfList.push(pdfType)                                    
+                }
+            }                        
+            // console.log(submittedPdfList)
+            this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList}});
+            Vue.nextTick(() => Vue.prototype.$saveChanges() )
+        }
+
         public eFile() {
-            //TODO: update the submittedPdfList to include the standalone forms
-            const stepGETSTART = this.steps[this.stPgNo.GETSTART._StepNo].result;
-            let submittedPdfList = [];
-
-            if (stepGETSTART?.submittedPdfList){
-                submittedPdfList = stepGETSTART.submittedPdfList;
-            }      
+            this.submissionInProgress = true;
             
-            const supportingDocTypes = this.supportingDocuments.map(form => form.documentType)            
-
-            this.UpdateCommonStepResults({data:{'submittedPdfList':Array.from(new Set(submittedPdfList.concat(supportingDocTypes)))}});
-            Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
-
-
             this.error = "";
             const bodyFormData = new FormData();
             const docType = []
@@ -516,24 +523,20 @@
                 }
             }
             
-            this.submissionInProgress = true;
-
-            // Vue.nextTick().then(()=>{
-
-            setTimeout(()=>{
             
-                this.$http.post(url, bodyFormData, header)
-                .then(res => {
+            
+            this.$http.post(url, bodyFormData, header)
+            .then(res => {
 
-                    if(res?.data?.message=="success")
-                    {
-                        this.generateUrl(res.data.redirectUrl)                   
-                    }
-                }, err => {
-                    this.error = err.response.data.message;
-                    this.submissionInProgress = false;
-                });         
-            }, 50)  
+                if(res?.data?.message=="success")
+                {
+                    this.generateUrl(res.data.redirectUrl)                   
+                }
+            }, err => {
+                this.error = err.response.data.message;
+                this.submissionInProgress = false;
+            });         
+             
         }
         
         public generateUrl(eFilingUrl) {            
@@ -542,7 +545,7 @@
         }      
 
         public removeDocument(index) {
-            this.supportingDocuments.splice(index, 1);
+            this.supportingDocuments.splice(index, 1);           
         }
         
         public addDocument() {
@@ -605,6 +608,7 @@
                         this.requiredDocumentLists.push({description: name, type: pdfType});                       
                     }            
                 }
+                setTimeout(() => this.updateSubmittedPdf(),50)
             }           
 
         }
@@ -626,7 +630,7 @@
             return includesGuided;
         } 
         
-        public  exemptGuidedPathway(){
+        public exemptGuidedPathway(){
 
             const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
             const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];

@@ -54,13 +54,6 @@
                                 v-b-tooltip.hover.bottom.noninteractive
                                 title="Resume Application">
                                 <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
-                            </b-button>                                
-
-                            <b-button v-if="row.item.lastFiled != 0 && row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0"
-                                @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
-                                v-b-tooltip.hover.noninteractive.left.v-success
-                                title="View/Download the Submitted Application">
-                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
                             </b-button>
 
                             <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
@@ -68,12 +61,20 @@
                                 v-b-tooltip.hover.noninteractive.left.v-info
                                 title="Navigate To Submitted Application">
                                 <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
-                            </b-button>
+                            </b-button>  
+
                             <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="viewInstructions(row.item.id, row.item.app_type)"
                                 v-b-tooltip.hover.noninteractive.bottom
                                 title="View Instructions">
                                 <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
+                            </b-button>                              
+
+                            <b-button v-if="row.item.lastFiled != 0 && row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0"
+                                @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                v-b-tooltip.hover.noninteractive.left.v-success
+                                title="View/Download the Submitted Application">
+                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
                             </b-button>
                             
                         </template>

@@ -3,13 +3,55 @@
         <b-card v-if="dataReady" no-body bg-variant="white" border-variant="white">
 
             <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>                           
-                            
-            <p>
+               
+            <p v-if="noInstructions">
+                There is no instruction.
+            </p>
+            <p v-else>
                 If your document was accepted and stamped by the registry you will need to 
                 complete the following steps as outlined in your checklist:
             </p>        
 
-           
+            
+
+            <!-- {{otherApplications}} -->
+            <div v-for="serveApp,inx in serveApps" :key="'serve-copy-'+inx">
+                <serve-copy-of-order-on-other-party-other
+                    :sevenDays="serveApp.sevenDays"
+                    :applicationName="getFullName(serveApp.type)"
+                    :instructionsStep="serveApp.step"  
+                />
+            </div>
+            
+            <serve-financial-statement-on-other-party
+                v-if="financialStatementApp.exist"                
+                :instructionsStep="financialStatementApp.step"  
+            />
+
+            <serve-notice-of-intention-to-proceed-on-other-party
+                v-if="noticeOfIntentionApp.exist"
+                :instructionsStep="noticeOfIntentionApp.step"  
+            />
+            <what-must-do-section
+                v-if="whatMustDo.exist"
+                :instructionsStep="whatMustDo.step"  
+            />            
+
+            <proof-of-service-instructions-other
+                v-if="proofOfServiceApp.exist"              
+                :instructionsStep="proofOfServiceApp.step"
+                :mustProvide="proofOfServiceApp.must"  
+                :applicationId="applicationId"/>           
+            
+            <schedule-trial-with-judicial-case-manager
+                v-if="scheduleTrial.exist"
+                :instructionsStep="scheduleTrial.step"  
+            />
+
+            <attend-court-appearance-instructions-other 
+                v-if="attendCourt.exist"    
+                :instructionsStep="attendCourt.step"                 
+            />
         
         </b-card>
         <loading-spinner v-else waitingText="Waiting for submitted information"/>  
@@ -23,11 +65,23 @@ import { namespace } from "vuex-class";
 import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
-
+import ProofOfServiceInstructionsOther from "./postFilingStepsOther/ProofOfServiceInstructionsOther.vue";
+import ServeCopyOfOrderOnOtherPartyOther from "./postFilingStepsOther/ServeCopyOfOrderOnOtherPartyOther.vue"
+import AttendCourtAppearanceInstructionsOther from "./postFilingStepsOther/AttendCourtAppearanceInstructionsOther.vue"
+import ServeFinancialStatementOnOtherParty from "./postFilingStepsOther/ServeFinancialStatementOnOtherParty.vue"
+import ServeNoticeOfIntentionToProceedOnOtherParty from "./postFilingStepsOther/ServeNoticeOfIntentionToProceedOnOtherParty.vue"
+import WhatMustDoSection from "./postFilingStepsOther/WhatMustDoSection.vue"
+import ScheduleTrialWithJudicialCaseManager from "./postFilingStepsOther/ScheduleTrialWithJudicialCaseManager.vue"
 
 @Component({
-    components:{        
-        
+    components:{  
+        ProofOfServiceInstructionsOther,
+        ServeCopyOfOrderOnOtherPartyOther,
+        AttendCourtAppearanceInstructionsOther,
+        ServeFinancialStatementOnOtherParty,
+        ServeNoticeOfIntentionToProceedOnOtherParty,
+        WhatMustDoSection,
+        ScheduleTrialWithJudicialCaseManager
     }
 })
 export default class InstructionsOtherForms extends Vue {
@@ -46,8 +100,32 @@ export default class InstructionsOtherForms extends Vue {
 
     dataReady = false;
 
-    includesFlm = false;
-    includesPo = false;
+    otherApplications = [];
+
+    serveApps: {sevenDays:boolean, type: string; step: number}[] = [];
+    financialStatementApp = {exist:false, step: 0}
+    noticeOfIntentionApp = {exist:false, step: 0}
+    proofOfServiceApp = {exist:false, step: 0, must: false}
+    whatMustDo = {exist:false, step: 0}
+    scheduleTrial = {exist:false, step: 0} 
+    attendCourt = {exist:false, step: 0}
+
+    serveGroup = ['NCD', 'NDT', 'NLC', 'NLP', 'NP', 'NLCR', 'NLPR', 'ORD', 'REF', 'RFS', 'RPS',
+        'RQS', 'TRIS', 'AFF', 'EFSP', 'GA'
+    ];
+    serve7DaysGroup = ['RQS']
+
+    certificateGroup = ['NCD', 'NDT', 'NLC', 'NLP', 'NP', 'NLCR', 'NLPR', 'ORD', 'REF', 'RFS', 'RPS',
+        'FS', 'NPR', 'RQS', 'TRIS', 'AFF', 'EFSP', 'GA' 
+    ];
+    certificateMustGroup = ['NPR', 'RQS'];
+
+    schJudgeGroup = ['CIFT']
+    attendCourtGroup = ['RQS']
+    
+    // swornGroup = ['AFF', 'APS','APSP', 'GA']
+    noShowGroup = ['APS', 'APSP', 'CSV', 'CONA', 'PASE', 'FF', 'COR']
+    noInstructions = false
   
     error = ''
 
@@ -59,81 +137,69 @@ export default class InstructionsOtherForms extends Vue {
     public getApplicationInfo(applicationId) { 
 
 
-        this.includesFlm = false;
-        this.includesPo = false;
-
-    
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
 
             const applicationData = response.data;
-            console.log(applicationData)  
+            // console.log(applicationData)  
            
             const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
+            const apps = stepGETSTART.submittedPdfList
             
-
-
-            // //______TEMPORARY Check_________
-            // //______________________________
-            // this.includeParentingAfterSeparationStep = false;
-            // this.includesFlm = false; 
-            // this.earlyResolution = false;
-            // this.includesPo = false;
-            // this.urgentPO = false;
+            this.noInstructions = false
+            let noShowCounter = 0;
+            for(const app of apps){
+                if(this.noShowGroup.includes(app)) noShowCounter++; 
+            }
+            if(noShowCounter == apps.length) this.noInstructions =true
             
-            // this.includesCm = false;
-            // this.includeCmWithoutNotice = false;
-            // this.includesPpm = false;
-            // this.includesReloc = false;
-            // this.includesEnfrc = false;
+            for(const serveForm of this.serveGroup){
+                if(apps.includes(serveForm))
+                    this.otherApplications.push(serveForm)
+            }
+            if(apps.includes('FS'))
+                this.otherApplications.push('FS')
+            if(apps.includes('NPR'))
+                this.otherApplications.push('NPR')
 
-            // this.includesWr = false;
-            // this.includesRflm = false;
+            let step = 1;
+            let proofOfServiceApp = false
+            let mustProvide = false
+            let scheduleTrial = false
+            let attendCourt = false
 
-            // console.error("_new set__")
-            // console.log('Separation',this.includeParentingAfterSeparationStep);
-            // console.log('FLM',this.includesFlm); 
-            // console.log('earlyResolu',this.earlyResolution);
-            // console.log('PO',this.includesPo);
-            // console.log('urgentPO',this.urgentPO);
+            for(const apptype of this.otherApplications){
 
-            // console.log('PPM',this.includesPpm)
-            // console.log('CM',this.includesCm)
-            // console.log('CMwithout',this.includeCmWithoutNotice)
-            // console.log('RELOC',this.includesReloc)
-            // console.log('ENFRC',this.includesEnfrc)
-            // //______________________________ 
+                if(this.serveGroup.includes(apptype)){
+                    this.serveApps.push({
+                        sevenDays: this.serve7DaysGroup.includes(apptype),
+                        type: apptype,
+                        step: step++
+                    })
+                }
+
+                if(apptype=='FS') this.financialStatementApp = {exist:true, step: step++}
+                if(apptype=='NPR'){ 
+                    this.noticeOfIntentionApp = {exist:true, step: step++}
+                    this.whatMustDo = {exist:true, step: step++}
+                }
+
+                if(this.certificateGroup.includes(apptype))  proofOfServiceApp =true
+                if(this.certificateMustGroup.includes(apptype))  mustProvide =true
+                                                 
+                if(this.schJudgeGroup.includes(apptype)) scheduleTrial = true
+                if(this.attendCourtGroup.includes(apptype)) attendCourt = true
+            }
+                
+            if(proofOfServiceApp) this.proofOfServiceApp = {exist:true, step: step++, must: mustProvide} 
+            if(scheduleTrial) this.scheduleTrial = {exist:true, step: step++}
+            if(attendCourt) this.attendCourt = {exist:true, step: step++}                      
             
-           
-
-            this.getConditionsSteps();
             Vue.nextTick(()=> this.dataReady = true);
-            
 
         }, err => {
             this.error = err;        
         });
-    }
-
-    public getConditionsSteps(){
-
-        //parenting-after-separation-instructions 
-        this.conditionArray[0] = false//this.includeParentingAfterSeparationStep;
-        this.instructionsStepArray[0] = 0;     
-
-      
-
-
-        //================Adjust Step Numbers===========
-        let stepNum = 1;
-        for(let i =0; i<this.conditionArray.length; i++){
-            if(this.conditionArray[i]){
-                this.instructionsStepArray[i] = stepNum;
-                stepNum++;
-            }
-        }
-
-
     }
     
     public getStepResultByName(applicationData, stepName){
@@ -144,32 +210,9 @@ export default class InstructionsOtherForms extends Vue {
         return {}
     }
        
-//F// Affidavit – General	Form 3
-//F// Affidavit of Personal service	Form 48
-// Affidavit of Personal Service of Protection Order	Form 49
-//F// Certificate of Service	Form 7
-// Consent adjournment	PFA920
-//F// Consent Order	Form 18
-// Consent to an Informal Trial (Kamloops only)	PFA709
-// Electronic Filing Statement	Form 51
-// Fax Filing Cover Page	Form 52
-// Financial Statement	Form 4
-// Guardianship Affidavit	Form 5
-// Notice of Address Change	Form 46
-// Notice of Discontinuance	Form 50
-// Notice of Exemption from Parenting Education Program	Form 20
-// Notice of Intention to Proceed	Form 2
-// Notice of Lawyer for Child	Form 40
-// Notice of Lawyer for Party	Form 42
-// Notice of Participation	PFA747
-// Notice of Removal of Lawyer for Child	Form 41
-// Notice of Removal of Lawyer for Party	Form 43
-// Order – General	Form 44
-// Referral Request	Form 21
-// Request for Scheduling	Form 39
-// Request for Service of Documents	PFA110
-// Request for Service of Family Protection Order	PFA916
-// Trial Readiness Statement	Form 22
+    public getFullName(formType){
+        return Vue.filter('pdfTypeToFullName')(formType)
+    }
 
 }
 </script>
