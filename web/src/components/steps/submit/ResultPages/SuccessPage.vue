@@ -70,89 +70,89 @@
                 </p>
                 <div 
                     v-if="applicationDocumentTypes.includes('FLC')" 
-                    @click="checklist=true;checklistType='FLM';" 
+                    @click="checklist=true;checklistType='FLM';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application About a Family Law Matter
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('AAP')" 
-                    @click="checklist=true;checklistType='PO';" 
+                    @click="checklist=true;checklistType='PO';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application About a Protection Order
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('NTRF')" 
-                    @click="checklist=true;checklistType='RFC';" 
+                    @click="checklist=true;checklistType='RFC';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Notice to Resolve Family Claim
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('AXP')" 
-                    @click="checklist=true;checklistType='PPM';" 
+                    @click="checklist=true;checklistType='PPM';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application About Priority Parenting Matter
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('APRC')" 
-                    @click="checklist=true;checklistType='RELOC';" 
+                    @click="checklist=true;checklistType='RELOC';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Order Prohibiting the Relocation of a Child
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('ACMO')" 
-                    @click="checklist=true;checklistType='ACMO';" 
+                    @click="checklist=true;checklistType='ACMO';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application for Case Management Order
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('ACMW')" 
-                    @click="checklist=true;checklistType='ACMW';" 
+                    @click="checklist=true;checklistType='ACMW';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application for Case Management Order without Notice or Attendance
                 </div>
 
                 <div 
                     v-if="applicationDocumentTypes.includes('AFET')" 
-                    @click="checklist=true;checklistType='AFET';" 
+                    @click="checklist=true;checklistType='AFET';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application About Enforcement
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RFA')" 
-                    @click="checklist=true;checklistType='RFA';" 
+                    @click="checklist=true;checklistType='RFA';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Request to File an Agreement
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RDET')" 
-                    @click="checklist=true;checklistType='RDET';" 
+                    @click="checklist=true;checklistType='RDET';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Request to File a Determination of Parenting Coordinator
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RORD')" 
-                    @click="checklist=true;checklistType='RORD';" 
+                    @click="checklist=true;checklistType='RORD';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Request to File an Order
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('WRA')" 
-                    @click="checklist=true;checklistType='WRA';" 
+                    @click="checklist=true;checklistType='WRA';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Written Response to Application
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RFLM')" 
-                    @click="checklist=true;checklistType='RFLM';" 
+                    @click="checklist=true;checklistType='RFLM';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Reply to a Family Law Matter
                 </div>
-                <div v-if="includesOtherForms">
+                <div>
                     <div v-for="(docType, docIndex) in applicationDocumentTypes"           
                          v-bind:key="docIndex">
                         <div 
                             v-if="otherApplicationTypes.includes(docType)" 
-                            @click="checklist=true;checklistType=docType;" 
+                            @click="checklist=true;checklistType=docType;includesOtherForms=true;" 
                             style="color:blue; cursor:pointer;">
                             Checklist for {{ otherApplicationTypesInfo.filter(appType => appType.name == docType)[0].title }}
                         </div>
@@ -161,91 +161,91 @@
                 
                 <div 
                     v-if="applicationDocumentTypes.includes('FS')" 
-                    @click="checklist=true;checklistType='FS';" 
+                    @click="checklist=true;checklistType='FS';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Financial Statement
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('NPR')" 
-                    @click="checklist=true;checklistType='NPR';" 
+                    @click="checklist=true;checklistType='NPR';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Notice of Intention to Proceed
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RQS')" 
-                    @click="checklist=true;checklistType='RQS';" 
+                    @click="checklist=true;checklistType='RQS';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Request for Scheduling
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('TRIS')" 
-                    @click="checklist=true;checklistType='TRIS';" 
+                    @click="checklist=true;checklistType='TRIS';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Trial Readiness Statment
                 </div>     
                 <div 
                     v-if="applicationDocumentTypes.includes('AFF')" 
-                    @click="checklist=true;checklistType='AFF';" 
+                    @click="checklist=true;checklistType='AFF';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Affidavit – General
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('APS')" 
-                    @click="checklist=true;checklistType='APS';" 
+                    @click="checklist=true;checklistType='APS';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Affidavit of Personal Service
                 </div>  
                 <div 
                     v-if="applicationDocumentTypes.includes('APSP')" 
-                    @click="checklist=true;checklistType='APSP';" 
+                    @click="checklist=true;checklistType='APSP';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Affidavit of Personal Service of Protection Order
                 </div>    
                 <div 
                     v-if="applicationDocumentTypes.includes('CSV')" 
-                    @click="checklist=true;checklistType='CSV';" 
+                    @click="checklist=true;checklistType='CSV';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Certificate of Service
                 </div>    
                 <div 
                     v-if="applicationDocumentTypes.includes('CONA')" 
-                    @click="checklist=true;checklistType='CONA';" 
+                    @click="checklist=true;checklistType='CONA';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Consent Adjournment
                 </div>    
                 <div 
                     v-if="applicationDocumentTypes.includes('CIFT')" 
-                    @click="checklist=true;checklistType='CIFT';" 
+                    @click="checklist=true;checklistType='CIFT';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Consent to an Informal Trial (Kamloops only)
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('EFSP')" 
-                    @click="checklist=true;checklistType='EFSP';" 
+                    @click="checklist=true;checklistType='EFSP';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Electronic Filing Statement
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('PASE')" 
-                    @click="checklist=true;checklistType='PASE';" 
+                    @click="checklist=true;checklistType='PASE';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Notice of Exemption from Parenting Education Program
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('GA')" 
-                    @click="checklist=true;checklistType='GA';"
+                    @click="checklist=true;checklistType='GA';includesOtherForms=false;"
                     style="color:blue; cursor:pointer;">
                     Checklist for Guardianship Affidavit
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('FF')" 
-                    @click="checklist=true;checklistType='FF';" 
+                    @click="checklist=true;checklistType='FF';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Fax Filing Cover Page
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('COR')" 
-                    @click="checklist=true;checklistType='COR';" 
+                    @click="checklist=true;checklistType='COR';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Consent Orders
                 </div>
@@ -481,7 +481,7 @@ export default class SuccessPage extends Vue {
             
             if (pathways.length == 0 && stepGETSTART?.otherForms){                
                 this.applicationDocumentTypes = stepGETSTART?.submittedPdfList;
-                this.includesOtherForms = this.otherApplicationTypes.some(otherAppType => this.applicationDocumentTypes.includes(otherAppType))
+                // this.includesOtherForms = this.otherApplicationTypes.some(otherAppType => this.applicationDocumentTypes.includes(otherAppType))
                 
             }            
 
