@@ -16,7 +16,7 @@
                                         class="form-control"
                                         :style="{display:'inline-block', width:inputWidths[index][inx], margin:'.25rem 0.5rem'}" 
                                         :type="inputTypes[index][inx]" 
-                                        :disabled="readOnly"
+                                        :disabled="readOnly"                                        
                                         @change="inputChanged"
                                         v-model="pendingValue[fields[index][inx].name]"
                                         :id="fields[index][inx].id"/>
@@ -27,7 +27,7 @@
                     </b-form-radio>
                     <b-form-radio v-if="hasOther" value="other"   style="margin:1rem 0;">
                         <div :class="textClass" :style="{display:'inline-block', margin:'0'}">{{otherText}}</div>
-                        <textarea v-if="pendingValue['selected']=='other'" type="text" class="form-control"  v-model="pendingValue['otherComment']" @change="inputChanged" />
+                        <textarea v-if="pendingValue['selected']=='other'" :maxlength="maxChar" type="text" class="form-control"  v-model="pendingValue['otherComment']" @change="inputChanged" />
                     </b-form-radio>
                 </b-form-radio-group>                
             </b-form-group>                
@@ -58,6 +58,8 @@ export default class AdvancedRadioGroup extends Vue {
     radioTextMargins='';
     hasOther = false;
     otherText = '';
+
+    maxChar=0;
     
     numberOfRows = 0;
 
@@ -77,6 +79,7 @@ export default class AdvancedRadioGroup extends Vue {
         this.inputTypes = this.splitData(this.question.inputTypes)
         this.inputNames = this.splitData(this.question.inputNames)
         this.textClass = this.question.textClass;
+        this.maxChar = this.question.maxChar || 10000;
         this.radioMargins = this.question.radioMargins;
         this.radioTextMargins = this.question.radioTextMargins;
         this.hasOther = this.question.hasOther || false;
