@@ -61,13 +61,14 @@
           "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
           "elements": [
             {
-              "type": "radiogroup",
+              "type": "customradiogroup",
               "name": "existingResponsibilityType",
               "title": "Select the option that best describes your responsibility for child support in the existing order or agreement.",
               "visible": false,
               "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
               "isRequired": true,
               "hasOther": true,
+              "maxChar": 60,
               "choices": [
                 {
                   "value": "payor",

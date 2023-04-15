@@ -14,6 +14,7 @@ import MultipleTextInput from "./components/MultipleTextInput.vue"
 import AdvancedRadioGroup from "./components/AdvancedRadioGroup.vue"
 import MultipleCommentCheckbox from "./components/MultipleCommentCheckbox.vue"
 import MultipleCommentWithDescriptionCheckbox from "./components/MultipleCommentWithDescriptionCheckbox.vue"
+import CustomRadioGroup from "./components/CustomRadioGroup.vue"
 import CustomButton from "./components/CustomButton.vue"
 import CustomDateTime from "./components/CustomDateTime.vue"
 
@@ -388,6 +389,9 @@ function initAdvancedRadioGroup(Survey: any) {
         {
           name: "otherText:text"
         },
+        {
+          name: "maxChar:number"
+        },
       ]);
     },
   };
@@ -443,6 +447,40 @@ function initMultipleCommentWithDescriptionCheckbox(Survey: any) {
   };
 
   Vue.component("MultipleCommentWithDescriptionCheckbox", MultipleCommentWithDescriptionCheckbox);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
+function initCustomRadioGroup(Survey: any) {
+  const widget = {
+    name: "CustomRadioGroup",
+    title: "Custom Radio Group",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "customradiogroup";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("customradiogroup",[],null,"empty");    
+      Survey.JsonObject.metaData.addProperties("customradiogroup", [
+        {
+          name: "choices:[]"
+        },
+        {
+          name: "hasOther:boolean"
+        },
+        {
+          name: "textClass:text"
+        },                
+        {
+          name: "maxChar:number"
+        },
+      ]);
+    },
+  };
+
+  Vue.component("CustomRadioGroup", CustomRadioGroup);
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
 
@@ -560,6 +598,7 @@ export function addQuestionTypes(Survey: any) {
   initAdvancedRadioGroup(Survey);
   initMultipleCommentCheckbox(Survey);
   initMultipleCommentWithDescriptionCheckbox(Survey);
+  initCustomRadioGroup(Survey);
   initCustomButton(Survey);
   initCustomDateTime(Survey);
 
@@ -674,6 +713,18 @@ export function addToolboxOptions(editor: any) {
     iconName: "icon-panel",
     json: {
       type: "advancedradiogroup",
+      titleLocation: "hidden"
+    }
+  });
+
+  editor.toolbox.addItem({
+    name: "customradiogroup",
+    title: "Custom Radio Group",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "customradiogroup",
       titleLocation: "hidden"
     }
   });
