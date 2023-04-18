@@ -68,7 +68,7 @@
               "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
               "isRequired": true,
               "hasOther": true,
-              "maxChar": 60,
+              "maxChar": 1000,
               "choices": [
                 {
                   "value": "payor",
