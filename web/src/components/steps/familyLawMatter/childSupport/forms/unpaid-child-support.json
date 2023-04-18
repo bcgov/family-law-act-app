@@ -71,7 +71,7 @@
               "textBeforeInputs":"{At a monthly Rate},{};{In a lump sum (all at once)}",              
               "radioMargins":"0 0 0.2rem 0",
               "radioTextMargins":"-0.6rem 0 0 0",
-              "maxChar":60,
+              "maxChar":1000,
               "hasOther": true,
               "isRequired": true
             }
