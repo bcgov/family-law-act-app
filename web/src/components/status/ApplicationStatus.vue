@@ -324,8 +324,10 @@ export default class ApplicationStatus extends Vue {
                 this.previousApplications.push(app);
             }
             if (this.previousApplications.length == 0){
+                this.$store.commit("Application/setUserType", 'new');
                 this.showDisclaimer = true;
             } else {
+                this.$store.commit("Application/setUserType", 'returning');
                 this.showDisclaimer = false;
             }
             this.dataLoaded = true;       
