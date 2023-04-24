@@ -21,7 +21,10 @@
                     <check-box  :check="exChSupInfo.abtEx.payor?'yes':''" text="make payments for support of a child or children"/>
                     <check-box style="width:120%;" :check="exChSupInfo.abtEx.payee?'yes':''" text="receive payments for support of a child or children"/>
                     <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="exChSupInfo.abtEx.other?'yes':''" text="other <i>(specify):</i>"/>
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="exChSupInfo.abtEx.otherComm"/>            
+                    <!-- <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="exChSupInfo.abtEx.otherComm"/>             -->
+                    <div v-if="exChSupInfo.abtEx.other && exChSupInfo.abtEx.otherComm" 
+                             class="answerbox">{{exChSupInfo.abtEx.otherComm}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
                 </div>
             </section>
 
@@ -147,7 +150,10 @@
                 <div style="margin:0 0 0 1.5rem;">
                     <check-box style="margin:0 0.25rem 0 0rem;" :check="exChSupInfo.unpdChSup.paySchd =='Lump Sum'?'yes':''" text="in a lump sum"/>
                     <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="exChSupInfo.unpdChSup.paySchd =='other'?'yes':''" text="other <i>(specify):</i>"/>
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" :text="exChSupInfo.unpdChSup.otherComm"/>
+                    <!-- <underline-form style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" :text="exChSupInfo.unpdChSup.otherComm"/> -->
+                    <div v-if="exChSupInfo.unpdChSup.paySchd =='other' && exChSupInfo.unpdChSup.otherComm" 
+                             class="answerbox">{{exChSupInfo.unpdChSup.otherComm}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
                  </div>
             </section>
 

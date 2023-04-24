@@ -154,6 +154,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { SessionManager } from "@/components/utils/utils";
+import {getBceidRegisterUrl} from "./BCeID_URLs";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/common";
@@ -184,9 +185,13 @@ export default class LandingPage extends Vue {
         console.log('Welcome to FLAAP, version: '+ Vue.filter('get-current-version')())
     }
   
-    public navigate(userType) {
-        this.$store.commit("Application/setUserType", userType); 
-        this.$router.push({ name: "applicant-status" });       
+    public navigate(userType) {          
+
+        if(userType == 'new'){
+            window.location.replace(getBceidRegisterUrl());
+        }else{
+            this.$router.push({ name: "applicant-status" }); 
+        }     
     }
   
 }
