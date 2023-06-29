@@ -228,6 +228,7 @@ export default class OtherForms extends Vue {
         this.resetSteps();
         this.resetPages();
         this.determineSteps();
+        this.disableNextButton = !this.allRequiredInfoExists();
         this.UpdatePathwayCompleted({pathway:"other", isCompleted:false})        
         // Vue.filter('surveyChanged')('other')        
 
