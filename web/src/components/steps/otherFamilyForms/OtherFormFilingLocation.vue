@@ -195,9 +195,9 @@ export default class OtherFormFilingLocation extends Vue {
         const newExistingOrders = []; 
         
         if(this.step?.result?.completeOtherFormsSurvey?.data?.selectedFormInfoList?.length>0){
-            const fileNumber = this.survey.data?.ExisingFamilyCase == 'y'? this.survey.data.ExistingFileNumber: ''
+            const fileNumber = this.survey.data?.ExistingFamilyCase == 'y'? this.survey.data.ExistingFileNumber: ''
             for(const selectedform of this.step.result.completeOtherFormsSurvey.data.selectedFormInfoList){
-                if(!selectedform.pathwayExists || selectedform.manualState) continue
+                // if(!selectedform.pathwayExists || selectedform.manualState) continue
                 const pdfType = (Vue.filter('getPathwayPdfType')(selectedform.pathwayName))
                 newExistingOrders.push({type: pdfType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
             }

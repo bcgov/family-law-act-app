@@ -15,6 +15,41 @@
                     </p>
                 </div>
 
+                <div class="mt-3">
+                    <h3 class="primary">Please select the form(s) that you wish to complete.</h3>
+
+                    <p>
+                        To select a form or multiple forms click on either the Form Name or 
+                        Form Number and the column will be hi-lighted. To de-select a form, 
+                        simply click on the Form Name or Form Number again.  
+                    </p>
+                    <p>
+                        After selecting the form(s) to complete, click the next button.
+                    </p>
+
+                    <div>
+                        <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
+                            <span style="font-size:1.2rem;" class="fa fa-question-circle" /> Where can I get legal assistance? 
+                            <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
+                            <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
+                        </div>
+                        <legal-assistance-faq v-if="showLegalAssistance"/>
+                    </div>
+
+                    <b-table            
+                        :items="formList"
+                        :fields="fields"
+                        bordered   
+                        responsive="sm"
+                        small
+                        selectable
+                        select-mode="multi"  
+                        @row-selected="onFormSelected"    
+                        ref="formsTable">                        
+                    </b-table>
+                   
+                </div>  
+
                 <div>
                     <h2>Filing Options</h2>
                     <b-card class="bg-info border-primary">
@@ -50,41 +85,7 @@
                     </b-form-radio-group>
 
                 </div>
-
-                <div v-if="filingMethod != null" class="mt-3">
-                    <h3 class="primary">Please select the form(s) that you wish to complete.</h3>
-
-                    <p>
-                        To select a form or multiple forms click on either the Form Name or 
-                        Form Number and the column will be hi-lighted. To de-select a form, 
-                        simply click on the Form Name or Form Number again.  
-                    </p>
-                    <p>
-                        After selecting the form(s) to complete, click the next button.
-                    </p>
-
-                    <div>
-                        <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
-                            <span style="font-size:1.2rem;" class="fa fa-question-circle" /> Where can I get legal assistance? 
-                            <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
-                            <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
-                        </div>
-                        <legal-assistance-faq v-if="showLegalAssistance"/>
-                    </div>
-
-                    <b-table            
-                        :items="formList"
-                        :fields="fields"
-                        bordered   
-                        responsive="sm"
-                        small
-                        selectable
-                        select-mode="multi"  
-                        @row-selected="onFormSelected"    
-                        ref="formsTable">                        
-                    </b-table>
-                   
-                </div>              
+            
             </div>
         </div>       
 
@@ -263,6 +264,10 @@ export default class OtherForms extends Vue {
 
         for (const form of forms){
             applicationTypes.push(form.formName);            
+        }
+
+        if (applicationTypes.includes('Fax Filing Cover Page')){
+            this.filingMethod = 'inPerson';
         }
       
         this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
