@@ -1,0 +1,113 @@
+{
+   "pages": [
+      {
+         "name": "Intention to Proceed",
+         "description": "Sometimes there can be a delay in your court case and you want to start it up again. If the delay on a `family law matter` has been more than one year, you must complete a Notice of Intention to Proceed and give a copy to each other party.<br><br>The Notice lets the other party know that you plan to continue, as it might have seemed that the case was ended. It also lets you get your case re-started.",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "IntentionProceedPanel",
+               "elements": [
+                  {
+                     "type": "yesno",
+                     "name": "unresolvedFlm",
+                     "title": "Do you have an unresolved `family law matter` before the court?",
+                     "description": "You may discontinue all or part of your application, reply or counter application. You may have asked for more than one order to be made or disagreed with more than one order the other party asked for. If you discontinue the whole document, it means it has been abandoned. You will not be able to take any further action on any part of the document.<br><br>If there is more than one part you want to discontinue, explain each separately in the field.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "FAQ1",
+                     "title": "How do I know if my family law matter is unresolved?",
+                     "titleLocation": "hidden",
+                     "body": "A family law matter is unresolved if the court has not made a final order. Sometimes you will be given an interim order that gives a temporary solution while you wait to go to trial. Even if this was in place for a while, it is still not a final order.<br><br>A final order is a decision by a judge usually after a hearing or trial, or a consent order between the parties that decides the issues.<br><br>An order will often say if it is interim, final or a consent order. If there is an order and you are not sure if it is final, you can ask your lawyer or the registry staff. There is a different process to follow if you need to go back to court with a final order."
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationUnresolvedFlm",
+                     "visible": false,
+                     "visibleIf": "{unresolvedFlm} = 'n'",
+                     "title": "If you have a final order on your family law matter, you can make an application to the court to change or cancel the order if there has been a change in needs or circumstances.  You can make the application at any time after the final order has been made without filing a Notice of Intention to Proceed. Go back to Step 1 Get Started and select Apply for an Order to make an Application About a Family Law Matter to change or cancel your final order.",
+                     "titleLocation": "hidden"
+                  }                  
+               ]
+            },
+            {
+               "type": "panel",
+               "name": "IntentionProceedInfoPanel",
+               "visible": false,
+               "visibleIf": "{unresolvedFlm} = 'y'",
+               "elements": [
+                  {
+                     "type": "advancedradiogroup",
+                     "name": "lastStep",              
+                     "title": "Please identify the last step that was <b style='color: black;'>completed</b> by you or the other party on your `family law matter`.",
+                     "description" : "Select only one of the options below and provide the date.<br><br>Other steps may include the filing of a different court document or a court appearance.<br><b>Note</b>:<br>If you do not know the date the step was completed:<ul><li>For court documents, the date of filing will be on the registry stamp</li><li>For the completion of any steps at the <a target='_blank' href='https://www.clicklaw.bc.ca/helpmap/service/1019'>Justice Access Centre or Family Justice Centre</a>, contact them to confirm the date of completion</li><li>To confirm the date of any court appearance, contact the court registry.</li></ul>",
+                     "radioOutputValues":"{resolveFlm},{needsAssessment},{parentingEducationProgram},{consensualDisputeResolution},{flm}",
+                     "inputNames":"{resolveFlmDate};{needsAssessmentDate};{parentingEducationProgramDate};{consensualDisputeResolutionDate};{flmDate}",
+                     "inputTypes":"{date};{date};{date};{date};{date}",
+                     "inputWidths":"{12rem};{12rem};{12rem};{12rem};{12rem}",                  
+                     "textBeforeInputs":"{filing of the Notice to Resolve a Family Law Matter on},{};{completion of a needs assessment on},{};{completion of a parenting education program on},{};{completion of consensual dispute resolution on},{};{filing of the Application About a Family Law Matter on},{}",
+                     "textClass": "sv_q_description font-weight-normal",
+                     "radioMargins":"0 0 1rem 0",
+                     "radioTextMargins":"-0.6rem 0 0 0",
+                     "hasOther": true,
+                     "isRequired": true
+                  }
+               ]
+            },
+            {
+               "type": "panel",
+               "name": "UnresolvedLessThanYearInfoPanel",
+               "visible": false,
+               "visibleIf": "({unresolvedFlm} = 'y') and ({unresolvedLessThanYear})",
+               "elements": [
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationForm39NotRequired",
+                     "visible": false,
+                     "visibleIf": "!({requiresForm39})",
+                     "title": "As less than one year has passed since you or the other party has taken a step in the case, you can re-start your case without filing a Notice of Intention to Proceed.<br><br>If your case is in an Early Resolution Registry, contact the <a target='_blank' href='https://www.clicklaw.bc.ca/helpmap/service/1019'>Justice Access Centre</a> to determine what you need to do next. If your case is in any other registry, speak to the registry staff about what you must do to schedule your family management conference. There are different requirements in a Family Justice Registry and Parenting Education Program Registry and you must meet the requirements for scheduling a family management conference set out in <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e3201'>Rules 37, 38, 39 and 40</a> as applicable.",
+                     "titleLocation": "hidden"
+                  }, 
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationForm39Required",
+                     "visible": false,
+                     "visibleIf": "{requiresForm39}",
+                     "title": "As less than one year has passed since you or the other party has taken a step in the case, you can re-start your case without filing a Notice of Intention to Proceed.<br><br>You can file a Request for Scheduling to schedule a family management conference. At the family management conference, the judge will help to determine the next steps that are right for your case. Go back to the Other Forms step and select Request for Scheduling Form 39 to proceed.",
+                     "titleLocation": "hidden"
+                  }
+               ]
+            },
+            {
+               "type": "panel",
+               "name": "UnresolvedOverYearInfoPanel",
+               "visible": false,
+               "visibleIf": "{unresolvedFlm} = 'y' and !{unresolvedLessThanYear}",
+               "elements": [                   
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationForm39NotRequired",
+                     "visible": false,
+                     "visibleIf": "!{requiresForm39}",
+                     "title": "If your case is in an Early Resolution Registry, your case will be re-started by participating in a needs assessment. After filing your Notice of Intention to Proceed, contact the <a target='_blank', href='https://www.clicklaw.bc.ca/helpmap/service/1019'>Justice Access Centre</a> to schedule your individual needs assessment. The needs assessment will help to identify the next steps that are right for you and what requirements need to be met for you to continue your case.<br><br>If your case is in any other registry, speak to the registry staff about what you must do to schedule your family management conference. There are different requirements in a Family Justice Registry and Parenting Education Program Registry and you must meet the requirements for scheduling a family management conference set out in <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e3201'>Rules 37, 38, 39 and 40</a> as applicable.",
+                     "titleLocation": "hidden"
+                  }, 
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationForm39Required",
+                     "visible": false,
+                     "visibleIf": "{requiresForm39}",
+                     "title": "Your case will be re-started by attending a family management conference. At the family management conference, the judge will help to determine the next steps that are right for your case.<br><br>The court registry will provide you information about how to schedule your family management conference after you have filed the Certificate of Service to prove service of the Notice of Intention to Proceed on each other party. You must also meet the requirements for scheduling a family management conference set out in <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e3201'>Rules 37, 38, 39 and 40</a> as applicable.",
+                     "titleLocation": "hidden"
+                  }
+               ]
+            }
+         ],
+         "title": "Intention to Proceed"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

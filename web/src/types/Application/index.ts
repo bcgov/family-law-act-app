@@ -21,6 +21,7 @@ import { disagreeExistingSpouseSupportSurveyInfoType, disagreeSpouseSupportSurve
 import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoType, otherFormsSurveyInfoType } from "./OtherFamilyForm";
 import { addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "./AddressChange";
 import { noticeDiscontinuanceSurveyInfoType, discontinuanceInformationSurveyInfoType, moreInformationSurveyInfoType } from "./Discontinuance";
+import { noticeIntentionProceedSurveyInfoType, otherPartyNprConfirmationSurveyInfoType } from "./IntentionProceed";
 
 
 //This is what our database saves.
@@ -268,8 +269,14 @@ export interface stepInfoType {
     noticeDiscontinuanceSurvey?: noticeDiscontinuanceSurveyInfoType;    
     discontinuanceInformationSurvey?: discontinuanceInformationSurveyInfoType;
     moreInformationSurvey?: moreInformationSurveyInfoType;
+
+    //_____Step 13 NOTICE OF INTENTION TO PROCEED_____________    
+    noticeIntentionProceedSurvey?: noticeIntentionProceedSurveyInfoType;    
+    yourInformationNprSurvey?: yourInformationSurveyInfoType; 
+    otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
+    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
     
-    //__Step 13 SUBMIT
+    //__Step 14 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -286,4 +293,5 @@ export interface stepInfoType {
     other?: boolean;
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
+    noticeIntentionProceed?: boolean;
   }

@@ -59,9 +59,10 @@ export default class OtherFormList extends Vue {
 
     mounted(){
 
-        this.formsListTemplate =[                
+        this.formsListTemplate =[   
+            { name:'P2',  appName:'noticeIntentionProceed',   pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],        color:"danger", title:"Notice of Intention to Proceed (Form 2)"},                    
             { name:'P46',  appName:'noticeOfAddressChange',   pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],        color:"danger", title:"Notice of Address Change (Form 46)"},            
-            { name:'P50',  appName:'noticeDiscontinuance',    pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],        color:"danger", title:"Notice of Discontinuance (Form 50)"}
+            { name:'P50',  appName:'noticeDiscontinuance',    pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],        color:"danger", title:"Notice of Discontinuance (Form 50)"}
         ]
 
         this.currentStep = this.$store.state.Application.currentStep;
