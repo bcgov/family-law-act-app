@@ -43,9 +43,9 @@ class EFilingSubmitView(generics.GenericAPIView):
         return extension.lower() not in self.allowed_extensions
 
     def _get_validation_errors(self, request_files, documents):
-        
+
         total_file_size = 0
-        
+
         if not is_valid_json(documents):
             return JsonMessageResponse("Invalid json data for documents.", status=400)
         if len(request_files) > 30:
@@ -61,7 +61,7 @@ class EFilingSubmitView(generics.GenericAPIView):
                 )
             if self._invalid_file_extension(file):
                 return JsonMessageResponse("Wrong file format.", status=400)
-        
+
         if self._file_size_too_large(total_file_size):
             return JsonMessageResponse(
                 "The total Files size limit exceeded: 10 MB.", status=400
@@ -83,6 +83,8 @@ class EFilingSubmitView(generics.GenericAPIView):
     def _get_pdf_content(self, application, application_steps):
         outgoing_documents = []
         for existing_orders in application_steps[0]["result"]["existingOrders"]:
+            if "doNotIncludePdf" in existing_orders and existing_orders["doNotIncludePdf"]:
+                continue
             document_type = existing_orders["type"]
             try:
                 prepared_pdf = PreparedPdf.objects.get(
@@ -116,7 +118,7 @@ class EFilingSubmitView(generics.GenericAPIView):
         output = PdfFileWriter()
         non_AXP_doc =  [x for x in outgoing_documents if x["type"]!="AXP"]
         AXP_doc = next(x for x in outgoing_documents if x["type"]=="AXP")
-        
+
         output = self._add_pdf_to_output(output, AXP_doc["file_data"])
 
         if len(image_files) > 0:
@@ -126,8 +128,8 @@ class EFilingSubmitView(generics.GenericAPIView):
 
         for file in pdf_files:
             data = file.read()
-            output = self._add_pdf_to_output(output, data)       
-        
+            output = self._add_pdf_to_output(output, data)
+
         in_memory = BytesIO()
         output.write(in_memory)
         in_memory.seek(0)
@@ -144,26 +146,26 @@ class EFilingSubmitView(generics.GenericAPIView):
         )
 
         return non_AXP_doc
-       
+
     def _add_pdf_to_output(self, output, data_bytes):
         pdf_bytes = BytesIO(data_bytes)
         read_pdf = PdfFileReader(pdf_bytes)
-        for pgno in range(0, read_pdf.getNumPages()):            
+        for pgno in range(0, read_pdf.getNumPages()):
             output.addPage(read_pdf.getPage(pgno))
         return output
 
     def _process_incoming_files_and_documents(
         self, standalone, application, application_steps, incoming_documents, incoming_files
     ):
-        outgoing_documents = [] 
+        outgoing_documents = []
 
         if standalone==False:
-            outgoing_documents = self._get_pdf_content(application, application_steps)            
+            outgoing_documents = self._get_pdf_content(application, application_steps)
 
         for incoming_document in incoming_documents:
             if "files" not in incoming_document:
                 continue
-            
+
             file_indexes = incoming_document["files"]
             files = [incoming_files[index] for index in file_indexes]
 
@@ -171,11 +173,11 @@ class EFilingSubmitView(generics.GenericAPIView):
             pdf_files = [x for x in files if x.name.endswith(".pdf")]
             image_files = [x for x in files if not x.name.endswith(".pdf")]
 
-            if ("type" in incoming_document and incoming_document["type"] == "Merge With Form15"):                
+            if ("type" in incoming_document and incoming_document["type"] == "Merge With Form15"):
                 outgoing_documents = self._merge_sch1_with_form15( outgoing_documents, pdf_files, image_files, incoming_document["rotations"] )
                 continue
 
-            
+
             for file in pdf_files:
                 data = file.read()
                 file_name = file.name.replace(' ', '')
@@ -223,7 +225,7 @@ class EFilingSubmitView(generics.GenericAPIView):
         documents_string = request.POST.get("documents")
         request_files = request.FILES.getlist("files")
 
-        standalone = bool(request.query_params.get("standalone"))        
+        standalone = bool(request.query_params.get("standalone"))
 
         # Validations.
         validations_errors = self._get_validation_errors(

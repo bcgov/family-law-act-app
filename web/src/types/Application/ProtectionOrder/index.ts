@@ -5,6 +5,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         type?: string;
         filingLocation?: string;
         fileNumber?: string;
+        doNotIncludePdf?: boolean;
     }
 
     export interface poQuestionnaireSurveyDataInfoType {

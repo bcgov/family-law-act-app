@@ -110,6 +110,31 @@ export default class NoticeDiscontinuance extends Vue {
             this.disableNextButton = !canContinue;
         }
     }
+
+    public mergeRespondants(){
+        const respondentNames =[]
+        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondents){
+            const respondents = this.$store.state.Application.steps[0].result.respondents        
+            respondentNames.push(...respondents)
+        }
+
+        if(this.survey.data?.otherPartyInfoDis && this.survey.data?.otherPartyInfoDis.length>0){            
+            const respondentNamesDis = this.survey.data.otherPartyInfoDis.map(otherParty=>otherParty.name)
+            respondentNames.push(...respondentNamesDis)
+        }  
+        
+        const fullNamesArray =[];
+        for(const name of respondentNames ){
+            fullNamesArray.push(Vue.filter('getFullName')(name))
+        }
+
+        const uniqueArray = respondentNames.filter(function(item, index) {
+            const fullName = Vue.filter('getFullName')(item)
+            return fullNamesArray.indexOf(fullName) == index;
+        })
+        
+        this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
+    }
    
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
@@ -122,6 +147,8 @@ export default class NoticeDiscontinuance extends Vue {
     }  
     
     beforeDestroy() {
+
+        this.mergeRespondants();
 
         if(this.survey.data?.["ApplicantName"]) {
             this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
