@@ -13,6 +13,26 @@
             </p>        
 
             
+            <affidavit-of-personal-service-of-protection
+                v-if="affidavitPersonalServiceApp.exist"                
+                :instructionsStep="affidavitPersonalServiceApp.step"  
+            />
+
+            <consent-adjournment
+                v-if="consentAdjournmentApp.exist"                
+                :instructionsStep="consentAdjournmentApp.step"  
+            />
+
+            <consent-to-informal-trial-kamloops
+                v-if="consentInformalTrialKamloopsApp.exist"                
+                :instructionsStep="consentInformalTrialKamloopsApp.step"  
+            />
+
+            <notice-of-exemption-from-parenting-education-program
+                v-if="noticeExemptionParentingEducationApp.exist"                
+                :instructionsStep="noticeExemptionParentingEducationApp.step"  
+            />
+
 
             <!-- {{otherApplications}} -->
             <div v-for="serveApp,inx in serveApps" :key="'serve-copy-'+inx">
@@ -72,6 +92,10 @@ import ServeFinancialStatementOnOtherParty from "./postFilingStepsOther/ServeFin
 import ServeNoticeOfIntentionToProceedOnOtherParty from "./postFilingStepsOther/ServeNoticeOfIntentionToProceedOnOtherParty.vue"
 import WhatMustDoSection from "./postFilingStepsOther/WhatMustDoSection.vue"
 import ScheduleTrialWithJudicialCaseManager from "./postFilingStepsOther/ScheduleTrialWithJudicialCaseManager.vue"
+import AffidavitOfPersonalServiceOfProtection from "./postFilingStepsOther/AffidavitOfPersonalServiceOfProtection.vue"
+import ConsentAdjournment from "./postFilingStepsOther/ConsentAdjournment.vue"
+import ConsentToInformalTrialKamloops from "./postFilingStepsOther/ConsentToInformalTrialKamloops.vue"
+import NoticeOfExemptionFromParentingEducationProgram from "./postFilingStepsOther/NoticeOfExemptionFromParentingEducationProgram.vue"
 
 @Component({
     components:{  
@@ -81,7 +105,11 @@ import ScheduleTrialWithJudicialCaseManager from "./postFilingStepsOther/Schedul
         ServeFinancialStatementOnOtherParty,
         ServeNoticeOfIntentionToProceedOnOtherParty,
         WhatMustDoSection,
-        ScheduleTrialWithJudicialCaseManager
+        ScheduleTrialWithJudicialCaseManager,
+        AffidavitOfPersonalServiceOfProtection,
+        ConsentAdjournment,
+        ConsentToInformalTrialKamloops,
+        NoticeOfExemptionFromParentingEducationProgram
     }
 })
 export default class InstructionsOtherForms extends Vue {
@@ -105,6 +133,10 @@ export default class InstructionsOtherForms extends Vue {
     serveApps: {sevenDays:boolean, type: string; step: number}[] = [];
     financialStatementApp = {exist:false, step: 0}
     noticeOfIntentionApp = {exist:false, step: 0}
+    affidavitPersonalServiceApp = {exist:false, step: 0}
+    consentAdjournmentApp = {exist:false, step: 0}
+    consentInformalTrialKamloopsApp = {exist:false, step: 0}
+    noticeExemptionParentingEducationApp = {exist:false, step: 0}
     proofOfServiceApp = {exist:false, step: 0, must: false}
     whatMustDo = {exist:false, step: 0}
     scheduleTrial = {exist:false, step: 0} 
@@ -163,6 +195,24 @@ export default class InstructionsOtherForms extends Vue {
                 this.otherApplications.push('NPR')
 
             let step = 1;
+
+            if(apps.includes('APSP')){ 
+                this.noInstructions = false
+                this.affidavitPersonalServiceApp = {exist:true, step: step++}
+            }
+            if(apps.includes('CONA')){ 
+                this.noInstructions = false
+                this.consentAdjournmentApp = {exist:true, step: step++}
+            }
+            if(apps.includes('CIFT')){
+                this.noInstructions = false
+                this.consentInformalTrialKamloopsApp = {exist:true, step: step++}
+            }
+            if(apps.includes('PASE')){ 
+                this.noInstructions = false
+                this.noticeExemptionParentingEducationApp = {exist:true, step: step++}
+            }
+            
             let proofOfServiceApp = false
             let mustProvide = false
             let scheduleTrial = false
