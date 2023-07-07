@@ -1,17 +1,36 @@
 <template>
-    <div>        
-        <b-card v-for="(form,inx) in formsList" :key="inx" style="margin:1rem 0;border-radius:10px; border:2px solid #DDEEFF;">
-            <div style="float:left; margin: 0.5rem 1rem;color:#5050AA; font-size:16px; font-weight:bold;" v-html="form.title" > 
+    <div>  
+        <b-card no-body border-variant="white" v-for="(form,inx) in formsList" :key="inx">
+
+            <b-card style="margin:1rem 0;border-radius:10px; border:2px solid #DDEEFF;">
+                <div style="float:left; margin: 0.5rem 1rem;color:#5050AA; font-size:16px; font-weight:bold;" v-html="form.title" >
+                </div>
+                <b-button 
+                    style="float:right; margin: 0.25rem 1rem;"                  
+                    v-on:click.prevent="onDownload(form.name, inx)"
+                    :variant="form.color">
+                        <span class="fa fa-print btn-icon-left"/>
+                        <span v-if="form.requiresSignature">
+                            Review and Sign
+                        </span>
+                        <span v-else>
+                            Review and {{type}}
+                        </span>                    
+                </b-button>                
+            </b-card>
+            <b-row class="ml-2" v-if="form.requiresSignature">
+                <p>You will need the consent of the other party on the form as you indicated you have 
+                    <span v-if="trialPrep">already had a trial preparation conference</span>
+                    <span v-if="trialPrep && trialDateScheduled"> and </span>
+                    <span v-if="trialDateScheduled">a trial is scheduled within 30 days</span>.
+                </p>
                 
-            </div>
-            <b-button 
-                style="float:right; margin: 0.25rem 1rem;"                  
-                v-on:click.prevent="onDownload(form.name, inx)"
-                :variant="form.color">
-                    <span class="fa fa-print btn-icon-left"/>
-                    Review and {{type}}
-            </b-button>
-        </b-card>
+                <p>Print the form, have the form signed and return to this screen to upload the signed form for submission.</p>               
+
+            </b-row>
+
+        </b-card>      
+        
 
     </div> 
 </template>
@@ -53,15 +72,31 @@ export default class OtherFormList extends Vue {
     showPDFformName = '';
     showPDFpreview = false;
 
-    formsListTemplate =[]
+    formsListTemplate = [];
 
     formsList=[];
 
+    trialPrep = false;
+    trialDateScheduled = false;
+
     mounted(){
 
+        let ndtRequiresSignature = false;
+
+        const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+        const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'NDT')})
+        if (index >=0){
+            ndtRequiresSignature = existingOrdersInfo[index].doNotIncludePdf; 
+            if (ndtRequiresSignature){
+                const moreInfo = this.$store.state.Application.steps[this.stPgNo.NDT._StepNo].result?.moreInformationSurvey?.data;                
+                this.trialPrep = moreInfo?.TrialPrep == 'y';
+                this.trialDateScheduled = moreInfo?.TrialDateScheduled == 'y';
+            }
+        }        
+
         this.formsListTemplate =[                
-            { name:'P46',  appName:'noticeOfAddressChange',   pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],        color:"danger", title:"Notice of Address Change (Form 46)"},            
-            { name:'P50',  appName:'noticeDiscontinuance',    pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],        color:"danger", title:"Notice of Discontinuance (Form 50)"}
+            { name:'P46',  appName:'noticeOfAddressChange',   pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],        color:"danger", title:"Notice of Address Change (Form 46)", requiresSignature: false},            
+            { name:'P50',  appName:'noticeDiscontinuance',    pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],        color:"danger", title:"Notice of Discontinuance (Form 50)", requiresSignature: ndtRequiresSignature}
         ]
 
         this.currentStep = this.$store.state.Application.currentStep;
@@ -87,7 +122,9 @@ export default class OtherFormList extends Vue {
                 
             }                           
         }
-        this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});
+        // console.log(this.formsList)
+        // //TODO: why is this not including the standalone forms
+        // this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});
         Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
     

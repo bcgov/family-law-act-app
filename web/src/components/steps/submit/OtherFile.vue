@@ -365,6 +365,7 @@
             }
 
             this.extractInfo();
+            this.determineRequiredGeneratedPdfs();
             
             this.dataReady = this.checkErrorOnPages();
 
@@ -476,8 +477,28 @@
             Vue.nextTick(() => Vue.prototype.$saveChanges() )
         }
 
+        public determineRequiredGeneratedPdfs(){
+
+            const stepResults = this.steps[this.stPgNo.OTHER._StepNo].result;
+            const selectedFormInfoList = stepResults.completeOtherFormsSurvey?.data?.selectedFormInfoList? stepResults.completeOtherFormsSurvey.data.selectedFormInfoList: [];
+            
+            const updatedExistingOrders = [];
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            for(const form of existingOrdersInfo){
+
+                const pathwayInfo = selectedFormInfoList.filter(selectedForm => {if(Vue.filter('getPathwayPdfType')(selectedForm.pathwayName) == form.type) return form;})[0]
+                if (!pathwayInfo.pathwayState){
+                    form.doNotIncludePdf = true;                   
+                }
+                updatedExistingOrders.push(form)
+            }   
+            
+            this.UpdateCommonStepResults({data:{'existingOrders':updatedExistingOrders}}); 
+            Vue.nextTick(() => Vue.prototype.$saveChanges() );
+        }
+
         public eFile() {
-            this.submissionInProgress = true;
+            this.submissionInProgress = true;  
             
             this.error = "";
             const bodyFormData = new FormData();
@@ -509,7 +530,7 @@
 
             
             let url = "";
-            if (this.includesGuidedPathway() && !this.exemptGuidedPathway()){
+            if (this.includesGuidedPathway()){
                 url = "/efiling/"+this.id+"/submit/";
             } else {
                 url = "/efiling/"+this.id+"/submit/?standalone=true"; 
@@ -522,8 +543,6 @@
                     Accept: "application/json"                  
                 }
             }
-            
-            
             
             this.$http.post(url, bodyFormData, header)
             .then(res => {
@@ -602,7 +621,7 @@
             if (includesOtherForms && selectedFormInfoList.length>0){
 
                 for (const selectedForm of selectedFormInfoList){                
-                    if (selectedForm.manualState || selectedForm.formName=="Notice of Discontinuance"){                       
+                    if (selectedForm.manualState || (selectedForm.formName=="Notice of Discontinuance" && this.ndtIsExemptGuidedPathway())){                       
                         const name = Vue.filter('getFullOrderName')(selectedForm.pathwayName, '');
                         const pdfType = Vue.filter('getPathwayPdfType')(selectedForm.pathwayName, '');
                         this.requiredDocumentLists.push({description: name, type: pdfType});                       
@@ -630,18 +649,26 @@
             return includesGuided;
         } 
         
-        public exemptGuidedPathway(){
+        public ndtIsExemptGuidedPathway(){
+
+            let ndtRequiresSignature = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'NDT')})
+            if (index >=0){
+                ndtRequiresSignature = existingOrdersInfo[index].doNotIncludePdf;
+            } 
 
             const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
             const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
 
             for (const selectedForm of selectedFormInfoList){                
-                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Notice of Discontinuance"){
+                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Notice of Discontinuance" && ndtRequiresSignature){
                     return true
                 }            
             }
             return false;
-        }   
+        }         
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

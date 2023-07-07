@@ -213,6 +213,24 @@ export default class MoreInformation extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
+
+    public determineFilingRequirements(){
+
+        const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
+
+
+        this.trialPrep = this.survey.data?.TrialPrep == 'y';
+        this.trialDateScheduled = this.survey.data?.TrialDateScheduled == 'y';
+
+        if(existingOrders){
+            const index = existingOrders.findIndex(order=>{return(order.type == 'NDT')})
+            if(index >= 0 ){                
+                existingOrders[index].doNotIncludePdf = this.trialPrep || this.trialDateScheduled; 
+            }            
+            this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
+        }
+
+    }
    
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
@@ -224,7 +242,9 @@ export default class MoreInformation extends Vue {
         }
     }  
     
-    beforeDestroy() {        
+    beforeDestroy() {      
+        
+        this.determineFilingRequirements();
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
