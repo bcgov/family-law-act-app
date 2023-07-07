@@ -19,8 +19,9 @@ class Application extends VuexModule {
     public currentStep = 1    
     public userType = ""
     public userName = ""
+    public loggedInUserName = {} as nameInfoType;
     public userId = ""
-    public version: string = "";
+    public version = "";
     public applicantName = {} as nameInfoType;
     public respondentName = {} as nameInfoType;
     public protectedPartyName = {} as nameInfoType;
@@ -49,7 +50,10 @@ class Application extends VuexModule {
         caseMgmt:false, 
         priorityParenting:false, 
         childReloc:false, 
-        agreementEnfrc:false
+        agreementEnfrc:false,
+        other: false,
+        noticeOfAddressChange: false,
+        noticeDiscontinuance: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1761,11 +1765,163 @@ class Application extends VuexModule {
         this.steps.push(s);
 
         // Connect STOP
-        //Submit START
+        //Admin forms START
+
         s = {} as stepInfoType;
 
         s.active = false;
         s.id = "12";
+        s.name = "OTHER";
+        s.label = "Other Forms";
+        s.icon = "fa fa-pencil";
+        s.lastUpdate = null;
+        s.type = "other";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+    
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "OtherForms";
+        p.label = "Other Forms";
+        p.active = true;
+        p.progress = 0;
+    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "CompleteOtherForms";
+        p.label = "Complete Other Forms";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "OtherFormFilingLocation";
+        p.label = "Other Form Filing Location";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p); 
+    
+        this.steps.push(s);
+
+        // OTHER Stop
+
+        // Address Change START
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "13";
+        s.name = "NCD";
+        s.label = "Address Change";
+        s.icon = "fa fa-envelope";
+        s.lastUpdate = null;
+        s.type = "addressChange";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "AddressChange";
+        p.label = "Address Change";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AddressChangeNotice";
+        p.label = "Notice";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "ReviewYourAnswersNCD";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "PreviewFormsNCD";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Address Change STOP
+
+        // Discontinuance START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "14";
+        s.name = "NDT";
+        s.label = "Notice of Discontinuance";
+        s.icon = "fa fa-ban";
+        s.lastUpdate = null;
+        s.type = "discontinuance";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeDiscontinuance";
+        p.label = "Notice of Discontinuance";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "DiscontinuanceInformation";
+        p.label = "Discontinuance Information ";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+        
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "MoreInformation";
+        p.label = "More Information ";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersNDT";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsNDT";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Discontinuance STOP
+
+        //Submit START
+        s = {} as stepInfoType;
+
+        s.active = false;
+        s.id = "15";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -1809,9 +1965,18 @@ class Application extends VuexModule {
         p.progress = 0;
     
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "OtherFile";
+        p.label = "File";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "5";
         p.name = "NextSteps";
         p.label = "Next Steps";
         p.active = false;
@@ -1875,6 +2040,16 @@ class Application extends VuexModule {
     @Action
     public UpdateUserName(newUserName) {
         this.context.commit("setUserName", newUserName);
+    }
+
+    @Mutation
+    public  setLoggedInUserName(loggedInUserName: nameInfoType): void {
+        this.loggedInUserName = loggedInUserName;
+    }
+
+    @Action
+    public UpdateLoggedInUserName(newLoggedInUserName: nameInfoType) {
+        this.context.commit("setLoggedInUserName", newLoggedInUserName);
     }
     
     @Mutation
@@ -2046,6 +2221,7 @@ class Application extends VuexModule {
     @Action
     public checkAllCompleted() {
         let newAllCompleted = false;
+        //TODO: check the other forms pathway and each one of the corresponding pathways as well
         if(this.steps[0].result?.selectedForms){
             for(const selectedform of this.steps[0].result.selectedForms){
 
@@ -2068,7 +2244,19 @@ class Application extends VuexModule {
                 }
             }            
         }
-        if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:0 });
+
+        const includesOtherForms = this.steps[0].result?.otherForms;
+        if(includesOtherForms){
+
+            if(this.pathwayCompleted.other) 
+                newAllCompleted = true;
+            else{
+                newAllCompleted = false;
+            }
+
+        }
+            
+        if(!newAllCompleted && !includesOtherForms)this.context.commit("setCurrentStepPage", { currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:0 });
         this.context.commit("setAllCompleted", newAllCompleted)
     }
 
@@ -2215,7 +2403,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

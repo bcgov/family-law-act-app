@@ -30,8 +30,11 @@
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary mb-2" style="display:block; font-size:1.4rem;">Review your application:</span> 
-                <span>If you are filing your application by electronically and you are asking for a protection order in your application, you will need to be prepared to 
-                    <tooltip :index="0" title='swear or affirm'/> the information in your application during your court appearance. 
+                <span>
+                    If you are filing your application by electronically and you are asking for a protection 
+                    order in your application, you will need to be prepared to
+                    <tooltip :index="0" title='swear or affirm'/>the information in your application 
+                    during your court appearance. 
                 </span>           
             
                 <form-list type="Print" :currentPage="currentPage"/>
@@ -158,16 +161,16 @@
 
         </b-card>        
 
-        <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-white">
+        <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-primary text-white">
             <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">Get Help Opening and Saving PDF forms</h1> 
+                <h1 class="mb-0 mt-2 ml-4">Get Help Opening and Saving PDF forms</h1> 
             </template>
             <get-help-for-pdf/>        
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="showGetHelpForPDF=false">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showGetHelpForPDF=false">&times;</b-button>
+                <b-button variant="primary" class="closeButton" @click="showGetHelpForPDF=false">&times;</b-button>
             </template>
         </b-modal>
 
@@ -271,19 +274,7 @@
         public UpdateGotoNextStepPage!: () => void
 
         @applicationState.Action
-        public UpdateCurrentStep!: (newCurrentStep) => void
-
-        @applicationState.Action
-        public UpdateCurrentStepPage!: (newCurrentStepPage) => void
-
-        @applicationState.Action
         public UpdatePageProgress!: (newPageProgress) => void        
-
-        @applicationState.Action
-        public UpdateLastPrinted!: (newLastPrinted) => void
-
-        @applicationState.Action
-        public UpdateLastFiled!: (newLastFiled) => void
 
         error = "";
         showGetHelpForPDF = false;
@@ -466,7 +457,7 @@
                 this.showTypeOfDocuments = false;
 
                 const supportingdocuments = this.supportingDocuments 
-                let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
+                const typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
                 if(!typeIndex.includes(this.fileType))
                     typeIndex.push(this.fileType)
                 
@@ -540,6 +531,16 @@
     }
     #drop-area.highlight {
     border-color: purple;
+    }
+
+    .closeButton {
+        background-color: transparent !important;
+        color: white;
+        border: white;
+        font-weight: 700;
+        font-size: 2rem;
+        padding-top: 0;
+        margin-top: 0;
     }
 
 </style>

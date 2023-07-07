@@ -26,7 +26,8 @@
                 </b-card>
 
                 <b-card :key="tableUpdated" :style="{height:getTableHeight}" v-else no-body border-variant="white" bg-variant="white" >
-                    <b-table  :items="previousApplications"
+                    <b-table
+                        :items="previousApplications"
                         :fields="previousApplicationFields"
                         class="mx-4"
                         style="overflow-y: auto;"
@@ -53,13 +54,6 @@
                                 v-b-tooltip.hover.bottom.noninteractive
                                 title="Resume Application">
                                 <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
-                            </b-button>                                
-
-                            <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
-                                v-b-tooltip.hover.noninteractive.left.v-success
-                                title="View/Download the Submitted Application">
-                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
                             </b-button>
 
                             <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
@@ -67,12 +61,20 @@
                                 v-b-tooltip.hover.noninteractive.left.v-info
                                 title="Navigate To Submitted Application">
                                 <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
-                            </b-button>
+                            </b-button>  
+
                             <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="viewInstructions(row.item.id, row.item.app_type)"
                                 v-b-tooltip.hover.noninteractive.bottom
                                 title="View Instructions">
                                 <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
+                            </b-button>                              
+
+                            <b-button v-if="row.item.lastFiled != 0 && row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0"
+                                @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                v-b-tooltip.hover.noninteractive.left.v-success
+                                title="View/Download the Submitted Application">
+                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
                             </b-button>
                             
                         </template>
@@ -127,7 +129,7 @@
                 </b-badge>                    
             </b-row>            
             <template v-slot:modal-title>
-                <h2 class="mb-0 text-light">Confirm Delete Application</h2>                                  
+                <h2 class="mb-0 mt-2 ml-4">Confirm Delete Application</h2>                                  
             </template>
             <h4 >Are you sure you want to delete your <b class="text-primary" v-for="app,inx in applicationToDelete.app_type" :key="inx">"{{app}}"<b v-if="(inx+1)<applicationToDelete.app_type.length">, </b> </b> application?</h4>            
             <template v-slot:modal-footer>
@@ -135,14 +137,14 @@
                 <b-button variant="primary" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
+                <b-button variant="warning" class="closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
                 >&times;</b-button>
             </template>
         </b-modal>
 
-        <b-modal v-model="showSelectFileForPrint" id="bv-modal-select-pdf" header-class="bg-info">                        
+        <b-modal v-model="showSelectFileForPrint" id="bv-modal-select-pdf" header-class="bg-info text-primary">                        
             <template v-slot:modal-title>
-                <h2 class="mb-0 text-primary">Click on File to Download</h2>                                  
+                <h2 class="mb-0 mt-2 ml-4">Click on File to Download</h2>                                  
             </template>
             <b-row v-for="(pdf,inx) in printingListOfPdfs" :key="inx"> 
                 <b-button size="sm" variant="light" class="py-2 my-2 mx-auto px-5" style="width:20rem;"
@@ -158,25 +160,28 @@
                 <b-button variant="primary" @click="$bvModal.hide('bv-modal-select-pdf')">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-select-pdf')"
+                <b-button variant="info" class="closeButton" @click="$bvModal.hide('bv-modal-select-pdf')"
                 >&times;</b-button>
             </template>
         </b-modal>
 
-        <b-modal size="xl" v-model="showInstructions" id="bv-modal-show-instructions" header-class="bg-info">                        
+        <b-modal size="xl" v-model="showInstructions" id="bv-modal-show-instructions" header-class="bg-info text-primary">                        
             <template v-slot:modal-title>
-                <h2 class="mb-0 text-primary">Instructions</h2>                                  
+                <h2 class="mb-0 mt-2 ml-4">Instructions</h2>                                  
             </template>
 
-            <b-card no-body border-variant="white" class="m-3">
+            <b-card v-if='!includesOtherForms(instructionsApplicationId)' no-body border-variant="white" class="m-3">
                 <instructions :applicationId='instructionsApplicationId' ></instructions>                
+            </b-card>
+            <b-card v-else no-body border-variant="white" class="m-3">
+                <instructions-other-forms :applicationId='instructionsApplicationId' />
             </b-card>
             
             <template v-slot:modal-footer>                
                 <b-button variant="primary" @click="$bvModal.hide('bv-modal-show-instructions')">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-show-instructions')"
+                <b-button variant="info" class="closeButton" @click="$bvModal.hide('bv-modal-show-instructions')"
                 >&times;</b-button>
             </template>
         </b-modal>  
@@ -218,10 +223,11 @@ import {GetFilingLocations} from './GetFilingLocations'
 import {RestoreCommonStep} from './RestoreCommonStep'
 import {MigrateStore} from './MigrateStore'
 import Instructions from './Instructions.vue';
+import InstructionsOtherForms from './InstructionsOtherForms.vue'
 
 
 @Component({
-    components: {Instructions}
+    components: {Instructions, InstructionsOtherForms}
 })
 export default class ApplicationStatus extends Vue {
 
@@ -232,7 +238,7 @@ export default class ApplicationStatus extends Vue {
     public UpdateLocationsInfo!: (newLocationsInfo) => void
 
     @applicationState.Action
-    public checkAllCompleted! :() => void
+    public checkAllCompleted!: () => void
 
     dataLoaded = false;
     showDisclaimer = false;
@@ -309,7 +315,7 @@ export default class ApplicationStatus extends Vue {
         .then((response) => {
             
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], app_type_code:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
@@ -317,6 +323,7 @@ export default class ApplicationStatus extends Vue {
                 app.id = appJson.id;
                 app.listOfPdfs = appJson.prepared_pdfs?appJson.prepared_pdfs.map(pdf=>pdf.pdf_type) :[]
                 app.app_type = this.extractTypes(appJson.app_type.split(','));
+                app.app_type_code = appJson.app_type.split(',');
                 if(appJson.last_efiling_submission){
                     app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
                     if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
@@ -416,7 +423,7 @@ export default class ApplicationStatus extends Vue {
     public confirmRemoveApplication() {
         this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
         .then((response) => {
-            var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
+            const indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
             if(indexToDelete>=0){
                 this.previousApplications.splice(indexToDelete, 1);  
                 this.tableUpdated++;
@@ -510,6 +517,23 @@ export default class ApplicationStatus extends Vue {
         });
     }
 
+    public includesOtherForms(applicationId){
+        const application = this.previousApplications.filter(app => app.id==applicationId)
+        // console.log(applicationId)
+        // console.log(application)
+        if(application[0]){
+            const app_type_code = application[0].app_type_code
+            console.log(app_type_code)
+            const app_types = Vue.filter('getOtherFormsType')()
+            // console.log(app_types) 
+            for(const app_type of app_type_code){
+                if(!app_types.includes(app_type)) return false
+            }
+            return true
+        }
+        return false
+    }
+
     public extractFilingLocations() {
         GetFilingLocations();       
     }
@@ -551,6 +575,16 @@ export default class ApplicationStatus extends Vue {
     .terms{
         color: $gov-mid-blue;
         margin-top: auto 0;
+    }
+
+    .closeButton {
+        background-color: transparent !important;
+        color: white;
+        border: white;
+        font-weight: 700;
+        font-size: 2rem;
+        padding-top: 0;
+        margin-top: 0;
     }
 
     button{

@@ -29,6 +29,9 @@
                                     </ul>
                                 </div>
                             </div>
+                            <div>
+                                You can also use this service to complete and file other forms for your family law case.
+                            </div>
                         </div>
 
                         <div class="info-section">
@@ -98,9 +101,9 @@
             </div>
         </b-container>
 
-        <b-modal size="xl" v-model="safetyInst" header-class="bg-white">
+        <b-modal size="xl" v-model="safetyInst" header-class="text-white bg-primary">
             <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">Safety Plan Instructions</h1> 
+                <h1 class="mb-0 mt-2 ml-4">Safety Plan Instructions</h1> 
             </template>
             <div class="m-3">
                 <p>If you are in immediate danger, please call 911 immediately.</p>
@@ -141,7 +144,7 @@
                 <b-button variant="primary" @click="safetyInst=false">Close</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="safetyInst=false">&times;</b-button>
+                <b-button variant="primary" class="closeButton" @click="safetyInst=false">&times;</b-button>
             </template>
         </b-modal>
 
@@ -272,5 +275,15 @@ export default class LandingPage extends Vue {
 }
 .custom-align-login-button {
   padding: 0rem 4rem 0rem 20rem;
+}
+
+.closeButton {
+	background-color: transparent !important;
+	color: white;
+	border: white;
+	font-weight: 700;
+	font-size: 2rem;
+	padding-top: 0;
+	margin-top: 0;
 }
 </style>

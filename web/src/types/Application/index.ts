@@ -18,6 +18,9 @@ import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyI
 import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
 import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType, disagreeCancellingGuardianOfChildSurveyInfoType, replyCancellingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
 import { disagreeExistingSpouseSupportSurveyInfoType, disagreeSpouseSupportSurveyInfoType, relationshipToOtherPartySurveyInfoType, replyExistingSpouseSupportSurveyInfoType, replyNewSpouseSupportSurveyInfoType, rflmCalculatingSpouseSupportSurveyInfoType, rflmSpouseSupportOrderSurveyInfoType, rflmUnpaidSpouseSupportSurveyInfoType } from "./ReplyFamilyLawMatter/SpousalSupport";
+import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoType, otherFormsSurveyInfoType } from "./OtherFamilyForm";
+import { addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "./AddressChange";
+import { noticeDiscontinuanceSurveyInfoType, discontinuanceInformationSurveyInfoType, moreInformationSurveyInfoType } from "./Discontinuance";
 
 
 //This is what our database saves.
@@ -75,6 +78,7 @@ export interface stepInfoType {
 
     //______Step 0 GettingStarted
     selectedActivity?: string[];
+    otherForms?: boolean;
     selectedReplyApplications?: string[];
     selectedForms?: string[];
     selectedFlmOption?: string;
@@ -83,7 +87,8 @@ export interface stepInfoType {
     applicantName?: nameInfoType;
     respondentsCommon?: nameInfoType[];
     respondents?: nameInfoType[];
-    existingOrders?: ExistingOrderInfoType[];    
+    existingOrders?: ExistingOrderInfoType[];   
+    submittedPdfList?: string[]; 
     requiredDocuments?: requiredDocumentsInfoType;
     respondentsPO?: nameInfoType[];
     protectedPartyName?: nameInfoType;    
@@ -218,7 +223,7 @@ export interface stepInfoType {
     schedulingSurvey?: schedulingSurveyInfoType;
     aboutCaseManagementOrderSurvey?: aboutCaseManagementOrderSurveyInfoType;
     cmChildrenInfoSurvey?: cmChildrenInfoSurveyInfoType;
-    childRelatedTypeSurvey?:string;
+    childRelatedTypeSurvey?: string;
     attendanceUsingElectronicCommunicationSurvey?: attendanceUsingElectronicCommunicationSurveyInfoType;
 
     changingOrCancellingAServiceOrNoticeSurvey?: changingOrCancellingAServiceOrNoticeSurveyInfoType;
@@ -250,7 +255,21 @@ export interface stepInfoType {
     detrermineArrearsSurvey?: detrermineArrearsSurveyInfoType;
     aboutTheOrderEnforcementSurvey?: aboutTheOrderEnforcementSurveyInfoType;
 
-    //__Step 10 SUBMIT
+    //__Step 10 OTHER FORMS
+    otherFormsSurvey?: otherFormsSurveyInfoType;
+    completeOtherFormsSurvey?: completeOtherFormsSurveyInfoType;
+    otherFormsFilingLocationSurvey?: otherFormsFilingLocationSurveyInfoType;
+
+    //_____Step 11 ADDRESS CHANGE_____________    
+    addressChangeSurvey?: addressChangeSurveyInfoType;    
+    addressChangeNoticeSurvey?: addressChangeNoticeSurveyInfoType;
+
+    //_____Step 12 NOTICE OF DISCONTINUANCE_____________    
+    noticeDiscontinuanceSurvey?: noticeDiscontinuanceSurveyInfoType;    
+    discontinuanceInformationSurvey?: discontinuanceInformationSurveyInfoType;
+    moreInformationSurvey?: moreInformationSurveyInfoType;
+    
+    //__Step 13 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -264,4 +283,7 @@ export interface stepInfoType {
     priorityParenting?: boolean; 
     childReloc?: boolean;
     agreementEnfrc?: boolean;
+    other?: boolean;
+    noticeOfAddressChange?: boolean;
+    noticeDiscontinuance?: boolean;
   }

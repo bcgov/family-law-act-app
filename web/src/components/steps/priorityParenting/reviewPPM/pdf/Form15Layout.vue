@@ -396,11 +396,8 @@ export default class Form15Layout extends Vue {
     result!: any;    
     
     @applicationState.State
-    public applicantName!: nameInfoType;
+    public applicantName!: nameInfoType;    
     
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
-
     dataReady = false;   
     
     otherPartyInfo: priorityParentingOtherPartyDataInfoType[] = [];
@@ -487,7 +484,7 @@ export default class Form15Layout extends Vue {
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as priorityParentingOtherPartyDataInfoType;               
+                const otherParty = {} as priorityParentingOtherPartyDataInfoType;               
 
                 if (party.knowDob == 'y' &&  party.dob)
                     otherParty.dob = party.dob
@@ -513,7 +510,7 @@ export default class Form15Layout extends Vue {
     
     public getPpmInfo() {
 
-        let ppmInformation = {} as priorityParentingInformationDataInfoType;
+        const ppmInformation = {} as priorityParentingInformationDataInfoType;
 
         if (this.result.ppmBackgroundSurvey) {
             const ppmBackgroundData: ppmBackgroundDataSurveyDataInfoType = this.result.ppmBackgroundSurvey;

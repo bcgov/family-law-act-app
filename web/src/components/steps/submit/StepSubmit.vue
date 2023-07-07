@@ -4,6 +4,7 @@
         <review-and-print  v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndPrint"/>
         <review-and-save   v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndSave"/>
         <review-and-submit v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.ReviewAndSubmit"/>
+        <other-file        v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.OtherFile"/>
         <next-steps        v-bind:step="step"  v-if="step.currentPage == stPgNo.SUBMIT.NextSteps"/>
     </step-base>
 </template>
@@ -14,13 +15,14 @@
     import { stepInfoType } from "@/types/Application";
     import StepBase from "@/components/steps/StepBase.vue";
     
-    import FilingOptions from "./FilingOptions.vue"
-    import ReviewAndPrint from "./ReviewAndPrint.vue"
-    import ReviewAndSave from "./ReviewAndSave.vue"
-    import ReviewAndSubmit from "./ReviewAndSubmit.vue"
+    import FilingOptions from "./FilingOptions.vue";
+    import ReviewAndPrint from "./ReviewAndPrint.vue";
+    import ReviewAndSave from "./ReviewAndSave.vue";
+    import ReviewAndSubmit from "./ReviewAndSubmit.vue";
+    import OtherFile from "./OtherFile.vue";
     import NextSteps from "./NextSteps.vue";
 
-    import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+    import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";
@@ -33,6 +35,7 @@
             ReviewAndPrint,
             ReviewAndSave,
             ReviewAndSubmit,
+            OtherFile,
             NextSteps
         }
     })
@@ -44,7 +47,6 @@
 
         @applicationState.State
         public stPgNo!: stepsAndPagesNumberInfoType;
-
         
     }
 </script>

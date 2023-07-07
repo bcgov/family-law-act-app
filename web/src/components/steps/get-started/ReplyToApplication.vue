@@ -46,7 +46,7 @@
                             <b-form-checkbox value="replyProtectionOrder">
                                 <div class="checkbox-choices">Application About a Protection Order Form 12</div>
                                 <p>
-                                    When a family member makes another family member feel unsafe, this is called 
+                                    When a family member makes another family member feel unsafe, this is called 
                                     <tooltip title="family violence" index="0" />. A protection order is the order 
                                     made by a court to help protect one family member from another family member.
                                 </p>
@@ -60,7 +60,7 @@
                                     <tooltip title="Priority parenting matters" :index="0"/> are decisions about 
                                     a child or children that require the agreement of each of the child's guardians 
                                     or an order from the court and it is priority to get the order before, or 
-                                    separate from, any family law matter order(s). 
+                                    separate from, any family law matter order(s).
                                 </p>
                             </b-form-checkbox>
                         </div>
@@ -238,7 +238,7 @@ export default class ReplyToApplication extends Vue {
   
     public onChange(selectedReplyApplications) {
         
-        let applicationTypes = []; 
+        const applicationTypes = []; 
 
         if (this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity?.includes('applyForOrder') && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms) {
             for (const form of this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms){                    

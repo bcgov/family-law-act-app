@@ -127,7 +127,9 @@ export class MigrateStore{
                 }
 
             }
-            
+
+            //TODO: ensure this is the only change required to support other.
+            if(correspondingStep?.result?.otherForms) result.otherForms = correspondingStep.result.otherForms;            
 
             // migrate selected Activity
             result.selectedActivity = []
@@ -167,7 +169,10 @@ export class MigrateStore{
         pathwayCompleted.priorityParenting = false;       
         pathwayCompleted.childReloc = false;       
         pathwayCompleted.agreementEnfrc = false;
-        
+        pathwayCompleted.noticeOfAddressChange = false;
+        pathwayCompleted.noticeDiscontinuance = false;
+        pathwayCompleted.other = false;
+        //TODO: add the other pathway
         return pathwayCompleted;        
     }
 

@@ -64,11 +64,15 @@ import { Component, Vue} from 'vue-property-decorator';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+import { stepInfoType } from '@/types/Application';
 const applicationState = namespace("Application");
 
 @Component
 export default class NavigationSidebar extends Vue {
     
+    @applicationState.State
+    public steps!: stepInfoType[]; 
+
     @applicationState.State
     public currentStep!: number;
     
@@ -83,10 +87,21 @@ export default class NavigationSidebar extends Vue {
 
     public onSelectStep(event) {
     
+        const otherStep = this.stPgNo.OTHER._StepNo
+
         const next = event.currentTarget;
         const nextIndex = parseInt(next.getAttribute("index"));
-        
-        if(nextIndex == this.stPgNo.SUBMIT._StepNo && !this.allCompleted){
+
+        if(nextIndex == this.stPgNo.SUBMIT._StepNo && this.steps[0].result?.otherForms &&
+           this.steps[otherStep].result?.otherFormsSurvey?.data?.filingMethod == "inPerson" && 
+           this.requiresOtherNextStep(this.steps[otherStep].result?.completeOtherFormsSurvey.data.selectedFormInfoList)
+        ){
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: this.stPgNo.SUBMIT.NextSteps });
+        }
+        else if(nextIndex == this.stPgNo.SUBMIT._StepNo && this.steps[0].result?.otherForms){            
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: this.stPgNo.SUBMIT.OtherFile });
+        }
+        else if(nextIndex == this.stPgNo.SUBMIT._StepNo && !this.allCompleted){
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: this.stPgNo.SUBMIT.FilingOptions });
         }
         
@@ -153,6 +168,16 @@ export default class NavigationSidebar extends Vue {
 
     public getPageProgress(stepIndex, pageIndex){
         return this.$store.state.Application.steps[stepIndex].pages[pageIndex].progress
+    }
+
+    public requiresOtherNextStep(selectedFormInfoList){
+        
+        for (const selectedForm of selectedFormInfoList){
+            if (!selectedForm.manualState){
+                return false;
+            }            
+        }
+        return true;
     }
 
 }

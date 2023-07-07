@@ -190,9 +190,6 @@ export default class CommonSection extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;
     
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
-    
     dataReady = false;   
 
     locationInfo = {} as cmLocationInfoDataInfoType;
@@ -200,7 +197,7 @@ export default class CommonSection extends Vue {
     otherPartyInfo=[];
     yourInfo = {} as yourInformationInfoDataInfoType;   
     
-    childRelatedType: string = '';   
+    childRelatedType = '';   
     childrenInfo: childrenInfoSurveyInfoType[] = [];  
     filingLocationReason = '';    
     understandWithoutNotice = false;
@@ -239,7 +236,7 @@ export default class CommonSection extends Vue {
 
     public getLocationInfo(){
 
-        let locationInformation = {} as cmLocationInfoDataInfoType;
+        const locationInformation = {} as cmLocationInfoDataInfoType;
         if (this.result?.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;           
             locationInformation.existingFileNumber = locationData.ExistingFileNumber && locationData?.ExistingFamilyCase =='y'? locationData.ExistingFileNumber:'';
@@ -291,7 +288,7 @@ export default class CommonSection extends Vue {
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as caseManagementOtherPartyDataInfoType;
+                const otherParty = {} as caseManagementOtherPartyDataInfoType;
 
                 if (party.name)
                     otherParty.name = party.name;

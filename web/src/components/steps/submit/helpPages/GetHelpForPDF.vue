@@ -1,20 +1,26 @@
 <template>
     <div style="height:30rem; overflow: auto ">
         <h2 class="mb-2">
-            Your application
+            Your <span v-if="isForm">form</span><span v-else>application</span>
         </h2>
         <p>
-            You can review, print, or save your application by clicking on the “Review and Print” button next to the document. This will open or download a PDF version of the application.
+            You can review, print, or save your <span v-if="isForm">form</span><span v-else>application</span>
+            by clicking on the “Review and Print” button next to the document. 
+            This will open or download a PDF version of the 
+            <span v-if="isForm">form</span><span v-else>application</span>.
         </p>
         <p>
-            “PDF” stand for Portable Document Format, which is a file format created by Adobe and is a standard format for printed documents. A PDF retains the design and layout of the document so it appears the same wherever it is viewed or printed.
+            “PDF” stand for Portable Document Format, which is a file format created by Adobe and 
+            is a standard format for printed documents. A PDF retains the design and layout of the 
+            document so it appears the same wherever it is viewed or printed.
         </p>
 
         <h2 class="mb-2">
             Open the form in your browser
         </h2>
         <p>
-            Your browser (e.g. Internet Explorer, Edge, Google Chrome, Firefox, or Safari) may have a built-in PDF viewer. If so, you can open the forms directly on the web.
+            Your browser (e.g. Internet Explorer, Edge, Google Chrome, Firefox, or Safari) may 
+            have a built-in PDF viewer. If so, you can open the forms directly on the web.
         </p>
         <ol>
             <li>Click on the “Review and Print” button to open the PDF form in your browser window.</li>
@@ -23,7 +29,9 @@
             <li>To save the file to your computer, click on the save icon (disk) or download icon (downward arrow) at the top of the document.</li>
         </ol>
         <p>
-            If you are having trouble viewing PDFs, you may need to adjust your browser settings. See <a href="https://helpx.adobe.com/acrobat/using/display-pdf-in-browser.html" target='_blank'> Adobe’s instructions for displaying PDFs </a> in various browsers for detailed instructions.
+            If you are having trouble viewing PDFs, you may need to adjust your browser settings. 
+            See <a href="https://helpx.adobe.com/acrobat/using/display-pdf-in-browser.html" target='_blank'> 
+                Adobe’s instructions for displaying PDFs </a> in various browsers for detailed instructions.
         </p>
 
         <h2 class="mb-2">
@@ -50,7 +58,7 @@
         </p>
         <ol>
             <li>If asked, choose a folder to keep your forms in (for example “Documents”). You may want to make a note of where you saved it.</li>
-            <li>Open Adobe Reader (or Preview on Mac). If you need to, you can <a href="https://get.adobe.com/reader/" target='_blank' >download it here</a>.</li>
+            <li>Open Adobe Reader (or Preview on Mac). If you need to, you can <a href="https://get.adobe.com/reader/" target='_blank' >download it here</a>.</li>
             <li>When Adobe Reader is open, go to File, then to Open, then go to your “Downloads” folder (or to where you saved the document).</li>
             <li>View and/or print your form.</li>
         </ol>
@@ -93,10 +101,13 @@
 </template>
 
 <script lang="ts">
-    import {Component,Vue} from 'vue-property-decorator';
+    import {Component,Prop,Vue} from 'vue-property-decorator';
 
     @Component
     export default class GetHelpForPdf extends Vue {     
+
+        @Prop({required: false, default: false})
+        isForm!: boolean;
         
     }
 </script>

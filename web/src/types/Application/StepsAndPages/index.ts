@@ -6,11 +6,14 @@ export interface stepsAndPagesNumberInfoType{
     WR: WRstPgTypes;
     CA: CAstPgTypes;    
     FLM: FLMstPgTypes;
-    CM: CMstPgTypes
-    PPM: PPMstPgTypes
+    CM: CMstPgTypes;
+    PPM: PPMstPgTypes;
     RELOC: RELOCstPgTypes;
     ENFRC: ENFRCstPgTypes;
     CONNECT: CONNECTstPgTypes;
+    OTHER: OTHERstPgTypes;
+    NCD: NCDstPgTypes;
+    NDT: NDTstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -251,13 +254,40 @@ export interface ENFRCstPgTypes{
     PreviewForm26ENFRC: number;
     PreviewForm27ENFRC: number;
     PreviewForm28ENFRC: number;
-    PreviewForm29ENFRC : number;   
+    PreviewForm29ENFRC: number;   
 }
 
 export interface CONNECTstPgTypes{
     _StepNo: number;
     
     ReviewAndConnect: number;   
+}
+
+export interface OTHERstPgTypes{
+    _StepNo: number;
+
+    OtherForms: number; 
+    CompleteOtherForms: number;   
+    OtherFormFilingLocation: number;
+}
+
+export interface NCDstPgTypes{
+    _StepNo: number;
+    
+    AddressChange: number;
+    AddressChangeNotice: number; 
+    ReviewYourAnswersNCD: number;
+    PreviewFormsNCD: number;
+}
+
+export interface NDTstPgTypes{
+    _StepNo: number;    
+    
+    NoticeDiscontinuance: number;
+    DiscontinuanceInformation: number;
+    MoreInformation: number;
+    ReviewYourAnswersNDT: number;
+    PreviewFormsNDT: number;
 }
 
 export interface SUBMITstPgTypes{
@@ -267,5 +297,6 @@ export interface SUBMITstPgTypes{
     ReviewAndPrint: number;
     ReviewAndSave: number;
     ReviewAndSubmit: number;
+    OtherFile: number;
     NextSteps: number;    
 }

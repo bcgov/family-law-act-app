@@ -29,9 +29,6 @@ export default class Form26 extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
 
     result;
     dataReady = false;

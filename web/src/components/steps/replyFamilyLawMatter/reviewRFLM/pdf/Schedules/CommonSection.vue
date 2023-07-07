@@ -521,9 +521,6 @@ export default class CommonSection extends Vue {
     @Prop({required:true})
     agreeDisagreeResults!: agreeDisagreeInfoType;
     
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
-    
     dataReady = false;
     includesCounter = false;
     aboutChildren = false;
@@ -623,7 +620,7 @@ export default class CommonSection extends Vue {
 
     public getLocationInfo(){
 
-        let locationInformation = {} as locationInfoDataInfoType;
+        const locationInformation = {} as locationInfoDataInfoType;
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
            
@@ -661,7 +658,7 @@ export default class CommonSection extends Vue {
     }
 
     public getExistingOrdersInfo(){
-        let existing = {existingFlm: false, existingPO: false}
+        const existing = {existingFlm: false, existingPO: false}
 
         if (this.result.rflmBackgroundSurvey){
             const backgroundInfo: rflmBackgroundSurveyDataInfoType = this.result.rflmBackgroundSurvey

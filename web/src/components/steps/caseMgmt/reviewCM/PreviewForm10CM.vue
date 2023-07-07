@@ -65,7 +65,7 @@ export default class PreviewForm10Cm extends Vue {
 
     public checkErrorOnPages(steps){
 
-        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms", "Preview Form 10","Preview Form 11"]
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms", "Preview Form 10","Preview Form 11", "File"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
@@ -82,7 +82,7 @@ export default class PreviewForm10Cm extends Vue {
     }
 
     beforeDestroy() {
-        const progress = this.dataReady? 100: 50
+        const progress = this.dataReady && !this.disableNext? 100: 50
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
     }
 }

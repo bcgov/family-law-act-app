@@ -5,27 +5,27 @@
         bg-variant="white" 
         class="mt-4 mb-3">
         <h2 class="mt-4 text-center text-success">Success</h2>
-        <div class="my-2 font-weight-bold">You’ve successfully submitted your initial filing with the Court Registry.</div>
+        <div class="my-2 font-weight-bold">You've successfully submitted your initial filing with the Court Registry.</div>
         <div v-if="packageNumber">
-            <div class="mb-2"> Your CSO Online Package # is <b class="text-success"> {{packageNumber}} </b></div>
+            <div class="mb-2"> Your CSO Online Package # is <b class="text-success"> {{packageNumber}} </b></div>
         
             <div>
                 You can view the following items at any time:
             </div>
 
             <ul style="margin-top:.25rem">
-                <li><a :href="packageUrl" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
-                <li><a :href="packageUrl" target="_blank">The package of all documents</a> you have submitted for filing</li>
+                <li><a :href="packageUrl" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
+                <li><a :href="packageUrl" target="_blank">The package of all documents</a> you have submitted for filing</li>
             </ul>
             
 
             <div style="font-size:19px; font-weight:normal;">
                 If you have any questions, concerns or mistakes about your initial filing, 
-                please contact CSO Online Support at 
+                please contact CSO Online Support at 
                 <a 
                     href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca
-                </a> and include 
-                <span class="text-primary">your Online Package #{{packageNumber}}</span>.
+                </a> and include 
+                <span class="text-primary">your Online Package #{{packageNumber}}</span>.
             </div>
 
             <div class="mt-5">
@@ -36,12 +36,12 @@
                     </li>                
                     <li class="mb-2">
                         If you are filing your application by email and you are asking for a protection order in your 
-                        application, you will need to be prepared to <tooltip title="swear or affirm" index="0" /> the 
+                        application, you will need to be prepared to <tooltip title="swear or affirm" index="0" /> the 
                         information in your application during your court appearance.
                     </li>
                     <li class="mb-2">
                         Once your application is complete, the registry staff will stamp the document, assign a court 
-                        file number (if there isn’t already one), schedule the court appearance, and return a copy 
+                        file number (if there isn't already one), schedule the court appearance, and return a copy 
                         of the application to you.
                     </li>
                     <li class="mb-2">
@@ -70,82 +70,184 @@
                 </p>
                 <div 
                     v-if="applicationDocumentTypes.includes('FLC')" 
-                    @click="checklist=true;checklistType='FLM';" 
+                    @click="checklist=true;checklistType='FLM';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application About a Family Law Matter
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('AAP')" 
-                    @click="checklist=true;checklistType='PO';" 
+                    @click="checklist=true;checklistType='PO';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application About a Protection Order
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('NTRF')" 
-                    @click="checklist=true;checklistType='RFC';" 
+                    @click="checklist=true;checklistType='RFC';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Notice to Resolve Family Claim
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('AXP')" 
-                    @click="checklist=true;checklistType='PPM';" 
+                    @click="checklist=true;checklistType='PPM';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application About Priority Parenting Matter
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('APRC')" 
-                    @click="checklist=true;checklistType='RELOC';" 
+                    @click="checklist=true;checklistType='RELOC';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Order Prohibiting the Relocation of a Child
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('ACMO')" 
-                    @click="checklist=true;checklistType='ACMO';" 
+                    @click="checklist=true;checklistType='ACMO';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application for Case Management Order
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('ACMW')" 
-                    @click="checklist=true;checklistType='ACMW';" 
+                    @click="checklist=true;checklistType='ACMW';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application for Case Management Order without Notice or Attendance
                 </div>
 
                 <div 
                     v-if="applicationDocumentTypes.includes('AFET')" 
-                    @click="checklist=true;checklistType='AFET';" 
+                    @click="checklist=true;checklistType='AFET';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Application About Enforcement
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RFA')" 
-                    @click="checklist=true;checklistType='RFA';" 
+                    @click="checklist=true;checklistType='RFA';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Request to File an Agreement
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RDET')" 
-                    @click="checklist=true;checklistType='RDET';" 
+                    @click="checklist=true;checklistType='RDET';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Request to File a Determination of Parenting Coordinator
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RORD')" 
-                    @click="checklist=true;checklistType='RORD';" 
+                    @click="checklist=true;checklistType='RORD';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Request to File an Order
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('WRA')" 
-                    @click="checklist=true;checklistType='WRA';" 
+                    @click="checklist=true;checklistType='WRA';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Written Response to Application
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('RFLM')" 
-                    @click="checklist=true;checklistType='RFLM';" 
+                    @click="checklist=true;checklistType='RFLM';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
                     Checklist for Reply to a Family Law Matter
+                </div>
+                <div>
+                    <div v-for="(docType, docIndex) in applicationDocumentTypes"           
+                         v-bind:key="docIndex">
+                        <div 
+                            v-if="otherApplicationTypes.includes(docType)" 
+                            @click="checklist=true;checklistType=docType;includesOtherForms=true;" 
+                            style="color:blue; cursor:pointer;">
+                            Checklist for {{ otherApplicationTypesInfo.filter(appType => appType.name == docType)[0].title }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div 
+                    v-if="applicationDocumentTypes.includes('FS')" 
+                    @click="checklist=true;checklistType='FS';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Financial Statement
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('NPR')" 
+                    @click="checklist=true;checklistType='NPR';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Notice of Intention to Proceed
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('RQS')" 
+                    @click="checklist=true;checklistType='RQS';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Request for Scheduling
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('TRIS')" 
+                    @click="checklist=true;checklistType='TRIS';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Trial Readiness Statment
+                </div>     
+                <div 
+                    v-if="applicationDocumentTypes.includes('AFF')" 
+                    @click="checklist=true;checklistType='AFF';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Affidavit – General
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('APS')" 
+                    @click="checklist=true;checklistType='APS';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Affidavit of Personal Service
+                </div>  
+                <div 
+                    v-if="applicationDocumentTypes.includes('APSP')" 
+                    @click="checklist=true;checklistType='APSP';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Affidavit of Personal Service of Protection Order
+                </div>    
+                <div 
+                    v-if="applicationDocumentTypes.includes('CSV')" 
+                    @click="checklist=true;checklistType='CSV';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Certificate of Service
+                </div>    
+                <div 
+                    v-if="applicationDocumentTypes.includes('CONA')" 
+                    @click="checklist=true;checklistType='CONA';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Consent Adjournment
+                </div>    
+                <div 
+                    v-if="applicationDocumentTypes.includes('CIFT')" 
+                    @click="checklist=true;checklistType='CIFT';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Consent to an Informal Trial (Kamloops only)
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('EFSP')" 
+                    @click="checklist=true;checklistType='EFSP';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Electronic Filing Statement
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('PASE')" 
+                    @click="checklist=true;checklistType='PASE';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Notice of Exemption from Parenting Education Program
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('GA')" 
+                    @click="checklist=true;checklistType='GA';includesOtherForms=false;"
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Guardianship Affidavit
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('FF')" 
+                    @click="checklist=true;checklistType='FF';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Fax Filing Cover Page
+                </div>
+                <div 
+                    v-if="applicationDocumentTypes.includes('COR')" 
+                    @click="checklist=true;checklistType='COR';includesOtherForms=false;" 
+                    style="color:blue; cursor:pointer;">
+                    Checklist for Consent Orders
                 </div>
             </div>           
 
@@ -165,7 +267,7 @@
                         class="m-4 text-primary" 
                         @click="showLegalAssistance= !showLegalAssistance" 
                         style="border-bottom:1px solid; width:19rem;">
-                        <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Where can I get legal assistance? 
+                        <span style="font-size:1.2rem;" class="fa fa-question-circle" /> Where can I get legal assistance? 
                         <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
                         <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
                     </div>
@@ -178,7 +280,7 @@
                 <h3>Haven’t Heard Back?</h3>
                 If you don’t hear back within 1 week from the court registry. Please contact CSO Online Support at 
                 <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a> 
-                and include your <tooltip title="Court File Number" index="0"/> / Filing Location or 
+                and include your <tooltip title="Court File Number" index="0"/> / Filing Location or
                 <span class="text-primary">Online Package Number (<strong>{{packageNumber}}</strong>)</span>.
             </div>
 
@@ -189,7 +291,7 @@
         </b-row>
 
         <b-modal size="lg" v-model="checklist" header-class="bg-white border-0" no-close-on-backdrop hide-footer>
-            <checklists :checklistType='checklistType' :applicationId='applicationId'/>            
+            <checklists :checklistType='checklistType' :applicationId='applicationId' :otherFormType="includesOtherForms"/>            
             <template v-slot:modal-header>                
                 <b-button style="margin-left:auto; height:2rem; padding:0 0.65rem; font-weight: 700; font-size: 1.25rem;" variant="primary" @click="checklist=false;">&times;</b-button>
             </template>
@@ -233,6 +335,22 @@ export default class SuccessPage extends Vue {
     checklistType='';
     applicationId = '';
     applicationDocumentTypes = [];
+    otherApplicationTypes = ['NCD', 'NDT', 'NLC', 'NLP', 'NP', 'NLCR', 'NLPR', 'ORD', 'REF', 'RFS', 'RPS'];
+    includesOtherForms = false;
+
+    otherApplicationTypesInfo = [        
+        {name:'NCD',    title:'Notice of Address Change'},
+        {name:'NDT',    title:'Notice of Discontinuance'},
+        {name:'NLC',    title:'Notice of Lawyer for Child'},
+        {name:'NLP',    title:'Notice of Lawyer for Party'},
+        {name:'NP',     title:'Notice of Participation'},
+        {name:'NLCR',   title:'Notice of Removal of Lawyer for Child'},
+        {name:'NLPR',   title:'Notice of Removal of Lawyer for Party'},
+        {name:'ORD',    title:'Order – General'},
+        {name:'REF',    title:'Referral Request'},
+        {name:'RFS',    title:'Request for Service of Documents'},
+        {name:'RPS',    title:'Request for Service of Family Protection Order'}
+    ];  
         
     public viewStatus() {
         this.$router.push({ name: "applicant-status" });
@@ -248,6 +366,7 @@ export default class SuccessPage extends Vue {
         this.applicationId = this.packageInfo.fileNumber;
         this.packageUrl = this.packageInfo.eFilingUrl;
         this.packageNumber = this.packageInfo.packageNumber;
+        this.includesOtherForms = false;
 
         this.saveApplication(this.applicationId, this.packageNumber, this.packageUrl);
     }
@@ -287,7 +406,7 @@ export default class SuccessPage extends Vue {
             const stepCM = this.getStepResultByName(applicationData, 'CM');
             const stepENFRC = this.getStepResultByName(applicationData, 'ENFRC');
 
-            let pathways: string[] = [];
+            let pathways: string[] = [];            
 
             const includesOrderActivities = stepGETSTART?.selectedActivity.includes('applyForOrder');
             const includesReplyActivities = stepGETSTART?.selectedActivity.includes('replyToApplication');
@@ -296,7 +415,7 @@ export default class SuccessPage extends Vue {
 
             const selectedReplyForms = (includesReplyActivities && stepGETSTART?.selectedReplyForms)?stepGETSTART.selectedReplyForms:[];
          
-            pathways = selectedForms.concat(selectedReplyForms);  
+            pathways = selectedForms.concat(selectedReplyForms);              
 
             const includesFlm = pathways.includes('familyLawMatter');
             const includesEnfrc = pathways.includes('agreementEnfrc');
@@ -321,6 +440,14 @@ export default class SuccessPage extends Vue {
             if (pathways.includes('replyFlm')){
                 this.applicationDocumentTypes.push('RFLM')
             }
+
+            //TODO: may need to remove this
+
+            if (pathways.includes('noticeDiscontinuance')){
+                this.applicationDocumentTypes.push('NDT')
+            }
+
+            //TODO: adjust based on new file types            
 
             if (includesFlm){
 
@@ -350,6 +477,12 @@ export default class SuccessPage extends Vue {
                 if(EnfrcForm?.includes('P26')) this.applicationDocumentTypes.push('RFA');
                 if(EnfrcForm?.includes('P27')) this.applicationDocumentTypes.push('RDET');
                 if(EnfrcForm?.includes('P28')) this.applicationDocumentTypes.push('RORD');
+            } 
+            
+            if (pathways.length == 0 && stepGETSTART?.otherForms){                
+                this.applicationDocumentTypes = stepGETSTART?.submittedPdfList;
+                // this.includesOtherForms = this.otherApplicationTypes.some(otherAppType => this.applicationDocumentTypes.includes(otherAppType))
+                
             }            
 
             this.mountedData = true;

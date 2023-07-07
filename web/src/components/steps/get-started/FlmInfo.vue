@@ -64,7 +64,7 @@
                 <b-row>                   
                     Negotiation involves discussing issues to try to reach an agreement. You work out a 
                     solution together that fits both of your interests. 
-                    <br>A lawyer or other professional can help, or you could negotiate on your own. 
+                    <br>A lawyer or other professional can help, or you could negotiate on your own. 
                     <br>Family Justice Services Division provides free facilitated negotiation of 
                     child support and spousal support issues with a 
                     <a 
@@ -258,10 +258,7 @@ export default class FlmInfo extends Vue {
     public steps!: stepInfoType[];
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType; 
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

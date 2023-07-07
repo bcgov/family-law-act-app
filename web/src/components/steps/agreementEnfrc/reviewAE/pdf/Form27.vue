@@ -28,10 +28,7 @@ import { getEnforcementResultData } from '@/components/utils/PopulateForms/Popul
 export default class Form27 extends Vue {
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-    
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     result;
     dataReady = false; 

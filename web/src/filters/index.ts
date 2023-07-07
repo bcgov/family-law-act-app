@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION: string = "1.2.6";
+    const CURRENT_VERSION = "1.2.11";
     //__________________________
     //___________________________
     //___________________________
@@ -294,6 +294,16 @@ Vue.filter('fullNamesToFamilyTypes',function(applicationTypes: string[]) {
 	return types;
 })
 
+Vue.filter('fullNameToPdfType',function(applicationType: string) {
+
+	let type = '';
+
+	const pathwayInfo = FLA_Types.filter(type => type.fullName == applicationType);
+	if (pathwayInfo.length == 1) type = (pathwayInfo[0].pdfType);
+
+	return type;
+})
+
 Vue.filter('pdfTypeToFamilyType',function(applicationType) {
 
 	const pathwayInfo = FLA_Types.filter(type => type.pdfType == applicationType);
@@ -310,6 +320,16 @@ Vue.filter('typesToFullnames',function(applicationTypes: string[]) {
 		if (pathwayInfo.length == 1) types.push(pathwayInfo[0].fullName);
 	}
 	return types;
+})
+
+Vue.filter('getOtherFormsType',function(){
+	const app_type = FLA_Types.filter(type => type.otherForms).map(type => type.appType)
+	return app_type
+})
+
+Vue.filter('cleanFileName',function(fileName){
+	const name = fileName.replace(/\s/g, '');
+	return name
 })
 
 Vue.filter('FLMform4Required', function(RFLM){
@@ -731,6 +751,8 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepRELOC = store.state.Application.stPgNo.RELOC;
 		const stepCM = store.state.Application.stPgNo.CM;
 		const stepENFRC = store.state.Application.stPgNo.ENFRC;
+		const stepNCD = store.state.Application.stPgNo.NCD;
+		const stepNDT = store.state.Application.stPgNo.NDT;		
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -773,6 +795,16 @@ Vue.filter('surveyChanged', function(type: string) {
 			reviewPage = stepENFRC.ReviewYourAnswersENFRC; 
 			previewPages = [stepENFRC.PreviewForm29ENFRC, stepENFRC.PreviewForm28ENFRC, stepENFRC.PreviewForm27ENFRC, stepENFRC.PreviewForm26ENFRC];
 		}
+		else if(typeName == 'noticeOfAddressChange'){
+			step = stepNCD._StepNo; 
+			reviewPage = stepNCD.ReviewYourAnswersNCD; 
+			previewPages = [stepNCD.PreviewFormsNCD];
+		}
+		else if(typeName == 'noticeDiscontinuance'){
+			step = stepNDT._StepNo; 
+			reviewPage = stepNDT.ReviewYourAnswersNDT; 
+			previewPages = [stepNDT.PreviewFormsNDT];
+		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
@@ -794,7 +826,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance']
 	
 	if(type == 'allExPO'){
         
@@ -806,7 +838,10 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.caseMgmt = false;       
 		pathwayCompleted.priorityParenting = false;       
 		pathwayCompleted.childReloc = false;       
-		pathwayCompleted.agreementEnfrc = false;		
+		pathwayCompleted.agreementEnfrc = false;	
+		pathwayCompleted.other = false;	
+		pathwayCompleted.noticeOfAddressChange = false;
+		pathwayCompleted.noticeDiscontinuance = false; 
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

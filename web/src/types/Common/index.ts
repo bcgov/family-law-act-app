@@ -40,6 +40,7 @@ export interface  applicationJsonInfoType {
     lastUpdatedDate?: string; 
     id?: number; 
     app_type?: string[]; 
+    app_type_code?: string[];
     lastFiled?: number; 
     lastFiledDate?: string; 
     packageNum?: string; 
@@ -75,6 +76,33 @@ export interface applicationDetailsInfoType {
     RELOC: formReportInfoType;
     RFLM: formReportInfoType;
     WR: formReportInfoType;
+    OTHER: formReportInfoType;
+    NCD: formReportInfoType;
+    NDT: formReportInfoType;
+    AFF: formReportInfoType;
+    APS: formReportInfoType;
+    APSP: formReportInfoType;
+    CSV: formReportInfoType;
+    CONA: formReportInfoType;
+    COR: formReportInfoType;
+    CIFT: formReportInfoType;
+    EFSP: formReportInfoType;
+    FF: formReportInfoType;
+    FS: formReportInfoType;
+    GA: formReportInfoType;
+    PASE: formReportInfoType;
+    NPR: formReportInfoType;
+    NLC: formReportInfoType;
+    NLP: formReportInfoType;
+    NP: formReportInfoType;
+    NLCR: formReportInfoType;
+    NLPR: formReportInfoType;
+    ORD: formReportInfoType;
+    REF: formReportInfoType;
+    RQS: formReportInfoType;
+    RFS: formReportInfoType;
+    RPS: formReportInfoType;
+    TRIS: formReportInfoType;
 }
 
 export interface eFilingInfoType {
@@ -96,3 +124,9 @@ export interface userInfoReportInfoType {
     active_in_period: number;
     joined_in_period: number;
 } 
+
+export interface checklistInfoType {
+    name: string;
+    title: string;
+    pdfName: string;
+}

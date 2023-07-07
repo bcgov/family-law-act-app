@@ -410,9 +410,6 @@ export default class Instructions extends Vue {
             }
         }
 
-        
-
-
 
     }
     

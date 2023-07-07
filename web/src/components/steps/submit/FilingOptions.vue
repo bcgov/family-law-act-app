@@ -48,7 +48,8 @@ export default class FilingOptions extends Vue {
 
     @applicationState.State
     public allCompleted!: boolean;
-    
+
+   
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -153,7 +154,7 @@ export default class FilingOptions extends Vue {
             togglePages([p.ReviewAndSave, p.ReviewAndSubmit], false, this.currentStep);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'byefiling'){
             togglePages([p.ReviewAndSubmit], true, this.currentStep);
-            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false, this.currentStep);            
         }else{
             togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false, this.currentStep);
         }

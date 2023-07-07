@@ -48,6 +48,18 @@
                         <b-th>Written Response to Application</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.WR.total}}</b-td>                                          
                     </b-tr>
+                    <b-tr>                        
+                        <b-th>Notice of Address Change</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.NCD.total}}</b-td>                                          
+                    </b-tr>
+                    <b-tr>                        
+                        <b-th>Notice of Discontinuance</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.NDT.total}}</b-td>                                          
+                    </b-tr>
+                    <b-tr>                        
+                        <b-th>Other Applications</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.OTHER.total}}</b-td>                                          
+                    </b-tr>
                     
                 </b-tbody>
                 <!-- <b-tfoot>
