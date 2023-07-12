@@ -198,7 +198,7 @@ export default class OtherFormFilingLocation extends Vue {
             for(const selectedform of this.step.result.completeOtherFormsSurvey.data.selectedFormInfoList){
                 // if(!selectedform.pathwayExists || selectedform.manualState) continue
                 const pdfType = (Vue.filter('getPathwayPdfType')(selectedform.pathwayName))
-                newExistingOrders.push({type: pdfType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
+                newExistingOrders.push({type: pdfType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber, doNotIncludePdf: pdfType == 'NDT'});                     
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
