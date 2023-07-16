@@ -44,11 +44,11 @@ export default class Form2 extends Vue {
     public onPrint() { 
 
         const pdf_type = Vue.filter('getPathwayPdfType')("noticeIntentionProceed")
-        const pdf_name = "notice-of-address-change"       
+        const pdf_name = "notice-of-intention-to-proceed"       
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA763    `+moment().format("MMMM D, YYYY")+` \\a           Form 46";`;
+        const bottomLeftText = `"PFA711    `+moment().format("MMMM D, YYYY")+` \\a           Form 2";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );

@@ -13,6 +13,9 @@ export interface lastStepDataInfoType {
 
 export interface noticeIntentionProceedDataInfoType {
     lastStep?: lastStepDataInfoType;
+    requiresForm39?: boolean;
+    unresolvedFlm?: string;
+    unresolvedLessThanYear?: boolean;
 }
   
 export interface noticeIntentionProceedSurveyInfoType {

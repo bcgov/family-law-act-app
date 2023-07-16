@@ -64,7 +64,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
-                :check="acknowledge?'yes':''" 
+                :check="overOneYear?'yes':''" 
                 text="More than one year has passed since the parties have taken any step in my case"/>           
         </section>
 
@@ -195,7 +195,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
-                :check="acknowledge?'yes':''" 
+                :check="acknowledgeService?'yes':''" 
                 text="I understand I must give notice of my intention to proceed to each other party. To give notice, they must be served or provided with a copy of this document."/>           
         </section>
 
@@ -329,7 +329,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { nprOtherPartyDataInfoType } from '@/types/Application/IntentionProceed';
+import { lastStepDataInfoType, nprOtherPartyDataInfoType } from '@/types/Application/IntentionProceed';
 
 @Component({
     components:{
@@ -352,9 +352,11 @@ export default class Form2Layout extends Vue {
     otherPartyInfo: nprOtherPartyDataInfoType[] = [];
     additionalOtherParties: nprOtherPartyDataInfoType[] = [];
     firstOtherParty = {} as nprOtherPartyDataInfoType;
+    lastStepInfo = {} as lastStepDataInfoType;
 
     existingFileNumber = '';  
-    acknowledge = false;
+    overOneYear = false;
+    acknowledgeService = false;
    
     mounted(){
         this.dataReady = false;
@@ -373,8 +375,10 @@ export default class Form2Layout extends Vue {
         }         
         
         this.yourInfo = this.getYourInfo();        
+        this.lastStepInfo = this.result.noticeIntentionProceedSurvey?.lastStep;
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        this.acknowledge = this.result.addressChangeNoticeSurvey?.acknowledgement?.length>0;
+        this.acknowledgeService = this.result.otherPartyNprConfirmationSurvey?.confirmation == 'Confirmed';
+        this.overOneYear = !this.result.noticeIntentionProceedSurvey?.unresolvedLessThanYear;
     } 
 
     public getYourInfo(){          
@@ -417,8 +421,8 @@ export default class Form2Layout extends Vue {
             }
         } 
 
-    return OpInformation
-} 
+        return OpInformation
+    } 
  
 }
 </script>

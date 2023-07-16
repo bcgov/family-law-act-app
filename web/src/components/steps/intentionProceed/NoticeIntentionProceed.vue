@@ -89,11 +89,6 @@ export default class NoticeIntentionProceed extends Vue {
             this.setPages();
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);              
         }
-
-        // if (this.step.result?.noticeIntentionProceedSurvey) {            
-        //     const discontinuingDocs = this.step.result.noticeIntentionProceedSurvey.data.discontinuanceDocs;
-        //     this.survey.setValue('discontinuingDocs',discontinuingDocs);
-        // }
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);     
     }
