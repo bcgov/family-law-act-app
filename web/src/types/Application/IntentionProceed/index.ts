@@ -7,6 +7,8 @@ export interface lastStepDataInfoType {
     consensualDisputeResolutionDate?: string;
     flmDate?: string;
     selected: string;
+    otherDate?: string;
+    otherDescription?: string;
 }
 
 export interface noticeIntentionProceedDataInfoType {

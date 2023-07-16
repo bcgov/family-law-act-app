@@ -147,7 +147,7 @@ export default class NoticeIntentionProceed extends Vue {
         } else if (selectedStep == 'resolveFlm'){
             lastStepDate = lastStep.resolveFlmDate;
         } else if (selectedStep == 'other'){
-            lastStepDate = moment().toString();//TODO: update once the widget is in place
+            lastStepDate = lastStep.otherDate;
         }
 
         overYearHasPassed = moment(lastStepDate).isBefore(moment().add(-1,'years') );

@@ -41,17 +41,17 @@
                   {
                      "type": "advancedradiogroup",
                      "name": "lastStep",              
-                     "title": "Please identify the last step that was <b style='color: black;'>completed</b> by you or the other party on your `family law matter`.",
+                     "title": "Please identify the last step that was <b style='color: #455571; font-size:22pt;'>completed</b> by you or the other party on your `family law matter`.",
                      "description" : "Select only one of the options below and provide the date.<br><br>Other steps may include the filing of a different court document or a court appearance.<br><b>Note</b>:<br>If you do not know the date the step was completed:<ul><li>For court documents, the date of filing will be on the registry stamp</li><li>For the completion of any steps at the <a target='_blank' href='https://www.clicklaw.bc.ca/helpmap/service/1019'>Justice Access Centre or Family Justice Centre</a>, contact them to confirm the date of completion</li><li>To confirm the date of any court appearance, contact the court registry.</li></ul>",
-                     "radioOutputValues":"{resolveFlm},{needsAssessment},{parentingEducationProgram},{consensualDisputeResolution},{flm}",
-                     "inputNames":"{resolveFlmDate};{needsAssessmentDate};{parentingEducationProgramDate};{consensualDisputeResolutionDate};{flmDate}",
-                     "inputTypes":"{date};{date};{date};{date};{date}",
-                     "inputWidths":"{12rem};{12rem};{12rem};{12rem};{12rem}",                  
-                     "textBeforeInputs":"{filing of the Notice to Resolve a Family Law Matter on},{};{completion of a needs assessment on},{};{completion of a parenting education program on},{};{completion of consensual dispute resolution on},{};{filing of the Application About a Family Law Matter on},{}",
+                     "radioOutputValues":"{resolveFlm},{needsAssessment},{parentingEducationProgram},{consensualDisputeResolution},{flm},{other}",
+                     "inputNames":"{resolveFlmDate};{needsAssessmentDate};{parentingEducationProgramDate};{consensualDisputeResolutionDate};{flmDate};{otherDescription},{otherDate}",
+                     "inputTypes":"{date};{date};{date};{date};{date};{text},{date}",
+                     "inputWidths":"{12rem};{12rem};{12rem};{12rem};{12rem};{40rem},{12rem}",                  
+                     "textBeforeInputs":"{filing of the Notice to Resolve a Family Law Matter on},{};{completion of a needs assessment on},{};{completion of a parenting education program on},{};{completion of consensual dispute resolution on},{};{filing of the Application About a Family Law Matter on},{};{other (please specify):},{on},{}",
                      "textClass": "sv_q_description font-weight-normal",
                      "radioMargins":"0 0 1rem 0",
                      "radioTextMargins":"-0.6rem 0 0 0",
-                     "hasOther": true,
+                     "hasOther": false,
                      "isRequired": true
                   }
                ]
