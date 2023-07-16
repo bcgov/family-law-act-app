@@ -31,6 +31,7 @@
         <other-forms-table class="mt-5" :results="results"/>
         <ncd-table class="mt-5" :results="results"/>
         <ndt-table class="mt-5" :results="results"/>
+        <npr-table class="mt-5" :results="results"/>
         
     </div>
 </template>
