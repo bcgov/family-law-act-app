@@ -375,7 +375,8 @@ export default class Form2Layout extends Vue {
         }         
         
         this.yourInfo = this.getYourInfo();        
-        this.lastStepInfo = this.result.noticeIntentionProceedSurvey?.lastStep;
+        this.lastStepInfo = this.getLastStepInfo();
+         this.result.noticeIntentionProceedSurvey?.lastStep;
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
         this.acknowledgeService = this.result.otherPartyNprConfirmationSurvey?.confirmation == 'Confirmed';
         this.overOneYear = !this.result.noticeIntentionProceedSurvey?.unresolvedLessThanYear;
@@ -423,6 +424,48 @@ export default class Form2Layout extends Vue {
 
         return OpInformation
     } 
+
+    public getLastStepInfo(){     
+        
+        const lastStepInfo = {
+            resolveFlmDate: "",
+            needsAssessmentDate: "",
+            parentingEducationProgramDate: "",
+            consensualDisputeResolutionDate: "",
+            flmDate: "",
+            selected: "",
+            otherDate: "",
+            otherDescription: ""
+        }
+
+        if(this.result?.noticeIntentionProceedSurvey?.lastStep){  
+            
+            const lastStepData = this.result?.noticeIntentionProceedSurvey?.lastStep;
+            lastStepInfo.selected = lastStepData.selected;
+            if (lastStepInfo.selected == 'resolveFlm'){
+                lastStepInfo.resolveFlmDate = lastStepData.resolveFlmDate;
+
+            } else if (lastStepInfo.selected == 'parentingEducationProgram'){
+                lastStepInfo.parentingEducationProgramDate = lastStepData.parentingEducationProgramDate;
+
+            } else if (lastStepInfo.selected == 'needsAssessment'){
+                lastStepInfo.needsAssessmentDate = lastStepData.needsAssessmentDate;
+
+            } else if (lastStepInfo.selected == 'flm'){
+                lastStepInfo.flmDate = lastStepData.flmDate;
+
+            } else if (lastStepInfo.selected == 'consensualDisputeResolution'){
+                lastStepInfo.consensualDisputeResolutionDate = lastStepData.consensualDisputeResolutionDate;
+
+            } else if (lastStepInfo.selected == 'other'){
+                lastStepInfo.otherDate = lastStepData.otherDate;
+            }
+            
+        }
+
+        return lastStepInfo;
+    
+    }    
  
 }
 </script>
