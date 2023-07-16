@@ -41,24 +41,12 @@ export default class OtherPartyNprSurvey extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;
 
-    @applicationState.Action
-    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
     op = {} as otherPartyInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
     currentPage =0;
-
-    // selectedForms = [];
-    // selectedReplyForms = [];
-
-    // cmOnly = false;
-    // wrIncluded = false;
-    // rflmIncluded = false;
-    // includesReplyPathway = false;
-    // includesApplyPathway = false;
-    // onlyFullNameRequired = false;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -67,7 +55,6 @@ export default class OtherPartyNprSurvey extends Vue {
 
     mounted(){
         this.initializeSurvey();
-        this.addSurveyListener();
         this.reloadPageInformation();
     }
 
@@ -78,60 +65,13 @@ export default class OtherPartyNprSurvey extends Vue {
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
-    
-    public addSurveyListener(){
-        this.survey.onComplete.add((sender, options) => {
-            Vue.filter('surveyChanged')('allExPO')
-
-            this.populateOpModel(sender.data);
-            let id = sender.getVariable("id");
-            if (id == null || id == undefined) {
-                this.$emit("surveyData", this.op);
-            } else {
-                this.$emit("editedData", { ...this.op, id });
-                id = null;
-            }
-        });
-    }
-    
+        
     public reloadPageInformation() {
 
-        // this.cmOnly = false;        
-        // this.wrIncluded = false;
-        // this.rflmIncluded = false;
-       
+      
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
         }
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-
-        // const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('applyForOrder');
-        // const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity.includes('replyToApplication');
-
-        // this.selectedForms = (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
-        // this.selectedReplyForms = (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
-
-        // this.cmOnly = (this.selectedForms.length == 1 && this.selectedForms.includes("caseMgmt")); 
-
-        // this.wrIncluded = this.selectedReplyForms.includes("writtenResponse");
-        // this.rflmIncluded = this.selectedReplyForms.includes("replyFlm");
-        
-        
-        // this.includesReplyPathway = this.selectedReplyForms.length > 0;
-        // this.includesApplyPathway = this.selectedForms.length > 0;       
-        
-        // if (this.includesApplyPathway){
-        //     if (this.includesReplyPathway ){
-        //         this.onlyFullNameRequired = this.cmOnly && (this.wrIncluded || this.rflmIncluded)
-        //     } else {
-        //         this.onlyFullNameRequired = this.cmOnly;
-        //     }
-        // } else {
-        //     this.onlyFullNameRequired = this.wrIncluded || this.rflmIncluded;
-        // }
-        
-        // this.survey.setVariable("onlyFullNameRequired", this.onlyFullNameRequired);
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;     
@@ -142,7 +82,16 @@ export default class OtherPartyNprSurvey extends Vue {
     }
 
     public saveParty() {
-        this.survey.completeLastPage();
+        if(!this.survey.isCurrentPageHasErrors){
+            this.populateOpModel(this.survey.data)
+            let id = this.survey.getVariable("id");
+            if (id == null || id == undefined) {
+                this.$emit("surveyData", this.op);
+            } else {
+                this.$emit("editedData", { ...this.op, id });
+                id = null;
+            }
+        }
     }
 
     public populateOpModel(opData) {
@@ -150,13 +99,6 @@ export default class OtherPartyNprSurvey extends Vue {
         this.op.lawyer = opData.otherPartyLawyer;
         this.op.knowDob = opData.doYouKnowDOB;
         this.op.dob = opData.otherPartyDOB;
-        this.op.opRelation = opData.relationWithOtherParty;
-        this.op.livedTogether = opData.isMarriedWithOtherParty;
-        this.op.dateOfLivedTogether = opData.dateOfMarriageLikeWithOtherParty;
-        this.op.married = opData.isLegallyMarried;
-        this.op.dateOfMarriage = opData.dateOfMarriage;
-        this.op.separated = opData.isSeperatedOtherParty;
-        this.op.dateSeparated = opData.dateOfSeparation;
 
         if(opData?.otherPartyAddress)
         {
@@ -193,13 +135,6 @@ export default class OtherPartyNprSurvey extends Vue {
         
         survey.setValue("doYouKnowDOB", editRowProp.knowDob);
         survey.setValue("otherPartyDOB", editRowProp.dob);
-        survey.setValue("relationWithOtherParty", editRowProp.opRelation);
-        survey.setValue("isMarriedWithOtherParty", editRowProp.livedTogether);
-        survey.setValue("dateOfMarriageLikeWithOtherParty", editRowProp.dateOfLivedTogether);
-        survey.setValue("isLegallyMarried", editRowProp.married);
-        survey.setValue("dateOfMarriage", editRowProp.dateOfMarriage);
-        survey.setValue("isSeperatedOtherParty", editRowProp.isSeperatedOtherParty);
-        survey.setValue("dateOfSeparation", editRowProp.dateOfSeparation);
         survey.setVariable("id", editRowProp.id);
     } 
   

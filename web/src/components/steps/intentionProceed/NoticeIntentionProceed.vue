@@ -21,7 +21,7 @@ import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
-import { togglePages } from '@/components/utils/TogglePages';
+import { togglePages, toggleStep } from '@/components/utils/TogglePages';
 import { lastStepDataInfoType } from '@/types/Application/IntentionProceed';
 
 @Component({
@@ -97,6 +97,7 @@ export default class NoticeIntentionProceed extends Vue {
 
         const p = this.stPgNo.NPR;
         const noticeIntentionProceedPagesAll = [p.YourInformationNpr, p.OtherPartyNpr, p.ReviewYourAnswersNPR]
+        const previewFormPage = [p.PreviewFormsNPR]
 
         if (this.survey.data) {
 
@@ -120,7 +121,13 @@ export default class NoticeIntentionProceed extends Vue {
 
             }
           
-            togglePages(noticeIntentionProceedPagesAll, canContinue, this.currentStep);            
+            togglePages(noticeIntentionProceedPagesAll, canContinue, this.currentStep);
+            toggleStep(this.stPgNo.SUBMIT._StepNo, canContinue)
+            if(!canContinue) {
+                togglePages(previewFormPage, canContinue, this.currentStep);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersNPR].progress>0)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersNPR, 50, false);
+            }
             this.disableNextButton = !canContinue;
         }
     }

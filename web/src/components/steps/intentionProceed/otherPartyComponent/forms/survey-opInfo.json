@@ -29,61 +29,6 @@
                     "isRequired": true
                 },
                 {
-                    "type": "panel",
-                    "name": "otherDetailsPanel",
-                    "elements": [
-                        {
-                            "type": "text",
-                            "name": "dateOfMarriageLikeWithOtherParty",
-                            "title": "When did you and {OtherPartyName} begin to live together in a marriage-like relationship?",
-                            "isRequired": true,
-                            "inputType": "date",
-                            "visibleIf":"!({onlyFullNameRequired})"
-                        },
-                        {
-                            "type": "helptext",
-                            "name": "marriageStartDateFAQ",
-                            "title": "How do I determine the start date?",
-                            "visibleIf":"!({onlyFullNameRequired})",
-                            "titleLocation": "hidden",
-                            "body": "Under the law, the start date of a spousal relationship is the day two individuals begin living together in a marriage-like relationship, or the day they were married, whichever is first. The start date of a spousal relationship determines when rights or responsibilities start under the Family Law Act, particularly respecting property division.\n<br>\n<br>\nWhat do I do if I can't remember the exact date? \nIf you cannot remember the exact date then enter:\n<ul>\n<li>the last day of that month in which you decided to live in a marriage like relationship, and;</li>\n<li>year</li>\n</ul>"
-                        },
-                        {
-                            "type": "yesno",
-                            "name": "isLegallyMarried",
-                            "visibleIf":"!({onlyFullNameRequired})",
-                            "title": "Are you (or were you) legally married to {OtherPartyName}?",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "text",
-                            "name": "dateOfMarriage",
-                            "visibleIf": "!({onlyFullNameRequired}) and ({isLegallyMarried} = 'y')",
-                            "title": "When were you married?",
-                            "isRequired": true,
-                            "inputType": "date"
-                        },
-                        {
-                            "type": "yesno",
-                            "name": "isSeperatedOtherParty",
-                            "visibleIf": "!({onlyFullNameRequired})",
-                            "title": "Are you and {OtherPartyName} now separated?",
-                            "description": "Under section 3(4) of the Family Law Act, you may be separated despite continuing to live in the same residence.",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "text",
-                            "name": "dateOfSeparation",
-                            "visibleIf": "!({onlyFullNameRequired}) and {isSeperatedOtherParty} = \"y\"",
-                            "title": "When did you separate?",
-                            "isRequired": true,
-                            "inputType": "date"
-                        }
-                    ],
-                    "visible": false,
-                    "visibleIf": "({OtherPartyName} notempty) and ({isMarriedWithOtherParty} = 'y')"
-                },
-                {
                     "type": "comment",
                     "name": "otherPartyLawyer",
                     "title": "<div style = 'font-size: 1.0em; font-weight: bold; margin: 2rem 0 -1rem 0'> Lawyer (if applicable):</b>",                

@@ -3,13 +3,13 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-reloc">
+        <div  class="form-header-enf">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Notice of Intention to Proceed</b></div>               
-                <div style="font-size:10pt;"><b>FORM 2</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rules 15 and 42</div>
+                <div style="font-size:13pt; line-height:1rem;"><b>Notice of Intention to Proceed</b></div>               
+                <div style="font-size:10pt; line-height:1.25rem;"><b>FORM 2</b></div>
+                <div style=" line-height:1rem;">Provincial Court Family Rules</div>
+                <div style=" line-height:1rem;">Rules 15 and 42</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -30,13 +30,13 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="17rem" beforetext="My name is" hint="(full name of party)" :italicHint="false" :text="yourInfo.name | getFullName"/>.
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="17rem" beforetext="My date of birth is" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+            <underline-form style="text-indent:2px;display:inline-block;" textwidth="21rem" beforetext="My name is" hint="(full name of party)" :italicHint="false" :text="yourInfo.name | getFullName"/>.
+            <underline-form style="text-indent:2px;display:inline-block;margin-left:-0.25rem;" textwidth="7rem" beforetext=" My date of birth is" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+            <div style="text-indent:2px;margin-top:0.25rem"> 
                 My contact information and address for service of court documents are:
             </div>
-            <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
+            <table class="compactfullsize" style="margin-top:0.15rem !important; font-size: 9pt;">
                 <tr style="border:1px solid #414142" >
                     <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
@@ -63,7 +63,7 @@
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
-                style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
+                style="margin:0 0 0 0.5rem; display:inline;" 
                 :check="overOneYear?'yes':''" 
                 text="More than one year has passed since the parties have taken any step in my case"/>           
         </section>
@@ -73,117 +73,115 @@
         <section>
 
             The last step completed in my case, by any party, was:
-            <i>Select only one of the options below and complete the required information</i> 
+            <div style="margin-left:1rem;"><i>Select only one of the options below and complete the required information</i></div>
 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem;">
                 <check-box 
                     class="marginleft" 
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;" 
-                    :check="true?'yes':''" 
+                    :check="lastStepInfo.resolveFlmDate?'yes':''" 
                     text="filing of the Notice to Resolve a Family Law Matter "/>                
                 <underline-form 
                     style="text-indent:1px;display:inline-block;" 
                     textwidth="6rem" 
                     beforetext="on" 
                     hint="mmm/dd/yyyy" 
-                    :text="''"/>            
+                    :text="lastStepInfo.resolveFlmDate | beautify-date-blank"/>            
             </div>
 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem;">
                 <check-box 
                     class="marginleft" 
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;" 
-                    :check="true?'yes':''" 
+                    :check="lastStepInfo.needsAssessmentDate?'yes':''" 
                     text="completion of a needs assessment "/>                
                 <underline-form 
                     style="text-indent:1px;display:inline-block;" 
                     textwidth="6rem" 
                     beforetext="on" 
                     hint="mmm/dd/yyyy" 
-                    :text="''"/>            
+                    :text="lastStepInfo.needsAssessmentDate | beautify-date-blank"/>            
             </div>
 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem;">
                 <check-box 
                     class="marginleft" 
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;" 
-                    :check="true?'yes':''" 
+                    :check="lastStepInfo.parentingEducationProgramDate?'yes':''" 
                     text="completion of a parenting education program "/>                
                 <underline-form 
                     style="text-indent:1px;display:inline-block;" 
                     textwidth="6rem" 
                     beforetext="on" 
                     hint="mmm/dd/yyyy" 
-                    :text="''"/>            
+                    :text="lastStepInfo.parentingEducationProgramDate | beautify-date-blank"/>            
             </div>
 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem;">
                 <check-box 
                     class="marginleft" 
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;" 
-                    :check="true?'yes':''" 
+                    :check="lastStepInfo.consensualDisputeResolutionDate?'yes':''" 
                     text="completion of consensual dispute resolution "/>                
                 <underline-form 
                     style="text-indent:1px;display:inline-block;" 
                     textwidth="6rem" 
                     beforetext="on" 
                     hint="mmm/dd/yyyy" 
-                    :text="''"/>            
+                    :text="lastStepInfo.consensualDisputeResolutionDate | beautify-date-blank"/>            
             </div>
 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem;">
                 <check-box 
                     class="marginleft" 
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;" 
-                    :check="true?'yes':''" 
-                    text="filing of the Application about a Family Law Matter on "/>                
+                    :check="lastStepInfo.flmDate?'yes':''" 
+                    text="filing of the Application about a Family Law Matter "/>                
                 <underline-form 
                     style="text-indent:1px;display:inline-block;" 
                     textwidth="6rem" 
                     beforetext="on" 
                     hint="mmm/dd/yyyy" 
-                    :text="''"/>            
+                    :text="lastStepInfo.flmDate | beautify-date-blank"/>            
             </div>
 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem;">
                 <check-box 
                     class="marginleft" 
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;" 
-                    :check="true?'yes':''" 
+                    :check="lastStepInfo.otherDate?'yes':''" 
                     text="other (specify) "/>
                 <underline-form 
                     style="text-indent:0;margin-left:.25rem;display:inline-block;" 
-                    textwidth="22rem" 
+                    textwidth="25rem" 
                     beforetext="" 
                     hint="" 
-                    :text="''"/>
+                    :text="lastStepInfo.otherDescription"/>
                 <underline-form 
                     style="text-indent:1px;display:inline-block;" 
                     textwidth="6rem" 
                     beforetext="on" 
                     hint="mmm/dd/yyyy" 
-                    :text="''"/>            
-            </div>
-
-            
+                    :text="lastStepInfo.otherDate | beautify-date-blank"/>            
+            </div>            
                                          
         </section> 
 
@@ -194,63 +192,65 @@
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
-                style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
+                style="margin:0 0 0 0.5rem; display:inline;" 
                 :check="acknowledgeService?'yes':''" 
-                text="I understand I must give notice of my intention to proceed to each other party. To give notice, they must be served or provided with a copy of this document."/>           
+                text="I understand I must give notice of my intention to proceed to each other party. To give notice, they"/>                
+                <div style="text-indent:30px;">must be served or provided with a copy of this document.</div>
         </section>
 
     <!-- <5> -->
         <div class="print-block" style="margin-top: 0rem;">
             <section> 
-                <div style="display:inline;  ">
+                <div style="display:inline;">
                     <underline-form 
                         style="text-indent:2px;display:inline-block; margin-top: 0.6rem;" 
-                        textwidth="16rem" 
+                        textwidth="17.5rem" 
                         beforetext="The other party is:" 
-                        hint="(full name of other party)" 
+                        hint="(full name of other party)"
+                        aftertext="." 
                         :italicHint="false" 
-                        :text="firstOtherParty.name | getFullName"/>
-                    <div style="display:inline;">.</div>
-                    <div style="margin:0.25rem 0 0 1rem;">
-                        <underline-form 
-                            style="display:inline;text-indent:0px; margin-top: 1rem;" 
-                            textwidth="8rem" 
-                            beforetext="Their date of birth is" 
-                            hint="(mmm/dd/yyyy)" 
-                            :italicHint="false" 
-                            :text="firstOtherParty.dob | beautify-date"/>
-                        <div style="text-indent:1px; margin-top: 1rem;display:inline;">. Their contact information, as I know it, is:</div>
-                    </div>
-                    <table class="fullsize">
-                        <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">
-                                Lawyer (if applicable): 
-                                <div class="answer">
-                                    {{firstOtherParty.lawyer}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">          
-                            <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td  >City: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.city:''}}</div> </td>
-                        <td style="padding-left:50px">Province: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.state:''}}</div> </td>
-                            <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.email:''}}</div> </td>
-                            <td>Telephone: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.phone:''}}</div> </td>
-                        </tr>
-                    </table>
+                        :text="firstOtherParty.name | getFullName"/>                                       
+                    <underline-form 
+                        style="display:inline;text-indent:2px; margin-top: 0.6rem;" 
+                        textwidth="6.75rem" 
+                        beforetext="Their date of birth is" 
+                        hint="(mmm/dd/yyyy or unknown)" 
+                        :italicHint="false"
+                        aftertext="." 
+                        :text="firstOtherParty.dob | beautify-date"/>
                 </div>
+                <div style="text-indent:1px; margin:0.25rem 0 0rem 0;">Their contact information and address for service, as I know it, are:</div>
+                
+                <table class="compactfullsize" style="margin-top:0.15rem !important; font-size: 9pt;">
+                    <tr style="border:1px solid #313132" >                        
+                        <td colspan="3">
+                            Lawyer (if applicable): 
+                            <div class="answer">
+                                {{firstOtherParty.lawyer}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="border:1px solid #313132">          
+                        <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
+                    </tr>
+                    <tr style="border:1px solid #313132">
+                        <td  >City: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.city:''}}</div> </td>
+                    <td style="padding-left:50px">Province: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.state:''}}</div> </td>
+                        <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
+                    </tr>
+                    <tr style="border:1px solid #313132">
+                        <td colspan="2">Email: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.email:''}}</div> </td>
+                        <td>Telephone: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.phone:''}}</div> </td>
+                    </tr>
+                </table>
+                
                 <div style="text-indent:5px; margin:0"><i>Additional party (Complete only if applicable. You may leave this section blank)</i></div>
                         
                 <div v-if="additionalOtherParties.length>0">
 
                     <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                     
-                        <table class="compactfullsize">
+                        <table class="compactfullsize" style="font-size: 9pt;">
                             <tr style="border:1px solid #313132">
                                 <td colspan="2">Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>                               
                                 <td>Date of birth: <div class="answer">{{otherParty.dob | beautify-date}}</div> </td>
@@ -285,7 +285,7 @@
 
                     <div style="display:inline;  ">
                     
-                        <table class="compactfullsize">
+                        <table class="compactfullsize" style="font-size: 9pt;">
                             <tr style="border:1px solid #313132">
                                 <td colspan="2">Full name: <div class="answer"></div> </td>
                                 <td>Date of birth: <div class="answer"></div> </td>
@@ -309,6 +309,14 @@
                                 <td>Telephone: <div class="answer"></div> </td>
                             </tr>
                         </table>                    
+                    </div>
+                </div>
+
+                <div style="font-weight:600; font-size: 8.5pt;">
+                    <div style="margin-left:1rem;">NOTE TO OTHER PARTY:</div>
+                    <div style="text-indent:0px;line-height:0.9rem;">
+                        If the above contact information and/or address for service is not correct, you must file a Notice of 
+                        Address Change in Form 46 and serve a copy of the notice on each other party.
                     </div>
                 </div>
             </section>
@@ -360,7 +368,7 @@ export default class Form2Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
+        // console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
@@ -438,7 +446,7 @@ export default class Form2Layout extends Vue {
             otherDescription: ""
         }
 
-        if(this.result?.noticeIntentionProceedSurvey?.lastStep){  
+        if(this.result?.noticeIntentionProceedSurvey?.lastStep && this.result?.noticeIntentionProceedSurvey?.unresolvedFlm == 'y'){  
             
             const lastStepData = this.result?.noticeIntentionProceedSurvey?.lastStep;
             lastStepInfo.selected = lastStepData.selected;
@@ -459,6 +467,7 @@ export default class Form2Layout extends Vue {
 
             } else if (lastStepInfo.selected == 'other'){
                 lastStepInfo.otherDate = lastStepData.otherDate;
+                lastStepInfo.otherDescription = lastStepData.otherDescription
             }
             
         }
