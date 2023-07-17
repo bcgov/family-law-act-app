@@ -329,7 +329,7 @@ export default class SuccessPage extends Vue {
     packageUrl="";
 
     mountedData = false;
-    showLegalAssistance = false
+    showLegalAssistance = false;
 
     checklist = false;
     checklistType='';
@@ -340,6 +340,7 @@ export default class SuccessPage extends Vue {
 
     otherApplicationTypesInfo = [        
         {name:'NCD',    title:'Notice of Address Change'},
+        {name:'NPR',    title:'Notice of Intention to Proceed'},
         {name:'NDT',    title:'Notice of Discontinuance'},
         {name:'NLC',    title:'Notice of Lawyer for Child'},
         {name:'NLP',    title:'Notice of Lawyer for Party'},

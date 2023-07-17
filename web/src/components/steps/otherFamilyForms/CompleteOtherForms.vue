@@ -189,7 +189,7 @@ export default class CompleteOtherForms extends Vue {
         {formName: 'Notice of Address Change',                              formNumber: 'Form 46',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeOfAddressChange',        formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa763.pdf?forcedownload=true'},
         {formName: 'Notice of Discontinuance',                              formNumber: 'Form 50',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeDiscontinuance',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa767.pdf?forcedownload=true'},
         {formName: 'Notice of Exemption from Parenting Education Program',  formNumber: 'Form 20',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeExemptionParentingEducationProgram', formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa740.pdf?forcedownload=true'},
-        {formName: 'Notice of Intention to Proceed',                        formNumber: 'Form 2',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeIntentionProceed',       formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa711.pdf?forcedownload=true'},
+        {formName: 'Notice of Intention to Proceed',                        formNumber: 'Form 2',   pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeIntentionProceed',       formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa711.pdf?forcedownload=true'},
         {formName: 'Notice of Lawyer for Child',                            formNumber: 'Form 40',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeLawyerChild',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa758.pdf?forcedownload=true'},
         {formName: 'Notice of Lawyer for Party',                            formNumber: 'Form 42',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeLawyerParty',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa760.pdf?forcedownload=true'},
         {formName: 'Notice of Participation',                               formNumber: 'PFA747',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeParticipation',          formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa747.pdf?forcedownload=true '},
@@ -298,10 +298,11 @@ export default class CompleteOtherForms extends Vue {
         return includesGuided;
     }   
 
-    async changeSelectedActivity(index: number, pathwaySelected: boolean, formName){      
+    async changeSelectedActivity(index: number, pathwaySelected: boolean, formName){           
 
         this.selectedFormInfoList[index].pathwayState = pathwaySelected;
         this.selectedFormInfoList[index].manualState = !pathwaySelected;
+
         if (!pathwaySelected){
             window.open(this.selectedFormInfoList[index].formLink, '_blank');        
 
@@ -314,8 +315,14 @@ export default class CompleteOtherForms extends Vue {
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)                
             }else if(formName=='Notice of Discontinuance'){
-                const step = this.stPgNo.NDT
+                const step = this.stPgNo.NDT._StepNo
                 const page = this.stPgNo.NDT.PreviewFormsNDT
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Notice of Intention to Proceed'){
+                const step = this.stPgNo.NPR._StepNo
+                const page = this.stPgNo.NPR.PreviewFormsNPR
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
@@ -327,7 +334,6 @@ export default class CompleteOtherForms extends Vue {
         const step = this.stPgNo.OTHER._StepNo
         const page = this.stPgNo.OTHER.OtherFormFilingLocation
         Vue.filter('setSurveyProgress')(null, step, page, 50, false);
-
         this.determineSteps(true);
                 
     } 
