@@ -1976,11 +1976,67 @@ class Application extends VuexModule {
 
         // Intention to Proceed STOP
 
+        // Request for Scheduling START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "16";
+        s.name = "RQS";
+        s.label = "Request for Scheduling";
+        s.icon = "fa fa-calendar";
+        s.lastUpdate = null;
+        s.type = "requestScheduling";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "RequestForScheduling";
+        p.label = "Request for Scheduling";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "RequestForSchedulingInformation";
+        p.label = "Request for Scheduling Information ";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+        
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "MoreInformationRQS";
+        p.label = "More Information ";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersRQS";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsRQS";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        this.steps.push(s);
+
         //Submit START
         s = {} as stepInfoType;
 
         s.active = false;
-        s.id = "16";
+        s.id = "17";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2462,7 +2518,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

@@ -275,8 +275,13 @@ export interface stepInfoType {
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
     otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
+
+    //_____Step 14 REQUEST FOR SCHEDULING_____________    
+    requestForSchedulingSurvey?: any; //requestForSchedulingSurveyInfoType;    
+    requestForSchedulingInformationSurvey?: any; //requestForSchedulingInformationSurveyInfoType;
+    moreInformationRqsSurvey?: any; //moreInformationRqsSurveyInfoType;
     
-    //__Step 14 SUBMIT
+    //__Step 15 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -294,4 +299,5 @@ export interface stepInfoType {
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
     noticeIntentionProceed?: boolean;
+    requestScheduling?: boolean;
   }
