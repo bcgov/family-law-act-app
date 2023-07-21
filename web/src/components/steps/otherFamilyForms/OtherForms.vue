@@ -247,7 +247,7 @@ export default class OtherForms extends Vue {
     }
 
     public resetSteps(){ //TODO add all new steps here    
-        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo,], false);
+        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo], false);
     }
 
     public determineSteps(){
@@ -278,10 +278,8 @@ export default class OtherForms extends Vue {
             this.onChangeFilingMethod(null)
     }
     
-    public allRequiredInfoExists(){        
-
+    public allRequiredInfoExists(){                
         return this.filingMethod != null && this.selectedForms.length > 0
-
     }    
     
     public onPrev() {

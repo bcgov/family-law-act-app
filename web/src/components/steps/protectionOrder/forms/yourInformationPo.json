@@ -27,7 +27,7 @@
               "visible":false,
               "visibleIf":"({newApp})",
               "title": "What is your full name?",
-              "description": "This is the name of the person 'making the Protection Order application'. If you are helping someone use this app and they are the ones who will be making the application themselves, use their name. If you are making this application on behalf of another person, use your name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
+              "description": "This is the name of the person 'making the Protection Order application'. If you are helping someone use this app and they are the ones who will be making the application themselves, use their name. If you are making this application on behalf of another person, use your name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.\n\nIf there is already a filed court document on your existing case, copy your full name from it.",
               "isRequired": true,    
               "defaultSubstitution": "(Applicant Name)",
               "descFirstName": "First Name is also known as Given Name",

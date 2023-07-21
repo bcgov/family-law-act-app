@@ -57,6 +57,10 @@
                         <b-td class="text-center">{{applicationDetailsInfo.NDT.total}}</b-td>                                          
                     </b-tr>
                     <b-tr>                        
+                        <b-th>Notice of Intention to Proceed</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.NPR.total}}</b-td>                                          
+                    </b-tr>
+                    <b-tr>                        
                         <b-th>Other Applications</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.OTHER.total}}</b-td>                                          
                     </b-tr>

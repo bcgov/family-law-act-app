@@ -125,6 +125,7 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{calculationDate}/g,'the above mentioned date');
         adjQuestion = adjQuestion.replace(/{disagreeReasonQuestion}/g,'Why don’t you agree with the requested order?');
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>", "What is the full name of the other party?");
+        adjQuestion = adjQuestion.replace("<b style='color: #455571; font-size:22pt;'>completed</b>", "completed");
         return adjQuestion
     }
 

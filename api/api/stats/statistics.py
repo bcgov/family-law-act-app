@@ -73,6 +73,7 @@ def application_details(applications):
         "OTHER":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "NCD":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "NDT":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "NPR":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
     }
     stat_keys = list(stat.keys())
     
@@ -94,7 +95,8 @@ def application_details(applications):
             "ENFRC":["AFET","RFA","RDET","RORD"],
             "OTHER":[],
             "NCD":["NCD"],
-            "NDT":["NDT"]
+            "NDT":["NDT"],
+            "NPR":["NPR"],
         }
 
         for step in steps:
