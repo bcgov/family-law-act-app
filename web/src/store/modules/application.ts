@@ -54,7 +54,8 @@ class Application extends VuexModule {
         other: false,
         noticeOfAddressChange: false,
         noticeDiscontinuance: false,
-        noticeIntentionProceed: false
+        noticeIntentionProceed: false,
+        noticeLawyerParty: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1976,11 +1977,69 @@ class Application extends VuexModule {
 
         // Intention to Proceed STOP
 
+        // Notice of Lawyer for Party START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "16";
+        s.name = "NLP";
+        s.label = "Notice of Lawyer for Party";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "lawyerParty";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeLawyerParty";
+        p.label = "Notice of Lawyer for Party";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "LawyerPartyInformation";
+        p.label = "Notice of Lawyer for Party Information ";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+        
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "MoreInformationNLP";
+        p.label = "More Information";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersNLP";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsNLP";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Discontinuance STOP
+
         //Submit START
         s = {} as stepInfoType;
 
         s.active = false;
-        s.id = "16";
+        s.id = "17";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2462,7 +2521,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, NLP:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

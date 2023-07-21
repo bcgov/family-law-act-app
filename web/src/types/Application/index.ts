@@ -275,6 +275,11 @@ export interface stepInfoType {
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
     otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
+
+    //_____Step xx NOTICE OF LAWYER FOR PARTY_____________    
+    noticeLawyerPartySurvey?: any;// noticeLawyerPartySurveyInfoType;    
+    lawyerPartyInformationSurvey?: any;// lawyerPartyInformationInfoType;
+    moreInformationNlpSurvey?: any; //moreInformationNlpSurveyInfoType;
     
     //__Step 14 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
@@ -294,4 +299,5 @@ export interface stepInfoType {
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
     noticeIntentionProceed?: boolean;
+    noticeLawyerParty?: boolean;
   }
