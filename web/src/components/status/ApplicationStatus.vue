@@ -56,26 +56,37 @@
                                 <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
                             </b-button>
 
-                            <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                @click="navigateToEFilingHub(row.item.last_efiling_submission)"
-                                v-b-tooltip.hover.noninteractive.left.v-info
-                                title="Navigate To Submitted Application">
-                                <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
-                            </b-button>  
+                            <div v-if="row.item.lastFiled != 0">
 
-                            <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
-                                @click="viewInstructions(row.item.id, row.item.app_type)"
-                                v-b-tooltip.hover.noninteractive.bottom
-                                title="View Instructions">
-                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
-                            </b-button>                              
+                                <b-button size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                    @click="displayRejectionInfo(row.item.id)"
+                                    v-b-tooltip.hover.noninteractive.left.v-danger
+                                    title="Action Required">
+                                    <span class="fa fa-exclamation-triangle text-danger"/>                    
+                                </b-button>
 
-                            <b-button v-if="row.item.lastFiled != 0 && row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0"
-                                @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
-                                v-b-tooltip.hover.noninteractive.left.v-success
-                                title="View/Download the Submitted Application">
-                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
-                            </b-button>
+                                <b-button size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="navigateToEFilingHub(row.item.last_efiling_submission)"
+                                    v-b-tooltip.hover.noninteractive.left.v-info
+                                    title="Navigate To Submitted Application">
+                                    <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
+                                </b-button>  
+
+                                <b-button size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="viewInstructions(row.item.id, row.item.app_type)"
+                                    v-b-tooltip.hover.noninteractive.bottom
+                                    title="View Instructions">
+                                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
+                                </b-button>                              
+
+                                <b-button v-if="row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                    v-b-tooltip.hover.noninteractive.left.v-success
+                                    title="View/Download the Submitted Application">
+                                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                                </b-button>
+
+                            </div>
                             
                         </template>
                         <template v-slot:cell(app_type)="row">                  
@@ -89,6 +100,11 @@
                         </template>
                         <template v-slot:cell(lastFiled)="row">                  
                             <b-badge variant="success" >{{ row.item.lastFiledDate | beautify-date-weekday}}</b-badge>
+                        </template>
+                        <template v-slot:cell(status)="row">                  
+                            <b-badge v-if="row.item.status == 'completed'" variant="success" >Completed</b-badge>
+                            <b-badge v-if="row.item.status == 'rejected'" variant="danger" >Action Required</b-badge>
+                            <b-badge v-if="row.item.status == 'submitted'" variant="primary" >Submitted</b-badge>
                         </template>
                     </b-table>
                 </b-card>
@@ -238,6 +254,24 @@
             </template>
         </b-modal> 
 
+        <b-modal size="xl" v-model="showActionRequired" id="bv-modal-show-action" header-class="bg-danger text-white">                        
+            <template v-slot:modal-title>
+                <h2 class="mb-0 mt-2 ml-4">Action Required</h2>                                  
+            </template>
+
+            <b-card no-body border-variant="white" class="m-3">
+                <rejected-package-instructions :applicationId='rejectedApplicationId' ></rejected-package-instructions>                
+            </b-card>           
+            
+            <template v-slot:modal-footer>                
+                <b-button variant="primary" @click="$bvModal.hide('bv-modal-show-action')">Close</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="info" class="closeButton" @click="$bvModal.hide('bv-modal-show-action')"
+                >&times;</b-button>
+            </template>
+        </b-modal>
+
     </b-card>
 </template>
 
@@ -249,7 +283,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
 import store from "@/store";
 
 import moment from 'moment-timezone';
-import {applicationInfoType} from "@/types/Application"
+import {applicationInfoType} from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/common";
@@ -262,10 +296,11 @@ import {RestoreCommonStep} from './RestoreCommonStep'
 import {MigrateStore} from './MigrateStore'
 import Instructions from './Instructions.vue';
 import InstructionsOtherForms from './InstructionsOtherForms.vue'
+import RejectedPackageInstructions from './unsuccessfulSubmissions/RejectedPackageInstructions.vue';
 
 
 @Component({
-    components: {Instructions, InstructionsOtherForms}
+    components: {Instructions, InstructionsOtherForms, RejectedPackageInstructions}
 })
 export default class ApplicationStatus extends Vue {
 
@@ -290,11 +325,12 @@ export default class ApplicationStatus extends Vue {
 
     previousApplications = []
     previousApplicationFields = [
-        { key: 'app_type',    label: 'Activity Type', sortable:true,  tdClass: 'border-top', thStyle:'width:47%;'},
-        { key: 'lastUpdated', label: 'Last Updated',  sortable:true,  tdClass: 'border-top'},
-        { key: 'lastFiled',   label: 'Filed Date',    sortable:true,  tdClass: 'border-top'},
-        { key: 'packageNum',  label: 'CSO Package#',  sortable:false, tdClass: 'border-top'},
-        { key: 'edit',        label: '',              sortable:false, tdClass: 'border-top'}
+        { key: 'app_type',    label: 'Activity Type',           sortable:true,  tdClass: 'border-top', thStyle:'width:47%;'},
+        { key: 'lastUpdated', label: 'Last Updated',            sortable:true,  tdClass: 'border-top'},
+        { key: 'lastFiled',   label: 'Submitted/Filed Date',    sortable:true,  tdClass: 'border-top'},
+        { key: 'status',      label: 'Status',                  sortable:true,  tdClass: 'border-top'},
+        { key: 'packageNum',  label: 'CSO Package#',            sortable:false, tdClass: 'border-top'},
+        { key: 'edit',        label: '',                        sortable:false, tdClass: 'border-top'}
     ]
 
     confirmDelete = false;
@@ -312,9 +348,11 @@ export default class ApplicationStatus extends Vue {
     showSelectFileForPrint =  false;
 
     instructionsApplicationId = 0;
+    rejectedApplicationId = 0;
     applicationTypes: string[] = [];
     showInstructions = false;
     showJourneyMap = false;
+    showActionRequired = false;
 
     mounted() { 
         this.showDisclaimer = false;
@@ -519,6 +557,14 @@ export default class ApplicationStatus extends Vue {
         this.instructionsApplicationId = applicationId;
         this.applicationTypes = applicationType;
         this.showInstructions =  true;
+    }
+
+    public displayRejectionInfo(applicationId) {
+
+        this.rejectedApplicationId = applicationId;
+        this.showActionRequired = true;
+
+
     }
 
     public printJourneyMap() {

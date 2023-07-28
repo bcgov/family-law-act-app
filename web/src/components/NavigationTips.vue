@@ -71,6 +71,64 @@
                     </b-td>                        
                 </b-tr>
 
+                <b-row class="ml-5 h4" style="font-weight: 700;">
+                    On the Previous Activity screen:
+                </b-row>
+
+                <b-tr>
+                    <b-th colspan="6">
+                        <img src="../assets/efiling-hub-navigation.png" alt="" class="center" />
+                    </b-th>
+                    <b-td class="text-left">
+                        You can use to navigate to your submitted documents.                          
+                    </b-td>                        
+                </b-tr>
+
+                <b-tr>
+                    <b-th colspan="6">
+                        <img src="../assets/post-filing-instructions.png" alt="" class="center" />
+                    </b-th>
+                    <b-td class="text-left">
+                        Provides instructions for next steps.                          
+                    </b-td>                        
+                </b-tr>
+
+                <b-tr>
+                    <b-th colspan="6">
+                        <img src="../assets/resume-app.png" alt="" class="center" />
+                    </b-th>
+                    <b-td class="text-left">
+                        You can go back and edit a document which you may need to continue to work on.                          
+                    </b-td>                        
+                </b-tr>
+
+                <b-tr>
+                    <b-th colspan="6">
+                        <img src="../assets/delete-app.png" alt="" class="center" />
+                    </b-th>
+                    <b-td class="text-left">
+                        Used to delete a document.                          
+                    </b-td>                        
+                </b-tr>
+
+                <b-tr>
+                    <b-th colspan="6">
+                        <img src="../assets/filed-documents.png" alt="" class="center" />
+                    </b-th>
+                    <b-td class="text-left">
+                        View/download your submitted or filed document.                          
+                    </b-td>                        
+                </b-tr>
+
+                <b-tr>
+                    <b-th colspan="6">
+                        <img src="../assets/action-required.png" alt="" class="center" />
+                    </b-th>
+                    <b-td class="text-left">
+                        Provides information on the required corrections.                          
+                    </b-td>                        
+                </b-tr>
+
             </b-tbody>
             
         </b-table-simple>
