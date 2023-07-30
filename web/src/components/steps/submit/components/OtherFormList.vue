@@ -98,7 +98,8 @@ export default class OtherFormList extends Vue {
         }        
 
         this.formsListTemplate =[ 
-            { name:'P2',  appName:'noticeIntentionProceed',   pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],        color:"danger", title:"Notice of Intention to Proceed (Form 2)", requiresSignature: false},                              
+            { name:'P2',   appName:'noticeIntentionProceed',  pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"), chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],        color:"danger", title:"Notice of Intention to Proceed (Form 2)", requiresSignature: false},                              
+            { name:'P40',  appName:'noticeOfLawyerChild',     pdfType: Vue.filter('getPathwayPdfType')("noticeOfLawyerChild"),    chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLC._StepNo],        color:"danger", title:"Notice of Lawyer for Child (Form 40)", requiresSignature: false},            
             { name:'P46',  appName:'noticeOfAddressChange',   pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],        color:"danger", title:"Notice of Address Change (Form 46)", requiresSignature: false},            
             { name:'P50',  appName:'noticeDiscontinuance',    pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],        color:"danger", title:"Notice of Discontinuance (Form 50)", requiresSignature: ndtRequiresSignature}
         ]

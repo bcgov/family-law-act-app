@@ -754,6 +754,8 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepNCD = store.state.Application.stPgNo.NCD;
 		const stepNDT = store.state.Application.stPgNo.NDT;		
 		const stepNPR = store.state.Application.stPgNo.NPR;
+
+		const stepNLC = store.state.Application.stPgNo.NLC;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -811,6 +813,11 @@ Vue.filter('surveyChanged', function(type: string) {
 			reviewPage = stepNPR.ReviewYourAnswersNPR; 
 			previewPages = [stepNPR.PreviewFormsNPR];
 		}
+		else if(typeName == 'noticeLawyerChild'){
+			step = stepNLC._StepNo; 
+			reviewPage = stepNLC.ReviewYourAnswersNLC; 
+			previewPages = [stepNLC.PreviewFormsNLC];
+		}
 		
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -833,7 +840,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'noticeLawyerChild']
 	
 	if(type == 'allExPO'){
         
@@ -850,6 +857,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.noticeOfAddressChange = false;
 		pathwayCompleted.noticeDiscontinuance = false; 
 		pathwayCompleted.noticeIntentionProceed = false;
+		pathwayCompleted.noticeLawyerChild = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")
