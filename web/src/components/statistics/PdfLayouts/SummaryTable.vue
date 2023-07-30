@@ -61,6 +61,10 @@
                         <b-td class="text-center">{{applicationDetailsInfo.NPR.total}}</b-td>                                          
                     </b-tr>
                     <b-tr>                        
+                        <b-th>Notice of Removal of Lawyer for Child</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.NLCR.total}}</b-td>                                          
+                    </b-tr>
+                    <b-tr>                        
                         <b-th>Other Applications</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.OTHER.total}}</b-td>                                          
                     </b-tr>

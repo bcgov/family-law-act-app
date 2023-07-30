@@ -15,6 +15,7 @@ export interface stepsAndPagesNumberInfoType{
     NCD: NCDstPgTypes;
     NDT: NDTstPgTypes;
     NPR: NPRstPgTypes;
+    NLCR: NLCRstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -299,6 +300,16 @@ export interface NPRstPgTypes{
     OtherPartyNpr: number;
     ReviewYourAnswersNPR: number;
     PreviewFormsNPR: number;
+}
+
+export interface NLCRstPgTypes{
+    _StepNo: number;
+
+    NoticeRemoveLawyerChild: number;
+    RemoveLawyerChildInformation: number;
+    MoreInformationNLCR: number;
+    ReviewYourAnswersNLCR: number;
+    PreviewFormsNLCR: number;
 }
 
 export interface SUBMITstPgTypes{
