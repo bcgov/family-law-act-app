@@ -15,6 +15,7 @@ export interface stepsAndPagesNumberInfoType{
     NCD: NCDstPgTypes;
     NDT: NDTstPgTypes;
     NPR: NPRstPgTypes;
+    AFF: AFFstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -299,6 +300,17 @@ export interface NPRstPgTypes{
     OtherPartyNpr: number;
     ReviewYourAnswersNPR: number;
     PreviewFormsNPR: number;
+}
+
+
+export interface AFFstPgTypes{
+    _StepNo: number;
+
+    Affidavit: number;
+    AffidavitInformation: number;
+    MoreInformationAFF: number;
+    ReviewYourAnswersAFF: number;
+    PreviewFormsAFF: number;
 }
 
 export interface SUBMITstPgTypes{

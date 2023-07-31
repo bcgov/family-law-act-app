@@ -275,6 +275,11 @@ export interface stepInfoType {
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
     otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
+
+    //_____Step xx AFFIDAVIT_____________    
+    affidavitSurvey?: any;// affidavitSurveyInfoType;    
+    affidavitInformationSurvey?: any;// affidavitInformationInfoType;
+    moreInformationAffSurvey?: any; //moreInformationAffSurveyInfoType;
     
     //__Step 14 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
@@ -294,4 +299,5 @@ export interface stepInfoType {
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
     noticeIntentionProceed?: boolean;
+    affidavit?: boolean;
   }
