@@ -15,6 +15,7 @@ export interface stepsAndPagesNumberInfoType{
     NCD: NCDstPgTypes;
     NDT: NDTstPgTypes;
     NPR: NPRstPgTypes;
+    EFSP: EFSPstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -299,6 +300,16 @@ export interface NPRstPgTypes{
     OtherPartyNpr: number;
     ReviewYourAnswersNPR: number;
     PreviewFormsNPR: number;
+}
+
+export interface EFSPstPgTypes{
+    _StepNo: number;
+
+    ElectronicFilingStatement: number;
+    ElectronicFilingStatementInformation: number;
+    MoreInformationEFSP: number;
+    ReviewYourAnswersEFSP: number;
+    PreviewFormsEFSP: number;
 }
 
 export interface SUBMITstPgTypes{

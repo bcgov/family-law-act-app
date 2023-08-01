@@ -754,6 +754,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepNCD = store.state.Application.stPgNo.NCD;
 		const stepNDT = store.state.Application.stPgNo.NDT;		
 		const stepNPR = store.state.Application.stPgNo.NPR;
+		const stepEFSP = store.state.Application.stPgNo.EFSP;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -811,6 +812,11 @@ Vue.filter('surveyChanged', function(type: string) {
 			reviewPage = stepNPR.ReviewYourAnswersNPR; 
 			previewPages = [stepNPR.PreviewFormsNPR];
 		}
+		else if(typeName == 'electronicFilingStatement'){
+			step = stepEFSP._StepNo; 
+			reviewPage = stepEFSP.ReviewYourAnswersEFSP; 
+			previewPages = [stepEFSP.PreviewFormsEFSP];
+		}
 		
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -833,7 +839,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'electronicFilingStatement']
 	
 	if(type == 'allExPO'){
         
@@ -850,6 +856,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.noticeOfAddressChange = false;
 		pathwayCompleted.noticeDiscontinuance = false; 
 		pathwayCompleted.noticeIntentionProceed = false;
+		pathwayCompleted.electronicFilingStatement = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

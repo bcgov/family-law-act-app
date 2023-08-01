@@ -1976,11 +1976,69 @@ class Application extends VuexModule {
 
         // Intention to Proceed STOP
 
+        // Electronic Filing Statement START
+
+         s = {} as stepInfoType;    
+         s.active = false;
+         s.id = "16";
+         s.name = "EFSP";
+         s.label = "Electronic Filing Statement";
+         s.icon = "fa fa-exclamation-circle";
+         s.lastUpdate = null;
+         s.type = "electronicFilingStatement";
+         s.pages = new Array<pageInfoType>();
+         s.currentPage = 0;        
+ 
+         p = {} as pageInfoType;
+         p.key = "0";
+         p.name = "ElectronicFilingStatement";
+         p.label = "Electronic Filing Statement";
+         p.active = true;
+         p.progress = 0;    
+         s.pages.push(p);        
+ 
+         p = {} as pageInfoType;
+         p.key = "1";
+         p.name = "ElectronicFilingStatementInformation";
+         p.label = "Electronic Filing Statement Information ";        
+         p.active = true;
+         p.progress = 0;    
+         s.pages.push(p);   
+ 
+         p = {} as pageInfoType;
+         p.key = "2";        
+         p.name = "MoreInformationEFSP";
+         p.label = "More Information";
+         p.active = false;
+         p.progress = 0;    
+         s.pages.push(p);
+ 
+         //____________Review
+         p = {} as pageInfoType;
+         p.key = "3";
+         p.name = "ReviewYourAnswersEFSP";
+         p.label = "Review Your Answers";
+         p.active = false;
+         p.progress = 0;    
+         s.pages.push(p);
+ 
+         p = {} as pageInfoType;
+         p.key = "4";
+         p.name = "PreviewFormsEFSP";
+         p.label = "Preview Forms";
+         p.active = false;
+         p.progress = 0;    
+         s.pages.push(p);
+ 
+         this.steps.push(s);
+ 
+        // Electronic Filing Statement STOP
+
         //Submit START
         s = {} as stepInfoType;
 
         s.active = false;
-        s.id = "16";
+        s.id = "17";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2462,7 +2520,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, EFSP: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

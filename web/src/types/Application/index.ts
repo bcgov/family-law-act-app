@@ -275,6 +275,11 @@ export interface stepInfoType {
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
     otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
+
+    //_____Step xx ELECTRONIC FILING STATEMENT_____________    
+    electronicFilingStatementSurvey?: any;// electronicFilingStatementSurveyInfoType;    
+    electronicFilingStatementInformationSurvey?: any;// electronicFilingStatementInformationInfoType;
+    moreInformationEfspSurvey?: any; //moreInformationEfspSurveyInfoType;
     
     //__Step 14 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
@@ -294,4 +299,5 @@ export interface stepInfoType {
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
     noticeIntentionProceed?: boolean;
+    electronicFilingStatement?: boolean;
   }
