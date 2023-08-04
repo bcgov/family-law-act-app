@@ -96,12 +96,24 @@
               
         </b-card>
 
-        <b-card name="button-menu" class="button-content" border-variant="white" bg-variant="white">                        
-            <b-row>
-                <b-col class="m-0 p-0" cols="9">
+        <b-card name="button-menu" class="button-content" border-variant="white" bg-variant="white">         
+            <b-row style="margin-left: 7rem;">The Process Map provides a general overview of the process through Provincial Court.</b-row>               
+            <b-row class="mt-2 ml-5">                
+                <b-col cols="5">
+                    <b-button 
+                        style="float:left;"
+                        class="ml-5 mb-1 bg-success"
+                        size="md" 
+                        variant="success" 
+                        @click="showJourneyMap = true;">
+                        View/Print Process Map
+                        <b-icon-printer-fill scale="1" variant="white"/>
+                    </b-button>
+                </b-col>
+                <b-col class="m-0 p-0" cols="4">
                     <b-button 
                         variant="success" 
-                        size="lg"
+                        size="md"
                         class="new-session-button" 
                         @click="beginApplication()"
                     >Begin NEW Session</b-button>
@@ -200,6 +212,32 @@
             </template>
         </b-modal>
 
+        <b-modal size="xl" v-model="showJourneyMap" id="bv-modal-show-journey" header-class="bg-info text-primary">                        
+            <template v-slot:modal-title>
+                <h2 class="mb-0 mt-2 ml-4">Process Map</h2>                                  
+            </template>
+
+            <b-card border-variant="white" class="my-3 mx-5">
+                <div class="mb-3" style="width:10rem; display: block; margin-left: auto; margin-right: auto;">
+                    <b-button 
+                        variant="success" 
+                        @click='printJourneyMap()'
+                        >Save/Print
+                        <b-icon-printer-fill scale="1" variant="white"/>
+                    </b-button>
+                </div>
+                <img style="display: block; margin-left: auto; margin-right: auto;" src="../../assets/journey-map.png" />
+            </b-card>
+            
+            <template v-slot:modal-footer> 
+                <b-button variant="primary" @click="$bvModal.hide('bv-modal-show-journey')">Close</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="info" class="closeButton" @click="$bvModal.hide('bv-modal-show-journey')"
+                >&times;</b-button>
+            </template>
+        </b-modal> 
+
     </b-card>
 </template>
 
@@ -275,7 +313,8 @@ export default class ApplicationStatus extends Vue {
 
     instructionsApplicationId = 0;
     applicationTypes: string[] = [];
-    showInstructions =  false;
+    showInstructions = false;
+    showJourneyMap = false;
 
     mounted() { 
         this.showDisclaimer = false;
@@ -480,6 +519,33 @@ export default class ApplicationStatus extends Vue {
         this.instructionsApplicationId = applicationId;
         this.applicationTypes = applicationType;
         this.showInstructions =  true;
+    }
+
+    public printJourneyMap() {
+        
+        const pdf_name='process-map'
+        const url = '/print-fillable-pdf?name='+pdf_name
+        const options = {
+            responseType: "blob",
+            headers: {
+            "Content-Type": "application/json",
+            }
+        }
+        this.$http.get(url, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = pdf_name+".pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);     
+            this.showJourneyMap =  false;        
+
+        },err => {
+            console.error(err);
+        });
+        
     }
 
     public downloadApplicationPdf(applicationId, pdf_type){
