@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/request-scheduling.json";
+import surveyJson from "./forms/party-information-rqs.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -25,7 +25,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class RequestForScheduling extends Vue {
+export default class PartyInformationRqs extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -84,8 +84,8 @@ export default class RequestForScheduling extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        // if (this.step.result?.requestForSchedulingSurvey) {            
-        //     this.survey.data = this.step.result.requestForSchedulingSurvey.data;   
+        // if (this.step.result?.partyInformationRQSSurvey) {            
+        //     this.survey.data = this.step.result.partyInformationRQSSurvey.data;   
         //     this.setPages();         
         //     Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         // } else {
@@ -98,7 +98,7 @@ export default class RequestForScheduling extends Vue {
     // public setPages() {
 
     //     const p = this.stPgNo.RQS;
-    //     const requestForSchedulingPagesAll = [p.RequestForSchedulingInformation, p.MoreInformationRQS, p.ReviewYourAnswersRQS]
+    //     const partyInformationRQSPagesAll = [p.RequestForSchedulingInformation, p.MoreInformationRQS, p.ReviewYourAnswersRQS]
 
     //     if (this.survey.data) {
 
@@ -106,7 +106,7 @@ export default class RequestForScheduling extends Vue {
 
     //         const canContinue = surveyResponses.Filed == 'y';
 
-    //         togglePages(requestForSchedulingPagesAll, canContinue, this.currentStep);            
+    //         togglePages(partyInformationRQSPagesAll, canContinue, this.currentStep);            
     //         this.disableNextButton = !canContinue;
     //     }
     // }
@@ -157,7 +157,7 @@ export default class RequestForScheduling extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {requestForSchedulingSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {partyInformationRQSSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

@@ -1,25 +1,25 @@
 import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
-export interface noticeDiscontinuanceDataInfoType {
+export interface requestForSchedulingDataInfoType {
     Filed?: string;
     ApplicantName?: nameInfoType;    
-    otherPartyInfoDis?: noticeDiscontinuanceOtherPartyInfoType[];
+    otherPartyInfoDis?: requestForSchedulingOtherPartyInfoType[];
     discontinuanceDocs?: string[];
 }  
 
-export interface noticeDiscontinuanceOtherPartyInfoType {
+export interface requestForSchedulingOtherPartyInfoType {
     name: nameInfoType;
 }
   
-export interface noticeDiscontinuanceSurveyInfoType {
-    data: noticeDiscontinuanceDataInfoType;
+export interface requestForSchedulingSurveyInfoType {
+    data: requestForSchedulingDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface discontinuanceInformationSurveyDataInfoType {
+export interface reasonForSchedulingSurveyDataInfoType {
     discontinueAllForm3?: string;
     discontinuePartForm3?: string;
     discontinueAllForm6?: string;
@@ -30,15 +30,15 @@ export interface discontinuanceInformationSurveyDataInfoType {
     discontinuePartForm8?: string;
 }
 
-export interface discontinuanceInformationSurveyInfoType {
-    data: discontinuanceInformationSurveyDataInfoType;
+export interface reasonForSchedulingSurveyInfoType {
+    data: reasonForSchedulingSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
     currentStep: number | string;
     currentPage: number | string;
 }
 
-export interface moreInformationRqsSurveyDataInfoType {
+export interface interimOrderSurveyDataInfoType {
     Form3FiledDate?: string;
     ReplyType?: string;
     ReplyFiledDate?: string;
@@ -49,8 +49,46 @@ export interface moreInformationRqsSurveyDataInfoType {
     TrialDateScheduled?: string;
 }
 
-export interface moreInformationRqsSurveyInfoType {
-    data: moreInformationRqsSurveyDataInfoType;
+export interface interimOrderSurveyInfoType {
+    data: interimOrderSurveyDataInfoType;
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number | string;
+    currentPage: number | string;
+}
+
+export interface nextAppearanceSurveyDataInfoType {
+    Form3FiledDate?: string;
+    ReplyType?: string;
+    ReplyFiledDate?: string;
+    CounterFiledDate?: string;
+    CourtAppearanceScheduled?: string;
+    CourtAppearanceDate?: string;
+    TrialPrep?: string;
+    TrialDateScheduled?: string;
+}
+
+export interface nextAppearanceSurveyInfoType {
+    data: nextAppearanceSurveyDataInfoType;
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number | string;
+    currentPage: number | string;
+}
+
+export interface partyInformationRqsSurveyDataInfoType {
+    Filed?: string;
+    ApplicantName?: nameInfoType;    
+    otherPartyInfoDis?: partyInformationRqsOtherPartyInfoType[];
+    discontinuanceDocs?: string[];
+}  
+
+export interface partyInformationRqsOtherPartyInfoType {
+    name: nameInfoType;
+}
+
+export interface partyInformationRqsSurveyInfoType {
+    data: partyInformationRqsSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
     currentStep: number | string;

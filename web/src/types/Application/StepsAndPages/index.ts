@@ -306,8 +306,10 @@ export interface RQSstPgTypes{
     _StepNo: number;
 
     RequestForScheduling: number;
-    RequestForSchedulingInformation: number;
-    MoreInformationRQS: number;
+    ReasonForScheduling: number;
+    InterimOrder: number;
+    NextAppearance: number;
+    PartyInformationRQS: number;  
     ReviewYourAnswersRQS: number;
     PreviewFormsRQS: number;
 }

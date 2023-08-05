@@ -1999,23 +1999,39 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "1";
-        p.name = "RequestForSchedulingInformation";
-        p.label = "Request for Scheduling Information ";        
+        p.name = "ReasonForScheduling";
+        p.label = "Reason for Scheduling";        
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);   
-        
+
         p = {} as pageInfoType;
         p.key = "2";        
-        p.name = "MoreInformationRQS";
-        p.label = "More Information ";
+        p.name = "InterimOrder";
+        p.label = "Interim Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";        
+        p.name = "NextAppearance";
+        p.label = "Next Appearance";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "4";        
+        p.name = "PartyInformationRQS";
+        p.label = "Party Information ";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
  
         //____________Review
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "5";
         p.name = "ReviewYourAnswersRQS";
         p.label = "Review Your Answers";
         p.active = false;
@@ -2023,7 +2039,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "6";
         p.name = "PreviewFormsRQS";
         p.label = "Preview Forms";
         p.active = false;

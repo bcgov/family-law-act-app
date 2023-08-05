@@ -60,7 +60,7 @@ import moment from 'moment-timezone';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/more-information-rqs.json";
+import surveyJson from "./forms/interim-order.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -74,7 +74,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class MoreInformationRqs extends Vue {
+export default class InterimOrder extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -204,8 +204,8 @@ export default class MoreInformationRqs extends Vue {
             this.survey.setValue('discontinuingDocs',discontinuingDocs);
         }
         
-        if (this.step.result?.moreInformationRqsSurvey) {
-            this.survey.data = this.step.result.moreInformationRqsSurvey.data;
+        if (this.step.result?.interimOrderSurvey) {
+            this.survey.data = this.step.result.interimOrderSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
             this.validateDates();   
             this.messageForConsent();     
@@ -248,7 +248,7 @@ export default class MoreInformationRqs extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {moreInformationRqsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {interimOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

@@ -1,118 +1,82 @@
 {
-  "title": "Notice of Discontinuance",
+  "title": "Request for Scheduling",
   "pages": [
     {
-      "name": "Notice of Discontinuance",
-      "description": "If you have filed an Application About a Family Law Matter, reply or counter application with the court and you no longer want to have the court make a decision about it, you can file a Notice of Discontinuance to stop it from continuing before the court.<br><br>If an application, reply or counter application is discontinued, it means that it has been abandoned. The party or the court cannot take any further action on the application or counter application but it does not cancel anything that has already been done in court.<br><br>You can only discontinue your own application, reply or counter application. If the other party has their own application, reply or counter application, it is not affected. This means you may still have to go to court about their document. If the other party also wants to discontinue their application, reply or counter application, they must also complete a Notice of Discontinuance.",
+      "name": "Request for Scheduling",
+      "description": "There are lots of reasons why you might need to reschedule an application on your case for a new court appearance. This pathway will help you complete the Request for Scheduling Form 39.<br><br>You don’t always need to file a request for scheduling to get your next court appearance. If you were directed by the court to schedule your next appearance with a judicial case manager or together with the other party, you probably don’t need to use any form. Check with the judicial case manager (JCM) or registry staff in your court location if you are not sure. Contact information for the JCM can be found on the <a target='_blank' href='https://www.provincialcourt.bc.ca/locations-contacts'>Provincial Court’s website</a> under each courthouse location. Contact information for each registry can be found <a href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96' target='_blank'>here</a>.",
       "elements": [
         {
           "type": "panel",
           "name": "ApplicantPanel",
           "elements": [
             {
-              "type": "infotext",
-              "name": "ExplanationDiscontinuance",
-              "title": "<b>If you are filing a Notice of Discontinuance, it is important for you to undertand the effect it may have.</b><br>Some applications have a limitation period for when you must apply. If you discontinue an application, you are not prevented from filing a new application about the same family law matter at a later date unless the judge orders otherwise.<br>If you think you may want to file your application at a later date, check to make sure you will still be within the limitation periods set out in sections <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_07#section147'>147 (4) (b) <i>[duty to provide support for child]</i></a> and 198 (2) [time limits] of the Family Law Act before you file your Notice of Discontinuance.<br>If you are unsure if a limitation period applies to your application, talk to a lawyer. ",
-              "titleLocation": "hidden"
-            },
+              "type": "yesno",
+              "name": "Unresolved",
+              "title": "Do you have an unresolved application before the court?",
+              "isRequired": true
+            },  
             {
               "type": "helptext",
-              "name": "FAQLegalAdvice",
-              "title": "Where can I get legal assistance?",
+              "name": "FAQUnresolved",
+              "title": "How do I know if my application is unresolved?",
               "titleLocation": "hidden",              
-              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"             
-            },
+              "body": "An application is unresolved if the court has not made a final order. Sometimes you will be given an interim order that gives a temporary solution while you wait to go to trial. Even if this was in place for a while, it is still not a final order.<br><br>A final order is a decision by a judge usually after a hearing or trial, or a consent order between the parties that decides the issues.<br><br>An order will often say if it is interim, final or a consent order. If there is an order and you are not sure if it is final, you can ask your lawyer or the registry staff. There is a different process to follow if you need to go back to court with a final order unless the order says you can come back to court to review the order."
+            },  
             {
               "type": "yesno",
-              "name": "Filed",
-              "title": "Have you filed an Application About a Family Law Matter, reply or counter application that you want to discontinue?",
-              "description": "You can discontinue <b>all</b> or <b>part</b> of your application, reply or counter application. You will be asked for this information later.",
+              "name": "ReviewOrdered",
+              "title": "Did the court order a review of one or more terms of a court order?",
+              "description": "The court can include a term in an order that says the order can be reviewed by the court:<ul><li>on a specified date</li><li>after a specified amount of time, or</li><li>after a specified event has happened (such as when a child turns 19)</li></ul>If the date, time or event has happened, you can schedule a court appearance to review the order.",
+              "visible": false,
+              "visibleIf": "{Unresolved} = 'n'",
               "isRequired": true
-            },            
+            },          
             {
               "type": "infotext",
-              "name": "ExplanationNotFiled",
+              "name": "ExplanationResolved",
               "visible": false,
-              "visibleIf": "{Filed} = 'n'",
-              "title": "If you want to cancel an order that has already been made in court because there has been a change in needs or circumstances, you can apply to the court to cancel the order by filing an application. Go back to Step 1 and select Apply for an Order.<br>If the other party filed an application, reply or counter application that you want discontinued and they also agree it should be discontinued, they will have to file the Notice of Discontinuance.",
+              "visibleIf": "{Unresolved} = 'n' and {ReviewOrdered} = 'n'",
+              "title": "Based on your answers, you cannot schedule a court appearance using the request for scheduling. The request for scheduling is only used to schedule a court appearance on an active application or to review an order that was ordered by the court for review.<br><br>If you want to change a final order or take another step in your case, like enforcement, you will need to file a new application.<br><br>Talk to a lawyer for help about how to get your case back into court.",
               "titleLocation": "hidden"
             },
             {
               "type": "panel",
-              "name": "ApplicantContactPanel",
+              "name": "DetailsPanel",
               "visible": false,
-              "visibleIf": "{Filed} = 'y'",
+              "visibleIf": "{Unresolved} = 'y' or ({Unresolved} = 'n' and {ReviewOrdered} = 'y')",
               "elements": [
                 {
-                  "type": "personname",
-                  "name": "ApplicantName",
-                  "title": "What is your full name?",
-                  "description": "This is the name of the person whose application, reply or counter application is being discontinued. Copy the name from any filed court document.",                  
-                  "isRequired": true,              
-                  "defaultSubstitution": "(Applicant Name)",
-                  "descFirstName": "First Name is also known as Given Name",
-                  "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
-                  "descLastName": "Last Name is also known as Family Name or Surname"
+                  "type": "text",
+                  "inputType": "date",
+                  "name": "filedDate",
+                  "title": "What is the date the application you need scheduled was filed with the court?",
+                  "description": "The registry uses the date an application was filed as an identifier for scheduling. Even if you are reviewing an order, the court needs to know when the application that started it was filed. This information will help make sure the correct application is scheduled.",
+                  "isRequired": true,
+                  "dateYearsAhead": "0"
+                  
                 },
-
                 {
-                  "type": "panel",
-                  "name": "ContactInformationOtherPartyPanel",             
-                  "elements": [
-                    {
-                      "isRequired": true,  
-                      "type": "paneldynamic",
-                      "name": "otherPartyInfoDis",
-                      "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>",
-                      "description": "Copy the name from the filed document.",                            
-                      "templateElements": [
-                        {
-                          "type": "personname",
-                          "name": "name",
-                          "title": " ",
-                          "titleLocation": "hidden"
-                        }
-                      ]
-                    }
-                  ]
-                },
+                  "type": "text",
+                  "inputType": "date",
+                  "name": "lastAppearanceDate",
+                  "title": "What was the date of your last scheduled court appearance on your application?",
+                  "description": "This is the date you were last in court on your application, or that the application was scheduled to be in court. If you have an order to be reviewed, give the date the order was made.",
+                  "isRequired": true,
+                  "dateYearsAhead": "0"                  
+                }, 
                 {
                   "type": "infotext",
                   "name": "ExplanationServe",                  
-                  "title": "You must serve each other party with a copy of the Notice of Discontinuance within 14 days of filing the notice, or before the date of the next scheduled court appearance, whichever is sooner.",
+                  "title": "If more than one year has passed since the date of the court appearance and no other steps were taken in your case, you must file a Notice of Intention to Proceed in Form 2 to get back before the court on a family law matter. Your case will be scheduled for a family management conference to determine the next step in your case.<br><br>The ability to refresh the process following a time lapse is important as family dynamics and finances can change significantly in a year. The family management conference will allow a judge to determine if an application or other document needs to be updated and what the most appropriate next step is for the parties.<br><br>If this is true for your case, please complete a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa711.pdf?forcedownload=true' target='_blank'>Notice of Intention to Proceed Form 2</a>. To complete it using this service, go back to Other family court form(s) and select Notice of Intention to Proceed.",
                   "titleLocation": "hidden"
-                },
-                {
-                  "type": "checkbox",
-                  "name": "discontinuanceDocs",
-                  "title": "Which document do you want to discontinue (all or part of)?",
-                  "description": "Note: A counter application is a separate part of your reply to an application about a family law matter. If you want to discontinue your reply <b>and</b> your counter application, select both.<br><br>Select each option that applies. You may choose more than one.",
-                  "choices": [
-                      {
-                        "value": "form3",
-                        "text": "Application about a Family Law Matter (Form 3)"
-                      },
-                      {
-                        "value": "form6",
-                        "text": "Reply to an Application About a Family Law Matter (Form 6)"
-                      },
-                      {
-                        "value": "form6Counter",
-                        "text": "Counter Application About a Family Law Matter (Form 6 counter application)"
-                      },
-                      {
-                        "value": "form8",
-                        "text": "Reply to a Counter Application (Form 8)"
-                      }
-                  ],
-                  "isRequired": true
-                }                 
+                }
+                               
               ]
             } 
           ]
         }
       ],
-      "title": "Notice of Discontinuance"
+      "title": "Request for Scheduling"
     }
   ],
   "showQuestionNumbers": "off",

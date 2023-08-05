@@ -22,6 +22,7 @@ import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoTyp
 import { addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "./AddressChange";
 import { noticeDiscontinuanceSurveyInfoType, discontinuanceInformationSurveyInfoType, moreInformationSurveyInfoType } from "./Discontinuance";
 import { noticeIntentionProceedSurveyInfoType, otherPartyNprConfirmationSurveyInfoType } from "./IntentionProceed";
+import { interimOrderSurveyInfoType, nextAppearanceSurveyInfoType, partyInformationRqsSurveyInfoType, reasonForSchedulingSurveyInfoType, requestForSchedulingSurveyInfoType } from "./RequestScheduling";
 
 
 //This is what our database saves.
@@ -277,9 +278,11 @@ export interface stepInfoType {
     otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
 
     //_____Step 14 REQUEST FOR SCHEDULING_____________    
-    requestForSchedulingSurvey?: any; //requestForSchedulingSurveyInfoType;    
-    requestForSchedulingInformationSurvey?: any; //requestForSchedulingInformationSurveyInfoType;
-    moreInformationRqsSurvey?: any; //moreInformationRqsSurveyInfoType;
+    requestForSchedulingSurvey?: requestForSchedulingSurveyInfoType;
+    reasonForSchedulingSurvey?: reasonForSchedulingSurveyInfoType;
+    interimOrderSurvey?: interimOrderSurveyInfoType;    
+    nextAppearanceSurvey?: nextAppearanceSurveyInfoType;
+    partyInformationRqsSurvey?: partyInformationRqsSurveyInfoType;
     
     //__Step 15 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

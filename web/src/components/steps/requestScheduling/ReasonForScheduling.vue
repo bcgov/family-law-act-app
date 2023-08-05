@@ -10,7 +10,7 @@ import { namespace } from "vuex-class";
 import * as _ from 'underscore';  
 
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/request-scheduling-information.json";
+import surveyJson from "./forms/reason-scheduling.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import PageBase from "../PageBase.vue";
@@ -27,7 +27,7 @@ import { togglePages } from '@/components/utils/TogglePages';
         PageBase
     }
 })
-export default class RequestForSchedulingInformation extends Vue {
+export default class ReasonForScheduling extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType;
@@ -80,8 +80,8 @@ export default class RequestForSchedulingInformation extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result?.discontinuanceInformationSurvey){
-            this.survey.data = this.step.result.discontinuanceInformationSurvey.data; 
+        if (this.step.result?.reasonForSchedulingSurvey){
+            this.survey.data = this.step.result.reasonForSchedulingSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);              
         }
 
@@ -105,7 +105,7 @@ export default class RequestForSchedulingInformation extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {discontinuanceInformationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {reasonForSchedulingSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
