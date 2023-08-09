@@ -68,7 +68,7 @@
                 textwidth="6rem" 
                 beforetext="On" 
                 hint="(mmm/dd/yyyy)" 
-                :italicHint="false" :text="yourInfo.name | getFullName"/>
+                :italicHint="false" :text="lastAppearanceDate | beautify-date"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 :
             </div>
@@ -79,65 +79,71 @@
             <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reasons.includes('adjourned')?'yes':''" 
                     text="this matter was adjourned by the court without setting a new date (adjourned generally)"/>
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reasons.includes('struck')?'yes':''" 
                     text="this matter was struck off the court list by the court without setting a new date"/>
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reasons.includes('party')?'yes':''" 
                     text="an order or direction was made by the court referring or requiring the party/parties to attend, participate or complete a
                     requirement before returning to court"/>
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reasons.includes('deficiency')?'yes':''" 
                     text="an order or direction was made by the court requiring that a deficiency under these rules be addressed by a party before
                     returning to court"/>
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reviewOrderMade?'yes':''" 
                     text="an order was made by the court providing for the review of the order"/>
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reasons.includes('orderChanged')?'yes':''" 
                     text="an interim order was made by the court and I am applying for the interim order to be changed, suspended or cancelled
                     under section 216 (3) of the <i>Family Law Act</i> because:"/>
+                    <div v-if="reasons.includes('orderChanged') && reasonForChange.length>0" 
+                        class="answerbox">{{reasonForChange}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reasons.includes('orderChanged')?'yes':''" 
                     text="I would like the interim order changed, suspended or cancelled as follows:"/>
+                    <div v-if="reasons.includes('orderChanged') && descriptionOnChange.length>0" 
+                        class="answerbox">{{descriptionOnChange}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reasons.includes('family')?'yes':''" 
                     text="I attended a family management conference regarding this matter."/>
 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="disWholeApp.length>0?'yes':''" 
+                    :check="reasons.includes('family')?'yes':''" 
                     text="I am applying for an interim order under section 216 or 217 of the <i>Family Law Act</i> for the following family law matter order(s)
                     applied for in my application, reply or counter application:"/>
 
                     <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
 
                         <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="disWholeApp.length>0?'yes':''" 
+                            :check="flmTypes.includes('Parenting arrangements including parental responsibilities and parenting time')?'yes':''" 
                             text="parenting arrangements, including parental responsibilities and parenting time"/>
 
                         <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="disWholeApp.length>0?'yes':''" 
+                            :check="flmTypes.includes('Child support')?'yes':''" 
                             text="child support"/>
 
                         <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="disWholeApp.length>0?'yes':''" 
+                            :check="flmTypes.includes('Contact with a child')?'yes':''" 
                             text="contact with a child"/>
 
                         <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="disWholeApp.length>0?'yes':''" 
+                            :check="flmTypes.includes('Guardianship of a child')?'yes':''" 
                             text="guardianship of a child"/>
 
                         <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="disWholeApp.length>0?'yes':''" 
+                            :check="flmTypes.includes('Spousal support')?'yes':''" 
                             text="spousal support"/>
                     </div>
             </div>
@@ -151,7 +157,7 @@
                 textwidth="6rem" 
                 beforetext="I request that the application filed on" 
                 hint="(mmm/dd/yyyy)" 
-                :italicHint="false" :text="yourInfo.name | getFullName"/>
+                :italicHint="false" :text="filedDate | beautify-date"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 be scheduled for a:
             </div>
@@ -161,19 +167,19 @@
             <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
            
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;"
-                    :check="courtAppearanceScheduled == 'n'?'yes':''" 
+                    :check="appearanceType == 'familyManagementConference'?'yes':''" 
                     text="family management conference"/>
 
                 
                 <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                    :check="courtAppearanceScheduled == 'y'?'yes':''" 
+                    :check="appearanceType == 'other'?'yes':''" 
                     text="other court appearance as ordered or directed by the court (specify):"/>
                 <underline-form 
                     style="text-indent:1px;display:inline-block;" 
                     textwidth="10rem" 
                     beforetext="" 
                     hint="" 
-                    :text="courtAppearanceScheduled == 'y'?courtDate:''"/>    
+                    :text="appearanceType == 'other' && otherAppearanceDesc.length>0?otherAppearanceDesc:''"/>    
             </div>        
            
 
@@ -187,7 +193,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem; display:inline;" 
-                :check="acknowledgeService?'yes':''" 
+                :check="true?'yes':''" 
                 text="I understand I must give notice of this request for scheduling to each other party. To give notice, "/>                
                 <div style="text-indent:30px;">
                     they must be served with the document at least 7 days before the date set for the court</div>
@@ -235,7 +241,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { discontinuanceInformationSurveyDataInfoType, moreInformationSurveyDataInfoType, noticeDiscontinuanceDataInfoType } from '@/types/Application/Discontinuance';
+import { interimOrderSurveyDataInfoType, nextAppearanceSurveyDataInfoType, partyInformationRqsSurveyDataInfoType, requestForSchedulingDataInfoType } from '@/types/Application/RequestScheduling';
 
 @Component({
     components:{
@@ -253,156 +259,126 @@ export default class Form39Layout extends Vue {
     public applicantName!: nameInfoType;    
 
     dataReady = false;  
-   
-    yourInfo = {} as yourInformationInfoDataInfoType;   
 
     existingFileNumber = '';
-    dateOfAddressChange = '';   
-    acknowledge = false;
+   
+    yourInfo = {} as yourInformationInfoDataInfoType;  
+    otherParties = ''; 
 
-    listOfDiscontinuanceDocs = [];
-    otherParties = '';
-    disWholeApp = [];
-    disPartialApp = [];
-    application = {type: 'a Family Law Matter', date: ''};
-    reply = {type: '', date: ''};
-    counterDate = '';
-    partialInfo = '';
-    courtAppearanceScheduled = '';
-    courtDate = '';
-    trialPrepHappened = '';
-    trialDateWithin30Days = '';
+    filedDate = '';
+    lastAppearanceDate = '';
+    reviewOrderMade = false;
+
+    reasons = [];
+    flmTypes = [];
+    descriptionOnChange = '';
+    reasonForChange = '';
+
+    appearanceType = '';
+    otherAppearanceDesc = '';
    
     mounted(){
         this.dataReady = false;
+        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
    
-    public extractInfo(){        
-        this.getNoticeDiscontinuanceInfo();    
-        this.getDiscontinuanceInfo();    
-        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        this.acknowledge = this.result.addressChangeNoticeSurvey?.acknowledgement?.length>0;
+    public extractInfo(){ 
+        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);       
+        this.getRequestSchedulingInfo();    
+        this.getReasonForSchedulingInfo(); 
+        this.getNextAppearanceInfo(); 
+        this.getPartyInfo();        
     } 
 
-    public getNoticeDiscontinuanceInfo(){          
+    public getRequestSchedulingInfo(){      
+        
+        this.filedDate = '';
+        this.lastAppearanceDate = '';
+        this.reviewOrderMade = false;
 
-        if(this.result?.noticeDiscontinuanceSurvey){
+        if(this.result?.requestForSchedulingSurvey){
 
-            let noticeDiscontinuance = {} as noticeDiscontinuanceDataInfoType;
+            let requestForScheduling = {} as requestForSchedulingDataInfoType;
 
-            noticeDiscontinuance = this.result.noticeDiscontinuanceSurvey;            
-            this.listOfDiscontinuanceDocs = noticeDiscontinuance.discontinuanceDocs?noticeDiscontinuance.discontinuanceDocs:[];
+            requestForScheduling = this.result.requestForSchedulingSurvey;
 
-            this.yourInfo = getYourInformationResults(noticeDiscontinuance);
-
-            const otherPartiesList = [];
-            for (const otherParty of noticeDiscontinuance.otherPartyInfoDis){
-                otherPartiesList.push(Vue.filter('getFullName')(otherParty.name))
+            if (requestForScheduling.Unresolved == 'n' && requestForScheduling.ReviewOrdered == 'y'){
+                this.reviewOrderMade = true;
             }
-            this.otherParties = otherPartiesList.join(', ')
-           
-        } else {
-            this.yourInfo = {} as yourInformationInfoDataInfoType;
-        }
-            
+
+            this.filedDate = requestForScheduling.FiledDate?requestForScheduling.FiledDate:'';
+            this.lastAppearanceDate = requestForScheduling.LastAppearanceDate?requestForScheduling.LastAppearanceDate:'';           
+        }             
     }
 
-    public getDiscontinuanceInfo(){       
+    public getPartyInfo(){  
         
-        this.disWholeApp = [];
-        this.disPartialApp = [];
-        this.application = {type: 'a Family Law Matter', date: ''};
-        this.reply = {type: '', date: ''};
-        this.counterDate = '';
-        this.partialInfo = '';
-        this.courtAppearanceScheduled = '';
-        this.courtDate = '';
-        this.trialPrepHappened = '';
-        this.trialDateWithin30Days = '';
+        this.yourInfo = {} as yourInformationInfoDataInfoType;
+        this.otherParties = '';
 
-        if(this.result?.discontinuanceInformationSurvey && this.result?.moreInformationRqsSurvey){
+        if(this.result?.partyInformationRqsSurvey){
 
-            let discontinuance = {} as discontinuanceInformationSurveyDataInfoType;
-            discontinuance = this.result.discontinuanceInformationSurvey;  
-            
-            let moreInfo = {} as moreInformationSurveyDataInfoType;
-            moreInfo = this.result.moreInformationRqsSurvey;  
+            let partyInfo = {} as partyInformationRqsSurveyDataInfoType;
 
-            const partialInfoList = [];
-            
-            if (this.listOfDiscontinuanceDocs.includes('form3')){
+            partyInfo = this.result.partyInformationRqsSurvey;
+            this.yourInfo = getYourInformationResults(partyInfo);
 
-                this.application.date = Vue.filter('beautify-date')(moreInfo.Form3FiledDate);
+            const otherPartiesList = [];
+            for (const otherParty of partyInfo.otherPartyInfoRqs){
+                otherPartiesList.push(Vue.filter('getFullName')(otherParty.name))
+            }
+            this.otherParties = otherPartiesList.join(', ');        
+        }
+    
+    }
 
-                if(discontinuance.discontinueAllForm3 == 'y'){
-                    this.disWholeApp.push('form3')
-                } else {
-                    this.disPartialApp.push('form3');
-                    if (discontinuance.discontinuePartForm3){
-                        partialInfoList.push(discontinuance.discontinuePartForm3)
-                    }                    
-                    
+    public getNextAppearanceInfo(){
+
+        this.appearanceType = '';
+        this.otherAppearanceDesc = '';
+
+        if(this.result?.nextAppearanceSurvey){
+
+            let appearanceInfo = {} as nextAppearanceSurveyDataInfoType;
+            appearanceInfo = this.result.nextAppearanceSurvey;
+            this.appearanceType = appearanceInfo.AppearanceType?appearanceInfo.AppearanceType:'';
+
+            if (this.appearanceType == 'other'){
+                this.otherAppearanceDesc = appearanceInfo.AppearanceTypeComment?appearanceInfo.AppearanceTypeComment:'';
+            }
+        }
+    }    
+
+    public getReasonForSchedulingInfo(){       
+
+        this.reasons = [];
+        this.flmTypes = [];
+        this.descriptionOnChange = '';
+        this.reasonForChange = '';        
+        
+        if(this.result?.reasonForSchedulingSurvey){
+
+            this.reasons = this.result.reasonForSchedulingSurvey;  
+
+            if (this.reasons.includes('family') || this.reasons.includes('orderChanged')){
+
+                if(this.result?.interimOrderSurvey){
+
+                    let interimInfo = {} as interimOrderSurveyDataInfoType;
+                    interimInfo = this.result.interimOrderSurvey;
+
+                    if (interimInfo.family){
+                        this.flmTypes = interimInfo.FlmType?interimInfo.FlmType:[];
+                    }
+
+                    if (interimInfo.orderChanged){
+                        this.descriptionOnChange = interimInfo.DescriptionOnChange?interimInfo.DescriptionOnChange:'';
+                        this.reasonForChange = interimInfo.ReasonForChange?interimInfo.ReasonForChange:'';
+                    }
                 }
             }
-
-            if (this.listOfDiscontinuanceDocs.includes('form6')){
-
-                this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
-                
-                if (moreInfo.ReplyType == 'form6'){
-                    this.reply.type = 'a Family Law Matter';                    
-                }
-
-                if(discontinuance.discontinueAllForm6 == 'y'){
-                    this.disWholeApp.push('form6')
-                } else {
-                    this.disPartialApp.push('form6');
-                    if (discontinuance.discontinuePartForm6){
-                        partialInfoList.push(discontinuance.discontinuePartForm6)
-                    }  
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form6Counter')){
-
-                this.counterDate = Vue.filter('beautify-date')(moreInfo.CounterFiledDate);
-
-                if(discontinuance.discontinueAllForm6Counter == 'y'){
-                    this.disWholeApp.push('form6Counter')
-                } else {
-                    this.disPartialApp.push('form6Counter')
-                    if (discontinuance.discontinuePartForm6Counter){
-                        partialInfoList.push(discontinuance.discontinuePartForm6Counter)
-                    }  
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form8')){
-
-                this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
-                
-                if (moreInfo.ReplyType == 'form8'){
-                    this.reply.type = 'a Counter Application';                    
-                }
-
-                if(discontinuance.discontinueAllForm8 == 'y'){
-                    this.disWholeApp.push('form8')
-                } else {
-                    this.disPartialApp.push('form8');
-                    if (discontinuance.discontinuePartForm8){
-                        partialInfoList.push(discontinuance.discontinuePartForm8)
-                    }  
-                }
-            }
-
-            this.partialInfo = partialInfoList.join(', ');
-
-            this.courtAppearanceScheduled = moreInfo.CourtAppearanceScheduled;
-            this.courtDate = moreInfo.CourtAppearanceScheduled == 'y'?Vue.filter('beautify-date')(moreInfo.CourtAppearanceDate):'';
-            this.trialPrepHappened = moreInfo.TrialPrep;
-            this.trialDateWithin30Days = moreInfo.TrialDateScheduled;
         
         }        
     

@@ -36,7 +36,7 @@ export default class Form39 extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getNDTResultData();       
+        this.result = this.getRQSResultData();       
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
@@ -44,7 +44,7 @@ export default class Form39 extends Vue {
     public onPrint() { 
 
         const pdf_type = Vue.filter('getPathwayPdfType')("requestScheduling")
-        const pdf_name = "notice-of-discontinuance"       
+        const pdf_name = "request-for-scheduling"       
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
@@ -77,10 +77,10 @@ export default class Form39 extends Vue {
         });
     }
  
-    public getNDTResultData() {         
+    public getRQSResultData() {         
         
         const result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.NDT._StepNo]){
+        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.RQS._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])

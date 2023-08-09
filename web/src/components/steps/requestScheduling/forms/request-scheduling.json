@@ -48,7 +48,7 @@
                 {
                   "type": "text",
                   "inputType": "date",
-                  "name": "filedDate",
+                  "name": "FiledDate",
                   "title": "What is the date the application you need scheduled was filed with the court?",
                   "description": "The registry uses the date an application was filed as an identifier for scheduling. Even if you are reviewing an order, the court needs to know when the application that started it was filed. This information will help make sure the correct application is scheduled.",
                   "isRequired": true,
@@ -58,7 +58,7 @@
                 {
                   "type": "text",
                   "inputType": "date",
-                  "name": "lastAppearanceDate",
+                  "name": "LastAppearanceDate",
                   "title": "What was the date of your last scheduled court appearance on your application?",
                   "description": "This is the date you were last in court on your application, or that the application was scheduled to be in court. If you have an order to be reviewed, give the date the order was made.",
                   "isRequired": true,
@@ -68,9 +68,10 @@
                   "type": "infotext",
                   "name": "ExplanationServe",                  
                   "title": "If more than one year has passed since the date of the court appearance and no other steps were taken in your case, you must file a Notice of Intention to Proceed in Form 2 to get back before the court on a family law matter. Your case will be scheduled for a family management conference to determine the next step in your case.<br><br>The ability to refresh the process following a time lapse is important as family dynamics and finances can change significantly in a year. The family management conference will allow a judge to determine if an application or other document needs to be updated and what the most appropriate next step is for the parties.<br><br>If this is true for your case, please complete a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa711.pdf?forcedownload=true' target='_blank'>Notice of Intention to Proceed Form 2</a>. To complete it using this service, go back to Other family court form(s) and select Notice of Intention to Proceed.",
-                  "titleLocation": "hidden"
-                }
-                               
+                  "titleLocation": "hidden",
+                  "visible": false,
+                  "visibleIf": "{overOneYearHasPassed}"
+                }                               
               ]
             } 
           ]

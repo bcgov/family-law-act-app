@@ -1,6 +1,30 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
         <survey v-bind:survey="survey"></survey>
+        <b-modal size="xl" v-model="servicePopUp" header-class="bg-white" no-close-on-backdrop hide-header>
+            
+            <div class="m-3">               
+                <p>
+                    I understand I must give notice of my request for scheduling to 
+                    each other party. To give notice, they must be served or provided 
+                    with a copy of the filed document at least 7 days before the date 
+                    set for the court appearance. 
+                </p>
+              
+                <b-form-checkbox 
+                    class="mt-4"
+                    v-model="serveUnderstand"               
+                    value="understand"
+                    unchecked-value="">
+                    <h4 style="margin: 0.26rem 0.5rem;">
+                        I understand
+                    </h4>
+                </b-form-checkbox>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button :disabled="serveUnderstand != 'understand'" variant="success" @click="closeServicePopUp();">Continue</b-button>
+            </template>            
+        </b-modal>
     </page-base>
 </template>
 
@@ -43,6 +67,8 @@ export default class PartyInformationRqs extends Vue {
     currentStep =0;
     currentPage =0;    
     disableNextButton = false;
+    serveUnderstand = '';
+    servicePopUp = false;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -54,6 +80,8 @@ export default class PartyInformationRqs extends Vue {
     }
 
     mounted(){
+        this.servicePopUp = false;
+        this.serveUnderstand = '';
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -68,9 +96,7 @@ export default class PartyInformationRqs extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-
-            // this.setPages();
+        this.survey.onValueChanged.add((sender, options) => {            
 
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
@@ -84,32 +110,15 @@ export default class PartyInformationRqs extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        // if (this.step.result?.partyInformationRQSSurvey) {            
-        //     this.survey.data = this.step.result.partyInformationRQSSurvey.data;   
-        //     this.setPages();         
-        //     Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        // } else {
-        //     this.survey.setValue('otherPartyInfoDis',[]) 
-        // }
+        if (this.step.result?.partyInformationRqsSurvey) {            
+            this.survey.data = this.step.result.partyInformationRqsSurvey.data;                      
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        } else {
+            this.survey.setValue('otherPartyInfoRqs',[]) 
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
-    }
-
-    // public setPages() {
-
-    //     const p = this.stPgNo.RQS;
-    //     const partyInformationRQSPagesAll = [p.RequestForSchedulingInformation, p.MoreInformationRQS, p.ReviewYourAnswersRQS]
-
-    //     if (this.survey.data) {
-
-    //         const surveyResponses = this.survey.data;
-
-    //         const canContinue = surveyResponses.Filed == 'y';
-
-    //         togglePages(partyInformationRQSPagesAll, canContinue, this.currentStep);            
-    //         this.disableNextButton = !canContinue;
-    //     }
-    // }
+    }   
 
     public mergeRespondants(){
         const respondentNames =[]
@@ -118,9 +127,9 @@ export default class PartyInformationRqs extends Vue {
             respondentNames.push(...respondents)
         }
 
-        if(this.survey.data?.otherPartyInfoDis && this.survey.data?.otherPartyInfoDis.length>0){            
-            const respondentNamesDis = this.survey.data.otherPartyInfoDis.map(otherParty=>otherParty.name)
-            respondentNames.push(...respondentNamesDis)
+        if(this.survey.data?.party && this.survey.data?.otherPartyInfoRqs.length>0){            
+            const respondentNamesRqs = this.survey.data.otherPartyInfoRqs.map(otherParty=>otherParty.name)
+            respondentNames.push(...respondentNamesRqs)
         }  
         
         const fullNamesArray =[];
@@ -142,9 +151,14 @@ export default class PartyInformationRqs extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            Vue.prototype.$UpdateGotoNextStepPage()
+            this.servicePopUp = true;            
         }
     }  
+
+    public closeServicePopUp(){
+        this.servicePopUp = false;
+        Vue.prototype.$UpdateGotoNextStepPage();            
+    }
     
     beforeDestroy() {
 
@@ -157,7 +171,7 @@ export default class PartyInformationRqs extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {partyInformationRQSSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {partyInformationRqsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

@@ -1,10 +1,10 @@
 import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface requestForSchedulingDataInfoType {
-    Filed?: string;
-    ApplicantName?: nameInfoType;    
-    otherPartyInfoDis?: requestForSchedulingOtherPartyInfoType[];
-    discontinuanceDocs?: string[];
+    FiledDate?: string;
+    Unresolved?: string;
+    ReviewOrdered?: string;
+    LastAppearanceDate?: string;
 }  
 
 export interface requestForSchedulingOtherPartyInfoType {
@@ -19,19 +19,8 @@ export interface requestForSchedulingSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface reasonForSchedulingSurveyDataInfoType {
-    discontinueAllForm3?: string;
-    discontinuePartForm3?: string;
-    discontinueAllForm6?: string;
-    discontinuePartForm6?: string;
-    discontinueAllForm6Counter?: string;
-    discontinuePartForm6Counter?: string;
-    discontinueAllForm8?: string;
-    discontinuePartForm8?: string;
-}
-
 export interface reasonForSchedulingSurveyInfoType {
-    data: reasonForSchedulingSurveyDataInfoType;
+    data: string[];
     questions: questionInfoType[];
     pageName: string;
     currentStep: number | string;
@@ -39,14 +28,11 @@ export interface reasonForSchedulingSurveyInfoType {
 }
 
 export interface interimOrderSurveyDataInfoType {
-    Form3FiledDate?: string;
-    ReplyType?: string;
-    ReplyFiledDate?: string;
-    CounterFiledDate?: string;
-    CourtAppearanceScheduled?: string;
-    CourtAppearanceDate?: string;
-    TrialPrep?: string;
-    TrialDateScheduled?: string;
+    DescriptionOnChange?: string;
+    FlmType?: string[];
+    ReasonForChange?: string;
+    family?: boolean;
+    orderChanged?: boolean;
 }
 
 export interface interimOrderSurveyInfoType {
@@ -58,14 +44,8 @@ export interface interimOrderSurveyInfoType {
 }
 
 export interface nextAppearanceSurveyDataInfoType {
-    Form3FiledDate?: string;
-    ReplyType?: string;
-    ReplyFiledDate?: string;
-    CounterFiledDate?: string;
-    CourtAppearanceScheduled?: string;
-    CourtAppearanceDate?: string;
-    TrialPrep?: string;
-    TrialDateScheduled?: string;
+    AppearanceType?: string;
+    AppearanceTypeComment?: string;
 }
 
 export interface nextAppearanceSurveyInfoType {
@@ -76,11 +56,9 @@ export interface nextAppearanceSurveyInfoType {
     currentPage: number | string;
 }
 
-export interface partyInformationRqsSurveyDataInfoType {
-    Filed?: string;
+export interface partyInformationRqsSurveyDataInfoType {   
     ApplicantName?: nameInfoType;    
-    otherPartyInfoDis?: partyInformationRqsOtherPartyInfoType[];
-    discontinuanceDocs?: string[];
+    otherPartyInfoRqs?: partyInformationRqsOtherPartyInfoType[];   
 }  
 
 export interface partyInformationRqsOtherPartyInfoType {

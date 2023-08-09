@@ -1,127 +1,31 @@
 {
-  "title": "More information",
+  "title": "Next Appearance",
   "pages": [
     {
-      "name": "More information",
-      "description": "We need to collect a bit more information about the document you want to discontinue and where it is at in the court process. You will need a copy of the document and some information about your case. If don’t know the answer, contact the <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>court registry</a> where your case is filed.",
+      "name": "Next Appearance",
       "elements": [
         {
           "type": "panel",
-          "name": "MoreInfoPanel",
-          "elements": [
-            {
-              "type": "text",
-              "name": "Form3FiledDate",
-              "title": "When was the application filed?",
-              "description": "Look for a registry stamp on the document. The date the document is filed will be there.",
-              "isRequired": true,
-              "inputType": "date",
-              "visible": false,
-              "visibleIf": "{discontinuingDocs} contains \"form3\""
-            },
-            {
-              "type": "infotext",
-              "name": "ExplanationInvalidForm3FiledDate",
-              "visible": false,
-              "visibleIf": "{InvalidForm3FiledDate}",
-              "title": "The application date cannot be in the future.",
-              "titleLocation": "hidden"
-            },
+          "name": "NextAppearancePanel",
+          "elements": [            
             {
               "type": "radiogroup",
-              "name": "ReplyType",
-              "visible": false,
-              "visibleIf": "{discontinuingDocs} contains \"form6\" or {discontinuingDocs} contains \"form8\"",
-              "title": "What type of application is your document in reply to?",
+              "name": "AppearanceType",              
+              "title": "What type of court appearance do you need scheduled?",
+              "description": "Usually, you will be asking to schedule another of the same appearance you last had unless the judge ordered or directed a different type of appearance. The type of appearance should be on the scheduling notice you received. If you are not sure what should be scheduled, ask the court registry staff.",
+              "hasOther": true,
+              "otherText": "Other court appearance as ordered or directed by the court (please specify):",
               "choices": [
                 {
-                  "value": "form6",
-                  "text": "Application About a Family Law Matter (Form 3)"
-                },
-                {
-                  "value": "form8",
-                  "text": "Counter Application About a Family Law Matter (Form 6)"
+                  "value": "familyManagementConference",
+                  "text": "Family management conference"
                 }
               ]
-            },
-            {
-              "type": "text",
-              "name": "ReplyFiledDate",
-              "title": "When was the reply filed?",
-              "description": "Look for a registry stamp on the document. The date the document is filed will be there.",
-              "isRequired": true,
-              "inputType": "date",
-              "visible": false,
-              "visibleIf": "{discontinuingDocs} contains \"form6\" or {discontinuingDocs} contains \"form8\""
-            },
-            {
-              "type": "infotext",
-              "name": "ExplanationInvalidReplyFiledDate",
-              "visible": false,
-              "visibleIf": "{InvalidReplyFiledDate}",
-              "title": "The reply date cannot be in the future.",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "text",
-              "name": "CounterFiledDate",
-              "title": "When was the counter application filed?",
-              "description": "Look for a registry stamp on the document. The date the document is filed will be there.",
-              "isRequired": true,
-              "inputType": "date",
-              "visible": false,
-              "visibleIf": "{discontinuingDocs} contains \"form6Counter\""
-            },
-            {
-              "type": "infotext",
-              "name": "ExplanationInvalidCounterFiledDate",
-              "visible": false,
-              "visibleIf": "{InvalidCounterFiledDate}",
-              "title": "The counter application date cannot be in the future.",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "yesno",
-              "name": "CourtAppearanceScheduled",
-              "title": "Do you have a court appearance scheduled for this document?",
-              "description": "Select Yes only if you have a scheduled court appearance in the future, not if it already happened. The registry will use this information to make sure it is cancelled or properly scheduled if the appearance is still needed.<br><br>Note: When you file a Notice of Discontinuance, the court appearance only for <b>your</b> application will be cancelled. If the other party also has an application scheduled for the same appearance, you must attend for their application, unless it is also discontinued.",
-              "isRequired": true
-            },
-            {
-              "type": "text",
-              "name": "CourtAppearanceDate",
-              "title": "What date is the scheduled court appearance?",
-              "description": "If there is more than one scheduled court appearance for your document, give the date of the soonest appearance.",
-              "isRequired": true,
-              "inputType": "date",
-              "visible": false,
-              "visibleIf": "{CourtAppearanceScheduled} = 'y'"
-            },
-            {
-              "type": "infotext",
-              "name": "ExplanationInvalidCourtAppearanceDate",
-              "visible": false,
-              "visibleIf": "{InvalidCourtAppearanceDate}",
-              "title": "The court appearance date cannot be in the past.",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "yesno",
-              "name": "TrialPrep",
-              "title": "Has a trial preparation conference already happened?",
-              "description": "A trial preparation conference is a court appearance with a judge to talk about and plan for your trial. The notice for the appearance usually tells you what type of appearance it is. For example, Notice of Trial Preparation Conference.",
-              "isRequired": true
-            },
-            {
-              "type": "yesno",
-              "name": "TrialDateScheduled",
-              "title": "Is a trial date scheduled within 30 days of the date you can file this notice of discontinuance?",
-              "isRequired": true
-            }
+            }          
           ]
         }
       ],
-      "title": "More information"
+      "title": "Next Appearance"
     }
   ],
   "showQuestionNumbers": "off",

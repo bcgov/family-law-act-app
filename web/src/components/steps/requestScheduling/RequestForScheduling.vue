@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-
+import moment from 'moment';
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/request-scheduling.json";
@@ -35,9 +35,6 @@ export default class RequestForScheduling extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
@@ -69,13 +66,7 @@ export default class RequestForScheduling extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-
-            // this.setPages();
-
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-            }
+            this.setPages();            
         })
     }
     
@@ -84,57 +75,43 @@ export default class RequestForScheduling extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        // if (this.step.result?.requestForSchedulingSurvey) {            
-        //     this.survey.data = this.step.result.requestForSchedulingSurvey.data;   
-        //     this.setPages();         
-        //     Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        // } else {
-        //     this.survey.setValue('otherPartyInfoDis',[]) 
-        // }
+        if (this.step.result?.requestForSchedulingSurvey) {            
+            this.survey.data = this.step.result.requestForSchedulingSurvey.data;   
+            this.setPages();         
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        } 
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
 
-    // public setPages() {
+    public setPages() {
 
-    //     const p = this.stPgNo.RQS;
-    //     const requestForSchedulingPagesAll = [p.RequestForSchedulingInformation, p.MoreInformationRQS, p.ReviewYourAnswersRQS]
+        const p = this.stPgNo.RQS;
+        const requestForSchedulingPagesAll = [p.ReasonForScheduling, p.NextAppearance, p.PartyInformationRQS, p.ReviewYourAnswersRQS]
 
-    //     if (this.survey.data) {
+        if (this.survey.data) {
 
-    //         const surveyResponses = this.survey.data;
+            const surveyResponses = this.survey.data;
 
-    //         const canContinue = surveyResponses.Filed == 'y';
+            const skipReasonForSchedulingPage = (surveyResponses.Unresolved == 'n' && surveyResponses.ReviewOrdered == 'y' );
+            const canContinue = !(surveyResponses.Unresolved == 'n' && surveyResponses.ReviewOrdered == 'n' );               
 
-    //         togglePages(requestForSchedulingPagesAll, canContinue, this.currentStep);            
-    //         this.disableNextButton = !canContinue;
-    //     }
-    // }
+            togglePages(requestForSchedulingPagesAll, canContinue, this.currentStep);   
+            togglePages([p.ReasonForScheduling], !skipReasonForSchedulingPage, this.currentStep);              
+            
+            this.disableNextButton = !canContinue;
 
-    public mergeRespondants(){
-        const respondentNames =[]
-        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondents){
-            const respondents = this.$store.state.Application.steps[0].result.respondents        
-            respondentNames.push(...respondents)
+            let overOneYearHasPassed = false;
+
+            if (surveyResponses.Unresolved == 'y' || (surveyResponses.Unresolved == 'n' && surveyResponses.ReviewOrdered == 'y')){
+                if (surveyResponses.lastAppearanceDate) {
+                    overOneYearHasPassed = moment(surveyResponses.lastAppearanceDate).isBefore(moment().add(-1,'years') );
+                }  
+            }
+
+            this.survey.setValue('overOneYearHasPassed', overOneYearHasPassed);
         }
-
-        if(this.survey.data?.otherPartyInfoDis && this.survey.data?.otherPartyInfoDis.length>0){            
-            const respondentNamesDis = this.survey.data.otherPartyInfoDis.map(otherParty=>otherParty.name)
-            respondentNames.push(...respondentNamesDis)
-        }  
-        
-        const fullNamesArray =[];
-        for(const name of respondentNames ){
-            fullNamesArray.push(Vue.filter('getFullName')(name))
-        }
-
-        const uniqueArray = respondentNames.filter(function(item, index) {
-            const fullName = Vue.filter('getFullName')(item)
-            return fullNamesArray.indexOf(fullName) == index;
-        })
-        
-        this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
-    }
+    }    
    
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
@@ -146,14 +123,7 @@ export default class RequestForScheduling extends Vue {
         }
     }  
     
-    beforeDestroy() {
-
-        this.mergeRespondants();
-
-        if(this.survey.data?.["ApplicantName"]) {
-            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-            this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-        }
+    beforeDestroy() {       
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
