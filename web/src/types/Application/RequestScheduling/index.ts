@@ -72,3 +72,11 @@ export interface partyInformationRqsSurveyInfoType {
     currentStep: number | string;
     currentPage: number | string;
 }
+
+export interface otherPartyRqsConfirmationSurveyInfoType {
+    data: {confirmation: string};
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}

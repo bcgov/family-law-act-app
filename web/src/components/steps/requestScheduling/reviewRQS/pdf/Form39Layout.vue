@@ -193,7 +193,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem; display:inline;" 
-                :check="true?'yes':''" 
+                :check="acknowledgeService?'yes':''" 
                 text="I understand I must give notice of this request for scheduling to each other party. To give notice, "/>                
                 <div style="text-indent:30px;">
                     they must be served with the document at least 7 days before the date set for the court</div>
@@ -264,6 +264,7 @@ export default class Form39Layout extends Vue {
    
     yourInfo = {} as yourInformationInfoDataInfoType;  
     otherParties = ''; 
+    acknowledgeService = false;
 
     filedDate = '';
     lastAppearanceDate = '';
@@ -279,7 +280,6 @@ export default class Form39Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
@@ -329,7 +329,10 @@ export default class Form39Layout extends Vue {
             for (const otherParty of partyInfo.otherPartyInfoRqs){
                 otherPartiesList.push(Vue.filter('getFullName')(otherParty.name))
             }
-            this.otherParties = otherPartiesList.join(', ');        
+            this.otherParties = otherPartiesList.join(', ');   
+            
+            this.acknowledgeService = this.result.otherPartyRqsConfirmationSurvey?.confirmation == 'Confirmed';
+        
         }
     
     }

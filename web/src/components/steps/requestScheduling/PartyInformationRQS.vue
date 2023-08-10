@@ -40,7 +40,6 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { togglePages } from '@/components/utils/TogglePages';
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
@@ -69,6 +68,8 @@ export default class PartyInformationRqs extends Vue {
     disableNextButton = false;
     serveUnderstand = '';
     servicePopUp = false;
+    confirmed = false;
+
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -81,6 +82,7 @@ export default class PartyInformationRqs extends Vue {
 
     mounted(){
         this.servicePopUp = false;
+        this.confirmed = false;
         this.serveUnderstand = '';
         this.initializeSurvey();
         this.addSurveyListener();
@@ -115,6 +117,10 @@ export default class PartyInformationRqs extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
             this.survey.setValue('otherPartyInfoRqs',[]) 
+        }
+
+        if(this.step.result?.otherPartyRqsConfirmationSurvey?.data?.confirmation == 'Confirmed'){
+            this.confirmed = true
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
@@ -157,7 +163,14 @@ export default class PartyInformationRqs extends Vue {
 
     public closeServicePopUp(){
         this.servicePopUp = false;
+        this.confirmed = true;
         Vue.prototype.$UpdateGotoNextStepPage();            
+    }
+
+    public getConfirmationResults( confirmation){
+        const questionResults: {name: string; value: any; title: string; inputType: string}[] =[];
+        questionResults.push({name:'otherPartyRqsSurveyConfirmation', value:confirmation, title:'I understand each other party must be given notice of my application', inputType:''})
+        return {data: {confirmation:confirmation}, questions:questionResults, pageName:'Other Party Confirmation', currentStep: this.currentStep, currentPage:this.currentPage}
     }
     
     beforeDestroy() {
@@ -171,7 +184,12 @@ export default class PartyInformationRqs extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {partyInformationRqsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({
+            step:this.step, 
+            data: {
+                partyInformationRqsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage),
+                otherPartyRqsConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')
+            }})
     }
 }
 </script>
