@@ -260,7 +260,7 @@ export default class CompleteOtherForms extends Vue {
         const submitStep = this.stPgNo.SUBMIT;
         const p = this.stPgNo.OTHER;
         
-        togglePages([p.OtherFormFilingLocation], false, this.currentStep);
+        togglePages([p.OtherFormsFilingLocation], false, this.currentStep);
         
         togglePages([submitStep.FilingOptions, submitStep.ReviewAndPrint,submitStep.ReviewAndSave,submitStep.ReviewAndSubmit, submitStep.OtherFile, submitStep.NextSteps], false, submitStep._StepNo);
         if(selectionChanged) toggleStep(submitStep._StepNo, false);  
@@ -270,7 +270,7 @@ export default class CompleteOtherForms extends Vue {
             if (this.filingMethod == "inPerson"){
 
                 if (this.requiresGuidedPathway()){ 
-                    togglePages([p.OtherFormFilingLocation], true, this.currentStep);
+                    togglePages([p.OtherFormsFilingLocation], true, this.currentStep);
                 } else {
                     
                     toggleStep(submitStep._StepNo, true);                
@@ -280,7 +280,7 @@ export default class CompleteOtherForms extends Vue {
                 }
 
             } else {
-                togglePages([p.OtherFormFilingLocation], true, this.currentStep);                
+                togglePages([p.OtherFormsFilingLocation], true, this.currentStep);                
             }
         }
     }   
@@ -332,7 +332,7 @@ export default class CompleteOtherForms extends Vue {
         }
 
         const step = this.stPgNo.OTHER._StepNo
-        const page = this.stPgNo.OTHER.OtherFormFilingLocation
+        const page = this.stPgNo.OTHER.OtherFormsFilingLocation
         Vue.filter('setSurveyProgress')(null, step, page, 50, false);
         this.determineSteps(true);
                 
