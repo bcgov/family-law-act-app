@@ -115,14 +115,8 @@
 
             <template v-slot:modal-footer>
                 <b-button :disabled="popInfoUnderstand != 'understand'" variant="success" @click="closePopInfo">Continue</b-button>
-            </template>
-            
-            <!-- <other-party-popup-npr />            
-
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="popInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closePopInfo">I understand</b-button>                
-            </template>             -->
+            </template>            
+           
         </b-modal>         
 
     </page-base>

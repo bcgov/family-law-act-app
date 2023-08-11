@@ -15,6 +15,7 @@ export interface stepsAndPagesNumberInfoType{
     NCD: NCDstPgTypes;
     NDT: NDTstPgTypes;
     NPR: NPRstPgTypes;
+    RQS: RQSstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -299,6 +300,18 @@ export interface NPRstPgTypes{
     OtherPartyNpr: number;
     ReviewYourAnswersNPR: number;
     PreviewFormsNPR: number;
+}
+
+export interface RQSstPgTypes{
+    _StepNo: number;
+
+    RequestForScheduling: number;
+    ReasonForScheduling: number;
+    InterimOrder: number;
+    NextAppearance: number;
+    PartyInformationRQS: number;  
+    ReviewYourAnswersRQS: number;
+    PreviewFormsRQS: number;
 }
 
 export interface SUBMITstPgTypes{
