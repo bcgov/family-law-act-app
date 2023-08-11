@@ -43,7 +43,15 @@
             <div style="margin-top: 1rem;"></div>
 
             <i>Select the correct option(s) and complete any required information</i>
-            <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" :check="disWholeApp.length>0?'yes':''" text="the whole of my"/>
+
+            <div style="margin:0.25rem 0 0 1rem;">
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
+                    :check="disWholeApp.length>0?'yes':''" 
+                    text="the whole of my"/>
+            </div>                       
 
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -110,13 +118,14 @@
 
             <div style="margin-top: 1rem;"></div>  
 
-            <check-box 
-                inline="inline" 
-                :boxMargin="0" 
-                shift="10" 
-                style="margin-left:0.35rem;" 
-                :check="disPartialApp.length>0?'yes':''" 
-                text="the following schedule(s)/part(s) of my"/>
+            <div style="margin:0.25rem 0 0 1rem;">
+                <check-box 
+                    inline="inline"
+                    :boxMargin="0" 
+                    style="display:inline;" 
+                    :check="disPartialApp.length>0?'yes':''" 
+                    text="the following schedule(s)/part(s) of my"/>
+            </div>
 
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -209,17 +218,18 @@
 <!-- <3> -->
         <section>
             <i>Please select the correct option and complete any required information</i>
-            <check-box 
+            <div style="margin:0.25rem 0 0 1.25rem;">
+                <check-box 
                 inline="inline" 
-                :boxMargin="0" 
-                shift="10" 
-                style="margin-left:0.85rem;" 
+                :boxMargin="0"                
+                style="display:inline;"
+                :shift="0"
                 :check="courtAppearanceScheduled == 'n'?'yes':''" 
                 text="the application has no date scheduled for a court appearance"/>
+            </div>
 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
+            <div style="margin:0.25rem 0 0 1.25rem;">
+                <check-box
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0" 
