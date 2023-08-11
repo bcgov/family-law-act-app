@@ -31,6 +31,7 @@
               "type": "checkbox",
               "name": "FlmType",
               "visible": false,
+              "isRequired": true,
               "visibleIf": "{family}",
               "title": "Select the family law matter(s) you need an interim order for.",
               "description": "Note: The details of the final order you are asking for an interim order about must already be included in one of the following filed documents:<ul><li>Application About a Family Law Matter Form 3,</li><li>Reply to an Application About a Family Law Matter and/or Counter Application Form 6, or</li><li>Reply to a Counter Application Form 8.</li></ul>",

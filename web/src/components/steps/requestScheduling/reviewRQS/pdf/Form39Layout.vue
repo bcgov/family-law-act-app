@@ -77,30 +77,52 @@
 
             <i>Select all options that apply</i>
             <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
-
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0"
+                    style="display:inline;"
                     :check="reasons.includes('adjourned')?'yes':''" 
                     text="this matter was adjourned by the court without setting a new date (adjourned generally)"/>
-
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;"
                     :check="reasons.includes('struck')?'yes':''" 
                     text="this matter was struck off the court list by the court without setting a new date"/>
-
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline" 
                     :check="reasons.includes('party')?'yes':''" 
                     text="an order or direction was made by the court referring or requiring the party/parties to attend, participate or complete a
                     requirement before returning to court"/>
-
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0"
+                    style="display:inline;" 
                     :check="reasons.includes('deficiency')?'yes':''" 
                     text="an order or direction was made by the court requiring that a deficiency under these rules be addressed by a party before
                     returning to court"/>
-
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0"                    
+                    style="display:inline;" 
                     :check="reviewOrderMade?'yes':''" 
                     text="an order was made by the court providing for the review of the order"/>
-
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
                     :check="reasons.includes('orderChanged')?'yes':''" 
                     text="an interim order was made by the court and I am applying for the interim order to be changed, suspended or cancelled
                     under section 216 (3) of the <i>Family Law Act</i> because:"/>
@@ -108,45 +130,86 @@
                         class="answerbox">{{reasonForChange}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
 
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
+
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
                     :check="reasons.includes('orderChanged')?'yes':''" 
                     text="I would like the interim order changed, suspended or cancelled as follows:"/>
                     <div v-if="reasons.includes('orderChanged') && descriptionOnChange.length>0" 
                         class="answerbox">{{descriptionOnChange}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
 
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
+
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
                     :check="reasons.includes('family')?'yes':''" 
                     text="I attended a family management conference regarding this matter."/>
-
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
                     :check="reasons.includes('family')?'yes':''" 
                     text="I am applying for an interim order under section 216 or 217 of the <i>Family Law Act</i> for the following family law matter order(s)
                     applied for in my application, reply or counter application:"/>
-
-                    <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-
-                        <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="flmTypes.includes('Parenting arrangements including parental responsibilities and parenting time')?'yes':''" 
-                            text="parenting arrangements, including parental responsibilities and parenting time"/>
-
-                        <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="flmTypes.includes('Child support')?'yes':''" 
-                            text="child support"/>
-
-                        <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="flmTypes.includes('Contact with a child')?'yes':''" 
-                            text="contact with a child"/>
-
-                        <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="flmTypes.includes('Guardianship of a child')?'yes':''" 
-                            text="guardianship of a child"/>
-
-                        <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
-                            :check="flmTypes.includes('Spousal support')?'yes':''" 
-                            text="spousal support"/>
-                    </div>
             </div>
+            <div style="margin:0.25rem 0 0 2.75rem;">
+
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
+                    :check="flmTypes.includes('Parenting arrangements including parental responsibilities and parenting time')?'yes':''" 
+                    text="parenting arrangements, including parental responsibilities and parenting time"/>
+            </div>
+            <div style="margin:0.25rem 0 0 2.75rem;">
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
+                    :check="flmTypes.includes('Child support')?'yes':''" 
+                    text="child support"/>
+
+            </div>
+            <div style="margin:0.25rem 0 0 2.75rem;">
+
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
+                    :check="flmTypes.includes('Contact with a child')?'yes':''" 
+                    text="contact with a child"/>
+
+            </div>
+            <div style="margin:0.25rem 0 0 2.75rem;">
+
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
+                    :check="flmTypes.includes('Guardianship of a child')?'yes':''" 
+                    text="guardianship of a child"/>
+
+            </div>
+            <div style="margin:0.25rem 0 0 2.75rem;">
+
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
+                    :check="flmTypes.includes('Spousal support')?'yes':''" 
+                    text="spousal support"/>
+            </div>
+            
 
         </section>
 
@@ -166,12 +229,19 @@
 
             <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
            
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;"
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;"
                     :check="appearanceType == 'familyManagementConference'?'yes':''" 
                     text="family management conference"/>
-
+            </div>
+            <div class="marginleft1p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 
-                <check-box inline="inline" :boxMargin="0" shift="10" style="margin-left:0.35rem;" 
+                <check-box 
+                    inline="inline" 
+                    :boxMargin="0" 
+                    style="display:inline;" 
                     :check="appearanceType == 'other'?'yes':''" 
                     text="other court appearance as ordered or directed by the court (specify):"/>
                 <underline-form 
@@ -241,7 +311,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { interimOrderSurveyDataInfoType, nextAppearanceSurveyDataInfoType, partyInformationRqsSurveyDataInfoType, requestForSchedulingDataInfoType } from '@/types/Application/RequestScheduling';
+import { interimOrderSurveyDataInfoType, nextAppearanceSurveyDataInfoType, partyInformationRQSSurveyDataInfoType, requestForSchedulingDataInfoType } from '@/types/Application/RequestScheduling';
 
 @Component({
     components:{
@@ -318,11 +388,11 @@ export default class Form39Layout extends Vue {
         this.yourInfo = {} as yourInformationInfoDataInfoType;
         this.otherParties = '';
 
-        if(this.result?.partyInformationRqsSurvey){
+        if(this.result?.partyInformationRQSSurvey){
 
-            let partyInfo = {} as partyInformationRqsSurveyDataInfoType;
+            let partyInfo = {} as partyInformationRQSSurveyDataInfoType;
 
-            partyInfo = this.result.partyInformationRqsSurvey;
+            partyInfo = this.result.partyInformationRQSSurvey;
             this.yourInfo = getYourInformationResults(partyInfo);
 
             const otherPartiesList = [];
@@ -331,7 +401,7 @@ export default class Form39Layout extends Vue {
             }
             this.otherParties = otherPartiesList.join(', ');   
             
-            this.acknowledgeService = this.result.otherPartyRqsConfirmationSurvey?.confirmation == 'Confirmed';
+            this.acknowledgeService = this.result.otherPartyRQSConfirmationSurvey?.confirmation == 'Confirmed';
         
         }
     

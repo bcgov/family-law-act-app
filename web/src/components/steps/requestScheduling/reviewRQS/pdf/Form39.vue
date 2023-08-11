@@ -70,6 +70,7 @@ export default class Form39 extends Vue {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
             this.UpdatePathwayCompleted({pathway:"requestScheduling", isCompleted:true});
+            
 
             this.$emit('enableNext',true)                   
         },err => {

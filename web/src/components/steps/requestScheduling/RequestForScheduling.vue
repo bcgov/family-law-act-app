@@ -65,9 +65,40 @@ export default class RequestForScheduling extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            this.setPages();            
+        this.survey.onValueChanged.add((sender, options) => {            
+            this.setPages();       
         })
+    }
+
+    public validateDates(){
+
+        const FiledDate = this.survey.data?.FiledDate;
+        const LastAppearanceDate = this.survey.data?.LastAppearanceDate;       
+
+        this.disableNextButton = false;
+
+        if(FiledDate) {                
+            const today = moment().format();
+            if(FiledDate > today){
+                this.survey.setValue('InvalidFiledDate',true);
+                this.disableNextButton = true;
+
+            } else {
+                this.survey.setValue('InvalidFiledDate',false);
+            }
+        }
+
+        if(LastAppearanceDate) {               
+            const today = moment().format();
+            if(LastAppearanceDate > today){
+                this.survey.setValue('InvalidLastAppearanceDate',true);
+                this.disableNextButton = true;
+
+            } else {
+                this.survey.setValue('InvalidLastAppearanceDate',false);                
+            }
+        }
+
     }
     
     public reloadPageInformation() {
@@ -77,7 +108,7 @@ export default class RequestForScheduling extends Vue {
 
         if (this.step.result?.requestForSchedulingSurvey) {            
             this.survey.data = this.step.result.requestForSchedulingSurvey.data;   
-            this.setPages();         
+            this.setPages();
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } 
         
@@ -87,25 +118,31 @@ export default class RequestForScheduling extends Vue {
     public setPages() {
 
         const p = this.stPgNo.RQS;
-        const requestForSchedulingPagesAll = [p.ReasonForScheduling, p.NextAppearance, p.PartyInformationRQS, p.ReviewYourAnswersRQS]
+        const requestForSchedulingCommonPages = [p.NextAppearance, p.PartyInformationRQS, p.ReviewYourAnswersRQS];        
+        const requestForSchedulingAllPages = [p.ReasonForScheduling, p.InterimOrder, p.NextAppearance, p.PartyInformationRQS, p.ReviewYourAnswersRQS, p.PreviewFormsRQS];        
 
         if (this.survey.data) {
 
             const surveyResponses = this.survey.data;
 
             const skipReasonForSchedulingPage = (surveyResponses.Unresolved == 'n' && surveyResponses.ReviewOrdered == 'y' );
-            const canContinue = !(surveyResponses.Unresolved == 'n' && surveyResponses.ReviewOrdered == 'n' );               
-
-            togglePages(requestForSchedulingPagesAll, canContinue, this.currentStep);   
-            togglePages([p.ReasonForScheduling], !skipReasonForSchedulingPage, this.currentStep);              
+            const canContinue = !(surveyResponses.Unresolved == 'n' && surveyResponses.ReviewOrdered == 'n' );                           
             
             this.disableNextButton = !canContinue;
+
+            if (canContinue){
+                togglePages(requestForSchedulingCommonPages, canContinue, this.currentStep); 
+                togglePages([p.ReasonForScheduling], !skipReasonForSchedulingPage, this.currentStep);
+                this.validateDates();
+            } else {
+                togglePages(requestForSchedulingAllPages, canContinue, this.currentStep);
+            }
 
             let overOneYearHasPassed = false;
 
             if (surveyResponses.Unresolved == 'y' || (surveyResponses.Unresolved == 'n' && surveyResponses.ReviewOrdered == 'y')){
-                if (surveyResponses.lastAppearanceDate) {
-                    overOneYearHasPassed = moment(surveyResponses.lastAppearanceDate).isBefore(moment().add(-1,'years') );
+                if (surveyResponses.LastAppearanceDate) {
+                    overOneYearHasPassed = moment(surveyResponses.LastAppearanceDate).isBefore(moment().add(-1,'years') );
                 }  
             }
 

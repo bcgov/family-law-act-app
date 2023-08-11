@@ -52,8 +52,15 @@
                   "title": "What is the date the application you need scheduled was filed with the court?",
                   "description": "The registry uses the date an application was filed as an identifier for scheduling. Even if you are reviewing an order, the court needs to know when the application that started it was filed. This information will help make sure the correct application is scheduled.",
                   "isRequired": true,
-                  "dateYearsAhead": "0"
-                  
+                  "dateYearsAhead": "0"                  
+                },
+                {
+                  "type": "infotext",
+                  "name": "ExplanationInvalidFiledDate",
+                  "visible": false,
+                  "visibleIf": "{InvalidFiledDate}",
+                  "title": "The filed date cannot be in the future.",
+                  "titleLocation": "hidden"
                 },
                 {
                   "type": "text",
@@ -64,6 +71,14 @@
                   "isRequired": true,
                   "dateYearsAhead": "0"                  
                 }, 
+                {
+                  "type": "infotext",
+                  "name": "ExplanationInvalidLastAppearanceDate",
+                  "visible": false,
+                  "visibleIf": "{InvalidLastAppearanceDate}",
+                  "title": "The last appearance date cannot be in the future.",
+                  "titleLocation": "hidden"
+                },
                 {
                   "type": "infotext",
                   "name": "ExplanationServe",                  

@@ -54,7 +54,8 @@ class Application extends VuexModule {
         other: false,
         noticeOfAddressChange: false,
         noticeDiscontinuance: false,
-        noticeIntentionProceed: false
+        noticeIntentionProceed: false,
+        requestScheduling: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -2560,8 +2561,7 @@ class Application extends VuexModule {
             this.context.commit("setPageActive", { currentStep: stepPO, currentPage: previewPagePO, active: false });
         
             if(this.steps[stepPO].pages[previewPagePO].progress ==100) this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:previewPagePO, progress:50 });
-        }  
-        
+        }
         
         this.context.commit("resetStep", this.stPgNo.SUBMIT._StepNo);
         const submitTotalPages = (Object.keys(this.stPgNo.SUBMIT).length -1)

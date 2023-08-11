@@ -44,7 +44,7 @@ export default class PreviewFormsRqs extends Vue {
 
     public EnableNext(){
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
-        this.disableNext=false;        
+        this.disableNext=false;
     }
 
     public onPrev() {

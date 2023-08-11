@@ -112,14 +112,14 @@ export default class PartyInformationRqs extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.partyInformationRqsSurvey) {            
-            this.survey.data = this.step.result.partyInformationRqsSurvey.data;                      
+        if (this.step.result?.partyInformationRQSSurvey) {            
+            this.survey.data = this.step.result.partyInformationRQSSurvey.data;                      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
-            this.survey.setValue('otherPartyInfoRqs',[]) 
+            this.survey.setValue('otherPartyInfoRQS',[]) 
         }
 
-        if(this.step.result?.otherPartyRqsConfirmationSurvey?.data?.confirmation == 'Confirmed'){
+        if(this.step.result?.otherPartyRQSConfirmationSurvey?.data?.confirmation == 'Confirmed'){
             this.confirmed = true
         }
         
@@ -133,9 +133,9 @@ export default class PartyInformationRqs extends Vue {
             respondentNames.push(...respondents)
         }
 
-        if(this.survey.data?.party && this.survey.data?.otherPartyInfoRqs.length>0){            
-            const respondentNamesRqs = this.survey.data.otherPartyInfoRqs.map(otherParty=>otherParty.name)
-            respondentNames.push(...respondentNamesRqs)
+        if(this.survey.data?.party && this.survey.data?.otherPartyInfoRQS.length>0){            
+            const respondentNamesRQS = this.survey.data.otherPartyInfoRQS.map(otherParty=>otherParty.name)
+            respondentNames.push(...respondentNamesRQS)
         }  
         
         const fullNamesArray =[];
@@ -169,7 +169,7 @@ export default class PartyInformationRqs extends Vue {
 
     public getConfirmationResults( confirmation){
         const questionResults: {name: string; value: any; title: string; inputType: string}[] =[];
-        questionResults.push({name:'otherPartyRqsSurveyConfirmation', value:confirmation, title:'I understand each other party must be given notice of my application', inputType:''})
+        questionResults.push({name:'otherPartyRQSSurveyConfirmation', value:confirmation, title:'I understand each other party must be given notice of my application', inputType:''})
         return {data: {confirmation:confirmation}, questions:questionResults, pageName:'Other Party Confirmation', currentStep: this.currentStep, currentPage:this.currentPage}
     }
     
@@ -187,8 +187,8 @@ export default class PartyInformationRqs extends Vue {
         this.UpdateStepResultData({
             step:this.step, 
             data: {
-                partyInformationRqsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage),
-                otherPartyRqsConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')
+                partyInformationRQSSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage),
+                otherPartyRQSConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')
             }})
     }
 }

@@ -1,4 +1,4 @@
-import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
+import { nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface requestForSchedulingDataInfoType {
     FiledDate?: string;
@@ -56,24 +56,24 @@ export interface nextAppearanceSurveyInfoType {
     currentPage: number | string;
 }
 
-export interface partyInformationRqsSurveyDataInfoType {   
+export interface partyInformationRQSSurveyDataInfoType {   
     ApplicantName?: nameInfoType;    
-    otherPartyInfoRqs?: partyInformationRqsOtherPartyInfoType[];   
+    otherPartyInfoRqs?: partyInformationRQSOtherPartyInfoType[];   
 }  
 
-export interface partyInformationRqsOtherPartyInfoType {
+export interface partyInformationRQSOtherPartyInfoType {
     name: nameInfoType;
 }
 
-export interface partyInformationRqsSurveyInfoType {
-    data: partyInformationRqsSurveyDataInfoType;
+export interface partyInformationRQSSurveyInfoType {
+    data: partyInformationRQSSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
     currentStep: number | string;
     currentPage: number | string;
 }
 
-export interface otherPartyRqsConfirmationSurveyInfoType {
+export interface otherPartyRQSConfirmationSurveyInfoType {
     data: {confirmation: string};
     questions?: questionInfoType[];
     pageName?: string;

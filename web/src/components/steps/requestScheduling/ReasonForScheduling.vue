@@ -194,9 +194,7 @@ export default class ReasonForScheduling extends Vue {
     public onChange(selectedReason) {
         this.UpdatePathwayCompleted({pathway:"requestScheduling", isCompleted:false})
            
-        this.setPages();
-       
-        Vue.filter('surveyChanged')('requestScheduling')               
+        this.setPages();   
     }
 
     public onPrev() {
