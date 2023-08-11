@@ -40,9 +40,6 @@ export default class NoticeIntentionProceed extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
-
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
     currentStep =0;
