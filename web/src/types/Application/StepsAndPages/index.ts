@@ -269,7 +269,7 @@ export interface OTHERstPgTypes{
 
     OtherForms: number; 
     CompleteOtherForms: number;   
-    OtherFormFilingLocation: number;
+    OtherFormsFilingLocation: number;
 }
 
 export interface NCDstPgTypes{
