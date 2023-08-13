@@ -122,7 +122,7 @@
 
                 <b-tr>
                     <b-th colspan="6">
-                        <img src="../assets/action-required.png" alt="" class="center" />
+                        <img src="../assets/action-required.png" alt="" class="center mt-n2" />
                     </b-th>
                     <b-td class="text-left">
                         Provides information on the required corrections.                          
