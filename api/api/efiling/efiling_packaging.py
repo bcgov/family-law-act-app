@@ -23,6 +23,7 @@ class EFilingPackaging:
         return {
             "clientAppName": self.app_name,
             "filingPackage": {
+                "packageNumber": data["packageNumber"],
                 "court": {
                     "location": self._resolve_location_code(data["locationName"]),
                     "level": self.court_level,
