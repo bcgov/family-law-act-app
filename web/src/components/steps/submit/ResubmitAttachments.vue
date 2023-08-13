@@ -381,7 +381,7 @@
             const docTypeJson = JSON.stringify(docType);
             bodyFormData.append('documents', docTypeJson);          
 
-            const url = "/efiling/"+this.id+"/submit/" 
+            const url = "/efiling/"+this.id+"/submit/?standalone=True" 
             const header = {
                 responseType: "json",
                 headers: {

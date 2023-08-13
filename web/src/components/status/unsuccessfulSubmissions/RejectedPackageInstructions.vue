@@ -243,6 +243,7 @@ export default class RejectedPackageInstructions extends Vue {
             previousApp:{
                 packageResults: this.submissionResults,
                 courtFileNo: this.courtFileNumber,
+                packageNumber: this.packageId,
                 courtFileLocation: this.courtFileLocation,
                 onlyAttachments: this.onlyAttachments
             }            
