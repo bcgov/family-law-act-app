@@ -45,6 +45,8 @@
                             <b-button
                                 v-if="row.item.refApplications.length>0"  
                                 size="sm"
+                                v-b-tooltip.hover.noninteractive.v-warning
+                                title="View Rejected History"
                                 class="px-0"
                                 @click="row.toggleDetails();" 
                                 variant="warning">

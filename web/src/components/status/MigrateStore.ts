@@ -44,13 +44,14 @@ export class MigrateStore{
         }
 
         const rejectedFileNumber = applicationData.previousAppStatus?.courtFileNo
-        this.currentApplication.rejectedPathway = Boolean(rejectedFileNumber)
-        this.currentApplication.rejectedFileNumber = rejectedFileNumber
-        
-        this.currentApplication.rejectedFormsList = applicationData.previousAppStatus?.packageResults
+        const rejectedFormsList = applicationData.previousAppStatus?.packageResults
             ? applicationData.previousAppStatus.packageResults.filter(app =>app.status=="Rejected")
             : []
 
+        this.currentApplication.rejectedPathway = Boolean(rejectedFileNumber) || Boolean(rejectedFormsList?.length>0)
+        this.currentApplication.rejectedFileNumber = rejectedFileNumber        
+        this.currentApplication.rejectedFormsList = rejectedFormsList
+            
         // console.log(applicationData)
         const rejectedOnlyAttachments = applicationData.previousAppStatus?.onlyAttachments
         

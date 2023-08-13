@@ -341,7 +341,7 @@ export default class FilingLocation extends Vue {
         }
 
         this.survey.setVariable("enableSurvey", !this.rejectedPathway)
-        if(this.rejectedPathway){
+        if(this.rejectedPathway && this.rejectedFileNumber){
             this.survey.setValue('ExistingFamilyCase','y');
             this.survey.setValue('ExistingFileNumber', this.rejectedFileNumber)
         }
