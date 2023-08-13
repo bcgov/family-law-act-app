@@ -116,7 +116,7 @@ export default class PartyInformationRqs extends Vue {
             this.survey.data = this.step.result.partyInformationRQSSurvey.data;                      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
-            this.survey.setValue('otherPartyInfoRQS',[]) 
+            this.survey.setValue('otherPartyInfoRqs',[]) 
         }
 
         if(this.step.result?.otherPartyRQSConfirmationSurvey?.data?.confirmation == 'Confirmed'){
@@ -133,8 +133,8 @@ export default class PartyInformationRqs extends Vue {
             respondentNames.push(...respondents)
         }
 
-        if(this.survey.data?.party && this.survey.data?.otherPartyInfoRQS.length>0){            
-            const respondentNamesRQS = this.survey.data.otherPartyInfoRQS.map(otherParty=>otherParty.name)
+        if(this.survey.data?.otherPartyInfoRqs && this.survey.data?.otherPartyInfoRqs.length>0){            
+            const respondentNamesRQS = this.survey.data.otherPartyInfoRqs.map(otherParty=>otherParty.name)
             respondentNames.push(...respondentNamesRQS)
         }  
         
