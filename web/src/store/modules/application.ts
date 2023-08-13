@@ -1806,7 +1806,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "2";
-        p.name = "OtherFormFilingLocation";
+        p.name = "OtherFormsFilingLocation";
         p.label = "Other Form Filing Location";
         p.active = false;
         p.progress = 0;
