@@ -46,7 +46,11 @@ export default class PoFilingLocation extends Vue {
     public steps!: stepInfoType[];
 
     
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
+    @applicationState.State
+    public rejectedFileNumber!: string;
     
 
     @applicationState.Action
@@ -119,6 +123,12 @@ export default class PoFilingLocation extends Vue {
             if (this.survey.data.ExistingCourt){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
+        }
+
+        this.survey.setVariable("enableSurvey", !this.rejectedPathway)
+        if(this.rejectedPathway && this.rejectedFileNumber){
+            this.survey.setValue('ExistingFamilyCase','y');
+            this.survey.setValue('ExistingFileNumber', this.rejectedFileNumber)
         }
 
         this.currentStep = this.$store.state.Application.currentStep;

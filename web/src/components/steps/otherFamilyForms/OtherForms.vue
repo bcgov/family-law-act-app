@@ -121,6 +121,9 @@ export default class OtherForms extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
+    @applicationState.State
+    public rejectedPathway!: boolean;
+
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
@@ -216,6 +219,7 @@ export default class OtherForms extends Vue {
     public selectForms(forms: otherFormInfoType[]){        
 
         const tableRef: any = this.$refs.formsTable;
+        tableRef.clearSelected()
 
         for (const form of forms){
             const index = this.formList.findIndex((otherForm) => {if(otherForm.formName == form.formName)return true});
@@ -256,6 +260,11 @@ export default class OtherForms extends Vue {
     }
 
     public onFormSelected(forms: otherFormInfoType[]){
+
+        if(this.rejectedPathway){
+            Vue.nextTick().then(()=>{this.selectForms(this.selectedForms)});
+            return
+        }
 
         this.selectedForms = forms;
 

@@ -29,6 +29,7 @@ from api.views import (
     EFilingDocumentTypesView,
     EFilingLocationView,
     EFilingSubmitView,
+    EFilingRejectionView,
     SurveyPdfView,
     UserView,
     FillablePdfView,
@@ -60,6 +61,7 @@ urlpatterns = [
     path("efiling/document-types/", EFilingDocumentTypesView.as_view()),
     path("efiling/locations/", EFilingLocationView.as_view()),
     path("efiling/<int:application_id>/submit/", EFilingSubmitView.as_view()),
+    path("efiling/<int:application_id>/rejection/<int:package_id>/", EFilingRejectionView.as_view()),
     path("print-fillable-pdf", FillablePdfView.as_view()),
     path("statistics/", StatisticsView.as_view())
 ]

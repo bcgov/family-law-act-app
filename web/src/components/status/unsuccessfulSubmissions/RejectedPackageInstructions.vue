@@ -1,26 +1,36 @@
 <template>
     <div>    
-        <b-card v-if="dataReady" bg-variant="white" border-variant="white">
+        <b-card v-if="dataReady" bg-variant="white" border-variant="white" class="text-justify mr-1">
 
-            <b-row>
-                There are issues with the document(s) that you submitted for filing.   
-                Below is the list of document(s) you submitted along with the status of the document(s).
+            <b-row class="m-0">
+                <p>
+                    There are issues with the document(s) that you submitted for filing.   
+                    Below is the list of document(s) you submitted along with the status of the document(s).
+                </p>
             </b-row>
 
-            <b-row>
-                Please review this 
-                <a style='display:inline' class="text-danger mx-1 inline" @click="downloadNotice()">
-                    <u style="cursor:pointer; display:inline" >REGISTRY NOTICE</u>
-                </a> which will display the comments made by registry 
-                staff identifying where additional information or corrections are required.
+            <b-row class="m-0">
+                <p>
+                    Please review this                 
+                    <a style='display:inline' class="text-danger mx-1" @click="downloadNotice()">                        
+                        <u style="font-size:18px; font-weight:600; cursor:pointer; display:inline" >REGISTRY NOTICE
+                            <spinner v-if="loadingData" color="#FE9595" diameter="10" class="" style="margin:-4rem -2rem -3rem -1.5rem; display:inline-block; padding: 0;" />
+                            <span v-else style="font-size:22px; padding:0; transform:translate(6px,2px);" class="far fa-file-pdf btn-icon-left text-danger"/>
+                        </u>
+                    </a>
+                    which will display the comments made by registry staff 
+                    identifying where additional information or corrections are required.
+                </p>
             </b-row>
 
-            <b-row>
-                If you are not certain how to correct your application, you may want to get some 
-                legal advise before you submit your corrected document(s) for filing.
+            <b-row class="m-0">
+                <p>
+                    If you are not certain how to correct your application, you may want to get some 
+                    legal advise before you submit your corrected document(s) for filing.
+                </p>
             </b-row>
 
-            <b-row>
+            <b-row class="m-0">
                 <div class="m-1 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Where can I get legal assistance? 
                     <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
@@ -30,12 +40,29 @@
             </b-row>
 
             <b-row>
-                <!-- TODO: place the documents and their stasuses here -->
+                <b-table
+                    :items="submissionResults"
+                    :fields="submissionFields"
+                    style="width:98%;"
+                    class="mt-5 mx-auto"
+                    borderless
+                    head-variant="dark"
+                    >
+                    <template v-slot:cell(status)="row">
+                        <b v-if="row.value=='Filed'" class="text-success">{{row.value}}</b>
+                        <b v-else-if="row.value=='Rejected'" class="text-danger">{{row.value}}</b>
+                        <b v-else class="text-dark">{{row.value}}</b>
+                    </template> 
+                    <template v-slot:cell(attachment)="row">
+                        <b-icon-check2 v-if="!row.value" />
+                    </template>
+
+                </b-table>
             </b-row>
 
-            <h2 class="mt-4 text-primary">OPTIONS:</h2> 
+            <h2 class="mt-4 ml-n2 text-primary">OPTIONS:</h2> 
 
-            <ol>
+            <ol class="ml-n2">
                 <li>
                     
                     <p v-if="attachedOnly">
@@ -47,20 +74,11 @@
                         If you wish to proceed to correct the document(s) requiring action, 
                         you can click the button to edit the existing information in the 
                         document and then proceed to resubmit the document(s) for filing.
-                    </p>
+                    </p>                  
                     
-                    <b-button 
-                        style="display: block;"
-                        class="ml-auto mr-3 mb-2 bg-success"
-                        size="md" 
-                        variant="success" 
-                        @click="correctApplication()">
-                        Correct Application
-                        <b-icon-pencil-fill scale="1" variant="white"/>
-                    </b-button>
 
-                    <p>
-                        <b>NOTE:</b>  When you resubmit your document, it will be assigned 
+                    <p style="margin: .5rem 0rem 1.5rem 3rem; text-indent:-3.2rem;">
+                        <i><b>NOTE:</b></i>  When you resubmit your document, it will be assigned 
                         a new package number that you will need to note to track the 
                         status of your resubmitted document.
                     </p>
@@ -83,7 +101,17 @@
                     so you will need to correct those documents and upload them with 
                     any other documents.  You can do this during the submit process.
                 </li>
-            </ol>          
+            </ol> 
+
+            <b-button 
+                style="display: block;"
+                class="ml-auto mr-0 mt-n1 mb-2 bg-success"
+                size="md" 
+                variant="success" 
+                @click="correctApplication()">
+                Correct Application
+                <b-icon-pencil-fill scale="1" variant="white"/>
+            </b-button>         
         
         </b-card>
         <loading-spinner v-else waitingText="Waiting for submitted information"/>  
@@ -93,24 +121,31 @@
 <script lang="ts">    
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { namespace } from "vuex-class";
+import Spinner from "@/components/utils/Spinner.vue";
 
 import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
-
+import moment from "moment-timezone";
 import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
 
 
 @Component({
     components:{  
-        LegalAssistanceFaq
-        
+        LegalAssistanceFaq,
+        Spinner
     }
 })
 export default class RejectedPackageInstructions extends Vue {
 
     @Prop({required: true})
     applicationId!: string;
+
+    @Prop({required: true})
+    packageId!: string;
+
+    @Prop({required: true})
+    packageResults!: any;
 
     @commonState.State
     public locationsInfo!: locationsInfoType[];
@@ -121,86 +156,106 @@ export default class RejectedPackageInstructions extends Vue {
     showLegalAssistance = false;
     generatedOnly = false;
     attachedOnly = false;
-    generatedAttached = false;
-    
-  
+
+    loadingData = false;
+    submissionResults = [];
+    courtFileNumber = ''
+    courtFileLocation = ''
+    onlyAttachments = true
     error = ''
+
+    submissionFields = [
+        { key: 'name',        label: 'File',        sortable:false,  tdClass: '', thStyle:'width:25%;'},
+        { key: 'attachment',  label: 'Attachment',  sortable:false,  tdClass: 'text-center', thStyle:'width:10%;'},
+        { key: 'type',        label: 'Type',        sortable:false,  tdClass: '', thStyle:'width:8%;'},
+        { key: 'description', label: 'Description', sortable:false,  tdClass: '', thStyle:'width:45%;'},        
+        { key: 'status',      label: 'Status',      sortable:false,  tdClass: '', thStyle:'width:12%;'},       
+    ]
 
     mounted(){
         this.dataReady = false;
+        this.loadingData = false;
         this.showLegalAssistance = false;
-        this.getApplicationInfo(this.applicationId);        
+
+        this.extractResults() 
+        Vue.nextTick(()=> this.dataReady = true);
     } 
 
-    public getApplicationInfo(applicationId) { 
+    public downloadNotice(){
+        
+        if(!this.packageId || this.loadingData) return        
+        this.loadingData = true;
+        const url = `/efiling/${this.applicationId}/rejection/${this.packageId}/`
+        const options = {
+            responseType: "blob",
+            headers: {
+            "Content-Type": "application/json",
+            }
+        }
+        this.$http.get(url, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = "registry_notice.pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);           
+            this.loadingData = false;
+        },err => {
+            console.error(err);
+            this.loadingData = false;
+        });
 
-        //TODO: get the rejection data and determine whether it's one of the following:
-        //generatedOnly
-        //attachedOnly
-        //generatedAttached
+    }
 
+    public extractResults(){
+        this.submissionResults = [];
+        
+        if(this.packageResults?.documents){
+            for(const doc of this.packageResults.documents){
+                this.submissionResults.push({
+                    name: doc.documentProperties?.name?.replace('_generated',''),
+                    type: doc.documentProperties?.type,
+                    status: doc.status?.description,
+                    description: doc.description,
+                    attachment: doc.documentProperties?.name?.includes('_generated')
+                })
+                   
+                if(doc.documentProperties?.name?.includes('_generated') && doc.status?.code?.toUpperCase().includes('REJ'))
+                    this.onlyAttachments = false
+            }
+        }        
+        this.courtFileLocation = this.packageResults?.court?.location? this.packageResults.court.location: ''
+        this.courtFileNumber = this.packageResults?.court?.fileNumber? this.packageResults.court.fileNumber: ''
+    }
 
-        this.$http.get('/app/'+ applicationId + '/')
+    public correctApplication(){
+        const url = `/efiling/${this.applicationId}/rejection/${this.packageId}/`
+        
+        const body ={            
+            lastUpdate: moment().format(),
+            previousApp:{
+                packageResults: this.submissionResults,
+                courtFileNo: this.courtFileNumber,
+                courtFileLocation: this.courtFileLocation,
+                onlyAttachments: this.onlyAttachments
+            }            
+        }
+        const header = {
+            responseType: "json",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+        this.$http.post(url, body, header)
         .then((response) => {
-
-            const applicationData = response.data;
-            // console.log(applicationData)  
-           
-            const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
-            const apps = stepGETSTART.submittedPdfList;
-
-            this.generatedOnly = false;
-            this.attachedOnly = false;
-            this.generatedAttached = false;  
-            
-            Vue.nextTick(()=> this.dataReady = true);
+            if(response.data.app_id)
+                this.$emit('resumeApp', response.data.app_id)
 
         }, err => {
             this.error = err;        
         });
-    }
-    
-    public getStepResultByName(applicationData, stepName){
-        if(applicationData?.steps){
-            const steps = applicationData.steps.filter(step => step.name == stepName);
-            if(steps.length == 1) return steps[0].result
-        }
-        return {}
-    }
-       
-    public getFullName(formType){
-        return Vue.filter('pdfTypeToFullName')(formType)
-    }
-
-    public downloadNotice(){
-        console.log('downloading')
-        //TODO: add download api
-    }
-
-    public correctApplication(){
-
-        //TODO: update the code below and if possible resume on where there was a mistake
-
-        // this.$http.get('/app/'+ this.applicationId + '/')
-        // .then((response) => {
-
-        //     const applicationData = response.data   
-        //     const applicationType = (applicationData.type?.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
-            
-        //     const storeMigrationFn = new MigrateStore()           
-        //     this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, Vue.filter('get-current-version')())
-
-        //     const comStepFn = new RestoreCommonStep()
-        //     comStepFn.restore(this.currentApplication)
-           
-        //     this.checkAllCompleted();
-           
-        //     this.$router.push({name: "flapp-surveys" }) 
-
-        // }, err => {
-        //     this.error = err;        
-        // });
-
     }
 
 }

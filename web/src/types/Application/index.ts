@@ -45,6 +45,9 @@ export interface applicationInfoType extends applicationStepOnlyInfoType {
     protectedPartyName: nameInfoType;
     protectedChildName: allchildrenInfoType[];
     applicationLocation: string;
+    rejectedPathway: boolean;
+    rejectedFileNumber?: string;
+    rejectedFormsList?: any[];
     version: string;
 }
 
