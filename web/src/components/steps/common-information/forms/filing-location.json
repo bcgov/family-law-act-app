@@ -11,6 +11,7 @@
                      "type": "yesno",
                      "name": "ExistingFamilyCase",
                      "isRequired": true,
+                     "enableIf": "{enableSurvey}",
                      "title": "Is there already a Family Law file open between the same parties in the Provincial Court of British Columbia?",
                      "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."
                   },
@@ -38,6 +39,7 @@
                   {
                      "type": "dropdown",
                      "name": "ExistingCourt",
+                     "enableIf": "{enableSurvey}",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'y'",
                      "isRequired": true,
@@ -48,10 +50,12 @@
                   {
                      "type": "text",
                      "name": "ExistingFileNumber",
+                     "enableIf": "{enableSurvey}",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'y'",
                      "startWithNewLine": false,
                      "title": "File Number",
+                     "description": "<div style='color: white; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
                      "isRequired": true
                   },
                   {
@@ -73,7 +77,8 @@
                   },
                   {
                      "type": "dropdown",
-                     "name": "ExistingCourt",                     
+                     "name": "ExistingCourt",
+                     "enableIf": "{enableSurvey}",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
                      "isRequired": true,
@@ -93,6 +98,7 @@
                   {
                      "type": "radiogroup",
                      "name": "filingLocationReason",
+                     "enableIf": "{enableSurvey}",
                      "title": "Please select the reason you have chosen {registryLocation} as your filing location.",
                      "isRequired": true,
                      "visible": false,
@@ -124,6 +130,7 @@
                   {
                      "type": "yesno",
                      "name": "ExistingFMEPCase",
+                     "enableIf": "{enableSurvey}",
                      "visible": false,
                      "visibleIf": "{RequiresFMEPInfo} and ({ExplanationCourtLocation}>0 or {selectedExistingCourt})",
                      "isRequired": true,
@@ -132,6 +139,7 @@
                   {
                      "type": "text",
                      "name": "ExistingFMEPNumber",
+                     "enableIf": "{enableSurvey}",
                      "visible": false,
                      "visibleIf": "{RequiresFMEPInfo} and {ExistingFMEPCase} = 'y'",                     
                      "title": "What is your FMEP Number?"                     
@@ -198,6 +206,7 @@
                         {
                            "type": "yesno",
                            "name": "MetEarlyResolutionRequirements",
+                           "enableIf": "{enableSurvey}",
                            "isRequired": true,
                            "visible": false,
                            "visibleIf": "{victoriaSurrey} and !({rflmIncluded})",

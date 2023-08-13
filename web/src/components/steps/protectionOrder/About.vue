@@ -44,7 +44,8 @@ export default class About extends Vue {
     @commonState.State
     public locationsInfo!: locationsInfoType[];
 
-    
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     
 
@@ -119,7 +120,9 @@ export default class About extends Vue {
         if(this.$store.state.Application.steps[this.currentStep].result?.poQuestionnaireSurvey?.data) {
             const order = this.$store.state.Application.steps[this.currentStep].result.poQuestionnaireSurvey.data;        
             this.survey.setVariable("userPreferredService", order.orderType);
-        }       
+        } 
+        
+        this.survey.setVariable("enableSurvey", !this.rejectedPathway)
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }

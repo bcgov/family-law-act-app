@@ -12,6 +12,9 @@ class EFilingSubmission(models.Model):
     package_number = models.CharField(max_length=100, null=True)
     package_url = models.CharField(max_length=200, null=True)
 
+    submission_results = models.BinaryField(blank=True, null=True)
+    key_id = models.CharField(max_length=32, blank=True, null=True)
+
     application = models.ForeignKey(
         "Application",
         related_name="efiling_submission_application_id",

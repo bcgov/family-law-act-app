@@ -14,6 +14,13 @@ class Application(models.Model):
     user_type = models.CharField(max_length=100, default="", blank=True)
     user_name = models.CharField(max_length=100, default="", blank=True)
 
+    application_reference = models.IntegerField(null=True, blank=True)
+
+    # encrypted privious_app_status
+    previous_app_status = models.BinaryField(blank=True, null=True)
+    # encryption key identifier for privious_app_status
+    previous_app_key_id = models.CharField(max_length=32, blank=True, null=True)
+
     application_location = models.JSONField(blank=True, null=True)
     # encryption key identifier
     key_id = models.CharField(max_length=32, blank=True, null=True)

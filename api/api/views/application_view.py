@@ -33,6 +33,12 @@ class ApplicationView(APIView):
         application = get_application_for_user(pk, uid)
         steps_dec = settings.ENCRYPTOR.decrypt(application.key_id, application.steps)
         steps = json.loads(steps_dec)
+        
+        previous_app_status = None
+        if application.previous_app_key_id and application.previous_app_status:
+            previous_app_decoded = settings.ENCRYPTOR.decrypt(application.previous_app_key_id, application.previous_app_status)
+            previous_app_status = json.loads(previous_app_decoded)
+
         submission = EFilingSubmission.objects.filter(
             id=application.last_efiling_submission_id
         ).first()
@@ -49,6 +55,8 @@ class ApplicationView(APIView):
                 "applicationLocation": application.application_location,
                 "packageNumber": submission.package_number if submission is not None else "",
                 "packageUrl": submission.package_url if submission is not None else "",
+                "previousAppStatus":previous_app_status,
+                "refApplicationId": application.application_reference,
                 "lastFiled": application.last_filed,
                 "version": application.version}
         return Response(data)

@@ -35,6 +35,10 @@ class Application extends VuexModule {
     public rflmRequiredDocsRequests = [];
     public rflmRequiredDocsRequestsUpdateCounter = 0;
 
+    public rejectedPathway = false;
+    public rejectedFileNumber = "";
+    public rejectedFormsList = [];
+
     public surveyChangedPO = false;
     
     public supportingDocuments: supportingDocumentInfoType[] = [];
@@ -72,7 +76,9 @@ class Application extends VuexModule {
         this.packageNumber = "";
         this.eFilingHubLink = "";
         this.steps = new Array<stepInfoType>();
-
+        this.rejectedPathway = false;
+        this.rejectedFileNumber = "";
+        this.rejectedFormsList = [];
 
         // Getting started START
         let s = {} as stepInfoType;
@@ -2106,9 +2112,18 @@ class Application extends VuexModule {
         p.progress = 0;
     
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
         p.key = "5";
+        p.name = "ResubmitAttachments";
+        p.label = "Resubmit Attachments";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "6";
         p.name = "NextSteps";
         p.label = "Next Steps";
         p.active = false;
@@ -2191,6 +2206,33 @@ class Application extends VuexModule {
     @Action
     public UpdateUserId(newUserId) {
         this.context.commit("setUserId", newUserId);
+    }
+
+    @Mutation
+    public  setRejectedPathway(rejectedPathway: boolean): void {
+        this.rejectedPathway = rejectedPathway;
+    }
+    @Action
+    public UpdateRejectedPathway(newRejectedPathway: boolean) {
+        this.context.commit("setRejectedPathway", newRejectedPathway);
+    }
+
+    @Mutation
+    public  setRejectedFileNumber(rejectedFileNumber): void {
+        this.rejectedFileNumber = rejectedFileNumber;
+    }
+    @Action
+    public UpdateRejectedFileNumber(newRejectedFileNumber) {
+        this.context.commit("setRejectedFileNumber", newRejectedFileNumber);
+    }
+
+    @Mutation
+    public  setRejectedFormsList(rejectedFormsList): void {
+        this.rejectedFormsList = rejectedFormsList;
+    }
+    @Action
+    public UpdateRejectedFormsList(newRejectedFormsList) {
+        this.context.commit("setRejectedFormsList", newRejectedFormsList);
     }
 
     @Mutation
@@ -2589,6 +2631,9 @@ class Application extends VuexModule {
         this.protectedChildName = application.protectedChildName;
         this.applicationLocation = application.applicationLocation;  
         this.lastFiled = application.lastFiled;
+        this.rejectedPathway = application.rejectedPathway;
+        this.rejectedFileNumber = application.rejectedFileNumber;
+        this.rejectedFormsList = application.rejectedFormsList;
         this.version = application.version;
     }
     @Action

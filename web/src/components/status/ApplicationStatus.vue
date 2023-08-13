@@ -29,7 +29,7 @@
                     <b-table
                         :items="previousApplications"
                         :fields="previousApplicationFields"
-                        class="mx-4"
+                        class="mx-0"
                         style="overflow-y: auto;"
                         sort-by="lastUpdated"
                         :sort-desc="true"
@@ -41,41 +41,114 @@
                         responsive="sm"
                         sticky-header="600px"
                         >
+                        <template v-slot:cell(refApps)="row">
+                            <b-button
+                                v-if="row.item.refApplications.length>0"  
+                                size="sm"
+                                class="px-0"
+                                @click="row.toggleDetails();" 
+                                variant="warning">
+                                <b-icon-caret-down-fill v-if="row.item['_showDetails']" />                             
+                                <b-icon-caret-right-fill v-else /> 
+                            </b-button>                            
+                        </template>
+
+                        <template v-slot:row-details="row">                            
+                            <b-table
+                            :items="row.item.refApplications"
+                            :fields="refApplicationFields"
+                            class="mx-3 border border-primary"                            
+                            head-variant="light"                            
+                            table-class="inner"
+                            sort-by="lastUpdated"
+                            :sort-desc="true"
+                            borderless               
+                            small
+                            responsive="sm"                            
+                            >
+                            <template v-slot:cell(edit)="row">
+                                <div v-if="row.item.lastFiled != 0">
+                                    <b-button v-if="row.item.rejected" size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                        @click="displayRejectionInfo(row.item.id, row.item.packageNum, row.item.packageResults)"
+                                        v-b-tooltip.hover.noninteractive.left.v-warning
+                                        title="Action Required">
+                                        <span style="font-size:18px;transform:translate(0px,2px);" class="fa fa-exclamation-triangle text-warning"/>                    
+                                    </b-button>
+                                    <b-button v-if="row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                        @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                        v-b-tooltip.hover.noninteractive.left.v-success
+                                        title="View/Download the Submitted Application">
+                                        <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                                    </b-button>
+                                </div>                                
+                            </template>
+                            <template v-slot:cell(app_type)="row">                  
+                                <ul style="list-style-type: '-  '; padding-inline-start: 20px; margin:0" :class="row.item.lastFiled?'text-success':''">
+                                    <li  v-for="(appType,inx) in row.item.app_type" :key="inx">{{appType}}</li>
+                                </ul>
+                                <span style="padding-inline-start: 7px; margin:0" v-if="row.item.app_type.length==0"><span class="mr-1" >-</span> New Application</span>
+                            </template>
+                            <template v-slot:cell(lastUpdated)="row">                  
+                                <span style="font-size:9pt;" >{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
+                            </template>
+                            <template v-slot:cell(lastFiled)="row">                  
+                                <b-badge variant="success" >{{ row.item.lastFiledDate | beautify-date-weekday}}</b-badge>
+                            </template>
+                            <template v-slot:cell(status)="row">                  
+                                <b-badge v-if="row.item.status == 'completed'" variant="success" >Completed</b-badge>
+                                <b-badge v-if="row.item.status == 'rejected'" variant="danger" >Action Required</b-badge>
+                                <b-badge v-if="row.item.status == 'submitted'" variant="primary" >Submitted</b-badge>
+                            </template>
+                            </b-table>
+                        </template>
+
                         <template v-slot:cell(edit)="row">
-                            <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
+                            <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0 px-1"
                                 @click="removeApplication(row.item, row.index)"
                                 v-b-tooltip.hover.noninteractive.left.v-danger
                                 title="Delete Application">
                                 <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                             </b-button>
 
-                            <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
+                            <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0 px-2"
                                 @click="resumeApplication(row.item.id)"
                                 v-b-tooltip.hover.bottom.noninteractive
                                 title="Resume Application">
                                 <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
                             </b-button>
 
-                            <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                @click="navigateToEFilingHub(row.item.last_efiling_submission)"
-                                v-b-tooltip.hover.noninteractive.left.v-info
-                                title="Navigate To Submitted Application">
-                                <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
-                            </b-button>  
+                            <div v-if="row.item.lastFiled != 0">
 
-                            <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
-                                @click="viewInstructions(row.item.id, row.item.app_type)"
-                                v-b-tooltip.hover.noninteractive.bottom
-                                title="View Instructions">
-                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
-                            </b-button>                              
+                                <b-button v-if="row.item.rejected" size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                    @click="displayRejectionInfo(row.item.id, row.item.packageNum, row.item.packageResults)"
+                                    v-b-tooltip.hover.noninteractive.left.v-warning
+                                    title="Action Required">
+                                    <span style="font-size:18px;transform:translate(0px,2px);" class="fa fa-exclamation-triangle text-warning"/>                    
+                                </b-button>
+                                
+                                <b-button v-if="!row.item.rejected" size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                    @click="navigateToEFilingHub(row.item.last_efiling_submission)"
+                                    v-b-tooltip.hover.noninteractive.left.v-info
+                                    title="Navigate To Submitted Application">
+                                    <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
+                                </b-button>                                  
 
-                            <b-button v-if="row.item.lastFiled != 0 && row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0"
-                                @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
-                                v-b-tooltip.hover.noninteractive.left.v-success
-                                title="View/Download the Submitted Application">
-                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
-                            </b-button>
+                                <b-button v-if="!row.item.rejected" size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                    @click="viewInstructions(row.item.id, row.item.app_type)"
+                                    v-b-tooltip.hover.noninteractive.bottom
+                                    title="View Instructions">
+                                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
+                                </b-button>                              
+                                
+
+                                <b-button v-if="row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                    v-b-tooltip.hover.noninteractive.left.v-success
+                                    title="View/Download the Submitted Application">
+                                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                                </b-button>
+
+                            </div>
                             
                         </template>
                         <template v-slot:cell(app_type)="row">                  
@@ -85,10 +158,15 @@
                             <span style="padding-inline-start: 7px; margin:0" v-if="row.item.app_type.length==0"><span class="mr-1" >-</span> New Application</span>
                         </template>
                         <template v-slot:cell(lastUpdated)="row">                  
-                            <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
+                            <span style="font-size:9pt;" >{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
                         </template>
                         <template v-slot:cell(lastFiled)="row">                  
                             <b-badge variant="success" >{{ row.item.lastFiledDate | beautify-date-weekday}}</b-badge>
+                        </template>
+                        <template v-slot:cell(status)="row">                  
+                            <b-badge v-if="row.item.status == 'completed'" variant="success" >Completed</b-badge>
+                            <b-badge v-if="row.item.status == 'rejected'" variant="danger" >Action Required</b-badge>
+                            <b-badge v-if="row.item.status == 'submitted'" variant="primary" >Submitted</b-badge>
                         </template>
                     </b-table>
                 </b-card>
@@ -238,6 +316,29 @@
             </template>
         </b-modal> 
 
+        <b-modal size="xl" v-model="showActionRequired" id="bv-modal-show-action" header-class="bg-danger text-white">                        
+            <template v-slot:modal-title>
+                <h2 class="mb-0 mt-2 ml-4">Action Required</h2>                                  
+            </template>
+
+            <b-card no-body border-variant="white" class="m-3">
+                <rejected-package-instructions 
+                    :applicationId='rejectedApplicationId' 
+                    :packageId="rejectedPackageId" 
+                    :packageResults="packageResults" 
+                    @resumeApp="resumeApplication($event)"
+                    />
+            </b-card>           
+            
+            <template v-slot:modal-footer>                
+                <b-button variant="primary" @click="$bvModal.hide('bv-modal-show-action')">Close</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="info" class="closeButton" @click="$bvModal.hide('bv-modal-show-action')"
+                >&times;</b-button>
+            </template>
+        </b-modal>
+
     </b-card>
 </template>
 
@@ -249,7 +350,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
 import store from "@/store";
 
 import moment from 'moment-timezone';
-import {applicationInfoType} from "@/types/Application"
+import {applicationInfoType} from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/common";
@@ -262,10 +363,11 @@ import {RestoreCommonStep} from './RestoreCommonStep'
 import {MigrateStore} from './MigrateStore'
 import Instructions from './Instructions.vue';
 import InstructionsOtherForms from './InstructionsOtherForms.vue'
+import RejectedPackageInstructions from './unsuccessfulSubmissions/RejectedPackageInstructions.vue';
 
 
 @Component({
-    components: {Instructions, InstructionsOtherForms}
+    components: {Instructions, InstructionsOtherForms, RejectedPackageInstructions}
 })
 export default class ApplicationStatus extends Vue {
 
@@ -290,11 +392,24 @@ export default class ApplicationStatus extends Vue {
 
     previousApplications = []
     previousApplicationFields = [
-        { key: 'app_type',    label: 'Activity Type', sortable:true,  tdClass: 'border-top', thStyle:'width:47%;'},
-        { key: 'lastUpdated', label: 'Last Updated',  sortable:true,  tdClass: 'border-top'},
-        { key: 'lastFiled',   label: 'Filed Date',    sortable:true,  tdClass: 'border-top'},
-        { key: 'packageNum',  label: 'CSO Package#',  sortable:false, tdClass: 'border-top'},
-        { key: 'edit',        label: '',              sortable:false, tdClass: 'border-top'}
+        { key: 'refApps',     label: '',                        sortable:false,  tdClass: 'border-top', thStyle:'font-size:11pt; width:3%;'},
+        { key: 'app_type',    label: 'Activity Type',           sortable:true,  tdClass: 'border-top', thStyle:'font-size:11pt; width:30%;'},
+        { key: 'lastUpdated', label: 'Last Updated',            sortable:true,  tdClass: 'border-top', thStyle:'font-size:11pt; width:13%;'},
+        { key: 'lastFiled',   label: 'Submitted/Filed Date',    sortable:true,  tdClass: 'border-top', thStyle:'font-size:11pt; width:15%;'},
+        { key: 'status',      label: 'Status',                  sortable:true,  tdClass: 'border-top', thStyle:'font-size:11pt; width:8%;'},
+        { key: 'packageNum',  label: 'CSO Package#',            sortable:false, tdClass: 'border-top', thStyle:'font-size:11pt; width:10%;'},
+        { key: 'fileNum',     label: 'Court File #',            sortable:false, tdClass: 'border-top', thStyle:'font-size:11pt; width:13%;'},
+        { key: 'edit',        label: '',                        sortable:false, tdClass: 'border-top', thStyle:'font-size:11pt; width:8%;'}
+    ]
+
+    refApplicationFields = [        
+        { key: 'app_type',    label: 'Activity Type',           sortable:true,  tdClass: 'border-top', thStyle:'font-size:10pt; width:33%;'},
+        { key: 'lastUpdated', label: 'Last Updated',            sortable:true,  tdClass: 'border-top', thStyle:'font-size:10pt; width:13%;'},
+        { key: 'lastFiled',   label: 'Submitted/Filed Date',    sortable:true,  tdClass: 'border-top', thStyle:'font-size:10pt; width:15%;'},
+        { key: 'status',      label: 'Status',                  sortable:true,  tdClass: 'border-top', thStyle:'font-size:10pt; width:8%;'},
+        { key: 'packageNum',  label: 'CSO Package#',            sortable:false, tdClass: 'border-top', thStyle:'font-size:10pt; width:10%;'},
+        { key: 'fileNum',     label: 'Court File #',            sortable:false, tdClass: 'border-top', thStyle:'font-size:10pt; width:13%;'},
+        { key: 'edit',        label: '',                        sortable:false, tdClass: 'border-top', thStyle:'font-size:10pt; width:8%;'}
     ]
 
     confirmDelete = false;
@@ -312,9 +427,15 @@ export default class ApplicationStatus extends Vue {
     showSelectFileForPrint =  false;
 
     instructionsApplicationId = 0;
+    rejectedApplicationId = 0;
+    rejectedPackageId = null;
+    packageResults = '';
+    tempRefApplications = []
+
     applicationTypes: string[] = [];
     showInstructions = false;
     showJourneyMap = false;
+    showActionRequired = false;
 
     mounted() { 
         this.showDisclaimer = false;
@@ -349,24 +470,17 @@ export default class ApplicationStatus extends Vue {
 
     public loadApplications () {
     //TODO: when extending to use throughout the province, the timezone should be changed accordingly
-    
+        this.dataLoaded = false;
         this.$http.get('/app-list/')
         .then((response) => {
-            
+            const refAppList = response?.data?.map(app => app.application_reference).filter(id => id)
+            // console.log(refAppList)
+            this.previousApplications = []
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], app_type_code:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
-                app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
-                app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
-                app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
-                app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
-                app.id = appJson.id;
-                app.listOfPdfs = appJson.prepared_pdfs?appJson.prepared_pdfs.map(pdf=>pdf.pdf_type) :[]
-                app.app_type = this.extractTypes(appJson.app_type.split(','));
-                app.app_type_code = appJson.app_type.split(',');
-                if(appJson.last_efiling_submission){
-                    app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
-                    if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
-                }
+                
+                if(refAppList.includes(appJson.id)) continue
+                this.tempRefApplications = []
+                const app = this.extractApp(response.data, appJson , true)
                 this.previousApplications.push(app);
             }
             if (this.previousApplications.length == 0){
@@ -383,6 +497,42 @@ export default class ApplicationStatus extends Vue {
         });
     }
 
+    public extractApp(appJsons, appJson, mainAppication){
+
+        if(appJson.application_reference){
+            const refApp = appJsons.filter(app=>app.id == appJson.application_reference)
+            // console.log(refApp)
+            if(refApp.length>0) 
+                this.tempRefApplications.push(this.extractApp(appJsons, refApp[0], false))
+        }
+
+        const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], app_type_code:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], status:'', packageResults:'',fileNum:'', rejected:false, last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
+        app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
+        app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
+        app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
+        app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
+        app.id = appJson.id;
+        app.listOfPdfs = appJson.prepared_pdfs?appJson.prepared_pdfs.map(pdf=>pdf.pdf_type) :[]
+        app.app_type = this.extractTypes(appJson.app_type.split(','));
+        app.app_type_code = appJson.app_type.split(',');
+        if(appJson.last_efiling_submission){
+            app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
+            if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
+            app.packageResults = appJson.last_efiling_submission.submission_results? appJson.last_efiling_submission.submission_results: ''
+            app.fileNum = app.packageResults?.court?.fileNumber? app.packageResults.court.fileNumber: ''
+            if(app.packageResults?.documents){
+                // console.log(app.packageResults.documents.map(doc => doc?.status?.code))
+                const statusCodes = app.packageResults.documents.map(doc => doc?.status?.code)
+                app.rejected = statusCodes?.includes('REJ')
+                const submitted = statusCodes.every(code => code.toUpperCase()=='SUB')
+                const completed = statusCodes.every(code => code.toUpperCase()=='FILE')
+                app.status = app.rejected? 'rejected': (submitted?'submitted':(completed?'completed':''))
+            }
+        }
+        if(mainAppication) app.refApplications = this.tempRefApplications
+        return app
+    }
+
     public beginApplication() {   
 
         this.$store.dispatch("Application/UpdateInit", Vue.filter('get-current-version')());
@@ -390,7 +540,11 @@ export default class ApplicationStatus extends Vue {
         store.commit("Application/setUserId", userId);
 
         const lastUpdated = moment().format();
-        this.$store.commit("Application/setLastUpdated", lastUpdated);
+        store.commit("Application/setLastUpdated", lastUpdated);
+
+        store.commit("Application/setRejectedPathway", false);
+        store.commit("Application/setRejectedFileNumber", '');
+        store.commit("Application/setRejectedFormsList", []);
 
         const userType = store.state.Application.userType;      
         store.commit("Application/setUserType", userType);
@@ -424,7 +578,7 @@ export default class ApplicationStatus extends Vue {
     }
 
     public resumeApplication(applicationId) {      
-    
+        this.showActionRequired=false;
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
 
@@ -462,11 +616,7 @@ export default class ApplicationStatus extends Vue {
     public confirmRemoveApplication() {
         this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
         .then((response) => {
-            const indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
-            if(indexToDelete>=0){
-                this.previousApplications.splice(indexToDelete, 1);  
-                this.tableUpdated++;
-            }
+            this.loadApplications()            
             
         },err => {
             const errMsg = err.response.data.error;
@@ -519,6 +669,14 @@ export default class ApplicationStatus extends Vue {
         this.instructionsApplicationId = applicationId;
         this.applicationTypes = applicationType;
         this.showInstructions =  true;
+    }
+
+    public displayRejectionInfo(applicationId, packageId, packageResults) {
+        // console.log(packageResults)
+        this.rejectedApplicationId = applicationId;
+        this.rejectedPackageId = packageId
+        this.packageResults = packageResults
+        this.showActionRequired = true;
     }
 
     public printJourneyMap() {
@@ -589,7 +747,7 @@ export default class ApplicationStatus extends Vue {
         // console.log(application)
         if(application[0]){
             const app_type_code = application[0].app_type_code
-            console.log(app_type_code)
+            // console.log(app_type_code)
             const app_types = Vue.filter('getOtherFormsType')()
             // console.log(app_types) 
             for(const app_type of app_type_code){
@@ -655,6 +813,15 @@ export default class ApplicationStatus extends Vue {
 
     button{
         border:0px;
+    }
+
+    ::v-deep { 
+        .inner tbody tr:nth-of-type(odd){
+            background-color: rgb(245, 233, 151);
+        }
+        .inner tbody tr:nth-of-type(even){
+            background-color: rgb(245, 233, 151);
+        }
     }
 
 </style>

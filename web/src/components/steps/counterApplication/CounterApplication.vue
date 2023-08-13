@@ -9,7 +9,7 @@
                     target="_blank">Reply to a Counter Application Form 8
                 </a> 
                 to reply to a counter application about a family law matter. A reply to a counter 
-                application must be filed within 30 days of you being <tooltip title="served" :index="0"/> 
+                application must be filed within 30 days of you being <tooltip title="served" size="lg" :index="0"/> 
                 with the Reply to an Application About a Family Law Matter with Counter Application.
             </p>
             <p>
