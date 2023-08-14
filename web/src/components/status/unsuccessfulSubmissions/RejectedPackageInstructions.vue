@@ -218,6 +218,7 @@ export default class RejectedPackageInstructions extends Vue {
                     name: doc.documentProperties?.name?.replace('_generated',''),
                     type: doc.documentProperties?.type,
                     status: doc.status?.description,
+                    identifier: doc.identifier,
                     description: doc.description,
                     attachment: doc.documentProperties?.name?.includes('_generated')
                 })

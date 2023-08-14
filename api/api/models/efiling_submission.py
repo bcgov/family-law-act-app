@@ -14,6 +14,8 @@ class EFilingSubmission(models.Model):
 
     submission_results = models.BinaryField(blank=True, null=True)
     key_id = models.CharField(max_length=32, blank=True, null=True)
+    
+    decision_made = models.BooleanField(blank=True, null=True)
 
     application = models.ForeignKey(
         "Application",
