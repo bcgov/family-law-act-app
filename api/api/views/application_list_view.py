@@ -34,15 +34,23 @@ class ApplicationListView(generics.ListAPIView):
             self.efiling_rejection.generate_header(self.request)
             apps = Application.objects.filter(user_id=id)
             for app in apps:
-                if app.last_filed and app.last_efiling_submission and not app.last_efiling_submission.submission_results:
+                if app.last_filed and app.last_efiling_submission and not app.last_efiling_submission.decision_made:
                     package_number=app.last_efiling_submission.package_number                   
                     # print(package_number)
 
                     submission_results = self.efiling_rejection.get_rejected_info( package_number )
                     if submission_results:
+                        results = json.loads(submission_results)
+                        decision = False                       
+                        if "documents" in results:
+                            decision_list = [doc["status"]["code"].upper() for doc in results["documents"] if ("status" in doc and "code" in doc["status"]) ]
+                            if "REJ" in decision_list or "FILE" in decision_list:
+                                decision = True
+                            # print(decision_list)
                         (results_key_id, results_enc) = self.encrypt_submission_results(submission_results)
                         app.last_efiling_submission.submission_results = results_enc 
                         app.last_efiling_submission.key_id = results_key_id
+                        app.last_efiling_submission.decision_made = decision
                         app.last_efiling_submission.save()
 
             return apps

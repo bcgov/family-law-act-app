@@ -76,8 +76,8 @@
                                         title="Action Required">
                                         <span style="font-size:18px;transform:translate(0px,2px);" class="fa fa-exclamation-triangle text-warning"/>                    
                                     </b-button>
-                                    <b-button v-if="row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0 px-1"
-                                        @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                    <b-button v-if="row.item.listOfPdfs.length>0 || row.item.efilingDocs.length>0" size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                        @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs, row.item.efilingDocs, row.item.packageNum)"
                                         v-b-tooltip.hover.noninteractive.left.v-success
                                         title="View/Download the Submitted Application">
                                         <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
@@ -143,8 +143,8 @@
                                 </b-button>                              
                                 
 
-                                <b-button v-if="row.item.listOfPdfs.length>0" size="sm" variant="transparent" class="my-0 py-0 px-1"
-                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                <b-button v-if="row.item.listOfPdfs.length>0 || row.item.efilingDocs.length>0" size="sm" variant="transparent" class="my-0 py-0 px-1"
+                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs, row.item.efilingDocs, row.item.packageNum)"
                                     v-b-tooltip.hover.noninteractive.left.v-success
                                     title="View/Download the Submitted Application">
                                     <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
@@ -244,6 +244,15 @@
                     >                    
                     <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>
                     {{pdf | pdfTypeToFullName}}
+                </b-button>
+            </b-row>
+
+            <b-row v-for="(pdf,inx) in efilingListOfDocs" :key="'efiling-docs-'+inx"> 
+                <b-button size="sm" variant="light" class="py-2 my-2 mx-auto px-5" style="width:20rem;"
+                    @click="downloadEfilingDocument(pdf.name, pdf.packageNumber, pdf.identifier)"
+                    >                    
+                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>
+                    {{pdf.name}} ({{pdf.description}})
                 </b-button>
             </b-row>
             
@@ -427,6 +436,7 @@ export default class ApplicationStatus extends Vue {
     printingApplicationId = 0;
     printingListOfPdfs: string[] = [];
     showSelectFileForPrint =  false;
+    efilingListOfDocs: any[] = [];
 
     instructionsApplicationId = 0;
     rejectedApplicationId = 0;
@@ -508,7 +518,7 @@ export default class ApplicationStatus extends Vue {
                 this.tempRefApplications.push(this.extractApp(appJsons, refApp[0], false))
         }
 
-        const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], app_type_code:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], status:'', packageResults:'',fileNum:'', rejected:false, last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
+        const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], app_type_code:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], status:'', packageResults:'',fileNum:'', efilingDocs:[], rejected:false, last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
         app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
         app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
         app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
@@ -518,7 +528,7 @@ export default class ApplicationStatus extends Vue {
         app.app_type = this.extractTypes(appJson.app_type.split(','));
         app.app_type_code = appJson.app_type.split(',');
         if(appJson.last_efiling_submission){
-            app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
+            app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number, package_url:appJson.last_efiling_submission.package_url}
             if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
             app.packageResults = appJson.last_efiling_submission.submission_results? appJson.last_efiling_submission.submission_results: ''
             app.fileNum = app.packageResults?.court?.fileNumber? app.packageResults.court.fileNumber: ''
@@ -529,6 +539,7 @@ export default class ApplicationStatus extends Vue {
                 const submitted = statusCodes.every(code => code.toUpperCase()=='SUB')
                 const completed = statusCodes.every(code => code.toUpperCase()=='FILE')
                 app.status = app.rejected? 'rejected': (submitted?'submitted':(completed?'completed':''))
+                app.efilingDocs=app.packageResults.documents
             }
         }
         if(mainAppication) app.refApplications = this.tempRefApplications
@@ -629,30 +640,49 @@ export default class ApplicationStatus extends Vue {
         this.confirmDelete=false;  
     }
     
-    public viewApplicationPdf(applicationId, listOfPdfs) {
+    public viewApplicationPdf(applicationId, listOfPdfs, efilingDocs, packageNumber) {
         this.printingApplicationId = applicationId;
-        
-        let submittedPdfList = []
-        this.$http.get('/app/'+ applicationId + '/')
-        .then((response) => {
 
-            const applicationData = response.data;  
-            const appSteps = applicationData?.steps.filter(step => step.name == 'GETSTART');
-            if(appSteps.length == 1){ 
-                const stepGETSTART = appSteps[0].result;
+        // console.log(efilingDocs)
+        // console.log(packageNumber)
+        this.printingListOfPdfs = []
+        this.efilingListOfDocs = []
+        for (const doc of efilingDocs){
+            this.efilingListOfDocs.push({
+                name: doc.documentProperties?.name?.replace('_generated',''),
+                packageNumber: packageNumber,
+                identifier: doc.identifier,
+                description: doc.description
+            })
+        }
 
-                if (stepGETSTART?.submittedPdfList){
-                    submittedPdfList = stepGETSTART.submittedPdfList;
-                } 
-            }
-            
-            this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs,submittedPdfList);
+
+        if(this.efilingListOfDocs.length>0){
             this.showSelectFileForPrint =  true;
+        }
+        else{
+            let submittedPdfList = []
+            this.$http.get('/app/'+ applicationId + '/')
+            .then((response) => {
 
-        }, err => { 
-            this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs,submittedPdfList);           
-            this.showSelectFileForPrint =  true;        
-        });
+                const applicationData = response.data;  
+                const appSteps = applicationData?.steps.filter(step => step.name == 'GETSTART');
+                if(appSteps.length == 1){ 
+                    const stepGETSTART = appSteps[0].result;
+
+                    if (stepGETSTART?.submittedPdfList){
+                        submittedPdfList = stepGETSTART.submittedPdfList;
+                    } 
+                }
+                
+                this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs,submittedPdfList);
+                this.showSelectFileForPrint =  true;
+
+            }, err => { 
+                this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs,submittedPdfList);           
+                this.showSelectFileForPrint =  true;        
+            });
+        }
     }
 
     public getListOfPdfs(listOfPdfs, submittedPdfList){
@@ -714,7 +744,7 @@ export default class ApplicationStatus extends Vue {
         const options = {
             responseType: "blob",
             headers: {
-            "Content-Type": "application/json",
+                "Content-Type": "application/json",
             }
         }  
         this.$http.get(url, options)
@@ -724,6 +754,31 @@ export default class ApplicationStatus extends Vue {
             link.href = URL.createObjectURL(blob);
             document.body.appendChild(link);
             link.download = pdf_type+".pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);  
+            this.error = "";          
+        },err => {
+            console.error(err);
+        });
+    }
+
+
+    public downloadEfilingDocument(fileName, packageNumber, identifier){
+        
+        const url = '/efiling/'+packageNumber+'/doc/'+identifier+'/'
+        const options = {
+            responseType: "blob",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }  
+        this.$http.get(url, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = fileName;
             link.click();
             setTimeout(() => URL.revokeObjectURL(link.href), 1000);  
             this.error = "";          

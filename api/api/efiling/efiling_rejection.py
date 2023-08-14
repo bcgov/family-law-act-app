@@ -46,3 +46,10 @@ class EFilingRejection(EFilingHubCallerBase):
             return response.content.decode('utf8')
         else:
             return None
+
+
+    def get_efiling_document(self, package_id, doc_id):
+        
+        url=f"{self.api_base_url}/filingpackages/{package_id}/document/{doc_id}"
+        response = requests.get(url, headers=self.headers)
+        return response.content
