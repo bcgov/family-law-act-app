@@ -48,7 +48,7 @@ export default class ReviewYourAnswersTris extends Vue {
     nextPageChange(newVal) 
     {
         togglePages([this.stPgNo.TRIS.PreviewFormsTRIS], !this.pageHasError, this.currentStep);
-        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"noticeLawyerParty", isCompleted:false})
+        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"trialReadinessStatement", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.TRIS.PreviewFormsTRIS,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }

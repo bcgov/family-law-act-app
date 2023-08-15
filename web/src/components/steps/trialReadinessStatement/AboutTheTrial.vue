@@ -60,7 +60,7 @@ import moment from 'moment-timezone';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/more-information-nlp.json";
+import surveyJson from "./forms/about-the-trial.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -74,7 +74,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class MoreInformationTris extends Vue {
+export default class AboutTheTrial extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;

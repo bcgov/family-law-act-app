@@ -173,6 +173,7 @@ export class MigrateStore{
         pathwayCompleted.noticeDiscontinuance = false;
         pathwayCompleted.noticeIntentionProceed = false;
         pathwayCompleted.requestScheduling = false;
+        pathwayCompleted.trialReadinessStatement = false;
         pathwayCompleted.other = false;
         //TODO: add the other pathway
         return pathwayCompleted;        

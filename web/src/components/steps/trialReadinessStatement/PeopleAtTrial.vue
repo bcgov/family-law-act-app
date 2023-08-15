@@ -1,6 +1,6 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
-        <survey v-bind:survey="survey"></survey>
+        <survey v-bind:survey="survey"></survey>        
     </page-base>
 </template>
 
@@ -9,14 +9,13 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/notice-lawyer-party.json";
+import surveyJson from "./forms/people-at-trial.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { togglePages } from '@/components/utils/TogglePages';
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
@@ -25,7 +24,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class NoticeLawyerParty extends Vue {
+export default class PeopleAtTrial extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -42,7 +41,7 @@ export default class NoticeLawyerParty extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
     currentPage =0;    
-    disableNextButton = false;
+    disableNextButton = false;   
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -68,9 +67,7 @@ export default class NoticeLawyerParty extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-
-            this.setPages();
+        this.survey.onValueChanged.add((sender, options) => {            
 
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
@@ -84,32 +81,15 @@ export default class NoticeLawyerParty extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.noticeDiscontinuanceSurvey) {            
-            this.survey.data = this.step.result.noticeDiscontinuanceSurvey.data;   
-            this.setPages();         
+        if (this.step.result?.peopleAtTrialSurvey) {            
+            this.survey.data = this.step.result.peopleAtTrialSurvey.data;                      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
-            this.survey.setValue('otherPartyInfoDis',[]) 
-        }
+            this.survey.setValue('otherPartyInfoTris',[]) 
+        }        
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
-    }
-
-    public setPages() {
-
-        const p = this.stPgNo.NDT;
-        const noticeDiscontinuancePagesAll = [p.DiscontinuanceInformation, p.MoreInformation, p.ReviewYourAnswersNDT]
-
-        if (this.survey.data) {
-
-            const surveyResponses = this.survey.data;
-
-            const canContinue = surveyResponses.Filed == 'y';
-
-            togglePages(noticeDiscontinuancePagesAll, canContinue, this.currentStep);            
-            this.disableNextButton = !canContinue;
-        }
-    }
+    }   
 
     public mergeRespondants(){
         const respondentNames =[]
@@ -118,9 +98,9 @@ export default class NoticeLawyerParty extends Vue {
             respondentNames.push(...respondents)
         }
 
-        if(this.survey.data?.otherPartyInfoDis && this.survey.data?.otherPartyInfoDis.length>0){            
-            const respondentNamesDis = this.survey.data.otherPartyInfoDis.map(otherParty=>otherParty.name)
-            respondentNames.push(...respondentNamesDis)
+        if(this.survey.data?.otherPartyInfoTris && this.survey.data?.otherPartyInfoTris.length>0){            
+            const respondentNamesTRIS = this.survey.data.otherPartyInfoTris.map(otherParty=>otherParty.name)
+            respondentNames.push(...respondentNamesTRIS)
         }  
         
         const fullNamesArray =[];
@@ -142,9 +122,9 @@ export default class NoticeLawyerParty extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            Vue.prototype.$UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage();            
         }
-    }  
+    }     
     
     beforeDestroy() {
 
@@ -157,7 +137,9 @@ export default class NoticeLawyerParty extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {noticeDiscontinuanceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({
+            step:this.step, 
+            data: {peopleAtTrialSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

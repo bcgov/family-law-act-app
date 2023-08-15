@@ -1,7 +1,7 @@
 <template>
     <div v-if="dataReady">
         <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-            <form-42-layout v-bind:result="result"/>
+            <form-22-layout v-bind:result="result"/>
         </b-card>
     </div>
 </template>
@@ -13,17 +13,17 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import Form42Layout from "./Form42Layout.vue"
+import Form22Layout from "./Form22Layout.vue"
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
 
 @Component({
     components:{        
-        Form42Layout
+        Form22Layout
     }
 })
-export default class Form42 extends Vue {
+export default class Form22 extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
@@ -43,12 +43,12 @@ export default class Form42 extends Vue {
            
     public onPrint() { 
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("noticeDiscontinuance")
-        const pdf_name = "notice-of-lawyer-for-party";       
+        const pdf_type = Vue.filter('getPathwayPdfType')("trialReadinessStatement");
+        const pdf_name = "trial-readiness-statement";       
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA760    `+moment().format("MMMM D, YYYY")+` \\a           Form 42";`;
+        const bottomLeftText = `"PFA735    `+moment().format("MMMM D, YYYY")+` \\a           Form 22";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
@@ -69,7 +69,7 @@ export default class Form42 extends Vue {
         .then(res => {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"noticeLawyerParty", isCompleted:true});
+            this.UpdatePathwayCompleted({pathway:"trialReadinessStatement", isCompleted:true});
 
             this.$emit('enableNext',true)                   
         },err => {

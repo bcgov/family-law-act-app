@@ -269,7 +269,7 @@ import { discontinuanceInformationSurveyDataInfoType, moreInformationSurveyDataI
     }
 })
 
-export default class Form42Layout extends Vue {
+export default class Form22Layout extends Vue {
 
     @Prop({required:true})
     result!: any;    

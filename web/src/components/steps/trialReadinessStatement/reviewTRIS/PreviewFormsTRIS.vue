@@ -1,14 +1,14 @@
 <template>
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">           
-            <form42 @enableNext="EnableNext"/>
+            <form22 @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue} from 'vue-property-decorator';
-import Form42 from  "./pdf/Form42.vue"
+import Form22 from  "./pdf/Form22.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -18,7 +18,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{       
-        Form42,
+        Form22,
         PageBase
     }
 })

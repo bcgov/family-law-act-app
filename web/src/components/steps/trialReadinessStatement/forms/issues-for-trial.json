@@ -1,0 +1,77 @@
+{
+  "title": "Issues For Trial",
+  "pages": [
+    {
+      "name": "Issues For Trial",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "IssuesForTrialPanel",
+          "elements": [            
+            {
+              "type": "multiplecommentcheckbox",
+              "name": "IssuesForTrial",              
+              "title": "Which issues are to be decided at the trial?",
+              "description": "You may have resolved some issues already. Select all options from the list provided that are still to be decided at the trial.",
+              "choices": [
+                {
+                  "value": "ParentingResponsibilities",
+                  "text": "Parenting responsibilities",
+                  "comment": false
+                },
+                {
+                  "value": "ParentingTime",
+                  "text": "Parenting time",
+                  "comment": false
+                },               
+                {
+                  "value": "ChildSupport",
+                  "text": "Child support",
+                  "comment": false
+                },
+                {
+                  "value": "ContactChild",
+                  "text": "Contact with a child",
+                  "comment": false
+                },          
+                {
+                  "value": "GuardianshipChild",
+                  "text": "Guardianship of a child",
+                  "comment": false
+                },     
+                {
+                  "value": "SpousalSupport",
+                  "text": "Spousal support",
+                  "comment": false
+                },
+                {
+                  "value": "PO",
+                  "text": "Protection order",
+                  "comment": false
+                },
+                {
+                  "value": "Ppm",
+                  "text": "Priority parenting matter (specify):",
+                  "comment": true
+                },
+                {
+                  "value": "Relocation",
+                  "text": "Relocation",
+                  "comment": false
+                },
+                {
+                  "value": "Other",
+                  "text": "Other (specify):",
+                  "comment": true
+                }
+              ]
+            }          
+          ]
+        }
+      ],
+      "title": "Issues For Trial"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

@@ -10,7 +10,7 @@ import { namespace } from "vuex-class";
 import * as _ from 'underscore';  
 
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/lawyer-party-information.json";
+import surveyJson from "./forms/orders-at-tpc.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import PageBase from "../PageBase.vue";
@@ -27,7 +27,7 @@ import { togglePages } from '@/components/utils/TogglePages';
         PageBase
     }
 })
-export default class LawyerPartyInformation extends Vue {
+export default class OrdersAtTpc extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType;

@@ -1,10 +1,16 @@
 <template>
     <step-base v-bind:step="step">    
-        <notice-lawyer-party      v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.NoticeLawyerParty" />
-        <lawyer-party-information v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.LawyerPartyInformation" />
-        <more-information-nlp     v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.MoreInformationTRIS" />
-        <review-your-answers-nlp  v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.ReviewYourAnswersTRIS"/>
-        <preview-forms-nlp        v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.PreviewFormsTRIS"/> 
+        <trial-readiness-statement       v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.TrialReadinessStatement" />
+        <people-at-trial                 v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.PeopleAtTrial" />
+        <issues-for-trial                v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.IssuesForTrial" />
+        <background-tris                 v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.BackgroundTris" />
+        <disclosure-of-information       v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.DisclosureOfInformation" />
+        <witnesses                       v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.Witnesses" />
+        <requirements-and-considerations v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.RequirementsAndConsiderations" />
+        <about-the-trial                 v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.AboutTheTrial" />
+        <orders-at-tpc                   v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.OrdersAtTpc" />
+        <review-your-answers-tris        v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.ReviewYourAnswersTRIS"/>
+        <preview-forms-tris              v-bind:step="step"     v-if="step.currentPage == stPgNo.TRIS.PreviewFormsTRIS"/> 
     </step-base>
 </template>
 
@@ -16,9 +22,16 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import StepBase from "../StepBase.vue";
-import NoticeLawyerParty from "./NoticeLawyerParty.vue";
-import LawyerPartyInformation from "./LawyerPartyInformation.vue";
-import MoreInformationTris from "./MoreInformationTRIS.vue";
+import TrialReadinessStatement from "./TrialReadinessStatement.vue";
+import PeopleAtTrial from "./PeopleAtTrial.vue";
+import IssuesForTrial from "./IssuesForTrial.vue";
+import BackgroundTris from "./BackgroundTris.vue";
+import DisclosureOfInformation from "./DisclosureOfInformation.vue";
+import Witnesses from "./Witnesses.vue";
+import RequirementsAndConsiderations from "./RequirementsAndConsiderations.vue";
+import AboutTheTrial from "./AboutTheTrial.vue";
+import OrdersAtTpc from "./OrdersAtTpc.vue";
+
 import ReviewYourAnswersTris from "./reviewTRIS/ReviewYourAnswersTRIS.vue";
 import PreviewFormsTris from "./reviewTRIS/PreviewFormsTRIS.vue";
 
@@ -28,9 +41,15 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 @Component({
     components:{
         StepBase,        
-        NoticeLawyerParty,        
-        LawyerPartyInformation,
-        MoreInformationTris,
+        TrialReadinessStatement,        
+        PeopleAtTrial,
+        IssuesForTrial,
+        BackgroundTris,
+        DisclosureOfInformation,
+        Witnesses,
+        RequirementsAndConsiderations,
+        AboutTheTrial,
+        OrdersAtTpc,
         ReviewYourAnswersTris,
         PreviewFormsTris        
     }

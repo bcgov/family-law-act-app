@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.14";
+    const CURRENT_VERSION = "1.2.15";
     //__________________________
     //___________________________
     //___________________________
@@ -755,6 +755,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepNDT = store.state.Application.stPgNo.NDT;		
 		const stepNPR = store.state.Application.stPgNo.NPR;
 		const stepRQS = store.state.Application.stPgNo.RQS;
+		const stepTRIS = store.state.Application.stPgNo.TRIS;
 
 		
 		let step = stepPO._StepNo; 
@@ -818,6 +819,11 @@ Vue.filter('surveyChanged', function(type: string) {
 			reviewPage = stepRQS.ReviewYourAnswersRQS; 
 			previewPages = [stepRQS.PreviewFormsRQS];
 		}
+		else if(typeName == 'trialReadinessStatement'){
+			step = stepTRIS._StepNo; 
+			reviewPage = stepTRIS.ReviewYourAnswersTRIS; 
+			previewPages = [stepTRIS.PreviewFormsTRIS];
+		}
 		
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -840,7 +846,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement']
 	
 	if(type == 'allExPO'){
         
@@ -858,6 +864,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.noticeDiscontinuance = false; 
 		pathwayCompleted.noticeIntentionProceed = false;
 		pathwayCompleted.requestScheduling = false;
+		pathwayCompleted.trialReadinessStatement = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

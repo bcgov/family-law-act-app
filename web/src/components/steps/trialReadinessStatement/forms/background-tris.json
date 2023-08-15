@@ -1,0 +1,58 @@
+{
+  "title": "Background",
+  "pages": [
+    {
+      "name": "Background",
+      "description": "These next questions will help the judge to better understand what efforts may have been made to reach an agreement about the issues in dispute and what orders may already have been made.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "BackgroundPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "AttendedConference",
+              "title": "Have you attended a family settlement conference?",
+              "description": "A family settlement conference is a type of court appearance where parties meet with a judge to explore the issues in dispute and whether there is any common ground between the parties. Often the family settlement conference discussions can help parties reach an agreement. Your scheduling notice would have indicated the type of appearance.",
+              "isRequired": true
+            }, 
+            {
+              "type": "yesno",
+              "name": "OngoingDiscussions",
+              "title": "Are there ongoing settlement discussions?",
+              "description": "In many family law cases, the parties reach an agreement before going to trial. It can happen at any time in the process, even right before your trial begins. It is helpful for the court to know if you are still trying to reach an agreement together.",
+              "isRequired": true
+            },       
+            {
+              "type": "yesno",
+              "name": "Resolvable",
+              "title": "Do you think you might be able to resolve your issues before the trial?",
+              "visible": false,
+              "visibleIf": "{OngoingDiscussions} = 'y'",
+              "isRequired": true
+            },
+            {
+              "type": "advancedradiogroup",
+              "name": "existingCourtOrder",              
+              "title": "Is there an existing court `order`, involving one or more of the parties and/or the child(ren), about any of the following?",
+              "description" : "To properly consider an issue, the court should be aware of all relevant information, including other court orders involving the parties or the children.<br>Select all options that applies and provide the requested information.",
+              "radioOutputValues":"{monthly},{Lump Sum}",
+              "inputNames":"{monthlyAmount},{monthlyStartDate},{monthlyEndDate};{lumpsumAmount}",
+              "inputTypes":"{number},{date},{date};{number}",
+              "inputWidths":"{7rem},{11rem},{11rem};{9rem}",                  
+              "textBeforeInputs":"{in the amount of $},{per month starting on},{until},{};{in a lump sum of $},{}",
+              "textClasss": "sv_q_title font-weight-bold",
+              "radioMargins":"0 0 0.5rem 0",
+              "radioTextMargins":"-0.72rem 0 0 0",
+              "hasOther": true,
+              "isRequired": true
+            }           
+          ]
+        }
+      ],
+      "title": "Background"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

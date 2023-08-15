@@ -16,6 +16,7 @@ export interface stepsAndPagesNumberInfoType{
     NDT: NDTstPgTypes;
     NPR: NPRstPgTypes;
     RQS: RQSstPgTypes;
+    TRIS: TRISstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -312,6 +313,22 @@ export interface RQSstPgTypes{
     PartyInformationRQS: number;  
     ReviewYourAnswersRQS: number;
     PreviewFormsRQS: number;
+}
+
+export interface TRISstPgTypes{
+    _StepNo: number;
+
+    TrialReadinessStatement: number;
+    PeopleAtTrial: number;
+    IssuesForTrial: number;
+    BackgroundTris: number;
+    DisclosureOfInformation: number; 
+    Witnesses: number;
+    RequirementsAndConsiderations: number;
+    AboutTheTrial: number;
+    OrdersAtTpc: number;   
+    ReviewYourAnswersTRIS: number;
+    PreviewFormsTRIS: number;
 }
 
 export interface SUBMITstPgTypes{
