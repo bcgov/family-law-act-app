@@ -22,6 +22,7 @@ import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoTyp
 import { addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "./AddressChange";
 import { noticeDiscontinuanceSurveyInfoType, discontinuanceInformationSurveyInfoType, moreInformationSurveyInfoType } from "./Discontinuance";
 import { noticeIntentionProceedSurveyInfoType, otherPartyNprConfirmationSurveyInfoType } from "./IntentionProceed";
+import { interimOrderSurveyInfoType, nextAppearanceSurveyInfoType, otherPartyRQSConfirmationSurveyInfoType, partyInformationRQSSurveyInfoType, reasonForSchedulingSurveyInfoType, requestForSchedulingSurveyInfoType } from "./RequestScheduling";
 
 
 //This is what our database saves.
@@ -275,8 +276,17 @@ export interface stepInfoType {
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
     otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
+
+    //_____Step 14 REQUEST FOR SCHEDULING_____________    
+    requestForSchedulingSurvey?: requestForSchedulingSurveyInfoType;
+    reasonForSchedulingSurvey?: reasonForSchedulingSurveyInfoType;
+    interimOrderSurvey?: interimOrderSurveyInfoType;    
+    nextAppearanceSurvey?: nextAppearanceSurveyInfoType;
+    partyInformationRQSSurvey?: partyInformationRQSSurveyInfoType;
+    otherPartyRQSConfirmationSurvey? : otherPartyRQSConfirmationSurveyInfoType;
+
     
-    //__Step 14 SUBMIT
+    //__Step 15 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -294,4 +304,5 @@ export interface stepInfoType {
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
     noticeIntentionProceed?: boolean;
+    requestScheduling?: boolean;
   }

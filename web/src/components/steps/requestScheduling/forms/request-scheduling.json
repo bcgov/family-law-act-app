@@ -1,0 +1,100 @@
+{
+  "title": "Request for Scheduling",
+  "pages": [
+    {
+      "name": "Request for Scheduling",
+      "description": "There are lots of reasons why you might need to reschedule an application on your case for a new court appearance. This pathway will help you complete the Request for Scheduling Form 39.<br><br>You don’t always need to file a request for scheduling to get your next court appearance. If you were directed by the court to schedule your next appearance with a judicial case manager or together with the other party, you probably don’t need to use any form. Check with the judicial case manager (JCM) or registry staff in your court location if you are not sure. Contact information for the JCM can be found on the <a target='_blank' href='https://www.provincialcourt.bc.ca/locations-contacts'>Provincial Court’s website</a> under each courthouse location. Contact information for each registry can be found <a href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96' target='_blank'>here</a>.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "Unresolved",
+              "title": "Do you have an unresolved application before the court?",
+              "isRequired": true
+            },  
+            {
+              "type": "helptext",
+              "name": "FAQUnresolved",
+              "title": "How do I know if my application is unresolved?",
+              "titleLocation": "hidden",              
+              "body": "An application is unresolved if the court has not made a final order. Sometimes you will be given an interim order that gives a temporary solution while you wait to go to trial. Even if this was in place for a while, it is still not a final order.<br><br>A final order is a decision by a judge usually after a hearing or trial, or a consent order between the parties that decides the issues.<br><br>An order will often say if it is interim, final or a consent order. If there is an order and you are not sure if it is final, you can ask your lawyer or the registry staff. There is a different process to follow if you need to go back to court with a final order unless the order says you can come back to court to review the order."
+            },  
+            {
+              "type": "yesno",
+              "name": "ReviewOrdered",
+              "title": "Did the court order a review of one or more terms of a court order?",
+              "description": "The court can include a term in an order that says the order can be reviewed by the court:<ul><li>on a specified date</li><li>after a specified amount of time, or</li><li>after a specified event has happened (such as when a child turns 19)</li></ul>If the date, time or event has happened, you can schedule a court appearance to review the order.",
+              "visible": false,
+              "visibleIf": "{Unresolved} = 'n'",
+              "isRequired": true
+            },          
+            {
+              "type": "infotext",
+              "name": "ExplanationResolved",
+              "visible": false,
+              "visibleIf": "{Unresolved} = 'n' and {ReviewOrdered} = 'n'",
+              "title": "Based on your answers, you cannot schedule a court appearance using the request for scheduling. The request for scheduling is only used to schedule a court appearance on an active application or to review an order that was ordered by the court for review.<br><br>If you want to change a final order or take another step in your case, like enforcement, you will need to file a new application.<br><br>Talk to a lawyer for help about how to get your case back into court.",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "panel",
+              "name": "DetailsPanel",
+              "visible": false,
+              "visibleIf": "{Unresolved} = 'y' or ({Unresolved} = 'n' and {ReviewOrdered} = 'y')",
+              "elements": [
+                {
+                  "type": "text",
+                  "inputType": "date",
+                  "name": "FiledDate",
+                  "title": "What is the date the application you need scheduled was filed with the court?",
+                  "description": "The registry uses the date an application was filed as an identifier for scheduling. Even if you are reviewing an order, the court needs to know when the application that started it was filed. This information will help make sure the correct application is scheduled.",
+                  "isRequired": true,
+                  "dateYearsAhead": "0"                  
+                },
+                {
+                  "type": "infotext",
+                  "name": "ExplanationInvalidFiledDate",
+                  "visible": false,
+                  "visibleIf": "{InvalidFiledDate}",
+                  "title": "The filed date cannot be in the future.",
+                  "titleLocation": "hidden"
+                },
+                {
+                  "type": "text",
+                  "inputType": "date",
+                  "name": "LastAppearanceDate",
+                  "title": "What was the date of your last scheduled court appearance on your application?",
+                  "description": "This is the date you were last in court on your application, or that the application was scheduled to be in court. If you have an order to be reviewed, give the date the order was made.",
+                  "isRequired": true,
+                  "dateYearsAhead": "0"                  
+                }, 
+                {
+                  "type": "infotext",
+                  "name": "ExplanationInvalidLastAppearanceDate",
+                  "visible": false,
+                  "visibleIf": "{InvalidLastAppearanceDate}",
+                  "title": "The last appearance date cannot be in the future.",
+                  "titleLocation": "hidden"
+                },
+                {
+                  "type": "infotext",
+                  "name": "ExplanationServe",                  
+                  "title": "If more than one year has passed since the date of the court appearance and no other steps were taken in your case, you must file a Notice of Intention to Proceed in Form 2 to get back before the court on a family law matter. Your case will be scheduled for a family management conference to determine the next step in your case.<br><br>The ability to refresh the process following a time lapse is important as family dynamics and finances can change significantly in a year. The family management conference will allow a judge to determine if an application or other document needs to be updated and what the most appropriate next step is for the parties.<br><br>If this is true for your case, please complete a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa711.pdf?forcedownload=true' target='_blank'>Notice of Intention to Proceed Form 2</a>. To complete it using this service, go back to Other family court form(s) and select Notice of Intention to Proceed.",
+                  "titleLocation": "hidden",
+                  "visible": false,
+                  "visibleIf": "{overOneYearHasPassed}"
+                }                               
+              ]
+            } 
+          ]
+        }
+      ],
+      "title": "Request for Scheduling"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
