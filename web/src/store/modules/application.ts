@@ -2132,7 +2132,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "8";        
         p.name = "OrdersAtTpc";
-        p.label = "Orders at the Trial Preparation Conference";
+        p.label = "Orders at TPC";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);

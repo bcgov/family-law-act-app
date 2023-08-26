@@ -21,7 +21,7 @@
                   "description": "You can be a witness at your trial so be sure to list yourself if you plan to give evidence. List any other person you want the judge to hear from. Think about how long you’ll need to ask questions to each witness, you will be asked to give an estimate of the time for the trial later.",                            
                   "templateElements": [
                     {
-                      "type": "text",
+                      "type": "personname",
                       "name": "name",
                       "title": " ",
                       "titleLocation": "hidden"
@@ -64,6 +64,8 @@
               "title": "Will the expert be called as a witness at the trial to provide opinion evidence or to be asked questions?",
               "description": "The expert may be called as a witness at the trial to give evidence or to be asked questions. The expert’s report may also be introduced as evidence without them being called as a witness.<br><br>If you need the expert witness to attend, you will want to ask them about what fees you will have to pay for them to attend court.<br><br>If the other party gets an expert’s report, you may call the expert to attend the trial for cross-examination (to ask them questions). If you are choosing to have them attend the trial, you must serve the other party notice requiring the expert to attend the trial for cross-examination at least 30 days before the trial date. Before you decide if they need to be at the trial, consider if they need to attend. If the judge determines it was not necessary to have them attend, you may have to pay the other party costs associated with the expert’s attendance at court.",
               "isRequired": true,
+              "visible": false,
+              "visibleIf": "{ExpertReportsExist} = 'Yes'",
               "choices": [
                "Yes",
                "No",
@@ -77,7 +79,7 @@
               "description": "Give an estimate of how much time you think will be needed for the expert to give evidence and both you and the other party to ask them questions.",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "{ExpertCalled} = 'Yes'"
+              "visibleIf": "({ExpertReportsExist} = 'Yes') and ({ExpertCalled} = 'Yes')"
             },
             {
               "type": "yesno",

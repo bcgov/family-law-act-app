@@ -78,8 +78,7 @@ export default class TrialReadinessStatement extends Vue {
             this.survey.data = this.step.result.trialReadinessStatementSurvey.data;   
             this.setPages();
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        } 
-        
+        }
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
 
@@ -88,7 +87,7 @@ export default class TrialReadinessStatement extends Vue {
         const p = this.stPgNo.TRIS;
         const trialReadinessStatementAllPages = [
             p.PeopleAtTrial, p.IssuesForTrial, p.BackgroundTris, p.DisclosureOfInformation, 
-            p.Witnesses, p.RequirementsAndConsiderations, p.AboutTheTrial, p.ReviewYourAnswersTRIS
+            p.Witnesses, p.RequirementsAndConsiderations, p.AboutTheTrial, p.OrdersAtTpc, p.ReviewYourAnswersTRIS
         ];        
 
         if (this.survey.data) {
@@ -114,8 +113,7 @@ export default class TrialReadinessStatement extends Vue {
         }
     }  
     
-    beforeDestroy() {       
-        
+    beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {trialReadinessStatementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

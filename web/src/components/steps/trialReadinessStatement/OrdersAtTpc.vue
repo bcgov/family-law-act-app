@@ -7,7 +7,6 @@
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';   
 import { namespace } from "vuex-class";  
-import * as _ from 'underscore';  
 
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/orders-at-tpc.json";
@@ -20,7 +19,6 @@ import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
-import { togglePages } from '@/components/utils/TogglePages';
 
 @Component({
     components:{
@@ -37,9 +35,6 @@ export default class OrdersAtTpc extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
@@ -80,15 +75,10 @@ export default class OrdersAtTpc extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result?.discontinuanceInformationSurvey){
-            this.survey.data = this.step.result.discontinuanceInformationSurvey.data; 
+        if (this.step.result?.ordersAtTpcSurvey){
+            this.survey.data = this.step.result.ordersAtTpcSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);              
-        }
-
-        if (this.step.result?.noticeDiscontinuanceSurvey) {            
-            const discontinuingDocs = this.step.result.noticeDiscontinuanceSurvey.data.discontinuanceDocs;
-            this.survey.setValue('discontinuingDocs',discontinuingDocs);
-        }
+        }       
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);     
     }
@@ -105,7 +95,7 @@ export default class OrdersAtTpc extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {discontinuanceInformationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {ordersAtTpcSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

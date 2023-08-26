@@ -43,7 +43,6 @@ export default class ReviewYourAnswersTris extends Vue {
     currentPage =0;
     pageHasError = false;
 
-
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
@@ -74,8 +73,7 @@ export default class ReviewYourAnswersTris extends Vue {
         this.questionResults = getQuestionResults([this.stPgNo.OTHER._StepNo, this.stPgNo.TRIS._StepNo], this.currentStep)
            
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        togglePages([this.stPgNo.TRIS.PreviewFormsTRIS], !this.pageHasError, this.currentStep); 
-        
+        togglePages([this.stPgNo.TRIS.PreviewFormsTRIS], !this.pageHasError, this.currentStep);         
     }
     
     public onPrev() {

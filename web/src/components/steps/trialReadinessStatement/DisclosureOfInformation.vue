@@ -87,8 +87,7 @@ export default class DisclosureOfInformation extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        this.determineQuestions();
-        
+        this.determineQuestions();        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
    

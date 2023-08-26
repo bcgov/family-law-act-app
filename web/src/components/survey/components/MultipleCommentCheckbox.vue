@@ -17,7 +17,20 @@
                     >
                     <tooltip style="display:inline; margin:0 -0.65rem;" v-if="txt.tooltip" :title="txt.text" :index="index" placement="top"/>
                     <div style="display:inline;" v-else v-html="txt.text">{{txt.text}}</div>
-                </div>                         
+                </div>
+                              
+                <div v-if="choice.input && checked[inx]" :style="choice.input.style">
+                    <div style="display: inline;"> {{choice.input.txtbefore}}</div>      
+                    <input                        
+                        class="form-control"
+                        :style="{display:'inline-block', width:choice.input.width, margin:'.25rem 0.5rem'}" 
+                        :type="choice.input.type" 
+                        :disabled="readOnly"                                        
+                        @change="inputChanged"
+                        v-model="pendingValue[fields[inx].input]"
+                        :id="'input-data-'+fields[inx].id"/>
+                    <div style="display: inline;"> {{choice.input.txtafter}}</div>
+                </div>
             </label>
             <textarea 
                 v-if="checked[inx] && choice.comment"
@@ -78,7 +91,7 @@ export default class MultipleCommentCheckbox extends Vue {
 
     public questionValidator(){
         this.question.validateValueCallback = () => {
-          
+    
             let error = null      
             for (const field of this.fields) {
                 const newValue = (this.pendingValue[field.name] || "");
@@ -86,7 +99,13 @@ export default class MultipleCommentCheckbox extends Vue {
                 if (!newValue.length && field.hasComment && this.pendingValue['checked'] && this.pendingValue['checked'].includes(field.value)){
                     error = new SurveyVue.SurveyError("Please enter all fields")
                     break;
-                }                
+                }
+
+                const newInputValue = (this.pendingValue[field.input] || "");
+                if (!newInputValue.length && field.hasInput && this.pendingValue['checked'] && this.pendingValue['checked'].includes(field.value)) {    
+                    error = new SurveyVue.SurveyError("Please enter all fields")
+                    break;
+                } 
             }
             return error
         }
@@ -113,10 +132,15 @@ export default class MultipleCommentCheckbox extends Vue {
                 updatedVal[field.name] = this.pendingValue[field.name];
                 newValue = this.pendingValue[field.name];
                 emptyField = false;
-            }                          
+            }            
+            if ((currentVal[field.name] || "") !== newValue) valueChanged = true;
             
-            if ((currentVal[field.name] || "") !== newValue) valueChanged = true;            
-            
+            if(this.pendingValue[field.input]){  
+                updatedVal[field.input] = this.pendingValue[field.input];
+                newValue = this.pendingValue[field.input];
+                emptyField = false;
+            }            
+            if ((currentVal[field.input] || "") !== newValue) valueChanged = true;            
         }
         if (valueChanged) this.question.value = emptyField ? null : updatedVal;
 
@@ -133,6 +157,8 @@ export default class MultipleCommentCheckbox extends Vue {
             fields.push(
             {                
                 name: choice.value+'Comment',
+                input: choice.value+'Input',
+                hasInput: Boolean(choice.input),
                 hasComment: choice.comment,
                 value: choice.value,
                 id: this.question.inputId +"-"+ choice.value.toLowerCase()
@@ -143,6 +169,8 @@ export default class MultipleCommentCheckbox extends Vue {
         fields.push(
         {                
             name: 'checked',
+            input: {},
+            hasInput: false,
             hasComment: false,
             value: 'checked',
             id: this.question.inputId +"-checked"
@@ -171,7 +199,7 @@ export default class MultipleCommentCheckbox extends Vue {
             "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
             "description": "Select each option that fits your situation and provide the additional detail as required.",   
             "choices": [
-            {"value":"myFinancialChanged",    "comment":false,  "text":"My financial situation has changed"},
+            {"value":"myFinancialChanged",    "comment":false,  "text":"My financial situation has changed", "input":{ "type":"date", "width":"10rem", "txtbefore":"Expiry Date", txtafter:" sharp!", style:"display:inline; margin-left:1rem;"} },
             {"value":"partyFinancialChanged", "comment":false,  "text":"I believe the other party’s financial situation has changed"},
             {"value":"myEmploymentChanged",   "comment":true,  "text":"My employment, training, health and/or ability to work have changed"},
             {"value":"partyEmploymentChanged","comment":true,  "text":"I believe the other party’s employment, training, health and/or ability to work have changed"},

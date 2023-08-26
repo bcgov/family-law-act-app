@@ -22,7 +22,8 @@ export interface peopleAtTrialSurveyDataInfoType {
     Lawyer?: string;  
     LawyerName?: nameInfoType; 
     otherPartyInfoTris?: peopleAtTrialOtherPartyInfoType[]; 
-    CaseType?: string;    
+    CaseType?: string;  
+    caseTypeComment?: string;  
 }
 
 export interface peopleAtTrialSurveyInfoType {
@@ -55,11 +56,16 @@ export interface backgroundTrisSurveyDataInfoType {
     AttendedConference?: string;    
     OngoingDiscussions?: string;
     Resolvable?: string;
-    existingCourtOrder?: existingCourtOrderInfoType;
+    ExistingCourtOrder?: existingCourtOrderInfoType;
 }  
 
 export interface existingCourtOrderInfoType {
-    name: nameInfoType;
+    checked?: string[];
+    bailOrderInput?: string;
+    peaceBondInput?: string;
+    probationOrderInput?: string;
+    protectionOrderInput?: string;
+    otherOrderComment?: string;
 }
 
 export interface backgroundTrisSurveyInfoType {
@@ -94,8 +100,12 @@ export interface disclosureOfInformationSurveyInfoType {
     currentPage: number | string;
 }
 
+export interface witnessesInfoType {
+    name: nameInfoType;
+}
+
 export interface witnessesSurveyDataInfoType {
-    Witnesses?: string[];
+    Witnesses?: witnessesInfoType[];
     ExpertReportsExist?: string;
     ExpertReportProvided?: string;
     ExpertCalled?: string;
@@ -118,7 +128,9 @@ export interface requirementsAndConsiderationsSurveyDataInfoType {
     specialReqList?: string[];
     techSpecs?: string;
     interpreterInfo?: interpreterDetailsDataInfoType;
-    
+    safetySpecs?: string;
+    trialSpecs?: string;
+    disabilitySpecs?: string;    
 }
 
 export interface interpreterDetailsDataInfoType {
@@ -135,8 +147,17 @@ export interface requirementsAndConsiderationsSurveyInfoType {
 }
 
 export interface aboutTheTrialSurveyDataInfoType {
-    AppearanceType?: string;
-    AppearanceTypeComment?: string;
+    TrialScheduled?: string;
+    TrialDate?: string;
+    FeelReady?: string;
+    FeelReadyExplanation?: string;
+    TrialTimeStatement?: trialTimeStatementDataType;
+    Reviewed?: string;
+}
+
+export interface trialTimeStatementDataType {
+    dayCountOne?: string;
+    dayCountTwo?: string;
 }
 
 export interface aboutTheTrialSurveyInfoType {
@@ -148,8 +169,8 @@ export interface aboutTheTrialSurveyInfoType {
 }
 
 export interface ordersAtTpcSurveyDataInfoType {
-    AppearanceType?: string;
-    AppearanceTypeComment?: string;
+    ordersToAsk?: string;
+    orders?: string;
 }
 
 export interface ordersAtTpcSurveyInfoType {

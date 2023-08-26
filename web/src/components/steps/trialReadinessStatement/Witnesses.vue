@@ -67,12 +67,8 @@ export default class Witnesses extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {            
-
-            // if(options.name == "ApplicantName") {
-            //     this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-            //     this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-            // }
+        this.survey.onValueChanged.add((sender, options) => {
+           
         })
     }
     
@@ -108,7 +104,8 @@ export default class Witnesses extends Vue {
             step:this.step, 
             data: {
                 witnessesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)
-            }})
+            }
+        })
     }
 }
 </script>
