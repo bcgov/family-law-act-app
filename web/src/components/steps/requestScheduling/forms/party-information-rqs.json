@@ -1,0 +1,64 @@
+{
+  "title": "Party Information",
+  "pages": [
+    {
+      "name": "Party Information",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantContactPanel",             
+          "elements": [
+            {
+              "type": "personname",
+              "name": "ApplicantName",
+              "title": "What is your full name?",
+              "description": "This is the name of the person filing the Request for Scheduling. If you are helping someone use this service, use their name. Copy the name from any filed document.",                  
+              "isRequired": true,              
+              "defaultSubstitution": "(Applicant Name)",
+              "descFirstName": "First Name is also known as Given Name",
+              "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+              "descLastName": "Last Name is also known as Family Name or Surname"
+            },
+            {
+              "type": "panel",
+              "name": "ContactInformationOtherPartyPanel",             
+              "elements": [
+                {
+                  "isRequired": true,  
+                  "type": "paneldynamic",
+                  "name": "otherPartyInfoRqs",
+                  "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>",
+                  "description": "Copy the name from the filed document.",                            
+                  "templateElements": [
+                    {
+                      "type": "personname",
+                      "name": "name",
+                      "title": " ",
+                      "titleLocation": "hidden"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "ExplanationServe",                  
+              "title": "You must serve each other party with a copy of the Request for Scheduling at least 7 days before the date set for the court appearance.",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "How do I serve the other party",
+              "titleLocation": "hidden",              
+              "body": "Service is the act of giving or leaving documents with the required person. It is important that each other party know that a case is going on, are aware of what step is being taken and are given a chance to tell their side of the story to the court.<br><br>You must serve each other party with at least 7 days' notice of the date and time of the court appearance, unless the court has ordered something else. This means there must be at least 7 days between the date the application document is served on the other party and the date and time of the court appearance.<br><br>A Request for Scheduling must be served to the address of service of each other party in any of the following ways:<ul><li>by leaving the documents at the party’s address for service</li><li>by mailing the documents by ordinary mail to the party’s address for service</li><li>by mailing the documents by registered mail to the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>A party's address for service is the address they have provided to the court. A party who does not have an address for service must be served by leaving a copy of the application document(s) directly with the person (this is called personal service).<br><br>Personal service requires that an adult (at least 19 years old) who is not a party, hand-deliver the documents to the party to be served.<br><br>The court may need proof you had the documents served. The person serving the documents must complete a <a href='https://www2.gov.bc.ca/assets/download/7F83FBAF566D4442AA69427E2D50FFA7' target='_blank'>Certificate of Service Form 7</a> so that you can prove service of the documents. You must attach a copy of the documents to the Certificate of Service. Remember to make a copy before the documents are served."
+            }                          
+          ]
+        }
+      ],
+      "title": "Party Information"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

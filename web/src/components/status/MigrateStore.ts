@@ -171,7 +171,9 @@ export class MigrateStore{
         pathwayCompleted.agreementEnfrc = false;
         pathwayCompleted.noticeOfAddressChange = false;
         pathwayCompleted.noticeDiscontinuance = false;
-        pathwayCompleted.noticeIntentionProceed = false;
+        pathwayCompleted.noticeIntentionProceed = false;        
+        pathwayCompleted.requestScheduling = false;
+        pathwayCompleted.trialReadinessStatement = false;
         pathwayCompleted.noticeLawyerChild = false;
         pathwayCompleted.other = false;
         //TODO: add the other pathway

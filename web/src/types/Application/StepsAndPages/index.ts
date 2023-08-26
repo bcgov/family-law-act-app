@@ -15,6 +15,8 @@ export interface stepsAndPagesNumberInfoType{
     NCD: NCDstPgTypes;
     NDT: NDTstPgTypes;
     NPR: NPRstPgTypes;
+    RQS: RQSstPgTypes;
+    TRIS: TRISstPgTypes;
     NLC: NLCstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
@@ -270,7 +272,7 @@ export interface OTHERstPgTypes{
 
     OtherForms: number; 
     CompleteOtherForms: number;   
-    OtherFormFilingLocation: number;
+    OtherFormsFilingLocation: number;
 }
 
 export interface NCDstPgTypes{
@@ -300,6 +302,34 @@ export interface NPRstPgTypes{
     OtherPartyNpr: number;
     ReviewYourAnswersNPR: number;
     PreviewFormsNPR: number;
+}
+
+export interface RQSstPgTypes{
+    _StepNo: number;
+
+    RequestForScheduling: number;
+    ReasonForScheduling: number;
+    InterimOrder: number;
+    NextAppearance: number;
+    PartyInformationRQS: number;  
+    ReviewYourAnswersRQS: number;
+    PreviewFormsRQS: number;
+}
+
+export interface TRISstPgTypes{
+    _StepNo: number;
+
+    TrialReadinessStatement: number;
+    PeopleAtTrial: number;
+    IssuesForTrial: number;
+    BackgroundTris: number;
+    DisclosureOfInformation: number; 
+    Witnesses: number;
+    RequirementsAndConsiderations: number;
+    AboutTheTrial: number;
+    OrdersAtTpc: number;   
+    ReviewYourAnswersTRIS: number;
+    PreviewFormsTRIS: number;
 }
 
 export interface NLCstPgTypes{

@@ -20,8 +20,6 @@ import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
-import { togglePages } from '@/components/utils/TogglePages';
-
 @Component({
     components:{
         PageBase
@@ -37,9 +35,6 @@ export default class DiscontinuanceInformation extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;

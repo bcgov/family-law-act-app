@@ -1,0 +1,34 @@
+{
+   "pages": [
+      {
+         "name": "Orders at the Trial Preparation Conference",
+         "description": "At the trial preparation conference <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section112'>a judge may make orders or directions</a>. The orders or directions are usually about how the trial will proceed or things that need to be done before the trial to get ready for it. The judge will be prepared to make some of these orders or directions without you asking but if there is something you need a court order to do, it is helpful if you include it here.",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "tpcPanel",
+               "elements": [
+                  {
+                     "type": "yesno",
+                     "name": "ordersToAsk",
+                     "title": "Are there any orders you would like to ask the judge to make at the trial preparation conference?",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "orders",
+                     "title": "Please specify the orders you will be asking for:",
+                     "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you asking the court to order.",
+                     "isRequired": true,
+                     "visible": false,
+                     "visibleIf": "{ordersToAsk} = 'y'"
+                  }
+               ]
+            }
+         ],
+         "title": "Orders at the Trial Preparation Conference"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}
