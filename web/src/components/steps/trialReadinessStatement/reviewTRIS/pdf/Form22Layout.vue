@@ -339,7 +339,7 @@
                     textwidth="17rem" 
                     beforetext="<i>If no</i>, when can these be provided to the parties?" 
                     hint="(mmm/dd/yyyy)" 
-                    :italicHint="false" :text="copyForPartyDate | beautify-date"/>
+                    :italicHint="false" :text="copyForPartyDate"/>
             </div>            
         </section>
 
@@ -393,7 +393,8 @@
                     :text="firstTwoWitnesses[1]"/>    
                     </div>                               
             </div>
-            <div v-for="witness, inx in witnessLineArray" :key="inx" style="margin:0.5rem 0 0 4.15rem;">   
+            <div v-if="additionalWitnesses.length>0">
+                <div  v-for="witness, inx in witnessLineArray" :key="inx" style="margin:0.5rem 0 0 4.15rem;">   
                 
                 <underline-form
                     style="text-indent:0;display:inline;margin-left:1rem;" 
@@ -407,6 +408,9 @@
                     :beforetext="'('+ (2*inx + 4) + ')'"
                     hint="" 
                     :text="additionalWitnesses[2*inx+1]"/>                    
+            </div>
+            
+
             </div>
             
         </section>
@@ -657,7 +661,7 @@
                     textwidth="10rem" 
                     beforetext="Expiry date:" 
                     hint="(mmm/dd/yyyy)" 
-                    :italicHint="false" :text="sec183ExpiryDate | beautify-date"/>
+                    :italicHint="false" :text="sec183ExpiryDate"/>
             </div> 
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -674,7 +678,7 @@
                     textwidth="10rem" 
                     beforetext="Expiry date:" 
                     hint="(mmm/dd/yyyy)" 
-                    :italicHint="false" :text="sec810ExpiryDate | beautify-date"/>
+                    :italicHint="false" :text="sec810ExpiryDate"/>
             </div> 
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -691,7 +695,7 @@
                     textwidth="10rem" 
                     beforetext="Expiry date:" 
                     hint="(mmm/dd/yyyy)" 
-                    :italicHint="false" :text="sec515ExpiryDate | beautify-date"/>
+                    :italicHint="false" :text="sec515ExpiryDate"/>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -708,7 +712,7 @@
                     textwidth="10rem" 
                     beforetext="Expiry date:" 
                     hint="(mmm/dd/yyyy)" 
-                    :italicHint="false" :text="probationExpiryDate | beautify-date"/>
+                    :italicHint="false" :text="probationExpiryDate"/>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -943,7 +947,7 @@ export default class Form22Layout extends Vue {
                 this.lawyerName = Vue.filter('getFullName')(peopleInfo.LawyerName);
             } 
             if (peopleInfo.CaseType == 'other'){
-                this.childCaseLawyer = peopleInfo.caseTypeComment;
+                this.childCaseLawyer = peopleInfo.CaseTypeComment;
             }
         }    
     }
@@ -1002,16 +1006,16 @@ export default class Form22Layout extends Vue {
                     this.existingOrderOther = existingCourtOrder.otherOrderComment?existingCourtOrder.otherOrderComment:'';
                 }
                 if (this.existingOrder.includes('peaceBond')){
-                    this.sec810ExpiryDate = existingCourtOrder.peaceBondInput?existingCourtOrder.peaceBondInput:'';
+                    this.sec810ExpiryDate = existingCourtOrder.peaceBondInput?Vue.filter('beautify-date')(existingCourtOrder.peaceBondInput):'';
                 }
                 if (this.existingOrder.includes('probationOrder')){
-                    this.probationExpiryDate = existingCourtOrder.probationOrderInput?existingCourtOrder.probationOrderInput:'';
+                    this.probationExpiryDate = existingCourtOrder.probationOrderInput?Vue.filter('beautify-date')(existingCourtOrder.probationOrderInput):'';
                 }
                 if (this.existingOrder.includes('protectionOrder')){
-                    this.sec183ExpiryDate = existingCourtOrder.protectionOrderInput?existingCourtOrder.protectionOrderInput:'';
+                    this.sec183ExpiryDate = existingCourtOrder.protectionOrderInput?Vue.filter('beautify-date')(existingCourtOrder.protectionOrderInput):'';
                 }
                 if (this.existingOrder.includes('bailOrder')){
-                    this.sec515ExpiryDate = existingCourtOrder.bailOrderInput?existingCourtOrder.bailOrderInput:'';
+                    this.sec515ExpiryDate = existingCourtOrder.bailOrderInput?Vue.filter('beautify-date')(existingCourtOrder.bailOrderInput):'';
                 }
             } 
         }
@@ -1036,7 +1040,7 @@ export default class Form22Layout extends Vue {
             
             this.copyForParty = disclosureInfo.InfoProvided == 'y';
             if (!this.copyForParty){
-                this.copyForPartyDate = disclosureInfo.DateProvided?disclosureInfo.DateProvided:'';
+                this.copyForPartyDate = disclosureInfo.DateProvided?Vue.filter('beautify-date')(disclosureInfo.DateProvided):'';
             }
             this.needInfo = disclosureInfo.InfoRequired == 'y';
             if (this.needInfo){

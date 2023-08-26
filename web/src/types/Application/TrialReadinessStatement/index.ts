@@ -23,7 +23,7 @@ export interface peopleAtTrialSurveyDataInfoType {
     LawyerName?: nameInfoType; 
     otherPartyInfoTris?: peopleAtTrialOtherPartyInfoType[]; 
     CaseType?: string;  
-    caseTypeComment?: string;  
+    CaseTypeComment?: string;  
 }
 
 export interface peopleAtTrialSurveyInfoType {
