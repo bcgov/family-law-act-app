@@ -338,6 +338,12 @@ export default class CompleteOtherForms extends Vue {
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Notice of Lawyer for Child'){
+                const step = this.stPgNo.NLC._StepNo
+                const page = this.stPgNo.NLC.PreviewFormsNLC
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }
             
             if(pdf_type) await this.removeGeneratedPDF(pdf_type)

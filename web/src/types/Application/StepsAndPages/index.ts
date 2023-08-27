@@ -335,9 +335,7 @@ export interface TRISstPgTypes{
 export interface NLCstPgTypes{
     _StepNo: number;
 
-    NoticeLawyerChild: number;
-    LawyerChildInformation: number;
-    MoreInformationNLC: number;
+    NoticeLawyerChild: number;  
     ReviewYourAnswersNLC: number;
     PreviewFormsNLC: number;
 }

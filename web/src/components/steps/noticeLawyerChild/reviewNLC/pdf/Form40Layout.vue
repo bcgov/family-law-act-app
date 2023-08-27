@@ -35,14 +35,14 @@
                 textwidth="17rem" 
                 beforetext="I" 
                 hint="(full name of lawyer)" 
-                :italicHint="false" :text="yourInfo.name | getFullName"/>
+                :italicHint="false" :text="lawyerInformation.lawyerName | getFullName"/>
 
             <underline-form 
                 style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="17rem" 
+                textwidth="19rem" 
                 beforetext=", of" 
                 hint="(firm name, if applicable)" 
-                :italicHint="false" :text="yourInfo.name | getFullName"/>
+                :italicHint="false" :text="lawyerInformation.firmName"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 am the lawyer for the following children:
             </div> 
@@ -62,21 +62,14 @@
             </b-table>
 
         </section>
-
            
         <div style="margin-top: 1rem;"></div>  
 
-    <!-- <2> -->
+<!-- <2> -->
         <section>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                I will be representing the child(ren) identified in section 1on the following issue(s):
+                I will be representing the child(ren) identified in section 1 on the following issue(s):
             </div> 
-            <!-- <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="17rem" 
-                beforetext="I will be representing the party/parties identified in section 1 as follows:" 
-                hint="" 
-                :italicHint="false" :text="yourInfo.name | getFullName"/> -->
 
             <div style="margin-top: 0.5rem;"></div>
 
@@ -88,7 +81,7 @@
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="disWholeApp.length>0?'yes':''" text="parenting arrangements"/>
+                    :check="listOfIssues.includes('Parenting Arrangements')?'yes':''" text="parenting arrangements"/>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -97,7 +90,7 @@
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="disWholeApp.length>0?'yes':''" text="child support"/>
+                    :check="listOfIssues.includes('Child support')?'yes':''" text="child support"/>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -106,7 +99,7 @@
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="disWholeApp.length>0?'yes':''" text="contact with a child"/>
+                    :check="listOfIssues.includes('Contact with a child')?'yes':''" text="contact with a child"/>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -115,7 +108,7 @@
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="disWholeApp.length>0?'yes':''" text="guardianship of a child"/>
+                    :check="listOfIssues.includes('Guardianship of a child')?'yes':''" text="guardianship of a child"/>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -124,7 +117,7 @@
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="disWholeApp.length>0?'yes':''" text="protection order"/>
+                    :check="listOfIssues.includes('Protection order')?'yes':''" text="protection order"/>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -133,7 +126,7 @@
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="disWholeApp.length>0?'yes':''" text="priority parenting matter"/>
+                    :check="listOfIssues.includes('Priority Parenting Matter')?'yes':''" text="priority parenting matter"/>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box 
@@ -142,7 +135,7 @@
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="disWholeApp.length>0?'yes':''" text="relocation"/>
+                    :check="listOfIssues.includes('Relocation')?'yes':''" text="relocation"/>
             </div>
 
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
@@ -152,22 +145,20 @@
                     inline="inline" 
                     boxMargin="0" 
                     style="display:inline;" 
-                    :check="disWholeApp.includes('form6Counter')?'yes':''" 
+                    :check="listOfIssues.includes('other')?'yes':''" 
                     text="other <i>(specify)</i>:"/>
                 <underline-form 
                     style="text-indent:1px;display:inline-block;" 
                     textwidth="32rem" 
                     beforetext="" 
                     hint="" 
-                    :text="disWholeApp.includes('form6Counter')?counterDate:''"/>            
+                    :text="otherIssue"/>            
             </div>
         </section>
             
         <div style="margin-top: 1rem;"></div>
-        <!-- <3> -->
-
+<!-- <3> -->
         <section>
-
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 My contact information and address for service of court documents are:
             </div> 
@@ -177,28 +168,25 @@
 
             <table class="compactfullsize" style="font-size: 9pt;">
                 <tr style="border:1px solid #414142" >
-                    <td colspan="3">Firm name (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
+                    <td colspan="3">Firm name (if applicable): <div class="answer"> {{lawyerInformation.firmName}}</div></td>
                 </tr>
                 <tr style="border:1px solid #414142">          
-                    <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
+                    <td colspan="3">Address: <div class="answer">{{lawyerInformation.address.street}} </div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
-                <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
-                    <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
+                    <td  >City: <div class="answer">{{lawyerInformation.address.city}}</div> </td>
+                <td style="padding-left:50px">Province: <div class="answer">{{lawyerInformation.address.state}}</div> </td>
+                    <td>Postal Code: <div class="answer">{{lawyerInformation.address.postcode}}</div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
+                    <td colspan="2">Email: <div class="answer">{{lawyerInformation.contact.email}}</div> </td>
+                    <td>Telephone: <div class="answer">{{lawyerInformation.contact.phone}}</div> </td>
                 </tr>
             </table>
             
         </section>
-
-        <!-- <4> -->
-
         <div style="margin-top: 1rem;"></div> 
-
+<!-- <4> -->
         <section>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 The parties to this case are:
@@ -220,15 +208,14 @@
 
         <div style="margin-top: 1rem;"></div>  
 
-    <!-- <5> -->
+<!-- <5> -->
         <section>
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
-                :check="acknowledge?'yes':''" 
-                text="I understand I need to serve each party with a filed copy of this notice."/>
-                                            
+                :check="acknowledgeService?'yes':''" 
+                text="I understand I need to serve each party with a filed copy of this notice."/>                                            
         </section>
 
         <div class="print-block">
@@ -261,10 +248,9 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { discontinuanceInformationSurveyDataInfoType, moreInformationSurveyDataInfoType, noticeDiscontinuanceDataInfoType } from '@/types/Application/Discontinuance';
+import { addressInfoType, contactInfoType, nameInfoType } from "@/types/Application/CommonInformation";
+import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
+import { lawyerInformationInfoDataInfoType, noticeLawyerChildDataInfoType, childInformationNlcInfoDataInfoType } from '@/types/Application/LawyerChild';
 
 @Component({
     components:{
@@ -272,7 +258,6 @@ import { discontinuanceInformationSurveyDataInfoType, moreInformationSurveyDataI
         CheckBox       
     }
 })
-
 export default class Form40Layout extends Vue {
 
     @Prop({required:true})
@@ -281,172 +266,89 @@ export default class Form40Layout extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;    
 
-    dataReady = false;  
-   
-    yourInfo = {} as yourInformationInfoDataInfoType;   
-
+    dataReady = false;
     existingFileNumber = '';
-
-    childDetails =[{name:'', dob: ''}];
-    childTableFields = [
-        {key:"name",             label:"Child’s full name",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
-        {key:"dob", label:"Child’s Date of Birth", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
-    ];
-    dateOfAddressChange = '';   
-    acknowledge = false;
-
-    listOfDiscontinuanceDocs = [];
+    acknowledgeService = false;
+   
+    lawyerInformation = {} as lawyerInformationInfoDataInfoType;  
+    childDetails: childInformationNlcInfoDataInfoType[] = [{name: '', dob: ''}];    
+   
+    listOfIssues = [];    
+    otherIssue = '';
     firstOtherParty = '';
-    otherPartiesList = [];
-    disWholeApp = [];
-    disPartialApp = [];
-    application = {type: 'a Family Law Matter', date: ''};
-    reply = {type: '', date: ''};
-    counterDate = '';
-    partialInfo = '';
-    courtAppearanceScheduled = '';
-    courtDate = '';
-    trialPrepHappened = '';
-    trialDateWithin30Days = '';
+    otherPartiesList = [];    
+
+    childTableFields = [
+        {key:"name",  label:"Child’s full name",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
+        {key:"dob",   label:"Child’s Date of Birth",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"}
+    ];
    
     mounted(){
         this.dataReady = false;
-        this.extractInfo();       
+        //console.log(this.result)
+        this.extractInfo();
         this.dataReady = true;        
     }
    
-    public extractInfo(){        
-        this.getNoticeDiscontinuanceInfo();    
-        this.getDiscontinuanceInfo();    
+    public extractInfo(){
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        this.acknowledge = this.result.addressChangeNoticeSurvey?.acknowledgement?.length>0;
+        this.acknowledgeService = this.result.otherPartyNLCConfirmationSurvey?.confirmation == 'Confirmed';
+        this.getNoticeLawyerChildInfo();  
     } 
 
-    public getNoticeDiscontinuanceInfo(){          
+    public getNoticeLawyerChildInfo(){  
+        
+        this.lawyerInformation = {} as lawyerInformationInfoDataInfoType;          
+        this.firstOtherParty = '';
+        this.otherPartiesList = []; 
+        this.childDetails = [{name: '', dob: ''}];
+        this.listOfIssues = [];  
+        this.otherIssue = ''; 
 
-        if(this.result?.noticeDiscontinuanceSurvey){
+        if(this.result?.noticeLawyerChildSurvey){
 
-            let noticeDiscontinuance = {} as noticeDiscontinuanceDataInfoType;
+            let noticeLawyerChild = {} as noticeLawyerChildDataInfoType;
+            noticeLawyerChild = this.result.noticeLawyerChildSurvey;    
 
-            noticeDiscontinuance = this.result.noticeDiscontinuanceSurvey;            
-            this.listOfDiscontinuanceDocs = noticeDiscontinuance.discontinuanceDocs?noticeDiscontinuance.discontinuanceDocs:[];
-
-            this.yourInfo = getYourInformationResults(noticeDiscontinuance);
+            this.getLawyerInformationResults(noticeLawyerChild);
 
             const otherParties = [];
-            for (const otherParty of noticeDiscontinuance.otherPartyInfoDis){
+            for (const otherParty of noticeLawyerChild.OtherPartyInfoNlc){
                 otherParties.push(Vue.filter('getFullName')(otherParty.name))
-            }
+            }           
 
             this.firstOtherParty = otherParties[0];
             this.otherPartiesList = otherParties.length>1?otherParties.slice(1):[];
 
-            
-           
-        } else {
-            this.yourInfo = {} as yourInformationInfoDataInfoType;
-        }
-            
+            const childrenInfo = [];
+
+            for (const child of noticeLawyerChild.ChildInfoNlc){
+                const childInfo = {} as childInformationNlcInfoDataInfoType;
+                childInfo.dob = child.dateOfBirth?Vue.filter('beautify-date')(child.dateOfBirth):'';
+                childInfo.name = child.name?Vue.filter('getFullName')(child.name):'';
+                childrenInfo.push(childInfo);
+            }
+
+            if (childrenInfo.length>0){
+                this.childDetails = childrenInfo;
+            }
+
+            this.listOfIssues = noticeLawyerChild.IssuesList?noticeLawyerChild.IssuesList:[];
+            if (this.listOfIssues.includes("other")){
+                this.otherIssue = noticeLawyerChild.IssuesListComment?noticeLawyerChild.IssuesListComment:'';
+            }            
+        }             
     }
 
-    public getDiscontinuanceInfo(){       
-        
-        this.disWholeApp = [];
-        this.disPartialApp = [];
-        this.application = {type: 'a Family Law Matter', date: ''};
-        this.reply = {type: '', date: ''};
-        this.counterDate = '';
-        this.partialInfo = '';
-        this.courtAppearanceScheduled = '';
-        this.courtDate = '';
-        this.trialPrepHappened = '';
-        this.trialDateWithin30Days = '';
+    public getLawyerInformationResults(noticeLawyerChild: noticeLawyerChildDataInfoType) {               
 
-        if(this.result?.discontinuanceInformationSurvey && this.result?.moreInformationSurvey){
-
-            let discontinuance = {} as discontinuanceInformationSurveyDataInfoType;
-            discontinuance = this.result.discontinuanceInformationSurvey;  
-            
-            let moreInfo = {} as moreInformationSurveyDataInfoType;
-            moreInfo = this.result.moreInformationSurvey;  
-
-            const partialInfoList = [];
-            
-            if (this.listOfDiscontinuanceDocs.includes('form3')){
-
-                this.application.date = Vue.filter('beautify-date')(moreInfo.Form3FiledDate);
-
-                if(discontinuance.discontinueAllForm3 == 'y'){
-                    this.disWholeApp.push('form3')
-                } else {
-                    this.disPartialApp.push('form3');
-                    if (discontinuance.discontinuePartForm3){
-                        partialInfoList.push(discontinuance.discontinuePartForm3)
-                    }                    
-                    
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form6')){
-
-                this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
-                
-                if (moreInfo.ReplyType == 'form6'){
-                    this.reply.type = 'a Family Law Matter';                    
-                }
-
-                if(discontinuance.discontinueAllForm6 == 'y'){
-                    this.disWholeApp.push('form6')
-                } else {
-                    this.disPartialApp.push('form6');
-                    if (discontinuance.discontinuePartForm6){
-                        partialInfoList.push(discontinuance.discontinuePartForm6)
-                    }  
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form6Counter')){
-
-                this.counterDate = Vue.filter('beautify-date')(moreInfo.CounterFiledDate);
-
-                if(discontinuance.discontinueAllForm6Counter == 'y'){
-                    this.disWholeApp.push('form6Counter')
-                } else {
-                    this.disPartialApp.push('form6Counter')
-                    if (discontinuance.discontinuePartForm6Counter){
-                        partialInfoList.push(discontinuance.discontinuePartForm6Counter)
-                    }  
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form8')){
-
-                this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
-                
-                if (moreInfo.ReplyType == 'form8'){
-                    this.reply.type = 'a Counter Application';                    
-                }
-
-                if(discontinuance.discontinueAllForm8 == 'y'){
-                    this.disWholeApp.push('form8')
-                } else {
-                    this.disPartialApp.push('form8');
-                    if (discontinuance.discontinuePartForm8){
-                        partialInfoList.push(discontinuance.discontinuePartForm8)
-                    }  
-                }
-            }
-
-            this.partialInfo = partialInfoList.join(', ');
-
-            this.courtAppearanceScheduled = moreInfo.CourtAppearanceScheduled;
-            this.courtDate = moreInfo.CourtAppearanceScheduled == 'y'?Vue.filter('beautify-date')(moreInfo.CourtAppearanceDate):'';
-            this.trialPrepHappened = moreInfo.TrialPrep;
-            this.trialDateWithin30Days = moreInfo.TrialDateScheduled;
-        
-        }        
-    
-    }    
+        this.lawyerInformation = {
+            firmName: noticeLawyerChild.FirmName?noticeLawyerChild.FirmName:'',
+            lawyerName: noticeLawyerChild.ApplicantName?noticeLawyerChild.ApplicantName:{} as nameInfoType,
+            address: noticeLawyerChild.LawyerAddressNlc?noticeLawyerChild.LawyerAddressNlc:{} as addressInfoType,
+            contact: noticeLawyerChild.LawyerContact?noticeLawyerChild.LawyerContact:{} as contactInfoType
+        }          
+    }
  
 }
 </script>

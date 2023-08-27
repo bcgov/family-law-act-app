@@ -24,6 +24,7 @@ import { noticeDiscontinuanceSurveyInfoType, discontinuanceInformationSurveyInfo
 import { noticeIntentionProceedSurveyInfoType, otherPartyNprConfirmationSurveyInfoType } from "./IntentionProceed";
 import { interimOrderSurveyInfoType, nextAppearanceSurveyInfoType, otherPartyRQSConfirmationSurveyInfoType, partyInformationRQSSurveyInfoType, reasonForSchedulingSurveyInfoType, requestForSchedulingSurveyInfoType } from "./RequestScheduling";
 import { aboutTheTrialSurveyInfoType, backgroundTrisSurveyInfoType, disclosureOfInformationSurveyInfoType, issuesForTrialSurveyInfoType, ordersAtTpcSurveyInfoType, peopleAtTrialSurveyInfoType, requirementsAndConsiderationsSurveyInfoType, trialReadinessStatementSurveyInfoType, witnessesSurveyInfoType } from "./TrialReadinessStatement";
+import { noticeLawyerChildSurveyInfoType, otherPartyNLCConfirmationSurveyInfoType } from "./LawyerChild";
 
 
 //This is what our database saves.
@@ -298,9 +299,8 @@ export interface stepInfoType {
     ordersAtTpcSurvey?: ordersAtTpcSurveyInfoType; 
 
     //_____Step 16 NOTICE OF LAWYER FOR CHILD_____________    
-    noticeLawyerChildSurvey?: any;// noticeLawyerChildSurveyInfoType;    
-    lawyerChildInformationSurvey?: any;// lawyerChildInformationInfoType;
-    moreInformationNlcSurvey?: any; //moreInformationNlcSurveyInfoType;
+    noticeLawyerChildSurvey?: noticeLawyerChildSurveyInfoType; 
+    otherPartyNLCConfirmationSurvey? : otherPartyNLCConfirmationSurveyInfoType;       
     
     //__Step 17 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

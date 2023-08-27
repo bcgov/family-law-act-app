@@ -103,7 +103,7 @@ export default class ReviewYourAnswersPage extends Vue {
         window.scrollTo(0, 0);
     }
 
-    public beautifyQuestion(question){
+    public beautifyQuestion(question){  
         
         let adjQuestion = question
         adjQuestion = adjQuestion.replace(/{ApplicantName}/g, Vue.filter('getFullName')(this.$store.state.Application.applicantName));
@@ -126,6 +126,10 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{disagreeReasonQuestion}/g,'Why don’t you agree with the requested order?');
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>", "What is the full name of the other party?");
         adjQuestion = adjQuestion.replace("<b style='color: #455571; font-size:22pt;'>completed</b>", "completed");
+        adjQuestion = adjQuestion.replace("LawyerAddressNlc",'Please provide your address information');
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of each party? </b>", "What is the full name of each party?");
+        adjQuestion = adjQuestion.replace("<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 0rem 0 -1rem 0'> Firm Name (if applicable):</b>", "Firm Name (if applicable):");
+        
         return adjQuestion
     }
 
@@ -163,6 +167,10 @@ export default class ReviewYourAnswersPage extends Vue {
             } else if (dataItem.name == 'otherPartyInfoTris'){
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'Witnesses'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'OtherPartyInfoNlc'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'ChildInfoNlc'){
                 return this.getOtherPartyInfo(value);
             }
             else{

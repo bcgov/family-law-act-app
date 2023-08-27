@@ -76,14 +76,6 @@ export interface backgroundTrisSurveyInfoType {
     currentPage: number | string;
 }
 
-export interface otherPartyRQSConfirmationSurveyInfoType {
-    data: {confirmation: string};
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
 export interface disclosureOfInformationSurveyDataInfoType {
     FinancialOnFile?: string;
     InfoProvided?: string;

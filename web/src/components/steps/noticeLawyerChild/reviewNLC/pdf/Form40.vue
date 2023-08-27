@@ -69,7 +69,7 @@ export default class Form40 extends Vue {
         .then(res => {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"noticeLawyerParty", isCompleted:true});
+            this.UpdatePathwayCompleted({pathway:"noticeLawyerChild", isCompleted:true});
 
             this.$emit('enableNext',true)                   
         },err => {

@@ -1,8 +1,6 @@
 <template>
     <step-base v-bind:step="step">    
-        <notice-lawyer-child      v-bind:step="step"     v-if="step.currentPage == stPgNo.NLC.NoticeLawyerChild" />
-        <lawyer-child-information v-bind:step="step"     v-if="step.currentPage == stPgNo.NLC.LawyerChildInformation" />
-        <more-information-nlc     v-bind:step="step"     v-if="step.currentPage == stPgNo.NLC.MoreInformationNLC" />
+        <notice-lawyer-child      v-bind:step="step"     v-if="step.currentPage == stPgNo.NLC.NoticeLawyerChild" />        
         <review-your-answers-nlc  v-bind:step="step"     v-if="step.currentPage == stPgNo.NLC.ReviewYourAnswersNLC"/>
         <preview-forms-nlc        v-bind:step="step"     v-if="step.currentPage == stPgNo.NLC.PreviewFormsNLC"/> 
     </step-base>
@@ -17,8 +15,6 @@ const applicationState = namespace("Application");
 
 import StepBase from "../StepBase.vue";
 import NoticeLawyerChild from "./NoticeLawyerChild.vue";
-import LawyerChildInformation from "./LawyerChildInformation.vue";
-import MoreInformationNlc from "./MoreInformationNLC.vue";
 import ReviewYourAnswersNlc from "./reviewNLC/ReviewYourAnswersNLC.vue";
 import PreviewFormsNlc from "./reviewNLC/PreviewFormsNLC.vue";
 
@@ -28,9 +24,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 @Component({
     components:{
         StepBase,        
-        NoticeLawyerChild,        
-        LawyerChildInformation,
-        MoreInformationNlc,
+        NoticeLawyerChild,
         ReviewYourAnswersNlc,
         PreviewFormsNlc        
     }

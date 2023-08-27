@@ -2180,34 +2180,17 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p); 
 
+        //____________Review
         p = {} as pageInfoType;
         p.key = "1";
-        p.name = "LawyerChildInformation";
-        p.label = "Notice of Lawyer for Child Information ";        
+        p.name = "ReviewYourAnswersNLC";
+        p.label = "Review Your Answers";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
-
         p = {} as pageInfoType;
         p.key = "2";
-        p.name = "MoreInformationNLC";
-        p.label = "More Information";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        //____________Review
-        p = {} as pageInfoType;
-        p.key = "3";
-        p.name = "ReviewYourAnswersNLC";
-        p.label = "Review Your Answers";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "4";
         p.name = "PreviewFormsNLC";
         p.label = "Preview Forms";
         p.active = false;
