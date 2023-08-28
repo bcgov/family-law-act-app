@@ -64,11 +64,7 @@ export default class RecognizingAnOrderFromOutsideBc extends Vue {
     public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
-    public steps!: stepInfoType[];    
-
-    
-
-    
+    public steps!: stepInfoType[];        
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

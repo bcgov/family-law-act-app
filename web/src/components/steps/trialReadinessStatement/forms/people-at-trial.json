@@ -1,0 +1,91 @@
+{
+  "title": "People at the Trial",
+  "pages": [
+    {
+      "name": "People at the Trial",
+      "description": "These next questions will help identify who is expected to be participating in the trial.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantContactPanel",             
+          "elements": [
+            {
+              "type": "personname",
+              "name": "ApplicantName",
+              "title": "What is your full name?",
+              "description": "Copy your name from any filed court document.",
+              "isRequired": true,              
+              "defaultSubstitution": "(Applicant Name)",
+              "descFirstName": "First Name is also known as Given Name",
+              "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+              "descLastName": "Last Name is also known as Family Name or Surname"
+            },
+            {
+              "type": "yesno",
+              "name": "Lawyer",
+              "title": "Will you have a lawyer representing you at the trial?",
+              "isRequired": true
+            },
+            {
+              "type": "personname",
+              "name": "LawyerName",
+              "title": "What is your lawyer's full name?",              
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{Lawyer} = 'y'"
+            },
+            {
+              "type": "panel",
+              "name": "ContactInformationOtherPartyPanel",             
+              "elements": [
+                {
+                  "isRequired": true,  
+                  "type": "paneldynamic",
+                  "name": "otherPartyInfoTris",
+                  "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>",
+                  "description": "Copy the name from the filed document.",                            
+                  "templateElements": [
+                    {
+                      "type": "personname",
+                      "name": "name",
+                      "title": " ",
+                      "titleLocation": "hidden"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "ExplanationServe",                  
+              "title": "You must serve each other party with a copy of the trial readiness statement at least 7 days before the date of the trial preparation conference or as ordered by the court.",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "radiogroup",
+              "name": "CaseType",              
+              "title": "If your case involves a child-related issue, there may be a lawyer appointed for a child. Please select the option that applies to your case and complete the requested information.",
+              "description": "Note: If there is more than one lawyer for the children, please add each lawyer’s name separated by a comma.",
+              "hasOther": true,
+              "otherText": "The lawyer for the child(ren) in my case is:",
+              "choices": [
+                {
+                  "value": "nonChild",
+                  "text": "My case does not involve a child-related issue"
+                },
+                {
+                  "value": "childNoLawyer",
+                  "text": "My case involves a child-related issue but there is no lawyer appointed for a child"
+                }
+              ]
+            }   
+                                    
+          ]
+        }
+      ],
+      "title": "People at the Trial"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

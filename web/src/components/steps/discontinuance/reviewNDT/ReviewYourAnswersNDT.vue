@@ -48,7 +48,7 @@ export default class ReviewYourAnswersNdt extends Vue {
     nextPageChange(newVal) 
     {
         togglePages([this.stPgNo.NDT.PreviewFormsNDT], !this.pageHasError, this.currentStep);
-        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"noticeDiscontinuance", isCompleted:false})
+        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"noticeDiscontinuance", isCompleted:false});
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.NDT.PreviewFormsNDT,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }

@@ -237,17 +237,17 @@ export default class OtherForms extends Vue {
     public resetPages() { 
 
         const p = this.stPgNo.OTHER                              
-        togglePages([p.CompleteOtherForms, p.OtherFormFilingLocation], false, this.currentStep); 
+        togglePages([p.CompleteOtherForms, p.OtherFormsFilingLocation], false, this.currentStep); 
 
         if(this.$store.state.Application.steps[this.currentStep].pages[p.CompleteOtherForms].progress>0)               
             Vue.filter('setSurveyProgress')(null, this.currentStep, p.CompleteOtherForms, 50, false);       
 
-        if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherFormFilingLocation].progress>0) 
-            Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherFormFilingLocation, 50, false);
+        if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherFormsFilingLocation].progress>0) 
+            Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherFormsFilingLocation, 50, false);
     }
 
     public resetSteps(){ //TODO add all new steps here    
-        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo], false);
+        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo, this.stPgNo.RQS._StepNo, this.stPgNo.TRIS._StepNo, this.stPgNo.NLC._StepNo], false);
     }
 
     public determineSteps(){
