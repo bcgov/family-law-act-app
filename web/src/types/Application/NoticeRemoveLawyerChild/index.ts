@@ -1,21 +1,8 @@
-import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
-
-export interface lastStepDataInfoType {
-    resolveFlmDate?: string;
-    needsAssessmentDate?: string;
-    parentingEducationProgramDate?: string;
-    consensualDisputeResolutionDate?: string;
-    flmDate?: string;
-    selected: string;
-    otherDate?: string;
-    otherDescription?: string;
-}
+import { nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface noticeRemoveLawyerChildDataInfoType {
-    lastStep?: lastStepDataInfoType;
-    requiresForm39?: boolean;
-    unresolvedFlm?: string;
-    unresolvedLessThanYear?: boolean;
+    ApplicantName?: nameInfoType;
+    ChildInfoNlcr?: noticeRemoveLawyerChildChildrenInfoType[];    
 }
 
 export interface noticeRemoveLawyerChildSurveyInfoType {
@@ -26,7 +13,7 @@ export interface noticeRemoveLawyerChildSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface otherPartyNlcrConfirmationSurveyInfoType {
+export interface otherPartyNLCRConfirmationSurveyInfoType {
     data: {confirmation: string};
     questions?: questionInfoType[];
     pageName?: string;
@@ -34,10 +21,12 @@ export interface otherPartyNlcrConfirmationSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface nlcrOtherPartyDataInfoType {
+export interface noticeRemoveLawyerChildChildrenInfoType {
     name: nameInfoType;
-    dob?: string;   
-    address: addressInfoType;
-    contactInfo: contactInfoType;
-    lawyer?: string;
+    dateOfBirth: string;
+}
+
+export interface childInformationNlcrDataInfoType {   
+    name: string;
+    dob: string;
 }

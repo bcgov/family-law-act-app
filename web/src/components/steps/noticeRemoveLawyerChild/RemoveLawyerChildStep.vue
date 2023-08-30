@@ -1,10 +1,8 @@
 <template>
     <step-base v-bind:step="step">    
-        <notice-remove-lawyer-child      v-bind:step="step"     v-if="step.currentPage == stPgNo.NLCR.NoticeRemoveLawyerChild" />
-        <remove-lawyer-child-information v-bind:step="step"     v-if="step.currentPage == stPgNo.NLCR.RemoveLawyerChildInformation" />
-        <more-information-nlcr     v-bind:step="step"     v-if="step.currentPage == stPgNo.NLCR.MoreInformationNLCR" />
-        <review-your-answers-nlcr  v-bind:step="step"     v-if="step.currentPage == stPgNo.NLCR.ReviewYourAnswersNLCR"/>
-        <preview-forms-nlcr        v-bind:step="step"     v-if="step.currentPage == stPgNo.NLCR.PreviewFormsNLCR"/> 
+        <notice-remove-lawyer-child      v-bind:step="step"     v-if="step.currentPage == stPgNo.NLCR.NoticeRemoveLawyerChild" />       
+        <review-your-answers-nlcr        v-bind:step="step"     v-if="step.currentPage == stPgNo.NLCR.ReviewYourAnswersNLCR"/>
+        <preview-forms-nlcr              v-bind:step="step"     v-if="step.currentPage == stPgNo.NLCR.PreviewFormsNLCR"/> 
     </step-base>
 </template>
 
@@ -17,8 +15,6 @@ const applicationState = namespace("Application");
 
 import StepBase from "../StepBase.vue";
 import NoticeRemoveLawyerChild from "./NoticeRemoveLawyerChild.vue";
-import RemoveLawyerChildInformation from "./RemoveLawyerChildInformation.vue";
-import MoreInformationNlcr from "./MoreInformationNLCR.vue";
 import ReviewYourAnswersNlcr from "./reviewNLCR/ReviewYourAnswersNLCR.vue";
 import PreviewFormsNlcr from "./reviewNLCR/PreviewFormsNLCR.vue";
 
@@ -28,9 +24,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 @Component({
     components:{
         StepBase,        
-        NoticeRemoveLawyerChild,        
-        RemoveLawyerChildInformation,
-        MoreInformationNlcr,
+        NoticeRemoveLawyerChild,
         ReviewYourAnswersNlcr,
         PreviewFormsNlcr        
     }

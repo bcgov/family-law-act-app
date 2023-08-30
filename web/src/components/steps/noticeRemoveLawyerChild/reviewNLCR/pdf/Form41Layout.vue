@@ -38,7 +38,7 @@
                 textwidth="10rem" 
                 beforetext="I" 
                 hint="(full name of lawyer)" 
-                :text="disWholeApp.includes('form3')?application.type:''"/>  
+                :text="applicantName | getFullName"/>  
 
             am no longer representing the following child(ren) in this case:
         </div>
@@ -61,9 +61,11 @@
 
         <check-box 
             inline="inline"
+            shiftmark="1"
+            shift="10"
             boxMargin="0" 
-            style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
-            :check="acknowledge?'yes':''" 
+            style="margin:0 0 0 0.5rem; display:inline;" 
+            :check="acknowledgeService?'yes':''" 
             text="I understand I need to serve each party with a filed copy of this notice"/>
 
     </div>
@@ -79,9 +81,8 @@ const applicationState = namespace("Application");
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { discontinuanceInformationSurveyDataInfoType, moreInformationSurveyDataInfoType, noticeDiscontinuanceDataInfoType } from '@/types/Application/Discontinuance';
+import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
+import { noticeRemoveLawyerChildDataInfoType, childInformationNlcrDataInfoType } from '@/types/Application/NoticeRemoveLawyerChild';
 
 @Component({
     components:{
@@ -89,7 +90,6 @@ import { discontinuanceInformationSurveyDataInfoType, moreInformationSurveyDataI
         CheckBox       
     }
 })
-
 export default class Form41Layout extends Vue {
 
     @Prop({required:true})
@@ -99,168 +99,51 @@ export default class Form41Layout extends Vue {
     public applicantName!: nameInfoType;    
 
     dataReady = false;  
-   
-    yourInfo = {} as yourInformationInfoDataInfoType;   
+    existingFileNumber = '';    
+    acknowledgeService = false;
 
-
-    childDetails =[{name:'', dob: ''}];
+    childDetails: childInformationNlcrDataInfoType[] =[{name:'', dob: ''}];
     childTableFields = [
-        {key:"name",             label:"Child’s full name",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
+        {key:"name",label:"Child’s full name",     tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
         {key:"dob", label:"Child’s Date of Birth", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
     ];
-
-    existingFileNumber = '';
-    dateOfAddressChange = '';   
-    acknowledge = false;
-
-    listOfDiscontinuanceDocs = [];
-    otherParties = '';
-    disWholeApp = [];
-    disPartialApp = [];
-    application = {type: 'a Family Law Matter', date: ''};
-    reply = {type: '', date: ''};
-    counterDate = '';
-    partialInfo = '';
-    courtAppearanceScheduled = '';
-    courtDate = '';
-    trialPrepHappened = '';
-    trialDateWithin30Days = '';
    
     mounted(){
         this.dataReady = false;
+        //console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
    
-    public extractInfo(){        
-        this.getNoticeDiscontinuanceInfo();    
-        this.getDiscontinuanceInfo();    
+    public extractInfo(){     
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        this.acknowledge = this.result.addressChangeNoticeSurvey?.acknowledgement?.length>0;
+        this.acknowledgeService = this.result.otherPartyNLCRConfirmationSurvey?.confirmation == 'Confirmed';
+        this.getNoticeRemoveLawyerChildInfo();     
     } 
 
-    public getNoticeDiscontinuanceInfo(){          
+    public getNoticeRemoveLawyerChildInfo(){ 
+       
+        this.childDetails = [{name: '', dob: ''}];        
 
-        if(this.result?.noticeDiscontinuanceSurvey){
+        if(this.result?.noticeRemoveLawyerChildSurvey){
 
-            let noticeDiscontinuance = {} as noticeDiscontinuanceDataInfoType;
-
-            noticeDiscontinuance = this.result.noticeDiscontinuanceSurvey;            
-            this.listOfDiscontinuanceDocs = noticeDiscontinuance.discontinuanceDocs?noticeDiscontinuance.discontinuanceDocs:[];
-
-            this.yourInfo = getYourInformationResults(noticeDiscontinuance);
-
-            const otherPartiesList = [];
-            for (const otherParty of noticeDiscontinuance.otherPartyInfoDis){
-                otherPartiesList.push(Vue.filter('getFullName')(otherParty.name))
-            }
-            this.otherParties = otherPartiesList.join(', ')
-           
-        } else {
-            this.yourInfo = {} as yourInformationInfoDataInfoType;
-        }
+            let noticeRemoveLawyerChild = {} as noticeRemoveLawyerChildDataInfoType;
+            noticeRemoveLawyerChild = this.result.noticeRemoveLawyerChildSurvey; 
             
-    }
+            const childrenInfo = [];
 
-    public getDiscontinuanceInfo(){       
-        
-        this.disWholeApp = [];
-        this.disPartialApp = [];
-        this.application = {type: 'a Family Law Matter', date: ''};
-        this.reply = {type: '', date: ''};
-        this.counterDate = '';
-        this.partialInfo = '';
-        this.courtAppearanceScheduled = '';
-        this.courtDate = '';
-        this.trialPrepHappened = '';
-        this.trialDateWithin30Days = '';
-
-        if(this.result?.discontinuanceInformationSurvey && this.result?.moreInformationSurvey){
-
-            let discontinuance = {} as discontinuanceInformationSurveyDataInfoType;
-            discontinuance = this.result.discontinuanceInformationSurvey;  
-            
-            let moreInfo = {} as moreInformationSurveyDataInfoType;
-            moreInfo = this.result.moreInformationSurvey;  
-
-            const partialInfoList = [];
-            
-            if (this.listOfDiscontinuanceDocs.includes('form3')){
-
-                this.application.date = Vue.filter('beautify-date')(moreInfo.Form3FiledDate);
-
-                if(discontinuance.discontinueAllForm3 == 'y'){
-                    this.disWholeApp.push('form3')
-                } else {
-                    this.disPartialApp.push('form3');
-                    if (discontinuance.discontinuePartForm3){
-                        partialInfoList.push(discontinuance.discontinuePartForm3)
-                    }                    
-                    
-                }
+            for (const child of noticeRemoveLawyerChild.ChildInfoNlcr){
+                const childInfo = {} as childInformationNlcrDataInfoType;
+                childInfo.dob = child.dateOfBirth?Vue.filter('beautify-date')(child.dateOfBirth):'';
+                childInfo.name = child.name?Vue.filter('getFullName')(child.name):'';
+                childrenInfo.push(childInfo);
             }
 
-            if (this.listOfDiscontinuanceDocs.includes('form6')){
-
-                this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
-                
-                if (moreInfo.ReplyType == 'form6'){
-                    this.reply.type = 'a Family Law Matter';                    
-                }
-
-                if(discontinuance.discontinueAllForm6 == 'y'){
-                    this.disWholeApp.push('form6')
-                } else {
-                    this.disPartialApp.push('form6');
-                    if (discontinuance.discontinuePartForm6){
-                        partialInfoList.push(discontinuance.discontinuePartForm6)
-                    }  
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form6Counter')){
-
-                this.counterDate = Vue.filter('beautify-date')(moreInfo.CounterFiledDate);
-
-                if(discontinuance.discontinueAllForm6Counter == 'y'){
-                    this.disWholeApp.push('form6Counter')
-                } else {
-                    this.disPartialApp.push('form6Counter')
-                    if (discontinuance.discontinuePartForm6Counter){
-                        partialInfoList.push(discontinuance.discontinuePartForm6Counter)
-                    }  
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form8')){
-
-                this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
-                
-                if (moreInfo.ReplyType == 'form8'){
-                    this.reply.type = 'a Counter Application';                    
-                }
-
-                if(discontinuance.discontinueAllForm8 == 'y'){
-                    this.disWholeApp.push('form8')
-                } else {
-                    this.disPartialApp.push('form8');
-                    if (discontinuance.discontinuePartForm8){
-                        partialInfoList.push(discontinuance.discontinuePartForm8)
-                    }  
-                }
-            }
-
-            this.partialInfo = partialInfoList.join(', ');
-
-            this.courtAppearanceScheduled = moreInfo.CourtAppearanceScheduled;
-            this.courtDate = moreInfo.CourtAppearanceScheduled == 'y'?Vue.filter('beautify-date')(moreInfo.CourtAppearanceDate):'';
-            this.trialPrepHappened = moreInfo.TrialPrep;
-            this.trialDateWithin30Days = moreInfo.TrialDateScheduled;
-        
-        }        
-    
-    }    
- 
+            if (childrenInfo.length>0){
+                this.childDetails = childrenInfo;
+            }                      
+        }             
+    } 
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">

@@ -8,7 +8,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -96,7 +95,6 @@ export default class Form41 extends Vue {
         else
             Object.assign(result, result,{applicationLocation: userLocation});
 
-        
         return result;
     } 
 

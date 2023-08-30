@@ -57,7 +57,8 @@ class Application extends VuexModule {
         noticeIntentionProceed: false,
         requestScheduling: false,
         trialReadinessStatement: false,   
-        noticeLawyerChild: false             
+        noticeLawyerChild: false,
+        noticeRemoveLawyerChild: false             
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -2221,35 +2222,19 @@ class Application extends VuexModule {
         p.label = "Notice of Removal of Lawyer for Child";
         p.active = true;
         p.progress = 0;    
-        s.pages.push(p);        
-
-        p = {} as pageInfoType;
-        p.key = "1";
-        p.name = "RemoveLawyerChildInformation";
-        p.label = "Notice of Removal of Lawyer for Child Information ";        
-        p.active = true;
-        p.progress = 0;    
-        s.pages.push(p);   
-
-        p = {} as pageInfoType;
-        p.key = "2";        
-        p.name = "MoreInformationNLCR";
-        p.label = "More Information";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
+        s.pages.push(p);       
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "1";
         p.name = "ReviewYourAnswersNLCR";
         p.label = "Review Your Answers";
-        p.active = false;
+        p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "2";
         p.name = "PreviewFormsNLCR";
         p.label = "Preview Forms";
         p.active = false;

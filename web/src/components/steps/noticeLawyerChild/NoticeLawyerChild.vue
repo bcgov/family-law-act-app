@@ -189,7 +189,8 @@ export default class NoticeLawyerChild extends Vue {
             data: {
                 noticeLawyerChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage),
                 otherPartyNLCConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')
-            }})       
+            }
+        })       
         
     }
 }

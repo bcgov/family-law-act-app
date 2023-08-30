@@ -8,13 +8,14 @@
 
 <script lang="ts">
 import { Component, Vue} from 'vue-property-decorator';
-import Form41 from  "./pdf/Form41.vue"
-import PageBase from "@/components/steps/PageBase.vue";
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
+import Form41 from  "./pdf/Form41.vue"
+import PageBase from "@/components/steps/PageBase.vue";
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 @Component({
     components:{       

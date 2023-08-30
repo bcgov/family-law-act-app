@@ -345,9 +345,7 @@ export interface NLCstPgTypes{
 export interface NLCRstPgTypes{
     _StepNo: number;
 
-    NoticeRemoveLawyerChild: number;
-    RemoveLawyerChildInformation: number;
-    MoreInformationNLCR: number;
+    NoticeRemoveLawyerChild: number;   
     ReviewYourAnswersNLCR: number;
     PreviewFormsNLCR: number;
 }
