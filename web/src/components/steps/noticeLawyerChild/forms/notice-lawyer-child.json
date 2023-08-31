@@ -1,0 +1,171 @@
+{
+  "title": "Notice of Lawyer for Child",
+  "pages": [
+    {
+      "name": "Notice of Lawyer for Child",
+      "description": "<a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section161'>Rule 161</a> says that if a case involves a child, the child’s views must be considered unless it is inappropriate to do so.<br><br>One way to have the child’s views heard by the court is for a child to have their own lawyer to represent their interests. Other ways include a views of the child report or the judge interviewing the child directly.<br><br>Permission of the court is not required for a lawyer to begin representing the interests of a child but a court order may be needed if a lawyer needs to be appointed by the court.<br><br>It is up to the court to determine how a child’s evidence will be heard, as appropriate.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "elements": [
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice1",
+                "title": "How does a lawyer for a child get appointed?",
+                "titleLocation": "hidden",              
+                "body": "Where it is in the best interests of a child to be represented in a family law case, any party to the case can apply under <a target='_blank' href='http://www.bclaws.ca/civix/document/id/complete/statreg/11025_10#section203'>s. 203</a> of the Family Law Act for a lawyer to represent the interests of the child. An application can be made using the Application for Case Management Order in <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa717.pdf?forcedownload=true' target='_blank'>Form 10</a>. You can apply for a case management order using this service.<br><br>If the court agrees that it is in the child’s best interests, the court may appoint a lawyer for that child. The order might also include how the lawyer’s fees will be paid and by whom.<br><br>Children or parents can contact the <a href='https://scyofbc.org/child-youth-legal-centre/' target='_blank'>Society for Children and Youth of British Columbia’s Child and Youth Legal Centre</a> for more information about getting a lawyer for a child. The Centre provides legal support for young people."
+            },
+            {
+                "type": "html",
+                "name": "pageIntro",
+                "title": "",
+                "html": "<div style='margin: 0rem 0 -1.0rem 0'><div style='font-weight: normal;font-size: 1.0em;' >Are you a lawyer representing a child in a family law case?<br><br><a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section175'>Rule 162</a> of the Provincial Court Family Rules requires you to file a Notice of Lawyer for Child in Form 40 when you start representing a child and serve a copy on each other party as soon as possible.<br><br>The Notice of Lawyer for Child can be used at any time in a court proceeding.<br><br>Use this pathway to complete your Notice of Lawyer for Child.</div></div>"
+            }, 
+            {
+              "type": "panel",
+              "name": "ApplicantContactPanel",              
+              "elements": [
+                {
+                  "type": "personname",
+                  "name": "ApplicantName",
+                  "title": "What is your name?",
+                  "description": "This is the name of the lawyer for the child. If you are filing out this form for a lawyer for the child, fill in their name.",
+                  "isRequired": true,              
+                  "defaultSubstitution": "(Applicant Name)",
+                  "descFirstName": "First Name is also known as Given Name",
+                  "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                  "descLastName": "Last Name is also known as Family Name or Surname"
+                },
+                {
+                    "type": "text",
+                    "name": "FirmName",
+                    "title": "What is the name of your law firm (if applicable)?"
+                },
+                {
+                    "type": "panel",
+                    "name": "ContactInformationChildPanel",             
+                    "elements": [
+                      {
+                        "isRequired": true,  
+                        "type": "paneldynamic",
+                        "name": "ChildInfoNlc",
+                        "title": "<div style='margin: 0rem 0 -1rem 0'><div style='font-weight: bold;' class='sv_main sv_q_title'> What is the name of the child you are representing?</div></b>",
+                        "templateElements": [
+                          {
+                            "type": "personname",
+                            "name": "name",
+                            "title": " ",
+                            "titleLocation": "hidden",
+                            "isRequired": true
+                          },
+                          {
+                            "type": "text",
+                            "name": "dateOfBirth",
+                            "title": "What is the child's date of birth?",
+                            "isRequired": true,
+                            "inputType": "date"
+                          }
+                        ]
+                      }
+                    ]
+                },
+                {
+                    "type": "checkbox",
+                    "name": "IssuesList",
+                    "title": "What issues will you be representing the child/children on?",
+                    "description": "Select all that apply.",
+                    "hasOther": true,
+                    "otherText": "Other <i>(specify)</i>",
+                    "choices": [
+                        {
+                            "value": "Parenting Arrangements",
+                            "text": "Parenting arrangements including parental responsibilities and parenting time"
+                        },
+                        {
+                            "value": "Child support",
+                            "text": "Child support"
+                        },
+                        {
+                            "value": "Contact with a child",
+                            "text": "Contact with a child"
+                        },
+                        {
+                            "value": "Guardianship of a child",
+                            "text": "Guardianship of a child"
+                        },
+                        {
+                            "value": "Protection order",
+                            "text": "Protection order"
+                        },
+                        {
+                            "value": "Priority Parenting Matter",
+                            "text": "Priority Parenting Matter"
+                        },
+                        {
+                            "value": "Relocation",
+                            "text": "Relocation"
+                        }
+                    ],
+                    "isRequired": true
+                },  
+                {
+                    "type": "html",
+                    "name": "addressTitle",
+                    "title": "address",
+                    "html": "<div style='margin: 0rem 0 -1rem 0'><div style='font-weight: bold;' class='sv_main sv_q_title'>Please provide your address information</div></div>"
+                },
+                {
+                    "type": "comment",
+                    "name": "FirmName",
+                    "title": "<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 0rem 0 -1rem 0'> Firm Name (if applicable):</b>",                
+                    "rows": 1
+                },
+                {
+                    "type": "address",
+                    "name": "LawyerAddressNlc",
+                    "title": "",
+                    "titleLocation": "hidden",
+                    "isRequired": true,
+                    "referLabel": "Applicant's Address"
+                },
+                {
+                    "type": "contactinfo",
+                    "name": "LawyerContact",
+                    "title": "Please provide your contact information",
+                    "isRequired": true,
+                    "labelEmail": "Email",                    
+                    "labelPhone": "Phone"
+                },
+                {
+                  "type": "panel",
+                  "name": "ContactInformationOtherPartyPanel",             
+                  "elements": [
+                    {
+                      "isRequired": true,  
+                      "type": "paneldynamic",
+                      "name": "OtherPartyInfoNlc",
+                      "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of each party? </b>",
+                      "description": "Copy the name from any filed document. Add each party from your existing case.",
+                      "templateElements": [
+                        {
+                          "type": "personname",
+                          "name": "name",
+                          "title": " ",
+                          "titleLocation": "hidden"
+                        }
+                      ]
+                    }
+                  ]
+                }                              
+              ]
+            } 
+          ]
+        }
+      ],
+      "title": "Notice of Lawyer for Child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

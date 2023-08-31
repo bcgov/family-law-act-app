@@ -60,6 +60,22 @@
                         <b-th>Notice of Intention to Proceed</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.NPR.total}}</b-td>                                          
                     </b-tr>
+                    <b-tr>                                                             
+                        <b-th>Request for Scheduling</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.RQS.total}}</b-td>                                          
+                    </b-tr>
+                    <b-tr>                        
+                        <b-th>Trial Readiness Statement</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.TRIS.total}}</b-td>                                          
+                    </b-tr>
+                    <b-tr>                        
+                        <b-th>Notice of Lawyer for Child</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.NLC.total}}</b-td>
+                    </b-tr>
+                    <b-tr>                        
+                        <b-th>Notice of Removal of Lawyer for Child</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.NLCR.total}}</b-td>                                          
+                    </b-tr>
                     <b-tr>                        
                         <b-th>Notice of Lawyer for Party</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.NLP.total}}</b-td>                                          

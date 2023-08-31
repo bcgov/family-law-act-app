@@ -190,17 +190,17 @@ export default class CompleteOtherForms extends Vue {
         {formName: 'Notice of Discontinuance',                              formNumber: 'Form 50',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeDiscontinuance',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa767.pdf?forcedownload=true'},
         {formName: 'Notice of Exemption from Parenting Education Program',  formNumber: 'Form 20',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeExemptionParentingEducationProgram', formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa740.pdf?forcedownload=true'},
         {formName: 'Notice of Intention to Proceed',                        formNumber: 'Form 2',   pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeIntentionProceed',       formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa711.pdf?forcedownload=true'},
-        {formName: 'Notice of Lawyer for Child',                            formNumber: 'Form 40',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeLawyerChild',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa758.pdf?forcedownload=true'},
+        {formName: 'Notice of Lawyer for Child',                            formNumber: 'Form 40',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeLawyerChild',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa758.pdf?forcedownload=true'},
         {formName: 'Notice of Lawyer for Party',                            formNumber: 'Form 42',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeLawyerParty',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa760.pdf?forcedownload=true'},
         {formName: 'Notice of Participation',                               formNumber: 'PFA747',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeParticipation',          formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa747.pdf?forcedownload=true '},
-        {formName: 'Notice of Removal of Lawyer for Child',                 formNumber: 'Form 41',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeRemoveLawyerChild',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa761.pdf?forcedownload=true'},
+        {formName: 'Notice of Removal of Lawyer for Child',                 formNumber: 'Form 41',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeRemoveLawyerChild',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa761.pdf?forcedownload=true'},
         {formName: 'Notice of Removal of Lawyer for Party',                 formNumber: 'Form 43',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeRemoveLawyerParty',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa759.pdf?forcedownload=true'},
         {formName: 'Order – General',                                       formNumber: 'Form 44',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'order',                        formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa719.pdf?forcedownload=true'},
         {formName: 'Referral Request',                                      formNumber: 'Form 21',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'referralRequest',              formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa741.pdf?forcedownload=true'},
-        {formName: 'Request for Scheduling',                                formNumber: 'Form 39',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'requestScheduling',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa732.pdf?forcedownload=true'},
+        {formName: 'Request for Scheduling',                                formNumber: 'Form 39',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'requestScheduling',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa732.pdf?forcedownload=true'},
         {formName: 'Request for Service of Documents',                      formNumber: 'PFA110',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'requestServiceDocuments',      formLink:'https://www2.gov.bc.ca/assets/download/2EA3479AA5804C98A103B066BA37AF56?forcedownload=true'},
         {formName: 'Request for Service of Family Protection Order',        formNumber: 'PFA916',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'requestServiceFPO',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa916.pdf?forcedownload=true'},
-        {formName: 'Trial Readiness Statement',                             formNumber: 'Form 22',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'trialReadinessStatement',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa735.pdf?forcedownload=true'}
+        {formName: 'Trial Readiness Statement',                             formNumber: 'Form 22',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'trialReadinessStatement',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa735.pdf?forcedownload=true'}
     ]   
 
     mounted(){            
@@ -260,7 +260,7 @@ export default class CompleteOtherForms extends Vue {
         const submitStep = this.stPgNo.SUBMIT;
         const p = this.stPgNo.OTHER;
         
-        togglePages([p.OtherFormFilingLocation], false, this.currentStep);
+        togglePages([p.OtherFormsFilingLocation], false, this.currentStep);
         
         togglePages([submitStep.FilingOptions, submitStep.ReviewAndPrint,submitStep.ReviewAndSave,submitStep.ReviewAndSubmit, submitStep.OtherFile, submitStep.NextSteps], false, submitStep._StepNo);
         if(selectionChanged) toggleStep(submitStep._StepNo, false);  
@@ -270,7 +270,7 @@ export default class CompleteOtherForms extends Vue {
             if (this.filingMethod == "inPerson"){
 
                 if (this.requiresGuidedPathway()){ 
-                    togglePages([p.OtherFormFilingLocation], true, this.currentStep);
+                    togglePages([p.OtherFormsFilingLocation], true, this.currentStep);
                 } else {
                     
                     toggleStep(submitStep._StepNo, true);                
@@ -280,7 +280,7 @@ export default class CompleteOtherForms extends Vue {
                 }
 
             } else {
-                togglePages([p.OtherFormFilingLocation], true, this.currentStep);                
+                togglePages([p.OtherFormsFilingLocation], true, this.currentStep);                
             }
         }
     }   
@@ -326,13 +326,37 @@ export default class CompleteOtherForms extends Vue {
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Request for Scheduling'){
+                const step = this.stPgNo.RQS._StepNo
+                const page = this.stPgNo.RQS.PreviewFormsRQS
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Trial Readiness Statement'){
+                const step = this.stPgNo.TRIS._StepNo
+                const page = this.stPgNo.TRIS.PreviewFormsTRIS
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Notice of Lawyer for Child'){
+                const step = this.stPgNo.NLC._StepNo
+                const page = this.stPgNo.NLC.PreviewFormsNLC
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Notice of Removal of Lawyer for Child'){
+                const step = this.stPgNo.NLCR._StepNo
+                const page = this.stPgNo.NLCR.PreviewFormsNLCR
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }
             
             if(pdf_type) await this.removeGeneratedPDF(pdf_type)
         }
 
         const step = this.stPgNo.OTHER._StepNo
-        const page = this.stPgNo.OTHER.OtherFormFilingLocation
+        const page = this.stPgNo.OTHER.OtherFormsFilingLocation
         Vue.filter('setSurveyProgress')(null, step, page, 50, false);
         this.determineSteps(true);
                 

@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.12";
+    const CURRENT_VERSION = "1.2.18";
     //__________________________
     //___________________________
     //___________________________
@@ -752,10 +752,13 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepCM = store.state.Application.stPgNo.CM;
 		const stepENFRC = store.state.Application.stPgNo.ENFRC;
 		const stepNCD = store.state.Application.stPgNo.NCD;
-		const stepNDT = store.state.Application.stPgNo.NDT;		
-		const stepNPR = store.state.Application.stPgNo.NPR;
-
-		const stepNLP = store.state.Application.stPgNo.NLP;	
+		const stepNDT = store.state.Application.stPgNo.NDT;
+		const stepNPR = store.state.Application.stPgNo.NPR;		
+        const stepRQS = store.state.Application.stPgNo.RQS;
+		const stepTRIS = store.state.Application.stPgNo.TRIS;
+		const stepNLC = store.state.Application.stPgNo.NLC;
+        const stepNLCR = store.state.Application.stPgNo.NLCR;
+        const stepNLP = store.state.Application.stPgNo.NLP;	
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -812,13 +815,32 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepNPR._StepNo; 
 			reviewPage = stepNPR.ReviewYourAnswersNPR; 
 			previewPages = [stepNPR.PreviewFormsNPR];
+		}			
+		else if(typeName == 'requestScheduling'){
+			step = stepRQS._StepNo; 
+			reviewPage = stepRQS.ReviewYourAnswersRQS; 
+			previewPages = [stepRQS.PreviewFormsRQS];
+		}		
+		else if(typeName == 'trialReadinessStatement'){
+			step = stepTRIS._StepNo; 
+			reviewPage = stepTRIS.ReviewYourAnswersTRIS; 
+			previewPages = [stepTRIS.PreviewFormsTRIS];
 		}
-		else if(typeName == 'noticeLawyerParty'){
+        else if(typeName == 'noticeLawyerChild'){
+			step = stepNLC._StepNo; 
+			reviewPage = stepNLC.ReviewYourAnswersNLC; 
+			previewPages = [stepNLC.PreviewFormsNLC];
+        }	
+        else if(typeName == 'noticeRemoveLawyerChild'){
+			step = stepNLCR._StepNo; 
+			reviewPage = stepNLCR.ReviewYourAnswersNLCR; 
+			previewPages = [stepNLCR.PreviewFormsNLCR];
+		}		
+        else if(typeName == 'noticeLawyerParty'){
 			step = stepNLP._StepNo; 
 			reviewPage = stepNLP.ReviewYourAnswersNLP; 
 			previewPages = [stepNLP.PreviewFormsNLP];
 		}
-		
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
@@ -840,7 +862,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'noticeLawyerParty']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty']
 	
 	if(type == 'allExPO'){
         
@@ -857,7 +879,11 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.noticeOfAddressChange = false;
 		pathwayCompleted.noticeDiscontinuance = false; 
 		pathwayCompleted.noticeIntentionProceed = false;
-		pathwayCompleted.noticeLawyerParty = false;
+		pathwayCompleted.requestScheduling = false;
+		pathwayCompleted.trialReadinessStatement = false;
+        pathwayCompleted.noticeLawyerChild = false;
+        pathwayCompleted.noticeRemoveLawyerChild = false;	
+        pathwayCompleted.noticeLawyerParty = false;	
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

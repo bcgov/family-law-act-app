@@ -1,0 +1,33 @@
+{
+  "title": "Next Appearance",
+  "pages": [
+    {
+      "name": "Next Appearance",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "NextAppearancePanel",
+          "elements": [            
+            {
+              "type": "radiogroup",
+              "name": "AppearanceType",              
+              "title": "What type of court appearance do you need scheduled?",
+              "description": "Usually, you will be asking to schedule another of the same appearance you last had unless the judge ordered or directed a different type of appearance. The type of appearance should be on the scheduling notice you received. If you are not sure what should be scheduled, ask the court registry staff.",
+              "hasOther": true,
+              "otherText": "Other court appearance as ordered or directed by the court (please specify):",
+              "choices": [
+                {
+                  "value": "familyManagementConference",
+                  "text": "Family management conference"
+                }
+              ]
+            }          
+          ]
+        }
+      ],
+      "title": "Next Appearance"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
