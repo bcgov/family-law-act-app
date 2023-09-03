@@ -35,14 +35,14 @@
                 textwidth="17rem" 
                 beforetext="I" 
                 hint="(full name of lawyer)" 
-                :italicHint="false" :text="yourInfo.name | getFullName"/>
+                :italicHint="false" :text="lawyerInformation.lawyerName | getFullName"/>
 
             <underline-form 
                 style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="17rem" 
+                textwidth="19rem" 
                 beforetext=", of" 
                 hint="(firm name, if applicable)" 
-                :italicHint="false" :text="yourInfo.name | getFullName"/>
+                :italicHint="false" :text="lawyerInformation.firmName"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 am the lawyer for the following party/parties:
             </div>  
@@ -82,7 +82,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="disWholeApp.length>0?'yes':''" text="on all issues until further notice to the court"/>
+                :check="listOfIssues.includes('allIssues')?'yes':''" text="on all issues until further notice to the court"/>
         </div>
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
             <check-box 
@@ -91,14 +91,14 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;" 
-                :check="disWholeApp.includes('form3')?'yes':''" 
+                :check="listOfIssues.includes('specifiedIssues')?'yes':''" 
                 text="on only the following specified issue(s) until further notice to the court:"/>
             <underline-form 
                 style="text-indent:0;margin-left:.25rem;display:inline-block;" 
                 textwidth="10rem" 
                 beforetext="" 
                 hint="" 
-                :text="disWholeApp.includes('form3')?application.type:''"/>
+                :text="specifiedIssuesComment"/>
                    
         </div>
 
@@ -109,14 +109,14 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;" 
-                :check="disWholeApp.includes('form6') || disWholeApp.includes('form8')?'yes':''" 
+                :check="listOfIssues.includes('courtDocumentsPreparation')?'yes':''" 
                 text="preparation of the following court documents for filing and/or filing of the court documents:"/>
             <underline-form 
                 style="text-indent:0;margin-left:.25rem;display:inline-block;" 
                 textwidth="37.5rem" 
                 beforetext="<i>List any applicable court document(s)</i>" 
                 hint="" 
-                :text="(disWholeApp.includes('form6') || disWholeApp.includes('form8'))?reply.type:''"/>
+                :text="courtDocumentsPreparationComment"/>
         </div>
 
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
@@ -126,7 +126,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="disWholeApp.length>0?'yes':''" text="at the family management conference"/>
+                :check="listOfIssues.includes('familyManagementConference')?'yes':''" text="at the family management conference"/>
         </div>
 
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
@@ -136,7 +136,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="disWholeApp.length>0?'yes':''" text="at the family settlement conference"/>
+                :check="listOfIssues.includes('familySettlementConference')?'yes':''" text="at the family settlement conference"/>
         </div>
 
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
@@ -146,7 +146,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="disWholeApp.length>0?'yes':''" text="at trial (including any scheduled trial preparation conference)"/>
+                :check="listOfIssues.includes('trial')?'yes':''" text="at trial (including any scheduled trial preparation conference)"/>
         </div>
 
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
@@ -156,14 +156,14 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;" 
-                :check="disWholeApp.includes('form6Counter')?'yes':''" 
+                :check="listOfIssues.includes('applicationAbout')?'yes':''" 
                 text="on the application about <i>(specify)</i>:"/>
             <underline-form 
                 style="text-indent:1px;display:inline-block;" 
                 textwidth="6rem" 
                 beforetext="" 
                 hint="" 
-                :text="disWholeApp.includes('form6Counter')?counterDate:''"/>            
+                :text="applicationAboutComment"/>            
         </div>
 
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
@@ -173,14 +173,14 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;" 
-                :check="disWholeApp.includes('form6Counter')?'yes':''" 
+                :check="listOfIssues.includes('other')?'yes':''" 
                 text="other <i>(specify)</i>:"/>
             <underline-form 
                 style="text-indent:1px;display:inline-block;" 
                 textwidth="6rem" 
                 beforetext="" 
                 hint="" 
-                :text="disWholeApp.includes('form6Counter')?counterDate:''"/>            
+                :text="otherComment"/>            
         </div>
     </section>
            
@@ -199,7 +199,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="disWholeApp.length>0?'yes':''" 
+                :check="true?'yes':''" 
                 text="There are no changes to the contact information or address for service of court documents on file"/>
         </div>
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0.5rem 1.5rem;">
@@ -209,25 +209,25 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="disWholeApp.length>0?'yes':''" 
+                :check="true?'yes':''" 
                 text="The contact information and address for service of court documents are:"/>
         </div>
 
         <table class="compactfullsize" style="font-size: 9pt;">
             <tr style="border:1px solid #414142" >
-                <td colspan="3">Firm name (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
+                <td colspan="3">Firm name (if applicable): <div class="answer"> {{lawyerInformation.firmName}}</div></td>
             </tr>
             <tr style="border:1px solid #414142">          
-                <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
+                <td colspan="3">Address: <div class="answer">{{lawyerInformation.address.street}} </div> </td>
             </tr>
             <tr style="border:1px solid #313132">
-                <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
-            <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
-                <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
+                <td  >City: <div class="answer">{{lawyerInformation.address.city}}</div> </td>
+            <td style="padding-left:50px">Province: <div class="answer">{{lawyerInformation.address.state}}</div> </td>
+                <td>Postal Code: <div class="answer">{{lawyerInformation.address.postcode}}</div> </td>
             </tr>
             <tr style="border:1px solid #313132">
-                <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
+                <td colspan="2">Email: <div class="answer">{{lawyerInformation.contact.email}}</div> </td>
+                <td>Telephone: <div class="answer">{{lawyerInformation.contact.phone}}</div> </td>
             </tr>
         </table>
          
@@ -240,7 +240,7 @@
             inline="inline" 
             boxMargin="0" 
             style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
-            :check="acknowledge?'yes':''" 
+            :check="acknowledgeService?'yes':''" 
             text="I understand I need to serve each other party with a filed copy of this notice."/>
                                          
     </section>
@@ -257,10 +257,9 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { discontinuanceInformationSurveyDataInfoType, moreInformationSurveyDataInfoType, noticeDiscontinuanceDataInfoType } from '@/types/Application/Discontinuance';
+import { addressInfoType, contactInfoType, nameInfoType } from "@/types/Application/CommonInformation";
+import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
+import { lawyerInformationInfoDataInfoType, noticeLawyerPartyDataInfoType } from '@/types/Application/LawyerParty';
 
 @Component({
     components:{
@@ -277,161 +276,86 @@ export default class Form42Layout extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;    
 
-    dataReady = false;  
-   
-    yourInfo = {} as yourInformationInfoDataInfoType;   
+    dataReady = false;     
 
     existingFileNumber = '';
-    dateOfAddressChange = '';   
-    acknowledge = false;
-
-    listOfDiscontinuanceDocs = [];
+    acknowledgeService = false; 
+    lawyerInformation = {} as lawyerInformationInfoDataInfoType; 
+    
     otherParties = '';
-    disWholeApp = [];
-    disPartialApp = [];
-    application = {type: 'a Family Law Matter', date: ''};
-    reply = {type: '', date: ''};
-    counterDate = '';
-    partialInfo = '';
-    courtAppearanceScheduled = '';
-    courtDate = '';
-    trialPrepHappened = '';
-    trialDateWithin30Days = '';
+    listOfIssues = [];    
+    otherComment = '';    
+    applicationAboutComment = '';
+    courtDocumentsPreparationComment = '';
+    specifiedIssuesComment = '';
+
    
     mounted(){
         this.dataReady = false;
+        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
    
     public extractInfo(){        
-        this.getNoticeDiscontinuanceInfo();    
-        this.getDiscontinuanceInfo();    
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        this.acknowledge = this.result.addressChangeNoticeSurvey?.acknowledgement?.length>0;
+        this.acknowledgeService = this.result.otherPartyNLPConfirmationSurvey?.confirmation == 'Confirmed';
+        this.getNoticeLawyerPartyInfo();  
     } 
 
-    public getNoticeDiscontinuanceInfo(){          
+    public getNoticeLawyerPartyInfo(){  
+        
+        this.lawyerInformation = {} as lawyerInformationInfoDataInfoType;  
+        this.otherParties = '';        
 
-        if(this.result?.noticeDiscontinuanceSurvey){
+        this.listOfIssues = [];   
+        this.otherComment = '';    
+        this.applicationAboutComment = '';
+        this.courtDocumentsPreparationComment = '';
+        this.specifiedIssuesComment = '';
 
-            let noticeDiscontinuance = {} as noticeDiscontinuanceDataInfoType;
+        if(this.result?.noticeLawyerPartySurvey){
 
-            noticeDiscontinuance = this.result.noticeDiscontinuanceSurvey;            
-            this.listOfDiscontinuanceDocs = noticeDiscontinuance.discontinuanceDocs?noticeDiscontinuance.discontinuanceDocs:[];
+            let noticeLawyerParty = {} as noticeLawyerPartyDataInfoType;
+            noticeLawyerParty = this.result.noticeLawyerPartySurvey;    
 
-            this.yourInfo = getYourInformationResults(noticeDiscontinuance);
+            this.getLawyerInformationResults(noticeLawyerParty);
 
-            const otherPartiesList = [];
-            for (const otherParty of noticeDiscontinuance.otherPartyInfoDis){
-                otherPartiesList.push(Vue.filter('getFullName')(otherParty.name))
-            }
-            this.otherParties = otherPartiesList.join(', ')
-           
-        } else {
-            this.yourInfo = {} as yourInformationInfoDataInfoType;
-        }
+            const otherParties = [];
+            for (const otherParty of noticeLawyerParty.OtherPartyInfoNlp){
+                otherParties.push(Vue.filter('getFullName')(otherParty.name))
+            }      
+
+            this.otherParties = otherParties.join(', ')           
+
+            this.listOfIssues = noticeLawyerParty.IssuesList?.checked?noticeLawyerParty.IssuesList.checked:[];
+            if (this.listOfIssues.includes("other")){
+                this.otherComment = noticeLawyerParty.IssuesList?.otherComment?noticeLawyerParty.IssuesList.otherComment:'';
+            }      
             
+            if (this.listOfIssues.includes("specifiedIssues")){
+                this.specifiedIssuesComment = noticeLawyerParty.IssuesList?.specifiedIssuesComment?noticeLawyerParty.IssuesList.specifiedIssuesComment:'';
+            }  
+
+            if (this.listOfIssues.includes("courtDocumentsPreparation")){
+                this.courtDocumentsPreparationComment = noticeLawyerParty.IssuesList?.courtDocumentsPreparationComment?noticeLawyerParty.IssuesList.courtDocumentsPreparationComment:'';
+            }  
+
+            if (this.listOfIssues.includes("applicationAbout")){
+                this.applicationAboutComment = noticeLawyerParty.IssuesList?.applicationAboutComment?noticeLawyerParty.IssuesList.applicationAboutComment:'';
+            }  
+        }             
     }
 
-    public getDiscontinuanceInfo(){       
-        
-        this.disWholeApp = [];
-        this.disPartialApp = [];
-        this.application = {type: 'a Family Law Matter', date: ''};
-        this.reply = {type: '', date: ''};
-        this.counterDate = '';
-        this.partialInfo = '';
-        this.courtAppearanceScheduled = '';
-        this.courtDate = '';
-        this.trialPrepHappened = '';
-        this.trialDateWithin30Days = '';
+    public getLawyerInformationResults(noticeLawyerParty: noticeLawyerPartyDataInfoType) {               
 
-        if(this.result?.discontinuanceInformationSurvey && this.result?.moreInformationSurvey){
-
-            let discontinuance = {} as discontinuanceInformationSurveyDataInfoType;
-            discontinuance = this.result.discontinuanceInformationSurvey;  
-            
-            let moreInfo = {} as moreInformationSurveyDataInfoType;
-            moreInfo = this.result.moreInformationSurvey;  
-
-            const partialInfoList = [];
-            
-            if (this.listOfDiscontinuanceDocs.includes('form3')){
-
-                this.application.date = Vue.filter('beautify-date')(moreInfo.Form3FiledDate);
-
-                if(discontinuance.discontinueAllForm3 == 'y'){
-                    this.disWholeApp.push('form3')
-                } else {
-                    this.disPartialApp.push('form3');
-                    if (discontinuance.discontinuePartForm3){
-                        partialInfoList.push(discontinuance.discontinuePartForm3)
-                    }                    
-                    
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form6')){
-
-                this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
-                
-                if (moreInfo.ReplyType == 'form6'){
-                    this.reply.type = 'a Family Law Matter';                    
-                }
-
-                if(discontinuance.discontinueAllForm6 == 'y'){
-                    this.disWholeApp.push('form6')
-                } else {
-                    this.disPartialApp.push('form6');
-                    if (discontinuance.discontinuePartForm6){
-                        partialInfoList.push(discontinuance.discontinuePartForm6)
-                    }  
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form6Counter')){
-
-                this.counterDate = Vue.filter('beautify-date')(moreInfo.CounterFiledDate);
-
-                if(discontinuance.discontinueAllForm6Counter == 'y'){
-                    this.disWholeApp.push('form6Counter')
-                } else {
-                    this.disPartialApp.push('form6Counter')
-                    if (discontinuance.discontinuePartForm6Counter){
-                        partialInfoList.push(discontinuance.discontinuePartForm6Counter)
-                    }  
-                }
-            }
-
-            if (this.listOfDiscontinuanceDocs.includes('form8')){
-
-                this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
-                
-                if (moreInfo.ReplyType == 'form8'){
-                    this.reply.type = 'a Counter Application';                    
-                }
-
-                if(discontinuance.discontinueAllForm8 == 'y'){
-                    this.disWholeApp.push('form8')
-                } else {
-                    this.disPartialApp.push('form8');
-                    if (discontinuance.discontinuePartForm8){
-                        partialInfoList.push(discontinuance.discontinuePartForm8)
-                    }  
-                }
-            }
-
-            this.partialInfo = partialInfoList.join(', ');
-
-            this.courtAppearanceScheduled = moreInfo.CourtAppearanceScheduled;
-            this.courtDate = moreInfo.CourtAppearanceScheduled == 'y'?Vue.filter('beautify-date')(moreInfo.CourtAppearanceDate):'';
-            this.trialPrepHappened = moreInfo.TrialPrep;
-            this.trialDateWithin30Days = moreInfo.TrialDateScheduled;
-        
-        }        
-    
-    }    
+        this.lawyerInformation = {
+            firmName: noticeLawyerParty.FirmName?noticeLawyerParty.FirmName:'',
+            lawyerName: noticeLawyerParty.ApplicantName?noticeLawyerParty.ApplicantName:{} as nameInfoType,
+            address: noticeLawyerParty.LawyerAddressNlp?noticeLawyerParty.LawyerAddressNlp:{} as addressInfoType,
+            contact: noticeLawyerParty.LawyerContact?noticeLawyerParty.LawyerContact:{} as contactInfoType
+        }          
+    }
  
 }
 </script>

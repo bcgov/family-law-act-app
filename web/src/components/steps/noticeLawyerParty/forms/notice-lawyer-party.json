@@ -1,120 +1,153 @@
 {
-  "title": "Notice of Discontinuance",
-  "pages": [
-    {
-      "name": "Notice of Discontinuance",
-      "description": "If you have filed an Application About a Family Law Matter, reply or counter application with the court and you no longer want to have the court make a decision about it, you can file a Notice of Discontinuance to stop it from continuing before the court.<br><br>If an application, reply or counter application is discontinued, it means that it has been abandoned. The party or the court cannot take any further action on the application or counter application but it does not cancel anything that has already been done in court.<br><br>You can only discontinue your own application, reply or counter application. If the other party has their own application, reply or counter application, it is not affected. This means you may still have to go to court about their document. If the other party also wants to discontinue their application, reply or counter application, they must also complete a Notice of Discontinuance.",
-      "elements": [
-        {
-          "type": "panel",
-          "name": "ApplicantPanel",
-          "elements": [
-            {
-              "type": "infotext",
-              "name": "ExplanationDiscontinuance",
-              "title": "<b>If you are filing a Notice of Discontinuance, it is important for you to undertand the effect it may have.</b><br>Some applications have a limitation period for when you must apply. If you discontinue an application, you are not prevented from filing a new application about the same family law matter at a later date unless the judge orders otherwise.<br>If you think you may want to file your application at a later date, check to make sure you will still be within the limitation periods set out in sections <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_07#section147'>147 (4) (b) <i>[duty to provide support for child]</i></a> and 198 (2) [time limits] of the Family Law Act before you file your Notice of Discontinuance.<br>If you are unsure if a limitation period applies to your application, talk to a lawyer. ",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "helptext",
-              "name": "FAQLegalAdvice",
-              "title": "Where can I get legal assistance?",
-              "titleLocation": "hidden",              
-              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"             
-            },
-            {
-              "type": "yesno",
-              "name": "Filed",
-              "title": "Have you filed an Application About a Family Law Matter, reply or counter application that you want to discontinue?",
-              "description": "You can discontinue <b>all</b> or <b>part</b> of your application, reply or counter application. You will be asked for this information later.",
-              "isRequired": true
-            },            
-            {
-              "type": "infotext",
-              "name": "ExplanationNotFiled",
-              "visible": false,
-              "visibleIf": "{Filed} = 'n'",
-              "title": "If you want to cancel an order that has already been made in court because there has been a change in needs or circumstances, you can apply to the court to cancel the order by filing an application. Go back to Step 1 and select Apply for an Order.<br>If the other party filed an application, reply or counter application that you want discontinued and they also agree it should be discontinued, they will have to file the Notice of Discontinuance.",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "panel",
-              "name": "ApplicantContactPanel",
-              "visible": false,
-              "visibleIf": "{Filed} = 'y'",
-              "elements": [
-                {
-                  "type": "personname",
-                  "name": "ApplicantName",
-                  "title": "What is your full name?",
-                  "description": "This is the name of the person whose application, reply or counter application is being discontinued. Copy the name from any filed court document.",                  
-                  "isRequired": true,              
-                  "defaultSubstitution": "(Applicant Name)",
-                  "descFirstName": "First Name is also known as Given Name",
-                  "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
-                  "descLastName": "Last Name is also known as Family Name or Surname"
-                },
-
-                {
-                  "type": "panel",
-                  "name": "ContactInformationOtherPartyPanel",             
-                  "elements": [
-                    {
-                      "isRequired": true,  
-                      "type": "paneldynamic",
-                      "name": "otherPartyInfoDis",
-                      "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>",
-                      "description": "Copy the name from the filed document.",                            
-                      "templateElements": [
-                        {
-                          "type": "personname",
-                          "name": "name",
-                          "title": " ",
-                          "titleLocation": "hidden"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "infotext",
-                  "name": "ExplanationServe",                  
-                  "title": "You must serve each other party with a copy of the Notice of Discontinuance within 14 days of filing the notice, or before the date of the next scheduled court appearance, whichever is sooner.",
-                  "titleLocation": "hidden"
-                },
-                {
-                  "type": "checkbox",
-                  "name": "discontinuanceDocs",
-                  "title": "Which document do you want to discontinue (all or part of)?",
-                  "description": "Note: A counter application is a separate part of your reply to an application about a family law matter. If you want to discontinue your reply <b>and</b> your counter application, select both.<br><br>Select each option that applies. You may choose more than one.",
-                  "choices": [
+    "title": "Notice of Lawyer for Party",
+    "pages": [
+      {
+        "name": "Notice of Lawyer for Party",
+        "description": "<a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section161'>Rule 161</a> says that if a case involves a party, the party’s views must be considered unless it is inappropriate to do so.<br><br>One way to have the party’s views heard by the court is for a party to have their own lawyer to represent their interests. Other ways include a views of the party report or the judge interviewing the party directly.<br><br>Permission of the court is not required for a lawyer to begin representing the interests of a party but a court order may be needed if a lawyer needs to be appointed by the court.<br><br>It is up to the court to determine how a party’s evidence will be heard, as appropriate.",
+        "elements": [
+          {
+            "type": "panel",
+            "name": "ApplicantPanel",
+            "elements": [
+              {
+                  "type": "helptext",
+                  "name": "FAQLegalAdvice1",
+                  "title": "How does a lawyer for a party get appointed?",
+                  "titleLocation": "hidden",              
+                  "body": "Where it is in the best interests of a party to be represented in a family law case, any party to the case can apply under <a target='_blank' href='http://www.bclaws.ca/civix/document/id/complete/statreg/11025_10#section203'>s. 203</a> of the Family Law Act for a lawyer to represent the interests of the party. An application can be made using the Application for Case Management Order in <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa717.pdf?forcedownload=true' target='_blank'>Form 10</a>. You can apply for a case management order using this service.<br><br>If the court agrees that it is in the party’s best interests, the court may appoint a lawyer for that party. The order might also include how the lawyer’s fees will be paid and by whom.<br><br>Partyren or parents can contact the <a href='https://scyofbc.org/party-youth-legal-centre/' target='_blank'>Society for Partyren and Youth of British Columbia’s Party and Youth Legal Centre</a> for more information about getting a lawyer for a party. The Centre provides legal support for young people."
+              },
+              {
+                  "type": "html",
+                  "name": "pageIntro",
+                  "title": "",
+                  "html": "<div style='margin: 0rem 0 -1.0rem 0'><div style='font-weight: normal;font-size: 1.0em;' >Are you a lawyer representing a party in a family law case?<br><br><a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section175'>Rule 162</a> of the Provincial Court Family Rules requires you to file a Notice of Lawyer for Party in Form 40 when you start representing a party and serve a copy on each other party as soon as possible.<br><br>The Notice of Lawyer for Party can be used at any time in a court proceeding.<br><br>Use this pathway to complete your Notice of Lawyer for Party.</div></div>"
+              }, 
+              {
+                "type": "panel",
+                "name": "ApplicantContactPanel",              
+                "elements": [
+                  {
+                    "type": "personname",
+                    "name": "ApplicantName",
+                    "title": "What is your name?",
+                    "description": "This is the name of the lawyer for the party. If you are filing out this form for a lawyer for the party, fill in their name.",
+                    "isRequired": true,              
+                    "defaultSubstitution": "(Applicant Name)",
+                    "descFirstName": "First Name is also known as Given Name",
+                    "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                    "descLastName": "Last Name is also known as Family Name or Surname"
+                  },
+                  {
+                      "type": "text",
+                      "name": "FirmName",
+                      "title": "What is the name of your law firm (if applicable)?"
+                  },
+                  {
+                    "type": "panel",
+                    "name": "ContactInformationOtherPartyPanel",             
+                    "elements": [
                       {
-                        "value": "form3",
-                        "text": "Application about a Family Law Matter (Form 3)"
-                      },
-                      {
-                        "value": "form6",
-                        "text": "Reply to an Application About a Family Law Matter (Form 6)"
-                      },
-                      {
-                        "value": "form6Counter",
-                        "text": "Counter Application About a Family Law Matter (Form 6 counter application)"
-                      },
-                      {
-                        "value": "form8",
-                        "text": "Reply to a Counter Application (Form 8)"
+                        "isRequired": true,  
+                        "type": "paneldynamic",
+                        "name": "OtherPartyInfoNlp",
+                        "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the full name of each party? </b>",
+                        "description": "Copy the name from any filed document. Add each party from your existing case.",
+                        "templateElements": [
+                          {
+                            "type": "personname",
+                            "name": "name",
+                            "title": " ",
+                            "titleLocation": "hidden"
+                          }
+                        ]
                       }
-                  ],
-                  "isRequired": true
-                }                 
-              ]
-            } 
-          ]
-        }
-      ],
-      "title": "Notice of Discontinuance"
-    }
-  ],
-  "showQuestionNumbers": "off",
-  "requiredText": ""
-}
+                    ]
+                  },
+                  {
+                      "type": "multiplecommentcheckbox",
+                      "name": "IssuesList",
+                      "title": "What issues will you be representing the party/parties on?",
+                      "description": "Select all that apply.",                     
+                      "choices": [
+                        {
+                          "value": "allIssues",
+                          "text": "on all issues until further notice to the court",
+                          "comment": false
+                        },
+                        {
+                          "value": "specifiedIssues",
+                          "text": "on only the following specified issue(s) until further notice to the court:",
+                          "comment": true
+                        },               
+                        {
+                          "value": "courtDocumentsPreparation",
+                          "text": "preparation of the following court documents for filing and/or filing of the court documents:",
+                          "comment": true
+                        },
+                        {
+                          "value": "familyManagementConference",
+                          "text": "at the family management conference",
+                          "comment": false
+                        },          
+                        {
+                          "value": "familySettlementConference",
+                          "text": "at the family settlement conference",
+                          "comment": false
+                        },     
+                        {
+                          "value": "trial",
+                          "text": "at trial (including any scheduled trial preparation conference)",
+                          "comment": false
+                        },
+                        {
+                          "value": "applicationAbout",
+                          "text": "on the application about <i>(specify)</i>:",
+                          "comment": true
+                        },                        
+                        {
+                          "value": "other",
+                          "text": "Other <i>(specify)</i>:",
+                          "comment": true
+                        }
+                      ],
+                      "isRequired": true
+                  },  
+                  {
+                      "type": "html",
+                      "name": "addressTitle",
+                      "title": "address",
+                      "html": "<div style='margin: 0rem 0 -1rem 0'><div style='font-weight: bold;' class='sv_main sv_q_title'>Please provide your address information</div></div>"
+                  },
+                  {
+                      "type": "comment",
+                      "name": "FirmName",
+                      "title": "<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 0rem 0 -1rem 0'> Firm Name (if applicable):</b>",                
+                      "rows": 1
+                  },
+                  {
+                      "type": "address",
+                      "name": "LawyerAddressNlp",
+                      "title": "",
+                      "titleLocation": "hidden",
+                      "isRequired": true,
+                      "referLabel": "Applicant's Address"
+                  },
+                  {
+                      "type": "contactinfo",
+                      "name": "LawyerContact",
+                      "title": "Please provide your contact information",
+                      "isRequired": true,
+                      "labelEmail": "Email",                    
+                      "labelPhone": "Phone"
+                  }                                              
+                ]
+              } 
+            ]
+          }
+        ],
+        "title": "Notice of Lawyer for Party"
+      }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+  }

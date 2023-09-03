@@ -2267,33 +2267,33 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);        
 
-        p = {} as pageInfoType;
-        p.key = "1";
-        p.name = "LawyerPartyInformation";
-        p.label = "Notice of Lawyer for Party Information ";        
-        p.active = true;
-        p.progress = 0;    
-        s.pages.push(p);   
+        // p = {} as pageInfoType;
+        // p.key = "1";
+        // p.name = "LawyerPartyInformation";
+        // p.label = "Notice of Lawyer for Party Information ";        
+        // p.active = true;
+        // p.progress = 0;    
+        // s.pages.push(p);   
         
-        p = {} as pageInfoType;
-        p.key = "2";        
-        p.name = "MoreInformationNLP";
-        p.label = "More Information";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
+        // p = {} as pageInfoType;
+        // p.key = "2";        
+        // p.name = "MoreInformationNLP";
+        // p.label = "More Information";
+        // p.active = false;
+        // p.progress = 0;    
+        // s.pages.push(p);
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "1";
         p.name = "ReviewYourAnswersNLP";
         p.label = "Review Your Answers";
-        p.active = false;
+        p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "2";
         p.name = "PreviewFormsNLP";
         p.label = "Preview Forms";
         p.active = false;
@@ -2373,7 +2373,6 @@ class Application extends VuexModule {
         this.steps.push(s);
     
         //Submit STOP
-        //console.log(this.steps)
         
     }
     @Action
@@ -2465,7 +2464,6 @@ class Application extends VuexModule {
         this.context.commit("setRequiredDocumentsByType", {typeOfRequiredDocuments, requiredDocuments });
         this.context.commit("setCommonStepResults",{data:{'requiredDocuments':this.requiredDocuments}});
     }
-
 
     @Mutation
     public setRflmRequiredDocsRequests(rflmRequiredDocsRequests): void {

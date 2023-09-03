@@ -23,15 +23,10 @@
                     <span v-if="trialPrep">already had a trial preparation conference</span>
                     <span v-if="trialPrep && trialDateScheduled"> and </span>
                     <span v-if="trialDateScheduled">a trial is scheduled within 30 days</span>.
-                </p>
-                
-                <p>Print the form, have the form signed and return to this screen to upload the signed form for submission.</p>               
-
+                </p>                
+                <p>Print the form, have the form signed and return to this screen to upload the signed form for submission.</p>
             </b-row>
-
-        </b-card>      
-        
-
+        </b-card>  
     </div> 
 </template>
 
@@ -63,10 +58,7 @@ export default class OtherFormList extends Vue {
     @applicationState.State
     public pathwayCompleted!: pathwayCompletedInfoType;    
 
-    @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
-
-    selected=""
+    selected="";
     currentStep = 0;
 
     showPDFformName = '';
@@ -95,15 +87,15 @@ export default class OtherFormList extends Vue {
         }        
 
         this.formsListTemplate =[ 
-            { name:'P2',   appName:'noticeIntentionProceed',  pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"), chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],        color:"danger", title:"Notice of Intention to Proceed (Form 2)", requiresSignature: false},                              
-            { name:'P22',  appName:'trialReadinessStatement', pdfType: Vue.filter('getPathwayPdfType')("trialReadinessStatement"), chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.TRIS._StepNo],        color:"danger", title:"Trial Readiness Statement (Form 22)", requiresSignature: false},                              
-            { name:'P39',  appName:'requestScheduling',       pdfType: Vue.filter('getPathwayPdfType')("requestScheduling"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.RQS._StepNo],        color:"danger", title:"Request for Scheduling (Form 39)", requiresSignature: false},                              
-            { name:'P40',  appName:'noticeLawyerChild',       pdfType: Vue.filter('getPathwayPdfType')("noticeLawyerChild"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLC._StepNo],        color:"danger", title:"Notice of Lawyer for Child (Form 40)", requiresSignature: false},            
+            { name:'P2',   appName:'noticeIntentionProceed',  pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"),  chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],        color:"danger", title:"Notice of Intention to Proceed (Form 2)",         requiresSignature: false},                              
+            { name:'P22',  appName:'trialReadinessStatement', pdfType: Vue.filter('getPathwayPdfType')("trialReadinessStatement"), chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.TRIS._StepNo],       color:"danger", title:"Trial Readiness Statement (Form 22)",             requiresSignature: false},                              
+            { name:'P39',  appName:'requestScheduling',       pdfType: Vue.filter('getPathwayPdfType')("requestScheduling"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.RQS._StepNo],        color:"danger", title:"Request for Scheduling (Form 39)",                requiresSignature: false},                              
+            { name:'P40',  appName:'noticeLawyerChild',       pdfType: Vue.filter('getPathwayPdfType')("noticeLawyerChild"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLC._StepNo],        color:"danger", title:"Notice of Lawyer for Child (Form 40)",            requiresSignature: false},            
             { name:'P41',  appName:'noticeRemoveLawyerChild', pdfType: Vue.filter('getPathwayPdfType')("noticeRemoveLawyerChild"), chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLCR._StepNo],       color:"danger", title:"Notice of Removal of Lawyer for Child (Form 41)", requiresSignature: false},            
-            { name:'P42',  appName:'noticeLawyerParty',       pdfType: Vue.filter('getPathwayPdfType')("noticeLawyerParty"),      chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLP._StepNo],        color:"danger", title:"Notice of Lawyer for Party (Form 42)", requiresSignature: false},
-            { name:'P46',  appName:'noticeOfAddressChange',   pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],        color:"danger", title:"Notice of Address Change (Form 46)", requiresSignature: false},            
-            { name:'P50',  appName:'noticeDiscontinuance',    pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),    chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],        color:"danger", title:"Notice of Discontinuance (Form 50)", requiresSignature: ndtRequiresSignature}
-        ]
+            { name:'P42',  appName:'noticeLawyerParty',       pdfType: Vue.filter('getPathwayPdfType')("noticeLawyerParty"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLP._StepNo],        color:"danger", title:"Notice of Lawyer for Party (Form 42)",            requiresSignature: false},
+            { name:'P46',  appName:'noticeOfAddressChange',   pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],        color:"danger", title:"Notice of Address Change (Form 46)",              requiresSignature: false},            
+            { name:'P50',  appName:'noticeDiscontinuance',    pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),    chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],        color:"danger", title:"Notice of Discontinuance (Form 50)",              requiresSignature: ndtRequiresSignature}
+        ];
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.initFormsTitle();
@@ -115,8 +107,7 @@ export default class OtherFormList extends Vue {
         const completeOtherFormsPageResults = this.$store.state.Application.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
         const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
         
-        for(const form of this.formsListTemplate)        
-        {
+        for(const form of this.formsListTemplate) {
             const pathwayInfo = selectedFormInfoList.filter(selectedForm => {if(selectedForm.pathwayName == form.appName) return form;})[0]
                      
             if(pathwayInfo?.pathwayState &&  this.pathwayCompleted[form.appName]){
@@ -128,9 +119,7 @@ export default class OtherFormList extends Vue {
                 
             }                           
         }
-        // console.log(this.formsList)
-        // //TODO: why is this not including the standalone forms
-        // this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});
+
         Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
     

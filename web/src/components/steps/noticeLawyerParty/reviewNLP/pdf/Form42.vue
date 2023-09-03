@@ -43,7 +43,7 @@ export default class Form42 extends Vue {
            
     public onPrint() { 
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("noticeDiscontinuance")
+        const pdf_type = Vue.filter('getPathwayPdfType')("noticeLawyerParty")
         const pdf_name = "notice-of-lawyer-for-party";       
         const el= document.getElementById("print");
 
