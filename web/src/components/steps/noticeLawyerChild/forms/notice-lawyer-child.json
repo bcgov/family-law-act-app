@@ -50,7 +50,7 @@
                         "isRequired": true,  
                         "type": "paneldynamic",
                         "name": "ChildInfoNlc",
-                        "title": "<div style='margin: 0rem 0 -1rem 0'><div style='font-weight: bold;' class='sv_main sv_q_title'> What is the name of the child you are representing?</div></b>",
+                        "title": "<div style='margin: 0rem 0 -1rem 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are representing?</div></b>",
                         "templateElements": [
                           {
                             "type": "personname",
@@ -145,7 +145,7 @@
                       "isRequired": true,  
                       "type": "paneldynamic",
                       "name": "OtherPartyInfoNlc",
-                      "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of each party? </b>",
+                      "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the full name of each party? </b>",
                       "description": "Copy the name from any filed document. Add each party from your existing case.",
                       "templateElements": [
                         {
