@@ -58,20 +58,22 @@
                             <b-col cols="4">                                
                                 <b-button  
                                     v-if="otherForm.pathwayExists"
-                                    style="min-height: 2.5rem; font-size: 0.8rem; width: 100%;"
+                                    :disabled="rejectedPathway"
+                                    style="min-height: 2.5rem; font-size: 0.8rem; width: 90%;"
                                     @click="changeSelectedActivity(inx, true, otherForm.formName)"
                                     :pressed.sync="otherForm.pathwayState"
                                     :variant="otherForm.pathwayState?'primary':'secondary'">
-                                    Complete form using guided pathway
+                                    <b-icon-check v-if="otherForm.pathwayState" variant="success" scale="2" class="ml-n2 mr-2" /> Complete form using guided pathway
                                 </b-button>
                             </b-col>
                             <b-col>
                                 <b-button
-                                    style="min-height: 2.5rem; font-size: 0.8rem; width: 100%;"
+                                    :disabled="rejectedPathway && !otherForm.manualState"
+                                    style="min-height: 2.5rem; font-size: 0.8rem; width: 120%; margin-left:-2rem;"
                                     @click="changeSelectedActivity(inx, false, otherForm.formName)"
                                     :pressed.sync="otherForm.manualState"
                                     :variant="otherForm.manualState?'primary':'secondary'">
-                                    Complete PDF form
+                                    <b-icon-check v-if="otherForm.manualState" variant="success" scale="2" class="ml-n2 mr-2" /> Complete PDF form
                                 </b-button>
                             </b-col>
                         </b-row>                                
@@ -152,6 +154,9 @@ export default class CompleteOtherForms extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     @applicationState.State
     public loggedInUserName!: nameInfoType;

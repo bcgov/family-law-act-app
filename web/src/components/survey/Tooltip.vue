@@ -8,7 +8,7 @@
             </b-badge>
         </div>
 
-        <b-tooltip :target="title+index" :placement="placement">
+        <b-tooltip :custom-class="size" :target="title+index" :placement="placement">
             <div style="text-align: justify;" v-html="description"/>
         </b-tooltip>
             
@@ -33,6 +33,9 @@
 
         @Prop({required: false, default:'right'})
         placement!: string;
+
+        @Prop({required: false, default:''})
+        size!: string;
 
         description = ''
 
@@ -63,6 +66,21 @@
         font-weight: bold;
         margin: 0;
         padding:0.1rem 0.3rem ;
+    }
+
+    .tooltip.md >>>  .tooltip-inner{
+        max-width: 300px !important;
+        width: 300px !important;
+    }
+
+    .tooltip.lg >>>  .tooltip-inner{
+        max-width: 600px !important;
+        width: 600px !important;
+    } 
+
+    .tooltip.xl >>>  .tooltip-inner{
+        max-width: 900px !important;
+        width: 900px !important;
     }
 
     .tooltip :deep(.tooltip-inner) {    

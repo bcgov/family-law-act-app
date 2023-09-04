@@ -35,7 +35,7 @@
         </div> 
         
 <!-- <1> -->
-        <section>
+        <section class="margintop-5vue">
             <underline-form style="margin-left:0.1rem;text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="20rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
             <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="9rem" beforetext=". My date of birth is" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:1px;display:inline; font-size: 9pt;">.</div>

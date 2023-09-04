@@ -11,6 +11,7 @@
             {
               "type": "yesno",
               "name": "enforceOrder",
+              "enableIf": "{enableSurvey}",
               "isRequired": true,
               "title": "Do you want to enforce a Provincial Court family order made in BC?",
               "description": "Your order was probably made in Provincial Court in BC but you can also enforce a written agreement, order from outside BC, or an order from BC Supreme Court in Provincial Court. This service will help you apply to enforce those too, there are just some extra questions we need to ask you about those."
@@ -27,6 +28,7 @@
             {
               "type": "yesno",
               "name": "filedOrder",
+              "enableIf": "{enableSurvey}",
               "isRequired": true,
               "visible": false,
               "visibleIf": "{enforceOrder} = 'n'",
@@ -44,6 +46,7 @@
             },
             {
               "type": "radiogroup",
+              "enableIf": "{enableSurvey}",
               "name": "existingType",
               "isRequired": true,
               "visible": false,
@@ -70,6 +73,7 @@
                 {
                   "type": "checkbox",
                   "name": "agreementType",
+                  "enableIf": "{enableSurvey}",
                   "title": "Select each option that applies to the agreement you’re trying to enforce.",
                   "description": "A written agreement can be filed in Provincial Court under one or more sections of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_00' target='_blank'>Family Law Act</a>. When it is filed under the Family Law Act, it is enforceable under the Act as if it were an order of the Provincial Court.</br></br>Look at the terms in the written agreement to see what it is about. You can select more than one option below if your agreement is about different issues. ",
                   "visible": false,
@@ -127,6 +131,7 @@
                 {
                   "type": "checkbox",
                   "name": "orderType",
+                  "enableIf": "{enableSurvey}",
                   "title": "Select each option that applies to the court order you’re trying to enforce.",
                   "description": "Depending on what your court order from another jurisdiction is about, there are different laws and ways it must be filed in Provincial Court. When an order from another jurisdiction is filed in Provincial Court, it is enforceable under the Family Law Act as if it were an order of the Provincial Court.</br></br>Look at the terms in the court order to see what it is about. You can select more than one option below if your order is about different issues.",
                   "visible": false,

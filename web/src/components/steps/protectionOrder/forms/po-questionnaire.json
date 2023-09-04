@@ -17,6 +17,7 @@
                   {
                      "type": "radiogroup",
                      "name": "orderType",
+                     "enableIf": "{enableSurvey}",
                      "title": "What are you asking for (orders)?",
                      "isRequired": true,
                      "choices": [
