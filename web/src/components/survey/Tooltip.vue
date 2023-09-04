@@ -8,7 +8,7 @@
             </b-badge> -->
         </div>
 
-        <b-tooltip :custom-class="size" :target="title+index" :placement="placement" >
+        <b-tooltip :custom-class="size" :target="title+index" :placement="placement">
             <div style="text-align: justify;" v-html="description"/>
         </b-tooltip>
             

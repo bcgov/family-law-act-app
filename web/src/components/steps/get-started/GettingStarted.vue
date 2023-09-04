@@ -21,6 +21,7 @@
                 <div>
                     <b-form-group>
                         <b-form-checkbox-group
+                        :disabled="rejectedPathway"
                         v-model="selected"
                         @change="onChange"
                         name="orders"
@@ -94,10 +95,10 @@
                             <div class="checkbox-choices">Enforcement</div>
                             <p>
                                 The Provincial Court Family Rules include a range of enforcement options. 
-                                If you have a written agreement, <tooltip title="determination of a parenting coordinator" :index="0"/>, 
+                                If you have a written agreement, <tooltip title="determination of a parenting coordinator" size="md" :index="0"/>, 
                                 or court order that the other party is not following, you can ask the court to help enforce it. 
-                                Orders about enforcement also include setting <tooltip title="expenses" :index="0"/>, determining 
-                                <tooltip title="arrears" :index="0"/> and applying to set aside the registration of a foreign support order.
+                                Orders about enforcement also include setting <tooltip title="expenses" size="md" :index="0"/>, determining 
+                                <tooltip title="arrears" size="md" :index="0"/> and applying to set aside the registration of a foreign support order.
                             </p>
                             </b-form-checkbox>
                         </div>
@@ -148,6 +149,9 @@ export default class GettingStarted extends Vue {
 
     @applicationState.State
     public types!: string[]
+
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     @applicationState.Action
     public UpdateApplicationType!: (newApplicationType: string[]) => void
