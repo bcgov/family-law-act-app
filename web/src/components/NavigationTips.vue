@@ -71,7 +71,7 @@
                     </b-td>                        
                 </b-tr>
 
-                <b-row class="ml-5 h4" style="font-weight: 700;">
+                <b-row class="mt-5 ml-5 h4" style="font-weight: 700;">
                     On the Previous Activity screen:
                 </b-row>
 
@@ -80,7 +80,7 @@
                         <img src="../assets/efiling-hub-navigation.png" alt="" class="center" />
                     </b-th>
                     <b-td class="text-left">
-                        You can use to navigate to your submitted documents.                          
+                        Use the arrow link to navigate to your submitted documents.                          
                     </b-td>                        
                 </b-tr>
 
@@ -98,7 +98,7 @@
                         <img src="../assets/resume-app.png" alt="" class="center" />
                     </b-th>
                     <b-td class="text-left">
-                        You can go back and edit a document which you may need to continue to work on.                          
+                        The edit icon allows you to edit or continue completing a document.                          
                     </b-td>                        
                 </b-tr>
 
@@ -125,7 +125,9 @@
                         <img src="../assets/action-required.png" alt="" class="center mt-n2" />
                     </b-th>
                     <b-td class="text-left">
-                        Provides information on the required corrections.                          
+                        Means action is required.  Clicking the icon will provide an 
+                        explanation of the issue and what options you have available 
+                        to correct the document.                          
                     </b-td>                        
                 </b-tr>
 
