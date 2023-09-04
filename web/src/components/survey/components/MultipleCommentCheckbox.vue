@@ -15,7 +15,7 @@
                     :key="index"
                     style="cursor:pointer; display:inline; padding-left: .75em; font-size: 110%; font-weight: normal; transform: translate(0,-2px) " 
                     >
-                    <tooltip style="display:inline; margin:0 -0.65rem;" v-if="txt.tooltip" :title="txt.text" :index="index" placement="top"/>
+                    <tooltip style="display:inline; margin:0 -0.65rem;" v-if="txt.tooltip" :size="choice.tooltipSize" :title="txt.text" :index="index" placement="top"/>
                     <div style="display:inline;" v-else v-html="txt.text">{{txt.text}}</div>
                 </div>
                               

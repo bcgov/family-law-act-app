@@ -227,7 +227,7 @@ export default class RequirementsAndConsiderations extends Vue {
             this.reqInfo.disabilitySpecs = reqData.disabilitySpecs?reqData.disabilitySpecs:'';
         }     
        
-        const progress = this.checkFields()? 50 : 100; 
+        const progress = this.checkFields(true)? 50 : 100; 
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);     
 
         this.dataLoaded = true;
@@ -245,9 +245,10 @@ export default class RequirementsAndConsiderations extends Vue {
         }    
     }  
     
-    public checkFields() {
-
-        this.state.specialReqList = this.reqInfo.specialReqList.length>0? false : true;       
+    public checkFields(pageload?) {
+        
+        if(!pageload)
+            this.state.specialReqList = this.reqInfo.specialReqList.length>0? false : true;       
 
         if (this.reqInfo.specialReqList.includes('technology')){
             this.state.techSpecs = this.reqInfo.techSpecs?false:true;
