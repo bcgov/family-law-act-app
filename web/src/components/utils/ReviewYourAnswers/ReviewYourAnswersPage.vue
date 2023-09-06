@@ -127,8 +127,8 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>", "What is the full name of the other party?");
         adjQuestion = adjQuestion.replace("<b style='color: #455571; font-size:22pt;'>completed</b>", "completed");
         adjQuestion = adjQuestion.replace("LawyerAddressNlc",'Please provide your address information');
-        adjQuestion = adjQuestion.replace("<div style='margin: 0rem 0 -1rem 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are representing?</div></b>", "What is the name of the child you are representing?");
-        adjQuestion = adjQuestion.replace("<div style='margin: 0rem 0 -1rem 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are no longer representing?</div></b>", "What is the name of the child you are no longer representing?");
+        adjQuestion = adjQuestion.replace("<div style='margin: 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are representing?</div></b>", "What is the name of the child you are representing?");
+        adjQuestion = adjQuestion.replace("<div style='margin: 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are no longer representing?</div></b>", "What is the name of the child you are no longer representing?");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the full name of each party? </b>", "What is the full name of each party?");
         adjQuestion = adjQuestion.replace("<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 0rem 0 -1rem 0'> Firm Name (if applicable):</b>", "Firm Name (if applicable):");
         

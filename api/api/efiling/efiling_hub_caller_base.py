@@ -42,3 +42,20 @@ class EFilingHubCallerBase:
         if bceid_guid:
             headers.update({"X-User-Id": bceid_guid})
         return headers
+
+
+    def _get_new_token(self, refresh_token):
+        headers = {"Content-Type": "application/x-www-form-urlencoded"}
+        payload = {'grant_type': 'refresh_token', 'refresh_token': refresh_token }
+        auth = HTTPBasicAuth(self.client_id, self.client_secret)
+
+        response = requests.post(
+            self._token_url(), headers=headers, data=payload, auth=auth
+        )
+        logger.debug("EFH - Get Token %d", response.status_code)
+        if response.status_code == 200:
+            response = response.json()
+            if "access_token" in response:
+                self.access_token = response["access_token"]
+                return True
+        return False

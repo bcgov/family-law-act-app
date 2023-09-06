@@ -16,8 +16,9 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
+import json
 from rest_framework import serializers
-
+from django.conf import settings
 from api.models import SurveyResult, User, Application, EFilingSubmission, PreparedPdf
 
 
@@ -28,9 +29,18 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class EFilingSubmissionSerializer(serializers.ModelSerializer):
+    submission_results = serializers.SerializerMethodField()
     class Meta:
         model = EFilingSubmission
-        fields = ["package_number", "package_url"]
+        fields = ["package_number", "package_url", "submission_results"]
+
+    def get_submission_results(self, obj):
+        
+        if obj.submission_results:
+            results_dec = settings.ENCRYPTOR.decrypt(obj.key_id, obj.submission_results)        
+            return json.loads(json.loads(results_dec))
+        else:
+            return None
 
 
 class PreparedPdfSerializer(serializers.ModelSerializer):
@@ -51,6 +61,7 @@ class ApplicationListSerializer(serializers.ModelSerializer):
             "last_updated",
             "last_filed",
             "last_efiling_submission",
+            "application_reference",
             "prepared_pdfs",
         ]
 

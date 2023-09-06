@@ -42,13 +42,14 @@
                 </div>        
                 
                 <div :key="updated">                    
-                    <b-form-group :style="state.specialReqList?'outline: 2px solid red;':''">
+                    <b-form-group >
                         <b-form-checkbox-group
+                        
                             v-model="reqInfo.specialReqList"
                             @change="updateSelection()"                    
                             name="requests"
                             stacked>                
-                            <div class="checkbox-border" :style="state.techSpecs?'outline: 2px solid red;':''" >
+                            <div class="checkbox-border" :style="(state.specialReqList || state.techSpecs)?'outline: 2px solid red;':''" >
                                 <b-form-checkbox value="technology">
                                     <div class="checkbox-choices">
                                         Technology needs
@@ -62,7 +63,7 @@
                                 </b-row>
                             </div>
 
-                            <div class="checkbox-border" :style="state.interpreterInfo?'outline: 2px solid red;':''">
+                            <div class="checkbox-border" :style="(state.specialReqList || state.interpreterInfo)?'outline: 2px solid red;':''">
                                 <b-form-checkbox value="interpreter">
                                     <div class="checkbox-choices">
                                         Interpreter
@@ -85,7 +86,7 @@
                                 </div>
                             </div>
 
-                            <div class="checkbox-border" :style="state.safetySpecs?'outline: 2px solid red;':''" >
+                            <div class="checkbox-border" :style="(state.specialReqList || state.safetySpecs)?'outline: 2px solid red;':''" >
                                 <b-form-checkbox value="safety">
                                     <div class="checkbox-choices">
                                         Safety planning                                        
@@ -99,7 +100,7 @@
                                 </div>
                             </div>
 
-                            <div class="checkbox-border" :style="state.trialSpecs?'outline: 2px solid red;':''" >
+                            <div class="checkbox-border" :style="(state.specialReqList || state.trialSpecs)?'outline: 2px solid red;':''" >
                                 <b-form-checkbox value="accommodations">
                                     <div class="checkbox-choices" style="display:inline !important;">Trial accommodations</div>
                                     <div style="display:inline !important;">
@@ -114,7 +115,7 @@
                                 </div>
                             </div>
 
-                            <div class="checkbox-border" :style="state.disabilitySpecs?'outline: 2px solid red;':''" >
+                            <div class="checkbox-border" :style="(state.specialReqList || state.disabilitySpecs)?'outline: 2px solid red;':''" >
                                 <b-form-checkbox value="disability">
                                     <div class="checkbox-choices"  style="display:inline !important;">
                                         Accommodations for disability
@@ -226,7 +227,7 @@ export default class RequirementsAndConsiderations extends Vue {
             this.reqInfo.disabilitySpecs = reqData.disabilitySpecs?reqData.disabilitySpecs:'';
         }     
        
-        const progress = this.checkFields()? 50 : 100; 
+        const progress = this.checkFields(true)? 50 : 100; 
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);     
 
         this.dataLoaded = true;
@@ -244,9 +245,10 @@ export default class RequirementsAndConsiderations extends Vue {
         }    
     }  
     
-    public checkFields() {
-
-        this.state.specialReqList = this.reqInfo.specialReqList.length>0? false : true;       
+    public checkFields(pageload?) {
+        
+        if(!pageload)
+            this.state.specialReqList = this.reqInfo.specialReqList.length>0? false : true;       
 
         if (this.reqInfo.specialReqList.includes('technology')){
             this.state.techSpecs = this.reqInfo.techSpecs?false:true;

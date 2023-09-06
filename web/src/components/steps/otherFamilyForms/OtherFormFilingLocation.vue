@@ -46,6 +46,9 @@ export default class OtherFormFilingLocation extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];    
 
+    @applicationState.State
+    public rejectedPathway!: boolean;
+
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
@@ -132,6 +135,9 @@ export default class OtherFormFilingLocation extends Vue {
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
         } 
+
+        this.survey.setVariable("enableSurvey", !this.rejectedPathway)
+        
         this.determineSteps();
         const progress = (this.determineContinue())? 100 : 50;        
 

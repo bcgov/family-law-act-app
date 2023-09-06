@@ -33,6 +33,7 @@
         <div>
             <b-form-group>
                 <b-form-checkbox-group
+                    :disabled="rejectedPathway"
                     v-model="selectedParentingArrangementsForm" 
                     stacked
                     >                                
@@ -64,6 +65,7 @@
                 </b-form-checkbox-group>
 
                 <b-form-checkbox-group
+                    :disabled="rejectedPathway"
                     v-model="selectedChildSupportForm" 
                     stacked
                     >                                
@@ -95,6 +97,7 @@
                 </b-form-checkbox-group>
 
                 <b-form-checkbox-group
+                    :disabled="rejectedPathway"
                     v-model="selectedContactWithChildForm" 
                     stacked
                     >                                
@@ -126,6 +129,7 @@
                 </b-form-checkbox-group>
 
                 <b-form-checkbox-group
+                    :disabled="rejectedPathway"
                     v-model="selectedGuardianshipForm" 
                     stacked
                     >                                
@@ -156,6 +160,7 @@
                 </b-form-checkbox-group>
 
                 <b-form-checkbox-group
+                    :disabled="rejectedPathway"
                     v-model="selectedSpousalSupportForm" 
                     stacked
                     >                                
@@ -219,7 +224,10 @@ export default class RflmQuestionnaire extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;    
+    public stPgNo!: stepsAndPagesNumberInfoType;
+    
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

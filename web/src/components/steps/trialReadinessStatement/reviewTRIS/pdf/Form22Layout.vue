@@ -66,7 +66,7 @@
                     text="I will have the following lawyer representing me at the trial:"/>
                 <underline-form 
                     style="text-indent:0;margin-left:.25rem;display:inline-block;" 
-                    textwidth="10rem" 
+                    textwidth="14.5rem" 
                     beforetext="" 
                     hint="(full name of lawyer)" 
                     :text="lawyerName"/>                    
@@ -90,12 +90,15 @@
             <div style="font-style: italic; display: inline;"> 
                 Complete only if applicable. You may leave this section blank.
             </div> 
-            <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="17rem" 
-                beforetext="The lawyer for the child(ren) is:" 
-                hint="(full name of lawyer)" 
-                :italicHint="false" :text="childCaseLawyer"/>                                         
+            <div style="margin-left:1rem;">
+                <underline-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                    textwidth="17rem" 
+                    beforetext="The lawyer for the child(ren) is:" 
+                    hint="(full name of lawyer)" 
+                    :italicHint="false" :text="childCaseLawyer"/>                                         
+            </div>
+
         </section>
 
     <!-- <5> -->
@@ -103,97 +106,121 @@
             <div style="text-indent:5px;display:inline;"> 
                 The following issues are to be decided at trial:
             </div> 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="issuesList.includes('ParentingResponsibilities')?'yes':''" text="parental responsibilities"/>
-                <check-box
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline; margin-left: 6.5rem;"
-                    :check="issuesList.includes('PO')?'yes':''" text="protection order"/>
+            <div class="marginleft2p5vue row" style="margin:0.25rem 0 0 1.5rem;">
+                <div style="width:40%;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox=""
+                        style="display:inline;" 
+                        inline="inline" 
+                        boxMargin="0"
+                        :check="issuesList.includes('ParentingResponsibilities')?'yes':''" text="parental responsibilities"/>
+                </div>
+                <div style="width:60%;">
+                    <check-box
+                        checkbox=""
+                        style="display:inline;" 
+                        inline="inline" 
+                        boxMargin="0"
+                        :check="issuesList.includes('PO')?'yes':''" text="protection order"/>
+                </div>
             </div>
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="issuesList.includes('ParentingTime')?'yes':''" text="parenting time"/>
-                <check-box
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline; margin-left: 10rem;"
-                    :check="issuesList.includes('Ppm')?'yes':''" text="priority parenting matter (specify):"/>
+            <div class="marginleft2p5vue row" style="margin:0.25rem 0 0 1.5rem;">
+                <div style="width:40%;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="issuesList.includes('ParentingTime')?'yes':''" text="parenting time"/>
+                </div>
+                <div style="width:60%;">
+                    <check-box
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="issuesList.includes('Ppm')?'yes':''" text="priority parenting matter (specify):"/>
+                </div>
             </div>
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;" 
-                    :check="issuesList.includes('ChildSupport')?'yes':''" 
-                    text="child support"/>
-                <underline-form
-                    style="text-indent:0;margin-left:10.5rem;display:inline-block;" 
-                    textwidth="23rem" 
-                    beforetext="" 
-                    hint="" 
-                    :text="ppmIssue"/>                    
+            <div class="marginleft2p5vue row" style="margin:0.25rem 0 0 1.5rem;">
+                <div style="width:40%;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="issuesList.includes('ChildSupport')?'yes':''" 
+                        text="child support"/>
+                </div>
+                <div style="width:60%;">
+                    <underline-form
+                        style="text-indent:0;display:inline-block;" 
+                        textwidth="23rem" 
+                        beforetext="" 
+                        hint="" 
+                        :text="ppmIssue"/>
+                </div>
             </div>
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="issuesList.includes('ContactChild')?'yes':''" text="contact with a child"/>
-                <check-box
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;margin-left: 8.25rem;"
-                    :check="issuesList.includes('Relocation')?'yes':''" text="relocation"/>
+            <div class="marginleft2p5vue row" style="margin:0.25rem 0 0 1.5rem;">
+                <div style="width:40%;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="issuesList.includes('ContactChild')?'yes':''" text="contact with a child"/>
+                </div>
+                <div style="width:60%;">
+                    <check-box
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="issuesList.includes('Relocation')?'yes':''" text="relocation"/>
+                </div>
             </div>
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="issuesList.includes('GuardianshipChild')?'yes':''" text="guardianship of a child"/>
-                <check-box
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;margin-left: 6.85rem;"
-                    :check="issuesList.includes('Other')?'yes':''" text="other (specify):"/>
+            <div class="marginleft2p5vue row" style="margin:0.25rem 0 0 1.5rem;">
+                <div style="width:40%;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="issuesList.includes('GuardianshipChild')?'yes':''" text="guardianship of a child"/>
+                </div>
+                <div style="width:60%;">    
+                    <check-box
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="issuesList.includes('Other')?'yes':''" text="other (specify):"/>
+                </div>
             </div>
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;" 
-                    :check="issuesList.includes('SpousalSupport')?'yes':''" 
-                    text="spousal support"/>
-                <underline-form 
-                    style="text-indent:0;margin-left:9.5rem;display:inline-block;" 
-                    textwidth="22.75rem" 
-                    beforetext="" 
-                    hint="" 
-                    :text="otherIssue"/>
+            <div class="marginleft2p5vue row" style="margin:0.25rem 0 0 1.5rem;">
+                <div style="width:40%;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="issuesList.includes('SpousalSupport')?'yes':''" 
+                        text="spousal support"/>
+                </div>
+                <div style="width:60%;">
+                    <underline-form 
+                        style="text-indent:0;display:inline-block;" 
+                        textwidth="22.75rem" 
+                        beforetext="" 
+                        hint="" 
+                        :text="otherIssue"/>
+                </div>
             </div>
         </section>
 
@@ -207,7 +234,7 @@
                 :italicHint="false" :text="trialDate"/>
 
             <div style="margin-top: 0.25rem;text-indent:1px">
-                Note: If no trial date has been scheduled please indicate ‘Not Applicable’ or ‘N/A’
+                <i>Note: If no trial date has been scheduled please indicate ‘Not Applicable’ or ‘N/A’</i>
             </div>        
 
         </section>
@@ -237,7 +264,7 @@
                     style="display:inline;" 
                     :check="!feelReady?'yes':''" 
                     text="I will not be ready to start on the scheduled trial date because:"/>
-                <div style="text-indent:0.25px;font-size: 9pt; font-style: italic;"> 
+                <div class="marginleft-0p5vue" style="margin-left:0.5rem; text-indent:0px;font-size: 9pt; font-style: italic;"> 
                     Explain why you will not be ready on the trial date
                 </div>
                 <div v-if="!feelReady && feelReadyExplanation.length>0" 
@@ -271,7 +298,7 @@
                 shift="-8" marginLeft="0.5rem" :check="!ongoingDis?'yes':''" text="No"/> 
             </div>
             <div>
-                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0.85rem; font-size: 9.45pt;">
+                <div style="display:inline; text-indent:0; margin:0 0rem 0 0.85rem; font-size: 9.5pt;">
                     <i>If yes</i>, is there likelihood of resolution before the trial?
                 </div>
                 <div style="display:inline">
@@ -417,7 +444,7 @@
 
     <!-- <14> -->
         <section>
-            <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+            <div style="font-size:9.75pt; display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                 Are there expert reports? Expert reports provide information to help the court. 
                 <i>
                     They are written by an expert who has special knowledge about a certain area 
@@ -440,11 +467,11 @@
                     shift="-8" marginLeft="0.5rem" :check="reportProvided == 'n'?'yes':''" text="No"/> 
                 </div> 
             </div>
-            <div style="margin-left: 3.4rem;">
-                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; font-size: 9.45pt;">
+            <div style="margin-left: 2rem;">
+                <div style="text-indent:0; margin:0 0 0 0rem; font-size: 9.25pt;">
                     (b) will the expert be called as a witness at the trial to provide opinion evidence or to be asked questions?
                 </div>
-                <div style="display:inline-block;margin-left: 0.5rem;">
+                <div style="margin-left: 0.5rem;">
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertCalled == 'Yes'?'yes':''"  text="Yes"/>                        
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertCalled == 'No'?'yes':''" text="No"/> 
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertCalled == 'Unknown'?'yes':''" text="Unknown"/>                 
@@ -452,7 +479,7 @@
             </div>
             <div>                
                 <underline-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt; margin-left: 4rem;" 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; margin-left: 3rem;" 
                     textwidth="10rem" 
                     beforetext="<i>If yes</i>, please estimate how much time will be needed at the trial for them:" 
                     hint="" 
@@ -462,7 +489,7 @@
 
     <!-- <15> -->
         <section>
-            <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+            <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;font-size: 9.5pt;">
                 Has a report been ordered for views of the child or needs of the child under section 211?
             </div>
             <div style="display:inline-block;margin-left: 0.5rem;">
@@ -480,13 +507,13 @@
                     shift="-8" marginLeft="0.5rem" :check="reportCompleted=='n'?'yes':''" text="No"/> 
                 </div> 
             </div>
-            <div style="margin-left: 3.75rem;">
-                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; font-size: 9.45pt;">
+            <div style="margin-left: 3rem;">
+                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; font-size: 9.25pt;">
                     (b) is there a court order requiring the person who prepared the report to attend the trial?
                 </div>
-                <div style="display:inline-block;margin-left: 0.5rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="orderAttendTrial=='y'?'yes':''"  text="Yes"/>                        
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="orderAttendTrial=='n'?'yes':''" text="No"/>                
+                <div style="display:inline-block;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" marginLeft="1.75rem" :check="orderAttendTrial=='y'?'yes':''"  text="Yes"/>                        
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="orderAttendTrial=='n'?'yes':''" text="No"/>                
                 </div>
             </div>                  
         </section>
@@ -540,7 +567,7 @@
                     hint="" 
                     :italicHint="false" :text="techSpecs"/>
             </div> 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:0.25rem 0 0.5rem 1.5rem;">
                 <check-box 
                     class="marginleft" 
                     checkbox="" 
@@ -588,7 +615,10 @@
                     boxMargin="0" 
                     style="display:inline;" 
                     :check="specialReqList.includes('accommodations')?'yes':''" 
-                    text="trial accommodations such as allowing evidence by affidavit, video or telephone attendance or other:"/>
+                    text=""/>
+                <div style="display:inline;font-size:9.6pt;"> 
+                    trial accommodations such as allowing evidence by affidavit, video or telephone attendance or other:
+                </div>
                 <div style="font-style: italic;"> 
                     Please specify
                 </div>
@@ -613,10 +643,10 @@
 
     <!-- <19> -->
         <section>
-            <div style="text-indent:5px;display:inline;"> 
+            <div style="text-indent:5px;display:inline; font-size:9.25pt;"> 
                 There is an existing court order involving one or more of the parties, and/or the child(ren) about the following:
             </div> 
-            <div style="text-indent:5px; font-style: italic;"> 
+            <div style="text-indent:5px; font-style: italic; font-size:9.25pt;"> 
                 Select all options that apply
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
@@ -747,18 +777,18 @@
             <underline-form style="text-indent:3px; display:inline-block;" textwidth="3rem" beforetext="I believe this trial will take" hint="" :italicHint="false" :text="trialTimeOne"/>
             <underline-form style="display:inline;margin-left:0.5rem; text-indent:1px;" textwidth="3rem" beforetext=" hours or " hint="" :italicHint="false" :text="trialTimeTwo"/>
             <div style="line-height:2rem; text-indent:5px; display:inline;">
-                 days. <i>(Note: A day of court time = approximately 5 hours)</i>
+                 days. <i style="font-size:9pt;" >(Note: A day of court time = approximately 5 hours)</i>
             </div>   
-            <div class="marginleft1p5vue">
-                <div style="display:inline;text-indent:0; margin:0 0.5rem 0 0rem;">
+            <div style="margin:0 0 0 0.75rem;text-indent:0px;">
+                <div style="display:inline; margin:0;text-indent:0px;">
                     I have reviewed the witnesses I plan to call and the information I plan 
                     to rely on during trial when I calculated the amount of time needed for trial
                 </div>
                 <div style="display:inline;">
                     <check-box inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="10"  marginLeft="1.75rem" :check="reviewedWitnesses?'yes':''"  text="Yes"/>                                  
+                    shift="10" shiftmark="0"  marginLeft="1.75rem" :check="reviewedWitnesses?'yes':''"  text="Yes"/>                                  
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="-8" marginLeft="0.5rem" :check="!reviewedWitnesses?'yes':''" text="No"/> 
+                    shift="-8" shiftmark="0" marginLeft="0.5rem" :check="!reviewedWitnesses?'yes':''" text="No"/> 
                 </div>
             </div>               
         </section>
@@ -766,15 +796,15 @@
         <section>
             <div style="display: inline; margin:0.25rem 0 0 0.25rem;">
                 <i>Complete only if applicable. You may leave this section blank.</i>
-                <div class="marginleft1p5vue"> 
-                    I will be asking for the following order(s) at the trial preparation conference:
-                </div>
-                <div v-if="orders && orderDetails.length>0" 
-                    class="answerbox">{{ orderDetails }}</div>
-                <div v-else style="margin-bottom:3rem;"></div>                    
             </div>
-        </section>
-        <!-- <For registery> -->
+            <div style="margin:0 0 0 0.75rem;text-indent:0px;"> 
+                I will be asking for the following order(s) at the trial preparation conference:
+            </div>
+            <div v-if="orders && orderDetails.length>0" 
+                class="answerbox">{{ orderDetails }}</div>
+            <div v-else style="margin-bottom:3rem;"></div> 
+        </section>        
+    <!-- <For registery> -->
         <div class="print-block">
             <i style="margin-left: 1rem;">To be completed by the Judge if required</i>
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-size: 9pt; padding:0.5rem;font-family:BCSans">
@@ -903,7 +933,6 @@ export default class Form22Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
