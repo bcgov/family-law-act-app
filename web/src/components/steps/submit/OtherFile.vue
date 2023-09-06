@@ -46,9 +46,9 @@
                 </span> 
                 <span>
                     If you are filing an affidavit, you will need to be prepared to
-                    <tooltip :index="0" title='swear or affirm'/> in your affidavit. 
+                    <tooltip :index="0" size="lg" title='swear or affirm'/> in your affidavit. 
                     If you are filing the affidavit electronically, you can 
-                    <tooltip :index="1" title='swear or affirm'/> the information 
+                    <tooltip :index="1" size="lg" title='swear or affirm'/> the information 
                     during your court appearance.
                 </span>           
             
@@ -300,6 +300,12 @@
         
         @applicationState.State
         public applicationLocation!: string;
+
+        @applicationState.State
+        public rejectedPathway!: boolean;
+        
+        @applicationState.State
+        public rejectedFormsList!: any[];
 
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
@@ -618,12 +624,17 @@
             const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
             const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
 
+            const rejectedFormTypesList = this.rejectedFormsList.map(form => form.type)
+
             if (includesOtherForms && selectedFormInfoList.length>0){
 
                 for (const selectedForm of selectedFormInfoList){                
                     if (selectedForm.manualState || (selectedForm.formName=="Notice of Discontinuance" && this.ndtIsExemptGuidedPathway())){                       
                         const name = Vue.filter('getFullOrderName')(selectedForm.pathwayName, '');
                         const pdfType = Vue.filter('getPathwayPdfType')(selectedForm.pathwayName, '');
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes(pdfType)) continue
+                        
                         this.requiredDocumentLists.push({description: name, type: pdfType});                       
                     }            
                 }

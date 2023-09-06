@@ -36,7 +36,7 @@
                     </li>                
                     <li class="mb-2">
                         If you are filing your application by email and you are asking for a protection order in your 
-                        application, you will need to be prepared to <tooltip title="swear or affirm" index="0" /> the 
+                        application, you will need to be prepared to <tooltip title="swear or affirm" size="lg" index="0" /> the 
                         information in your application during your court appearance.
                     </li>
                     <li class="mb-2">
@@ -255,7 +255,7 @@
                 <h3>What happens if the Court Registry does not accept my package?</h3>
                 <div class="mb-3">
                     If the documents you submitted required correction, you will be notified by an email 
-                    notification and be able to review the <tooltip title="registry notice" index="0"/>. 
+                    notification and be able to review the <tooltip title="registry notice" size="md" index="0"/>. 
                 </div>
                 <div>
                     If you are not sure whether you’ve completed your application properly, you may want 
@@ -280,7 +280,7 @@
                 <h3>Haven’t Heard Back?</h3>
                 If you don’t hear back within 1 week from the court registry. Please contact CSO Online Support at 
                 <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a> 
-                and include your <tooltip title="Court File Number" index="0"/> / Filing Location or
+                and include your <tooltip title="Court File Number" size="lg" index="0"/> / Filing Location or
                 <span class="text-primary">Online Package Number (<strong>{{packageNumber}}</strong>)</span>.
             </div>
 

@@ -5,7 +5,7 @@
                 <div>          
                     <h1>What application are you replying to?</h1>
                     <p>
-                        Please select each application you have been <tooltip title="served" index="0" /> with and want to file 
+                        Please select each application you have been <tooltip title="served" size="lg" index="0" /> with and want to file 
                         a reply to. You can find the name of the form and form number on the top 
                         left corner of the first page.
                     </p>
@@ -13,6 +13,7 @@
                 <div>
                     <b-form-group>
                         <b-form-checkbox-group
+                        :disabled="rejectedPathway"
                         v-model="selected"
                         @change="onChange"
                         name="orders"
@@ -22,10 +23,10 @@
                             <b-form-checkbox value="replyFlm">
                                 <div class="checkbox-choices">Application About a Family Law Matter Form 3</div>
                                 <p>
-                                    Family law matters include: parenting arrangements (<tooltip title="parental responsibilities" :index="0"/>
+                                    Family law matters include: parenting arrangements (<tooltip title="parental responsibilities" size="xl" :index="0"/>
                                     and <tooltip title="parenting time" :index="0"/>), <tooltip title="child support" :index="0"/>, 
-                                    <tooltip title="contact with a child" :index="0"/>, <tooltip title="guardianship of a child" index="0"/> 
-                                    and <tooltip title="spousal support" index="0" />. As part of the Reply to an Application About a Family 
+                                    <tooltip title="contact with a child" size="md" :index="0"/>, <tooltip title="guardianship of a child" size="md" index="0"/> 
+                                    and <tooltip title="spousal support" size="md" index="0" />. As part of the Reply to an Application About a Family 
                                     Law Matter, you can apply for an order about any family law matter that is not included in the other 
                                     party’s application.
                                 </p>                            
@@ -47,7 +48,7 @@
                                 <div class="checkbox-choices">Application About a Protection Order Form 12</div>
                                 <p>
                                     When a family member makes another family member feel unsafe, this is called 
-                                    <tooltip title="family violence" index="0" />. A protection order is the order 
+                                    <tooltip title="family violence" size="lg" index="0" />. A protection order is the order 
                                     made by a court to help protect one family member from another family member.
                                 </p>
                             </b-form-checkbox>
@@ -57,7 +58,7 @@
                             <b-form-checkbox value="replyPriorityParenting">
                                 <div class="checkbox-choices">Application About a Priority Parenting Matter Form 15</div>
                                 <p>
-                                    <tooltip title="Priority parenting matters" :index="0"/> are decisions about 
+                                    <tooltip title="Priority parenting matters" size="xl" :index="0"/> are decisions about 
                                     a child or children that require the agreement of each of the child's guardians 
                                     or an order from the court and it is priority to get the order before, or 
                                     separate from, any family law matter order(s).
@@ -81,10 +82,10 @@
                                 <div class="checkbox-choices">Application About Enforcement Form 29</div>
                                 <p>
                                     The Provincial Court Family Rules include a range of enforcement options. 
-                                    If you have a written agreement, <tooltip title="determination of a parenting coordinator" :index="0"/>, 
+                                    If you have a written agreement, <tooltip title="determination of a parenting coordinator"  size="md" :index="0"/>, 
                                     or court order that is not being followed, a party can ask the court to help enforce it. Orders about 
-                                    enforcement also include setting <tooltip title="expenses" :index="0"/>, determining 
-                                    <tooltip title="arrears" :index="0"/> and applying to set aside the registration of a foreign support order.
+                                    enforcement also include setting <tooltip title="expenses" size="md" :index="0"/>, determining 
+                                    <tooltip title="arrears" size="md" :index="0"/> and applying to set aside the registration of a foreign support order.
                                 </p>
                             </b-form-checkbox>
                         </div>
@@ -195,6 +196,9 @@ export default class ReplyToApplication extends Vue {
 
     @applicationState.State
     public types!: string[]
+
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     @applicationState.Action
     public UpdateApplicationType!: (newApplicationType: string[]) => void

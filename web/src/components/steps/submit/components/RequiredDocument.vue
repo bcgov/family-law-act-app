@@ -79,6 +79,12 @@ export default class RequiredDocument extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
+    @applicationState.State
+    public rejectedPathway!: boolean;
+        
+    @applicationState.State
+    public rejectedFormsList!: any[];
+
     showGetHelpScanning = false;
     isRequiredDocument = false;
     requiredDocumentLists = [];
@@ -98,38 +104,52 @@ export default class RequiredDocument extends Vue {
         const selectedForms = (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
         const selectedReplyForms = (includesReplyActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedReplyForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedReplyForms:[];
         
-        for (const [key, value] of Object.entries(this.requiredDocuments)){           
-            if(key && value && 
-                ( selectedForms.includes(key) || selectedForms.includes(key.slice(0,-2)) 
-                || selectedReplyForms.includes(key) || selectedReplyForms.includes(key.slice(0,-2)) ) ){
-                
-                const name = Vue.filter('getFullOrderName')(key, '');
-                const vowelCondition = ['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a';
-                this.requiredDocumentLists.push({
-                    name:name, 
-                    required:JSON.parse(JSON.stringify(value['required'])), 
-                    reminder:value['reminder'],
-                    text:key.includes('agreementEnfrc2')?'For the Request to':'For the Application About',
-                    article:key.includes('agreementEnfrc2')? '':vowelCondition
-                })
-                if(value['required']?.length>0) this.isRequiredDocument = true;
-            }
+        if(this.rejectedPathway){
+            const forms =this.rejectedFormsList.map(form => form['description']+' document (<b>' +form['type']+'</b>)')
+            this.requiredDocumentLists.push({
+                name: '', 
+                required: forms, 
+                reminder: [],
+                text: 'To Resubmit the Application',
+                article: ''
+            })
+            this.isRequiredDocument = true;
         }
-        
+        else{
 
-        //Remove redundant docs        
-        for(const requiredDocList of this.requiredDocumentLists){
-            const requiredDoc = requiredDocList.required
-            //console.log(requiredDoc)
-            const inxToRemove = []
-            for(let i=0; i<requiredDoc.length; i++){
-                if(requiredDoc[i].includes('Financial Statement Form 4')){                    
-                    inxToRemove.push(i)
-                }                
+            for (const [key, value] of Object.entries(this.requiredDocuments)){           
+                if(key && value && 
+                    ( selectedForms.includes(key) || selectedForms.includes(key.slice(0,-2)) 
+                    || selectedReplyForms.includes(key) || selectedReplyForms.includes(key.slice(0,-2)) ) ){
+                    
+                    const name = Vue.filter('getFullOrderName')(key, '');
+                    const vowelCondition = ['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a';
+                    this.requiredDocumentLists.push({
+                        name:name, 
+                        required:JSON.parse(JSON.stringify(value['required'])), 
+                        reminder:value['reminder'],
+                        text:key.includes('agreementEnfrc2')?'For the Request to':'For the Application About',
+                        article:key.includes('agreementEnfrc2')? '':vowelCondition
+                    })
+                    if(value['required']?.length>0) this.isRequiredDocument = true;
+                }
             }
-            //console.log(inxToRemove)
-            for (let i = inxToRemove.length -1; i > 0; i--)
-                requiredDoc.splice(inxToRemove[i],1);
+            
+
+            //Remove redundant docs        
+            for(const requiredDocList of this.requiredDocumentLists){
+                const requiredDoc = requiredDocList.required
+                //console.log(requiredDoc)
+                const inxToRemove = []
+                for(let i=0; i<requiredDoc.length; i++){
+                    if(requiredDoc[i].includes('Financial Statement Form 4')){                    
+                        inxToRemove.push(i)
+                    }                
+                }
+                //console.log(inxToRemove)
+                for (let i = inxToRemove.length -1; i > 0; i--)
+                    requiredDoc.splice(inxToRemove[i],1);
+            }
         }
 
     }

@@ -21,6 +21,7 @@
                 <div>
                     <b-form-group>
                         <b-form-checkbox-group
+                        :disabled="rejectedPathway"
                         v-model="selected"
                         @change="onChange"
                         name="orders"
@@ -33,7 +34,7 @@
                                 an existing protection made under Part 9 of the Family Law Act.
                             </p>
                             <p v-else>
-                                When a family member makes another family member feel unsafe, this is called <tooltip title="family violence" index="0" />.
+                                When a family member makes another family member feel unsafe, this is called <tooltip title="family violence" size="xl" index="0" />.
                                 A protection order is the order made by a court to help protect one family member from another family member.
                             </p>
                             </b-form-checkbox>
@@ -50,7 +51,7 @@
                             </span>
                             <span v-else><div class="checkbox-choices">Family law matter</div>
                                 <p>
-                                Family law matters include: parenting arrangements (<tooltip title="parental responsibilities" :index="0"/> and <tooltip title="parenting time" :index="0"/>), <tooltip title="child support" :index="0"/>, <tooltip title="contact with a child" :index="0"/>, 
+                                Family law matters include: parenting arrangements (<tooltip title="parental responsibilities" size="xl" :index="0"/> and <tooltip title="parenting time" :index="0"/>), <tooltip title="child support" :index="0"/>, <tooltip title="contact with a child" :index="0"/>, 
                                 <tooltip title="guardianship of a child" index="0"/> and <tooltip title="spousal support" index="0" />.
                                 </p>
                             </span>
@@ -71,7 +72,7 @@
                             <b-form-checkbox value="priorityParenting">
                             <div class="checkbox-choices">Priority parenting matter</div>
                             <p>
-                                <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
+                                <tooltip title="Priority parenting matters" size="xl" :index="0"/> are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
                                 priority to get the order before, or separate from, any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter orders you may need
                                 under family law matters.
                             </p>
@@ -94,10 +95,10 @@
                             <div class="checkbox-choices">Enforcement</div>
                             <p>
                                 The Provincial Court Family Rules include a range of enforcement options. 
-                                If you have a written agreement, <tooltip title="determination of a parenting coordinator" :index="0"/>, 
+                                If you have a written agreement, <tooltip title="determination of a parenting coordinator" size="md" :index="0"/>, 
                                 or court order that the other party is not following, you can ask the court to help enforce it. 
-                                Orders about enforcement also include setting <tooltip title="expenses" :index="0"/>, determining 
-                                <tooltip title="arrears" :index="0"/> and applying to set aside the registration of a foreign support order.
+                                Orders about enforcement also include setting <tooltip title="expenses" size="md" :index="0"/>, determining 
+                                <tooltip title="arrears" size="md" :index="0"/> and applying to set aside the registration of a foreign support order.
                             </p>
                             </b-form-checkbox>
                         </div>
@@ -148,6 +149,9 @@ export default class GettingStarted extends Vue {
 
     @applicationState.State
     public types!: string[]
+
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     @applicationState.Action
     public UpdateApplicationType!: (newApplicationType: string[]) => void

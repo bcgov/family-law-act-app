@@ -1,56 +1,26 @@
 <template>   
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
-        <h2 class="mt-4">Review and Submit</h2>
+        <h2 class="mt-4">ReSubmit Attachments</h2>
         <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             
             <div class="ml-0">
-                You have indicated that you will file at the following court registry:
-                <p class="h3 mt-2 ml-0 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
+                <b-row class="mx-0">
+                    <b-col cols="7">
+                        <i>Court Registry:</i>
+                        <p class="h3 mt-2 ml-0 mb-1" style="display:block"> {{applicantLocation.name}} </p>
+                    </b-col>
+                     <b-col cols="5">
+                        <i>Court File Number:</i>
+                        <p class="h3 mt-2 ml-0 mb-1" style="display:block"> {{rejectedFileNumber}} </p>               
+                     </b-col>
+                </b-row>
             </div>
-
-            <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
-                <div class="row justify-content-center text-warning">
-                    <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
-                </div>
-                <div style="font-size: 18px;" class="mx-3 mb-1 pb-3">
-                    By clicking on the 'Review and Print' button next to the document, a PDF version of the application
-                     will download or open. Depending on your browser settings, your PDF might save the form to your 
-                     computer or it will open in a new tab or window. For more information about opening and saving 
-                     PDF forms, click on <span @click="navigateToGuide" class="text-primary" ><span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
-                     Get help opening and saving PDF forms</span> below. If you are concerned about 
-                     having a copy saved to your computer, may want to review and print from a safe computer, tablet 
-                     or device, for example a computer, tablet or device of a trusted friend, at work, a library, 
-                     school or an internet café.                    
-                </div>
-            </div>
-            
-            <h3 class="mt-4">To prepare the application for filing:</h3>
+    
 
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
-                <span class="text-primary mb-2" style="display:block; font-size:1.4rem;">Review your application:</span> 
-                <span>
-                    If you are filing your application by electronically and you are asking for a protection 
-                    order in your application, you will need to be prepared to
-                    <tooltip :index="0" size="lg" title='swear or affirm'/> the information in your application 
-                    during your court appearance. 
-                </span>           
-            
-                <form-list type="Print" :currentPage="currentPage"/>
-
-                <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
-                    <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
-                </div>
-
-                <div>    
-                    Note: If you need to edit any of your answers, go back to the "Review Your Answers" page, edit the answer and return to this page.
-                </div>
-            </b-card>
-
-            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
-
-                <required-document type="Submit" title="Upload Documents:" />
+                <required-document type="Submit" title="Upload Rejected Documents:" />
                 
                 <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">
@@ -120,8 +90,7 @@
                 </b-card>
 
             </b-card>
-
-            <reminder-notes  type="Submit"/>
+            
 
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
                 <span class="text-primary" style='font-size:1.4rem;'>Filing with Court Services Online:</span>
@@ -149,7 +118,7 @@
                 <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application before submission'">
                     <loading-spinner v-if="submissionInProgress" waitingText="Waiting for eFiling Hub ..."/> 
                     <b-button v-else
-                        :disabled="!submitEnable"                   
+                        :disabled="!isSubmissionReady || !submitEnable"                   
                         v-on:click.prevent="onSubmit()"                        
                         variant="success">
                             <span class="fa fa-paper-plane btn-icon-left"/>
@@ -161,18 +130,7 @@
 
         </b-card>        
 
-        <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-primary text-white">
-            <template v-slot:modal-title>
-                <h1 class="mb-0 mt-2 ml-4">Get Help Opening and Saving PDF forms</h1> 
-            </template>
-            <get-help-for-pdf/>        
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="showGetHelpForPDF=false">Close</b-button>
-            </template>            
-            <template v-slot:modal-header-close>                 
-                <b-button variant="primary" class="closeButton" @click="showGetHelpForPDF=false">&times;</b-button>
-            </template>
-        </b-modal>
+        
 
         <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
             <b-card style="border-radius:10px" class="bg-light">
@@ -229,7 +187,7 @@
         }
     })
     
-    export default class ReviewAndSubmit extends Vue {
+    export default class ResubmitAttachments extends Vue {
         
         @Prop({required: true})
         step!: stepInfoType;
@@ -250,7 +208,16 @@
         public steps!: stepInfoType[];
 
         @applicationState.State
+        public rejectedFormsList!: any[];
+
+        @applicationState.State
         public applicationLocation!: string;
+
+        @applicationState.State
+        public rejectedPathway!: boolean;
+        
+        @applicationState.State
+        public rejectedFileNumber!: string;
 
         @applicationState.State
         public currentStep!: number;
@@ -277,7 +244,6 @@
         public UpdatePageProgress!: (newPageProgress) => void        
 
         error = "";
-        showGetHelpForPDF = false;
 
         applicantLocation = {} as locationsInfoType;        
         submissionInProgress = false;
@@ -415,7 +381,7 @@
             const docTypeJson = JSON.stringify(docType);
             bodyFormData.append('documents', docTypeJson);          
 
-            const url = "/efiling/"+this.id+"/submit/" 
+            const url = "/efiling/"+this.id+"/submit/?standalone=True" 
             const header = {
                 responseType: "json",
                 headers: {
@@ -497,11 +463,30 @@
                 this.fileTypes.splice(index, 1);
                            
             }
-        }
+        } 
 
-        public navigateToGuide(){
-            Vue.filter('scrollToLocation')("pdf-guide");
-        }  
+        get isSubmissionReady(){ 
+            
+            if (this.rejectedFormsList.length > 0){
+
+                if (this.supportingDocuments.length == 0){
+                    return false;
+                } else {
+
+                    const supportingDocumentTypes = this.supportingDocuments.map(doc => doc.documentType)
+
+                    for (const doc of this.rejectedFormsList){
+                        
+                        if (!supportingDocumentTypes.includes(doc.type)) return false;
+                    }
+                    return true;
+                }
+
+            } else {
+                return true;
+            }
+            
+        }
 
     }
 </script>
