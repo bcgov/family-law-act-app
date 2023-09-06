@@ -64,7 +64,12 @@ export default class EnforceAgreementOrder extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: stepInfoType[];       
+    public steps!: stepInfoType[];    
+
+    
+    @applicationState.State
+    public rejectedPathway!: boolean;
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -115,6 +120,8 @@ export default class EnforceAgreementOrder extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         
+        this.survey.setVariable("enableSurvey", !this.rejectedPathway)
+
         this.setProgress();
     }  
 

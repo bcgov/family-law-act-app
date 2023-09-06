@@ -5,12 +5,12 @@
         <div>
             <h1>Priority Parenting Matters Questionnaire</h1>
             <p>
-                <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child that require the agreement of each of the child's 
+                <tooltip title="Priority parenting matters" size="xl" :index="0"/> are decisions about a child that require the agreement of each of the child's 
                 guardians or an order from the court and it is a priority to get the order before or separately from any 
                 family law matter order.
             </p>
             <p>
-                The Family Law Act s. 39 sets out that unless an agreement or order allocates <tooltip title="parental responsibilities" :index="0"/>
+                The Family Law Act s. 39 sets out that unless an agreement or order allocates <tooltip title="parental responsibilities" size="xl" :index="0"/>
                 differently, each child’s guardian may exercise all parental responsibilities with respect to a child in consultation with the child’s 
                 other guardians, unless consultation would be unreasonable or inappropriate in the circumstances.  A child’s guardian must exercise 
                 their parental responsibilities in the best interests of the child.
@@ -71,7 +71,7 @@
                     <div>
                         <b-form-checkbox class="checkbox-choices" value="interjurisdictional">
                             <div>
-                                Determining matters relating to <tooltip title="interjurisdictional issues" :index="0"/> under <tooltip title="section 74(2)(c)" :index="0"/> of the Family Law Act                            
+                                Determining matters relating to <tooltip title="interjurisdictional issues" size="md" :index="0"/> under <tooltip title="section 74(2)(c)" size="lg" :index="0"/> of the Family Law Act                            
                             </div>                        
                         </b-form-checkbox>
                     </div>
@@ -87,7 +87,7 @@
                     <div>
                         <b-form-checkbox class="checkbox-choices" value="returnOfChild">
                             <div>
-                                Return of a child under the <tooltip title="1980 Hague Convention" :index="0"/>                    
+                                Return of a child under the <tooltip title="1980 Hague Convention" size="lg" :index="0"/>                    
                             </div>                        
                         </b-form-checkbox>
                     </div>
@@ -96,7 +96,7 @@
                         <b-form-checkbox class="checkbox-choices" value="childServices">
                             <div>
                                 Parenting arrangements or guardianship of a child who has been 
-                                removed or is at risk of being removed by the <tooltip title="Director" :index="0"/> under the
+                                removed or is at risk of being removed by the <tooltip title="Director" size="lg" :index="0"/> under the
                                 <a 
                                     target="_blank"
                                     href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01">

@@ -14,7 +14,7 @@
                         <ul>
                             <li>Add each party from your existing case if you already have a case with the same parties – be sure to copy the names from any filed court document</li>
                             <li>Add each parent and/or current guardian as a party if your case involves a child</li>
-                            <li>Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
+                            <li>Add only your <tooltip title="spouse" size="md" :index="0"/> as a party if your case does not involve children</li>
                             <li>Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
                             
                         </ul>

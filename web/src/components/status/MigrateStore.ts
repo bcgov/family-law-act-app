@@ -1,6 +1,7 @@
 import store from '@/store/index'
 import {applicationInfoType, stepInfoType, pageInfoType, resultInfoType, pathwayCompletedInfoType} from "@/types/Application"
 import { stepsAndPagesNumberInfoType } from "@/types/Application/StepsAndPages";
+import Vue from 'vue';
 
 export class MigrateStore{
  
@@ -42,9 +43,48 @@ export class MigrateStore{
             this.currentApplication.protectedChildName = applicationData.steps[0].result.protectedChildName;                                                          
         }
 
+        const rejectedFileNumber = applicationData.previousAppStatus?.courtFileNo
+        const rejectedFormsList = applicationData.previousAppStatus?.packageResults
+            ? applicationData.previousAppStatus.packageResults.filter(app =>app.status=="Rejected")
+            : []
+
+        this.currentApplication.rejectedPathway = Boolean(rejectedFileNumber) || Boolean(rejectedFormsList?.length>0)
+        this.currentApplication.rejectedFileNumber = rejectedFileNumber        
+        this.currentApplication.rejectedFormsList = rejectedFormsList
+            
+        // console.log(applicationData)
+        const rejectedOnlyAttachments = applicationData.previousAppStatus?.onlyAttachments
+        
+        if(rejectedOnlyAttachments){
+            for(const step of this.currentApplication.steps){
+                if(step.name != 'SUBMIT'){
+                    step.active = false
+                }else{
+                    step.active = true
+                    for(const page of step.pages){
+                        if(page.name != 'ResubmitAttachments'){
+                            page.active = false
+                        }else{
+                            page.active = true
+                        }
+                    }                    
+                }
+            }          
+        }        
+
         store.commit("Application/setCurrentApplication", this.currentApplication);
         store.commit("Common/setExistingApplication", true);
         store.dispatch("Application/UpdateStPgNo");
+        
+        if(rejectedOnlyAttachments){ 
+            Vue.nextTick(()=>{
+                this.stPgNo = store.state.Application.stPgNo;
+                store.commit("Application/setAllCompleted",true)
+                store.commit("Application/setCurrentStep", this.stPgNo.SUBMIT._StepNo)
+                store.commit("Application/setCurrentStepPage", {currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:this.stPgNo.SUBMIT.ResubmitAttachments})
+            })
+        }
+
         return this.currentApplication
 
     }
@@ -126,6 +166,10 @@ export class MigrateStore{
                     }
                 }
 
+            }
+
+            if (correspondingStep?.result?.selectedReplyApplications){
+                result.selectedReplyApplications = correspondingStep.result.selectedReplyApplications
             }
 
             //TODO: ensure this is the only change required to support other.

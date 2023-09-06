@@ -120,7 +120,7 @@ export default class NavigationSidebar extends Vue {
         Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
 
-    public getNavigation() {       
+    public getNavigation(): stepInfoType[] {       
         return this.$store.state.Application.steps;
     }
 

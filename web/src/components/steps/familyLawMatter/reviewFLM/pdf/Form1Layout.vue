@@ -13,7 +13,7 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:''}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
                     :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
                     small
                     bordered
@@ -387,6 +387,7 @@ export default class Form1Layout extends Vue {
     childRelatedType = false;
     filingLocationReason = '';  
     existingOrders = {} as existingOrdersInfoType;
+    existingFileNumber = '';
     
     childrenFields=[
         {key:"fullName", label:"Child's full name",                   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
@@ -412,7 +413,8 @@ export default class Form1Layout extends Vue {
         this.existingOrders.existingFlm = this.result.flmBackgroundSurvey?.ExistingOrdersFLM == 'y';
         this.existingOrders.existingPO =  this.result.flmBackgroundSurvey?.existingPOOrders == 'y';
 
-        
+        this.existingFileNumber = this.result.filingLocationSurvey?.ExistingFileNumber? this.result.filingLocationSurvey.ExistingFileNumber : ''
+
         this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
         if (this.otherPartyInfo?.length > 1) {

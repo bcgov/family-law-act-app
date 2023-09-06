@@ -33,7 +33,8 @@
             },
             {
               "type": "checkbox",
-              "name": "amountOwingActionType", 
+              "name": "amountOwingActionType",
+              "enableIf": "{enableSurvey}", 
               "titleLocation": "hidden",
               "title": "Select each option that applies to the order you need the court to determine an amount for expenses owing",
               
