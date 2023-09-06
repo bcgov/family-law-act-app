@@ -21,9 +21,11 @@ export interface stepsAndPagesNumberInfoType{
     OTHER: OTHERstPgTypes;
     NCD: NCDstPgTypes;
     NDT: NDTstPgTypes;
-    NPR: NPRstPgTypes;
+    NPR: NPRstPgTypes;    
     RQS: RQSstPgTypes;
     TRIS: TRISstPgTypes;
+    NLC: NLCstPgTypes;
+    NLCR: NLCRstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -310,6 +312,7 @@ export interface NPRstPgTypes{
     PreviewFormsNPR: number;
 }
 
+
 export interface RQSstPgTypes{
     _StepNo: number;
 
@@ -336,6 +339,22 @@ export interface TRISstPgTypes{
     OrdersAtTpc: number;   
     ReviewYourAnswersTRIS: number;
     PreviewFormsTRIS: number;
+}
+
+export interface NLCstPgTypes{
+    _StepNo: number;
+
+    NoticeLawyerChild: number;  
+    ReviewYourAnswersNLC: number;
+    PreviewFormsNLC: number;
+}
+
+export interface NLCRstPgTypes{
+    _StepNo: number;
+
+    NoticeRemoveLawyerChild: number;   
+    ReviewYourAnswersNLCR: number;
+    PreviewFormsNLCR: number;
 }
 
 export interface SUBMITstPgTypes{

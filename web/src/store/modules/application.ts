@@ -60,7 +60,9 @@ class Application extends VuexModule {
         noticeDiscontinuance: false,
         noticeIntentionProceed: false,
         requestScheduling: false,
-        trialReadinessStatement: false        
+        trialReadinessStatement: false,   
+        noticeLawyerChild: false,
+        noticeRemoveLawyerChild: false             
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1982,12 +1984,13 @@ class Application extends VuexModule {
 
         this.steps.push(s);
 
-        // Intention to Proceed STOP
+        // Intention to Proceed STOP        
 
+        
         // Request for Scheduling START
 
         s = {} as stepInfoType;    
-        s.active = false;
+        s.active = false;        
         s.id = "16";
         s.name = "RQS";
         s.label = "Request for Scheduling";
@@ -2164,11 +2167,94 @@ class Application extends VuexModule {
 
         // Trial Readiness Statement STOP
 
-        //Submit START
-        s = {} as stepInfoType;
+        // Notice of Lawyer for Child START
 
+        s = {} as stepInfoType;    
         s.active = false;
         s.id = "18";
+        s.name = "NLC";
+        s.label = "Notice of Lawyer for Child";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "lawyerChild";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0; 
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeLawyerChild";
+        p.label = "Notice of Lawyer for Child";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersNLC";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsNLC";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Notice of Lawyer for Child STOP  
+
+        // Notice of Removal of Lawyer for Child START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "19";
+        s.name = "NLCR";
+        s.label = "Notice of Removal of Lawyer for Child";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "removeLawyerChild";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeRemoveLawyerChild";
+        p.label = "Notice of Removal of Lawyer for Child";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersNLCR";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsNLCR";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Notice of Removal of Lawyer for Child STOP              
+
+        //Submit START
+        s = {} as stepInfoType;
+        s.active = false;
+        s.id = "20";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2686,7 +2772,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

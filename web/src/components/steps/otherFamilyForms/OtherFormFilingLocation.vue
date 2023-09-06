@@ -191,6 +191,8 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(this.stPgNo.NPR._StepNo, this.requiredGuidedPathways.includes("noticeIntentionProceed"));
         toggleStep(this.stPgNo.RQS._StepNo, this.requiredGuidedPathways.includes("requestScheduling"));
         toggleStep(this.stPgNo.TRIS._StepNo, this.requiredGuidedPathways.includes("trialReadinessStatement"));
+        toggleStep(this.stPgNo.NLC._StepNo, this.requiredGuidedPathways.includes("noticeLawyerChild"));
+        toggleStep(this.stPgNo.NLCR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerChild"));
     }   
 
     public saveApplicationLocation(location){       
