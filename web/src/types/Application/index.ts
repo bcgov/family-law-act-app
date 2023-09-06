@@ -282,7 +282,8 @@ export interface stepInfoType {
     noticeIntentionProceedSurvey?: noticeIntentionProceedSurveyInfoType;    
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
-    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;     
+    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
+         
     
     //_____Step 14 REQUEST FOR SCHEDULING_____________    
     requestForSchedulingSurvey?: requestForSchedulingSurveyInfoType;
@@ -316,8 +317,15 @@ export interface stepInfoType {
     // lawyerPartyInformationSurvey?: any;// lawyerPartyInformationInfoType;
     // moreInformationNlpSurvey?: any; //moreInformationNlpSurveyInfoType;
     otherPartyNLPConfirmationSurvey? : otherPartyNLPConfirmationSurveyInfoType;   
+
+
+    //_____Step 19 NOTICE OF REMOVAL OF LAWYER FOR PARTY_____________    
+    noticeRemoveLawyerPartySurvey?: any;// noticeRemoveLawyerPartySurveyInfoType;    
+    // removeLawyerPartyInformationSurvey?: any;// lawyerChildInformationInfoType;
+    // moreInformationNlprSurvey?: any; //moreInformationNlprSurveyInfoType;
+    otherPartyNlprConfirmationSurvey? : any;//otherPartyNlprConfirmationSurveyInfoType;
     
-    //__Step 19 SUBMIT
+    //__Step 20 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -334,10 +342,11 @@ export interface stepInfoType {
     other?: boolean;
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
-    noticeIntentionProceed?: boolean;   
+    noticeIntentionProceed?: boolean;
     requestScheduling?: boolean;
     trialReadinessStatement?: boolean;
     noticeLawyerChild?: boolean;
     noticeRemoveLawyerChild?: boolean;
     noticeLawyerParty?: boolean;
+    noticeRemoveLawyerParty?: boolean; 
   }
