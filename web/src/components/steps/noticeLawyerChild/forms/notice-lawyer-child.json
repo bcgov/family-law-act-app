@@ -50,7 +50,7 @@
                         "isRequired": true,  
                         "type": "paneldynamic",
                         "name": "ChildInfoNlc",
-                        "title": "<div style='margin: 0rem 0 0 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are representing?</div></b>",
+                        "title": "<div style='margin: 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are representing?</div></b>",
                         "templateElements": [
                           {
                             "type": "personname",
