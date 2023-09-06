@@ -33,6 +33,7 @@
         <ndt-table class="mt-5" :results="results"/>
         <npr-table class="mt-5" :results="results"/>
         <rqs-table class="mt-5" :results="results"/>
+        <tris-table class="mt-5" :results="results"/>
         
     </div>
 </template>

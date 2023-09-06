@@ -1,0 +1,44 @@
+{
+  "title": "Trial Readiness Statement",
+  "pages": [
+    {
+      "name": "Trial Readiness Statement",
+      "description": "A trial readiness statement helps you and the court to plan for your trial. It must be filed if you are scheduled for a trial preparation conference or you were ordered or directed by the court to complete the form.<br><br>You must file the trial readiness statement and serve a copy on each other party at least 7 days before the trial preparation conference or the date indicated by the court.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "TrialPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "Scheduled",
+              "title": "Are you scheduled for a trial preparation conference?",
+              "description": "Check your scheduling notice to confirm the type of appearance that you are scheduled to attend.",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "FileTris",
+              "title": "Have you been told by the court to file a trial readiness statement?",
+              "description": "At a court appearance, the judge may have made a direction or order that you file a trial readiness statement.",
+              "visible": false,
+              "visibleIf": "{Scheduled} = 'n'",
+              "isRequired": true
+            },          
+            {
+              "type": "infotext",
+              "name": "ExplanationNotRequired",
+              "visible": false,
+              "visibleIf": "{Scheduled} = 'n' and {FileTris} = 'n'",
+              "title": "Based on your answers, you are not required to file a trial readiness statement. If you are scheduled for a trial preparation conference or were directed or ordered by the court to complete a trial readiness statement, go back and change your answer to the previous questions as appropriate.",
+              "titleLocation": "hidden"
+            }
+          ]
+        }
+      ],
+      "title": "Trial Readiness Statement"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

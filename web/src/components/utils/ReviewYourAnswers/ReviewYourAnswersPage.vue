@@ -160,6 +160,10 @@ export default class ReviewYourAnswersPage extends Vue {
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'otherPartyInfoRqs'){
                 return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'otherPartyInfoTris'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'Witnesses'){
+                return this.getOtherPartyInfo(value);
             }
             else{
                 this.pageHasError = true;

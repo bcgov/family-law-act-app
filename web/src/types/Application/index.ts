@@ -23,6 +23,7 @@ import { addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "
 import { noticeDiscontinuanceSurveyInfoType, discontinuanceInformationSurveyInfoType, moreInformationSurveyInfoType } from "./Discontinuance";
 import { noticeIntentionProceedSurveyInfoType, otherPartyNprConfirmationSurveyInfoType } from "./IntentionProceed";
 import { interimOrderSurveyInfoType, nextAppearanceSurveyInfoType, otherPartyRQSConfirmationSurveyInfoType, partyInformationRQSSurveyInfoType, reasonForSchedulingSurveyInfoType, requestForSchedulingSurveyInfoType } from "./RequestScheduling";
+import { aboutTheTrialSurveyInfoType, backgroundTrisSurveyInfoType, disclosureOfInformationSurveyInfoType, issuesForTrialSurveyInfoType, ordersAtTpcSurveyInfoType, peopleAtTrialSurveyInfoType, requirementsAndConsiderationsSurveyInfoType, trialReadinessStatementSurveyInfoType, witnessesSurveyInfoType } from "./TrialReadinessStatement";
 
 
 //This is what our database saves.
@@ -288,8 +289,18 @@ export interface stepInfoType {
     partyInformationRQSSurvey?: partyInformationRQSSurveyInfoType;
     otherPartyRQSConfirmationSurvey? : otherPartyRQSConfirmationSurveyInfoType;
 
+    //_____Step 15 TRIAL READINESS STATEMENT_____________ 
+    trialReadinessStatementSurvey?: trialReadinessStatementSurveyInfoType;
+    peopleAtTrialSurvey?: peopleAtTrialSurveyInfoType;
+    issuesForTrialSurvey?: issuesForTrialSurveyInfoType;
+    backgroundTrisSurvey?: backgroundTrisSurveyInfoType;
+    disclosureOfInformationSurvey?: disclosureOfInformationSurveyInfoType;
+    witnessesSurvey?: witnessesSurveyInfoType;
+    requirementsAndConsiderationsSurvey?: requirementsAndConsiderationsSurveyInfoType;
+    aboutTheTrialSurvey?: aboutTheTrialSurveyInfoType;
+    ordersAtTpcSurvey?: ordersAtTpcSurveyInfoType; 
     
-    //__Step 15 SUBMIT
+    //__Step 16 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -308,4 +319,5 @@ export interface stepInfoType {
     noticeDiscontinuance?: boolean;
     noticeIntentionProceed?: boolean;
     requestScheduling?: boolean;
+    trialReadinessStatement?: boolean;
   }

@@ -22,7 +22,8 @@
             <discontinuance-step v-if="getCurrentStepIndex() == 14" v-bind:step="getStep(14)"></discontinuance-step>
             <intention-proceed-step v-if="getCurrentStepIndex() == 15" v-bind:step="getStep(15)"></intention-proceed-step>
             <request-scheduling-step v-if="getCurrentStepIndex() == 16" v-bind:step="getStep(16)"></request-scheduling-step>
-            <step-submit v-if="getCurrentStepIndex() == 17" v-bind:step="getStep(17)"></step-submit>
+            <trial-readiness-statement-step v-if="getCurrentStepIndex() == 17" v-bind:step="getStep(17)"></trial-readiness-statement-step>
+            <step-submit v-if="getCurrentStepIndex() == 18" v-bind:step="getStep(18)"></step-submit>
     
         </main>
     </div>
@@ -49,6 +50,7 @@ import AddressChangeStep from "./steps/addressChange/AddressChangeStep.vue";
 import DiscontinuanceStep from "./steps/discontinuance/DiscontinuanceStep.vue";
 import IntentionProceedStep from "./steps/intentionProceed/IntentionProceedStep.vue";
 import RequestSchedulingStep from "./steps/requestScheduling/RequestSchedulingStep.vue";
+import TrialReadinessStatementStep from "./steps/trialReadinessStatement/TrialReadinessStatementStep.vue";
 import StepSubmit from "./steps/submit/StepSubmit.vue";
 
 import * as surveyEnv from "@/components/survey/survey-glossary";
@@ -73,7 +75,8 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
         AddressChangeStep,
         DiscontinuanceStep,
         IntentionProceedStep,
-        RequestSchedulingStep
+        RequestSchedulingStep,
+        TrialReadinessStatementStep
     }
 })
 

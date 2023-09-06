@@ -1,0 +1,145 @@
+{
+  "title": "Witnesses",
+  "pages": [
+    {
+      "name": "Witnesses",
+      "description": "If you are going to trial, you need to prepare to present your case. Your evidence is how you will prove your case. Your evidence may come from witnesses.<br><br>A witness must have direct knowledge of the things you want them to give evidence about. The evidence must also be relevant to the issues to be decided at trial. Think about the facts you want to present to the court. Who do you need to have at the trial to tell your story. Remember, a witness can only tell the court the facts about something they saw or were involved in.<br><br>The questions in this section will help the court to understand who you plan to have as witnesses, including if a report (opinion evidence from an expert witness or trained professional) has been ordered, completed, and if the writer may be required to attend the trial.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "WitnessesPanel",             
+          "elements": [
+            {
+              "type": "panel",
+              "name": "WitnessesListPanel",             
+              "elements": [
+                {
+                  "isRequired": true,  
+                  "type": "paneldynamic",
+                  "name": "Witnesses",
+                  "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > Please list each person you plan to have attend at trial as a witness. </b>",
+                  "description": "You can be a witness at your trial so be sure to list yourself if you plan to give evidence. List any other person you want the judge to hear from. Think about how long you’ll need to ask questions to each witness, you will be asked to give an estimate of the time for the trial later.",                            
+                  "templateElements": [
+                    {
+                      "type": "personname",
+                      "name": "name",
+                      "title": " ",
+                      "titleLocation": "hidden"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "ExpertReportsExist",
+              "title": "Are there any expert reports?",
+              "description": "Expert’s reports provide information to help the court. They are written by an expert who has special knowledge about a certain area because of their training, education and work experience.",
+              "isRequired": true,
+              "choices": [
+               "Yes",
+               "No",
+               "Unknown"
+              ]
+            },            
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "How do I get an expert report?",
+              "titleLocation": "hidden",              
+              "body": "Expert’s reports are a type of opinion evidence that can be introduced at trial to help the court in making their decision. If you plan on introducing expert evidence at trial, you must ask the expert to prepare a written report.<br><br>If you are not sure whether an expert report is needed, talk to a lawyer to get some legal advice.<br><br>There are a lot of different requirements that must be included in the expert’s report that are set out in <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section120' target='_blank'>Rule 120</a>. There are also different rules about when the report must be prepared and when you must give a copy to the court and the other party. "
+            },
+            {
+              "type": "yesno",
+              "name": "ExpertReportProvided",
+              "title": "Has the expert report been provided to the other party?",
+              "description": "An expert’s report must be served on the other party at least 60 days before the expert is to give evidence or the report is given to the court, unless a judge shortens the time requirement.<br><br>If the other party had an expert report prepared, they must give you a copy.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{ExpertReportsExist} = 'Yes'"
+            }, 
+            {
+              "type": "radiogroup",
+              "name": "ExpertCalled",
+              "title": "Will the expert be called as a witness at the trial to provide opinion evidence or to be asked questions?",
+              "description": "The expert may be called as a witness at the trial to give evidence or to be asked questions. The expert’s report may also be introduced as evidence without them being called as a witness.<br><br>If you need the expert witness to attend, you will want to ask them about what fees you will have to pay for them to attend court.<br><br>If the other party gets an expert’s report, you may call the expert to attend the trial for cross-examination (to ask them questions). If you are choosing to have them attend the trial, you must serve the other party notice requiring the expert to attend the trial for cross-examination at least 30 days before the trial date. Before you decide if they need to be at the trial, consider if they need to attend. If the judge determines it was not necessary to have them attend, you may have to pay the other party costs associated with the expert’s attendance at court.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{ExpertReportsExist} = 'Yes'",
+              "choices": [
+               "Yes",
+               "No",
+               "Unknown"
+              ]
+            },
+            {
+              "type": "text",
+              "name": "ExpertTimeRequired",
+              "title": "How much time do you believe will be needed at the trial for the expert witness?",
+              "description": "Give an estimate of how much time you think will be needed for the expert to give evidence and both you and the other party to ask them questions.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({ExpertReportsExist} = 'Yes') and ({ExpertCalled} = 'Yes')"
+            },
+            {
+              "type": "yesno",
+              "name": "ReportOrdered",
+              "title": "Has a report been ordered for views of the child or needs of the child under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section211' target='_blank'>section 211</a>?",
+              "description": "For family law matters where parenting arrangements, contact with a child or guardianship of a child are in dispute, a section 211 views of the child or needs of the child report may be prepared.",
+              "isRequired": true
+            }, 
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice2",
+              "title": "What is a section 211 views of the child or needs of the child report?",
+              "titleLocation": "hidden",              
+              "body": "Views of the child or needs of the child reports give children an opportunity to tell a neutral person their view. The neutral person, who is a trained professional, interviews the child and then writes a report summarizing what the child has said. The report is shared with the court and their parents. Report writers include family justice counsellors, who can prepare views of the child reports for free, trained lawyers and mental health professionals. The report talks about what the child has said, they do not include the professional’s assessment of the child’s best interests.<br><br>The reports are described under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section211' target='_blank'>section 211</a> of the <i>Family Law Act</i>."
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice3",
+              "title": "How do I get an order for a section 211 views of the child or needs of the child report?",
+              "titleLocation": "hidden",              
+              "body": "To have a section 211 report prepared for free by a family justice counsellor, the report must be ordered by a judge. The parties can also agree that a views of the child or needs of the child report will be prepared and can hire someone to prepare it.<br><br>If the issues in your case are about parenting arrangements, contact with a child or guardianship of a child, the court may order a views of the child or needs of the child report at the family management conference or other court appearance. The order will usually include the type of report, who will be preparing the report, and can also include how the report will be paid for if it isn’t being prepared by a family justice counsellor.<br><br>The views of a child can be presented to the court in different ways, including through the parties’ evidence, letters from the child to the court, interviews with the judge, or a lawyer appointed to represent the child. Talk to a lawyer before requesting a views of the child or needs of the child report if you are not sure which option is best for your case.<br><br>You can apply to court for an order that a report be prepared by completing an <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa717.pdf?forcedownload=true' target='_blank'>Application About a Case Management Order in Form 10</a>. Go to Apply for an Order at the beginning of this service and select Case Management for help completing the form."
+            },
+            {
+              "type": "yesno",
+              "name": "ReportCompleted",
+              "title": "Has the report been completed?",
+              "description": "Because of the demand for family justice counsellors to prepare views of the child reports for free, there can be a delay for them to be prepared. Other report writers can provide the reports sooner in most cases.<br><br>It is helpful for the court to know if you are still waiting for the report to be completed.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{ReportOrdered} = 'y'"
+            },
+            {
+              "type": "yesno",
+              "name": "OrderAttendTrial",
+              "title": "Is there a court order requiring the person who prepared the report to attend the trial?",
+              "description": "If you want to challenge the facts or opinions in a section 211 report, you can cross-examine the report writer. A report writer can be asked to attend the trial for cross-examination but you need a court order for them to attend.<br><br>You can apply to court for an order that a report writer attend the trial by completing an <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa717.pdf?forcedownload=true' target='_blank'>Application About a Case Management Order in Form 10</a>. Go to Apply for an Order at the beginning of this service and select Case Management for help completing the form.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{ReportOrdered} = 'y'"
+            },
+            {
+              "type": "yesno",
+              "name": "WitnessesConfirmed",
+              "title": "Have you confirmed all your witness are available for the trial date(s) OR have you served them with a Subpoena to Witness in Form 23?",
+              "description": "If you want a witness to give evidence at your trial, you must make sure they can come to your trial and are ready to give evidence.<br><br>If you do not have a trial date scheduled, select yes but ensure when you are scheduling the trial that you consider the availability of your witnesses and make sure to send a Subpoena to Witness to any witness you don’t think will attend on their own.",
+              "isRequired": true
+            }, 
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice4",
+              "title": "How do I arrange for a witness to come to my trial?",
+              "titleLocation": "hidden",              
+              "body": "You must arrange for your witness to attend court unless the judge has directed otherwise. You must also pay the witness reasonable estimated travel expenses, such as gas and parking.<br>If you need an expert witness to attend, you will want to ask your expert about what fees you will have to pay for them to attend court. For information about costs see <a href='https://family.legalaid.bc.ca/bc-legal-system/if-you-have-go-court/costs-and-expenses' target='_blank'>https://family.legalaid.bc.ca/bc-legal-system/if-you-have-go-court/costs-and-expenses</a>.<br><br>If you think a witness might not show up, or they need a court order to show an employer, you must complete and personally serve them with a subpoena (Form 23) at least 7 days before trial. You can get the subpoena form at the court registry or at <a href='www.gov.bc.ca/courtforms/prov-family' target='_blank'>www.gov.bc.ca/courtforms/prov-family</a>. If a witness is served with a subpoena and does not attend the trial, the judge can issue a warrant to bring them before the court.<br><br>For more information about subpoenas, including how to serve them, see <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section118' target='_blank'>Rule 118</a> of the Provincial Court Family Rules."
+            }                               
+          ]
+        }
+      ],
+      "title": "Witnesses"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

@@ -65,6 +65,10 @@
                         <b-td class="text-center">{{applicationDetailsInfo.RQS.total}}</b-td>                                          
                     </b-tr>
                     <b-tr>                        
+                        <b-th>Trial Readiness Statement</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.TRIS.total}}</b-td>                                          
+                    </b-tr>
+                    <b-tr>                        
                         <b-th>Other Applications</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.OTHER.total}}</b-td>                                          
                     </b-tr>
