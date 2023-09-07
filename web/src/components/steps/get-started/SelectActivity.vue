@@ -35,6 +35,7 @@
                 <b-col v-for="(btn, idx) in activityButtons"
                     :key="idx">
                     <b-button
+                        :disabled="rejectedPathway"
                         style="height: 3rem;"
                         block
                         @click="changeSelectedActivity"
@@ -49,6 +50,7 @@
             <b-row class="my-2 text-center" align-h="center">                
                 
                 <b-button
+                    :disabled="rejectedPathway"
                     style="height: 3rem;"                    
                     @click="changeOtherForms"
                     :pressed.sync="otherForms.state"
@@ -97,6 +99,9 @@ export default class SelectActivity extends Vue {
 
     @applicationState.State
     public types!: string[];
+
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     @applicationState.Action
     public UpdateApplicationType!: (newApplicationType: string[]) => void;

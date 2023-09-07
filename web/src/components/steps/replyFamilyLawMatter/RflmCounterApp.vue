@@ -26,6 +26,7 @@
                 <b-form-group>
                     <div style="color:#556077; font-size:1.40em; font-weight:bold;">Do you want to make a counter application?</div>
                     <b-form-radio-group
+                        :disabled="rejectedPathway"
                         v-model="counter"
                         class="mt-2 ml-3"
                         style="font-size:1.40em; display: inline-block;"
@@ -49,6 +50,7 @@
             
                 <b-form-group>
                     <b-form-checkbox-group
+                        :disabled="rejectedPathway"
                         v-model="selectedCounters"
                         v-on:change="onChange($event)"
                         name="orders"
@@ -57,7 +59,7 @@
                     <div v-if="allowParentingArrangements" class="checkbox-border">
                         <b-form-checkbox value="parentingArrangements"><div class="checkbox-choices">Parenting Arrangements</div>
                         <p>
-                            Parenting arrangements are how each guardian will parent their child, including each guardian’s <tooltip title="parental responsibilities" :index="0"/> 
+                            Parenting arrangements are how each guardian will parent their child, including each guardian’s <tooltip title="parental responsibilities" size="xl" :index="0"/> 
                             for decision making about a child and the <tooltip title="parenting time" :index="0"/> each guardian spends with a child. 
                             Parental responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting
                             arrangements is what is in the best interests of the child.
@@ -160,7 +162,10 @@ export default class RflmCounterApp extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;    
+    public stPgNo!: stepsAndPagesNumberInfoType;
+    
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

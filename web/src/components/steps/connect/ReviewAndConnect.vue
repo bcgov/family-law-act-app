@@ -44,11 +44,11 @@
                 <span class="text-primary" style='font-size:1.4rem;'>Connect with the Director to complete Schedule 1:</span>                
 
                 <div class="mt-3">    
-                    Schedule 1 of the application must be completed by a <tooltip title="director" :index="0"/>
+                    Schedule 1 of the application must be completed by a <tooltip title="director" size="md" :index="0"/>
                     under the Child, Family and Community Service Act before the application is filed with the court.
                     <ul class="mt-2">
                         <li>
-                            Contact the <tooltip title="child welfare worker" :index="0"/> who is working with the child<br><br>
+                            Contact the <tooltip title="child welfare worker" size="md" :index="0"/> who is working with the child<br><br>
                             If you don’t know how to reach the child welfare worker, contact the Provincial Centralized 
                             Screening team at any time for assistance at 1-800-663-9122 or 604-660-4927 (Lower Mainland 
                             and outside BC). 
