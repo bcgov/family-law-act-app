@@ -179,6 +179,8 @@ export default class ReviewYourAnswersPage extends Vue {
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'OtherPartyInfoNlp'){
                 return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'OtherPartyInfoNlpr'){
+                return this.getOtherPartyInfo(value);
             }
             else{
                 this.pageHasError = true;

@@ -1,23 +1,12 @@
 import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
-export interface lastStepDataInfoType {
-    resolveFlmDate?: string;
-    needsAssessmentDate?: string;
-    parentingEducationProgramDate?: string;
-    consensualDisputeResolutionDate?: string;
-    flmDate?: string;
-    selected: string;
-    otherDate?: string;
-    otherDescription?: string;
+export interface noticeRemoveLawyerPartyDataInfoType {
+    ApplicantName?: nameInfoType;
+    OtherPartyInfoNlpr?: noticeRemoveLawyerPartyOtherPartyInfoType[];    
+    LawyerAddressNlpr?: addressInfoType;
+    LawyerContact?: contactInfoType;
 }
 
-export interface noticeRemoveLawyerPartyDataInfoType {
-    lastStep?: lastStepDataInfoType;
-    requiresForm39?: boolean;
-    unresolvedFlm?: string;
-    unresolvedLessThanYear?: boolean;
-}
-  
 export interface noticeRemoveLawyerPartySurveyInfoType {
     data: noticeRemoveLawyerPartyDataInfoType;
     questions?: questionInfoType[];
@@ -26,7 +15,7 @@ export interface noticeRemoveLawyerPartySurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface otherPartyNlprConfirmationSurveyInfoType {
+export interface otherPartyNLPRConfirmationSurveyInfoType {
     data: {confirmation: string};
     questions?: questionInfoType[];
     pageName?: string;
@@ -34,10 +23,12 @@ export interface otherPartyNlprConfirmationSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface nlprOtherPartyDataInfoType {
+export interface noticeRemoveLawyerPartyOtherPartyInfoType {
     name: nameInfoType;
-    dob?: string;   
+}
+
+export interface contactInformationDataInfoType {   
+    lawyerName?: nameInfoType;    
     address: addressInfoType;
-    contactInfo: contactInfoType;
-    lawyer?: string;
+    contact: contactInfoType;
 }

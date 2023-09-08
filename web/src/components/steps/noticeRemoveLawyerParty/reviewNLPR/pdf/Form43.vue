@@ -36,14 +36,14 @@ export default class Form43 extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getNLPResultData();       
+        this.result = this.getNLPRResultData();       
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
            
     public onPrint() { 
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("noticeDiscontinuance")
+        const pdf_type = Vue.filter('getPathwayPdfType')("noticeRemoveLawyerParty")
         const pdf_name = "notice-of-removal-of-lawyer-for-party";       
         const el= document.getElementById("print");
 
@@ -77,7 +77,7 @@ export default class Form43 extends Vue {
         });
     }
  
-    public getNLPResultData() {         
+    public getNLPRResultData() {         
         
         const result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.NLPR._StepNo]){

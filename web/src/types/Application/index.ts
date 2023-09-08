@@ -27,6 +27,7 @@ import { aboutTheTrialSurveyInfoType, backgroundTrisSurveyInfoType, disclosureOf
 import { noticeLawyerChildSurveyInfoType, otherPartyNLCConfirmationSurveyInfoType } from "./LawyerChild";
 import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerChild";
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
+import { otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 
 
 //This is what our database saves.
@@ -323,7 +324,7 @@ export interface stepInfoType {
     noticeRemoveLawyerPartySurvey?: any;// noticeRemoveLawyerPartySurveyInfoType;    
     // removeLawyerPartyInformationSurvey?: any;// lawyerChildInformationInfoType;
     // moreInformationNlprSurvey?: any; //moreInformationNlprSurveyInfoType;
-    otherPartyNlprConfirmationSurvey? : any;//otherPartyNlprConfirmationSurveyInfoType;
+    otherPartyNLPRConfirmationSurvey? : otherPartyNLPRConfirmationSurveyInfoType;
     
     //__Step 20 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

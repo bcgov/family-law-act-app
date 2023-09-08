@@ -350,23 +350,23 @@ export default class CompleteOtherForms extends Vue {
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }else if(formName=='Notice of Removal of Lawyer for Child'){
-                const step = this.stPgNo.NLCR._StepNo
-                const page = this.stPgNo.NLCR.PreviewFormsNLCR
+                const step = this.stPgNo.NLCR._StepNo;
+                const page = this.stPgNo.NLCR.PreviewFormsNLCR;
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }else if(formName=='Notice of Lawyer for Party'){
-                const step = this.stPgNo.NLP._StepNo
-                const page = this.stPgNo.NLP.PreviewFormsNLP
+                const step = this.stPgNo.NLP._StepNo;
+                const page = this.stPgNo.NLP.PreviewFormsNLP;
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }else if(formName=='Notice of Removal of Lawyer for Party'){
-                const step = this.stPgNo.NLPR._StepNo
-                const page = this.stPgNo.NLPR.PreviewFormsNLPR
+                const step = this.stPgNo.NLPR._StepNo;
+                const page = this.stPgNo.NLPR.PreviewFormsNLPR;
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
-                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+                pdf_type=Vue.filter('fullNameToPdfType')(formName);
             }
             
             if(pdf_type) await this.removeGeneratedPDF(pdf_type)

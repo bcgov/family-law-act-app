@@ -1,6 +1,30 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
         <survey v-bind:survey="survey"></survey>
+        <b-modal size="xl" v-model="servicePopUp" header-class="bg-white" no-close-on-backdrop hide-header>
+            
+            <div class="m-3">               
+                <p>
+                    I understand I must give notice of my Notice of Removal 
+                    of Lawyer for Child to each party. To give notice, they 
+                    must be served or provided with a copy of the filed document 
+                    at as soon as possible. 
+                </p>
+              
+                <b-form-checkbox 
+                    class="mt-4"
+                    v-model="serveUnderstand"               
+                    value="understand"
+                    unchecked-value="">
+                    <h4 style="margin: 0.26rem 0.5rem;">
+                        I understand
+                    </h4>
+                </b-form-checkbox>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button :disabled="serveUnderstand != 'understand'" variant="success" @click="closeServicePopUp();">Continue</b-button>
+            </template>            
+        </b-modal>
     </page-base>
 </template>
 
@@ -16,7 +40,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { togglePages } from '@/components/utils/TogglePages';
+// import { togglePages } from '@/components/utils/TogglePages';
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
@@ -43,6 +67,9 @@ export default class NoticeRemoveLawyerParty extends Vue {
     currentStep =0;
     currentPage =0;    
     disableNextButton = false;
+    serveUnderstand = '';
+    servicePopUp = false;
+    confirmed = false;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -54,6 +81,9 @@ export default class NoticeRemoveLawyerParty extends Vue {
     }
 
     mounted(){
+        this.servicePopUp = false;
+        this.confirmed = false;
+        this.serveUnderstand = '';
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -84,12 +114,16 @@ export default class NoticeRemoveLawyerParty extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.noticeDiscontinuanceSurvey) {            
-            this.survey.data = this.step.result.noticeDiscontinuanceSurvey.data;   
+        if (this.step.result?.noticeRemoveLawyerPartySurvey) {            
+            this.survey.data = this.step.result.noticeRemoveLawyerPartySurvey.data;   
             // this.setPages();         
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
-            this.survey.setValue('otherPartyInfoDis',[]) 
+            this.survey.setValue('otherPartyInfoNlpr',[]) 
+        }
+
+        if(this.step.result?.otherPartyNLPRConfirmationSurvey?.data?.confirmation == 'Confirmed'){
+            this.confirmed = true
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
@@ -98,7 +132,7 @@ export default class NoticeRemoveLawyerParty extends Vue {
     // public setPages() {
 
     //     const p = this.stPgNo.NLPR;
-    //     const noticeDiscontinuancePagesAll = [p.RemoveLawyerPartyInformation, p.MoreInformationNLPR, p.ReviewYourAnswersNLPR]
+    //     const noticeRemoveLawyerPartyPagesAll = [p.RemoveLawyerPartyInformation, p.MoreInformationNLPR, p.ReviewYourAnswersNLPR]
 
     //     if (this.survey.data) {
 
@@ -106,7 +140,7 @@ export default class NoticeRemoveLawyerParty extends Vue {
 
     //         const canContinue = surveyResponses.Filed == 'y';
 
-    //        togglePages(noticeDiscontinuancePagesAll, canContinue, this.currentStep);            
+    //        togglePages(noticeRemoveLawyerPartyPagesAll, canContinue, this.currentStep);            
     //         this.disableNextButton = !canContinue;
     //     }
     // }
@@ -118,9 +152,9 @@ export default class NoticeRemoveLawyerParty extends Vue {
             respondentNames.push(...respondents)
         }
 
-        if(this.survey.data?.otherPartyInfoDis && this.survey.data?.otherPartyInfoDis.length>0){            
-            const respondentNamesDis = this.survey.data.otherPartyInfoDis.map(otherParty=>otherParty.name)
-            respondentNames.push(...respondentNamesDis)
+        if(this.survey.data?.otherPartyInfoNlpr && this.survey.data?.otherPartyInfoNlpr.length>0){            
+            const respondentNamesNlpr = this.survey.data.otherPartyInfoNlpr.map(otherParty=>otherParty.name)
+            respondentNames.push(...respondentNamesNlpr)
         }  
         
         const fullNamesArray =[];
@@ -142,9 +176,21 @@ export default class NoticeRemoveLawyerParty extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            Vue.prototype.$UpdateGotoNextStepPage()
+            this.servicePopUp = true;            
         }
     }  
+
+    public closeServicePopUp(){
+        this.servicePopUp = false;
+        this.confirmed = true;
+        Vue.prototype.$UpdateGotoNextStepPage();            
+    }
+
+    public getConfirmationResults( confirmation){
+        const questionResults: {name: string; value: any; title: string; inputType: string}[] =[];
+        questionResults.push({name:'otherPartyNLPRSurveyConfirmation', value:confirmation, title:'I understand each other party must be given notice of my application', inputType:''})
+        return {data: {confirmation:confirmation}, questions:questionResults, pageName:'Other Party Confirmation', currentStep: this.currentStep, currentPage:this.currentPage}
+    }
     
     beforeDestroy() {
 
@@ -156,8 +202,16 @@ export default class NoticeRemoveLawyerParty extends Vue {
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
+
+        this.UpdateStepResultData({
+            step:this.step, 
+            data: {
+                noticeRemoveLawyerPartySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage),
+                otherPartyNLPRConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')
+            }
+        })    
         
-        this.UpdateStepResultData({step:this.step, data: {noticeDiscontinuanceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+       // this.UpdateStepResultData({step:this.step, data: {noticeRemoveLawyerPartySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
