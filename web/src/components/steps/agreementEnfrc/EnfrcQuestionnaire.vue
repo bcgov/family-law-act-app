@@ -94,6 +94,7 @@
                 <b-form-checkbox-group
                 v-model="selectedEnforcementQuestionnaire"
                 v-on:change="onChange($event)"
+                :disabled="rejectedPathway"
                 name="orders"
                 stacked
                 >                
@@ -113,13 +114,13 @@
                     <div >
                         <b-form-checkbox class="checkbox-choices" value="parentingCoordinatorDetermination">
                             <b>
-                                Enforce, Change or Set Aside a <tooltip title="Determination of a Parenting Coordinator" :index="0"/>
+                                Enforce, Change or Set Aside a <tooltip title="Determination of a Parenting Coordinator" size="md" :index="0"/>
                             </b>
                             <div>
                                 Sometimes people don’t follow a determination of a parenting coordinator. If this happens, you 
                                 can apply to have the court help enforce it just like a court order and ask that the court 
                                 impose consequences on the person who isn’t following the determination. If you believe the 
-                                parenting coordinator’s decision was made outside their <tooltip title="authority" :index="0"/> 
+                                parenting coordinator’s decision was made outside their <tooltip title="authority" size="md" :index="0"/> 
                                 or that they made a mistake about the law or about how the facts and the law work together, you 
                                 can apply to court to have it changed or set aside.    
                             </div>                        
@@ -129,8 +130,8 @@
                     <div>
                         <b-form-checkbox class="checkbox-choices" value="expenses">
                             <b>
-                                Set an amount of money owing for <tooltip title="expenses" :index="0"/> for 
-                                <tooltip title="failure to comply" :index="0"/>                                
+                                Set an amount of money owing for <tooltip title="expenses" size="md" :index="0"/> for 
+                                <tooltip title="failure to comply" size="md" :index="0"/>                                
                             </b>
                             <div>
                                 If the court made an order requiring the other party to pay expenses to you because they failed 
@@ -143,7 +144,7 @@
                     <div>
                         <b-form-checkbox class="checkbox-choices" value="arrears">
                             <b>
-                                Determine if <tooltip title="arrears" :index="0"/> are owing from a support order or agreement 
+                                Determine if <tooltip title="arrears" size="md" :index="0"/> are owing from a support order or agreement 
                                 made under the Family Law Act and, if so, the amount of the arrears    
                             </b>
                             <div>
@@ -243,7 +244,10 @@ export default class EnfrcQuestionnaire extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;    
+    public stPgNo!: stepsAndPagesNumberInfoType;
+    
+    @applicationState.State
+    public rejectedPathway!: boolean;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

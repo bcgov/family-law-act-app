@@ -1,3 +1,10 @@
+//_______________________Migration_Rule________________________________
+//  1. Step names (s.name) should not have duplicates.
+//  2. Page names and page results must match: 
+//      - assume  page name (p.name) is `PageName`
+//      - then survey name must be `pageNameSurvey` first letter is lowercase and add Survey at the end. 
+//_____________________________________________________________________
+
 export interface stepsAndPagesNumberInfoType{
     GETSTART: GETSTARTstPgTypes;
     PO: POstPgTypes;
@@ -13,8 +20,12 @@ export interface stepsAndPagesNumberInfoType{
     CONNECT: CONNECTstPgTypes;
     OTHER: OTHERstPgTypes;
     NCD: NCDstPgTypes;
-    NDT: NDTstPgTypes;
-    NPR: NPRstPgTypes;
+    NDT: NDTstPgTypes;    
+    NPR: NPRstPgTypes;    
+    RQS: RQSstPgTypes;
+    TRIS: TRISstPgTypes;
+    NLC: NLCstPgTypes;
+    NLCR: NLCRstPgTypes;
     AFF: AFFstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
@@ -270,7 +281,7 @@ export interface OTHERstPgTypes{
 
     OtherForms: number; 
     CompleteOtherForms: number;   
-    OtherFormFilingLocation: number;
+    OtherFormsFilingLocation: number;
 }
 
 export interface NCDstPgTypes{
@@ -302,6 +313,49 @@ export interface NPRstPgTypes{
     PreviewFormsNPR: number;
 }
 
+export interface RQSstPgTypes{
+    _StepNo: number;
+
+    RequestForScheduling: number;
+    ReasonForScheduling: number;
+    InterimOrder: number;
+    NextAppearance: number;
+    PartyInformationRQS: number;  
+    ReviewYourAnswersRQS: number;
+    PreviewFormsRQS: number;
+}
+
+export interface TRISstPgTypes{
+    _StepNo: number;
+
+    TrialReadinessStatement: number;
+    PeopleAtTrial: number;
+    IssuesForTrial: number;
+    BackgroundTris: number;
+    DisclosureOfInformation: number; 
+    Witnesses: number;
+    RequirementsAndConsiderations: number;
+    AboutTheTrial: number;
+    OrdersAtTpc: number;   
+    ReviewYourAnswersTRIS: number;
+    PreviewFormsTRIS: number;
+}
+
+export interface NLCstPgTypes{
+    _StepNo: number;
+
+    NoticeLawyerChild: number;  
+    ReviewYourAnswersNLC: number;
+    PreviewFormsNLC: number;
+}
+
+export interface NLCRstPgTypes{
+    _StepNo: number;
+
+    NoticeRemoveLawyerChild: number;   
+    ReviewYourAnswersNLCR: number;
+    PreviewFormsNLCR: number;
+}
 
 export interface AFFstPgTypes{
     _StepNo: number;
@@ -321,5 +375,6 @@ export interface SUBMITstPgTypes{
     ReviewAndSave: number;
     ReviewAndSubmit: number;
     OtherFile: number;
+    ResubmitAttachments: number;
     NextSteps: number;    
 }

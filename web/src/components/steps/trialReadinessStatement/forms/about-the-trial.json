@@ -1,0 +1,73 @@
+{
+  "title": "About the trial",
+  "pages": [
+    {
+      "name": "About the trial",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "TrialInfoPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "TrialScheduled",
+              "title": "Has the trial date been scheduled?",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "TrialDate",
+              "title": "The trial has been scheduled for the following date:",
+              "isRequired": true,
+              "inputType": "date",
+              "dateYearsAhead": 10,
+              "dateYearsBehind": 0,
+              "visible": false,
+              "visibleIf": "{TrialScheduled} = 'y'"
+            },             
+            {
+              "type": "yesno",
+              "name": "FeelReady",
+              "title": "Do you feel ready to start your trial on the scheduled date (or if a date is scheduled)?",
+              "isRequired": true
+            },  
+            {
+              "type": "comment",
+              "name": "FeelReadyExplanation",
+              "title": "Why do you not feel ready to start your trial on the scheduled date (or if a date is scheduled)?",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{FeelReady} = 'n'"
+            }, 
+            {
+              "type": "html",
+              "name": "trialTimeHeading",
+               "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>How much time do you believe the trial will take?</div>Your trial may already be scheduled. It is still helpful if you give the court an estimate for how long you think the trial will take, especially now that you’ve taken the time to do some more planning. Consider the `evidence` you plan to present.<br>A day of court time is approximately 5 hours. </div>"
+            },
+            {
+              "type": "multipletextinput",
+              "name": "TrialTimeStatement",              
+              "title": "Trial Time",
+              "titleLocation":"hidden",
+              "inputNames":"{dayCountOne},{dayCountTwo}",
+              "inputTypes":"{number},{number}",
+              "inputWidths":"{5rem},{5rem}",                  
+              "textBeforeInputs":"{I believe the trial will take },{or},{ days.}",
+              "textClass": "sv_q_title font-weight-bold",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "Reviewed",
+              "title": "Did you review the witnesses you plan to call and the information you plan to rely on during trial when you calculated the amount of time needed for trial?",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "About the trial"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

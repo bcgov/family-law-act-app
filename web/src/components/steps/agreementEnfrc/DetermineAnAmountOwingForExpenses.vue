@@ -33,7 +33,8 @@ export default class DetermineAnAmountOwingForExpenses extends Vue {
     public steps!: stepInfoType[];    
 
     
-
+    @applicationState.State
+    public rejectedPathway!: boolean;
     
 
     @applicationState.Action
@@ -78,6 +79,7 @@ export default class DetermineAnAmountOwingForExpenses extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }   
         
+        this.survey.setVariable("enableSurvey", !this.rejectedPathway)
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }

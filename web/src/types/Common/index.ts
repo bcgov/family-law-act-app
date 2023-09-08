@@ -44,7 +44,13 @@ export interface  applicationJsonInfoType {
     lastFiled?: number; 
     lastFiledDate?: string; 
     packageNum?: string; 
-    listOfPdfs?: string[]; 
+    listOfPdfs?: string[];
+    status?: string;
+    fileNum?: string;
+    rejected?: boolean;
+    packageResults?: any;
+    refApplications?: any[]
+    efilingDocs?: any[],
     last_efiling_submission: {
         package_number?: string;
         package_url?: string;

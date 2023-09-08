@@ -43,6 +43,9 @@ export default class PoQuestionnaire extends Vue {
     @applicationState.State
     public types!: string[]
 
+    @applicationState.State
+    public rejectedPathway!: boolean;
+
     @applicationState.Action
     public UpdateApplicationType!: (newApplicationType: string[]) => void    
 
@@ -164,6 +167,8 @@ export default class PoQuestionnaire extends Vue {
             }
         }       
         
+        this.survey.setVariable("enableSurvey", !this.rejectedPathway)
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         this.determinePeaceBondAndBlock();
     }

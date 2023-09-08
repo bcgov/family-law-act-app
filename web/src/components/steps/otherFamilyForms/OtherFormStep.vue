@@ -3,7 +3,7 @@
        
         <other-forms v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.OtherForms" />
         <complete-other-forms v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.CompleteOtherForms" />
-        <other-form-filing-location v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.OtherFormFilingLocation" />
+        <other-form-filing-location v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.OtherFormsFilingLocation" />
   
     </step-base>
 </template>

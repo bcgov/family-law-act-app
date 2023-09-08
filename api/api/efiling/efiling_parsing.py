@@ -1,3 +1,4 @@
+import json
 from django.conf import settings
 from django.contrib.admin.utils import flatten
 
@@ -21,12 +22,23 @@ class EFilingParsing:
     ):
         applicant = application_steps[0]["result"]["applicantName"]
         respondents = application_steps[0]["result"]["respondents"]
-        file_number = (
-            application_steps[0]["result"]["existingOrders"][0]["fileNumber"]
-            if len(application_steps[0]["result"]["existingOrders"]) > 0
-            else ""
-        )
+        file_number = None
+        package_number = None
+        if application.previous_app_key_id and application.previous_app_status:
+            previous_app_decoded = settings.ENCRYPTOR.decrypt(application.previous_app_key_id, application.previous_app_status)
+            previous_app_status = json.loads(previous_app_decoded)
+            package_number = previous_app_status["packageNumber"]
+            file_no_str = previous_app_status["courtFileNo"]
+            if file_no_str and len(file_no_str)>0:
+                file_number = file_no_str.split("-")[-1]
+        else:
+            file_number = (
+                application_steps[0]["result"]["existingOrders"][0]["fileNumber"]
+                if len(application_steps[0]["result"]["existingOrders"]) > 0
+                else ""
+            )
         converted_data = {
+            "packageNumber": package_number,
             "fileNumber": file_number,
             "locationName": application.application_location,
             "documents": documents,
