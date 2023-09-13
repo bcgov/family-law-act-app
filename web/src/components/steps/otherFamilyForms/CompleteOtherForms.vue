@@ -180,7 +180,7 @@ export default class CompleteOtherForms extends Vue {
     currentPage =0;  
 
     otherFormsList: otherFormPathwayInfoType[] = [
-        {formName: 'Affidavit – General',                                   formNumber: 'Form 45',   pathwayExists: true,    pathwayState: false, manualState: false,   pathwayName:'affidavit',                    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true'},
+        {formName: 'Affidavit – General',                                   formNumber: 'Form 45',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'affidavit',                    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true'},
         {formName: 'Affidavit of Personal service',                         formNumber: 'Form 48',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'affidavitPersonalService',     formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa765.pdf?forcedownload=true'},
         {formName: 'Affidavit of Personal Service of Protection Order',     formNumber: 'Form 49',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'affidavitPersonalServicePO',   formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa766.pdf?forcedownload=true'},
         {formName: 'Certificate of Service',                                formNumber: 'Form 7',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'certificateOfService',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa714.pdf?forcedownload=true'},
@@ -240,7 +240,6 @@ export default class CompleteOtherForms extends Vue {
 
                 } else {
                     this.selectedFormInfoList.push(originalFormsPathwayInfo[index])
-
                 }
             }
 
@@ -352,6 +351,12 @@ export default class CompleteOtherForms extends Vue {
             }else if(formName=='Notice of Removal of Lawyer for Child'){
                 const step = this.stPgNo.NLCR._StepNo
                 const page = this.stPgNo.NLCR.PreviewFormsNLCR
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Affidavit – General'){
+                const step = this.stPgNo.AFF._StepNo
+                const page = this.stPgNo.AFF.PreviewFormsAFF
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)

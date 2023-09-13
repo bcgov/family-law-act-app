@@ -84,8 +84,8 @@ export default class Affidavit extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.noticeDiscontinuanceSurvey) {            
-            this.survey.data = this.step.result.noticeDiscontinuanceSurvey.data;   
+        if (this.step.result?.affidavitSurvey) {            
+            this.survey.data = this.step.result.affidavitSurvey.data;   
             this.setPages();         
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
@@ -98,7 +98,7 @@ export default class Affidavit extends Vue {
     public setPages() {
 
         const p = this.stPgNo.AFF;
-        const noticeDiscontinuancePagesAll = [p.AffidavitInformation, p.MoreInformationAFF, p.ReviewYourAnswersAFF]
+        const affidavitPagesAll = [p.AffidavitInformation, p.MoreInformationAFF, p.ReviewYourAnswersAFF]
 
         if (this.survey.data) {
 
@@ -106,7 +106,7 @@ export default class Affidavit extends Vue {
 
             const canContinue = surveyResponses.Filed == 'y';
 
-            togglePages(noticeDiscontinuancePagesAll, canContinue, this.currentStep);            
+            togglePages(affidavitPagesAll, canContinue, this.currentStep);            
             this.disableNextButton = !canContinue;
         }
     }
@@ -157,7 +157,7 @@ export default class Affidavit extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {noticeDiscontinuanceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {affidavitSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

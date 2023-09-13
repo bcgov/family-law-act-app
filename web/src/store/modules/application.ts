@@ -62,7 +62,8 @@ class Application extends VuexModule {
         requestScheduling: false,
         trialReadinessStatement: false,   
         noticeLawyerChild: false,
-        noticeRemoveLawyerChild: false             
+        noticeRemoveLawyerChild: false,
+        affidavit: false             
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -2258,7 +2259,7 @@ class Application extends VuexModule {
         s.id = "20";
         s.name = "AFF";
         s.label = "Affidavit";
-        s.icon = "fa fa-exclamation-circle";
+        s.icon = "fas fa-file-contract";
         s.lastUpdate = null;
         s.type = "affidavit";
         s.pages = new Array<pageInfoType>();
