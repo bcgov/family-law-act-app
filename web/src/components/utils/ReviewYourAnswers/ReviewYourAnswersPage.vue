@@ -134,7 +134,9 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace("<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 0rem 0 -1rem 0'> Firm Name (if applicable):</b>", "Firm Name (if applicable):");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are representing? </b>", "What is the name of the party you are representing?");
         adjQuestion = adjQuestion.replace("<b style='color: white; font-size: 1pt; margin: -5rem 0 -5rem 0'>There are no changes to the contact information or address for service of court documents on file.</b>", "There are no changes to the contact information or address for service of court documents on file.");
-      
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > Please list each person you plan to have attend at trial as a witness. </b>", "Please list each person you plan to have attend at trial as a witness.");
+
+        
         return adjQuestion
     }
 

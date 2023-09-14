@@ -1195,8 +1195,8 @@ export default class Form22Layout extends Vue {
             if (!this.feelReady){
                 this.feelReadyExplanation = trialInfo.FeelReadyExplanation;
             }
-            this.trialTimeOne = trialInfo.TrialTimeStatement?.dayCountOne?trialInfo.TrialTimeStatement.dayCountOne:'';
-            this.trialTimeTwo = trialInfo.TrialTimeStatement?.dayCountTwo?trialInfo.TrialTimeStatement.dayCountTwo:'';
+            this.trialTimeOne = trialInfo.TrialTimeStatement?.hourCount?trialInfo.TrialTimeStatement.hourCount:'';
+            this.trialTimeTwo = trialInfo.TrialTimeStatement?.dayCount?trialInfo.TrialTimeStatement.dayCount:'';
             this.reviewedWitnesses = trialInfo.Reviewed == 'y';            
         }
     }
