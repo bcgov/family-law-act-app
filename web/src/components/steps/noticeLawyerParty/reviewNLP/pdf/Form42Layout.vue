@@ -44,13 +44,20 @@
                 hint="(firm name, if applicable)" 
                 :italicHint="false" :text="lawyerInformation.firmName"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                am the lawyer for the following party/parties:
+                am the
             </div>  
+            <div style="text-indent:5px;font-size: 9pt;margin-top: 0.5rem;"> 
+                lawyer for the following party/parties:
+            </div>
+
+            <div style="text-indent:5px;font-size: 9pt;margin-top: 0.5rem;"> 
+                <i>Provide the full name of each party the lawyer is representing</i>
+            </div>
             
             <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                style="text-indent:2px;font-size: 9pt; margin-left:1rem;" 
                 textwidth="32rem" 
-                beforetext="<i>Provide the full name of each party the lawyer is representing</i>" 
+                beforetext="" 
                 hint=""
                 :italicHint="false" 
                 :text="otherParties"/>     
@@ -355,8 +362,8 @@ export default class Form42Layout extends Vue {
         if (noticeLawyerParty.AddressChanges && noticeLawyerParty.AddressChanges.includes('true')){
             this.addressChanged = false;
             this.lawyerInformation = {
-                firmName: '',
-                lawyerName: {} as nameInfoType,
+                firmName: noticeLawyerParty.FirmName?noticeLawyerParty.FirmName:'',
+                lawyerName: noticeLawyerParty.ApplicantName?noticeLawyerParty.ApplicantName:{} as nameInfoType,
                 address: {} as addressInfoType,
                 contact: {} as contactInfoType
             }
