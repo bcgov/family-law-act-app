@@ -156,8 +156,8 @@ export interface aboutTheTrialSurveyDataInfoType {
 }
 
 export interface trialTimeStatementDataType {
-    dayCountOne?: string;
-    dayCountTwo?: string;
+    hourCount?: string;
+    dayCount?: string;
 }
 
 export interface aboutTheTrialSurveyInfoType {
