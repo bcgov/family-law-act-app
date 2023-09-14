@@ -196,7 +196,7 @@ export default class CompleteOtherForms extends Vue {
         {formName: 'Notice of Exemption from Parenting Education Program',  formNumber: 'Form 20',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeExemptionParentingEducationProgram', formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa740.pdf?forcedownload=true'},
         {formName: 'Notice of Intention to Proceed',                        formNumber: 'Form 2',   pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeIntentionProceed',       formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa711.pdf?forcedownload=true'},
         {formName: 'Notice of Lawyer for Child',                            formNumber: 'Form 40',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeLawyerChild',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa758.pdf?forcedownload=true'},
-        {formName: 'Notice of Lawyer for Party',                            formNumber: 'Form 42',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeLawyerParty',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa760.pdf?forcedownload=true'},
+        {formName: 'Notice of Lawyer for Party',                            formNumber: 'Form 42',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeLawyerParty',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa760.pdf?forcedownload=true'},
         {formName: 'Notice of Participation',                               formNumber: 'PFA747',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeParticipation',          formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa747.pdf?forcedownload=true '},
         {formName: 'Notice of Removal of Lawyer for Child',                 formNumber: 'Form 41',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeRemoveLawyerChild',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa761.pdf?forcedownload=true'},
         {formName: 'Notice of Removal of Lawyer for Party',                 formNumber: 'Form 43',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeRemoveLawyerParty',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa759.pdf?forcedownload=true'},
@@ -205,7 +205,7 @@ export default class CompleteOtherForms extends Vue {
         {formName: 'Request for Scheduling',                                formNumber: 'Form 39',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'requestScheduling',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa732.pdf?forcedownload=true'},
         {formName: 'Request for Service of Documents',                      formNumber: 'PFA110',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'requestServiceDocuments',      formLink:'https://www2.gov.bc.ca/assets/download/2EA3479AA5804C98A103B066BA37AF56?forcedownload=true'},
         {formName: 'Request for Service of Family Protection Order',        formNumber: 'PFA916',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'requestServiceFPO',            formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa916.pdf?forcedownload=true'},
-        {formName: 'Trial Readiness Statement',                             formNumber: 'Form 22',  pathwayExists: true,    pathwayState: false, manualState: false,   pathwayName:'trialReadinessStatement',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa735.pdf?forcedownload=true'}
+        {formName: 'Trial Readiness Statement',                             formNumber: 'Form 22',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'trialReadinessStatement',      formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa735.pdf?forcedownload=true'}
     ]   
 
     mounted(){            
@@ -352,6 +352,12 @@ export default class CompleteOtherForms extends Vue {
             }else if(formName=='Notice of Removal of Lawyer for Child'){
                 const step = this.stPgNo.NLCR._StepNo
                 const page = this.stPgNo.NLCR.PreviewFormsNLCR
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Notice of Lawyer for Party'){
+                const step = this.stPgNo.NLP._StepNo
+                const page = this.stPgNo.NLP.PreviewFormsNLP
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)

@@ -26,6 +26,7 @@ export interface stepsAndPagesNumberInfoType{
     TRIS: TRISstPgTypes;
     NLC: NLCstPgTypes;
     NLCR: NLCRstPgTypes;
+    NLP: NLPstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -312,7 +313,6 @@ export interface NPRstPgTypes{
     PreviewFormsNPR: number;
 }
 
-
 export interface RQSstPgTypes{
     _StepNo: number;
 
@@ -355,6 +355,16 @@ export interface NLCRstPgTypes{
     NoticeRemoveLawyerChild: number;   
     ReviewYourAnswersNLCR: number;
     PreviewFormsNLCR: number;
+}
+
+export interface NLPstPgTypes{
+    _StepNo: number;
+
+    NoticeLawyerParty: number;
+    // LawyerPartyInformation: number;
+    // MoreInformationNLP: number;
+    ReviewYourAnswersNLP: number;
+    PreviewFormsNLP: number;
 }
 
 export interface SUBMITstPgTypes{

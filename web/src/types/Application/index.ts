@@ -26,6 +26,7 @@ import { interimOrderSurveyInfoType, nextAppearanceSurveyInfoType, otherPartyRQS
 import { aboutTheTrialSurveyInfoType, backgroundTrisSurveyInfoType, disclosureOfInformationSurveyInfoType, issuesForTrialSurveyInfoType, ordersAtTpcSurveyInfoType, peopleAtTrialSurveyInfoType, requirementsAndConsiderationsSurveyInfoType, trialReadinessStatementSurveyInfoType, witnessesSurveyInfoType } from "./TrialReadinessStatement";
 import { noticeLawyerChildSurveyInfoType, otherPartyNLCConfirmationSurveyInfoType } from "./LawyerChild";
 import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerChild";
+import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 
 
 //This is what our database saves.
@@ -281,7 +282,7 @@ export interface stepInfoType {
     noticeIntentionProceedSurvey?: noticeIntentionProceedSurveyInfoType;    
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
-    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;    
+    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;     
     
     //_____Step 14 REQUEST FOR SCHEDULING_____________    
     requestForSchedulingSurvey?: requestForSchedulingSurveyInfoType;
@@ -309,8 +310,14 @@ export interface stepInfoType {
     //_____Step 17 NOTICE OF REMOVAL OF LAWYER FOR CHILD_____________    
     noticeRemoveLawyerChildSurvey?: noticeRemoveLawyerChildSurveyInfoType;
     otherPartyNLCRConfirmationSurvey? : otherPartyNLCRConfirmationSurveyInfoType;
+
+    //_____Step 18 NOTICE OF LAWYER FOR PARTY_____________    
+    noticeLawyerPartySurvey?: noticeLawyerPartySurveyInfoType;    
+    // lawyerPartyInformationSurvey?: any;// lawyerPartyInformationInfoType;
+    // moreInformationNlpSurvey?: any; //moreInformationNlpSurveyInfoType;
+    otherPartyNLPConfirmationSurvey? : otherPartyNLPConfirmationSurveyInfoType;   
     
-    //__Step 18 SUBMIT
+    //__Step 19 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -327,9 +334,10 @@ export interface stepInfoType {
     other?: boolean;
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
-    noticeIntentionProceed?: boolean;
+    noticeIntentionProceed?: boolean;   
     requestScheduling?: boolean;
     trialReadinessStatement?: boolean;
     noticeLawyerChild?: boolean;
     noticeRemoveLawyerChild?: boolean;
+    noticeLawyerParty?: boolean;
   }

@@ -30,12 +30,13 @@
 
         <other-forms-table class="mt-5" :results="results"/>
         <ncd-table class="mt-5" :results="results"/>
-        <ndt-table class="mt-5" :results="results"/>                
-        <npr-table class="mt-5" :results="results"/>        
+        <ndt-table class="mt-5" :results="results"/>
+        <npr-table class="mt-5" :results="results"/>         
         <rqs-table class="mt-5" :results="results"/>
         <tris-table class="mt-5" :results="results"/>
         <nlc-table class="mt-5" :results="results"/>
         <nlcr-table class="mt-5" :results="results"/>
+        <nlp-table class="mt-5" :results="results"/>
         
     </div>
 </template>
