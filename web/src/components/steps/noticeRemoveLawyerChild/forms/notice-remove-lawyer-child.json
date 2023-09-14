@@ -1,0 +1,65 @@
+{
+    "title": "Notice of Removal of Lawyer for Child",
+    "pages": [
+      {
+        "name": "Notice of Removal of Lawyer for Child",
+        "description": "Are you a lawyer no longer representing a child in a family law case?<br><a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section175'>Rule 162</a> of the Provincial Court Family Rules requires you to file a Notice of Removal of Lawyer for Child in Form 41 when you stop representing a child and serve a copy on each other party as soon as possible.<br><br>Use this pathway to complete your Notice of Removal of Lawyer for Child.",
+        "elements": [
+          {
+            "type": "panel",
+            "name": "ApplicantPanel",
+            "elements": [              
+              {
+                "type": "panel",
+                "name": "ApplicantContactPanel",              
+                "elements": [
+                  {
+                    "type": "personname",
+                    "name": "ApplicantName",
+                    "title": "What is your name?",
+                    "description": "This is the name of the lawyer for the child. If you are filing out this form for a lawyer for the child, fill in their name.",
+                    "isRequired": true,              
+                    "defaultSubstitution": "(Applicant Name)",
+                    "descFirstName": "First Name is also known as Given Name",
+                    "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                    "descLastName": "Last Name is also known as Family Name or Surname"
+                  },                  
+                  {
+                      "type": "panel",
+                      "name": "ContactInformationChildPanel",             
+                      "elements": [
+                        {
+                          "isRequired": true,  
+                          "type": "paneldynamic",
+                          "name": "ChildInfoNlcr",
+                          "title": "<div style='margin: 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are no longer representing?</div></b>",
+                          "templateElements": [
+                            {
+                              "type": "personname",
+                              "name": "name",
+                              "title": " ",
+                              "titleLocation": "hidden",
+                              "isRequired": true
+                            },
+                            {
+                              "type": "text",
+                              "name": "dateOfBirth",
+                              "title": "What is the child's date of birth?",
+                              "isRequired": true,
+                              "inputType": "date"
+                            }
+                          ]
+                        }
+                      ]
+                  }                            
+                ]
+              } 
+            ]
+          }
+        ],
+        "title": "Notice of Removal of Lawyer for Child"
+      }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+  }

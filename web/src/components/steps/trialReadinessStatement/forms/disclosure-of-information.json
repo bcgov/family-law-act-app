@@ -1,0 +1,64 @@
+{
+  "title": "Disclosure of information",
+  "pages": [
+    {
+      "name": "Disclosure of information",
+      "description": "This next section will help the court to understand what information needs to be shared between the parties to help get ready for the trial.<br><br>Your evidence is how you will prove your case. Evidence at your trial can include financial information, witnesses (spoken evidence) and other documents such as letters, receipts, or photos. Both you and the other party must give each other copies of any information you plan to rely on during the trial. Your list of witnesses usually includes the name of each witness and a short summary of what each witness will say (often referred to as a 'will say' statement).",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "DisclosurePanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "FinancialOnFile",
+              "title": "Is your financial information on file with the court current?",
+              "description": "It is your responsibility to make sure your financial information on file with the court is up-to-date. If there have been changes to your financial information since you filed your Financial Statement, select No.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{supportIncluded}"
+            },
+            {
+              "type": "yesno",
+              "name": "InfoProvided",
+              "title": "Have you provided each other party with a copy of the information you plan to rely on during the trial?",
+              "description": "The information you plan to rely on during the trial includes your up-to-date financial information, any documents you want to show the court, and a list of witnesses you want to have speak at the trial.",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "inputType": "date",
+              "name": "DateProvided",
+              "title": "When can this information be provided to the parties?",
+              "isRequired": true,
+              "dateYearsAhead": 10,
+              "visible": false,
+              "visibleIf": "{InfoProvided} = 'n'"
+            },
+            {
+              "type": "yesno",
+              "name": "InfoRequired",
+              "title": "Is there any information you still need from the other party?",
+              "description": "The other party must also share a copy of their financial information, documents and list of witnesses with you.",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "DescriptionInfoRequired",
+              "title": "Please explain what information you need from the other party?",
+              "description": "You do not need to use any special wording. The key is to be clear about the information you might be expecting from the other party.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{InfoRequired} = 'y'"
+            }
+            
+                      
+          ]
+        }
+      ],
+      "title": "Disclosure of information"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
