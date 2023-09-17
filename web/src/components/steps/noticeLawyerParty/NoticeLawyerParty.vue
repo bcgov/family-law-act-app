@@ -5,9 +5,10 @@
             
             <div class="m-3">               
                 <p>
-                    I understand I must give notice of my Notice of Lawyer for Party to each party. 
-                    To give notice, they must be served or provided with a copy of the filed 
-                    document at as soon as possible. 
+                    I understand I must give notice of my Notice of Lawyer for 
+                    Party to each other party. To give notice, they must be 
+                    served or provided with a copy of the filed document as 
+                    soon as possible. 
                 </p>
               
                 <b-form-checkbox 
@@ -39,7 +40,6 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-// import { togglePages } from '@/components/utils/TogglePages';
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
@@ -97,9 +97,7 @@ export default class NoticeLawyerParty extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-
-            // this.setPages();
+        this.survey.onValueChanged.add((sender, options) => {            
 
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
@@ -114,8 +112,7 @@ export default class NoticeLawyerParty extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
         if (this.step.result?.noticeLawyerPartySurvey) {            
-            this.survey.data = this.step.result.noticeLawyerPartySurvey.data;   
-            // this.setPages();         
+            this.survey.data = this.step.result.noticeLawyerPartySurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
             this.survey.setValue('otherPartyInfoNlp',[]) 
@@ -127,22 +124,6 @@ export default class NoticeLawyerParty extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
-
-    // public setPages() {
-
-    //     const p = this.stPgNo.NDT;
-    //     const noticeNlpcontinuancePagesAll = [p.NlpcontinuanceInformation, p.MoreInformation, p.ReviewYourAnswersNDT]
-
-    //     if (this.survey.data) {
-
-    //         const surveyResponses = this.survey.data;
-
-    //         const canContinue = surveyResponses.Filed == 'y';
-
-    //         togglePages(noticeNlpcontinuancePagesAll, canContinue, this.currentStep);            
-    //         this.disableNextButton = !canContinue;
-    //     }
-    // }
 
     public mergeRespondants(){
         const respondentNames =[]

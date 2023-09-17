@@ -44,13 +44,20 @@
                 hint="(firm name, if applicable)" 
                 :italicHint="false" :text="lawyerInformation.firmName"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                am the lawyer for the following party/parties:
+                am the
             </div>  
+            <div style="text-indent:5px;font-size: 9pt;margin-top: 0.5rem;"> 
+                lawyer for the following party/parties:
+            </div>
+
+            <div style="text-indent:5px;font-size: 9pt;margin-top: 0.5rem;"> 
+                <i>Provide the full name of each party the lawyer is representing</i>
+            </div>
             
             <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                style="text-indent:2px;font-size: 9pt; margin-left:1rem;" 
                 textwidth="32rem" 
-                beforetext="<i>Provide the full name of each party the lawyer is representing</i>" 
+                beforetext="" 
                 hint=""
                 :italicHint="false" 
                 :text="otherParties"/>     
@@ -64,13 +71,7 @@
     <section>
         <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
             I will be representing the party/parties identified in section 1 as follows:
-        </div> 
-        <!-- <underline-form 
-            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-            textwidth="17rem" 
-            beforetext="I will be representing the party/parties identified in section 1 as follows:" 
-            hint="" 
-            :italicHint="false" :text="yourInfo.name | getFullName"/> -->
+        </div>         
 
         <div style="margin-top: 0.5rem;"></div>
 
@@ -82,7 +83,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="listOfIssues.includes('allIssues')?'yes':''" text="on all issues until further notice to the court"/>
+                :check="allIssues?'yes':''" text="on all issues until further notice to the court"/>
         </div>
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
             <check-box 
@@ -199,7 +200,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="true?'yes':''" 
+                :check="!addressChanged?'yes':''" 
                 text="There are no changes to the contact information or address for service of court documents on file"/>
         </div>
         <div class="marginleft2p5vue" style="margin:0.25rem 0 0.5rem 1.5rem;">
@@ -209,7 +210,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline;"
-                :check="true?'yes':''" 
+                :check="addressChanged?'yes':''" 
                 text="The contact information and address for service of court documents are:"/>
         </div>
 
@@ -283,12 +284,13 @@ export default class Form42Layout extends Vue {
     lawyerInformation = {} as lawyerInformationInfoDataInfoType; 
     
     otherParties = '';
+    allIssues = false;
+    addressChanged = false;
     listOfIssues = [];    
     otherComment = '';    
     applicationAboutComment = '';
     courtDocumentsPreparationComment = '';
     specifiedIssuesComment = '';
-
    
     mounted(){
         this.dataReady = false;
@@ -306,8 +308,10 @@ export default class Form42Layout extends Vue {
     public getNoticeLawyerPartyInfo(){  
         
         this.lawyerInformation = {} as lawyerInformationInfoDataInfoType;  
-        this.otherParties = '';        
-
+        this.otherParties = '';  
+        
+        this.allIssues = false;
+        this.addressChanged = false;
         this.listOfIssues = [];   
         this.otherComment = '';    
         this.applicationAboutComment = '';
@@ -317,7 +321,7 @@ export default class Form42Layout extends Vue {
         if(this.result?.noticeLawyerPartySurvey){
 
             let noticeLawyerParty = {} as noticeLawyerPartyDataInfoType;
-            noticeLawyerParty = this.result.noticeLawyerPartySurvey;    
+            noticeLawyerParty = this.result.noticeLawyerPartySurvey; 
 
             this.getLawyerInformationResults(noticeLawyerParty);
 
@@ -326,35 +330,54 @@ export default class Form42Layout extends Vue {
                 otherParties.push(Vue.filter('getFullName')(otherParty.name))
             }      
 
-            this.otherParties = otherParties.join(', ')           
-
-            this.listOfIssues = noticeLawyerParty.IssuesList?.checked?noticeLawyerParty.IssuesList.checked:[];
-            if (this.listOfIssues.includes("other")){
-                this.otherComment = noticeLawyerParty.IssuesList?.otherComment?noticeLawyerParty.IssuesList.otherComment:'';
-            }      
+            this.otherParties = otherParties.join(', ')        
             
-            if (this.listOfIssues.includes("specifiedIssues")){
-                this.specifiedIssuesComment = noticeLawyerParty.IssuesList?.specifiedIssuesComment?noticeLawyerParty.IssuesList.specifiedIssuesComment:'';
-            }  
+            this.allIssues = noticeLawyerParty.RepresentingOnAllIssues == 'y';
 
-            if (this.listOfIssues.includes("courtDocumentsPreparation")){
-                this.courtDocumentsPreparationComment = noticeLawyerParty.IssuesList?.courtDocumentsPreparationComment?noticeLawyerParty.IssuesList.courtDocumentsPreparationComment:'';
-            }  
+            if (!this.allIssues){
 
-            if (this.listOfIssues.includes("applicationAbout")){
-                this.applicationAboutComment = noticeLawyerParty.IssuesList?.applicationAboutComment?noticeLawyerParty.IssuesList.applicationAboutComment:'';
-            }  
+                this.listOfIssues = noticeLawyerParty.IssuesList?.checked?noticeLawyerParty.IssuesList.checked:[];
+                if (this.listOfIssues.includes("other")){
+                    this.otherComment = noticeLawyerParty.IssuesList?.otherComment?noticeLawyerParty.IssuesList.otherComment:'';
+                }      
+                
+                if (this.listOfIssues.includes("specifiedIssues")){
+                    this.specifiedIssuesComment = noticeLawyerParty.IssuesList?.specifiedIssuesComment?noticeLawyerParty.IssuesList.specifiedIssuesComment:'';
+                }  
+
+                if (this.listOfIssues.includes("courtDocumentsPreparation")){
+                    this.courtDocumentsPreparationComment = noticeLawyerParty.IssuesList?.courtDocumentsPreparationComment?noticeLawyerParty.IssuesList.courtDocumentsPreparationComment:'';
+                }  
+
+                if (this.listOfIssues.includes("applicationAbout")){
+                    this.applicationAboutComment = noticeLawyerParty.IssuesList?.applicationAboutComment?noticeLawyerParty.IssuesList.applicationAboutComment:'';
+                }  
+            }
+            
         }             
     }
 
-    public getLawyerInformationResults(noticeLawyerParty: noticeLawyerPartyDataInfoType) {               
+    public getLawyerInformationResults(noticeLawyerParty: noticeLawyerPartyDataInfoType) {  
+        
+        if (noticeLawyerParty.AddressChanges && noticeLawyerParty.AddressChanges.includes('true')){
+            this.addressChanged = false;
+            this.lawyerInformation = {
+                firmName: noticeLawyerParty.FirmName?noticeLawyerParty.FirmName:'',
+                lawyerName: noticeLawyerParty.ApplicantName?noticeLawyerParty.ApplicantName:{} as nameInfoType,
+                address: {} as addressInfoType,
+                contact: {} as contactInfoType
+            }
+        } else {
+            this.addressChanged = true;
+            this.lawyerInformation = {
+                firmName: noticeLawyerParty.FirmName?noticeLawyerParty.FirmName:'',
+                lawyerName: noticeLawyerParty.ApplicantName?noticeLawyerParty.ApplicantName:{} as nameInfoType,
+                address: noticeLawyerParty.LawyerAddressNlp?noticeLawyerParty.LawyerAddressNlp:{} as addressInfoType,
+                contact: noticeLawyerParty.LawyerContact?noticeLawyerParty.LawyerContact:{} as contactInfoType
+            }
+        }
 
-        this.lawyerInformation = {
-            firmName: noticeLawyerParty.FirmName?noticeLawyerParty.FirmName:'',
-            lawyerName: noticeLawyerParty.ApplicantName?noticeLawyerParty.ApplicantName:{} as nameInfoType,
-            address: noticeLawyerParty.LawyerAddressNlp?noticeLawyerParty.LawyerAddressNlp:{} as addressInfoType,
-            contact: noticeLawyerParty.LawyerContact?noticeLawyerParty.LawyerContact:{} as contactInfoType
-        }          
+              
     }
  
 }

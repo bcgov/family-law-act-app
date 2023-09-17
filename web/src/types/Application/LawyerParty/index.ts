@@ -3,13 +3,15 @@ import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from
 export interface noticeLawyerPartyDataInfoType {    
     ApplicantName?: nameInfoType;  
     FirmName?: string;  
-    IssuesList?: issuesListInfoType;    
+    RepresentingOnAllIssues?: string;
+    IssuesList?: issuesListNlpInfoType;
+    AddressChanges?: string[];    
     LawyerAddressNlp?: addressInfoType;
     LawyerContact?: contactInfoType;
     OtherPartyInfoNlp?: noticeLawyerPartyOtherPartyInfoType[];
 }  
 
-export interface issuesListInfoType {   
+export interface issuesListNlpInfoType {   
     otherComment?: string;    
     applicationAboutComment?: string;
     courtDocumentsPreparationComment?: string;

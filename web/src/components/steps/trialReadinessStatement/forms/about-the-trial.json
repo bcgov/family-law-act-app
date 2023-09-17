@@ -49,10 +49,10 @@
               "name": "TrialTimeStatement",              
               "title": "Trial Time",
               "titleLocation":"hidden",
-              "inputNames":"{dayCountOne},{dayCountTwo}",
+              "inputNames":"{hourCount},{dayCount}",
               "inputTypes":"{number},{number}",
               "inputWidths":"{5rem},{5rem}",                  
-              "textBeforeInputs":"{I believe the trial will take },{or},{ days.}",
+              "textBeforeInputs":"{I believe the trial will take },{hours or},{ days.}",
               "textClass": "sv_q_title font-weight-bold",
               "isRequired": true
             },

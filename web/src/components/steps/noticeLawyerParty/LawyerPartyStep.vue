@@ -1,8 +1,6 @@
 <template>
     <step-base v-bind:step="step">    
         <notice-lawyer-party      v-bind:step="step"     v-if="step.currentPage == stPgNo.NLP.NoticeLawyerParty" />
-        <!-- <lawyer-party-information v-bind:step="step"     v-if="step.currentPage == stPgNo.NLP.LawyerPartyInformation" />
-        <more-information-nlp     v-bind:step="step"     v-if="step.currentPage == stPgNo.NLP.MoreInformationNLP" /> -->
         <review-your-answers-nlp  v-bind:step="step"     v-if="step.currentPage == stPgNo.NLP.ReviewYourAnswersNLP"/>
         <preview-forms-nlp        v-bind:step="step"     v-if="step.currentPage == stPgNo.NLP.PreviewFormsNLP"/> 
     </step-base>
@@ -17,8 +15,6 @@ const applicationState = namespace("Application");
 
 import StepBase from "../StepBase.vue";
 import NoticeLawyerParty from "./NoticeLawyerParty.vue";
-// import LawyerPartyInformation from "./LawyerPartyInformation.vue";
-// import MoreInformationNlp from "./MoreInformationNLP.vue";
 import ReviewYourAnswersNlp from "./reviewNLP/ReviewYourAnswersNLP.vue";
 import PreviewFormsNlp from "./reviewNLP/PreviewFormsNLP.vue";
 
@@ -28,9 +24,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 @Component({
     components:{
         StepBase,        
-        NoticeLawyerParty,        
-        // LawyerPartyInformation,
-        // MoreInformationNlp,
+        NoticeLawyerParty,
         ReviewYourAnswersNlp,
         PreviewFormsNlp        
     }
