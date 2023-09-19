@@ -2,9 +2,13 @@ import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from
 
 export interface noticeRemoveLawyerPartyDataInfoType {
     ApplicantName?: nameInfoType;
-    OtherPartyInfoNlpr?: noticeRemoveLawyerPartyOtherPartyInfoType[];    
+    ApplicantType?: string;
+    OtherPartyInfoNlpr?: noticeRemoveLawyerPartyOtherPartyInfoType[];   
+    LawyerName?: string; 
+    EffectiveDate?: string;
+    AddressChanges?: string[];    
     LawyerAddressNlpr?: addressInfoType;
-    LawyerContact?: contactInfoType;
+    LawyerContactNlpr?: contactInfoType;
 }
 
 export interface noticeRemoveLawyerPartySurveyInfoType {

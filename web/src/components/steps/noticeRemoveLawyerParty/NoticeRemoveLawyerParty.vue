@@ -5,10 +5,9 @@
             
             <div class="m-3">               
                 <p>
-                    I understand I must give notice of my Notice of Removal 
-                    of Lawyer for Child to each party. To give notice, they 
-                    must be served or provided with a copy of the filed document 
-                    at as soon as possible. 
+                    I understand I must give notice of my Notice of Removal of Lawyer for Party 
+                    to each party. To give notice, they must be served or provided with a copy 
+                    of the filed document at as soon as possible. 
                 </p>
               
                 <b-form-checkbox 
@@ -40,7 +39,6 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-// import { togglePages } from '@/components/utils/TogglePages';
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
@@ -100,8 +98,6 @@ export default class NoticeRemoveLawyerParty extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
 
-            // this.setPages();
-
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
                 this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
@@ -116,7 +112,7 @@ export default class NoticeRemoveLawyerParty extends Vue {
 
         if (this.step.result?.noticeRemoveLawyerPartySurvey) {            
             this.survey.data = this.step.result.noticeRemoveLawyerPartySurvey.data;   
-            // this.setPages();         
+                 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
             this.survey.setValue('otherPartyInfoNlpr',[]) 
@@ -128,22 +124,6 @@ export default class NoticeRemoveLawyerParty extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
-
-    // public setPages() {
-
-    //     const p = this.stPgNo.NLPR;
-    //     const noticeRemoveLawyerPartyPagesAll = [p.RemoveLawyerPartyInformation, p.MoreInformationNLPR, p.ReviewYourAnswersNLPR]
-
-    //     if (this.survey.data) {
-
-    //         const surveyResponses = this.survey.data;
-
-    //         const canContinue = surveyResponses.Filed == 'y';
-
-    //        togglePages(noticeRemoveLawyerPartyPagesAll, canContinue, this.currentStep);            
-    //         this.disableNextButton = !canContinue;
-    //     }
-    // }
 
     public mergeRespondants(){
         const respondentNames =[]
@@ -211,7 +191,6 @@ export default class NoticeRemoveLawyerParty extends Vue {
             }
         })    
         
-       // this.UpdateStepResultData({step:this.step, data: {noticeRemoveLawyerPartySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

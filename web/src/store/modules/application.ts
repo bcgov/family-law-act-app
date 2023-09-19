@@ -2272,24 +2272,8 @@ class Application extends VuexModule {
         p.label = "Notice of Lawyer for Party";
         p.active = true;
         p.progress = 0;    
-        s.pages.push(p);        
-
-        // p = {} as pageInfoType;
-        // p.key = "1";
-        // p.name = "LawyerPartyInformation";
-        // p.label = "Notice of Lawyer for Party Information ";        
-        // p.active = true;
-        // p.progress = 0;    
-        // s.pages.push(p);   
+        s.pages.push(p);       
         
-        // p = {} as pageInfoType;
-        // p.key = "2";        
-        // p.name = "MoreInformationNLP";
-        // p.label = "More Information";
-        // p.active = false;
-        // p.progress = 0;    
-        // s.pages.push(p);
-
         //____________Review
         p = {} as pageInfoType;
         p.key = "1";

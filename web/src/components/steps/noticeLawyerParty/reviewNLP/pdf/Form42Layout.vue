@@ -294,7 +294,6 @@ export default class Form42Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }

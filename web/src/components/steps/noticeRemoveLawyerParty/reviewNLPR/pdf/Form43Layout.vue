@@ -48,19 +48,19 @@
                     textwidth="10rem" 
                     beforetext="" 
                     hint="(full name of lawyer)" 
-                    :text="applicantName | getFullName"/>   
+                    :text="applicantLawyer?applicantFullName:''"/>   
                 <underline-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt;" 
                     textwidth="17rem" 
                     beforetext="am no longer representing" 
                     hint="(full name of party/parties)" 
-                    :italicHint="false" :text="otherParties"/>
+                    :italicHint="false" :text="applicantLawyer?otherParties:''"/>
                 <underline-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 0.5rem;" 
                     textwidth="17rem" 
                     beforetext="on this case effective"
                     hint="(mmm/dd/yyyy)" 
-                    :italicHint="false" :text="effectiveDate | beautify-date"/>
+                    :italicHint="false" :text="applicantLawyer?effectiveDate:''"/>
             </div>
 
             <div class="marginleft2p5vue" style="margin:0.5rem 0 0 1.5rem;">
@@ -77,19 +77,19 @@
                     textwidth="10rem" 
                     beforetext="" 
                     hint="(full name of party)" 
-                    :text="applicantName | getFullName"/>   
+                    :text="!applicantLawyer?applicantFullName:''"/>   
                 <underline-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt;" 
                     textwidth="17rem" 
                     beforetext="am no longer represented by" 
                     hint="(full name of lawyer)" 
-                    :italicHint="false" :text="lawyerName | getFullName"/>
+                    :italicHint="false" :text="!applicantLawyer?lawyerName:''"/>
                 <underline-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 0.5rem;" 
                     textwidth="17rem" 
                     beforetext="on this case effective"
                     hint="(mmm/dd/yyyy)" 
-                    :italicHint="false" :text="effectiveDate | beautify-date"/>
+                    :italicHint="false" :text="!applicantLawyer?effectiveDate:''"/>
             </div>
         </section>
            
@@ -124,7 +124,7 @@
 
         <table class="compactfullsize" style="font-size: 9pt;">
             <tr style="border:1px solid #414142" >
-                <td colspan="3">Lawyer name (if applicable): <div class="answer"> {{contactInfo.lawyerName | getFullName}}</div></td>
+                <td colspan="3">Lawyer name (if applicable): <div class="answer" v-if="contactInfoChanged"> {{contactInfo.lawyerName | getFullName}}</div></td>
             </tr>
             <tr style="border:1px solid #414142">          
                 <td colspan="3">Address: <div class="answer">{{contactInfo.address.street}} </div> </td>
@@ -191,6 +191,7 @@ export default class Form43Layout extends Vue {
     existingFileNumber = '';
     acknowledgeService = false; 
     applicantLawyer = false;
+    applicantFullName = '';
     lawyerName = '';
     effectiveDate = '';
     contactInfoChanged = false; 
@@ -199,7 +200,6 @@ export default class Form43Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
@@ -207,12 +207,14 @@ export default class Form43Layout extends Vue {
     public extractInfo(){        
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
         this.acknowledgeService = this.result.otherPartyNLPRConfirmationSurvey?.confirmation == 'Confirmed';
+        this.applicantFullName = this.applicantName?Vue.filter('getFullName')(this.applicantName):'';
         this.getNoticeRemoveLawyerPartyInfo();  
     } 
 
     public getNoticeRemoveLawyerPartyInfo(){  
         
         this.applicantLawyer = false;
+        
         this.lawyerName = '';
         this.effectiveDate = '';
         this.contactInfoChanged = false; 
@@ -222,25 +224,46 @@ export default class Form43Layout extends Vue {
         if(this.result?.noticeRemoveLawyerPartySurvey){
 
             let noticeRemoveLawyerParty = {} as noticeRemoveLawyerPartyDataInfoType;
-            noticeRemoveLawyerParty = this.result.noticeRemoveLawyerPartySurvey;    
+            noticeRemoveLawyerParty = this.result.noticeRemoveLawyerPartySurvey;  
+
+            this.applicantLawyer = noticeRemoveLawyerParty.ApplicantType == 'Lawyer';
+            this.effectiveDate = noticeRemoveLawyerParty.EffectiveDate?Vue.filter('beautify-date')(noticeRemoveLawyerParty.EffectiveDate):'';
+
+            if (this.applicantLawyer){
+
+                const otherParties = [];
+                for (const otherParty of noticeRemoveLawyerParty.OtherPartyInfoNlpr){
+                    otherParties.push(Vue.filter('getFullName')(otherParty.name))
+                }
+                this.otherParties = otherParties.join(', ');
+
+            } else {
+                this.lawyerName = noticeRemoveLawyerParty?.LawyerName?noticeRemoveLawyerParty.LawyerName:'';
+            }    
 
             this.getContactInformationResults(noticeRemoveLawyerParty);
-
-            const otherParties = [];
-            for (const otherParty of noticeRemoveLawyerParty.OtherPartyInfoNlpr){
-                otherParties.push(Vue.filter('getFullName')(otherParty.name))
-            }
-            this.otherParties = otherParties.join(', ');
         }             
     }
 
-    public getContactInformationResults(noticeRemoveLawyerParty: noticeRemoveLawyerPartyDataInfoType) {               
-
-        this.contactInfo = {
-            lawyerName: noticeRemoveLawyerParty.ApplicantName?noticeRemoveLawyerParty.ApplicantName:{} as nameInfoType,
-            address: noticeRemoveLawyerParty.LawyerAddressNlpr?noticeRemoveLawyerParty.LawyerAddressNlpr:{} as addressInfoType,
-            contact: noticeRemoveLawyerParty.LawyerContact?noticeRemoveLawyerParty.LawyerContact:{} as contactInfoType
-        }          
+    public getContactInformationResults(noticeRemoveLawyerParty: noticeRemoveLawyerPartyDataInfoType) {    
+        
+        
+        if (noticeRemoveLawyerParty.AddressChanges && noticeRemoveLawyerParty.AddressChanges.includes('true')){
+            this.contactInfoChanged = false;
+            this.contactInfo = {
+                lawyerName: {} as nameInfoType,
+                address: {} as addressInfoType,
+                contact: {} as contactInfoType
+            } 
+        } else {
+            this.contactInfoChanged = true;
+            this.contactInfo = {
+                lawyerName: noticeRemoveLawyerParty.ApplicantName?noticeRemoveLawyerParty.ApplicantName:{} as nameInfoType,
+                address: noticeRemoveLawyerParty.LawyerAddressNlpr?noticeRemoveLawyerParty.LawyerAddressNlpr:{} as addressInfoType,
+                contact: noticeRemoveLawyerParty.LawyerContactNlpr?noticeRemoveLawyerParty.LawyerContactNlpr:{} as contactInfoType
+            } 
+        }
+               
     }    
  
 }
