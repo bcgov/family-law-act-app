@@ -20,13 +20,14 @@ export interface stepsAndPagesNumberInfoType{
     CONNECT: CONNECTstPgTypes;
     OTHER: OTHERstPgTypes;
     NCD: NCDstPgTypes;
-    NDT: NDTstPgTypes;
+    NDT: NDTstPgTypes;    
     NPR: NPRstPgTypes;    
     RQS: RQSstPgTypes;
     TRIS: TRISstPgTypes;
     NLC: NLCstPgTypes;
     NLCR: NLCRstPgTypes;
     NLP: NLPstPgTypes;
+    NLPR: NLPRstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -365,6 +366,16 @@ export interface NLPstPgTypes{
     // MoreInformationNLP: number;
     ReviewYourAnswersNLP: number;
     PreviewFormsNLP: number;
+}
+
+export interface NLPRstPgTypes{
+    _StepNo: number;
+
+    NoticeRemoveLawyerParty: number;
+    // RemoveLawyerPartyInformation: number;
+    // MoreInformationNLPR: number;
+    ReviewYourAnswersNLPR: number;
+    PreviewFormsNLPR: number;
 }
 
 export interface SUBMITstPgTypes{

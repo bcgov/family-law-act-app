@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.18.2";
+    const CURRENT_VERSION = "1.2.19";
     //__________________________
     //___________________________
     //___________________________
@@ -752,13 +752,14 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepCM = store.state.Application.stPgNo.CM;
 		const stepENFRC = store.state.Application.stPgNo.ENFRC;
 		const stepNCD = store.state.Application.stPgNo.NCD;
-		const stepNDT = store.state.Application.stPgNo.NDT;
+		const stepNDT = store.state.Application.stPgNo.NDT;		
 		const stepNPR = store.state.Application.stPgNo.NPR;		
         const stepRQS = store.state.Application.stPgNo.RQS;
 		const stepTRIS = store.state.Application.stPgNo.TRIS;
 		const stepNLC = store.state.Application.stPgNo.NLC;
         const stepNLCR = store.state.Application.stPgNo.NLCR;
         const stepNLP = store.state.Application.stPgNo.NLP;	
+        const stepNLPR = store.state.Application.stPgNo.NLPR;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -841,6 +842,12 @@ Vue.filter('surveyChanged', function(type: string) {
 			reviewPage = stepNLP.ReviewYourAnswersNLP; 
 			previewPages = [stepNLP.PreviewFormsNLP];
 		}
+		else if(typeName == 'noticeRemoveLawyerParty'){
+			step = stepNLPR._StepNo; 
+			reviewPage = stepNLPR.ReviewYourAnswersNLPR; 
+			previewPages = [stepNLPR.PreviewFormsNLPR];
+		}
+		
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
@@ -862,7 +869,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty']
 	
 	if(type == 'allExPO'){
         
@@ -878,12 +885,13 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.other = false;	
 		pathwayCompleted.noticeOfAddressChange = false;
 		pathwayCompleted.noticeDiscontinuance = false; 
-		pathwayCompleted.noticeIntentionProceed = false;
+		pathwayCompleted.noticeIntentionProceed = false;		
 		pathwayCompleted.requestScheduling = false;
 		pathwayCompleted.trialReadinessStatement = false;
         pathwayCompleted.noticeLawyerChild = false;
         pathwayCompleted.noticeRemoveLawyerChild = false;	
         pathwayCompleted.noticeLawyerParty = false;	
+        pathwayCompleted.noticeRemoveLawyerParty = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

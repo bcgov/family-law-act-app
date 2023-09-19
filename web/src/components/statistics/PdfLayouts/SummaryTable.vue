@@ -81,6 +81,10 @@
                         <b-td class="text-center">{{applicationDetailsInfo.NLP.total}}</b-td>                                          
                     </b-tr>
                     <b-tr>                        
+                        <b-th>Notice of Removal of Lawyer for Party</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.NLPR.total}}</b-td>                                          
+                    </b-tr>
+                    <b-tr>                        
                         <b-th>Other Applications</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.OTHER.total}}</b-td>                                          
                     </b-tr>

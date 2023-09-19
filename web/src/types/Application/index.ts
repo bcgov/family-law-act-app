@@ -27,6 +27,7 @@ import { aboutTheTrialSurveyInfoType, backgroundTrisSurveyInfoType, disclosureOf
 import { noticeLawyerChildSurveyInfoType, otherPartyNLCConfirmationSurveyInfoType } from "./LawyerChild";
 import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerChild";
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
+import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 
 
 //This is what our database saves.
@@ -282,7 +283,8 @@ export interface stepInfoType {
     noticeIntentionProceedSurvey?: noticeIntentionProceedSurveyInfoType;    
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
-    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;     
+    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
+         
     
     //_____Step 14 REQUEST FOR SCHEDULING_____________    
     requestForSchedulingSurvey?: requestForSchedulingSurveyInfoType;
@@ -316,8 +318,13 @@ export interface stepInfoType {
     // lawyerPartyInformationSurvey?: any;// lawyerPartyInformationInfoType;
     // moreInformationNlpSurvey?: any; //moreInformationNlpSurveyInfoType;
     otherPartyNLPConfirmationSurvey? : otherPartyNLPConfirmationSurveyInfoType;   
+
+
+    //_____Step 19 NOTICE OF REMOVAL OF LAWYER FOR PARTY_____________    
+    noticeRemoveLawyerPartySurvey?: noticeRemoveLawyerPartySurveyInfoType; 
+    otherPartyNLPRConfirmationSurvey? : otherPartyNLPRConfirmationSurveyInfoType;
     
-    //__Step 19 SUBMIT
+    //__Step 20 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -334,10 +341,11 @@ export interface stepInfoType {
     other?: boolean;
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
-    noticeIntentionProceed?: boolean;   
+    noticeIntentionProceed?: boolean;
     requestScheduling?: boolean;
     trialReadinessStatement?: boolean;
     noticeLawyerChild?: boolean;
     noticeRemoveLawyerChild?: boolean;
     noticeLawyerParty?: boolean;
+    noticeRemoveLawyerParty?: boolean; 
   }
