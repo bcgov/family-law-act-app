@@ -5,23 +5,25 @@
         "name": "Notice of Lawyer for Party",
         "description": "<a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section161'>Rule 163</a> says that a lawyer may start representing a party in a case when the party or the lawyer:<br><ul><li>provides the lawyer's contact information and address for service of documents on an application or reply.</li><li>files and serves on each party a Notice of Lawyer for Party in Form 42.</li></ul>A lawyer may represent a party for all issues in a case or for unbundled services/limited representation.",
         "elements": [
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice1",
+                "title": "What is unbundled services/limited representation?",
+                "titleLocation": "hidden",              
+                "body": "Unbundled services or limited representation is when a lawyer provides legal services for certain parts of your family law problem.  You and the lawyer will work together to decide which parts the lawyer helps with which parts you will do yourself. This may include having a lawyer only draft your court forms, or maybe only represent you during a specific court appearance."
+            },
+            {
+            "type": "html",
+            "name": "pageIntro",
+            "title": "",
+            "html": "<div style='margin: 0rem 0 -1.0rem 0'><div style='font-weight: normal;font-size: 1.0em;' >Are you a lawyer representing a party in a family law case?<br>Use this pathway to complete your Notice of Lawyer for Party.<br><br>Note: If you have already identified yourself as a lawyer for the party on a filed application or reply, you do not need to also file a Notice of Lawyer for Party.</div></div>"
+            }, 
           {
             "type": "panel",
             "name": "ApplicantPanel",
             "elements": [
-              {
-                  "type": "helptext",
-                  "name": "FAQLegalAdvice1",
-                  "title": "What is unbundled services/limited representation?",
-                  "titleLocation": "hidden",              
-                  "body": "Unbundled services or limited representation is when a lawyer provides legal services for certain parts of your family law problem.  You and the lawyer will work together to decide which parts the lawyer helps with which parts you will do yourself. This may include having a lawyer only draft your court forms, or maybe only represent you during a specific court appearance."
-            },
-              {
-                  "type": "html",
-                  "name": "pageIntro",
-                  "title": "",
-                  "html": "<div style='margin: 0rem 0 -1.0rem 0'><div style='font-weight: normal;font-size: 1.0em;' >Are you a lawyer representing a party in a family law case?<br><br>Use this pathway to complete your Notice of Lawyer for Party.<br><br>Note: If you have already identified yourself as a lawyer for the party on a filed application or reply, you do not need to also file a Notice of Lawyer for Party.</div></div>"
-              }, 
+              
+              
               {
                 "type": "panel",
                 "name": "ApplicantContactPanel",              
