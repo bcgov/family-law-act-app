@@ -26,6 +26,8 @@ import { interimOrderSurveyInfoType, nextAppearanceSurveyInfoType, otherPartyRQS
 import { aboutTheTrialSurveyInfoType, backgroundTrisSurveyInfoType, disclosureOfInformationSurveyInfoType, issuesForTrialSurveyInfoType, ordersAtTpcSurveyInfoType, peopleAtTrialSurveyInfoType, requirementsAndConsiderationsSurveyInfoType, trialReadinessStatementSurveyInfoType, witnessesSurveyInfoType } from "./TrialReadinessStatement";
 import { noticeLawyerChildSurveyInfoType, otherPartyNLCConfirmationSurveyInfoType } from "./LawyerChild";
 import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerChild";
+import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
+import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 
 
 //This is what our database saves.
@@ -281,7 +283,8 @@ export interface stepInfoType {
     noticeIntentionProceedSurvey?: noticeIntentionProceedSurveyInfoType;    
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
-    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;     
+    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType; 
+         
     
     //_____Step 14 REQUEST FOR SCHEDULING_____________    
     requestForSchedulingSurvey?: requestForSchedulingSurveyInfoType;
@@ -310,12 +313,22 @@ export interface stepInfoType {
     noticeRemoveLawyerChildSurvey?: noticeRemoveLawyerChildSurveyInfoType;
     otherPartyNLCRConfirmationSurvey? : otherPartyNLCRConfirmationSurveyInfoType;
 
-    //_____Step xx AFFIDAVIT_____________    
+    
+    //_____Step 18 NOTICE OF LAWYER FOR PARTY_____________    
+    noticeLawyerPartySurvey?: noticeLawyerPartySurveyInfoType;
+    otherPartyNLPConfirmationSurvey? : otherPartyNLPConfirmationSurveyInfoType;   
+
+
+    //_____Step 19 NOTICE OF REMOVAL OF LAWYER FOR PARTY_____________    
+    noticeRemoveLawyerPartySurvey?: noticeRemoveLawyerPartySurveyInfoType; 
+    otherPartyNLPRConfirmationSurvey? : otherPartyNLPRConfirmationSurveyInfoType;
+
+    //_____Step 20 AFFIDAVIT_____________    
     affidavitSurvey?: any;// affidavitSurveyInfoType;    
     affidavitInformationSurvey?: any;// affidavitInformationInfoType;
     moreInformationAffSurvey?: any; //moreInformationAffSurveyInfoType;
     
-    //__Step 18 SUBMIT
+    //__Step 21 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -338,4 +351,6 @@ export interface stepInfoType {
     noticeLawyerChild?: boolean;
     noticeRemoveLawyerChild?: boolean;
     affidavit?: boolean;
+    noticeLawyerParty?: boolean;
+    noticeRemoveLawyerParty?: boolean; 
   }

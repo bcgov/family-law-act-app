@@ -79,6 +79,8 @@ def application_details(applications):
         "NLC":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "NLCR":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "AFF":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "NLP":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "NLPR":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0}
     }
     stat_keys = list(stat.keys())
 
@@ -107,6 +109,8 @@ def application_details(applications):
             "NLC":["NLC"],
             "NLCR":["NLCR"],
             "AFF":["AFF"],
+            "NLP":["NLP"],
+            "NLPR":["NLPR"]
         }
 
         for step in steps:

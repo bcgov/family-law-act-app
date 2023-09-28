@@ -58,11 +58,13 @@ class Application extends VuexModule {
         other: false,
         noticeOfAddressChange: false,
         noticeDiscontinuance: false,
-        noticeIntentionProceed: false,
+        noticeIntentionProceed: false,        
         requestScheduling: false,
         trialReadinessStatement: false,   
         noticeLawyerChild: false,
-        noticeRemoveLawyerChild: false,
+        noticeRemoveLawyerChild: false,                    
+        noticeLawyerParty: false,
+        noticeRemoveLawyerParty: false,
         affidavit: false             
     }
 
@@ -2250,13 +2252,100 @@ class Application extends VuexModule {
 
         this.steps.push(s);
 
-        // Notice of Removal of Lawyer for Child STOP              
+        // Notice of Removal of Lawyer for Child STOP
+
+        
+        // Notice of Lawyer for Party START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "20";
+        s.name = "NLP";
+        s.label = "Notice of Lawyer for Party";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "lawyerParty";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeLawyerParty";
+        p.label = "Notice of Lawyer for Party";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+        
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersNLP";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsNLP";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Notice of Lawyer for Party STOP
+
+
+        // Notice of Removal of Lawyer for Party START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "21";
+        s.name = "NLPR";
+        s.label = "Notice of Removal of Lawyer for Party";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "removeLawyerParty";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeRemoveLawyerParty";
+        p.label = "Notice of Removal of Lawyer for Party";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+       
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersNLPR";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsNLPR";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Notice of Removal of Lawyer for Party STOP
+
 
         // Affidavit START
 
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "20";
+        s.id = "22";
         s.name = "AFF";
         s.label = "Affidavit";
         s.icon = "fas fa-file-contract";
@@ -2310,10 +2399,11 @@ class Application extends VuexModule {
 
         // Affidavit STOP
 
+
         //Submit START
         s = {} as stepInfoType;
-        s.active = false;
-        s.id = "21";
+        s.active = false;        
+        s.id = "23";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2388,7 +2478,6 @@ class Application extends VuexModule {
         this.steps.push(s);
     
         //Submit STOP
-        //console.log(this.steps)
         
     }
     @Action
@@ -2507,7 +2596,6 @@ class Application extends VuexModule {
         this.context.commit("setRequiredDocumentsByType", {typeOfRequiredDocuments, requiredDocuments });
         this.context.commit("setCommonStepResults",{data:{'requiredDocuments':this.requiredDocuments}});
     }
-
 
     @Mutation
     public setRflmRequiredDocsRequests(rflmRequiredDocsRequests): void {
@@ -2831,7 +2919,8 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, AFF: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        // const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           
