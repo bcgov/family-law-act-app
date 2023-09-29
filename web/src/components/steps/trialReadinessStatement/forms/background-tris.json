@@ -35,7 +35,7 @@
               "type": "multiplecommentcheckbox",
               "name": "ExistingCourtOrder",              
               "title": "Is there an existing court `order`, involving one or more of the parties and/or the child(ren), about any of the following?",
-              "description" : "To properly consider an issue, the court should be aware of all relevant information, including other court orders involving the parties or the children.<br>Select all options that applies and provide the requested information.",
+              "description" : "To properly consider an issue, the court should be aware of all relevant information, including other court orders involving the parties or the children.<br>Select all options that apply and provide the requested information.",
               "choices": [
                 {"value":"interimOrder",         "comment":false, "tooltipSize":"md",  "text":"`Interim order` about the issue to be determined at trial"},
                 {"value":"childProtectionOrder", "comment":false, "tooltipSize":"",    "text":"Order under the <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01'>Child, Family and Community Service Act</a> (usually about child protection)"},
