@@ -28,6 +28,7 @@ import { noticeLawyerChildSurveyInfoType, otherPartyNLCConfirmationSurveyInfoTyp
 import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerChild";
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
+import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType } from "./Affidavit";
 
 
 //This is what our database saves.
@@ -324,9 +325,11 @@ export interface stepInfoType {
     otherPartyNLPRConfirmationSurvey? : otherPartyNLPRConfirmationSurveyInfoType;
 
     //_____Step 20 AFFIDAVIT_____________    
-    affidavitSurvey?: any;// affidavitSurveyInfoType;    
-    affidavitInformationSurvey?: any;// affidavitInformationInfoType;
-    moreInformationAffSurvey?: any; //moreInformationAffSurveyInfoType;
+    affidavitSurvey?: affidavitSurveyInfoType;    
+    aboutAffiantSurvey?: aboutAffiantSurveyInfoType;
+    yourStoryAffSurvey?: yourStoryAffSurveyInfoType;
+    filingAffSurvey?: filingAffSurveyInfoType;
+
     
     //__Step 21 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

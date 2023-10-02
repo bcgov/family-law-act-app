@@ -1,0 +1,62 @@
+{
+  "title": "Your story",
+  "pages": [
+    {
+      "name": "Your story",
+      "description": "An affidavit is written in the <b>first person</b> (from the writer’s point of view, using “I”) and must include <b>facts</b> – what you saw, heard, did and said – and events that are relevant to the application. It is your story.<br>If certain facts are <b>not within your personal knowledge</b>, you can still include them, but you must identify the source of your information.",
+      "elements": [
+        {
+            "type": "helptext",
+            "name": "FAQLegalAdvice1",
+            "title": "How do I identify the source of my information?",
+            "titleLocation": "hidden",              
+            "body": "If certain facts are not within your personal knowledge, you must identify the source of your information and that you believe the information is true. For example, “On November 29th, 2019, Mrs. Johnson told me Jack was not at school and I believe this to be true.”"
+        },
+        {
+            "type": "html",
+            "name": "storyHeading",            
+            "html": "<div style='margin-bottom:-0.75rem'>If you refer to <b>documents</b>, for example a report card, a letter or email, or a photograph, you must talk about it in your story and state that it is <b>attached as an exhibit</b>. When you bring your affidavit to be sworn or affirmed, you must also bring all your exhibits. Each exhibit will be marked by the commissioner for taking affidavits using a certificate (usually a stamp) with wording like this: “This is Exhibit [A, B, C…] referred to in the affidavit of [name] sworn (or affirmed) before me on [date] at [location]” and is signed by the commissioner for taking affidavits.<br><br>Exhibits must not include an intimate image of any person. Instead a written description of the intimate image may be included. A judge will determine whether to allow the image itself to be introduced. For more information about what an intimate image may include, please see the Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/Practice%20Directions/FAM%2013%20Affidavits%20and%20Exhibits%20for%20use%20in%20Family%20Proceedings.pdf' target='_blank'>FAM13 Practice Direction | Affidavits and Exhibits for use in Family Proceedings</a>.<br><br>Exhibits must be in a printed document format. Exhibits may not be provided on a USB stick or other electronic data storage device including a video or audio file.</div>"
+        },
+        {
+            "type": "helptext",
+            "name": "FAQLegalAdvice2",
+            "title": "How do I reference and attach an exhibit?",
+            "titleLocation": "hidden",              
+            "body": "Exhibits are documents that you attach to your affidavit, usually to support a fact you talk about in the affidavit. For example, if you say that you received an email from your child’s teacher, you might want to attach a copy of the email to show that you did receive it.<br><br>When you attach an exhibit, you must introduce it in your affidavit. To introduce it, you must explain what the document is, reference the document, and say that you are attaching it as an exhibit.<br><br>Each exhibit is identified with a letter, Exhibit “A”, “B”, “C” and so on. For example:<br>8. On December 2nd, 2022, I received an email from Jack’s teacher, Mrs. Johnson, about his behaviour in class. The email is attached to this affidavit as Exhibit A."
+        },
+        {
+            "type": "helptext",
+            "name": "FAQLegalAdvice3",
+            "title": "Where can I get more information about how to write an affidavit, including what information to put in my affidavit?",
+            "titleLocation": "hidden",              
+            "body": "For more information about how to write an affidavit, or what information should be included in an affidavit, refer to the following resources or talk to a lawyer:<ul><li><a target='_blank' href='https://family.legalaid.bc.ca/bc-legal-system/legal-forms-documents/affidavits/how-do-you-write-affidavit'>Legal Aid BC – How do you write an affidavit?</a></li><li><a target='_blank' href='https://wiki.clicklaw.bc.ca/index.php?title=How_Do_I_Prepare_an_Affidavit%3F'>Clicklaw Wikibooks – How do I prepare an affidavit?</a></li><li><a target='_blank' href='http://www.provincialcourt.bc.ca/downloads/pdf/Guide%20to%20preparing%20for%20a%20family%20court%20trial%20in%20Provincial%20Court.pdf'>Provincial Court of BC – Family Resources – Preparing for a family court trial</a></li>"
+        },
+        {
+            "type": "panel",
+            "name": "YourStoryPanel",             
+            "elements": [
+              {
+                "isRequired": true,  
+                "type": "paneldynamic",
+                "name": "storyAff",
+                "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > I `swear or affirm` that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true. </b>",
+                "description": "List the facts that you wish to present to the court.<ul><li>Include only facts that are relevant (related) to your case. This is information that can be used to prove or disprove an important fact or issue in your case.</li><li>If certain facts are not within your personal knowledge, identify the source of your information.</li><li>If you refer to documents, attach them to this affidavit and mark them as exhibits.</li></ul>You do not need to use any special wording except when you are referencing an exhibit. The key is to be clear and direct so that the judge can understand. Your affidavit including exhibits cannot be longer than 25 pages.<br><br>Use short sentences and organize your affidavit into paragraphs. Each fact or piece of information should be its own paragraph. Click on 'Add new' to move to start a new paragraph. This service will help to number each paragraph and each page as this is a requirement for affidavits. You must add page numbers to your exhibits.",                            
+                "templateElements": [                  
+                  {
+                    "type": "comment",
+                    "name": "storyDescription",
+                    "isRequired": true,
+                    "title": " ",
+                    "titleLocation": "hidden"
+                    }
+                ]
+              }
+            ]
+        }
+      ],
+      "title": "Your story"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

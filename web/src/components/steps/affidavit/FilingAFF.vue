@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/affidavit.json";
+import surveyJson from "./forms/filling-affidavit.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -17,6 +17,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+import { toggleStep } from '@/components/utils/TogglePages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -24,7 +25,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class Affidavit extends Vue {
+export default class FilingAff extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -67,13 +68,18 @@ export default class Affidavit extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {            
+        this.survey.onValueChanged.add((sender, options) => {
 
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-            }
+            this.determineSteps();            
+            
+            
         })
+    }
+
+    public determineSteps(){
+
+        // if (this.survey.data?.sworn)
+        //     toggleStep(this.stPgNo.PO._StepNo, this.survey.data.sworn == 'y');
     }
     
     public reloadPageInformation() {
@@ -81,10 +87,12 @@ export default class Affidavit extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.affidavitSurvey) {            
-            this.survey.data = this.step.result.affidavitSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        if (this.step.result?.filingAffSurvey) {            
+            this.survey.data = this.step.result.filingAffSurvey.data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
+                       
         } 
+        this.determineSteps(); 
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
@@ -99,19 +107,11 @@ export default class Affidavit extends Vue {
         }
     }  
     
-    beforeDestroy() {     
-        
-        if(this.survey.data?.["ApplicantName"]) {
-            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-            const commonData = {
-                'applicantName':this.survey.data["ApplicantName"],
-                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}]
-            };
-            this.UpdateCommonStepResults({data:commonData});
-        }
+    beforeDestroy() {          
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        this.UpdateStepResultData({step:this.step, data: {affidavitSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        
+        this.UpdateStepResultData({step:this.step, data: {filingAffSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

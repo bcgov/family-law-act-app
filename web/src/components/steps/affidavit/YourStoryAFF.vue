@@ -1,6 +1,7 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
-        <survey v-bind:survey="survey"></survey>
+        <survey v-bind:survey="survey"></survey>       
+
     </page-base>
 </template>
 
@@ -9,14 +10,13 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/affidavit.json";
+import surveyJson from "./forms/your-story-aff.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -24,13 +24,10 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class Affidavit extends Vue {
+export default class YourStoryAff extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -39,8 +36,9 @@ export default class Affidavit extends Vue {
     public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep =0;
-    currentPage =0;    
+
+    currentStep = 0;
+    currentPage = 0;
     disableNextButton = false;
 
     beforeCreate() {
@@ -53,6 +51,7 @@ export default class Affidavit extends Vue {
     }
 
     mounted(){
+        
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -67,27 +66,28 @@ export default class Affidavit extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {            
-
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-            }
+        this.survey.onValueChanged.add((sender, options) => {  
+            
         })
     }
     
     public reloadPageInformation() {
     
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result?.affidavitSurvey) {            
-            this.survey.data = this.step.result.affidavitSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        } 
+        
+        if (this.step.result?.yourStoryAffSurvey) {
+            this.survey.data = this.step.result.yourStoryAffSurvey.data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
+              
+        } else {
+            this.survey.setValue('storyAff',[]);
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
+
    
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
@@ -99,19 +99,11 @@ export default class Affidavit extends Vue {
         }
     }  
     
-    beforeDestroy() {     
-        
-        if(this.survey.data?.["ApplicantName"]) {
-            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-            const commonData = {
-                'applicantName':this.survey.data["ApplicantName"],
-                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}]
-            };
-            this.UpdateCommonStepResults({data:commonData});
-        }
+    beforeDestroy() {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        this.UpdateStepResultData({step:this.step, data: {affidavitSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        
+        this.UpdateStepResultData({step:this.step, data: {yourStoryAffSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

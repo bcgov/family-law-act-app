@@ -363,8 +363,9 @@ export interface AFFstPgTypes{
     _StepNo: number;
 
     Affidavit: number;
-    AffidavitInformation: number;
-    MoreInformationAFF: number;
+    AboutAffiant: number;
+    YourStoryAFF: number;
+    FilingAFF: number;
     ReviewYourAnswersAFF: number;
     PreviewFormsAFF: number;
 }

@@ -757,8 +757,6 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
-
-
 //____________Contact with a Child
         p = {} as pageInfoType;
         p.key = "52";
@@ -2364,31 +2362,39 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "1";
-        p.name = "AffidavitInformation";
-        p.label = "Affidavit Information ";        
+        p.name = "AboutAffiant";
+        p.label = "About Affiant";        
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);   
 
         p = {} as pageInfoType;
         p.key = "2";        
-        p.name = "MoreInformationAFF";
-        p.label = "More Information";
+        p.name = "YourStoryAFF";
+        p.label = "Your Story";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";        
+        p.name = "FilingAFF";
+        p.label = "Filing an Affidavit";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "4";
         p.name = "ReviewYourAnswersAFF";
         p.label = "Review Your Answers";
-        p.active = false;
+        p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "5";
         p.name = "PreviewFormsAFF";
         p.label = "Preview Forms";
         p.active = false;

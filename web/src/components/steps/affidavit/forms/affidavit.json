@@ -1,118 +1,65 @@
 {
-  "title": "Notice of Discontinuance",
+  "title": "Affidavit - General",
   "pages": [
     {
-      "name": "Notice of Discontinuance",
-      "description": "If you have filed an Application About a Family Law Matter, reply or counter application with the court and you no longer want to have the court make a decision about it, you can file a Notice of Discontinuance to stop it from continuing before the court.<br><br>If an application, reply or counter application is discontinued, it means that it has been abandoned. The party or the court cannot take any further action on the application or counter application but it does not cancel anything that has already been done in court.<br><br>You can only discontinue your own application, reply or counter application. If the other party has their own application, reply or counter application, it is not affected. This means you may still have to go to court about their document. If the other party also wants to discontinue their application, reply or counter application, they must also complete a Notice of Discontinuance.",
+      "name": "Affidavit - General",
+      "description": "An affidavit is used to present evidence to the court. It is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book) or affirm (non-religious promise) to be true. After you swear or affirm the affidavit, it is evidence of the facts and events it sets out, just as if you took the stand in a courtroom to provide those facts.<br>An affidavit:<ul><li>must be in the first person (from the writer’s point of view, using “I”)</li><li>must include facts (what you saw, heard, did or said)</li><li>must identify the source of your information if certain facts are not within your personal knowledge</li><li>must include information that is relevant to the application the court needs to decide (and should not include information that is not), and</li><li>can have important documents or photographs referenced and attached to it - these are called exhibits.</li></ul>If the person writing the affidavit needs help with English, click on the Language Resources link on the bottom toolbar for more information about interpreters and other resources to help with preparing court forms.",
       "elements": [
         {
+            "type": "helptext",
+            "name": "FAQLegalAdvice",
+            "title": "How do I swear or affirm an affidavit?",
+            "titleLocation": "hidden",              
+            "body": "To swear or affirm an affidavit, you must meet with a commissioner for taking oaths. The commissioner will check your photo ID to make sure you are who you say you are, ask you if you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true. The commissioner will then watch you sign the document before signing it themselves.<br><br>If you do not speak or read English, you can bring an interpreter with you when you meet with the commissioner. For information about interpreters and language help, click on the Language Resources link on the bottom toolbar.<br><br>Lawyers, notary publics and many court registry staff are commissioners for taking oaths. You can go to any <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>Provincial Court Registry</a> or <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=FD6DB5BA2A5248038EEF54D9F9F37C4D'>Service BC location</a> to swear or affirm the affidavit. If you have the document sworn or affirmed at a different court registry, you will still need to file it at the court registry where the existing case is filed."
+        },
+        {
+            "type": "html",
+            "name": "affidavitHeading",            
+            "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Do not sign the affidavit until you are with a commissioner for taking affidavits and they tell you to sign it. Make sure that you bring any documents you are attaching to your affidavit as exhibits with you. The commissioner will also need to date and sign the exhibits.</div><br>If you cannot get the document sworn or affirmed before the document is filed, the unsworn document can be filed if you will be avail­able to swear or affirm that the contents of the document are true during your court appearance.</div>"
+        },
+        {
           "type": "panel",
-          "name": "ApplicantPanel",
-          "elements": [
+          "name": "AffidavitPanel",
+          "elements": [  
             {
-              "type": "infotext",
-              "name": "ExplanationDiscontinuance",
-              "title": "<b>If you are filing a Notice of Discontinuance, it is important for you to undertand the effect it may have.</b><br>Some applications have a limitation period for when you must apply. If you discontinue an application, you are not prevented from filing a new application about the same family law matter at a later date unless the judge orders otherwise.<br>If you think you may want to file your application at a later date, check to make sure you will still be within the limitation periods set out in sections <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_07#section147'>147 (4) (b) <i>[duty to provide support for child]</i></a> and 198 (2) [time limits] of the Family Law Act before you file your Notice of Discontinuance.<br>If you are unsure if a limitation period applies to your application, talk to a lawyer. ",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "helptext",
-              "name": "FAQLegalAdvice",
-              "title": "Where can I get legal assistance?",
-              "titleLocation": "hidden",              
-              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"             
-            },
-            {
-              "type": "yesno",
-              "name": "Filed",
-              "title": "Have you filed an Application About a Family Law Matter, reply or counter application that you want to discontinue?",
-              "description": "You can discontinue <b>all</b> or <b>part</b> of your application, reply or counter application. You will be asked for this information later.",
-              "isRequired": true
-            },            
-            {
-              "type": "infotext",
-              "name": "ExplanationNotFiled",
-              "visible": false,
-              "visibleIf": "{Filed} = 'n'",
-              "title": "If you want to cancel an order that has already been made in court because there has been a change in needs or circumstances, you can apply to the court to cancel the order by filing an application. Go back to Step 1 and select Apply for an Order.<br>If the other party filed an application, reply or counter application that you want discontinued and they also agree it should be discontinued, they will have to file the Notice of Discontinuance.",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "panel",
-              "name": "ApplicantContactPanel",
-              "visible": false,
-              "visibleIf": "{Filed} = 'y'",
-              "elements": [
-                {
-                  "type": "personname",
-                  "name": "ApplicantName",
-                  "title": "What is your full name?",
-                  "description": "This is the name of the person whose application, reply or counter application is being discontinued. Copy the name from any filed court document.",                  
-                  "isRequired": true,              
-                  "defaultSubstitution": "(Applicant Name)",
-                  "descFirstName": "First Name is also known as Given Name",
-                  "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
-                  "descLastName": "Last Name is also known as Family Name or Surname"
-                },
-
-                {
-                  "type": "panel",
-                  "name": "ContactInformationOtherPartyPanel",             
-                  "elements": [
+                "type": "radiogroup",
+                "name": "affidavitReason",
+                "isRequired": true,
+                "title": "Why are you filing an affidavit?",
+                "description": "An affidavit should only be filed when there is an application before the court that the affidavit is about.<br><br>You can file an affidavit in support of an application or to respond to someone else’s application.",
+                "choices": [
                     {
-                      "isRequired": true,  
-                      "type": "paneldynamic",
-                      "name": "otherPartyInfoDis",
-                      "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>",
-                      "description": "Copy the name from the filed document.",                            
-                      "templateElements": [
-                        {
-                          "type": "personname",
-                          "name": "name",
-                          "title": " ",
-                          "titleLocation": "hidden"
-                        }
-                      ]
+                        "value": "application",
+                        "text": "<b>In support of an application</b><div style='margin-left: 2rem;'>Giving assistance to or showing approval of an application"
+                    },
+                    {
+                        "value": "response",
+                        "text": "<b>In response to an application</b><div style='margin-left: 2rem;'>To answer or reply to someone else’s application"
                     }
-                  ]
-                },
-                {
-                  "type": "infotext",
-                  "name": "ExplanationServe",                  
-                  "title": "You must serve each other party with a copy of the Notice of Discontinuance within 14 days of filing the notice, or before the date of the next scheduled court appearance, whichever is sooner.",
-                  "titleLocation": "hidden"
-                },
-                {
-                  "type": "checkbox",
-                  "name": "discontinuanceDocs",
-                  "title": "Which document do you want to discontinue (all or part of)?",
-                  "description": "Note: A counter application is a separate part of your reply to an application about a family law matter. If you want to discontinue your reply <b>and</b> your counter application, select both.<br><br>Select each option that applies. You may choose more than one.",
-                  "choices": [
-                      {
-                        "value": "form3",
-                        "text": "Application about a Family Law Matter (Form 3)"
-                      },
-                      {
-                        "value": "form6",
-                        "text": "Reply to an Application About a Family Law Matter (Form 6)"
-                      },
-                      {
-                        "value": "form6Counter",
-                        "text": "Counter Application About a Family Law Matter (Form 6 counter application)"
-                      },
-                      {
-                        "value": "form8",
-                        "text": "Reply to a Counter Application (Form 8)"
-                      }
-                  ],
-                  "isRequired": true
-                }                 
-              ]
-            } 
+                ]
+            },                     
+            {
+                "type": "checkbox",
+                "name": "applicationType",
+                "title": "What is the application about?",
+                "description": "Look at the application this affidavit is being filed for. The name of the application will tell you what the application is about. If someone has asked you to write an affidavit in support of their application, ask them what the application is about.<br>If your affidavit is in support or response to more than one application, select each option that applies",
+                "otherText":"Other (please specify):",
+                "hasOther": true,
+                "choices": [
+                    "A `family law matter`",
+                    "Case management", 
+                    "Protection",  
+                    "A priority parenting matter",
+                    "Relocation of a child or guardian",
+                    "Enforcement"                   
+                ],
+                "isRequired": true
+             }
+
           ]
         }
       ],
-      "title": "Notice of Discontinuance"
+      "title": "Affidavit - General"
     }
   ],
   "showQuestionNumbers": "off",

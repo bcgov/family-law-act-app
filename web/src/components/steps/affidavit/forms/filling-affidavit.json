@@ -1,0 +1,32 @@
+{
+  "title": "Filing an Affidavit",
+  "pages": [
+    {
+      "name": "Filing an Affidavit",
+      "description": "An affidavit is not made until the affidavit is `sworn or affirmed`. This is usually done with a commissioner for taking oaths before it is filed with the court or in person at the courthouse when it is being filed.",
+      "elements": [
+        {
+            "type": "helptext",
+            "name": "FAQLegalAdvice",
+            "title": "How do I swear or affirm an affidavit?",
+            "titleLocation": "hidden",              
+            "body": "To swear or affirm an affidavit, you must meet with a commissioner for taking oaths. The commissioner will check your photo ID to make sure you are who you say you are, ask you if you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true. The commissioner will then watch you sign the document before signing it themselves.<br><br>Lawyers, notary publics and many court registry staff are commissioners for taking oaths. You can go to any <a href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96' target='_blank'>Provincial Court Registry</a> or <a href='https://www2.gov.bc.ca/gov/content?id=FD6DB5BA2A5248038EEF54D9F9F37C4D' target='_blank'>Service BC location</a> to swear or affirm the affidavit. If you have the document sworn or affirmed at a different court registry, you will still need to file it at the court registry where the existing case is filed.<br><br>If you cannot get the document sworn or affirmed before the document is filed, the unsworn document can be filed if you will be avail­able to swear or affirm that the contents of the document are true during your court appearance."
+        },
+        {
+            "type": "html",
+            "name": "swornHeading",            
+            "html": "<div style='margin-bottom:-0.75rem'><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section172' target='_blank'>Rule 172</a> allows you to file an unsworn affidavit if you can’t get a lawyer, notary or someone at the courthouse to sign it before you file it. To file an unsworn affidavit, the person who made the document must sign it and must be available to swear or affirm that the contents of the affidavit are true at a future court appearance. The court usually will not consider it as evidence until this has been done.</div>"
+        },   
+        {
+            "type": "yesno",
+            "name": "sworn",
+            "title": "Will your affidavit be sworn or affirmed before it is filed electronically?",
+            "isRequired": true
+        } 
+      ],
+      "title": "Filing an Affidavit"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

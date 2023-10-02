@@ -1,21 +1,8 @@
 import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
-export interface lastStepDataInfoType {
-    resolveFlmDate?: string;
-    needsAssessmentDate?: string;
-    parentingEducationProgramDate?: string;
-    consensualDisputeResolutionDate?: string;
-    flmDate?: string;
-    selected: string;
-    otherDate?: string;
-    otherDescription?: string;
-}
-
-export interface affidavitDataInfoType {
-    lastStep?: lastStepDataInfoType;
-    requiresForm39?: boolean;
-    unresolvedFlm?: string;
-    unresolvedLessThanYear?: boolean;
+export interface affidavitDataInfoType {    
+    affidavitReason?: string;
+    applicationType?: string;
 }
   
 export interface affidavitSurveyInfoType {
@@ -26,18 +13,41 @@ export interface affidavitSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface otherPartyAffConfirmationSurveyInfoType {
-    data: {confirmation: string};
+export interface aboutAffiantDataInfoType {    
+    ApplicantName?: nameInfoType;
+    ApplicantOccupation?: string;
+    inCareOf?: string[];
+    ApplicantAddress?: addressInfoType;
+}
+
+export interface aboutAffiantSurveyInfoType {
+    data: aboutAffiantDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
 }
 
-export interface affOtherPartyDataInfoType {
-    name: nameInfoType;
-    dob?: string;   
-    address: addressInfoType;
-    contactInfo: contactInfoType;
-    lawyer?: string;
+export interface yourStoryAffDataInfoType {    
+    storyAff?: string[];
+}
+
+export interface yourStoryAffSurveyInfoType {
+    data: yourStoryAffDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface filingAffSurveyInfoType {
+    data: filingAffDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface filingAffDataInfoType {    
+    sworn?: string;
 }

@@ -172,8 +172,16 @@ export default class OtherFormFilingLocation extends Vue {
             
             toggleStep(submitStep._StepNo, true);  
             togglePages([submitStep.OtherFile], true, submitStep._StepNo);
+
             this.UpdatePathwayCompleted({pathway:"other", isCompleted:true});
         }
+    }
+
+    public eFilingAffidavit(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavit")                
+
     }
 
     public setGuidedPathwaySteps(){
@@ -196,6 +204,7 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(this.stPgNo.AFF._StepNo, this.requiredGuidedPathways.includes("affidavit"));
         toggleStep(this.stPgNo.NLP._StepNo, this.requiredGuidedPathways.includes("noticeLawyerParty"));
         toggleStep(this.stPgNo.NLPR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerParty"));
+        togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit, this.stPgNo.AFF._StepNo);
     }   
 
     public saveApplicationLocation(location){       
