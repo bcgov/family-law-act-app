@@ -33,7 +33,7 @@
                 <span>
                     If you are filing your application by electronically and you are asking for a protection 
                     order in your application, you will need to be prepared to
-                    <tooltip :index="0" title='swear or affirm'/>the information in your application 
+                    <tooltip :index="0" size="lg" title='swear or affirm'/> the information in your application 
                     during your court appearance. 
                 </span>           
             

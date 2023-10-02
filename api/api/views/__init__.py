@@ -8,3 +8,5 @@ from .survey_pdf_view import SurveyPdfView
 from .user_view import UserView
 from .fillable_pdf_view import FillablePdfView
 from .statistics_view import StatisticsView
+from .efiling_rejection_view import EFilingRejectionView
+from .efiling_document_view import EFilingDocumentView

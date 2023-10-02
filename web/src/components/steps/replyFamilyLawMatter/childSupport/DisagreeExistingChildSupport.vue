@@ -38,7 +38,7 @@
                         you are required to pay child support
                     </li>
                     <li>
-                        there is <tooltip title="split" :index="0"/> or <tooltip title="shared" :index="0"/> parenting time
+                        there is <tooltip title="split" size="lg" :index="0"/> or <tooltip title="shared" size="lg" :index="0"/> parenting time
                     </li>
                     <li>
                         there is a child 19 years or older for who support is for                      
@@ -50,10 +50,10 @@
                         the paying parent earns more than $150,000 per year                       
                     </li>
                     <li>
-                        there is a claim for <tooltip title="special and extraordinary expenses" :index="0"/> for a child
+                        there is a claim for <tooltip title="special and extraordinary expenses" size="md" :index="0"/> for a child
                     </li>
                     <li>
-                        you are claiming <tooltip title="undue hardship" :index="0"/>                        
+                        you are claiming <tooltip title="undue hardship" size="lg" :index="0"/>                        
                     </li>
                 </ul>
 

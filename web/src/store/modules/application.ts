@@ -35,6 +35,10 @@ class Application extends VuexModule {
     public rflmRequiredDocsRequests = [];
     public rflmRequiredDocsRequestsUpdateCounter = 0;
 
+    public rejectedPathway = false;
+    public rejectedFileNumber = "";
+    public rejectedFormsList = [];
+
     public surveyChangedPO = false;
     
     public supportingDocuments: supportingDocumentInfoType[] = [];
@@ -54,7 +58,14 @@ class Application extends VuexModule {
         other: false,
         noticeOfAddressChange: false,
         noticeDiscontinuance: false,
-        noticeIntentionProceed: false
+        noticeIntentionProceed: false,        
+        requestScheduling: false,
+        trialReadinessStatement: false,   
+        noticeLawyerChild: false,
+        noticeRemoveLawyerChild: false,                    
+        noticeLawyerParty: false,
+        noticeRemoveLawyerParty: false,
+        affidavit: false             
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -71,7 +82,9 @@ class Application extends VuexModule {
         this.packageNumber = "";
         this.eFilingHubLink = "";
         this.steps = new Array<stepInfoType>();
-
+        this.rejectedPathway = false;
+        this.rejectedFileNumber = "";
+        this.rejectedFormsList = [];
 
         // Getting started START
         let s = {} as stepInfoType;
@@ -743,8 +756,6 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-
-
 
 //____________Contact with a Child
         p = {} as pageInfoType;
@@ -1800,7 +1811,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "2";
-        p.name = "OtherFormFilingLocation";
+        p.name = "OtherFormsFilingLocation";
         p.label = "Other Form Filing Location";
         p.active = false;
         p.progress = 0;
@@ -1974,71 +1985,489 @@ class Application extends VuexModule {
 
         this.steps.push(s);
 
-        // Intention to Proceed STOP
+        // Intention to Proceed STOP        
+
+        
+        // Request for Scheduling START
+
+        s = {} as stepInfoType;    
+        s.active = false;        
+        s.id = "16";
+        s.name = "RQS";
+        s.label = "Request for Scheduling";
+        s.icon = "fa fa-calendar";
+        s.lastUpdate = null;
+        s.type = "requestScheduling";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "RequestForScheduling";
+        p.label = "Request for Scheduling";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReasonForScheduling";
+        p.label = "Reason for Scheduling";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "InterimOrder";
+        p.label = "Interim Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";        
+        p.name = "NextAppearance";
+        p.label = "Next Appearance";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "4";        
+        p.name = "PartyInformationRQS";
+        p.label = "Party Information ";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ReviewYourAnswersRQS";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsRQS";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        this.steps.push(s);
+        
+        // Request for Scheduling STOP
+
+        // Trial Readiness Statement START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "17";
+        s.name = "TRIS";
+        s.label = "Trial Readiness Statement";
+        s.icon = "fa fa-file-text";
+        s.lastUpdate = null;
+        s.type = "trialReadinessStatement";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "TrialReadinessStatement";
+        p.label = "Trial Readiness Statement";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "PeopleAtTrial";
+        p.label = "People At Trial";        
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "IssuesForTrial";
+        p.label = "Issues For Trial";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";        
+        p.name = "BackgroundTris";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "4";        
+        p.name = "DisclosureOfInformation";
+        p.label = "Disclosure Of Information";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";        
+        p.name = "Witnesses";
+        p.label = "Witnesses";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";        
+        p.name = "RequirementsAndConsiderations";
+        p.label = "Requirements And Considerations";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";        
+        p.name = "AboutTheTrial";
+        p.label = "About The Trial";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";        
+        p.name = "OrdersAtTpc";
+        p.label = "Orders at TPC";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "ReviewYourAnswersTRIS";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "PreviewFormsTRIS";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        this.steps.push(s);
+
+        // Trial Readiness Statement STOP
+
+        // Notice of Lawyer for Child START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "18";
+        s.name = "NLC";
+        s.label = "Notice of Lawyer for Child";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "lawyerChild";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0; 
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeLawyerChild";
+        p.label = "Notice of Lawyer for Child";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersNLC";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsNLC";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Notice of Lawyer for Child STOP  
+
+        // Notice of Removal of Lawyer for Child START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "19";
+        s.name = "NLCR";
+        s.label = "Notice of Removal of Lawyer for Child";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "removeLawyerChild";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeRemoveLawyerChild";
+        p.label = "Notice of Removal of Lawyer for Child";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersNLCR";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsNLCR";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Notice of Removal of Lawyer for Child STOP
+
+        
+        // Notice of Lawyer for Party START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "20";
+        s.name = "NLP";
+        s.label = "Notice of Lawyer for Party";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "lawyerParty";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeLawyerParty";
+        p.label = "Notice of Lawyer for Party";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+        
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersNLP";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsNLP";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Notice of Lawyer for Party STOP
+
+
+        // Notice of Removal of Lawyer for Party START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "21";
+        s.name = "NLPR";
+        s.label = "Notice of Removal of Lawyer for Party";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "removeLawyerParty";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "NoticeRemoveLawyerParty";
+        p.label = "Notice of Removal of Lawyer for Party";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+       
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersNLPR";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsNLPR";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Notice of Removal of Lawyer for Party STOP
+
+
+        // Affidavit START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "22";
+        s.name = "AFF";
+        s.label = "Affidavit";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "affidavit";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "Affidavit";
+        p.label = "Affidavit";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiant";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "YourStoryAFF";
+        p.label = "Your Story";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";        
+        p.name = "FilingAFF";
+        p.label = "Filing an Affidavit";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersAFF";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsAFF";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Affidavit STOP
 
         // Electronic Filing Statement START
 
-         s = {} as stepInfoType;    
-         s.active = false;
-         s.id = "16";
-         s.name = "EFSP";
-         s.label = "Electronic Filing Statement";
-         s.icon = "fa fa-exclamation-circle";
-         s.lastUpdate = null;
-         s.type = "electronicFilingStatement";
-         s.pages = new Array<pageInfoType>();
-         s.currentPage = 0;        
- 
-         p = {} as pageInfoType;
-         p.key = "0";
-         p.name = "ElectronicFilingStatement";
-         p.label = "Electronic Filing Statement";
-         p.active = true;
-         p.progress = 0;    
-         s.pages.push(p);        
- 
-         p = {} as pageInfoType;
-         p.key = "1";
-         p.name = "ElectronicFilingStatementInformation";
-         p.label = "Electronic Filing Statement Information ";        
-         p.active = true;
-         p.progress = 0;    
-         s.pages.push(p);   
- 
-         p = {} as pageInfoType;
-         p.key = "2";        
-         p.name = "MoreInformationEFSP";
-         p.label = "More Information";
-         p.active = false;
-         p.progress = 0;    
-         s.pages.push(p);
- 
-         //____________Review
-         p = {} as pageInfoType;
-         p.key = "3";
-         p.name = "ReviewYourAnswersEFSP";
-         p.label = "Review Your Answers";
-         p.active = false;
-         p.progress = 0;    
-         s.pages.push(p);
- 
-         p = {} as pageInfoType;
-         p.key = "4";
-         p.name = "PreviewFormsEFSP";
-         p.label = "Preview Forms";
-         p.active = false;
-         p.progress = 0;    
-         s.pages.push(p);
- 
-         this.steps.push(s);
- 
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "23";
+        s.name = "EFSP";
+        s.label = "Electronic Filing Statement";
+        s.icon = "fa fa-exclamation-circle";
+        s.lastUpdate = null;
+        s.type = "electronicFilingStatement";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "ElectronicFilingStatement";
+        p.label = "Electronic Filing Statement";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ElectronicFilingStatementInformation";
+        p.label = "Electronic Filing Statement Information ";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "MoreInformationEFSP";
+        p.label = "More Information";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersEFSP";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsEFSP";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
         // Electronic Filing Statement STOP
+
 
         //Submit START
         s = {} as stepInfoType;
-
-        s.active = false;
-        s.id = "17";
+        s.active = false;        
+        s.id = "24";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2091,9 +2520,18 @@ class Application extends VuexModule {
         p.progress = 0;
     
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
         p.key = "5";
+        p.name = "ResubmitAttachments";
+        p.label = "Resubmit Attachments";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "6";
         p.name = "NextSteps";
         p.label = "Next Steps";
         p.active = false;
@@ -2104,7 +2542,6 @@ class Application extends VuexModule {
         this.steps.push(s);
     
         //Submit STOP
-        //console.log(this.steps)
         
     }
     @Action
@@ -2179,6 +2616,33 @@ class Application extends VuexModule {
     }
 
     @Mutation
+    public  setRejectedPathway(rejectedPathway: boolean): void {
+        this.rejectedPathway = rejectedPathway;
+    }
+    @Action
+    public UpdateRejectedPathway(newRejectedPathway: boolean) {
+        this.context.commit("setRejectedPathway", newRejectedPathway);
+    }
+
+    @Mutation
+    public  setRejectedFileNumber(rejectedFileNumber): void {
+        this.rejectedFileNumber = rejectedFileNumber;
+    }
+    @Action
+    public UpdateRejectedFileNumber(newRejectedFileNumber) {
+        this.context.commit("setRejectedFileNumber", newRejectedFileNumber);
+    }
+
+    @Mutation
+    public  setRejectedFormsList(rejectedFormsList): void {
+        this.rejectedFormsList = rejectedFormsList;
+    }
+    @Action
+    public UpdateRejectedFormsList(newRejectedFormsList) {
+        this.context.commit("setRejectedFormsList", newRejectedFormsList);
+    }
+
+    @Mutation
     public setRequiredDocuments(requiredDocuments): void {
         this.requiredDocuments = requiredDocuments;
     }    
@@ -2196,7 +2660,6 @@ class Application extends VuexModule {
         this.context.commit("setRequiredDocumentsByType", {typeOfRequiredDocuments, requiredDocuments });
         this.context.commit("setCommonStepResults",{data:{'requiredDocuments':this.requiredDocuments}});
     }
-
 
     @Mutation
     public setRflmRequiredDocsRequests(rflmRequiredDocsRequests): void {
@@ -2520,8 +2983,8 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, EFSP: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
-        const steps = this.steps
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, EFSP: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           
             for(const page of step.pages){
@@ -2546,8 +3009,7 @@ class Application extends VuexModule {
             this.context.commit("setPageActive", { currentStep: stepPO, currentPage: previewPagePO, active: false });
         
             if(this.steps[stepPO].pages[previewPagePO].progress ==100) this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:previewPagePO, progress:50 });
-        }  
-        
+        }
         
         this.context.commit("resetStep", this.stPgNo.SUBMIT._StepNo);
         const submitTotalPages = (Object.keys(this.stPgNo.SUBMIT).length -1)
@@ -2575,6 +3037,9 @@ class Application extends VuexModule {
         this.protectedChildName = application.protectedChildName;
         this.applicationLocation = application.applicationLocation;  
         this.lastFiled = application.lastFiled;
+        this.rejectedPathway = application.rejectedPathway;
+        this.rejectedFileNumber = application.rejectedFileNumber;
+        this.rejectedFormsList = application.rejectedFormsList;
         this.version = application.version;
     }
     @Action

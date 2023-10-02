@@ -2,7 +2,7 @@ import json
 import random
 import hashlib
 from string import ascii_lowercase, digits
-from api.models import User, PreparedPdf
+from api.models import User, PreparedPdf, EFilingSubmission
 from api.models.application import Application
 from django.http import Http404
 from django.conf import settings
@@ -60,6 +60,22 @@ def get_application_for_user(pk, uid):
     try:
         return Application.objects.get(pk=pk, user_id=uid)
     except Application.DoesNotExist:
+        raise Http404
+
+def get_reference_application_for_application(application_id, uid):
+    if uid is None:
+        raise Http404
+    try:
+        return Application.objects.get(application_reference=application_id, user_id=uid)
+    except Application.DoesNotExist:
+        return None
+
+def get_efiling_submission_for_application(application_id, package_number):
+    if application_id is None or package_number is None:
+        raise Http404
+    try:
+        return EFilingSubmission.objects.get(package_number=package_number, application_id=application_id)
+    except EFilingSubmission.DoesNotExist:
         raise Http404
 
 

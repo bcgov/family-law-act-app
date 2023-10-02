@@ -46,6 +46,9 @@ export default class OtherFormFilingLocation extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];    
 
+    @applicationState.State
+    public rejectedPathway!: boolean;
+
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
@@ -132,6 +135,9 @@ export default class OtherFormFilingLocation extends Vue {
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
         } 
+
+        this.survey.setVariable("enableSurvey", !this.rejectedPathway)
+        
         this.determineSteps();
         const progress = (this.determineContinue())? 100 : 50;        
 
@@ -166,8 +172,16 @@ export default class OtherFormFilingLocation extends Vue {
             
             toggleStep(submitStep._StepNo, true);  
             togglePages([submitStep.OtherFile], true, submitStep._StepNo);
+
             this.UpdatePathwayCompleted({pathway:"other", isCompleted:true});
         }
+    }
+
+    public eFilingAffidavit(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavit")                
+
     }
 
     public setGuidedPathwaySteps(){
@@ -181,9 +195,16 @@ export default class OtherFormFilingLocation extends Vue {
             }            
         }        
         toggleStep(this.stPgNo.NCD._StepNo, this.requiredGuidedPathways.includes("noticeOfAddressChange"));
-        toggleStep(this.stPgNo.NDT._StepNo, this.requiredGuidedPathways.includes("noticeDiscontinuance"));
-        toggleStep(this.stPgNo.NPR._StepNo, this.requiredGuidedPathways.includes("noticeIntentionProceed"));
+        toggleStep(this.stPgNo.NDT._StepNo, this.requiredGuidedPathways.includes("noticeDiscontinuance"));     
+        toggleStep(this.stPgNo.NPR._StepNo, this.requiredGuidedPathways.includes("noticeIntentionProceed"));        
+        toggleStep(this.stPgNo.RQS._StepNo, this.requiredGuidedPathways.includes("requestScheduling"));
+        toggleStep(this.stPgNo.TRIS._StepNo, this.requiredGuidedPathways.includes("trialReadinessStatement"));
+        toggleStep(this.stPgNo.NLC._StepNo, this.requiredGuidedPathways.includes("noticeLawyerChild"));
+        toggleStep(this.stPgNo.NLCR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerChild"));
+        toggleStep(this.stPgNo.AFF._StepNo, this.requiredGuidedPathways.includes("affidavit"));
+        toggleStep(this.stPgNo.NLPR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerParty"));
         toggleStep(this.stPgNo.EFSP._StepNo, this.requiredGuidedPathways.includes("electronicFilingStatement"));
+        togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit, this.stPgNo.AFF._StepNo);
     }   
 
     public saveApplicationLocation(location){       

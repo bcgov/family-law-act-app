@@ -79,7 +79,7 @@ export default class UsersInfoTable extends Vue {
         for(const usr of this.results.logged_in_users){
                         
             for(const form of usr){
-                console.log(form.split(','))
+                // console.log(form.split(','))
                 for(const frm of form.split(',')){                
                     if(!this.current_users[0].workingForms.includes(frm))
                         this.current_users[0].workingForms += (Vue.filter('typesToFullnames')([frm])+', ')

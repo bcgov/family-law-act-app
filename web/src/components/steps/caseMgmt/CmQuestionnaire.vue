@@ -31,7 +31,7 @@
                                 {{processTooltip(order.text)[0]}}
                             </div>
                             <div v-if="processTooltip(order.text)[1]" class="d-inline">
-                                <tooltip :index="0" :title="processTooltip(order.text)[1]" />
+                                <tooltip :index="0" size="lg" :title="processTooltip(order.text)[1]" />
                             </div>
                             <div v-if="processTooltip(order.text)[2]" class="d-inline">
                                 {{processTooltip(order.text)[2]}}

@@ -121,6 +121,9 @@ export default class OtherForms extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
+    @applicationState.State
+    public rejectedPathway!: boolean;
+
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
@@ -140,7 +143,7 @@ export default class OtherForms extends Vue {
     currentPage =0;
 
     formList: otherFormInfoType[] = [
-        {formName: 'Affidavit – General',                                   formNumber: 'Form 3'},
+        {formName: 'Affidavit – General',                                   formNumber: 'Form 45'},
         {formName: 'Affidavit of Personal service',                         formNumber: 'Form 48'},
         {formName: 'Affidavit of Personal Service of Protection Order',     formNumber: 'Form 49'},
         {formName: 'Certificate of Service',                                formNumber: 'Form 7'},
@@ -216,6 +219,7 @@ export default class OtherForms extends Vue {
     public selectForms(forms: otherFormInfoType[]){        
 
         const tableRef: any = this.$refs.formsTable;
+        tableRef.clearSelected()
 
         for (const form of forms){
             const index = this.formList.findIndex((otherForm) => {if(otherForm.formName == form.formName)return true});
@@ -237,17 +241,17 @@ export default class OtherForms extends Vue {
     public resetPages() { 
 
         const p = this.stPgNo.OTHER                              
-        togglePages([p.CompleteOtherForms, p.OtherFormFilingLocation], false, this.currentStep); 
+        togglePages([p.CompleteOtherForms, p.OtherFormsFilingLocation], false, this.currentStep); 
 
         if(this.$store.state.Application.steps[this.currentStep].pages[p.CompleteOtherForms].progress>0)               
             Vue.filter('setSurveyProgress')(null, this.currentStep, p.CompleteOtherForms, 50, false);       
 
-        if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherFormFilingLocation].progress>0) 
-            Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherFormFilingLocation, 50, false);
+        if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherFormsFilingLocation].progress>0) 
+            Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherFormsFilingLocation, 50, false);
     }
 
     public resetSteps(){ //TODO add all new steps here    
-        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo], false);
+        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo, this.stPgNo.RQS._StepNo, this.stPgNo.TRIS._StepNo, this.stPgNo.NLC._StepNo, this.stPgNo.NLCR._StepNo, this.stPgNo.NLP._StepNo, this.stPgNo.NLPR._StepNo, this.stPgNo.AFF._StepNo], false);
     }
 
     public determineSteps(){
@@ -256,6 +260,11 @@ export default class OtherForms extends Vue {
     }
 
     public onFormSelected(forms: otherFormInfoType[]){
+
+        if(this.rejectedPathway){
+            Vue.nextTick().then(()=>{this.selectForms(this.selectedForms)});
+            return
+        }
 
         this.selectedForms = forms;
 

@@ -88,7 +88,13 @@ export default class FilingLocation extends Vue {
     public steps!: stepInfoType[];
 
     @applicationState.State
-    public types!: string[];    
+    public types!: string[];
+    
+    @applicationState.State
+    public rejectedPathway!: boolean;
+    
+    @applicationState.State
+    public rejectedFileNumber!: string;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -332,6 +338,12 @@ export default class FilingLocation extends Vue {
             this.survey.setValue('RequiresFMEPInfo',true);                
         } else {
            this.survey.setValue('RequiresFMEPInfo',false); 
+        }
+
+        this.survey.setVariable("enableSurvey", !this.rejectedPathway)
+        if(this.rejectedPathway && this.rejectedFileNumber){
+            this.survey.setValue('ExistingFamilyCase','y');
+            this.survey.setValue('ExistingFileNumber', this.rejectedFileNumber)
         }
 
         this.messageForLocation();

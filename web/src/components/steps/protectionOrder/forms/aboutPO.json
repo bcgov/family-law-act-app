@@ -40,6 +40,7 @@
                         {
                             "type": "dropdown",
                             "name": "ExistingCourt",
+                            "enableIf": "{enableSurvey}",
                             "isRequired": true,
                             "title": "Court Location",
                             "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
@@ -48,8 +49,10 @@
                         {
                             "type": "text",
                             "name": "ExistingFileNumber",
+                            "enableIf": "{enableSurvey}",
                             "startWithNewLine": false,
                             "title": "File Number",
+                            "description": "<div style='color: white; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
                             "isRequired": true
                         },
                         {

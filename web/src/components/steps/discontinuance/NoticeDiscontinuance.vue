@@ -13,12 +13,13 @@ import surveyJson from "./forms/notice-discontinuance.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { togglePages } from '@/components/utils/TogglePages';
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
+
+import { togglePages } from '@/components/utils/TogglePages';
 
 @Component({
     components:{

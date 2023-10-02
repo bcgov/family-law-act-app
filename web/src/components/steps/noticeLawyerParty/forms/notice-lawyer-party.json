@@ -1,0 +1,175 @@
+{
+    "title": "Notice of Lawyer for Party",
+    "pages": [
+      {
+        "name": "Notice of Lawyer for Party",
+        "description": "<a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section161'>Rule 163</a> says that a lawyer may start representing a party in a case when the party or the lawyer:<br><ul><li>provides the lawyer's contact information and address for service of documents on an application or reply.</li><li>files and serves on each party a Notice of Lawyer for Party in Form 42.</li></ul>A lawyer may represent a party for all issues in a case or for unbundled services/limited representation.",
+        "elements": [
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice1",
+                "title": "What is unbundled services/limited representation?",
+                "titleLocation": "hidden",              
+                "body": "Unbundled services or limited representation is when a lawyer provides legal services for certain parts of your family law problem.  You and the lawyer will work together to decide which parts the lawyer helps with which parts you will do yourself. This may include having a lawyer only draft your court forms, or maybe only represent you during a specific court appearance."
+            },
+            {
+            "type": "html",
+            "name": "pageIntro",
+            "title": "",
+            "html": "<div style='margin: 0rem 0 -1.0rem 0'><div style='font-weight: normal;font-size: 1.0em;' >Are you a lawyer representing a party in a family law case?<br>Use this pathway to complete your Notice of Lawyer for Party.<br><br>Note: If you have already identified yourself as a lawyer for the party on a filed application or reply, you do not need to also file a Notice of Lawyer for Party.</div></div>"
+            }, 
+          {
+            "type": "panel",
+            "name": "ApplicantPanel",
+            "elements": [
+              
+              
+              {
+                "type": "panel",
+                "name": "ApplicantContactPanel",              
+                "elements": [
+                  {
+                    "type": "personname",
+                    "name": "ApplicantName",
+                    "title": "What is your name?",
+                    "description": "This is the name of the lawyer for the party. If you are filing out this form for a lawyer for the party, fill in their name.",
+                    "isRequired": true,              
+                    "defaultSubstitution": "(Applicant Name)",
+                    "descFirstName": "First Name is also known as Given Name",
+                    "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                    "descLastName": "Last Name is also known as Family Name or Surname"
+                  },
+                  {
+                      "type": "text",
+                      "name": "FirmName",
+                      "title": "What is the name of your law firm (if applicable)?"
+                  },
+                  {
+                    "type": "panel",
+                    "name": "ContactInformationOtherPartyPanel",             
+                    "elements": [
+                      {
+                        "isRequired": true,  
+                        "type": "paneldynamic",
+                        "name": "OtherPartyInfoNlp",
+                        "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are representing? </b>",
+                        "templateElements": [
+                          {
+                            "type": "personname",
+                            "name": "name",
+                            "title": " ",
+                            "titleLocation": "hidden"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "yesno",
+                    "name": "RepresentingOnAllIssues",
+                    "title": "Are you representing the party/parties on all issues until further notice to the court?",
+                    "description": "You will be on all issues until further notice to the court. You are wanting to be counsel on record providing full representation for the party.",
+                    "isRequired": true
+                  },
+                  {
+                      "type": "multiplecommentcheckbox",
+                      "name": "IssuesList",
+                      "visible": false,
+                      "visibleIf": "{RepresentingOnAllIssues} = 'n'",
+                      "title": "Please describe how you will be representing the party/parties using the options below.",
+                      "description": "Select all that apply.",                     
+                      "choices": [                        
+                        {
+                          "value": "specifiedIssues",
+                          "text": "on only the following specified issue(s) until further notice to the court:",
+                          "comment": true
+                        },               
+                        {
+                          "value": "courtDocumentsPreparation",
+                          "text": "preparation of the following court documents for filing and/or filing of the court documents (list any applicable court documents):",
+                          "comment": true
+                        },
+                        {
+                          "value": "familyManagementConference",
+                          "text": "at the family management conference",
+                          "comment": false
+                        },          
+                        {
+                          "value": "familySettlementConference",
+                          "text": "at the family settlement conference",
+                          "comment": false
+                        },     
+                        {
+                          "value": "trial",
+                          "text": "at trial (including any scheduled trial preparation conference)",
+                          "comment": false
+                        },
+                        {
+                          "value": "applicationAbout",
+                          "text": "on the application about <i>(specify)</i>:",
+                          "comment": true
+                        },                        
+                        {
+                          "value": "other",
+                          "text": "Other <i>(specify)</i>:",
+                          "comment": true
+                        }
+                      ],
+                      "isRequired": true
+                  },  
+                  {
+                      "type": "html",
+                      "name": "addressTitle",
+                      "title": "address",
+                      "html": "<div style='margin: 0rem 0 -2rem 0'><div style='font-weight: bold;' class='sv_main sv_q_title'>Please provide the contact information and address you want court documents delivered to.</div></div>"
+                  },
+                  {
+                    "type": "checkbox",
+                    "name": "AddressChanges",                    
+                    "title": "<b style='color: white; font-size: 1pt; margin: -5rem 0 -5rem 0'>There are no changes to the contact information or address for service of court documents on file.</b>",                    
+                    "choices": [
+                        {
+                            "value": "true",
+                            "text": "There are no changes to the contact information or address for service of court documents on file."
+                        }                    
+                    ]
+                   },
+                  {
+                      "type": "comment",
+                      "name": "FirmName",
+                      "visible": false,
+                      "visibleIf": "!({AddressChanges} contains 'true')",
+                      "title": "<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 0rem 0 -1rem 0'> Firm Name (if applicable):</b>",                
+                      "rows": 1
+                  },
+                  {
+                      "type": "address",
+                      "name": "LawyerAddressNlp",
+                      "title": "",
+                      "titleLocation": "hidden",
+                      "isRequired": true,
+                      "visible": false,
+                      "visibleIf": "!({AddressChanges} contains 'true')",
+                      "referLabel": "Applicant's Address"
+                  },
+                  {
+                      "type": "contactinfo",
+                      "name": "LawyerContact",
+                      "visible": false,
+                      "visibleIf": "!({AddressChanges} contains 'true')",
+                      "title": "Please provide your contact information",
+                      "isRequired": true,
+                      "labelEmail": "Email",                    
+                      "labelPhone": "Phone"
+                  }                                              
+                ]
+              } 
+            ]
+          }
+        ],
+        "title": "Notice of Lawyer for Party"
+      }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+  }

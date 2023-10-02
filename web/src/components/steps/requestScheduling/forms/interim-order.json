@@ -1,0 +1,69 @@
+{
+  "title": "Interim Order",
+  "pages": [
+    {
+      "name": "Interim Order",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "InterimOrderPanel",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "ReasonForChange",
+              "title": "Why do you want the interim order changed, suspended or cancelled?",
+              "description": "Under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section216' target='_blank'>section 216(3)</a> of the <i>Family Law Act</i>, the court may change, suspend or cancel an interim order if there has been a change in circumstances or new information is available since the interim order was made. You must explain why are applying to change, suspend or cancel the interim order. You do not need to use any special wording. The key is to be clear about why you are asking the court to make an order.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{orderChanged}"
+            },
+            {
+              "type": "comment",
+              "name": "DescriptionOnChange",
+              "title": "Please describe how you would like the interim order changed, suspended or cancelled?",
+              "description": "What do you want the court to order?<br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{orderChanged}"
+            },
+            
+            {
+              "type": "checkbox",
+              "name": "FlmType",
+              "visible": false,
+              "isRequired": true,
+              "visibleIf": "{family}",
+              "title": "Select the family law matter(s) you need an interim order for.",
+              "description": "Note: The details of the final order you are asking for an interim order about must already be included in one of the following filed documents:<ul><li>Application About a Family Law Matter Form 3,</li><li>Reply to an Application About a Family Law Matter and/or Counter Application Form 6, or</li><li>Reply to a Counter Application Form 8.</li></ul>",
+              "choices": [
+                {
+                  "value": "Parenting arrangements including parental responsibilities and parenting time",
+                  "text": "Parenting arrangements including parental responsibilities and parenting time"
+                },
+                {
+                  "value": "Child support",
+                  "text": "Child support"
+                },
+                {
+                  "value": "Contact with a child",
+                  "text": "Contact with a child"
+                },
+                {
+                  "value": "Guardianship of a child",
+                  "text": "Guardianship of a child"
+                },
+                {
+                  "value": "Spousal support",
+                  "text": "Spousal support"
+                }
+              ]
+            }            
+          ]
+        }
+      ],
+      "title": "Interim Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
