@@ -39,7 +39,7 @@
                 "isRequired": true,  
                 "type": "paneldynamic",
                 "name": "storyAff",
-                "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > I `swear or affirm` that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true. </b>",
+                "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>I `swear or affirm` that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true.</b>",
                 "description": "List the facts that you wish to present to the court.<ul><li>Include only facts that are relevant (related) to your case. This is information that can be used to prove or disprove an important fact or issue in your case.</li><li>If certain facts are not within your personal knowledge, identify the source of your information.</li><li>If you refer to documents, attach them to this affidavit and mark them as exhibits.</li></ul>You do not need to use any special wording except when you are referencing an exhibit. The key is to be clear and direct so that the judge can understand. Your affidavit including exhibits cannot be longer than 25 pages.<br><br>Use short sentences and organize your affidavit into paragraphs. Each fact or piece of information should be its own paragraph. Click on 'Add new' to move to start a new paragraph. This service will help to number each paragraph and each page as this is a requirement for affidavits. You must add page numbers to your exhibits.",                            
                 "templateElements": [                  
                   {

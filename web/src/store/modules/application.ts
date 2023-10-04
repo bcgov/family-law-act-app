@@ -65,7 +65,8 @@ class Application extends VuexModule {
         noticeRemoveLawyerChild: false,                    
         noticeLawyerParty: false,
         noticeRemoveLawyerParty: false,
-        affidavit: false             
+        affidavit: false,
+        electronicFilingStatement: false            
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -2412,7 +2413,7 @@ class Application extends VuexModule {
         s.id = "23";
         s.name = "EFSP";
         s.label = "Electronic Filing Statement";
-        s.icon = "fa fa-exclamation-circle";
+        s.icon = "fa fa-file";
         s.lastUpdate = null;
         s.type = "electronicFilingStatement";
         s.pages = new Array<pageInfoType>();
@@ -2426,33 +2427,17 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);        
 
-        p = {} as pageInfoType;
-        p.key = "1";
-        p.name = "ElectronicFilingStatementInformation";
-        p.label = "Electronic Filing Statement Information ";        
-        p.active = true;
-        p.progress = 0;    
-        s.pages.push(p);   
-
-        p = {} as pageInfoType;
-        p.key = "2";        
-        p.name = "MoreInformationEFSP";
-        p.label = "More Information";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
         //____________Review
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "1";
         p.name = "ReviewYourAnswersEFSP";
         p.label = "Review Your Answers";
-        p.active = false;
+        p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "2";
         p.name = "PreviewFormsEFSP";
         p.label = "Preview Forms";
         p.active = false;

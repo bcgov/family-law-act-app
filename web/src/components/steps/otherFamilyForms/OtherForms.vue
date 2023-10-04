@@ -150,7 +150,7 @@ export default class OtherForms extends Vue {
         {formName: 'Consent adjournment',                                   formNumber: 'PFA920'},
         {formName: 'Consent Order',                                         formNumber: 'Form 18'},
         {formName: 'Consent to an Informal Trial (Kamloops only)',          formNumber: 'PFA709'},
-        {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51'},
+        // {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51'},
         {formName: 'Fax Filing Cover Page',                                 formNumber: 'Form 52'},
         {formName: 'Financial Statement',                                   formNumber: 'Form 4'},
         {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5'},
@@ -251,7 +251,7 @@ export default class OtherForms extends Vue {
     }
 
     public resetSteps(){ //TODO add all new steps here    
-        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo, this.stPgNo.RQS._StepNo, this.stPgNo.TRIS._StepNo, this.stPgNo.NLC._StepNo, this.stPgNo.NLCR._StepNo, this.stPgNo.NLP._StepNo, this.stPgNo.NLPR._StepNo, this.stPgNo.AFF._StepNo], false);
+        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo, this.stPgNo.RQS._StepNo, this.stPgNo.TRIS._StepNo, this.stPgNo.NLC._StepNo, this.stPgNo.NLCR._StepNo, this.stPgNo.NLP._StepNo, this.stPgNo.NLPR._StepNo, this.stPgNo.AFF._StepNo, this.stPgNo.EFSP._StepNo], false);
     }
 
     public determineSteps(){

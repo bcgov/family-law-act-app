@@ -29,6 +29,7 @@ import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurvey
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType } from "./Affidavit";
+import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
 
 
 //This is what our database saves.
@@ -331,9 +332,7 @@ export interface stepInfoType {
     filingAffSurvey?: filingAffSurveyInfoType;
 
     //_____Step 21 ELECTRONIC FILING STATEMENT_____________    
-    electronicFilingStatementSurvey?: any;// electronicFilingStatementSurveyInfoType;    
-    electronicFilingStatementInformationSurvey?: any;// electronicFilingStatementInformationInfoType;
-    moreInformationEfspSurvey?: any; //moreInformationEfspSurveyInfoType;
+    electronicFilingStatementSurvey?: electronicFilingStatementSurveyInfoType;
 
     
     //__Step 22 SUBMIT

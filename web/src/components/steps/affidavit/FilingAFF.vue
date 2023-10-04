@@ -78,8 +78,8 @@ export default class FilingAff extends Vue {
 
     public determineSteps(){
 
-        // if (this.survey.data?.sworn)
-        //     toggleStep(this.stPgNo.PO._StepNo, this.survey.data.sworn == 'y');
+        if (this.survey.data?.sworn)
+            toggleStep(this.stPgNo.EFSP._StepNo, this.survey.data.sworn == 'y');
     }
     
     public reloadPageInformation() {

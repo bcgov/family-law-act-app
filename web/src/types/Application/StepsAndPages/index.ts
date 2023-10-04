@@ -390,9 +390,7 @@ export interface NLPRstPgTypes{
 export interface EFSPstPgTypes{
     _StepNo: number;
 
-    ElectronicFilingStatement: number;
-    ElectronicFilingStatementInformation: number;
-    MoreInformationEFSP: number;
+    ElectronicFilingStatement: number;    
     ReviewYourAnswersEFSP: number;
     PreviewFormsEFSP: number;
 }

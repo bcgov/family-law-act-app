@@ -6,24 +6,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-
 import * as SurveyVue from "survey-vue";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-
 import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/electronic-filing-statement.json";
-
 import PageBase from "../PageBase.vue";
-
-import { togglePages } from '@/components/utils/TogglePages';
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
-
 
 @Component({
     components:{
@@ -75,7 +69,6 @@ export default class ElectronicFilingStatement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
 
-            this.setPages();
 
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
@@ -89,32 +82,16 @@ export default class ElectronicFilingStatement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.noticeDiscontinuanceSurvey) {            
-            this.survey.data = this.step.result.noticeDiscontinuanceSurvey.data;   
-            this.setPages();         
+        if (this.step.result?.electronicFilingStatementSurvey) {            
+            this.survey.data = this.step.result.electronicFilingStatementSurvey.data;   
+                     
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
-            this.survey.setValue('otherPartyInfoDis',[]) 
+            this.survey.setValue('otherPartyInfoEfsp',[]) 
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
-    }
-
-    public setPages() {
-
-        const p = this.stPgNo.EFSP;
-        const noticeDiscontinuancePagesAll = [p.ElectronicFilingStatementInformation, p.MoreInformationEFSP, p.ReviewYourAnswersEFSP]
-
-        if (this.survey.data) {
-
-            const surveyResponses = this.survey.data;
-
-            const canContinue = surveyResponses.Filed == 'y';
-
-           togglePages(noticeDiscontinuancePagesAll, canContinue, this.currentStep);            
-            this.disableNextButton = !canContinue;
-        }
-    }
+    }    
 
     public mergeRespondants(){
         const respondentNames =[]
@@ -122,9 +99,9 @@ export default class ElectronicFilingStatement extends Vue {
             const respondents = this.$store.state.Application.steps[0].result.respondents        
             respondentNames.push(...respondents)
         }
-
-        if(this.survey.data?.otherPartyInfoDis && this.survey.data?.otherPartyInfoDis.length>0){            
-            const respondentNamesDis = this.survey.data.otherPartyInfoDis.map(otherParty=>otherParty.name)
+//add condition on lawyer?or not
+        if(this.survey.data?.otherPartyInfoEfsp && this.survey.data?.otherPartyInfoEfsp.length>0){            
+            const respondentNamesDis = this.survey.data.otherPartyInfoEfsp.map(otherParty=>otherParty.name)
             respondentNames.push(...respondentNamesDis)
         }  
         
@@ -162,7 +139,7 @@ export default class ElectronicFilingStatement extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {noticeDiscontinuanceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {electronicFilingStatementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
