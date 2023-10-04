@@ -1,0 +1,141 @@
+{
+  "title": "Notice of Removal of Lawyer for Party",
+  "pages": [
+    {
+      "name": "Notice of Removal of Lawyer for Party",
+      "description": "<a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section163'>Rule 163</a> of the Provincial Court Family Rules requires you to file a Notice of Removal of Lawyer for Party in Form 43 when you stop representing a party and serve a copy on each other party as soon as possible.  If the party has a new lawyer the party, or the new lawyer must file a Notice of Lawyer for Party in <a target='_blank' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa761.pdf?forcedownload=true'>Form 43</a> and serve a copy on each other party as soon as possible.<br><br>You do not need to file a Notice of Removal of Lawyer for Party if the limited purpose for which the lawyer was representing the party has ended.<br><br>Use this pathway to complete your Notice of Removal of Lawyer for Party.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "elements": [     
+            {
+                "type": "radiogroup",
+                "name": "ApplicantType",                
+                "title": "Please select the statement below that applies to you.",
+                "description": "If you are helping someone complete this pathway, answer as if you were them.",
+                "isRequired": true,
+                "choices": [
+                    {
+                        "value": "Party",
+                        "text": "I am the party"
+                    },
+                    {
+                        "value": "Lawyer",
+                        "text": "I am the party’s lawyer"
+                    }
+                ]
+            },
+            {
+                "type": "personname",
+                "name": "ApplicantName",
+                "visible": false,
+                "visibleIf": "{ApplicantType} = 'Lawyer'",
+                "title": "What is your name?",
+                "description": "This is the name of the lawyer for the party. If you are filing out this form for a lawyer for the party, fill in their name.",
+                "isRequired": true,              
+                "defaultSubstitution": "(Applicant Name)",
+                "descFirstName": "First Name is also known as Given Name",
+                "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                "descLastName": "Last Name is also known as Family Name or Surname"
+            },      
+            {
+                "type": "personname",
+                "name": "ApplicantName",
+                "visible": false,
+                "visibleIf": "{ApplicantType} = 'Party'",
+                "title": "What is your name?",
+                "description": "This is the name of the party.",
+                "isRequired": true,              
+                "defaultSubstitution": "(Applicant Name)",
+                "descFirstName": "First Name is also known as Given Name",
+                "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                "descLastName": "Last Name is also known as Family Name or Surname"
+            },               
+            {
+                "type": "panel",
+                "name": "ContactInformationOtherPartyPanel",             
+                "elements": [
+                    {
+                        "isRequired": true,  
+                        "type": "paneldynamic",
+                        "name": "OtherPartyInfoNlpr",
+                        "visible": false,
+                        "visibleIf": "{ApplicantType} = 'Lawyer'",
+                        "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are no longer representing? </b>",
+                        "templateElements": [
+                            {
+                                "type": "personname",
+                                "name": "name",
+                                "title": " ",
+                                "titleLocation": "hidden"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "comment",
+                "name": "LawyerName",
+                "visible": false,
+                "visibleIf": "{ApplicantType} = 'Party'",
+                "title": "What is the name of the lawyer who is no longer representing you?",                
+                "rows": 1
+            },
+            {
+                "type": "text",
+                "inputType": "date",
+                "name": "EffectiveDate",
+                "title": "On what date does the change of representation start?",
+                "description": "Select the date when the lawyer is no longer representing the party. It may be a past, present or future date. This date will be noted on your court file. You are still responsible for making sure you have copies of any court documents that are filed before you have filed your Notice of Removal of Lawyer for Party and served a copy on each other party.",
+                "isRequired": true,
+                "dateYearsAhead": "10"                  
+            },
+            {
+                "type": "html",
+                "name": "addressTitle",
+                "title": "address",
+                "html": "<div style='margin: 0rem 0 -2rem 0'><div style='font-weight: bold;' class='sv_main sv_q_title'>Please provide the contact information and address you want court documents delivered to.</div></div>"
+            },
+            {
+                "type": "checkbox",
+                "name": "AddressChanges",                    
+                "title": "<b style='color: white; font-size: 1pt; margin: -5rem 0 -5rem 0'>There are no changes to the contact information or address for service of court documents on file.</b>",                    
+                "choices": [
+                    {
+                        "value": "true",
+                        "text": "There are no changes to the contact information or address for service of court documents on file."
+                    }                    
+                ]
+            },               
+            {
+                "type": "address",
+                "name": "LawyerAddressNlpr",
+                "title": "",
+                "titleLocation": "hidden",
+                "isRequired": true,
+                "visible": false,
+                "visibleIf": "!({AddressChanges} contains 'true')",
+                "referLabel": "Applicant's Address"
+            },
+            {
+                "type": "contactinfo",
+                "name": "LawyerContactNlpr",
+                "visible": false,
+                "visibleIf": "!({AddressChanges} contains 'true')",
+                "title": "",
+                "titleLocation": "hidden",
+                "isRequired": true,
+                "labelEmail": "Email",                    
+                "labelPhone": "Phone"
+            }                            
+
+          ]
+        }
+      ],
+      "title": "Notice of Removal of Lawyer for Party"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

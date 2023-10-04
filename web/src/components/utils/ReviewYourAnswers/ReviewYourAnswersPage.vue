@@ -103,7 +103,7 @@ export default class ReviewYourAnswersPage extends Vue {
         window.scrollTo(0, 0);
     }
 
-    public beautifyQuestion(question){
+    public beautifyQuestion(question){  
         
         let adjQuestion = question
         adjQuestion = adjQuestion.replace(/{ApplicantName}/g, Vue.filter('getFullName')(this.$store.state.Application.applicantName));
@@ -126,10 +126,23 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{disagreeReasonQuestion}/g,'Why don’t you agree with the requested order?');
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > What is the full name of the other party? </b>", "What is the full name of the other party?");
         adjQuestion = adjQuestion.replace("<b style='color: #455571; font-size:22pt;'>completed</b>", "completed");
+        adjQuestion = adjQuestion.replace("LawyerAddressNlc",'Please provide your address information');
+        adjQuestion = adjQuestion.replace("LawyerAddressNlpr",'Please provide your address information');
+        adjQuestion = adjQuestion.replace("LawyerContactNlpr",'Please provide your contact information');
+        adjQuestion = adjQuestion.replace("LawyerAddressNlp",'Please provide your address information');
+        adjQuestion = adjQuestion.replace("<div style='margin: 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are representing?</div></b>", "What is the name of the child you are representing?");
+        adjQuestion = adjQuestion.replace("<div style='margin: 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are no longer representing?</div></b>", "What is the name of the child you are no longer representing?");
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the full name of each party? </b>", "What is the full name of each party?");
+        adjQuestion = adjQuestion.replace("<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 0rem 0 -1rem 0'> Firm Name (if applicable):</b>", "Firm Name (if applicable):");
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are representing? </b>", "What is the name of the party you are representing?");
+        adjQuestion = adjQuestion.replace("<b style='color: white; font-size: 1pt; margin: -5rem 0 -5rem 0'>There are no changes to the contact information or address for service of court documents on file.</b>", "There are no changes to the contact information or address for service of court documents on file.");
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > Please list each person you plan to have attend at trial as a witness. </b>", "Please list each person you plan to have attend at trial as a witness.");
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are no longer representing? </b>", "What is the name of the party you are no longer representing?");
+        
         return adjQuestion
     }
 
-    public beautifyResponse(value, dataItem, sectionData){
+    public beautifyResponse(value, dataItem, sectionData){        
         
         const inputType = dataItem?dataItem['inputType']:""
         const inputName = dataItem?dataItem['name']:""
@@ -159,6 +172,20 @@ export default class ReviewYourAnswersPage extends Vue {
             if (dataItem.name == 'otherPartyInfoDis'){
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'otherPartyInfoRqs'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'otherPartyInfoTris'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'Witnesses'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'OtherPartyInfoNlc'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'ChildInfoNlc'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'ChildInfoNlcr'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'OtherPartyInfoNlp'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'OtherPartyInfoNlpr'){
                 return this.getOtherPartyInfo(value);
             }
             else{

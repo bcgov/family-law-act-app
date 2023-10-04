@@ -20,9 +20,14 @@ export interface stepsAndPagesNumberInfoType{
     CONNECT: CONNECTstPgTypes;
     OTHER: OTHERstPgTypes;
     NCD: NCDstPgTypes;
-    NDT: NDTstPgTypes;
-    NPR: NPRstPgTypes;
+    NDT: NDTstPgTypes;    
+    NPR: NPRstPgTypes;    
     RQS: RQSstPgTypes;
+    TRIS: TRISstPgTypes;
+    NLC: NLCstPgTypes;
+    NLCR: NLCRstPgTypes;
+    NLP: NLPstPgTypes;
+    NLPR: NLPRstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -319,6 +324,58 @@ export interface RQSstPgTypes{
     PartyInformationRQS: number;  
     ReviewYourAnswersRQS: number;
     PreviewFormsRQS: number;
+}
+
+export interface TRISstPgTypes{
+    _StepNo: number;
+
+    TrialReadinessStatement: number;
+    PeopleAtTrial: number;
+    IssuesForTrial: number;
+    BackgroundTris: number;
+    DisclosureOfInformation: number; 
+    Witnesses: number;
+    RequirementsAndConsiderations: number;
+    AboutTheTrial: number;
+    OrdersAtTpc: number;   
+    ReviewYourAnswersTRIS: number;
+    PreviewFormsTRIS: number;
+}
+
+export interface NLCstPgTypes{
+    _StepNo: number;
+
+    NoticeLawyerChild: number;  
+    ReviewYourAnswersNLC: number;
+    PreviewFormsNLC: number;
+}
+
+export interface NLCRstPgTypes{
+    _StepNo: number;
+
+    NoticeRemoveLawyerChild: number;   
+    ReviewYourAnswersNLCR: number;
+    PreviewFormsNLCR: number;
+}
+
+export interface NLPstPgTypes{
+    _StepNo: number;
+
+    NoticeLawyerParty: number;
+    // LawyerPartyInformation: number;
+    // MoreInformationNLP: number;
+    ReviewYourAnswersNLP: number;
+    PreviewFormsNLP: number;
+}
+
+export interface NLPRstPgTypes{
+    _StepNo: number;
+
+    NoticeRemoveLawyerParty: number;
+    // RemoveLawyerPartyInformation: number;
+    // MoreInformationNLPR: number;
+    ReviewYourAnswersNLPR: number;
+    PreviewFormsNLPR: number;
 }
 
 export interface SUBMITstPgTypes{
