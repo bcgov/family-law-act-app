@@ -481,7 +481,7 @@
             Vue.nextTick(() => {                     
                 // console.log(submittedPdfList)
                 this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList}});
-                Vue.nextTick(() => Vue.prototype.$saveChanges() )
+                setTimeout(() => Vue.prototype.$saveChanges(), 1 );
             })
         }
 
