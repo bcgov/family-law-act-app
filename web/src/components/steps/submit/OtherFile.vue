@@ -468,20 +468,21 @@
             // Array.from(new Set(submittedPdfList.concat(supportingDocTypes)))
                         
             const submittedPdfList = this.requiredDocumentLists.map(form => form.type)
-            // console.log(submittedPdfList)
+            console.log(submittedPdfList)
             const stepResults = this.steps[this.stPgNo.OTHER._StepNo].result;
             const selectedFormInfoList = stepResults.completeOtherFormsSurvey?.data?.selectedFormInfoList? stepResults.completeOtherFormsSurvey.data.selectedFormInfoList: [];
-            // console.log(selectedFormInfoList)
+            console.log(selectedFormInfoList)
             for(const selectedForm of selectedFormInfoList){
                 const pdfType = Vue.filter('getPathwayPdfType')(selectedForm.pathwayName)
                 if (selectedForm.pathwayExists && selectedForm.pathwayState && !submittedPdfList.includes(pdfType) ){
                     submittedPdfList.push(pdfType)                                    
                 }
             }  
+            
             Vue.nextTick(() => {                     
-                // console.log(submittedPdfList)
+                console.log(submittedPdfList)
                 this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList}});
-                setTimeout(() => Vue.prototype.$saveChanges(), 1 );
+                Vue.nextTick(() => Vue.prototype.$saveChanges());
             })
         }
 
