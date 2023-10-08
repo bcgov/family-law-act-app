@@ -478,11 +478,11 @@
                     submittedPdfList.push(pdfType)                                    
                 }
             }  
-            Vue.nextTick(() => {                     
-                // console.log(submittedPdfList)
-                this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList}});
-                Vue.nextTick(() => Vue.prototype.$saveChanges() )
-            })
+                                
+            // console.log(submittedPdfList)
+            setTimeout(() => this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList}}) ,1);
+            setTimeout(() => Vue.prototype.$saveChanges(), 50);
+            
         }
 
         public determineRequiredGeneratedPdfs(){
