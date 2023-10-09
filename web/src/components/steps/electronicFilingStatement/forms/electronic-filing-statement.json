@@ -22,7 +22,9 @@
                         "name": "ApplicantName",
                         "title": "What is your full name?",
                         "description": "This is the name of the lawyer. If you are filing out this form for the lawyer, fill in their name.",                  
-                        "isRequired": true,              
+                        "isRequired": true,    
+                        "visible": false,
+                        "visibleIf": "{Lawyer} = 'y'",          
                         "defaultSubstitution": "(Applicant Name)",
                         "descFirstName": "First Name is also known as Given Name",
                         "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
@@ -34,9 +36,11 @@
                         "elements": [
                             {
                                 "isRequired": true,  
+                                "visible": false,
+                                "visibleIf": "{Lawyer} = 'y'",
                                 "type": "paneldynamic",
                                 "name": "PartyInfoEfsp",
-                                "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' >What is the name of the party you are representing?</b>",
+                                "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the name of the party you are representing?</b>",
                                 "description": "Copy the name from a filed document.",                            
                                 "templateElements": [
                                 {
@@ -62,38 +66,40 @@
                         "name": "ApplicantName",
                         "title": "What is your full name?",
                         "description": "This is the name of the party who is filing the affidavit. If you are filing out this form for the party, fill in their name.<br>Copy the name from any filed document.",                  
-                        "isRequired": true,              
+                        "isRequired": true,        
+                        "visible": false,
+                        "visibleIf": "{Lawyer} = 'n'",      
                         "defaultSubstitution": "(Applicant Name)",
                         "descFirstName": "First Name is also known as Given Name",
                         "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
                         "descLastName": "Last Name is also known as Family Name or Surname"
-                    },
-                    {
-                        "type": "panel",
-                        "name": "ContactInformationOtherPartyPanel",             
-                        "elements": [
-                            {
-                                "isRequired": true,  
-                                "type": "paneldynamic",
-                                "name": "OtherPartyInfoEfsp",
-                                "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' >What is the full name of the other party?</b>",
-                                "description": "Copy the name from any filed document.",                            
-                                "templateElements": [
-                                    {
-                                        "type": "personname",
-                                        "name": "name",
-                                        "title": " ",
-                                        "titleLocation": "hidden"
-                                    }
-                                ]
-                            }
-                        ]
                     }                
                 ]
             },
             {
+                "type": "panel",
+                "name": "ContactInformationOtherPartyPanel",             
+                "elements": [
+                    {
+                        "isRequired": true,  
+                        "type": "paneldynamic",
+                        "name": "OtherPartyInfoEfsp",                        
+                        "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the full name of the other party?</b>",
+                        "description": "Copy the name from any filed document.",                            
+                        "templateElements": [
+                            {
+                                "type": "personname",
+                                "name": "name",
+                                "title": " ",
+                                "titleLocation": "hidden"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
                 "type": "checkbox",
-                "name": "statementConfirmation",
+                "name": "StatementConfirmation",
                 "title": "Please confirm the following statement, if true:",
                 "description": "The original paper version of the document being submitted for filing electronically appears to have the original signature of the person identified as signing it and I have no reason to believe that the signature on the document is not their signature.<br><br>The version of the document that is being submitted for filing electronically appears to be a true copy of the original paper version of the document and I have no reason to believe that it is not a true copy of the original paper version.",
                 "choices": [

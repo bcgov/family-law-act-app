@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/filling-affidavit.json";
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { electronicFilingDocumentInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -32,6 +32,9 @@ export default class FilingAff extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -106,8 +109,22 @@ export default class FilingAff extends Vue {
             Vue.prototype.$UpdateGotoNextStepPage()
         }
     }  
+
+    public setEfsDocumentList(){
+       
+        const efsDocumentList: electronicFilingDocumentInfoType[] = this.steps[this.stPgNo.GETSTART._StepNo].result?.efsDocuments?.length>0?this.steps[this.stPgNo.GETSTART._StepNo].result.efsDocuments:[];
+      
+        if (this.step.result.aboutAffiantSurvey?.data?.ApplicantName){
+            const applicantName = this.step.result.aboutAffiantSurvey.data.ApplicantName
+            efsDocumentList.push({documentName: 'Affidavit', efsApplicantName: applicantName});
+        }
+              
+       this.UpdateCommonStepResults({data:{'efsDocuments':efsDocumentList}});
+    }
     
-    beforeDestroy() {          
+    beforeDestroy() {   
+        
+        this.setEfsDocumentList();
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         

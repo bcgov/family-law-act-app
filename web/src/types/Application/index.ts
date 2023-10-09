@@ -106,6 +106,7 @@ export interface stepInfoType {
     protectedPartyName?: nameInfoType;    
     protectedChildName?: allchildrenInfoType[];
     supportingDocumentForm4?: number[];
+    efsDocuments?: electronicFilingDocumentInfoType[];
 
     //______Step 1 PO____
     aboutSurvey?: aboutPOSurveyInfoType;
@@ -333,7 +334,6 @@ export interface stepInfoType {
 
     //_____Step 21 ELECTRONIC FILING STATEMENT_____________    
     electronicFilingStatementSurvey?: electronicFilingStatementSurveyInfoType;
-
     
     //__Step 22 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
@@ -357,8 +357,13 @@ export interface stepInfoType {
     trialReadinessStatement?: boolean;
     noticeLawyerChild?: boolean;
     noticeRemoveLawyerChild?: boolean;
-    affidavit?: boolean;
     noticeLawyerParty?: boolean;
     noticeRemoveLawyerParty?: boolean; 
+    affidavit?: boolean;
     electronicFilingStatement?: boolean;
+  }
+
+  export interface electronicFilingDocumentInfoType {
+    efsApplicantName?: nameInfoType;
+    documentName?: string;
   }

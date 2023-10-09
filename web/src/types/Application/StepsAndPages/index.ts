@@ -26,9 +26,9 @@ export interface stepsAndPagesNumberInfoType{
     TRIS: TRISstPgTypes;
     NLC: NLCstPgTypes;
     NLCR: NLCRstPgTypes;
-    AFF: AFFstPgTypes;
     NLP: NLPstPgTypes;
     NLPR: NLPRstPgTypes;
+    AFF: AFFstPgTypes;
     EFSP: EFSPstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }

@@ -40,6 +40,14 @@ Vue.filter('truncate-word-before', function (text: string, stop: number) {
 		return ''
 })
 
+Vue.filter('truncate', function (text: string, stop: number) {
+	if(text){
+		return text.slice(0, stop)
+	}
+	else
+		return ''
+})
+
 Vue.filter('beautify-date-full-no-weekday', function(date){
 	if(date)
 		return	moment(date).format('MMMM DD, YYYY');
@@ -758,9 +766,9 @@ Vue.filter('surveyChanged', function(type: string) {
 		const stepTRIS = store.state.Application.stPgNo.TRIS;
 		const stepNLC = store.state.Application.stPgNo.NLC;
         const stepNLCR = store.state.Application.stPgNo.NLCR;
-        const stepAFF = store.state.Application.stPgNo.AFF;
         const stepNLP = store.state.Application.stPgNo.NLP;	
         const stepNLPR = store.state.Application.stPgNo.NLPR;
+        const stepAFF = store.state.Application.stPgNo.AFF;
         const stepEFSP = store.state.Application.stPgNo.EFSP;
 		
 		let step = stepPO._StepNo; 
@@ -783,83 +791,67 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepFLM._StepNo; 
 			reviewPage = stepFLM.ReviewYourAnswersFLM; 
 			previewPages = [stepFLM.PreviewFormsFLM];	
-		}
-		else if(typeName == 'priorityParenting'){
+		} else if(typeName == 'priorityParenting'){
 			step = stepPPM._StepNo; 
 			reviewPage = stepPPM.ReviewYourAnswersPPM; 
 			previewPages = [stepPPM.PreviewFormsPPM];	
-		}
-		else if(typeName == 'childReloc'){
+		} else if(typeName == 'childReloc'){
 			step = stepRELOC._StepNo; 
 			reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
 			previewPages = [stepRELOC.PreviewFormsRELOC];	
-		}
-		else if(typeName == 'caseMgmt'){
+		} else if(typeName == 'caseMgmt'){
 			step = stepCM._StepNo; 
 			reviewPage = stepCM.ReviewYourAnswersCM; 
 			previewPages = [stepCM.PreviewForm10CM, stepCM.PreviewForm11CM];
-		}
-		else if(typeName == 'agreementEnfrc'){
+		} else if(typeName == 'agreementEnfrc'){
 			step = stepENFRC._StepNo; 
 			reviewPage = stepENFRC.ReviewYourAnswersENFRC; 
 			previewPages = [stepENFRC.PreviewForm29ENFRC, stepENFRC.PreviewForm28ENFRC, stepENFRC.PreviewForm27ENFRC, stepENFRC.PreviewForm26ENFRC];
-		}
-		else if(typeName == 'noticeOfAddressChange'){
+		} else if(typeName == 'noticeOfAddressChange'){
 			step = stepNCD._StepNo; 
 			reviewPage = stepNCD.ReviewYourAnswersNCD; 
 			previewPages = [stepNCD.PreviewFormsNCD];
-		}
-		else if(typeName == 'noticeDiscontinuance'){
+		} else if(typeName == 'noticeDiscontinuance'){
 			step = stepNDT._StepNo; 
 			reviewPage = stepNDT.ReviewYourAnswersNDT; 
 			previewPages = [stepNDT.PreviewFormsNDT];
-		}
-		else if(typeName == 'noticeIntentionProceed'){
+		} else if(typeName == 'noticeIntentionProceed'){
 			step = stepNPR._StepNo; 
 			reviewPage = stepNPR.ReviewYourAnswersNPR; 
 			previewPages = [stepNPR.PreviewFormsNPR];
-		}			
-		else if(typeName == 'requestScheduling'){
+		} else if(typeName == 'requestScheduling'){
 			step = stepRQS._StepNo; 
 			reviewPage = stepRQS.ReviewYourAnswersRQS; 
 			previewPages = [stepRQS.PreviewFormsRQS];
-		}		
-		else if(typeName == 'trialReadinessStatement'){
+		} else if(typeName == 'trialReadinessStatement'){
 			step = stepTRIS._StepNo; 
 			reviewPage = stepTRIS.ReviewYourAnswersTRIS; 
 			previewPages = [stepTRIS.PreviewFormsTRIS];
-		}
-        else if(typeName == 'noticeLawyerChild'){
+		} else if(typeName == 'noticeLawyerChild'){
 			step = stepNLC._StepNo; 
 			reviewPage = stepNLC.ReviewYourAnswersNLC; 
 			previewPages = [stepNLC.PreviewFormsNLC];
-        }	
-        else if(typeName == 'noticeRemoveLawyerChild'){
+        } else if(typeName == 'noticeRemoveLawyerChild'){
 			step = stepNLCR._StepNo; 
 			reviewPage = stepNLCR.ReviewYourAnswersNLCR; 
 			previewPages = [stepNLCR.PreviewFormsNLCR];
-		}
-        else if(typeName == 'affidavit'){
-			step = stepAFF._StepNo; 
-			reviewPage = stepAFF.ReviewYourAnswersAFF; 
-			previewPages = [stepAFF.PreviewFormsAFF];
-		}		
-        else if(typeName == 'noticeLawyerParty'){
+		} else if(typeName == 'noticeLawyerParty'){
 			step = stepNLP._StepNo; 
 			reviewPage = stepNLP.ReviewYourAnswersNLP; 
 			previewPages = [stepNLP.PreviewFormsNLP];
-		}
-		else if(typeName == 'noticeRemoveLawyerParty'){
+		} else if(typeName == 'noticeRemoveLawyerParty'){
 			step = stepNLPR._StepNo; 
 			reviewPage = stepNLPR.ReviewYourAnswersNLPR; 
 			previewPages = [stepNLPR.PreviewFormsNLPR];
-		}
-		else if(typeName == 'electronicFilingStatement'){
+		} else if(typeName == 'affidavit'){
+			step = stepAFF._StepNo; 
+			reviewPage = stepAFF.ReviewYourAnswersAFF; 
+			previewPages = [stepAFF.PreviewFormsAFF];
+		} else if(typeName == 'electronicFilingStatement'){
 			step = stepEFSP._StepNo; 
 			reviewPage = stepEFSP.ReviewYourAnswersEFSP; 
 			previewPages = [stepEFSP.PreviewFormsEFSP];
 		}
-		
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
@@ -901,10 +893,10 @@ Vue.filter('surveyChanged', function(type: string) {
 		pathwayCompleted.requestScheduling = false;
 		pathwayCompleted.trialReadinessStatement = false;
         pathwayCompleted.noticeLawyerChild = false;
-        pathwayCompleted.noticeRemoveLawyerChild = false;	
-        pathwayCompleted.affidavit = false;	
+        pathwayCompleted.noticeRemoveLawyerChild = false;
         pathwayCompleted.noticeLawyerParty = false;	
         pathwayCompleted.noticeRemoveLawyerParty = false;
+        pathwayCompleted.affidavit = false;
         pathwayCompleted.electronicFilingStatement = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            

@@ -69,7 +69,6 @@ export default class ElectronicFilingStatement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
 
-
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
                 this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
@@ -87,23 +86,40 @@ export default class ElectronicFilingStatement extends Vue {
                      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } else {
-            this.survey.setValue('otherPartyInfoEfsp',[]) 
+            this.survey.setValue('OtherPartyInfoEfsp',[]); 
+            this.survey.setValue('PartyInfoEfsp',[]); 
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }    
 
     public mergeRespondants(){
-        const respondentNames =[]
+
+        const respondentNames = [];
+
         if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondents){
             const respondents = this.$store.state.Application.steps[0].result.respondents        
             respondentNames.push(...respondents)
         }
-//add condition on lawyer?or not
-        if(this.survey.data?.otherPartyInfoEfsp && this.survey.data?.otherPartyInfoEfsp.length>0){            
-            const respondentNamesDis = this.survey.data.otherPartyInfoEfsp.map(otherParty=>otherParty.name)
-            respondentNames.push(...respondentNamesDis)
-        }  
+
+        if(this.survey.data?.Lawyer){
+
+            const applicantIsLawyer = this.survey.data.Lawyer == 'y';
+
+            if (applicantIsLawyer){
+
+                if(this.survey.data?.PartyInfoEfsp && this.survey.data?.PartyInfoEfsp.length>0){
+                    const respondentNamesEfsp = this.survey.data.PartyInfoEfsp.map(party=>party.name)
+                    respondentNames.push(...respondentNamesEfsp)
+                } 
+
+            } else {
+                if(this.survey.data?.OtherPartyInfoEfsp && this.survey.data?.OtherPartyInfoEfsp.length>0){
+                    const respondentNamesEfsp = this.survey.data.OtherPartyInfoEfsp.map(otherParty=>otherParty.name)
+                    respondentNames.push(...respondentNamesEfsp)
+                } 
+            }
+        }        
         
         const fullNamesArray =[];
         for(const name of respondentNames ){

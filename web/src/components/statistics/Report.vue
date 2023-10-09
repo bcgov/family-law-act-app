@@ -36,9 +36,9 @@
         <tris-table class="mt-5" :results="results"/>
         <nlc-table class="mt-5" :results="results"/>
         <nlcr-table class="mt-5" :results="results"/>
-        <aff-table class="mt-5" :results="results"/>
         <nlp-table class="mt-5" :results="results"/>
         <nlpr-table class="mt-5" :results="results"/>
+        <aff-table class="mt-5" :results="results"/>
         <efsp-table class="mt-5" :results="results"/>
         
     </div>

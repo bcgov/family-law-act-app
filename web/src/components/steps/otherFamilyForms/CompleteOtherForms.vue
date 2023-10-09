@@ -354,12 +354,6 @@ export default class CompleteOtherForms extends Vue {
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
-            }else if(formName=='Affidavit – General'){
-                const step = this.stPgNo.AFF._StepNo
-                const page = this.stPgNo.AFF.PreviewFormsAFF
-                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
-                toggleStep(step, false);
-                pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }else if(formName=='Notice of Lawyer for Party'){
                 const step = this.stPgNo.NLP._StepNo;
                 const page = this.stPgNo.NLP.PreviewFormsNLP;
@@ -372,6 +366,12 @@ export default class CompleteOtherForms extends Vue {
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName);
+            }else if(formName=='Affidavit – General'){
+                const step = this.stPgNo.AFF._StepNo
+                const page = this.stPgNo.AFF.PreviewFormsAFF
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }else if(formName=='Electronic Filing Statement'){
                 const step = this.stPgNo.EFSP._StepNo;
                 const page = this.stPgNo.EFSP.PreviewFormsEFSP;

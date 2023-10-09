@@ -201,10 +201,12 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(this.stPgNo.TRIS._StepNo, this.requiredGuidedPathways.includes("trialReadinessStatement"));
         toggleStep(this.stPgNo.NLC._StepNo, this.requiredGuidedPathways.includes("noticeLawyerChild"));
         toggleStep(this.stPgNo.NLCR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerChild"));
-        toggleStep(this.stPgNo.AFF._StepNo, this.requiredGuidedPathways.includes("affidavit"));
+        toggleStep(this.stPgNo.NLP._StepNo, this.requiredGuidedPathways.includes("noticeLawyerParty"));
         toggleStep(this.stPgNo.NLPR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerParty"));
-        toggleStep(this.stPgNo.EFSP._StepNo, this.requiredGuidedPathways.includes("electronicFilingStatement"));
+        toggleStep(this.stPgNo.AFF._StepNo, this.requiredGuidedPathways.includes("affidavit"));
         togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit, this.stPgNo.AFF._StepNo);
+        toggleStep(this.stPgNo.EFSP._StepNo, this.requiredGuidedPathways.includes("electronicFilingStatement"));
+        
     }   
 
     public saveApplicationLocation(location){       

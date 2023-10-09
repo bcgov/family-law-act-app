@@ -35,7 +35,7 @@ export default class Form51 extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getEFSPesultData();       
+        this.result = this.getEFSPResultData();       
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
@@ -44,7 +44,7 @@ export default class Form51 extends Vue {
 
         const pdf_type = Vue.filter('getPathwayPdfType')("electronicFilingStatement");
         const pdf_name = "electronic-filing-statement";       
-        const el= document.getElementById("print");
+        const el = document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA768    `+moment().format("MMMM D, YYYY")+` \\a           Form 51";`;
@@ -76,7 +76,7 @@ export default class Form51 extends Vue {
         });
     }
  
-    public getEFSPesultData() {         
+    public getEFSPResultData() {         
         
         const result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.EFSP._StepNo]){

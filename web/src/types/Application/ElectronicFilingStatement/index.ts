@@ -5,7 +5,7 @@ export interface electronicFilingStatementDataInfoType {
     ApplicantName?: nameInfoType;
     PartyInfoEfsp?: efspPartyInfoType[];
     OtherPartyInfoEfsp?: efspPartyInfoType[];
-    statementConfirmation?: string[];
+    StatementConfirmation?: string[];
 }
 
 export interface efspPartyInfoType {

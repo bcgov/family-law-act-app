@@ -2,7 +2,8 @@ import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from
 
 export interface affidavitDataInfoType {    
     affidavitReason?: string;
-    applicationType?: string;
+    applicationType?: string[];
+    applicationTypeComment?: string;
 }
   
 export interface affidavitSurveyInfoType {
@@ -50,4 +51,9 @@ export interface filingAffSurveyInfoType {
 
 export interface filingAffDataInfoType {    
     sworn?: string;
+}
+
+export interface storyDataInfoType {
+    index?: number;
+    content?: string;
 }
