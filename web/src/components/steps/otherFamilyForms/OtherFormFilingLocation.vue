@@ -172,8 +172,16 @@ export default class OtherFormFilingLocation extends Vue {
             
             toggleStep(submitStep._StepNo, true);  
             togglePages([submitStep.OtherFile], true, submitStep._StepNo);
+
             this.UpdatePathwayCompleted({pathway:"other", isCompleted:true});
         }
+    }
+
+    public eFilingAffidavit(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavit")                
+
     }
 
     public setGuidedPathwaySteps(){
@@ -187,14 +195,18 @@ export default class OtherFormFilingLocation extends Vue {
             }            
         }        
         toggleStep(this.stPgNo.NCD._StepNo, this.requiredGuidedPathways.includes("noticeOfAddressChange"));
-        toggleStep(this.stPgNo.NDT._StepNo, this.requiredGuidedPathways.includes("noticeDiscontinuance"));
-        toggleStep(this.stPgNo.NPR._StepNo, this.requiredGuidedPathways.includes("noticeIntentionProceed"));
+        toggleStep(this.stPgNo.NDT._StepNo, this.requiredGuidedPathways.includes("noticeDiscontinuance"));     
+        toggleStep(this.stPgNo.NPR._StepNo, this.requiredGuidedPathways.includes("noticeIntentionProceed"));        
         toggleStep(this.stPgNo.RQS._StepNo, this.requiredGuidedPathways.includes("requestScheduling"));
         toggleStep(this.stPgNo.TRIS._StepNo, this.requiredGuidedPathways.includes("trialReadinessStatement"));
         toggleStep(this.stPgNo.NLC._StepNo, this.requiredGuidedPathways.includes("noticeLawyerChild"));
         toggleStep(this.stPgNo.NLCR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerChild"));
         toggleStep(this.stPgNo.NLP._StepNo, this.requiredGuidedPathways.includes("noticeLawyerParty"));
         toggleStep(this.stPgNo.NLPR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerParty"));
+        toggleStep(this.stPgNo.AFF._StepNo, this.requiredGuidedPathways.includes("affidavit"));
+        togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit, this.stPgNo.AFF._StepNo);
+        toggleStep(this.stPgNo.EFSP._StepNo, this.requiredGuidedPathways.includes("electronicFilingStatement"));
+        
     }   
 
     public saveApplicationLocation(location){       

@@ -62,9 +62,11 @@ class Application extends VuexModule {
         requestScheduling: false,
         trialReadinessStatement: false,   
         noticeLawyerChild: false,
-        noticeRemoveLawyerChild: false,
+        noticeRemoveLawyerChild: false,                    
         noticeLawyerParty: false,
-        noticeRemoveLawyerParty: false             
+        noticeRemoveLawyerParty: false,
+        affidavit: false,
+        electronicFilingStatement: false            
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -755,8 +757,6 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-
-
 
 //____________Contact with a Child
         p = {} as pageInfoType;
@@ -2251,8 +2251,9 @@ class Application extends VuexModule {
 
         this.steps.push(s);
 
-        // Notice of Removal of Lawyer for Child STOP              
+        // Notice of Removal of Lawyer for Child STOP
 
+        
         // Notice of Lawyer for Party START
 
         s = {} as stepInfoType;    
@@ -2315,24 +2316,8 @@ class Application extends VuexModule {
         p.label = "Notice of Removal of Lawyer for Party";
         p.active = true;
         p.progress = 0;    
-        s.pages.push(p);        
-
-        // p = {} as pageInfoType;
-        // p.key = "1";
-        // p.name = "RemoveLawyerPartyInformation";
-        // p.label = "Notice of Removal of Lawyer for Party Information ";        
-        // p.active = true;
-        // p.progress = 0;    
-        // s.pages.push(p);   
-
-        // p = {} as pageInfoType;
-        // p.key = "2";        
-        // p.name = "MoreInformationNLPR";
-        // p.label = "More Information";
-        // p.active = false;
-        // p.progress = 0;    
-        // s.pages.push(p);
-
+        s.pages.push(p);       
+       
         //____________Review
         p = {} as pageInfoType;
         p.key = "1";
@@ -2354,10 +2339,120 @@ class Application extends VuexModule {
 
         // Notice of Removal of Lawyer for Party STOP
 
+
+        // Affidavit START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "22";
+        s.name = "AFF";
+        s.label = "Affidavit";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "affidavit";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "Affidavit";
+        p.label = "Affidavit";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiant";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "YourStoryAFF";
+        p.label = "Your Story";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";        
+        p.name = "FilingAFF";
+        p.label = "Filing an Affidavit";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersAFF";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsAFF";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Affidavit STOP
+
+        // Electronic Filing Statement START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "23";
+        s.name = "EFSP";
+        s.label = "Electronic Filing Statement";
+        s.icon = "fa fa-file";
+        s.lastUpdate = null;
+        s.type = "electronicFilingStatement";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "ElectronicFilingStatement";
+        p.label = "Electronic Filing Statement";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersEFSP";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsEFSP";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Electronic Filing Statement STOP
+
+
         //Submit START
         s = {} as stepInfoType;
         s.active = false;        
-        s.id = "22";
+        s.id = "24";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2873,8 +2968,8 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
-        const steps = this.steps
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, EFSP: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           
             for(const page of step.pages){

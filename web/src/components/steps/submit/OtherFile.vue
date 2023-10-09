@@ -477,10 +477,12 @@
                 if (selectedForm.pathwayExists && selectedForm.pathwayState && !submittedPdfList.includes(pdfType) ){
                     submittedPdfList.push(pdfType)                                    
                 }
-            }                        
+            }  
+                                
             // console.log(submittedPdfList)
-            this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList}});
-            Vue.nextTick(() => Vue.prototype.$saveChanges() )
+            setTimeout(() => this.UpdateCommonStepResults({data:{'submittedPdfList':submittedPdfList}}) ,1);
+            setTimeout(() => Vue.prototype.$saveChanges(), 50);
+            
         }
 
         public determineRequiredGeneratedPdfs(){

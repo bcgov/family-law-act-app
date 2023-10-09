@@ -481,7 +481,8 @@ export default class SuccessPage extends Vue {
             } 
             
             if (pathways.length == 0 && stepGETSTART?.otherForms){                
-                this.applicationDocumentTypes = stepGETSTART?.submittedPdfList;
+                this.applicationDocumentTypes = stepGETSTART?.submittedPdfList? stepGETSTART.submittedPdfList:[];
+
                 // this.includesOtherForms = this.otherApplicationTypes.some(otherAppType => this.applicationDocumentTypes.includes(otherAppType))
                 
             }            
