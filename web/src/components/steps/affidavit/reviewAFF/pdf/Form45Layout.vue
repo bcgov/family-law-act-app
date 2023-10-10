@@ -331,7 +331,7 @@ export default class Form40Layout extends Vue {
                                 + addressInfo.country + ', ' 
                                 + addressInfo.postcode;
 
-            this.address = aboutAffiant.inCareOf.length>0?('Care of '+ addressText ):addressText;
+            this.address = aboutAffiant.inCareOf?.length>0?('Care of '+ addressText ):addressText;
         }
             
     }
