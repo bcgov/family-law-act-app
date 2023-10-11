@@ -16,7 +16,7 @@
                     :items="[
                             {name:'REGISTRY LOCATION:', value:result.applicationLocation},
                             {name:'COURT FILE NUMBER:', value:existingFileNumber},
-                            {name:'FMEP NUMBER:', value:fmepNumber}]"
+                            {name:'BCFMA NUMBER:', value:fmepNumber}]"
                     :fields="[
                             {key:'name',tdClass:'border-dark text-center align-middle'},
                             {key:'value',tdClass:'border-dark text-center align-middle'},
