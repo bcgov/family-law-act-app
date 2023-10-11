@@ -199,13 +199,13 @@
 
         <!-- <For registery> -->
         <div class="print-block" style="margin-top: 1.25rem;">
-            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For use by the Family Maintenance Enforcement Program or Interjurisdictional Support Services staff only</i></div>
+            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For use by the BC Family Maintenance Agency or Interjurisdictional Support Services staff only</i></div>
             <div style="margin-left:0.85rem; width:96%; font-size: 9pt; border:1px solid;">
 
                 <check-box :shift="10" :shiftmark="1" :boxMargin="0" style="margin:0.25rem 0 0 0rem;" :check="false?'yes':''" text="This request is being made and/or filed on behalf of the party by:"/>
                 <div></div>   
                 <div style="display:inline-block; margin:0.25rem 0 0 1.5rem;font-size: 9pt;">
-                    <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="false?'yes':''"  text="Family Maintenance Enforcement Program"/>                        
+                    <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="false?'yes':''"  text="BC Family Maintenance Agency"/>                        
                     <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="false?'yes':''" text="Interjurisdictional Support Services"/> 
                 </div>
 
