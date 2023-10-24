@@ -71,7 +71,7 @@
             Director of Maintenance Enforcement, you must serve a copy of the application 
             on the director. The Director of Maintenance Enforcement can be served by 
             mailing the documents to the postal address provided by the director. 
-            Contact the Family Maintenance Enforcement Program to find out how best to serve them.
+            Contact the BC Family Maintenance Agency to find out how best to serve them.
         </p>
         
 

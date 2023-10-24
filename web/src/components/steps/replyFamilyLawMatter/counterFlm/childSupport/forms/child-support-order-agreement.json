@@ -90,7 +90,7 @@
             {
               "type": "infotext",
               "name": "ifExistingFAQ",
-              "title": "If your order or written agreement is filed with the Director of Maintenance Enforcement, you must serve a copy of the application on the director. The Director of Maintenance Enforcement can be served by mailing the documents to the postal address provided by the director. Contact the <a href=\"https://www.fmep.gov.bc.ca/\" target=\"blank\">Family Maintenance Enforcement Program</a> to find out how best to serve them.",
+              "title": "If your order or written agreement is filed with the Director of Maintenance Enforcement, you must serve a copy of the application on the director. The Director of Maintenance Enforcement can be served by mailing the documents to the postal address provided by the director. Contact the <a href='https://www.bcfma.ca/' target=\"blank\">BC Family Maintenance Agency</a> to find out how best to serve them.",
               "titleLocation": "hidden",
               "visible": false,
               "visibleIf": "{filedWithDirector} = 'y'"

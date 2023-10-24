@@ -142,14 +142,14 @@
                      "enableIf": "{enableSurvey}",
                      "visible": false,
                      "visibleIf": "{RequiresFMEPInfo} and {ExistingFMEPCase} = 'y'",                     
-                     "title": "What is your FMEP Number?"                     
+                     "title": "What is your BCFMA Number?"                     
                   },
                   {
                      "type": "infotext",
                      "name": "ExplanationFMEPNumber",
                      "visible": false,
                      "visibleIf": "{RequiresFMEPInfo} and {ExistingFMEPCase} = 'y'",
-                     "title": "Your FMEP Number is the file number assigned by the Family Maintenance Enforcement Program. If you do not have an FMEP Number or do not know your FMEP Number, you can skip this question by clicking Next below.",
+                     "title": "Your BCFMA Number is the file number assigned by the BC Family Maintenance Agency. If you do not have an BCFMA Number or do not know your BCFMA Number, you can skip this question by clicking Next below.",
                      "titleLocation": "hidden"                     
                   },
                   {
