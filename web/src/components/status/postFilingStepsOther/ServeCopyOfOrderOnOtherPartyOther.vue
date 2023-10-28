@@ -68,7 +68,17 @@ export default class ServeCopyOfOrderOnOtherPartyOther extends Vue {
 
     @Prop({default: false})
     sevenDays!: boolean;
-    
+
+    @Prop({default: false})
+    includesEfsp!: boolean; 
+
+    dataReady = false;
+    efspShouldBeListed = false;
+
+    mounted(){
+        this.dataReady = false;
+        this.efspShouldBeListed = this.applicationName == 'Affidavit – General' && this.includesEfsp;        
+    }    
     
 }
 </script>

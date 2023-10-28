@@ -81,8 +81,11 @@ export default class FilingAff extends Vue {
 
     public determineSteps(){
 
-        if (this.survey.data?.sworn)
-            toggleStep(this.stPgNo.EFSP._StepNo, this.survey.data.sworn == 'y');
+        if (this.survey.data?.sworn && this.steps[this.stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
+            const eFiling = this.steps[this.stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';
+            toggleStep(this.stPgNo.EFSP._StepNo, this.survey.data.sworn == 'y' && eFiling);
+        }
+            
     }
     
     public reloadPageInformation() {
@@ -94,6 +97,11 @@ export default class FilingAff extends Vue {
             this.survey.data = this.step.result.filingAffSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
                        
+        } 
+
+        if (this.steps[this.stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod) {
+            const eFiling = this.steps[this.stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';           
+            this.survey.setVariable('eFiling', eFiling)
         } 
         this.determineSteps(); 
         

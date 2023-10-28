@@ -21,8 +21,18 @@
             "type": "yesno",
             "name": "sworn",
             "title": "Will your affidavit be sworn or affirmed before it is filed electronically?",
+            "visible": false,
+            "visibleIf": "({eFiling})",
             "isRequired": true
-        } 
+        },   
+        {
+            "type": "yesno",
+            "name": "sworn",
+            "title": "Will your affidavit be sworn or affirmed before it is filed?",
+            "visible": false,
+            "visibleIf": "!({eFiling})",
+            "isRequired": true
+        }  
       ],
       "title": "Filing an Affidavit"
     }
