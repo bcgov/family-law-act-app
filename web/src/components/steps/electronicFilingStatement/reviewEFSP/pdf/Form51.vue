@@ -68,7 +68,7 @@ export default class Form51 extends Vue {
         .then(res => {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"electronicFilingStatement ", isCompleted:true});
+            this.UpdatePathwayCompleted({pathway:"electronicFilingStatement", isCompleted:true});
 
             this.$emit('enableNext',true)                   
         },err => {

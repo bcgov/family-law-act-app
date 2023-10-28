@@ -348,6 +348,8 @@
         showTypeOfDocuments = false;
         submitEnable = true;
         currentPage=0;
+        affIsExemptGuidedPathway = false;
+        requiresEfsp = false;
 
         mounted(){
 
@@ -613,6 +615,9 @@
 
         public extractInfo(){
 
+            this.affIsExemptGuidedPathway = false;
+            this.requiresEfsp = false;
+
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
 
@@ -638,7 +643,19 @@
                         if(this.rejectedPathway && !rejectedFormTypesList.includes(pdfType)) continue
                         
                         this.requiredDocumentLists.push({description: name, type: pdfType});                       
-                    }            
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){   
+                        this.determineAffGuidedPathway();
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('AFF')) continue
+                        
+                        if (this.affIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Affidavit – General', type: 'AFF'});    
+                        
+                        if (this.requiresEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement', type: 'EFSP'});
+
+                        }
+                    }                 
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -681,7 +698,35 @@
                 }            
             }
             return false;
-        }         
+        } 
+        
+        public determineAffGuidedPathway(){
+
+            let requiresAff = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'AFF')})
+            if (index >=0 && this.eFiling){
+                const affFilingInfo = this.$store.state.Application.steps[this.stPgNo.AFF._StepNo].result?.filingAffSurvey?.data;              
+                requiresAff = affFilingInfo?.sworn;
+                requiresEfsp = affFilingInfo?.sworn == 'y';
+            } 
+
+            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
+            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
+
+            for (const selectedForm of selectedFormInfoList){                
+                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){
+                    this.affIsExemptGuidedPathway = requiresAff;
+                    this.requiresEfsp = requiresEfsp;
+                } else {
+                    this.affIsExemptGuidedPathway = false;
+                    this.requiresEfsp = false;
+                }          
+            }
+            
+        }      
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");
@@ -693,24 +738,24 @@
         
         public checkErrorOnPages(){
 
-        const stepsArr = _.range(0, Object.keys(this.stPgNo).length)  
-        const optionalLabels = ["File", "Filing Options", "Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-        for(const stepIndex of stepsArr){
-            const step = this.$store.state.Application.steps[stepIndex]
-            if(step.active){
-                for(const page of step.pages){
-                    // console.log(step.id +'-'+ page.key)
+            const stepsArr = _.range(0, Object.keys(this.stPgNo).length)  
+            const optionalLabels = ["File", "Filing Options", "Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
+            for(const stepIndex of stepsArr){
+                const step = this.$store.state.Application.steps[stepIndex]
+                if(step.active){
+                    for(const page of step.pages){
+                        // console.log(step.id +'-'+ page.key)
 
-                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
-                        this.$store.commit("Application/setCurrentStep", step.id);
-                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
-                        return false;
+                        if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                            this.$store.commit("Application/setCurrentStep", step.id);
+                            this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
+                            return false;
+                        }
                     }
-                }
-            }            
+                }            
+            }
+            return true;        
         }
-        return true;        
-    }
 
     }
 </script>
