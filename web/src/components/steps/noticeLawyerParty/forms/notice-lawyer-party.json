@@ -52,7 +52,7 @@
                         "isRequired": true,  
                         "type": "paneldynamic",
                         "name": "OtherPartyInfoNlp",
-                        "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are representing? </b>",
+                        "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the name of the party you are representing?</b>",
                         "templateElements": [
                           {
                             "type": "personname",

@@ -213,16 +213,18 @@ export class MigrateStore{
         pathwayCompleted.priorityParenting = false;       
         pathwayCompleted.childReloc = false;       
         pathwayCompleted.agreementEnfrc = false;
-        pathwayCompleted.noticeOfAddressChange = false;       
-        
-        pathwayCompleted.noticeDiscontinuance = false;  
-        pathwayCompleted.noticeIntentionProceed = false;  
+        pathwayCompleted.noticeOfAddressChange = false;
+        pathwayCompleted.noticeDiscontinuance = false;
+        pathwayCompleted.noticeIntentionProceed = false;
         pathwayCompleted.requestScheduling = false;
         pathwayCompleted.trialReadinessStatement = false;
         pathwayCompleted.noticeLawyerChild = false;
-        pathwayCompleted.noticeRemoveLawyerChild = false;
+        pathwayCompleted.noticeRemoveLawyerChild = false;        
         pathwayCompleted.noticeLawyerParty = false;
         pathwayCompleted.noticeRemoveLawyerParty = false;
+        pathwayCompleted.affidavit = false;
+        pathwayCompleted.electronicFilingStatement = false;
+
         pathwayCompleted.other = false;
         //TODO: add the other pathway
         return pathwayCompleted;        

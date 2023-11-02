@@ -28,6 +28,8 @@ export interface stepsAndPagesNumberInfoType{
     NLCR: NLCRstPgTypes;
     NLP: NLPstPgTypes;
     NLPR: NLPRstPgTypes;
+    AFF: AFFstPgTypes;
+    EFSP: EFSPstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -358,12 +360,21 @@ export interface NLCRstPgTypes{
     PreviewFormsNLCR: number;
 }
 
+export interface AFFstPgTypes{
+    _StepNo: number;
+
+    Affidavit: number;
+    AboutAffiant: number;
+    YourStoryAFF: number;
+    FilingAFF: number;
+    ReviewYourAnswersAFF: number;
+    PreviewFormsAFF: number;
+}
+
 export interface NLPstPgTypes{
     _StepNo: number;
 
-    NoticeLawyerParty: number;
-    // LawyerPartyInformation: number;
-    // MoreInformationNLP: number;
+    NoticeLawyerParty: number;    
     ReviewYourAnswersNLP: number;
     PreviewFormsNLP: number;
 }
@@ -372,10 +383,16 @@ export interface NLPRstPgTypes{
     _StepNo: number;
 
     NoticeRemoveLawyerParty: number;
-    // RemoveLawyerPartyInformation: number;
-    // MoreInformationNLPR: number;
     ReviewYourAnswersNLPR: number;
     PreviewFormsNLPR: number;
+}
+
+export interface EFSPstPgTypes{
+    _StepNo: number;
+
+    ElectronicFilingStatement: number;    
+    ReviewYourAnswersEFSP: number;
+    PreviewFormsEFSP: number;
 }
 
 export interface SUBMITstPgTypes{

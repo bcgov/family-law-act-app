@@ -1,10 +1,13 @@
 <template>
-    <div> 
+    <div v-if="dataReady"> 
         <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
         <div 
             style="font-size:14pt;font-weight:600; margin-bottom:1rem;">
             CHECKLIST FOR AFFIDAVIT – GENERAL
         </div>
+
+        <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>                           
+             
 
 <!-- <Step 1> -->
         <div>
@@ -44,7 +47,7 @@
                 boxMargin="0" 
                 shiftmark=0
                 style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
-                check="" 
+                :check="affSigned?'yes':''" 
                 text="Step 2: If possible, get the affidavit sworn/affirmed and signed with a commissioner for taking affidavits"/>               
         </div>  
         
@@ -89,7 +92,7 @@
                     boxMargin="0" 
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
-                    check="" 
+                    :check="affSigned?'yes':''" 
                     text="Step 3: File your Affidavit – General form at the Provincial Court Registry"/>               
             </div>  
            
@@ -130,14 +133,17 @@
                 chance to tell their side of the story to the court.
             </div>                    
 
-            <p>
+            <p v-if="efspFiled">
+                You must serve each other party with a copy of the affidavit and electronic filing statement.
+            </p>
+            <p v-else>
                 You must serve each other party with a copy of the filed affidavit.
             </p>
 
         </div>
 
         <div>
-            The affidavit must be served to the address of service of each other party in any of the following ways:
+            The affidavit <span v-if="efspFiled">and electronic filing statement</span> must be served to the address of service of each other party in any of the following ways:
             <ul>
                 <li>by leaving the documents at the party’s address for service</li>
                 <li>by mailing the documents by ordinary mail to the party’s address for service</li>
@@ -182,7 +188,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 
 @Component({
@@ -190,8 +196,54 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
         CheckBox
     }
 })
-
 export default class AffChecklist extends Vue {
+
+    @Prop({required: true})
+    applicationId!: string;
+
+    dataReady = false;
+    error = '';
+    efspFiled = false;
+    affSigned = false;
+
+    mounted(){
+        this.dataReady = false;
+        this.getApplicationInfo(this.applicationId);        
+    }
+
+    public getApplicationInfo(applicationId) { 
+
+
+        this.$http.get('/app/'+ applicationId + '/')
+        .then((response) => {
+
+            const applicationData = response.data;
+            console.log(applicationData)  
+        
+            const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
+            const apps = stepGETSTART.submittedPdfList
+
+            if (apps.includes('AFF') && apps.includes('EFSP')){
+                this.affSigned = true;
+                if (apps.includes('EFSP')){
+                    this.efspFiled = true;
+                }
+            }                             
+            
+            Vue.nextTick(()=> this.dataReady = true);
+
+        }, err => {
+            this.error = err;        
+        });
+    }
+
+    public getStepResultByName(applicationData, stepName){
+        if(applicationData?.steps){
+            const steps = applicationData.steps.filter(step => step.name == stepName);
+            if(steps.length == 1) return steps[0].result
+        }
+        return {}
+    }
 
 }
 </script>

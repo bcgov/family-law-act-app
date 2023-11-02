@@ -180,14 +180,14 @@ export default class CompleteOtherForms extends Vue {
     currentPage =0;  
 
     otherFormsList: otherFormPathwayInfoType[] = [
-        {formName: 'Affidavit – General',                                   formNumber: 'Form 3',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'affidavit',                    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true'},
+        {formName: 'Affidavit – General',                                   formNumber: 'Form 45',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'affidavit',                    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true'},
         {formName: 'Affidavit of Personal service',                         formNumber: 'Form 48',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'affidavitPersonalService',     formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa765.pdf?forcedownload=true'},
         {formName: 'Affidavit of Personal Service of Protection Order',     formNumber: 'Form 49',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'affidavitPersonalServicePO',   formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa766.pdf?forcedownload=true'},
         {formName: 'Certificate of Service',                                formNumber: 'Form 7',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'certificateOfService',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa714.pdf?forcedownload=true'},
         {formName: 'Consent adjournment',                                   formNumber: 'PFA920',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentAdjournment',           formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa920.pdf?forcedownload=true'},
         {formName: 'Consent Order',                                         formNumber: 'Form 18',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentOrder',                 formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa739.pdf?forcedownload=true'},
         {formName: 'Consent to an Informal Trial (Kamloops only)',          formNumber: 'PFA709',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentInformalTrial',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa709.pdf?forcedownload=true'},
-        {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'electronicFilingStatement',    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa768.pdf?forcedownload=true'},
+        {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'electronicFilingStatement',    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa768.pdf?forcedownload=true'},
         {formName: 'Fax Filing Cover Page',                                 formNumber: 'Form 52',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'faxFilingCoverPage',           formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa734.pdf'},
         {formName: 'Financial Statement',                                   formNumber: 'Form 4',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'financialStatement',           formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true'},
         {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'guardianshipAffidavit',        formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa733.pdf?forcedownload=true'},
@@ -240,7 +240,6 @@ export default class CompleteOtherForms extends Vue {
 
                 } else {
                     this.selectedFormInfoList.push(originalFormsPathwayInfo[index])
-
                 }
             }
 
@@ -364,6 +363,18 @@ export default class CompleteOtherForms extends Vue {
             }else if(formName=='Notice of Removal of Lawyer for Party'){
                 const step = this.stPgNo.NLPR._StepNo;
                 const page = this.stPgNo.NLPR.PreviewFormsNLPR;
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName);
+            }else if(formName=='Affidavit – General'){
+                const step = this.stPgNo.AFF._StepNo
+                const page = this.stPgNo.AFF.PreviewFormsAFF
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Electronic Filing Statement'){
+                const step = this.stPgNo.EFSP._StepNo;
+                const page = this.stPgNo.EFSP.PreviewFormsEFSP;
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName);

@@ -143,7 +143,7 @@ export default class OtherForms extends Vue {
     currentPage =0;
 
     formList: otherFormInfoType[] = [
-        {formName: 'Affidavit – General',                                   formNumber: 'Form 3'},
+        {formName: 'Affidavit – General',                                   formNumber: 'Form 45'},
         {formName: 'Affidavit of Personal service',                         formNumber: 'Form 48'},
         {formName: 'Affidavit of Personal Service of Protection Order',     formNumber: 'Form 49'},
         {formName: 'Certificate of Service',                                formNumber: 'Form 7'},
@@ -251,7 +251,7 @@ export default class OtherForms extends Vue {
     }
 
     public resetSteps(){ //TODO add all new steps here    
-        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo, this.stPgNo.RQS._StepNo, this.stPgNo.TRIS._StepNo, this.stPgNo.NLC._StepNo, this.stPgNo.NLCR._StepNo, this.stPgNo.NLP._StepNo, this.stPgNo.NLPR._StepNo], false);
+        toggleSteps([this.stPgNo.SUBMIT._StepNo, this.stPgNo.NCD._StepNo, this.stPgNo.NDT._StepNo, this.stPgNo.NPR._StepNo, this.stPgNo.RQS._StepNo, this.stPgNo.TRIS._StepNo, this.stPgNo.NLC._StepNo, this.stPgNo.NLCR._StepNo, this.stPgNo.NLP._StepNo, this.stPgNo.NLPR._StepNo, this.stPgNo.AFF._StepNo, this.stPgNo.EFSP._StepNo], false);
     }
 
     public determineSteps(){

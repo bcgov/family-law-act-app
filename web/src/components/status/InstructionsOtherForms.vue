@@ -39,7 +39,8 @@
                 <serve-copy-of-order-on-other-party-other
                     :sevenDays="serveApp.sevenDays"
                     :applicationName="getFullName(serveApp.type)"
-                    :instructionsStep="serveApp.step"  
+                    :instructionsStep="serveApp.step"
+                    :includesEfsp="efspFiled"  
                 />
             </div>
             
@@ -159,7 +160,8 @@ export default class InstructionsOtherForms extends Vue {
     noShowGroup = ['APS', 'APSP', 'CSV', 'CONA', 'PASE', 'FF', 'COR']
     noInstructions = false
   
-    error = ''
+    error = '';
+    efspFiled = false;
 
     mounted(){
         this.dataReady = false;
@@ -168,6 +170,7 @@ export default class InstructionsOtherForms extends Vue {
 
     public getApplicationInfo(applicationId) { 
 
+        this.efspFiled = false;
 
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
@@ -177,6 +180,8 @@ export default class InstructionsOtherForms extends Vue {
            
             const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
             const apps = stepGETSTART.submittedPdfList
+
+            this.efspFiled = apps.includes('EFSP');
             
             this.noInstructions = false
             let noShowCounter = 0;

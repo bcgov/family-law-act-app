@@ -134,10 +134,12 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace("<div style='margin: 0'><div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the child you are no longer representing?</div></b>", "What is the name of the child you are no longer representing?");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the full name of each party? </b>", "What is the full name of each party?");
         adjQuestion = adjQuestion.replace("<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 0rem 0 -1rem 0'> Firm Name (if applicable):</b>", "Firm Name (if applicable):");
-        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are representing? </b>", "What is the name of the party you are representing?");
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the name of the party you are representing?</b>", "What is the name of the party you are representing?");
         adjQuestion = adjQuestion.replace("<b style='color: white; font-size: 1pt; margin: -5rem 0 -5rem 0'>There are no changes to the contact information or address for service of court documents on file.</b>", "There are no changes to the contact information or address for service of court documents on file.");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;' > Please list each person you plan to have attend at trial as a witness. </b>", "Please list each person you plan to have attend at trial as a witness.");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are no longer representing? </b>", "What is the name of the party you are no longer representing?");
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>I swear or affirm that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true.</b>", "I swear or affirm that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true.");
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the full name of the other party?</b>", "What is the full name of the other party?");
         
         return adjQuestion
     }
@@ -186,6 +188,12 @@ export default class ReviewYourAnswersPage extends Vue {
             } else if (dataItem.name == 'OtherPartyInfoNlp'){
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'OtherPartyInfoNlpr'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'storyAff'){                
+                return this.getAffidavitInfo(value);
+            } else if (dataItem.name == 'OtherPartyInfoEfsp'){
+                return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'PartyInfoEfsp'){
                 return this.getOtherPartyInfo(value);
             }
             else{
@@ -293,6 +301,18 @@ export default class ReviewYourAnswersPage extends Vue {
         if(otherPartyList.length>0){
             for(const otherParty of otherPartyList ){
                 result += Vue.filter('getFullName')(otherParty.name)+'\n'                
+            }
+        }
+        return result;
+    }
+
+    public getAffidavitInfo(affidavitList){
+
+        let result = '';
+
+        if(affidavitList.length>0){
+            for(const affidavit of affidavitList ){
+                result += affidavit.storyDescription+'\n'                
             }
         }
         return result;

@@ -28,6 +28,8 @@ import { noticeLawyerChildSurveyInfoType, otherPartyNLCConfirmationSurveyInfoTyp
 import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerChild";
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
+import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType } from "./Affidavit";
+import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
 
 
 //This is what our database saves.
@@ -104,6 +106,7 @@ export interface stepInfoType {
     protectedPartyName?: nameInfoType;    
     protectedChildName?: allchildrenInfoType[];
     supportingDocumentForm4?: number[];
+    efsDocuments?: electronicFilingDocumentInfoType[];
 
     //______Step 1 PO____
     aboutSurvey?: aboutPOSurveyInfoType;
@@ -283,7 +286,7 @@ export interface stepInfoType {
     noticeIntentionProceedSurvey?: noticeIntentionProceedSurveyInfoType;    
     yourInformationNprSurvey?: yourInformationSurveyInfoType; 
     otherPartyNprSurvey?: otherPartyCommonSurveyInfoType;
-    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType;
+    otherPartyNprConfirmationSurvey? : otherPartyNprConfirmationSurveyInfoType; 
          
     
     //_____Step 14 REQUEST FOR SCHEDULING_____________    
@@ -313,18 +316,26 @@ export interface stepInfoType {
     noticeRemoveLawyerChildSurvey?: noticeRemoveLawyerChildSurveyInfoType;
     otherPartyNLCRConfirmationSurvey? : otherPartyNLCRConfirmationSurveyInfoType;
 
+    
     //_____Step 18 NOTICE OF LAWYER FOR PARTY_____________    
-    noticeLawyerPartySurvey?: noticeLawyerPartySurveyInfoType;    
-    // lawyerPartyInformationSurvey?: any;// lawyerPartyInformationInfoType;
-    // moreInformationNlpSurvey?: any; //moreInformationNlpSurveyInfoType;
+    noticeLawyerPartySurvey?: noticeLawyerPartySurveyInfoType;
     otherPartyNLPConfirmationSurvey? : otherPartyNLPConfirmationSurveyInfoType;   
 
 
     //_____Step 19 NOTICE OF REMOVAL OF LAWYER FOR PARTY_____________    
     noticeRemoveLawyerPartySurvey?: noticeRemoveLawyerPartySurveyInfoType; 
     otherPartyNLPRConfirmationSurvey? : otherPartyNLPRConfirmationSurveyInfoType;
+
+    //_____Step 20 AFFIDAVIT_____________    
+    affidavitSurvey?: affidavitSurveyInfoType;    
+    aboutAffiantSurvey?: aboutAffiantSurveyInfoType;
+    yourStoryAffSurvey?: yourStoryAffSurveyInfoType;
+    filingAffSurvey?: filingAffSurveyInfoType;
+
+    //_____Step 21 ELECTRONIC FILING STATEMENT_____________    
+    electronicFilingStatementSurvey?: electronicFilingStatementSurveyInfoType;
     
-    //__Step 20 SUBMIT
+    //__Step 22 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -341,11 +352,18 @@ export interface stepInfoType {
     other?: boolean;
     noticeOfAddressChange?: boolean;
     noticeDiscontinuance?: boolean;
-    noticeIntentionProceed?: boolean;
+    noticeIntentionProceed?: boolean;   
     requestScheduling?: boolean;
     trialReadinessStatement?: boolean;
     noticeLawyerChild?: boolean;
     noticeRemoveLawyerChild?: boolean;
     noticeLawyerParty?: boolean;
     noticeRemoveLawyerParty?: boolean; 
+    affidavit?: boolean;
+    electronicFilingStatement?: boolean;
+  }
+
+  export interface electronicFilingDocumentInfoType {
+    efsApplicantName?: nameInfoType;
+    documentName?: string;
   }
