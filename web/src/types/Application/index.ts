@@ -28,8 +28,8 @@ import { noticeLawyerChildSurveyInfoType, otherPartyNLCConfirmationSurveyInfoTyp
 import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerChild";
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
-import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType } from "./Affidavit";
-import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
+import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
+// import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
 
 
 //This is what our database saves.
@@ -106,7 +106,7 @@ export interface stepInfoType {
     protectedPartyName?: nameInfoType;    
     protectedChildName?: allchildrenInfoType[];
     supportingDocumentForm4?: number[];
-    efsDocuments?: electronicFilingDocumentInfoType[];
+    affEfsDocuments?: electronicFilingDocumentInfoType[];
 
     //______Step 1 PO____
     aboutSurvey?: aboutPOSurveyInfoType;
@@ -331,9 +331,10 @@ export interface stepInfoType {
     aboutAffiantSurvey?: aboutAffiantSurveyInfoType;
     yourStoryAffSurvey?: yourStoryAffSurveyInfoType;
     filingAffSurvey?: filingAffSurveyInfoType;
+    electronicFilingStatementAffSurvey?: electronicFilingStatementAffSurveyInfoType;
 
     //_____Step 21 ELECTRONIC FILING STATEMENT_____________    
-    electronicFilingStatementSurvey?: electronicFilingStatementSurveyInfoType;
+    // electronicFilingStatementSurvey?: electronicFilingStatementSurveyInfoType;
     
     //__Step 22 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
@@ -360,7 +361,7 @@ export interface stepInfoType {
     noticeLawyerParty?: boolean;
     noticeRemoveLawyerParty?: boolean; 
     affidavit?: boolean;
-    electronicFilingStatement?: boolean;
+    // electronicFilingStatement?: boolean;
   }
 
   export interface electronicFilingDocumentInfoType {
