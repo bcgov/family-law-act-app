@@ -61,6 +61,9 @@ export default class OtherFormList extends Vue {
     @applicationState.State
     public pathwayCompleted!: pathwayCompletedInfoType;    
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     selected="";
     currentStep = 0;
 
@@ -98,8 +101,23 @@ export default class OtherFormList extends Vue {
         if (affIndex >=0 && this.type == 'Submit'){            
             const affFilingInfo = this.$store.state.Application.steps[this.stPgNo.AFF._StepNo].result?.filingAffSurvey?.data;              
             affRequiresSignature = affFilingInfo?.sworn == 'n';
-            this.requiresEfsp = affFilingInfo?.sworn == 'y';
+            this.requiresEfsp = affFilingInfo?.sworn == 'y';   
+            existingOrdersInfo[affIndex].doNotIncludePdf = true;  
+            
+            // if (affRequiresSignature){
+
+            //     existingOrdersInfo[affIndex].doNotIncludePdf = true;                
+
+            // } else {
+
+            //     existingOrdersInfo[affIndex].doNotIncludePdf = false;
+            // }
+
+            this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});
+            Vue.nextTick(() => Vue.prototype.$saveChanges() );
+
         } 
+        
         
         this.formsListTemplate = [ 
             { name:'P2',   appName:'noticeIntentionProceed',       pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"),      chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],       color:"danger", title:"Notice of Intention to Proceed (Form 2)",         requiresSignature: false, requiresSwear: false},                              
@@ -112,7 +130,7 @@ export default class OtherFormList extends Vue {
             { name:'P45',  appName:'affidavit',                    pdfType: Vue.filter('getPathwayPdfType')("affidavit"),                   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.AFF._StepNo],       color:"danger", title:"Affidavit – General (Form 45)",                   requiresSignature: affRequiresSignature, requiresSwear: this.requiresEfsp},            
             { name:'P46',  appName:'noticeOfAddressChange',        pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],       color:"danger", title:"Notice of Address Change (Form 46)",              requiresSignature: false, requiresSwear: false},            
             { name:'P50',  appName:'noticeDiscontinuance',         pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),        chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],       color:"danger", title:"Notice of Discontinuance (Form 50)",              requiresSignature: ndtRequiresSignature, requiresSwear: false},
-            { name:'P51',  appName:'electronicFilingStatement',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatement"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.EFSP._StepNo],      color:"danger", title:"Electronic Filing Statement (Form 51)",           requiresSignature: true, requiresSwear: false}
+            { name:'P51',  appName:'electronicFilingStatement',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatement"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.AFF._StepNo],      color:"danger", title:"Electronic Filing Statement (Form 51)",           requiresSignature: true, requiresSwear: false}
         ];
 
         this.currentStep = this.$store.state.Application.currentStep;

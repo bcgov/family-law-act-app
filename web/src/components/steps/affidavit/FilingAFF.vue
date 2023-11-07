@@ -17,7 +17,7 @@ import { electronicFilingDocumentInfoType, stepInfoType, stepResultInfoType } fr
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
-import { toggleStep } from '@/components/utils/TogglePages';
+import { togglePages, toggleStep } from '@/components/utils/TogglePages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -73,17 +73,17 @@ export default class FilingAff extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
 
-            this.determineSteps();            
+            this.determinePages();            
             
             
         })
     }
 
-    public determineSteps(){
+    public determinePages(){
 
         if (this.survey.data?.sworn && this.steps[this.stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
             const eFiling = this.steps[this.stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';
-            toggleStep(this.stPgNo.EFSP._StepNo, this.survey.data.sworn == 'y' && eFiling);
+            togglePages([this.stPgNo.AFF.ElectronicFilingStatementAFF], this.survey.data.sworn == 'y' && eFiling, this.currentStep);
         }
             
     }
@@ -103,7 +103,7 @@ export default class FilingAff extends Vue {
             const eFiling = this.steps[this.stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';           
             this.survey.setVariable('eFiling', eFiling)
         } 
-        this.determineSteps(); 
+        this.determinePages(); 
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
@@ -120,14 +120,14 @@ export default class FilingAff extends Vue {
 
     public setEfsDocumentList(){
        
-        const efsDocumentList: electronicFilingDocumentInfoType[] = this.steps[this.stPgNo.GETSTART._StepNo].result?.efsDocuments?.length>0?this.steps[this.stPgNo.GETSTART._StepNo].result.efsDocuments:[];
+        const efsDocumentList: electronicFilingDocumentInfoType[] = this.steps[this.stPgNo.GETSTART._StepNo].result?.affEfsDocuments?.length>0?this.steps[this.stPgNo.GETSTART._StepNo].result.affEfsDocuments:[];
       
         if (this.step.result.aboutAffiantSurvey?.data?.ApplicantName){
             const applicantName = this.step.result.aboutAffiantSurvey.data.ApplicantName
             efsDocumentList.push({documentName: 'Affidavit', efsApplicantName: applicantName});
         }
               
-       this.UpdateCommonStepResults({data:{'efsDocuments':efsDocumentList}});
+       this.UpdateCommonStepResults({data:{'affEfsDocuments':efsDocumentList}});
     }
     
     beforeDestroy() {   

@@ -66,7 +66,7 @@ class Application extends VuexModule {
         noticeLawyerParty: false,
         noticeRemoveLawyerParty: false,
         affidavit: false,
-        electronicFilingStatement: false            
+        // electronicFilingStatement: false            
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -2385,9 +2385,17 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
-        //____________Review
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "ElectronicFilingStatementAFF";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "5";
         p.name = "ReviewYourAnswersAFF";
         p.label = "Review Your Answers";
         p.active = true;
@@ -2395,9 +2403,17 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "6";
         p.name = "PreviewFormsAFF";
-        p.label = "Preview Forms";
+        p.label = "Preview Form 45";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "PreviewFormsEFSP";
+        p.label = "Preview Form 51";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -2406,53 +2422,53 @@ class Application extends VuexModule {
 
         // Affidavit STOP
 
-        // Electronic Filing Statement START
+        // // Electronic Filing Statement START
 
-        s = {} as stepInfoType;    
-        s.active = false;
-        s.id = "23";
-        s.name = "EFSP";
-        s.label = "Electronic Filing Statement";
-        s.icon = "fa fa-file";
-        s.lastUpdate = null;
-        s.type = "electronicFilingStatement";
-        s.pages = new Array<pageInfoType>();
-        s.currentPage = 0;        
+        // s = {} as stepInfoType;    
+        // s.active = false;
+        // s.id = "23";
+        // s.name = "EFSP";
+        // s.label = "Electronic Filing Statement";
+        // s.icon = "fa fa-file";
+        // s.lastUpdate = null;
+        // s.type = "electronicFilingStatement";
+        // s.pages = new Array<pageInfoType>();
+        // s.currentPage = 0;        
 
-        p = {} as pageInfoType;
-        p.key = "0";
-        p.name = "ElectronicFilingStatement";
-        p.label = "Electronic Filing Statement";
-        p.active = true;
-        p.progress = 0;    
-        s.pages.push(p);        
+        // p = {} as pageInfoType;
+        // p.key = "0";
+        // p.name = "ElectronicFilingStatement";
+        // p.label = "Electronic Filing Statement";
+        // p.active = true;
+        // p.progress = 0;    
+        // s.pages.push(p);        
 
-        //____________Review
-        p = {} as pageInfoType;
-        p.key = "1";
-        p.name = "ReviewYourAnswersEFSP";
-        p.label = "Review Your Answers";
-        p.active = true;
-        p.progress = 0;    
-        s.pages.push(p);
+        // //____________Review
+        // p = {} as pageInfoType;
+        // p.key = "1";
+        // p.name = "ReviewYourAnswersEFSP";
+        // p.label = "Review Your Answers";
+        // p.active = true;
+        // p.progress = 0;    
+        // s.pages.push(p);
 
-        p = {} as pageInfoType;
-        p.key = "2";
-        p.name = "PreviewFormsEFSP";
-        p.label = "Preview Forms";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
+        // p = {} as pageInfoType;
+        // p.key = "2";
+        // p.name = "PreviewFormsEFSP";
+        // p.label = "Preview Forms";
+        // p.active = false;
+        // p.progress = 0;    
+        // s.pages.push(p);
 
-        this.steps.push(s);
+        // this.steps.push(s);
 
-        // Electronic Filing Statement STOP
+        // // Electronic Filing Statement STOP
 
 
         //Submit START
         s = {} as stepInfoType;
         s.active = false;        
-        s.id = "24";
+        s.id = "23";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -2968,7 +2984,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, EFSP: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
          const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

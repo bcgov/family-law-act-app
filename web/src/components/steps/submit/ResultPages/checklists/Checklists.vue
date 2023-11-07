@@ -130,7 +130,7 @@ export default class Checklists extends Vue {
         {name:'AFET',   title:'Application About Enforcement',                                      pdfName:'Checklist_for_Application_About_Enforcement.pdf'},
         {name:'RDET',   title:'Request to File a Determination of Parenting Coordinator',           pdfName:'Checklist_for_Request_to_File_a_Determination_of_Parenting_Coordinator.pdf'},
         {name:'RORD',   title:'Request to File an Order',                                           pdfName:'Checklist_for_Request_to_File_an_Order.pdf'},
-        {name:'WRA',    title:'Request to File an Order',                                           pdfName:'Checklist_for_Written_Response_to_Application.pdf'},
+        {name:'WRA',    title:'Written Response to Application',                                    pdfName:'Checklist_for_Written_Response_to_Application.pdf'},
         {name:'RFLM',   title:'Reply to Application About a Family Law Matter',                     pdfName:'Checklist_for_Reply_to_Family_Law_Matter.pdf'},
         {name:'OTHER',  title:'Other Forms',                                                        pdfName:'Checklist_for_Other_Forms.pdf'},        
         {name:'FS',     title:'Financial Statement',                                                pdfName:'Checklist_for_Financial_Statement.pdf'},
