@@ -60,15 +60,7 @@ export default class ReviewYourAnswersAff extends Vue {
         this.pageHasError = false;
         const requiredForm = whichForm();
         this.form45 = requiredForm.includes('P45');
-        this.form51 = requiredForm.includes('P51');
-        
-        // TODO: do we need this?
-        // for(const form of ['51']){
-        //     if(requiredForm.includes('P'+form) == false){
-        //         Vue.filter('removeRequiredDocuments')('agreementEnfrc'+form)
-        //     }
-        // }
-        
+        this.form51 = requiredForm.includes('P51');        
         this.reloadPageInformation();
         this.checkStepHasError();
     }

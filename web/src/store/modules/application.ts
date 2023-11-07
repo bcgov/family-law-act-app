@@ -65,8 +65,7 @@ class Application extends VuexModule {
         noticeRemoveLawyerChild: false,                    
         noticeLawyerParty: false,
         noticeRemoveLawyerParty: false,
-        affidavit: false,
-        // electronicFilingStatement: false            
+        affidavit: false          
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -2420,49 +2419,7 @@ class Application extends VuexModule {
 
         this.steps.push(s);
 
-        // Affidavit STOP
-
-        // // Electronic Filing Statement START
-
-        // s = {} as stepInfoType;    
-        // s.active = false;
-        // s.id = "23";
-        // s.name = "EFSP";
-        // s.label = "Electronic Filing Statement";
-        // s.icon = "fa fa-file";
-        // s.lastUpdate = null;
-        // s.type = "electronicFilingStatement";
-        // s.pages = new Array<pageInfoType>();
-        // s.currentPage = 0;        
-
-        // p = {} as pageInfoType;
-        // p.key = "0";
-        // p.name = "ElectronicFilingStatement";
-        // p.label = "Electronic Filing Statement";
-        // p.active = true;
-        // p.progress = 0;    
-        // s.pages.push(p);        
-
-        // //____________Review
-        // p = {} as pageInfoType;
-        // p.key = "1";
-        // p.name = "ReviewYourAnswersEFSP";
-        // p.label = "Review Your Answers";
-        // p.active = true;
-        // p.progress = 0;    
-        // s.pages.push(p);
-
-        // p = {} as pageInfoType;
-        // p.key = "2";
-        // p.name = "PreviewFormsEFSP";
-        // p.label = "Preview Forms";
-        // p.active = false;
-        // p.progress = 0;    
-        // s.pages.push(p);
-
-        // this.steps.push(s);
-
-        // // Electronic Filing Statement STOP
+        // Affidavit STOP       
 
 
         //Submit START

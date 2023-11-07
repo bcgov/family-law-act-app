@@ -332,11 +332,8 @@ export interface stepInfoType {
     yourStoryAffSurvey?: yourStoryAffSurveyInfoType;
     filingAffSurvey?: filingAffSurveyInfoType;
     electronicFilingStatementAffSurvey?: electronicFilingStatementAffSurveyInfoType;
-
-    //_____Step 21 ELECTRONIC FILING STATEMENT_____________    
-    // electronicFilingStatementSurvey?: electronicFilingStatementSurveyInfoType;
     
-    //__Step 22 SUBMIT
+    //__Step 21 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -361,7 +358,6 @@ export interface stepInfoType {
     noticeLawyerParty?: boolean;
     noticeRemoveLawyerParty?: boolean; 
     affidavit?: boolean;
-    // electronicFilingStatement?: boolean;
   }
 
   export interface electronicFilingDocumentInfoType {
