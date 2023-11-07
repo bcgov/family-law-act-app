@@ -104,15 +104,6 @@ export default class OtherFormList extends Vue {
             this.requiresEfsp = affFilingInfo?.sworn == 'y';   
             existingOrdersInfo[affIndex].doNotIncludePdf = true;  
             
-            // if (affRequiresSignature){
-
-            //     existingOrdersInfo[affIndex].doNotIncludePdf = true;                
-
-            // } else {
-
-            //     existingOrdersInfo[affIndex].doNotIncludePdf = false;
-            // }
-
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});
             Vue.nextTick(() => Vue.prototype.$saveChanges() );
 
