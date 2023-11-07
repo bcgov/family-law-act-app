@@ -29,7 +29,7 @@ export interface stepsAndPagesNumberInfoType{
     NLP: NLPstPgTypes;
     NLPR: NLPRstPgTypes;
     AFF: AFFstPgTypes;
-    EFSP: EFSPstPgTypes;
+    // EFSP: EFSPstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -367,8 +367,10 @@ export interface AFFstPgTypes{
     AboutAffiant: number;
     YourStoryAFF: number;
     FilingAFF: number;
+    ElectronicFilingStatementAFF: number;
     ReviewYourAnswersAFF: number;
     PreviewFormsAFF: number;
+    PreviewFormsEFSP: number;
 }
 
 export interface NLPstPgTypes{
@@ -387,13 +389,13 @@ export interface NLPRstPgTypes{
     PreviewFormsNLPR: number;
 }
 
-export interface EFSPstPgTypes{
-    _StepNo: number;
+// export interface EFSPstPgTypes{
+//     _StepNo: number;
 
-    ElectronicFilingStatement: number;    
-    ReviewYourAnswersEFSP: number;
-    PreviewFormsEFSP: number;
-}
+//     ElectronicFilingStatement: number;    
+//     ReviewYourAnswersEFSP: number;
+//     PreviewFormsEFSP: number;
+// }
 
 export interface SUBMITstPgTypes{
     _StepNo: number;
