@@ -1,0 +1,70 @@
+{
+  "title": "Application under FOAEAA",
+  "pages": [
+    {
+      "name": "Application under FOAEAA",
+      "description": "The <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/index.html' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> (FOAEAA) provides for the search and release of information from designated federal information banks, including an individual’s income information from tax returns, to a court for the purposes of establishing, changing or enforcing family support.<br>A person can apply under section 7 of FOAEAA requesting that a court authorize an official of the court to make an application under section 12 of the Act for the release of information. The Act allows for the application to be made `ex parte`",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "applicationUnderFoaeaaPanel",
+          "elements": [            
+            {
+              "type": "comment",
+              "name": "orderDescription",
+              "isRequired": true,
+              "title": "Please provide the details of the order you are asking the court to make:",
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.</br></br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Court%20Orders%20-%20January%202022.docx' target='blank'>Family Law Act Picklist</a> includes commonly used order terms that might be helpful. "
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },            
+            {            
+                "type":"infotext",
+                "name":"affidavitDescription1",
+                "title":"<b class='sv_main sv_q_title'>The `facts` on which this application is based must be described for the court in an `affidavit`</b>",
+                "body": "Your application under section 7 of the <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/page-1.html#h-221520' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> requesting that a court authorize an official of the court to make an application under section 12 of the Act for the release of information must be supported by an affidavit that includes the information set out under section 8 (1)(a), (2) and (3) or 9 (1)(a), (2) and (3) of that Act, as applicable.<br>To draft an affidavit using this service, select Other family court forms(s) on the Getting Started page, then select <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true' target='_blank'>Affidavit – General Form 45</a>.",
+                "titleLocation":"hidden",
+                "messageStyle":"inline"
+            },
+            {            
+                "type":"infotext",
+                "name":"crcDescription1",
+                "title":"<span class='sv_main sv_q_title'>For an application made without notice to the other party, you must also provide the court with the results of a recent <b>criminal record check.</b></span>",
+                "body": "Your application under section 7 of the <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/page-1.html#h-221520' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> requesting that a court authorize an official of the court to make an application under section 12 of the Act for the release of information must be supported by an affidavit that includes the information set out under section 8 (1)(a), (2) and (3) or 9 (1)(a), (2) and (3) of that Act, as applicable.<br>To draft an affidavit using this service, select Other family court forms(s) on the Getting Started page, then select <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true' target='_blank'>Affidavit – General Form 45</a>.",
+                "titleLocation":"hidden",
+                "messageStyle":"inline"
+            },
+            {
+              "type": "checkbox",
+              "name": "criminalRecordCheckAcknowledgement",
+              "title": "I understand",
+              "titleLocation": "hidden",
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "I understand",
+                  "text": "<b >I understand</b>"
+                }
+              ]
+            },
+            {
+                "type": "infotext",
+                "name": "crcInfo",
+                "title": "If you do not want to get a criminal record check, you must make your application with notice to the other party. Go back to the Notice sub-step in this pathway, using the navigation pane to your left or the previous button, to change your answer.",
+                "titleLocation": "hidden",
+                "messageStyle": "info"
+            }
+          ]
+        }
+      ],
+      "title": "About the Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

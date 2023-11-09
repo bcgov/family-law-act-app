@@ -65,8 +65,7 @@ class Application extends VuexModule {
         noticeRemoveLawyerChild: false,                    
         noticeLawyerParty: false,
         noticeRemoveLawyerParty: false,
-        affidavit: false,
-        // electronicFilingStatement: false            
+        affidavit: false          
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1432,6 +1431,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "8";
+        p.name = "ApplicationUnderFOAEAA";
+        p.label = "Application Under FOAEAA";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
         p.name = "AttendanceUsingElectronicCommunication";
         p.label = "Attendance Using Another Method of Attendance";
         p.active = false;
@@ -1439,7 +1446,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "9";
+        p.key = "10";
         p.name = "ChangingOrCancellingAServiceOrNotice";
         p.label = "Changing or Cancelling a Service or Notice";
         p.active = false;
@@ -1447,7 +1454,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "10";
+        p.key = "11";
         p.name = "ChangingOrCancellingAnyOtherRequirement";
         p.label = "Changing or Cancelling Any Other Requirement";
         p.active = false;
@@ -1455,7 +1462,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "11";
+        p.key = "12";
         p.name = "RequiringAccessToInformation";
         p.label = "Requiring Access to Information";
         p.active = false;
@@ -1463,7 +1470,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "12";
+        p.key = "13";
         p.name = "RecognizingAnOrderFromOutsideBc";
         p.label = "Recognizing an Order from Outside BC";
         p.active = false;
@@ -1471,7 +1478,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "13";
+        p.key = "14";
         p.name = "ContactInformationOtherParty";
         p.label = "Contact Information Other Party";
         p.active = false;
@@ -1480,7 +1487,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "14";
+        p.key = "15";
         p.name = "ReviewYourAnswersCM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -1488,7 +1495,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "15";
+        p.key = "16";
         p.name = "PreviewForm10CM";
         p.label = "Preview Form 10";
         p.active = false;
@@ -1496,7 +1503,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "16";
+        p.key = "17";
         p.name = "PreviewForm11CM";
         p.label = "Preview Form 11";
         p.active = false;
@@ -2420,49 +2427,7 @@ class Application extends VuexModule {
 
         this.steps.push(s);
 
-        // Affidavit STOP
-
-        // // Electronic Filing Statement START
-
-        // s = {} as stepInfoType;    
-        // s.active = false;
-        // s.id = "23";
-        // s.name = "EFSP";
-        // s.label = "Electronic Filing Statement";
-        // s.icon = "fa fa-file";
-        // s.lastUpdate = null;
-        // s.type = "electronicFilingStatement";
-        // s.pages = new Array<pageInfoType>();
-        // s.currentPage = 0;        
-
-        // p = {} as pageInfoType;
-        // p.key = "0";
-        // p.name = "ElectronicFilingStatement";
-        // p.label = "Electronic Filing Statement";
-        // p.active = true;
-        // p.progress = 0;    
-        // s.pages.push(p);        
-
-        // //____________Review
-        // p = {} as pageInfoType;
-        // p.key = "1";
-        // p.name = "ReviewYourAnswersEFSP";
-        // p.label = "Review Your Answers";
-        // p.active = true;
-        // p.progress = 0;    
-        // s.pages.push(p);
-
-        // p = {} as pageInfoType;
-        // p.key = "2";
-        // p.name = "PreviewFormsEFSP";
-        // p.label = "Preview Forms";
-        // p.active = false;
-        // p.progress = 0;    
-        // s.pages.push(p);
-
-        // this.steps.push(s);
-
-        // // Electronic Filing Statement STOP
+        // Affidavit STOP       
 
 
         //Submit START
