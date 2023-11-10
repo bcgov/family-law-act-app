@@ -8,6 +8,7 @@
         <scheduling                                     v-bind:step="step" v-if="step.currentPage == stPgNo.CM.Scheduling" />
         <about-case-management-order                    v-bind:step="step" v-if="step.currentPage == stPgNo.CM.AboutCaseManagementOrder" />
         <cm-children-info                               v-bind:step="step" v-if="step.currentPage == stPgNo.CM.CmChildrenInfo" />
+        <application-under-foaeaa                       v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ApplicationUnderFOAEAA" />
         <attendance-using-electronic-communication      v-bind:step="step" v-if="step.currentPage == stPgNo.CM.AttendanceUsingElectronicCommunication" />
         <changing-or-cancelling-a-service-or-notice     v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ChangingOrCancellingAServiceOrNotice" />
         <changing-or-cancelling-any-other-requirement   v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ChangingOrCancellingAnyOtherRequirement" />
@@ -33,6 +34,7 @@ import CmNotice from "./CmNotice.vue";
 import Scheduling from "./Scheduling.vue";
 import AboutCaseManagementOrder from "./AboutCaseManagementOrder.vue";
 import CmChildrenInfo from "./childInfo/CmChildrenInfo.vue";
+import ApplicationUnderFoaeaa from "./ApplicationUnderFOAEAA.vue";
 import AttendanceUsingElectronicCommunication from "./AttendanceUsingElectronicCommunication.vue";
 import ChangingOrCancellingAServiceOrNotice from "./ChangingOrCancellingAServiceOrNotice.vue";
 import ChangingOrCancellingAnyOtherRequirement from "./ChangingOrCancellingAnyOtherRequirement.vue";
@@ -53,7 +55,6 @@ const applicationState = namespace("Application");
 @Component({
     components:{
         StepBase,
-
         CmQuestionnaire,
         OtherPersons,        
         WithoutNoticeOrAttendance,
@@ -68,7 +69,7 @@ const applicationState = namespace("Application");
         RequiringAccessToInformation,
         RecognizingAnOrderFromOutsideBc,
         ContactInformationOtherParty,
-
+        ApplicationUnderFoaeaa,
         ReviewYourAnswersCm,
         PreviewForm10Cm,
         PreviewForm11Cm
