@@ -626,7 +626,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
 			requiredDocuments.push("Certified copy of the order from outside BC")
 
-        if(stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active){
+        if(stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active && questions.cmQuestionnaireSurvey?.includes("section12")){
 
             if(questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'n'){
                 requiredDocuments.push("Affidavit - General Form 45")

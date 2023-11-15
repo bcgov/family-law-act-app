@@ -285,7 +285,14 @@
                         any delay in making this application.</i>
                 </div>
 
-                <div class="answerbox">Please see the affidavit filed in support of this application.</div>
+                <div class="answerbox" v-if="form10Info.caseList.includes('section12')">
+                    Please see the affidavit filed in support of this application.
+                </div>
+                <div v-if="!form10Info.caseList.includes('section12') && form10Info.orderFacts" class="answerbox">
+                    {{form10Info.orderFacts}}
+                </div>
+                <div v-else-if="!form10Info.caseList.includes('section12') && !form10Info.orderFacts" style="margin-bottom:3rem;"></div>
+
                          
             </section>
         </div>   
@@ -455,7 +462,10 @@ export default class Form10Layout extends Vue {
         if (this.result?.aboutCaseManagementOrderSurvey){
             const aboutOrderData: aboutCaseManagementOrderSurveyDataInfoType = this.result.aboutCaseManagementOrderSurvey;
             form10Info.orderDetails = aboutOrderData.orderDescription;
-            //form10Info.orderFacts = aboutOrderData.applicationFacts;
+            if (!form10Info.caseList.includes('section12')){
+                form10Info.orderFacts = aboutOrderData.applicationFacts;
+            }
+            
         }  
         
         if (this.result?.cmNoticeSurvey){
