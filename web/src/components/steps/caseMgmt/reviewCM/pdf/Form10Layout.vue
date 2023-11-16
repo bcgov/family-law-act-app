@@ -285,13 +285,13 @@
                         any delay in making this application.</i>
                 </div>
 
-                <div class="answerbox" v-if="form10Info.caseList.includes('section12')">
+                <div class="answerbox" v-if="includesFoaeaaOnly">
                     Please see the affidavit filed in support of this application.
                 </div>
-                <div v-if="!form10Info.caseList.includes('section12') && form10Info.orderFacts" class="answerbox">
+                <div v-if="!includesFoaeaaOnly && form10Info.orderFacts" class="answerbox">
                     {{form10Info.orderFacts}}
                 </div>
-                <div v-else-if="!form10Info.caseList.includes('section12') && !form10Info.orderFacts" style="margin-bottom:3rem;"></div>
+                <div v-else-if="!includesFoaeaaOnly && !form10Info.orderFacts" style="margin-bottom:3rem;"></div>
 
                          
             </section>
@@ -342,6 +342,7 @@ export default class Form10Layout extends Vue {
     childrenInfo: childrenInfoSurveyInfoType[] = []; 
     form10Info = {} as form10DataInfoType;  
     filingLocationReason = ''; 
+    includesFoaeaaOnly = false;
     
     childrenFields=[
         {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
@@ -462,8 +463,13 @@ export default class Form10Layout extends Vue {
         if (this.result?.aboutCaseManagementOrderSurvey){
             const aboutOrderData: aboutCaseManagementOrderSurveyDataInfoType = this.result.aboutCaseManagementOrderSurvey;
             form10Info.orderDetails = aboutOrderData.orderDescription;
-            if (!form10Info.caseList.includes('section12')){
+
+            if (form10Info.caseList.length == 1 && form10Info.caseList.includes("section12")){
+                form10Info.orderFacts = '';
+                this.includesFoaeaaOnly = true;
+            } else {
                 form10Info.orderFacts = aboutOrderData.applicationFacts;
+                this.includesFoaeaaOnly = false;
             }
             
         }  
