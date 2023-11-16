@@ -41,9 +41,9 @@ export function getOrderTypeCM(form: string, toggle = false, toggleNext = false)
             else if(form == 'section12'){                
                 togglePages(order.pages, toggleNext )
             }
-            else if(order.turquoise){               
+            else if(order.turquoise){
                 togglePages(order.pages, toggleNext )
-                togglePages(order.pages.splice(0,1), true)                
+                togglePages(order.pages.splice(0,1), true)        
             }
             else
                 togglePages(order.pages, true)
