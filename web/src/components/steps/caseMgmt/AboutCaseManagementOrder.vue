@@ -80,13 +80,8 @@ export default class AboutCaseManagementOrder extends Vue {
         if (this.step.result?.cmQuestionnaireSurvey?.data){
             this.listOfIssuesDescription = this.getDescription();
             this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
-            const issues = this.step.result.cmQuestionnaireSurvey.data;            
+            const issues = this.step.result.cmQuestionnaireSurvey.data;
             this.survey.setVariable('IncludesFoaeaa', issues.includes("section12"));
-            if (issues.length == 1 && issues.includes("section12")){
-                this.survey.setVariable('IncludesFoaeaaOnly', true);
-            } else {
-                this.survey.setVariable('IncludesFoaeaaOnly', false);
-            }
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);

@@ -37,12 +37,12 @@
                 "isRequired": true,
                 "title": "The `facts` on which this application is based are as follows:",
                 "visible": false,
-                "visibleIf": "!{IncludesFoaeaaOnly}"
+                "visibleIf": "!{IncludesFoaeaa}"
             },       
             {            
-                "type":"infotexttitle",
+                "type":"infotext",
                 "name":"noticeDescription1",
-                "title":"",
+                "title":"<b class='sv_main sv_q_title'>The `facts` on which this application is based must be described for the court in an `affidavit`</b>",
                 "body": "Your application under section 7 of the <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/page-1.html#h-221520' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> requesting that a court authorize an official of the court to make an application under section 12 of the Act for the release of information must be supported by an affidavit that includes the information set out under section 8 (1)(a) or 9 (1)(a) of that Act, as applicable.<br>To draft an affidavit using this service, select Other family court forms(s) on the Getting Started page, then select <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true' target='_blank'>Affidavit – General Form 45</a>.",
                 "titleLocation":"hidden",
                 "messageStyle":"inline",
