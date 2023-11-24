@@ -29,25 +29,14 @@
               "title": "I’m not sure what order I need. Where can I get legal assistance?",
               "titleLocation": "hidden",
               "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
-            },     
-            {
-                "type": "comment",
-                "name": "applicationFacts",
-                "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order. If you are applying to change, suspend or cancel an order made in your absence, you must explain why you did not file a reply or attend court when required, why the order should be made and the reasons for any delay in making this application.",
-                "isRequired": true,
-                "title": "The `facts` on which this application is based are as follows:",
-                "visible": false,
-                "visibleIf": "!{IncludesFoaeaa}"
-            },       
+            },            
             {            
                 "type":"infotext",
                 "name":"noticeDescription1",
                 "title":"<b class='sv_main sv_q_title'>The `facts` on which this application is based must be described for the court in an `affidavit`</b>",
                 "body": "Your application under section 7 of the <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/page-1.html#h-221520' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> requesting that a court authorize an official of the court to make an application under section 12 of the Act for the release of information must be supported by an affidavit that includes the information set out under section 8 (1)(a) or 9 (1)(a) of that Act, as applicable.<br>To draft an affidavit using this service, select Other family court forms(s) on the Getting Started page, then select <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true' target='_blank'>Affidavit – General Form 45</a>.",
                 "titleLocation":"hidden",
-                "messageStyle":"inline",
-                "visible": false,
-                "visibleIf": "{IncludesFoaeaa}"
+                "messageStyle":"inline"
             }
           ]
         }
