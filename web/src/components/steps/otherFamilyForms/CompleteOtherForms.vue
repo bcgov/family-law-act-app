@@ -373,6 +373,13 @@ export default class CompleteOtherForms extends Vue {
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }
+            // else if(formName=='Electronic Filing Statement'){
+            //     const step = this.stPgNo.EFSP._StepNo;
+            //     const page = this.stPgNo.EFSP.PreviewFormsEFSP;
+            //     Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+            //     toggleStep(step, false);
+            //     pdf_type=Vue.filter('fullNameToPdfType')(formName);
+            // }
             
             if(pdf_type) await this.removeGeneratedPDF(pdf_type)
         }

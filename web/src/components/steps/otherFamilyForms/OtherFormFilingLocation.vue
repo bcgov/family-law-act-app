@@ -205,6 +205,7 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(this.stPgNo.NLPR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerParty"));
         toggleStep(this.stPgNo.AFF._StepNo, this.requiredGuidedPathways.includes("affidavit"));
         togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit, this.stPgNo.AFF._StepNo);
+        //toggleStep(this.stPgNo.EFSP._StepNo, this.requiredGuidedPathways.includes("electronicFilingStatement"));
         
     }   
 

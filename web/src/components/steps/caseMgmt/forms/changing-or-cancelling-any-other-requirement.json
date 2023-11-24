@@ -89,7 +89,7 @@
               "type": "comment",
               "title": "Please provide the details of the order you are asking the court to make:",
               "name": "orderDetail",
-              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. Tell the court the specifics of the order you are applying for. Include:<ul><li>If you want the requirement changed (modified) or cancelled (waived)</li><li>If you applying to change the requirement, what you want it changed to </li></ul>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Court%20Orders%20-%20January%202022.docx' target='_blank'>Family Law Act Picklist </a> includes commonly used order terms that might be helpful.",
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. Tell the court the specifics of the order you are applying for. Include:<ul><li>If you want the requirement changed (modified) or cancelled (waived)</li><li>If you applying to change the requirement, what you want it changed to </li></ul>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='_blank'>Family Law Act Picklist </a> includes commonly used order terms that might be helpful.",
               "isRequired": true                           
             },
             {

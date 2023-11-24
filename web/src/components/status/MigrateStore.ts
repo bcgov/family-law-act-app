@@ -223,6 +223,7 @@ export class MigrateStore{
         pathwayCompleted.noticeLawyerParty = false;
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
+        // pathwayCompleted.electronicFilingStatement = false;
 
         pathwayCompleted.other = false;
         //TODO: add the other pathway
