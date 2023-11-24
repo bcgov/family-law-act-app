@@ -179,12 +179,11 @@ export default class CmQuestionnaire extends Vue {
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.RequiringAccessToInformation, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.RecognizingAnOrderFromOutsideBc, 0, false);                                                       
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactInformationOtherParty, 0, false);
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ApplicationUnderFOAEAA, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
                 }
 
                 if (this.step.result?.withoutNoticeOrAttendanceSurvey?.data?.needWithoutNotice) {
-                    const needWithoutNotice = this.$store.state.Application.steps[this.currentStep].pages[p.WithoutNoticeOrAttendance]?.active? this.step.result.withoutNoticeOrAttendanceSurvey.data.needWithoutNotice : ''                    
+                    const needWithoutNotice = this.step.result.withoutNoticeOrAttendanceSurvey.data.needWithoutNotice
                     if (needWithoutNotice == 'n') {
                         togglePages([p.ByConsent, p.CmNotice, p.AboutCaseManagementOrder], true, this.currentStep); 
                     } else{                              

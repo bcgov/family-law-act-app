@@ -25,7 +25,7 @@ export function getOrderTypeCM(form: string, toggle = false, toggleNext = false)
         'subpoenaCancelation':     {turquoise: false, pages:[p.ByConsent, p.CmNotice, p.AboutCaseManagementOrder],                                                                       text:'Cancelling a subpoena'},
         'section33':               {turquoise: false, pages:[p.ByConsent, p.CmNotice, p.AboutCaseManagementOrder],                                                                       text:'Requiring that a parentage test be taken under section 33 of the Family Law Act'},
         'section242':              {turquoise: true,  pages:[p.WithoutNoticeOrAttendance, p.RequiringAccessToInformation],                                      text:'Requiring access to information in accordance with section 242 of the Family Law Act'},
-        'section12':               {turquoise: true,  pages:[p.ApplicationUnderFOAEAA],                                                                      text:"Authorizing an official of the court to make an application under section 12 of the <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/page-1.html#h-221520' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> for the release of information for the establishment or variation of a support provision or the enforcement of a family provision"}
+        'section12':               {turquoise: false, pages:[p.ApplicationUnderFOAEAA],                                                                      text:"Authorizing an official of the court to make an application under section 12 of the <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/page-1.html#h-221520' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> for the release of information for the establishment or variation of a support provision or the enforcement of a family provision"}
     }
 
     if(form){
@@ -37,9 +37,8 @@ export function getOrderTypeCM(form: string, toggle = false, toggleNext = false)
                 togglePages([order.pages[2]], toggleNext && cmOnly )
                 togglePages([order.pages[1]], toggleNext )
                 togglePages([order.pages[0]], true)
-            } 
-            else if(form == 'section12'){                
-                togglePages(order.pages, toggleNext )
+            } else if(form == 'section12'){                
+                togglePages([order.pages], toggleNext )
             }
             else if(order.turquoise){               
                 togglePages(order.pages, toggleNext )

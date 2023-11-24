@@ -108,10 +108,7 @@ export default class AboutCaseManagementOrder extends Vue {
                 
                 const order = getOrderTypeCM(cmType)
                 
-                if((order?.turquoise && !withoutNotice) || 
-                   (order?.turquoise == false) ||
-                   (cmType == 'section12')
-                ){
+                if((order?.turquoise && !withoutNotice) || (order?.turquoise == false)){
                     listOfIssues.push('<li>'+order.text+'</li>')
                 } 
                 
