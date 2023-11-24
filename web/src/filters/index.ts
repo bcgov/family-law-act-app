@@ -626,16 +626,15 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
 			requiredDocuments.push("Certified copy of the order from outside BC")
 
-        if(questions.cmQuestionnaireSurvey?.includes("section12")){
+        if(stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active && questions.cmQuestionnaireSurvey?.includes("section12")){
 
-            if (stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active
-                && questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'y' 
-                && stepCM.pages[stPgCM.ApplicationUnderFOAEAA].active
-                && questions.applicationUnderFOAEAASurvey?.criminalRecordCheckAcknowledgement.includes('I understand')){
+            if(questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'n'){
+                requiredDocuments.push("Affidavit - General Form 45")
+            } else if (questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'y' 
+                        && stepCM.pages[stPgCM.ApplicationUnderFOAEAA].active
+                        && questions.applicationUnderFOAEAASurvey?.criminalRecordCheckAcknowledgement.includes('I understand')){
                 requiredDocuments.push("Affidavit - General Form 45")
                 requiredDocuments.push("Criminal Record Check")
-            } else {
-                requiredDocuments.push("Affidavit - General Form 45");
             }
         }
 	}
