@@ -85,19 +85,6 @@ export interface aboutCaseManagementOrderSurveyDataInfoType {
     applicationFacts: string;
 }
 
-export interface applicationUnderFOAEAASurveyInfoType {
-    data: applicationUnderFOAEAASurveyDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number | string;
-    currentPage: number | string;
-}
-
-export interface applicationUnderFOAEAASurveyDataInfoType {
-    orderDescription: string;
-    criminalRecordCheckAcknowledgement: string[];
-}
-
 export interface cmChildrenInfoSurveyInfoType {
     data: {childData: cmChildrenInfoSurveyDataInfoType[]; childRelatedType: string };
     questions: questionInfoType[];

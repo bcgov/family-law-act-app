@@ -27,8 +27,8 @@
                 >       
                     <div>
                         <b-form-checkbox v-for="order,inx in orderItems " :key="inx" class="checkbox-choices" :value="order.value">
-                            <div class="d-inline" v-html="processTooltip(order.text)[0]">
-                               
+                            <div class="d-inline" >
+                                {{processTooltip(order.text)[0]}}
                             </div>
                             <div v-if="processTooltip(order.text)[1]" class="d-inline">
                                 <tooltip :index="0" size="lg" :title="processTooltip(order.text)[1]" />
