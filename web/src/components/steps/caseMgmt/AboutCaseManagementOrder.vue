@@ -32,7 +32,11 @@ export default class AboutCaseManagementOrder extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: stepInfoType[];        
+    public steps!: stepInfoType[];    
+
+    
+
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -80,8 +84,6 @@ export default class AboutCaseManagementOrder extends Vue {
         if (this.step.result?.cmQuestionnaireSurvey?.data){
             this.listOfIssuesDescription = this.getDescription();
             this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
-            const issues = this.step.result.cmQuestionnaireSurvey.data;
-            this.survey.setVariable('IncludesFoaeaa', issues.includes("section12"));
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
@@ -90,7 +92,7 @@ export default class AboutCaseManagementOrder extends Vue {
     public getDescription() {
 
         let description = '';
-        const listOfIssues = [];
+        let listOfIssues = [];
         const firstDescriptionSection = 'You indicated you are applying for a case management order about:  '
        
        
