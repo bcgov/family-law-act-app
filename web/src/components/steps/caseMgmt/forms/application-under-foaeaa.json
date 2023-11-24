@@ -35,7 +35,7 @@
                 "type":"infotext",
                 "name":"crcDescription1",
                 "title":"<span class='sv_main sv_q_title'>For an application made without notice to the other party, you must also provide the court with the results of a recent <b>criminal record check.</b></span>",
-                "body": "The criminal record check is required as part of important safeguards under the <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/page-1.html#h-221520' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> for the search and release of financial information to help ensure the court is satisfied that the release of information will not likely jeopardize the safety or security of any person.<br><br>To get a criminal record check, ask at the front desk of the police station or RCMP detachment in your community. There is a fee you will need to pay to get the criminal record check.<br><br>The police or RCMP will send you your results.",
+                "body": "The criminal record check is required as part of important safeguards under FOAEAA for the search and release of financial information to help ensure the court is satisfied that the release of information will not likely jeopardize the safety or security of any person.<br><br>To get a criminal record check, ask at the front desk of the police station or RCMP detachment in your community. There is a fee you will need to pay to get the criminal record check.<br><br>The police or RCMP will send you your results.",
                 "titleLocation":"hidden",
                 "messageStyle":"inline"
             },
