@@ -35,7 +35,7 @@
                 "type":"infotext",
                 "name":"crcDescription1",
                 "title":"<span class='sv_main sv_q_title'>For an application made without notice to the other party, you must also provide the court with the results of a recent <b>criminal record check.</b></span>",
-                "body": "The criminal record check is required as part of important safeguards under FOAEAA for the search and release of financial information to help ensure the court is satisfied that the release of information will not likely jeopardize the safety or security of any person.<br><br>To get a criminal record check, ask at the front desk of the police station or RCMP detachment in your community. There is a fee you will need to pay to get the criminal record check.<br><br>The police or RCMP will send you your results.",
+                "body": "Your application under section 7 of the <a href='https://laws-lois.justice.gc.ca/eng/acts/f-1.4/page-1.html#h-221520' target='_blank'>Family Orders and Agreements Enforcement Assistance Act (Canada)</a> requesting that a court authorize an official of the court to make an application under section 12 of the Act for the release of information must be supported by an affidavit that includes the information set out under section 8 (1)(a), (2) and (3) or 9 (1)(a), (2) and (3) of that Act, as applicable.<br>To draft an affidavit using this service, select Other family court forms(s) on the Getting Started page, then select <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true' target='_blank'>Affidavit – General Form 45</a>.",
                 "titleLocation":"hidden",
                 "messageStyle":"inline"
             },
@@ -62,7 +62,7 @@
           ]
         }
       ],
-      "title": "Application under FOAEAA"
+      "title": "About the Order"
     }
   ],
   "showQuestionNumbers": "off",
