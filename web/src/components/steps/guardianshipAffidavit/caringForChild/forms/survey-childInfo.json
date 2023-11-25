@@ -1,0 +1,53 @@
+{
+    "title": "Child(ren) Information",
+    "pages": [
+        {
+            "name": "Child(ren) Information",
+            "elements": [
+                {
+                    "type": "personname",
+                    "name": "childName",
+                    "title": "What is the name of the child?",
+                    "isRequired": true,
+                    "defaultSubstitution": "{ChildName}"
+                },
+                {
+                    "type": "text",
+                    "name": "childDateOfBirth",
+                    "title": "What is the child's date of birth?",
+                    "isRequired": true,
+                    "inputType": "date"
+                },
+                {
+                    "type": "comment",
+                    "name": "relationToChild",
+                    "title": "What is your relationship to the child?",
+                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
+                    "isRequired": true,
+                    "visible": false,
+                    "visibleIf": "!{formOneRequired}"
+                },
+                {
+                    "type": "comment",
+                    "name": "childRelationToOtherParty",
+                    "title": "What is the other party's relationship to the child?",
+                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
+                    "isRequired": true,
+                    "visible": false,
+                    "visibleIf": "!{formOneRequired}"
+                },
+                {
+                    "type": "text",
+                    "name": "childCurrentlyLivingWith",
+                    "title": "Who is the child currently living with?",
+                    "description": "You can use the name of the person or their relationship to the child.",
+                    "isRequired": true,
+                    "visible": false,
+                     "visibleIf": "!{formOneRequired}"
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

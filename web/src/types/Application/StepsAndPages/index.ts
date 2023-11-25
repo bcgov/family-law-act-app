@@ -29,6 +29,7 @@ export interface stepsAndPagesNumberInfoType{
     NLP: NLPstPgTypes;
     NLPR: NLPRstPgTypes;
     AFF: AFFstPgTypes;
+    GA: GAstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -386,6 +387,23 @@ export interface NLPRstPgTypes{
     NoticeRemoveLawyerParty: number;
     ReviewYourAnswersNLPR: number;
     PreviewFormsNLPR: number;
+}
+
+export interface GAstPgTypes{
+    _StepNo: number;
+
+    GuardianshipAffidavit: number;
+    AboutAffiantGa: number;
+    ChildrenDetailsGa: number;
+    CaringForChildGa: number;
+    BackgroundFamilyViolence: number;
+    BackgroundCivilCourtProceedings: number;
+    BackgroundCriminalHistory: number;
+    Exhibits: number;
+    FilingGA: number;
+    ElectronicFilingStatementGa: number;
+    ReviewYourAnswersGA: number;
+    PreviewFormsGA: number;
 }
 
 export interface SUBMITstPgTypes{

@@ -85,6 +85,7 @@ export default class OtherFormList extends Vue {
 
         let ndtRequiresSignature = false;
         let affRequiresSignature = false;
+        let gaRequiresSignature = false;//TODO
 
         const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
         const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'NDT')})
@@ -112,6 +113,7 @@ export default class OtherFormList extends Vue {
         
         this.formsListTemplate = [ 
             { name:'P2',   appName:'noticeIntentionProceed',       pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"),      chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],       color:"danger", title:"Notice of Intention to Proceed (Form 2)",         requiresSignature: false, requiresSwear: false},                              
+            { name:'P5',   appName:'guardianshipAffidavit',        pdfType: Vue.filter('getPathwayPdfType')("guardianshipAffidavit"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.GA._StepNo],        color:"danger",  title:"Guardianship Affidavit (Form 5)",                requiresSignature:  gaRequiresSignature, requiresSwear: this.requiresEfsp},            
             { name:'P22',  appName:'trialReadinessStatement',      pdfType: Vue.filter('getPathwayPdfType')("trialReadinessStatement"),     chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.TRIS._StepNo],      color:"danger", title:"Trial Readiness Statement (Form 22)",             requiresSignature: false, requiresSwear: false},                              
             { name:'P39',  appName:'requestScheduling',            pdfType: Vue.filter('getPathwayPdfType')("requestScheduling"),           chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.RQS._StepNo],       color:"danger", title:"Request for Scheduling (Form 39)",                requiresSignature: false, requiresSwear: false},                              
             { name:'P40',  appName:'noticeLawyerChild',            pdfType: Vue.filter('getPathwayPdfType')("noticeLawyerChild"),           chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLC._StepNo],       color:"danger", title:"Notice of Lawyer for Child (Form 40)",            requiresSignature: false, requiresSwear: false},            

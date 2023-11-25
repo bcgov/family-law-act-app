@@ -769,6 +769,7 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepNLP = store.state.Application.stPgNo.NLP;	
         const stepNLPR = store.state.Application.stPgNo.NLPR;
         const stepAFF = store.state.Application.stPgNo.AFF;
+        const stepGA = store.state.Application.stPgNo.GA;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -846,6 +847,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepAFF._StepNo; 
 			reviewPage = stepAFF.ReviewYourAnswersAFF; 
 			previewPages = [stepAFF.PreviewFormsAFF, stepAFF.PreviewFormsEFSP];
+		} else if(typeName == 'guardianshipAffidavit'){
+			step = stepGA._StepNo; 
+			reviewPage = stepGA.ReviewYourAnswersGA; 
+			previewPages = [stepGA.PreviewFormsGA, stepGA.PreviewFormsEFSP];
 		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -892,6 +897,7 @@ Vue.filter('surveyChanged', function(type: string) {
         pathwayCompleted.noticeLawyerParty = false;	
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
+        pathwayCompleted.guardianshipAffidavit = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")
