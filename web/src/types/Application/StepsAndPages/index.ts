@@ -401,9 +401,10 @@ export interface GAstPgTypes{
     BackgroundCriminalHistory: number;
     Exhibits: number;
     FilingGA: number;
-    ElectronicFilingStatementGa: number;
+    ElectronicFilingStatementGA: number;
     ReviewYourAnswersGA: number;
     PreviewFormsGA: number;
+    PreviewFormsEFSP: number;
 }
 
 export interface SUBMITstPgTypes{

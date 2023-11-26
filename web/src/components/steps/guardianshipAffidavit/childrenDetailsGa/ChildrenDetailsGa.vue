@@ -66,13 +66,16 @@
 </template>
 
 <script lang="ts">
+
 import { Component, Vue, Prop} from 'vue-property-decorator';
 import ChildrenSurvey from "./ChildrenSurvey.vue";
+
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 

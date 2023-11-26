@@ -83,7 +83,7 @@ export default class FilingGa extends Vue {
 
         if (this.survey.data?.sworn && this.steps[this.stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
             const eFiling = this.steps[this.stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';
-            togglePages([this.stPgNo.GA.ElectronicFilingStatementGa], this.survey.data.sworn == 'y' && eFiling, this.currentStep);
+            togglePages([this.stPgNo.GA.ElectronicFilingStatementGA], this.survey.data.sworn == 'y' && eFiling, this.currentStep);
         }
             
     }

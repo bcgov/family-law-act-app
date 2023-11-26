@@ -29,8 +29,7 @@ import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurvey
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
-import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
-// import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
+import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 
 
 //This is what our database saves.
@@ -344,7 +343,7 @@ export interface stepInfoType {
     backgroundCivilCourtProceedingsSurvey?: backgroundCivilCourtProceedingsSurveyInfoType;
     backgroundCriminalHistorySurvey?: backgroundCriminalHistorySurveyInfoType;
     exhibits?: any;//affidavitSurveyInfoType;
-    filingGASurvey?: filingGASurveyInfoType;
+    filingGaSurvey?: filingGaSurveyInfoType;
     electronicFilingStatementGaSurvey?: electronicFilingStatementGaSurveyInfoType;
     
     //__Step 21 SUBMIT

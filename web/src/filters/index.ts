@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.18";
+    const CURRENT_VERSION = "1.2.19";
     //__________________________
     //___________________________
     //___________________________
@@ -873,7 +873,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit']
 	
 	if(type == 'allExPO'){
         
