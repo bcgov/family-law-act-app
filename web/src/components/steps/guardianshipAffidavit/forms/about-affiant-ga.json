@@ -16,6 +16,14 @@
                  "descLastName": "Last Name is also known as Family Name or Surname"
              },
              {
+                "type": "text",
+                "name": "Dob",
+                "title": "What is your date of birth?",
+                "isRequired": true,
+                "inputType": "date",
+                "dateYearsAhead": "0"
+             },
+             {
                  "type": "text",
                  "name": "ApplicantOccupation",
                  "isRequired": true,                
@@ -30,22 +38,22 @@
                  "choices": [
                      "Care of"                 
                  ]
-             },
-             {
-                 "type": "address",
-                 "name": "ApplicantAddress",                
-                 "title": "",
-                 "titleLocation": "hidden",
-                 "isRequired": true,
-                 "referLabel": "Applicant's Address",
-                 "validators": [
-                     {
-                         "type": "expression",
-                         "text": "Please Fill in all Required Fields.",
-                         "expression": "{ApplicantAddress.street} notempty and {ApplicantAddress.postcode} notempty and {ApplicantAddress.city} notempty"
-                     }
-                 ]
-               }
+             },             
+            {
+                "type": "address",
+                "name": "ApplicantAddress",                
+                "title": "",
+                "titleLocation": "hidden",
+                "isRequired": true,
+                "referLabel": "Applicant's Address",
+                "validators": [
+                    {
+                        "type": "expression",
+                        "text": "Please Fill in all Required Fields.",
+                        "expression": "{ApplicantAddress.street} notempty and {ApplicantAddress.postcode} notempty and {ApplicantAddress.city} notempty"
+                    }
+                ]
+              }
             
           ],
           "title": "About the Affiant"

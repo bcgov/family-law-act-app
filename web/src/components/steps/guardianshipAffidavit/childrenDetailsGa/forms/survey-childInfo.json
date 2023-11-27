@@ -6,44 +6,93 @@
             "elements": [
                 {
                     "type": "personname",
-                    "name": "childName",
-                    "title": "What is the name of the child?",
+                    "name": "name",
+                    "title": "What is the child’s name?",
                     "isRequired": true,
-                    "defaultSubstitution": "{ChildName}"
+                    "defaultSubstitution": "{name}"
                 },
                 {
                     "type": "text",
-                    "name": "childDateOfBirth",
+                    "name": "dob",
                     "title": "What is the child's date of birth?",
                     "isRequired": true,
                     "inputType": "date"
                 },
                 {
-                    "type": "comment",
-                    "name": "relationToChild",
-                    "title": "What is your relationship to the child?",
-                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
+                    "isRequired": true,  
+                    "type": "paneldynamic",
+                    "name": "currentGuardiansToChild",
+                    "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>Who is currently a guardian of the child?</b>",
+                    "description": "A parent is a child’s guardian if:<ul><li>they lived with the other parent when the child was born</li><li>they care for the child regularly, but have never lived with the child, or</li><li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li><li>there is no agreement or order that says they are not a guardian.</li></ul>After separation, each parent remains a guardian of the child, unless the parents make an agreement or the court orders that one parent is not a guardian of the child.<br>A stepparent is not a guardian unless the court has appointed them a guardian of the child. A person who isn’t a parent can become a guardian only by court order or under a will.<br>Include only people you know are currently a guardian of the child.",
+                    "templateElements": [                  
+                      {
+                        "type": "text",
+                        "name": "name",
+                        "isRequired": true,
+                        "title": "Full Name"
+                       }
+                    ],
+                    "panelCount": 1,
+                    "panelAddText": "Add another guardian",
+                    "panelRemoveText": "Remove guardian"
+                                
+                },
+                {
+                    "type": "yesno",
+                    "name": "parentsNotGuardiansExist",
                     "isRequired": true,
+                    "title": "Are there any parents of the child who are not current guardians?",
+                    "description": "A parent is not a guardian of a child if they have never lived with the child unless:<ul><li>the parent regularly cares for their child, or</li><li>there is an agreement or order that says they are a guardian.</li></ul>"
+                },
+                {
+                    "isRequired": true,  
+                    "type": "paneldynamic",
                     "visible": false,
-                    "visibleIf": "!{formOneRequired}"
+                    "visibleIf": "{parentsNotGuardiansExist} = 'y'",
+                    "name": "parentsNotGuardians",
+                    "title": "",
+                    "titleLocation": "hidden",
+                    "templateElements": [                  
+                      {
+                        "type": "text",
+                        "name": "name",
+                        "isRequired": true,
+                        "title": "Full Name"
+                       }
+                    ],
+                    "panelCount": 1,
+                    "panelAddText": "Add person",
+                    "panelRemoveText": "Remove person"
+                                
                 },
                 {
                     "type": "comment",
-                    "name": "childRelationToOtherParty",
-                    "title": "What is the other party's relationship to the child?",
-                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                    "isRequired": true,
-                    "visible": false,
-                    "visibleIf": "!{formOneRequired}"
+                    "name": "relationWithchild",
+                    "title": "What is the nature of your relationship to the child?",
+                    "description": "Specify whether you are a parent, stepparent, grandparent, aunt, uncle, family friend, etc. Use whatever wording best describes your relationship.",
+                    "isRequired": true
                 },
                 {
-                    "type": "text",
-                    "name": "childCurrentlyLivingWith",
-                    "title": "Who is the child currently living with?",
-                    "description": "You can use the name of the person or their relationship to the child.",
-                    "isRequired": true,
-                    "visible": false,
-                     "visibleIf": "!{formOneRequired}"
+                    "type": "advancedradiogroup",
+                    "name": "lengthOfRelationship",              
+                    "title": "What is the length of your relationship to the child?",                    
+                    "radioOutputValues":"{sinceBirth},{other}",
+                    "inputNames":"{relationStartDate}",
+                    "inputTypes":"{date}",
+                    "inputWidths":"{11rem}",                  
+                    "textBeforeInputs":"{Since birth};{Other (please specify)}",
+                    "textClasss": "sv_q_title font-weight-bold",
+                    "radioMargins":"0 0 0.5rem 0",
+                    "radioTextMargins":"-0.72rem 0 0 0",
+                    "hasOther": false,
+                    "isRequired": true
+                },                
+                {
+                    "type": "comment",
+                    "name": "currentlyLiving",
+                    "title": "What are the child’s current living arrangements?",
+                    "description": "Briefly explain where the child is living right now.",
+                    "isRequired": true
                 }
             ]
         }

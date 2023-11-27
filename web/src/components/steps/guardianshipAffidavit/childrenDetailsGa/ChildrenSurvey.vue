@@ -99,24 +99,31 @@ export default class ChildrenSurvey extends Vue {
 
     public populateChildModel(childData) {
         if(childData){
-            this.child.name = childData.childName;       
-            this.child.dob = childData.childDateOfBirth;
+            this.child.name = childData.name;       
+            this.child.dob = childData.dob;
             this.child.currentGuardiansToChild = childData.currentGuardiansToChild;
             this.child.parentsNotGuardiansExist = childData.parentsNotGuardiansExist;
             this.child.parentsNotGuardians = childData.parentsNotGuardians;
             this.child.relationWithchild = childData.relationWithchild;
+            this.child.lengthOfRelationship = childData.lengthOfRelationship;
+            this.child.relationStartDate = childData.relationStartDate;
+            this.child.currentLiving = childData.currentLiving;
         }
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
         survey.data = {
-            childName: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
+            name: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
         };
-        survey.setValue("childDateOfBirth", editRowProp.dob);
+        survey.setValue("dob", editRowProp.dob);
         survey.setValue("currentGuardiansToChild", editRowProp.currentGuardiansToChild);
         survey.setValue("parentsNotGuardiansExist", editRowProp.parentsNotGuardiansExist);
         survey.setValue("parentsNotGuardians", editRowProp.parentsNotGuardians);
         survey.setValue("relationWithchild", editRowProp.relationWithchild);
+        survey.setValue("lengthOfRelationship", editRowProp.lengthOfRelationship);
+        survey.setValue("relationStartDate", editRowProp.relationStartDate);
+        survey.setValue("currentLiving", editRowProp.currentLiving);
+
         survey.setVariable("id", editRowProp.id);
     }
 

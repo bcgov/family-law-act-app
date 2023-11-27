@@ -26,18 +26,24 @@
                                     <th scope="col">Current guardians to the child</th>
                                     <th scope="col">Parents not guardians to the child</th>
                                     <th scope="col">Your relationship to the child</th>
+                                    <th scope="col">Length of your relationship to the child</th>
+                                    <th scope="col">Child's current Living Arrangements</th>
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <div></div>
                                     <tr v-for="child in childData" :key="child.id">
+
                                     <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
                                     <td>{{child.dob | beautify-date}}</td>
                                     <td >{{child.currentGuardiansToChild.map(party=>party.name).join(', ')}}</td>
                                     <td v-if="child.parentsNotGuardiansExist == 'y'">{{child.parentsNotGuardians.map(party=>party.name).join(', ')}}</td>
                                     <td v-else></td>
                                     <td >{{child.relationWithchild}}</td>
+                                    <td v-if="child.lengthOfRelationship == 'sinceBirth'">Since Birth</td>
+                                    <td v-else>Since {{child.relationStartDate}}</td>
+                                    <td >{{child.currentLiving}}</td>
                                     <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -200,7 +206,7 @@ export default class ChildrenDetailsGa extends Vue {
     }
 
     public getChildrenResults(){
-        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        const questionResults: {name: string; value: any; title: string; inputType: string}[] =[];
         for(const child of this.childData)
         {
             questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})

@@ -17,6 +17,7 @@ export interface guardianshipAffidavitSurveyInfoType {
 export interface aboutAffiantGaDataInfoType {    
     ApplicantName?: nameInfoType;
     ApplicantOccupation?: string;
+    Dob?: string;
     inCareOf?: string[];
     ApplicantAddress?: addressInfoType;
 }
@@ -40,6 +41,9 @@ export interface childGaInfoType {
     parentsNotGuardiansExist?: string;
     parentsNotGuardians?: string[];
     relationWithchild?: string;
+    lengthOfRelationship?: string;
+    relationStartDate?: string;
+    currentLiving?: string;
   }
 
 export interface childrenDetailsGaSurveyInfoType {
