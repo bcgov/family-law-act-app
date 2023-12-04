@@ -124,7 +124,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import CaringChildrenSurvey from "./CaringChildrenSurvey.vue";
+import CaringChildrenSurvey from "./CivilProceedingsSurvey.vue";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -140,7 +140,7 @@ const applicationState = namespace("Application");
       PageBase
     }
 })
-export default class caringForChildGa extends Vue {
+export default class ChildrenInfo extends Vue {
 
     @Prop({required: true})
     step!: stepInfoType

@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class YourStoryAff extends Vue {
+export default class BackgroundCriminalHistory extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -77,8 +77,8 @@ export default class YourStoryAff extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
         
-        if (this.step.result?.yourStoryAffSurvey) {
-            this.survey.data = this.step.result.yourStoryAffSurvey.data;
+        if (this.step.result?.backgroundCriminalHistorySurvey) {
+            this.survey.data = this.step.result.backgroundCriminalHistorySurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
               
         } else {
@@ -103,7 +103,7 @@ export default class YourStoryAff extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {yourStoryAffSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {backgroundCriminalHistorySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

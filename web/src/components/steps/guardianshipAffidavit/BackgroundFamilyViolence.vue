@@ -77,12 +77,10 @@ export default class BackgroundFamilyViolence extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
         
-        if (this.step.result?.yourStoryAffSurvey) {
-            this.survey.data = this.step.result.yourStoryAffSurvey.data;
+        if (this.step.result?.backgroundFamilyViolenceSurvey) {
+            this.survey.data = this.step.result.backgroundFamilyViolenceSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
               
-        } else {
-            this.survey.setValue('storyAff',[]);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
@@ -103,7 +101,7 @@ export default class BackgroundFamilyViolence extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {yourStoryAffSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {backgroundFamilyViolenceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

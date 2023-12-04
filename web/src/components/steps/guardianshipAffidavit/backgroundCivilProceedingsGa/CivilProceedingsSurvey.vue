@@ -17,7 +17,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 import { childInfoType } from '@/types/Application/CommonInformation';
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/survey-childInfo.json";
+import surveyJson from "./forms/survey-caringchildInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import { namespace } from "vuex-class";   
@@ -27,13 +27,10 @@ const applicationState = namespace("Application");
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component
-export default class ChildrenSurvey extends Vue {
+export default class CaringChildrenSurvey extends Vue {
     
     @Prop({required: true})
-    editRowProp!: Object;
-
-    @Prop({required: true})
-    formOneRequired!: boolean;
+    editRowProp!: Object;    
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
@@ -64,7 +61,7 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public addSurveyListener(){
-        Vue.filter('surveyChanged')('familyLawMatter')        
+        Vue.filter('surveyChanged')('guardianshipAffidavit')        
         this.survey.onComplete.add((sender, options) => {
             this.populateChildModel(sender.data);
             let id = sender.getVariable("id");
@@ -89,7 +86,7 @@ export default class ChildrenSurvey extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })   
-        this.survey.setVariable("formOneRequired", this.formOneRequired);    
+         
     }
   
     public goBack() {
@@ -105,12 +102,7 @@ export default class ChildrenSurvey extends Vue {
         if(childData){
             this.child.name = childData.childName;       
             this.child.dob = childData.childDateOfBirth;
-            this.child.relation = childData.relationToChild;
-            this.child.opRelation = childData.childRelationToOtherParty;
-            this.child.currentLiving = childData.childCurrentlyLivingWith;
-            this.child.ack = childData.childInfoAckknowledge;
-            this.child.additionalInfo = childData.childAdditionalInfo;
-            this.child.additionalInfoDetails = childData.additionInfoDetails;
+            this.child.relation = childData.relationToChild;            
         }
     }
 
@@ -120,11 +112,6 @@ export default class ChildrenSurvey extends Vue {
         };
         survey.setValue("childDateOfBirth", editRowProp.dob);
         survey.setValue("relationToChild", editRowProp.relation);
-        survey.setValue("childRelationToOtherParty", editRowProp.opRelation);
-        survey.setValue("childCurrentlyLivingWith", editRowProp.currentLiving);
-        survey.setValue("childInfoAckknowledge", editRowProp.ack);
-        survey.setValue("childAdditionalInfo", editRowProp.additionalInfo);
-        survey.setValue("additionInfoDetails", editRowProp.additionalInfoDetails);
         survey.setVariable("id", editRowProp.id);
     }
 

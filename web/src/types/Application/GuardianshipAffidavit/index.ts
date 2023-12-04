@@ -54,10 +54,21 @@ export interface childrenDetailsGaSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface caringForChildGaChildInfoDataInfoType { 
+    name?: nameInfoType;
+    dob?: string;
+    relationWithchild?: string;
+}
 
+export interface caringForChildGaDataType {
+    careDetails?: string;
+    parentOtherChild?: string;
+}
 
 export interface caringForChildGaDataInfoType {    
-    storyAff?: string[];
+    childInfo?: caringForChildGaChildInfoDataInfoType[];
+    caringForChildGa?: caringForChildGaDataType;
+    
 }
 
 export interface caringForChildGaSurveyInfoType {
@@ -70,7 +81,8 @@ export interface caringForChildGaSurveyInfoType {
 
 
 export interface backgroundFamilyViolenceDataInfoType {    
-    storyAff?: string[];
+    familyViolenceExists?: string;
+    familyViolenceDesc?: string;
 }
 
 export interface backgroundFamilyViolenceSurveyInfoType {
@@ -81,9 +93,17 @@ export interface backgroundFamilyViolenceSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface courtProceedingsDataInfoType {    
+    partyNames?: string;
+    courtLocation?: string;
+    courtOrdersExists?: string;
+    courtOrderDates?: string[];
+}
+
 
 export interface backgroundCivilCourtProceedingsDataInfoType {    
-    storyAff?: string[];
+    courtProceedingsExist?: string;
+    courtProceedings?: courtProceedingsDataInfoType[];
 }
 
 export interface backgroundCivilCourtProceedingsSurveyInfoType {

@@ -1,7 +1,6 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
-        <survey v-bind:survey="survey"></survey>       
-
+        <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
@@ -24,7 +23,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class YourStoryAff extends Vue {
+export default class BackgroundCivilCourtProceedings extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -74,15 +73,14 @@ export default class YourStoryAff extends Vue {
     public reloadPageInformation() {
     
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
-
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result?.yourStoryAffSurvey) {
-            this.survey.data = this.step.result.yourStoryAffSurvey.data;
+        if (this.step.result?.backgroundCivilCourtProceedingsSurvey) {
+            this.survey.data = this.step.result.backgroundCivilCourtProceedingsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
               
         } else {
-            this.survey.setValue('storyAff',[]);
+            this.survey.setValue('courtProceedings',[]);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
@@ -103,7 +101,7 @@ export default class YourStoryAff extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {yourStoryAffSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {backgroundCivilCourtProceedingsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

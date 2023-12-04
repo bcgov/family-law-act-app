@@ -253,7 +253,7 @@ export default class ChildrenDetailsGa extends Vue {
             // p.ContactWithChildOrder,
             // p.AboutContactWithChildOrder,
             // p.ContactWithChildBestInterestsOfChild,
-            // p.GuardianOfChild,
+            p.CaringForChildGa,
             p.ReviewYourAnswersGA
         ]
         Vue.filter('setProgressForPages')(p._StepNo, pages,50);    

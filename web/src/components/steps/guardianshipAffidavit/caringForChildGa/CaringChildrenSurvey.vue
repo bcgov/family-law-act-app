@@ -15,9 +15,9 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import { childGaInfoType } from '@/types/Application/GuardianshipAffidavit';
+import { childInfoType } from '@/types/Application/CommonInformation';
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/survey-childInfo.json";
+import surveyJson from "./forms/survey-caringchildInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import { namespace } from "vuex-class";   
@@ -27,15 +27,15 @@ const applicationState = namespace("Application");
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component
-export default class ChildrenSurvey extends Vue {
+export default class CaringChildrenSurvey extends Vue {
     
     @Prop({required: true})
-    editRowProp!: Object;
+    editRowProp!: Object;    
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
     
-    child = {} as childGaInfoType;
+    child = {} as childInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
@@ -85,7 +85,8 @@ export default class ChildrenSurvey extends Vue {
             
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })      
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })   
+         
     }
   
     public goBack() {
@@ -99,31 +100,18 @@ export default class ChildrenSurvey extends Vue {
 
     public populateChildModel(childData) {
         if(childData){
-            this.child.name = childData.name;       
-            this.child.dob = childData.dob;
-            this.child.currentGuardiansToChild = childData.currentGuardiansToChild;
-            this.child.parentsNotGuardiansExist = childData.parentsNotGuardiansExist;
-            this.child.parentsNotGuardians = childData.parentsNotGuardians;
-            this.child.relationWithchild = childData.relationWithchild;
-            this.child.lengthOfRelationship = childData.lengthOfRelationship?.selected;
-            this.child.relationStartDate = childData.lengthOfRelationship?.relationStartDate;
-            this.child.currentLiving = childData.currentLiving;
+            this.child.name = childData.childName;       
+            this.child.dob = childData.childDateOfBirth;
+            this.child.relation = childData.relationToChild;            
         }
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
         survey.data = {
-            name: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
+            childName: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
         };
-        survey.setValue("dob", editRowProp.dob);
-        survey.setValue("currentGuardiansToChild", editRowProp.currentGuardiansToChild);
-        survey.setValue("parentsNotGuardiansExist", editRowProp.parentsNotGuardiansExist);
-        survey.setValue("parentsNotGuardians", editRowProp.parentsNotGuardians);
-        survey.setValue("relationWithchild", editRowProp.relationWithchild);
-        survey.setValue("lengthOfRelationship", editRowProp.lengthOfRelationship);
-        survey.setValue("relationStartDate", editRowProp.relationStartDate);
-        survey.setValue("currentLiving", editRowProp.currentLiving);
-
+        survey.setValue("childDateOfBirth", editRowProp.dob);
+        survey.setValue("relationToChild", editRowProp.relation);
         survey.setVariable("id", editRowProp.id);
     }
 
