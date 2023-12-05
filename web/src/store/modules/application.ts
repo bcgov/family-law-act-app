@@ -1325,9 +1325,34 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
-//______ Additional Documents
+//______ Companion Animal
         p = {} as pageInfoType;
         p.key = "38";
+        p.name = "PropertyDivisionCompanionAnimal";
+        p.label = "Companion Animal";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "39";
+        p.name = "CompanionAnimalFacts";
+        p.label = "Companion Animal Facts";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "40";
+        p.name = "CompanionAnimalExistingAgreement";
+        p.label = "Companion Animal Existing Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+//______ Additional Documents
+        p = {} as pageInfoType;
+        p.key = "41";
         p.name = "FlmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = true;
@@ -1336,7 +1361,7 @@ class Application extends VuexModule {
 
 //____________Review
         p = {} as pageInfoType;
-        p.key = "39";
+        p.key = "42";
         p.name = "ReviewYourAnswersFLM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -1344,7 +1369,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "40";
+        p.key = "43";
         p.name = "PreviewFormsFLM";
         p.label = "Preview Forms";
         p.active = false;
