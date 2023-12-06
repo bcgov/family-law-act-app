@@ -3,49 +3,50 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Caring for the child</h1>
-                    
-                    <p style="font-size: 1.25rem;">
-                        A guardian is responsible for their child’s care and upbringing. 
-                        A guardian spends time with and cares for a child and is responsible 
-                        for making decisions that affect them.
-                    </p>
+                    <h1>Background</h1>
+                    <div style='font-size: 1.5rem;text-decoration: underline;'>Civil court proceedings</div>
 
-                    <div class="ml-3">
+                    <div class="mt-3">
                         <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">
-                            How will you care for the {{childWording}}?
+                            Have you been involved in court proceedings concerning any 
+                            child in your care under any of the following legislation?
                         </h2>      
                         <p>
-                            Set out the detailed plans for how they are to be 
-                            cared for by you. Describe your plans in your own 
-                            words. You do not need to use any special wording. 
-                            The key is to be clear about how they will be cared for.
+                            <ul>
+                                <li>B.C. 
+                                    <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01'>
+                                        Child, Family and Community Service Act</a>
+                                </li>
+                                <li>B.C. 
+                                    <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/consol20/consol20/00_96128_01'>
+                                        Family Relations Act</a>
+                                </li>
+                                <li>B.C. 
+                                    <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_00'>
+                                    Family Law Act</a>
+                                </li>
+                                <li>
+                                    <a target='_blank' href='https://laws-lois.justice.gc.ca/eng/acts/d-3.4/'>Divorce Act (Canada)</a>
+                                </li>
+                                <li>any comparable legislation in another jurisdiction</li>
+                            </ul>            
                         </p>  
-                        <div v class="radio-border">
-                            <b-form-group>
-                                <b-textarea                  
-                                    v-model="careDetails"
-                                    name="careDetails"> 
-                                </b-textarea>
-                            </b-form-group>
-                        </div>                
-                    </div>
-
-                    <div class="ml-3">
-                        <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">
-                            Are you the parent, stepparent or guardian of another child?
-                        </h2>      
                         <p>
-                            You may have another child that is not the subject of your 
-                            application about guardianship. If you do, the court needs 
-                            some information about them too.
-                        </p>  
+                            Court proceedings may be in Provincial Court or Supreme Court. There are different types of proceedings, 
+                            including divorce and family law proceedings under the Divorce Act, Family Law Act or Family Relations Act, 
+                            or child protection under the Child, Family and Community Service Act. You may also have been involved 
+                            in court proceedings about a child in another jurisdiction outside British Columbia.
+                        </p>
+                        <p>
+                            If your court proceedings were about a separation or divorce that did not involve a child under 
+                            your care, you do not need to include it.
+                        </p>
                         <div v class="radio-border">
                             <b-form-group>
                                 <b-form-radio-group  
                                     style="color: #556077; font-size: 1.5em; line-height: 1.2;"
                                     class="ml-3"                          
-                                    v-model="parentOtherChild"
+                                    v-model="courtProceedingsExist"
                                     name="otherChild"
                                     @change="situationChanged">                
                                     <div>
@@ -69,37 +70,72 @@
                         </div>                
                     </div>
 
-                    <div v-if="parentOtherChild == 'y'" :key="updated">
+                    <b-card v-if="courtProceedingsExist == 'y'" :key="updated" no-body class="info-box mt-4">  
+                        <b-row>
+                            <b-col cols="1" class="m-0" style="padding-right: 0;">
+                                <b-icon-exclamation-circle-fill class="text-primary"/>
+                            </b-col>
+                            <b-col cols="11" style="padding-left: 0 !important; margin-left: 0 !important;">
+                                <p>
+                                    To complete this section of the affidavit, you will need information about each 
+                                    court proceeding, including a copy of any court order concerning a child in your 
+                                    care under the court proceeding.
+                                </p>
+                                <p>  
+                                    Each court order must be attached to your affidavit as an exhibit. If you 
+                                    do not have a copy of a court order, contact the court registry where the 
+                                    order was made to find out how to get a copy.
+                                </p>
+                                <p>
+                                    This service will help you to identify each exhibit that must be attached 
+                                    to your guardianship affidavit.
+                                </p>
+
+                            </b-col>
+                        </b-row> 
+                    </b-card>
+
+
+                    <div class="mt-4" v-if="courtProceedingsExist == 'y'" :key="updated+1">
+                        <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">
+                            Please provide the information requested for each court proceeding 
+                            you have been involved in concerning a child in your care.
+                        </h2>
                         <p>
-                            Please enter the details of the child in the fields below. Add each 
-                            additional child who is not the subject of your application about guardianship 
-                            of a child. To add a child, click the “Add Child” button. If you are done entering 
-                            all the children, click the “Next” button.
+                            Please enter the details of the court proceeding in the fields below. 
+                            Add each additional court proceeding. To add information about a new 
+                            court proceeding, click the “Add Court Proceeding” button. If you 
+                            are done entering all the court proceedings, click the “Next” button.
                         </p>
-                        <div class="childSection" v-if="showTable">
-                            <div class="childAlign">
+                        <div class="proceedingSection" v-if="showTable">
+                            <div class="proceedingAlign">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                        <th scope="col">Child's name</th>
-                                        <th scope="col">Child's date of birth</th>
-                                        <th scope="col">Your relationship to the child</th>                                    
+                                        <th scope="col">Name of parties</th>
+                                        <th scope="col">Name and Location of Court</th>
+                                        <th scope="col">Date of any orders</th>                                    
                                         <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <div></div>
-                                        <tr v-for="child in childData" :key="child.id">
-                                        <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
-                                        <td>{{child.dob | beautify-date}}</td>
-                                        <td>{{child.relation}}</td>                                   
-                                        <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
-                                        <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
+                                        <tr v-for="proceeding in civilProceedingsData" :key="proceeding.id">
+                                        <td>{{proceeding.partyNames}}</td>
+                                        <td>{{proceeding.courtLocation}}</td>
+                                        <td v-if="proceeding.courtOrdersExist == 'y'">
+                                            <ul v-for="(order, inx) in proceeding.courtOrderDates" :key="inx+''+order">                        
+                                                <li>{{ order.orderDate | beautify-date }}</li>                                                
+                                            </ul>
+                                        </td>
+                                        <td v-else></td>                                   
+                                        <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(proceeding.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
+                                        <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(proceeding)"><i class="fa fa-edit"></i></a></td>
                                         </tr>
                                         <tr class="clickableRow" @click="openForm()">
                                         <td colspan = "7">
                                             <a :class="isDisableNext()?'text-danger h4 my-2':'h4 my-2'" style="cursor: pointer;"
-                                            >+Add Child</a>
+                                            >+Add Court Proceeding</a>
                                         </td>
                                         </tr>
                                     </tbody>
@@ -110,8 +146,8 @@
                     
                 </div>
 
-                <div class="col-md-12" v-if="!showTable" id="caring-child-info-survey">
-                    <caring-children-survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
+                <div class="col-md-12" v-if="!showTable" id="civil-proceedings-survey">
+                    <civil-proceedings-survey v-on:showTable="civilProceedingsComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
                 </div>               
             </div>
         </div>
@@ -124,7 +160,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import CaringChildrenSurvey from "./CivilProceedingsSurvey.vue";
+import CivilProceedingsSurvey from "./CivilProceedingsSurvey.vue";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -132,15 +168,16 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+import { courtProceedingsDataInfoType } from '@/types/Application/GuardianshipAffidavit';
 const applicationState = namespace("Application");
 
 @Component({
     components:{
-      CaringChildrenSurvey,
-      PageBase
+        CivilProceedingsSurvey,
+        PageBase
     }
 })
-export default class ChildrenInfo extends Vue {
+export default class BackgroundCivilCourtProceedings extends Vue {
 
     @Prop({required: true})
     step!: stepInfoType
@@ -158,15 +195,12 @@ export default class ChildrenInfo extends Vue {
     currentStep =0;
     currentPage =0;
     showTable = true;  
-    childData = [];
+    civilProceedingsData = [];
     anyRowToBeEdited = null;
     editId = null; 
-    incompleteError =  false;   
-
-    careDetails = "";
-    parentOtherChild = 'n';
-
-    childWording = 'child';
+    incompleteError =  false; 
+    
+    courtProceedingsExist = 'n';    
     updated = 0;
 
     mounted(){
@@ -183,24 +217,12 @@ export default class ChildrenInfo extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage; 
         
-        if (this.step.result?.caringForChildGaSurvey?.data) {
+        if (this.step.result?.backgroundCivilCourtProceedingsSurvey?.data) {
 
-            const caringInfo = this.step.result.caringForChildGaSurvey.data;
-            console.log
-            this.childData = caringInfo.childInfo?caringInfo.childInfo:[];
-            this.careDetails = caringInfo.caringForChildGa?.careDetails?caringInfo.caringForChildGa.careDetails:'';
-            this.parentOtherChild = caringInfo.caringForChildGa?.parentOtherChild?caringInfo.caringForChildGa.parentOtherChild:'n';
-            
-        }
-
-        if (this.step.result?.childrenDetailsGaSurvey) {
-            const childData = this.step.result.childrenDetailsGaSurvey.data;            
-            if (childData?.length>1){
-                this.childWording = "children";                    
-            } else {
-                this.childWording = "child";
-            }
-        }
+            const civilProceedingsInfo = this.step.result.backgroundCivilCourtProceedingsSurvey.data;   
+            this.courtProceedingsExist = civilProceedingsInfo?.courtProceedingsExist?civilProceedingsInfo.courtProceedingsExist:'n';
+            this.civilProceedingsData = civilProceedingsInfo.courtProceedings?civilProceedingsInfo.courtProceedings:[];             
+        }        
 
         this.dataReady = true;
         
@@ -215,7 +237,7 @@ export default class ChildrenInfo extends Vue {
     public openForm(anyRowToBeEdited?) {
         this.showTable = false;
          Vue.nextTick(()=>{
-            const el = document.getElementById('caring-child-info-survey')
+            const el = document.getElementById('civil-proceedings-survey')
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -226,90 +248,95 @@ export default class ChildrenInfo extends Vue {
         }
     }
 
-    public childComponentData(value) {       
+    public civilProceedingsComponentData(value) {       
         this.showTable = value;
     }
 
-    public populateSurveyData(childValue) {
+    public populateSurveyData(civilProceedingValue) {
 
-        const currentIndexValue = this.childData?.length > 0 ? this.childData[this.childData.length - 1].id : 0;
+        const currentIndexValue = this.civilProceedingsData?.length > 0 ? this.civilProceedingsData[this.civilProceedingsData.length - 1].id : 0;
         const id = currentIndexValue + 1;
-        const newChild = { ...childValue, id };
-        this.childData = [...this.childData, newChild];
+        const newCivilProceeding = { ...civilProceedingValue, id };
+        this.civilProceedingsData = [...this.civilProceedingsData, newCivilProceeding];
 
         this.showTable = true; 
-        this.resetChildrenRelatedPages(this.childData);
+        this.resetCivilProceedingRelatedPages(this.civilProceedingsData);
     }
 
     public deleteRow(rowToBeDeleted) {
        
-        this.childData = this.childData.filter(data => {
+        this.civilProceedingsData = this.civilProceedingsData.filter(data => {
             return data.id !== rowToBeDeleted;
         }); 
-        this.resetChildrenRelatedPages(this.childData);
+        this.resetCivilProceedingRelatedPages(this.civilProceedingsData);
         this.surveyHasError();
     }
 
     public editRow(editedRow) {
-        this.childData = this.childData.map(data => {
+        this.civilProceedingsData = this.civilProceedingsData.map(data => {
             return data.id === this.editId ? editedRow : data;
         });
         this.showTable = true;
         this.surveyHasError();
-        this.resetChildrenRelatedPages(this.childData);
+        this.resetCivilProceedingRelatedPages(this.civilProceedingsData);
     }
 
     public onPrev() {
        Vue.prototype.$UpdateGotoPrevStepPage();
     }
 
-    public onNext() {
-       //TODO: check completion
-       Vue.prototype.$UpdateGotoNextStepPage()
-       
+    public onNext() {       
+       Vue.prototype.$UpdateGotoNextStepPage();       
     }
 
-//TODO
-    public getChildrenResults(){
+    public getCivilProceedingResults(){
         const questionResults: {name: string; value: any; title: string; inputType: string}[] =[];
-        questionResults.push({name:'careDetails', value: this.careDetails, title:'How will you care for the cild(ren)?', inputType:''})
-        questionResults.push({name:'parentOtherChild', value: this.parentOtherChild == 'y'?'Yes':'No', title:'Are you the parent, stepparent or guardian of another child?', inputType:''})
+        questionResults.push({name:'courtProceedingsExist', value: this.courtProceedingsExist == 'y'?'Yes':'No', title:'Have you been involved in court proceedings concerning any child in your care under any of the following legislation?', inputType:''})
         
-        if(this.parentOtherChild == 'y'){
-            for(const child of this.childData)
+        if(this.courtProceedingsExist == 'y'){
+            for(const proceeding of this.civilProceedingsData)
             {
-                questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
+                questionResults.push({name:'proceedingInfoSurvey', value: this.getCivilProceedingInfo(proceeding), title:'Proceeding '+proceeding.id +' Information', inputType:''})
             }
         }        
         
         return {
             data: {
-                childInfo: this.childData, 
-                caringForChildGa: 
-                {
-                    careDetails: this.careDetails,
-                    parentOtherChild: this.parentOtherChild
-                }
+                courtProceedings: this.civilProceedingsData, 
+                courtProceedingsExist: this.courtProceedingsExist
+                
             },
-            questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
+            questions:questionResults, pageName:'Court Proceedings Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
-    public getChildInfo(child){
+    public getCivilProceedingInfo(proceeding){
         const resultString = [];
 
-        resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
-        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))        
-        resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)             
+        resultString.push(Vue.filter('styleTitle')("Party Name(s): ")+proceeding.partyNamesame);
+        resultString.push(Vue.filter('styleTitle')("Court Location: ")+proceeding.courtLocation);
+
+        let orderDates = '';
+
+        if(proceeding.courtOrdersExist == 'y'){
+            orderDates = '<ul>'
+            for(const order of proceeding.courtOrderDates) {
+                orderDates = orderDates+'<li>'+Vue.filter('beautify-date')(order.orderDate)+'</li>';
+            }
+            orderDates = orderDates+'</ul>'
+        }        
+
+        resultString.push(Vue.filter('styleTitle')("Order Dates: ")+orderDates)             
         
         return resultString
     }
 
-    public resetChildrenRelatedPages(childData?) {
+    public resetCivilProceedingRelatedPages(civilProceedingsData?) {
     
         const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
         const p = stPgNo.GA;
 
         const pages = [
+            p.Exhibits,
             p.ReviewYourAnswersGA
         ]
         Vue.filter('setProgressForPages')(p._StepNo, pages,50);    
@@ -317,11 +344,12 @@ export default class ChildrenInfo extends Vue {
     }
 
     public surveyHasError(){
-        let progress = (this.careDetails.length == 0 ||(this.parentOtherChild == 'y' && this.childData?.length == 0))? 50 : 100;
+        let progress = (this.courtProceedingsExist == 'y' && this.civilProceedingsData?.length == 0)? 50 : 100;
         this.incompleteError =  false;        
-        for(const child of this.childData){
-            if (!child.name || 
-                !child.dob || !child.relation){            
+        for(const proceeding of this.civilProceedingsData){
+            if (!proceeding.partyNames || 
+                !proceeding.courtLocation || !proceeding.courtOrdersExist 
+                || (proceeding.courtOrdersExist == 'y' && proceeding.courtOrderDates?.length == 0) ){            
                 this.incompleteError = true;  
                 progress = 50;    
                 break
@@ -331,13 +359,13 @@ export default class ChildrenInfo extends Vue {
     }
 
     public isDisableNext() {
-        return (this.careDetails.length == 0 || (this.parentOtherChild == 'y' && this.childData?.length == 0));
+        return (this.courtProceedingsExist == 'y' && this.civilProceedingsData?.length == 0);
     }
 
 
     beforeDestroy() {
         this.surveyHasError();        
-        this.UpdateStepResultData({step:this.step, data: {caringForChildGaSurvey: this.getChildrenResults()}})       
+        this.UpdateStepResultData({step:this.step, data: {backgroundCivilCourtProceedingsSurvey: this.getCivilProceedingResults()}})       
     }
 }
 </script>
@@ -350,12 +378,12 @@ export default class ChildrenInfo extends Vue {
     max-width: 950px;
     color: black;
 }
-.childSection {
+.proceedingSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);
     border-radius: 18px;
     width: 100%
 }
-.childAlign {
+.proceedingAlign {
     padding: 20px;
 }
 .table, td, th{
@@ -381,5 +409,15 @@ export default class ChildrenInfo extends Vue {
   margin-top: 1rem;
   font-weight: normal;
   font-size: 17px;
+}
+
+.info-box {
+    background: #e7efff;
+    border: 1px solid #c9d0e3;
+    border-radius: 4px;
+    margin: 0.5em 0 0 0;
+    padding: 0.5em;
+    line-height: 1.4;
+    font-size: 18px;
 }
 </style>

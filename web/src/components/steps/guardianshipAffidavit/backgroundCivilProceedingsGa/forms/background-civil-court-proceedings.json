@@ -1,72 +1,34 @@
 {
-  "title": "Background",
-  "pages": [
-    {
-      "name": "Background",
-      "description": "<div style='font-size: 1.5rem;text-decoration: underline;'>Civil court proceedings",
-      "elements": [
+    "title": "Court Proceeding Information",
+    "pages": [
         {
-            "type": "yesno",
-            "name": "courtProceedingsExist",
-            "title": "Have you been involved in court proceedings concerning <b style='text-decoration: underline;'>any</b> child in your care under any of the following legislation?",
-            "description": "<div><ul><li>B.C. <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96046_01'>Child, Family and Community Service Act</a></li><li>B.C. <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/consol20/consol20/00_96128_01'>Family Relations Act</a></li><li>B.C. <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_00'>Family Law Act</a></li><li><a target='_blank' href='https://laws-lois.justice.gc.ca/eng/acts/d-3.4/'>Divorce Act (Canada)</a></li><li>any comparable legislation in another jurisdiction</li></ul>Court proceedings may be in Provincial Court or Supreme Court. There are different types of proceedings, including divorce and family law proceedings under the Divorce Act, Family Law Act or Family Relations Act, or child protection under the Child, Family and Community Service Act. You may also have been involved in court proceedings about a child in another jurisdiction outside British Columbia.<br><br>If your court proceedings were about a separation or divorce that did not involve a child under your care, you do not need to include it. ",
-            "isRequired": true
-        },
-        {
-            "type": "infotext",
-            "name": "CourtProceedingInfo",
-            "title": "To complete this section of the affidavit, you will need information about each court proceeding, including a copy of any court order concerning a child in your care under the court proceeding.<br>Each court order must be attached to your affidavit as an exhibit. If you do not have a copy of a court order, contact the court registry where the order was made to find out how to get a copy.<br>This service will help you to identify each exhibit that must be attached to your guardianship affidavit.",
-            "titleLocation": "hidden",
-            "visible": false,
-            "visibleIf": "{courtProceedingsExist} = 'y'"
-        },
-        {
-            "type": "panel",
-            "name": "CourtProceedingsPanel",
-            "visible": false,
-            "visibleIf": "{courtProceedingsExist} = 'y'",             
+            "name": "Court Proceeding Information",
             "elements": [
-              {
-                "isRequired": true,  
-                "type": "paneldynamic",
-                "name": "courtProceedings",
-                "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>Please provide the information requested for each court proceeding you have been involved in concerning a child in your care.</b>",
-                "description": "Please enter the details of the court proceeding in the fields below. Add each additional court proceeding. To add information about a new court proceeding, click the “Add Court Proceeding” button. If you are done entering all the court proceedings, click the “Next” button.",
-                "templateElements": [                  
-                  {
+                {
                     "type": "comment",
                     "name": "partyNames",
                     "isRequired": true,
                     "title": "Names of the parties to the proceeding:",
                     "description": "Please write each name in the field provided. If there is more than one party, separate each name with a comma."
-                  },
-                  {
+                },
+                {
                     "type": "comment",
                     "name": "courtLocation",
                     "isRequired": true,
                     "title": "Name and location of the court in which the proceeding was conducted:",
                     "description": "For example, Vancouver Law Courts or Fort St. John Provincial Court."
-                  },
-                  {
+                },
+                {
                     "type": "yesno",
                     "name": "courtOrdersExist",
                     "title": "Are there any orders made concerning a child under my care on this proceeding?",
                     "isRequired": true
-                  },
-                  {
-                    "type": "comment",
-                    "name": "courtLocation",
-                    "visible": false,
-                    "visibleIf": "{courtOrdersExist} = 'y'",   
-                    "isRequired": true,
-                    "title": "Name and location of the court in which the proceeding was conducted:",
-                    "description": "For example, Vancouver Law Courts or Fort St. John Provincial Court."
-                  },
-                  {
+                },                  
+                {
                     "type": "panel",
                     "name": "CourtOrdersPanel",   
                     "visible": false,
-                    "visibleIf": "{courtOrdersExist} = 'n'",                        
+                    "visibleIf": "{courtOrdersExist} = 'y'",                        
                     "elements": [
                         {    
                             "type": "paneldynamic",
@@ -74,37 +36,30 @@
                             "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>The date of each court order in the proceeding concerning a child in your care:</b>",
                             "description": "If an interim order has been replaced with a final order, you only need to indicate the date of the final order.<br>Add each additional court order in the proceeding. To add the date of a new order, click the “Add Court Order” button. If you are done entering all the dates of the court orders under the proceeding, click the “Next” button.",
                             "templateElements": [                  
-                            {
-                                "type": "comment",
-                                "name": "storyDescription",
-                                "isRequired": true,
-                                "title": " ",
-                                "titleLocation": "hidden"
+                                {
+                                    "type": "text",
+                                    "name": "orderDate",
+                                    "isRequired": true,
+                                    "title": " ",
+                                    "titleLocation": "hidden",
+                                    "inputType": "date",
+                                    "dateYearsAhead": "0"
                                 }
                             ],
                             "panelAddText": "Add Court Order",
                             "panelRemoveText": "Remove Court Order"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "exhibitInfo",
+                            "title": "Each court order must be attached to your affidavit as an exhibit. When you bring your affidavit to be sworn or affirmed, you must also bring all your exhibits.<br><br>Each exhibit will be marked by the commissioner for taking affidavits using a certificate (usually a stamp) with wording like this: “This is Exhibit [A, B, C…] referred to in the affidavit of [name] sworn (or affirmed) before me on [date] at [location]” and is signed by the commissioner for taking affidavits.",                    
+                            "titleLocation": "hidden"
                         }
                     ]
-                  }
-                ],
-                "panelAddText": "Add Court Proceeding",
-                "panelRemoveText": "Remove Court Proceeding"
-              }
+                }        
             ]
-        },
-        {
-            "type": "infotext",
-            "name": "FAQLegalAdvice1",
-            "title": "How do I identify the source of my information?",
-            "visible": false,
-            "visibleIf": "{courtProceedingsExist} = 'y'", 
-            "titleLocation": "hidden"
         }
-      ],
-      "title": "Background"
-    }
-  ],
-  "showQuestionNumbers": "off",
-  "requiredText": ""
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
 }

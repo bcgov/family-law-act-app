@@ -32,7 +32,7 @@ import AboutAffiantGa from "./AboutAffiantGA.vue";
 import ChildrenDetailsGa from "./childrenDetailsGa/ChildrenDetailsGa.vue";
 import CaringForChildGa from "./caringForChildGa/CaringForChildGa.vue";
 import BackgroundFamilyViolence from "./BackgroundFamilyViolence.vue";
-import BackgroundCivilCourtProceedings  from "./BackgroundCivilCourtProceedings.vue";
+import BackgroundCivilCourtProceedings  from "./backgroundCivilProceedingsGa/BackgroundCivilCourtProceedings.vue";
 import BackgroundCriminalHistory from "./BackgroundCriminalHistory.vue";
 
 import Exhibits from "./Exhibits.vue";

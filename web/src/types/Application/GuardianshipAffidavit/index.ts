@@ -96,7 +96,7 @@ export interface backgroundFamilyViolenceSurveyInfoType {
 export interface courtProceedingsDataInfoType {    
     partyNames?: string;
     courtLocation?: string;
-    courtOrdersExists?: string;
+    courtOrdersExist?: string;
     courtOrderDates?: string[];
 }
 
@@ -114,9 +114,17 @@ export interface backgroundCivilCourtProceedingsSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface chargesDataInfoType {    
+    chargeNature?: string;
+    chargeDate?: string;
+    chargeCourtLocation?: string;
+}
 
-export interface backgroundCriminalHistoryDataInfoType {    
-    storyAff?: string[];
+export interface backgroundCriminalHistoryDataInfoType {   
+    pastConviction?: string;
+    convictionDetails?: string;
+    currentlyConvicted?: string; 
+    currentCharges?: chargesDataInfoType[];
 }
 
 export interface backgroundCriminalHistorySurveyInfoType {
@@ -128,17 +136,17 @@ export interface backgroundCriminalHistorySurveyInfoType {
 }
 
 
-export interface exhibitsDataInfoType {    
-    storyAff?: string[];
-}
+// export interface exhibitsDataInfoType {    
+//     storyAff?: string[];
+// }
 
-export interface exhibitsSurveyInfoType {
-    data: exhibitsDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
+// export interface exhibitsSurveyInfoType {
+//     data: exhibitsDataInfoType;
+//     questions?: questionInfoType[];
+//     pageName?: string;
+//     currentStep?: number | string;
+//     currentPage?: number | string;
+// }
 
 export interface filingGaSurveyInfoType {
     data: filingGADataInfoType;

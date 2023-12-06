@@ -82,7 +82,7 @@ export default class BackgroundCriminalHistory extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
               
         } else {
-            this.survey.setValue('storyAff',[]);
+            this.survey.setValue('currentCharges',[]);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       

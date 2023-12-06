@@ -15,9 +15,9 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import { childInfoType } from '@/types/Application/CommonInformation';
+
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/survey-caringchildInfo.json";
+import surveyJson from "./forms/background-civil-court-proceedings.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import { namespace } from "vuex-class";   
@@ -25,9 +25,10 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import { courtProceedingsDataInfoType } from '@/types/Application/GuardianshipAffidavit';
 
 @Component
-export default class CaringChildrenSurvey extends Vue {
+export default class CivilProceedingsSurvey extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;    
@@ -35,7 +36,7 @@ export default class CaringChildrenSurvey extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
     
-    child = {} as childInfoType;
+    courtProceeding = {} as courtProceedingsDataInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
@@ -63,12 +64,12 @@ export default class CaringChildrenSurvey extends Vue {
     public addSurveyListener(){
         Vue.filter('surveyChanged')('guardianshipAffidavit')        
         this.survey.onComplete.add((sender, options) => {
-            this.populateChildModel(sender.data);
+            this.populateProceedingModel(sender.data);
             let id = sender.getVariable("id");
             if (id === null || id === undefined) {
-                this.$emit("surveyData", this.child);
+                this.$emit("surveyData", this.courtProceeding);
             } else {
-                this.$emit("editedData", { ...this.child, id });
+                this.$emit("editedData", { ...this.courtProceeding, id });
                 id = null;
             }
         });
@@ -77,6 +78,8 @@ export default class CaringChildrenSurvey extends Vue {
     public reloadPageInformation() {
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
+        } else {
+            this.survey.setValue("courtOrderDates", []);
         }
         
         let progress = 50;
@@ -98,20 +101,22 @@ export default class CaringChildrenSurvey extends Vue {
         this.survey.completeLastPage();
     }
 
-    public populateChildModel(childData) {
-        if(childData){
-            this.child.name = childData.childName;       
-            this.child.dob = childData.childDateOfBirth;
-            this.child.relation = childData.relationToChild;            
+    public populateProceedingModel(courtProceedingData) {
+        if(courtProceedingData){
+            this.courtProceeding.partyNames = courtProceedingData.partyNames;       
+            this.courtProceeding.courtLocation = courtProceedingData.courtLocation;
+            this.courtProceeding.courtOrdersExist = courtProceedingData.courtOrdersExist;
+            this.courtProceeding.courtOrderDates = courtProceedingData.courtOrderDates;                       
         }
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
-        survey.data = {
-            childName: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
-        };
-        survey.setValue("childDateOfBirth", editRowProp.dob);
-        survey.setValue("relationToChild", editRowProp.relation);
+       
+        survey.setValue("partyNames", editRowProp.partyNames);
+        survey.setValue("courtLocation", editRowProp.courtLocation);
+        survey.setValue("courtOrdersExist", editRowProp.courtOrdersExist);        
+        survey.setValue("courtOrderDates", editRowProp.courtOrderDates);       
+        
         survey.setVariable("id", editRowProp.id);
     }
 
