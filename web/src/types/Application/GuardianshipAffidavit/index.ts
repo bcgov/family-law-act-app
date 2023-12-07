@@ -1,9 +1,11 @@
-import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
+import { addressInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface guardianshipAffidavitDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    haveBrcResults?: string;
+    mcfdRecordCheckDate?: string;
+    porsRecordCheckDate?: string;
+    policeDept?: string;
+    criminalRecordCheckDate?: string;
 }
   
 export interface guardianshipAffidavitSurveyInfoType {
@@ -93,11 +95,15 @@ export interface backgroundFamilyViolenceSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface orderDataInfoType {    
+    orderDate?: string;
+}
+
 export interface courtProceedingsDataInfoType {    
     partyNames?: string;
     courtLocation?: string;
     courtOrdersExist?: string;
-    courtOrderDates?: string[];
+    courtOrderDates?: orderDataInfoType[];
 }
 
 
@@ -136,17 +142,12 @@ export interface backgroundCriminalHistorySurveyInfoType {
 }
 
 
-// export interface exhibitsDataInfoType {    
-//     storyAff?: string[];
-// }
-
-// export interface exhibitsSurveyInfoType {
-//     data: exhibitsDataInfoType;
-//     questions?: questionInfoType[];
-//     pageName?: string;
-//     currentStep?: number | string;
-//     currentPage?: number | string;
-// }
+export interface exhibitsDataInfoType {    
+    exhibitIndex?: number;
+    exhibitName?: string;
+    fileName?: string;
+    fileDate?: string;
+}
 
 export interface filingGaSurveyInfoType {
     data: filingGADataInfoType;

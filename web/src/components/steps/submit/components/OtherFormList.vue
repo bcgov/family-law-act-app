@@ -78,10 +78,12 @@ export default class OtherFormList extends Vue {
     trialDateScheduled = false;
 
     requiresEfsp = false;
+    requiresGaEfsp = false;
 
     mounted(){
 
         this.requiresEfsp = false;
+        this.requiresGaEfsp = false;
 
         let ndtRequiresSignature = false;
         let affRequiresSignature = false;
@@ -109,11 +111,23 @@ export default class OtherFormList extends Vue {
             Vue.nextTick(() => Vue.prototype.$saveChanges() );
 
         } 
+
+        const gaIndex = existingOrdersInfo.findIndex(order=>{return(order.type == 'GA')})
+        if (gaIndex >=0 && this.type == 'Submit'){            
+            const gaFilingInfo = this.$store.state.Application.steps[this.stPgNo.GA._StepNo].result?.filingGaSurvey?.data;              
+            gaRequiresSignature = gaFilingInfo?.sworn == 'n';
+            this.requiresGaEfsp = gaFilingInfo?.sworn == 'y';   
+            existingOrdersInfo[gaIndex].doNotIncludePdf = true;  
+            
+            this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});
+            Vue.nextTick(() => Vue.prototype.$saveChanges() );
+
+        } 
         
         
         this.formsListTemplate = [ 
             { name:'P2',   appName:'noticeIntentionProceed',       pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"),      chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],       color:"danger", title:"Notice of Intention to Proceed (Form 2)",         requiresSignature: false, requiresSwear: false},                              
-            { name:'P5',   appName:'guardianshipAffidavit',        pdfType: Vue.filter('getPathwayPdfType')("guardianshipAffidavit"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.GA._StepNo],        color:"danger",  title:"Guardianship Affidavit (Form 5)",                requiresSignature:  gaRequiresSignature, requiresSwear: this.requiresEfsp},            
+            { name:'P5',   appName:'guardianshipAffidavit',        pdfType: Vue.filter('getPathwayPdfType')("guardianshipAffidavit"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.GA._StepNo],        color:"danger",  title:"Guardianship Affidavit (Form 5)",                requiresSignature:  gaRequiresSignature, requiresSwear: this.requiresGaEfsp},            
             { name:'P22',  appName:'trialReadinessStatement',      pdfType: Vue.filter('getPathwayPdfType')("trialReadinessStatement"),     chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.TRIS._StepNo],      color:"danger", title:"Trial Readiness Statement (Form 22)",             requiresSignature: false, requiresSwear: false},                              
             { name:'P39',  appName:'requestScheduling',            pdfType: Vue.filter('getPathwayPdfType')("requestScheduling"),           chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.RQS._StepNo],       color:"danger", title:"Request for Scheduling (Form 39)",                requiresSignature: false, requiresSwear: false},                              
             { name:'P40',  appName:'noticeLawyerChild',            pdfType: Vue.filter('getPathwayPdfType')("noticeLawyerChild"),           chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLC._StepNo],       color:"danger", title:"Notice of Lawyer for Child (Form 40)",            requiresSignature: false, requiresSwear: false},            
@@ -139,7 +153,7 @@ export default class OtherFormList extends Vue {
         for(const form of this.formsListTemplate) {
             const pathwayInfo = selectedFormInfoList.filter(selectedForm => {if(selectedForm.pathwayName == form.appName) return form;})[0]
 
-            if((pathwayInfo?.pathwayState && this.pathwayCompleted[form.appName]) || (form.appName == 'electronicFilingStatement' && this.requiresEfsp && this.pathwayCompleted[form.appName])){
+            if((pathwayInfo?.pathwayState && this.pathwayCompleted[form.appName]) || (form.appName == 'electronicFilingStatement' && (this.requiresEfsp || this.requiresGaEfsp) && this.pathwayCompleted[form.appName])){
 
                 if(this.generatedForms?.includes(form.name))
                     form.color = "success"

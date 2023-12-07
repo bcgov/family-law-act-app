@@ -12,7 +12,7 @@
         <electronic-filing-statement-ga      v-bind:step="step"     v-if="step.currentPage == stPgNo.GA.ElectronicFilingStatementGA" />
         <review-your-answers-ga              v-bind:step="step"     v-if="step.currentPage == stPgNo.GA.ReviewYourAnswersGA"/>
         <preview-forms-ga                    v-bind:step="step"     v-if="step.currentPage == stPgNo.GA.PreviewFormsGA"/>
-        <preview-forms-efsp                  v-bind:step="step"     v-if="step.currentPage == stPgNo.GA.PreviewFormsEFSP"/> 
+        <preview-forms-ga-efsp               v-bind:step="step"     v-if="step.currentPage == stPgNo.GA.PreviewFormsGaEFSP"/> 
     </step-base>
 </template>
 
@@ -41,7 +41,7 @@ import FilingGa from "./FilingGA.vue";
 import ElectronicFilingStatementGa from "./ElectronicFilingStatementGA.vue";
 import ReviewYourAnswersGa from "./reviewGA/ReviewYourAnswersGA.vue";
 import PreviewFormsGa from "./reviewGA/PreviewFormsGA.vue";
-import PreviewFormsEfsp from "./reviewGA/PreviewFormsGaEFSP.vue";
+import PreviewFormsGaEfsp from "./reviewGA/PreviewFormsGaEFSP.vue";
 
 import { stepInfoType } from "@/types/Application";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
@@ -61,7 +61,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
         ElectronicFilingStatementGa,
         ReviewYourAnswersGa,
         PreviewFormsGa,
-        PreviewFormsEfsp
+        PreviewFormsGaEfsp
     }
 })
 export default class AffidavitStep extends Vue {

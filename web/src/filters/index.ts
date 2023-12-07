@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.19";
+    const CURRENT_VERSION = "1.2.19.1";
     //__________________________
     //___________________________
     //___________________________
@@ -101,6 +101,14 @@ Vue.filter('beautify-date-weekday', function(date){
 		return	moment(date).format('ddd MMM DD, YYYY HH:mm');
 	else
 		return ''
+})
+
+Vue.filter('getAlphabetBasedOnIndex', function(index){
+	enum AlphabetList {'A' = 1, 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}
+	if(index)
+		return AlphabetList[Number(index)];
+	else
+		return '';
 })
 
 Vue.filter('scrollToLocation', function(locationName){
@@ -850,7 +858,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		} else if(typeName == 'guardianshipAffidavit'){
 			step = stepGA._StepNo; 
 			reviewPage = stepGA.ReviewYourAnswersGA; 
-			previewPages = [stepGA.PreviewFormsGA, stepGA.PreviewFormsEFSP];
+			previewPages = [stepGA.PreviewFormsGA, stepGA.PreviewFormsGaEFSP];
 		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})

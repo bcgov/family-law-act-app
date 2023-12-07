@@ -140,7 +140,7 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the party you are no longer representing? </b>", "What is the name of the party you are no longer representing?");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>I swear or affirm that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true.</b>", "I swear or affirm that I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true.");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the full name of the other party?</b>", "What is the full name of the other party?");
-        
+        adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>Please set out the details requested below for each criminal offence you are currently charged with:</b>", "Please set out the details requested below for each criminal offence you are currently charged with:");
         return adjQuestion
     }
 
@@ -195,6 +195,8 @@ export default class ReviewYourAnswersPage extends Vue {
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'PartyInfoEfsp'){
                 return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'currentCharges'){
+                return this.getChargesInfo(value);
             }
             else{
                 this.pageHasError = true;
@@ -304,6 +306,17 @@ export default class ReviewYourAnswersPage extends Vue {
             }
         }
         return result;
+    }
+
+    public getChargesInfo(chargesList){
+
+        let resultString = "";
+        for(const charge of chargesList ){            
+            resultString +=Vue.filter('styleTitle')("Charge Nature:")                    + charge['chargeNature']  +"\n";
+            resultString +=Vue.filter('styleTitle')("Charge Date:")              + Vue.filter('beautify-date')(charge['chargeDate']) +"\n";
+            resultString +=Vue.filter('styleTitle')("Charge Court Location:") + charge['chargeCourtLocation']                         +"\n\n";               
+        }
+        return resultString;
     }
 
     public getAffidavitInfo(affidavitList){

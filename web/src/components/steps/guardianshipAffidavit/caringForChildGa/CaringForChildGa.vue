@@ -205,7 +205,6 @@ export default class caringForChildGa extends Vue {
         this.dataReady = true;
         
     }
-   
 
     public situationChanged(){
         this.updated++;
@@ -269,7 +268,6 @@ export default class caringForChildGa extends Vue {
        
     }
 
-//TODO
     public getChildrenResults(){
         const questionResults: {name: string; value: any; title: string; inputType: string}[] =[];
         questionResults.push({name:'careDetails', value: this.careDetails, title:'How will you care for the cild(ren)?', inputType:''})

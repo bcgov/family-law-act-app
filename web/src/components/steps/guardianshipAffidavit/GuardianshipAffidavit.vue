@@ -67,7 +67,8 @@ export default class GuardianshipAffidavit extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {            
+        this.survey.onValueChanged.add((sender, options) => {     
+            this.resetExhibitRelatedPages();       
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
                 this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
@@ -85,6 +86,19 @@ export default class GuardianshipAffidavit extends Vue {
         } 
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
+    }
+
+    public resetExhibitRelatedPages() {
+    
+        const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
+        const p = stPgNo.GA;
+
+        const pages = [
+            p.Exhibits,
+            p.ReviewYourAnswersGA
+        ]
+        Vue.filter('setProgressForPages')(p._StepNo, pages,50);    
+
     }
    
     public onPrev() {

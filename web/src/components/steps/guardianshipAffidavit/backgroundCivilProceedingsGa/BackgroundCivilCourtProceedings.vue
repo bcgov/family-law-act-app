@@ -227,7 +227,6 @@ export default class BackgroundCivilCourtProceedings extends Vue {
         this.dataReady = true;
         
     }
-   
 
     public situationChanged(){
         this.updated++;
@@ -312,7 +311,7 @@ export default class BackgroundCivilCourtProceedings extends Vue {
     public getCivilProceedingInfo(proceeding){
         const resultString = [];
 
-        resultString.push(Vue.filter('styleTitle')("Party Name(s): ")+proceeding.partyNamesame);
+        resultString.push(Vue.filter('styleTitle')("Party Name(s): ")+proceeding.partyNames);
         resultString.push(Vue.filter('styleTitle')("Court Location: ")+proceeding.courtLocation);
 
         let orderDates = '';

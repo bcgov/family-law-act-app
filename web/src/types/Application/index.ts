@@ -29,7 +29,7 @@ import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurvey
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
-import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
+import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 
 
 //This is what our database saves.
@@ -108,6 +108,7 @@ export interface stepInfoType {
     supportingDocumentForm4?: number[];
     affEfsDocuments?: electronicFilingDocumentInfoType[];
     gaEfsDocuments?: electronicFilingDocumentInfoType[];
+    gaExhibitList?: exhibitsDataInfoType[];
 
     //______Step 1 PO____
     aboutSurvey?: aboutPOSurveyInfoType;
@@ -342,7 +343,7 @@ export interface stepInfoType {
     backgroundFamilyViolenceSurvey?: backgroundFamilyViolenceSurveyInfoType;
     backgroundCivilCourtProceedingsSurvey?: backgroundCivilCourtProceedingsSurveyInfoType;
     backgroundCriminalHistorySurvey?: backgroundCriminalHistorySurveyInfoType;
-    exhibits?: any;//affidavitSurveyInfoType;
+    // exhibits?: any;//affidavitSurveyInfoType;
     filingGaSurvey?: filingGaSurveyInfoType;
     electronicFilingStatementGaSurvey?: electronicFilingStatementGaSurveyInfoType;
     

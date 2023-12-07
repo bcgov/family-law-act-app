@@ -404,7 +404,7 @@ export interface GAstPgTypes{
     ElectronicFilingStatementGA: number;
     ReviewYourAnswersGA: number;
     PreviewFormsGA: number;
-    PreviewFormsEFSP: number;
+    PreviewFormsGaEFSP: number;
 }
 
 export interface SUBMITstPgTypes{
