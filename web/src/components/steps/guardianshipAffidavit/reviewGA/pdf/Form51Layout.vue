@@ -213,11 +213,11 @@ export default class Form51Layout extends Vue {
         this.otherParties = '';
         this.applicant = '';
 
-        if(this.result?.electronicFilingStatementAffSurvey){
+        if(this.result?.electronicFilingStatementGaSurvey){
 
             let electronicFilingStatement = {} as electronicFilingStatementDataInfoType;
 
-            electronicFilingStatement = this.result.electronicFilingStatementAffSurvey; 
+            electronicFilingStatement = this.result.electronicFilingStatementGaSurvey; 
             
             this.isLawyer = electronicFilingStatement.Lawyer == 'y';
 
@@ -246,9 +246,9 @@ export default class Form51Layout extends Vue {
         
         this.documents = '';        
 
-        if(this.result?.affEfsDocuments?.length>0){
-            const documentName = this.result.affEfsDocuments[0].documentName;
-            const applicant = Vue.filter('getFullName')(this.result.affEfsDocuments[0].efsApplicantName);
+        if(this.result?.gaEfsDocuments?.length>0){
+            const documentName = this.result.gaEfsDocuments[0].documentName;
+            const applicant = Vue.filter('getFullName')(this.result.gaEfsDocuments[0].efsApplicantName);
             this.documents = documentName + ' of ' + applicant;
         }        
     

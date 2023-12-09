@@ -41,15 +41,15 @@ export default class PreviewFormsGaEfsp extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         
-        const affPageNumber = this.stPgNo.GA.PreviewFormsGA;
+        const gaPageNumber = this.stPgNo.GA.PreviewFormsGA;
         
         let nonCompleteForm = false;
         let nonCompleteFormPage = 0;
         
-        const pageForm = this.$store.state.Application.steps[this.stPgNo.GA._StepNo].pages[affPageNumber]
+        const pageForm = this.$store.state.Application.steps[this.stPgNo.GA._StepNo].pages[gaPageNumber]
         if(pageForm.active && pageForm.progress !=100){
             nonCompleteForm = true;
-            nonCompleteFormPage = affPageNumber            
+            nonCompleteFormPage = gaPageNumber            
         }
 
         if(nonCompleteForm){

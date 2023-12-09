@@ -112,6 +112,7 @@ export default class Exhibits extends Vue {
             const courtProceedingsExist = civilProceedingsInfo?.courtProceedingsExist?civilProceedingsInfo.courtProceedingsExist:'n';
             if (courtProceedingsExist == 'y'){
                 const civilProceedingsData = civilProceedingsInfo.courtProceedings?civilProceedingsInfo.courtProceedings:[];
+                let itemNo = 1;
                 for(const proceeding of civilProceedingsData){
 
                     if(proceeding.courtOrdersExist == 'y'){                        
@@ -121,16 +122,16 @@ export default class Exhibits extends Vue {
                             exhibit.fileName = 'Order dated ';
                             exhibit.exhibitIndex = baseIndex;
                             exhibit.exhibitName = 'Exhibit '+ Vue.filter('getAlphabetBasedOnIndex')(baseIndex);
+                            exhibit.itemNo = itemNo;
+                            exhibit.partyNames = proceeding.partyNames;
+                            exhibit.courtLocation = proceeding.courtLocation;
                             gaExhibitList.push(exhibit);
                             baseIndex++;
                         }                        
                     }
+                    itemNo++;
                 }                
             }
-
-            console.log(gaExhibitList)
-
-            //get alphabet value for the index
             
         } 
 
@@ -147,6 +148,9 @@ export default class Exhibits extends Vue {
                     exhibit.fileName = 'Ministry of Children and Family Development Record Check dated ';
                     exhibit.exhibitIndex = baseIndex;
                     exhibit.exhibitName = 'Exhibit '+ Vue.filter('getAlphabetBasedOnIndex')(baseIndex);
+                    exhibit.itemNo = 0;
+                    exhibit.partyNames = '';
+                    exhibit.courtLocation = '';
                     gaExhibitList.push(exhibit);
                     baseIndex++;
                 }
@@ -158,6 +162,9 @@ export default class Exhibits extends Vue {
                     exhibit.fileName = 'Protection Order Record Check from the Protection Order Registry dated ';
                     exhibit.exhibitIndex = baseIndex;
                     exhibit.exhibitName = 'Exhibit '+ Vue.filter('getAlphabetBasedOnIndex')(baseIndex);
+                    exhibit.itemNo = 0;
+                    exhibit.partyNames = '';
+                    exhibit.courtLocation = '';
                     gaExhibitList.push(exhibit);
                     baseIndex++;
                 }
@@ -168,6 +175,9 @@ export default class Exhibits extends Vue {
                     exhibit.fileName = 'Criminal Record Check dated ';
                     exhibit.exhibitIndex = baseIndex;
                     exhibit.exhibitName = 'Exhibit '+ Vue.filter('getAlphabetBasedOnIndex')(baseIndex);
+                    exhibit.itemNo = 0;
+                    exhibit.partyNames = '';
+                    exhibit.courtLocation = '';
                     gaExhibitList.push(exhibit);
                     baseIndex++;
                 } 

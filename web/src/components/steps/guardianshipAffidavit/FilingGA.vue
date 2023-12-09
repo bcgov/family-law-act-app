@@ -124,7 +124,7 @@ export default class FilingGa extends Vue {
       
         if (this.step.result.aboutAffiantGaSurvey?.data?.ApplicantName){
             const applicantName = this.step.result.aboutAffiantGaSurvey.data.ApplicantName
-            efsDocumentList.push({documentName: 'Affidavit', efsApplicantName: applicantName});
+            efsDocumentList.push({documentName: 'Guardianship Affidavit', efsApplicantName: applicantName});
         }
               
        this.UpdateCommonStepResults({data:{'gaEfsDocuments':efsDocumentList}});

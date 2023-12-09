@@ -1,4 +1,4 @@
-import { addressInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
+import { addressInfoType, fullNameInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface guardianshipAffidavitDataInfoType {    
     haveBrcResults?: string;
@@ -32,21 +32,17 @@ export interface aboutAffiantGaSurveyInfoType {
     currentPage?: number | string;
 }
 
-// export interface childrenDetailsGaDataInfoType {    
-//     storyAff?: childGaInfoType[];
-// }
-
 export interface childGaInfoType {
     name?: nameInfoType;
     dob?: string;
-    currentGuardiansToChild?: string[];
+    currentGuardiansToChild?: fullNameInfoType[];
     parentsNotGuardiansExist?: string;
-    parentsNotGuardians?: string[];
+    parentsNotGuardians?: fullNameInfoType[];
     relationWithchild?: string;
     lengthOfRelationship?: string;
     relationStartDate?: string;
     currentLiving?: string;
-  }
+}
 
 export interface childrenDetailsGaSurveyInfoType {
     data: childGaInfoType[];
@@ -59,7 +55,7 @@ export interface childrenDetailsGaSurveyInfoType {
 export interface caringForChildGaChildInfoDataInfoType { 
     name?: nameInfoType;
     dob?: string;
-    relationWithchild?: string;
+    relation?: string;
 }
 
 export interface caringForChildGaDataType {
@@ -106,7 +102,6 @@ export interface courtProceedingsDataInfoType {
     courtOrderDates?: orderDataInfoType[];
 }
 
-
 export interface backgroundCivilCourtProceedingsDataInfoType {    
     courtProceedingsExist?: string;
     courtProceedings?: courtProceedingsDataInfoType[];
@@ -147,6 +142,9 @@ export interface exhibitsDataInfoType {
     exhibitName?: string;
     fileName?: string;
     fileDate?: string;
+    partyNames?: string;
+    courtLocation?: string;
+    itemNo?: number;
 }
 
 export interface filingGaSurveyInfoType {

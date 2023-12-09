@@ -57,15 +57,13 @@ export default class PreviewFormsGa extends Vue {
         Vue.prototype.$UpdateGotoNextStepPage()
     }
 
-    public checkErrorOnPages(steps){
-        console.log('checking')
+    public checkErrorOnPages(steps){        
 
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Form 5","Preview Form 51", "File"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
                 for(const page of step.pages){
-                    console.log(page)
                     if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
@@ -74,7 +72,7 @@ export default class PreviewFormsGa extends Vue {
                 }
             }            
         }
-        console.log('checkjed!!')
+        
         return true;        
     }
 

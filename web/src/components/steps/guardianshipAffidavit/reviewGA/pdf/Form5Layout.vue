@@ -83,7 +83,7 @@
             
             <b-table
                 :items="childrenInfo"
-                :fields="childrenFields"
+                :fields="childFields"
                 class="mt-2"
                 small
                 bordered>                    
@@ -99,7 +99,7 @@
     <!-- <2> -->
         <div class="print-block">
             <section>
-                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext="My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext="My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob"/>
             </section>
         </div>
 
@@ -112,7 +112,7 @@
             
             <b-table
                 :items="childrenInfo"
-                :fields="childrenFields"
+                :fields="childRelationshipFields"
                 class="mt-2"
                 small
                 bordered>                    
@@ -134,7 +134,7 @@
             
             <b-table
                 :items="childrenInfo"
-                :fields="childrenFields"
+                :fields="childLivingArrangementFields"
                 class="mt-2"
                 small
                 bordered>                    
@@ -150,8 +150,8 @@
         <section>
             I plan to care for the child(ren) referred to in paragraph 1 of this affidavit as follows:
             <i>Set out detailed plans for how the child(ren) is/are to be cared for.</i>
-            <div v-if="true" 
-                class="answerbox">care details</div>
+            <div v-if="careDetails.length>0" 
+                class="answerbox">{{careDetails}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>  
         </section>
 
@@ -161,18 +161,18 @@
                 Select whichever option is correct.
             </i>
             <check-box style="margin:0 0 0 1rem;" 
-                    :check="true?'yes':''" 
+                    :check="!familyViolenceExists?'yes':''" 
                     text="<b>I am not aware</b> of any incidents of family violence, as that term is defined in section 1 of the Family Law Act, that affect the
                         child(ren) referred to in paragraph 1 of this affidavit."/> 
 
             <check-box 
                 style="margin:1rem 0 0 1rem;" 
-                :check="true?'yes':''" 
+                :check="familyViolenceExists?'yes':''" 
                 text="<b>I am aware</b> of the following incidents of family violence, as that term is defined in section 1 of the Family Law Act, that affect
                     the child(ren) referred to in paragraph 1 of this affidavit:<br><i>Describe the incidents of family violence of which you are aware</i>"/>
             
-            <div v-if="true" 
-                class="answerbox">test</div>
+            <div v-if="familyViolenceExists" 
+                class="answerbox">{{ familyViolenceDesc }}</div>
             <div v-else style="margin-bottom:3rem;"></div>  
         </section>
 
@@ -182,23 +182,23 @@
                 Select whichever option is correct.
             </i>
             <check-box style="margin:0 0 0 1rem;" 
-                    :check="true?'yes':''" 
+                    :check="!otherChildrenExist?'yes':''" 
                     text="<b>I am not</b> a parent, step-parent or guardian of any children except that child/those children referred to in paragraph 1 of this
                         affidavit."/> 
 
             <check-box 
                 style="margin:1rem 0 0 1rem;" 
-                :check="true?'yes':''" 
+                :check="otherChildrenExist?'yes':''" 
                 text="<b>I am</b> the parent, step-parent or guardian of the following child(ren) who is/are not referred to in paragraph 1 of this affidavit."/>
             
             <b-table
-                :items="childrenInfo"
-                :fields="childrenFields"
+                :items="otherChildrenInfo"
+                :fields="otherChildrenFields"
                 class="mt-2"
                 small
                 bordered>                    
                     <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
                     </template>
                     <template v-slot:head(dob)>
                         Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
@@ -212,7 +212,7 @@
                 Select whichever option is correct.
             </i>
             <check-box style="margin:0 0 0 1rem;" 
-                    :check="true?'yes':''" 
+                    :check="!courtProceedingsExist?'yes':''" 
                     text="<b>I have not been</b> 
                     involved in court proceedings in British Columbia under the <i>Child, Family and Community Service Act</i>, the
                     <i>Family Relations Act</i>, the <i>Family Law Act</i>, or the <i>Divorce Act (Canada)</i>, or in any court proceedings under comparable
@@ -220,28 +220,186 @@
 
             <check-box 
                 style="margin:1rem 0 0 1rem;" 
-                :check="true?'yes':''" 
+                :check="courtProceedingsExist?'yes':''" 
                 text="<b>I have been</b> 
                     involved in the following court proceedings in British Columbia under the <i>Child, Family and Community Service Act</i>, the
                     <i>Family Relations Act</i>, the <i>Family Law Act</i>, or the <i>Divorce Act (Canada)</i>, and/or in any court proceedings under comparable
                     legislation in any other jurisdiction, concerning children under my care."/>
             
             <b-table
-                :items="childrenInfo"
-                :fields="childrenFields"
+                :items="civilProceedingInfo"
+                :fields="proceedingFields"
                 class="mt-2"
                 small
-                bordered>                    
+                bordered>  
+                    <template v-slot:cell(courtOrderDates)="data">
+                        <ul>
+                            <li v-for="(orderDate,inx) in data.value" :key="inx" style="margin:0;">
+                                {{ orderDate }}
+                            </li>
+                        </ul>
+                    </template>                  
                     <template v-slot:cell()="data">
                         <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                     </template>
-                    <template v-slot:head(dob)>
-                        Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                    
+            </b-table>  
+
+            <div style="display:block; font-size: 9pt; margin: 1rem 0;"> 
+                <ol class="list-brackets" style="margin:0.25rem 0 0 1.5rem;" type="a">
+
+                    <li v-for="exhibit in orderList" :key="exhibit.exhibitIndex" style="margin:0.5rem 0 0 0;">
+                        
+                        <underline-form 
+                            style="text-indent:0;margin-left:.25rem;display:inline-block;" 
+                            textwidth="6rem" 
+                            beforetext="The order dated" 
+                            hint="(mmm/dd/yyyy)" 
+                            :text="exhibit.fileDate | beautify-date"/>
+                        <underline-form 
+                            style="text-indent:1px;display:inline-block;" 
+                            textwidth="3rem" 
+                            beforetext="referred to in Item" 
+                            hint="(1, 2, 3, etc.)" 
+                            :text="exhibit.itemNo"/> 
+                        <underline-form 
+                            style="text-indent:1px;display:inline-block;" 
+                            textwidth="3rem" 
+                            beforetext="above is attached as Exhibit" 
+                            hint="(A, B, etc.)" 
+                            :text="exhibit.exhibitName.replace('Exhibit ', '')"/>
+                    </li>
+                            
+                </ol>
+            
+            </div>
+        </section>
+
+    <!-- <9> -->
+        
+        <section>            
+            <underline-form 
+                style="text-indent:0;margin-left:.25rem;" 
+                textwidth="2.5rem" 
+                beforetext="Attached to this affidavit and marked as Exhibit" 
+                hint="(A, B, etc.)" 
+                :text="mcfdRecord.exhibitName.replace('Exhibit ','')"/>
+            <div style="display:inline;">
+                <underline-form 
+                    style="text-indent:0;" 
+                    textwidth="6rem" 
+                    beforetext="is a copy of a British Columbia Ministry of Children and Family Development records check dated" 
+                    hint="(mmm/dd/yyyy)" 
+                    :text="mcfdRecord.fileDate | beautify-date"/>
+                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                    .
+                </div>
+            </div>
+                    
+        </section>
+
+    <!-- <10> -->
+        
+        <section>            
+            <underline-form 
+                style="text-indent:0;margin-left:.25rem;" 
+                textwidth="2.5rem" 
+                beforetext="Attached to this affidavit and marked as Exhibit" 
+                hint="(A, B, etc.)" 
+                :text="porsRecord.exhibitName.replace('Exhibit ','')"/>
+
+                <div style="display:inline;">
+                    <underline-form 
+                        style="text-indent:0;" 
+                        textwidth="6rem" 
+                        beforetext="is a copy of a Protection Order Registry protection order records check dated" 
+                        hint="(mmm/dd/yyyy)" 
+                        :text="porsRecord.fileDate | beautify-date"/>
+                    <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                        .
+                    </div>
+                </div>
+          
+        </section>
+
+    <!-- <11> -->
+        
+        <section>            
+            <underline-form 
+                style="text-indent:0;margin-left:.25rem;" 
+                textwidth="2.5rem" 
+                beforetext="Attached to this affidavit and marked as Exhibit" 
+                hint="(A, B, etc.)" 
+                :text="crcRecord.exhibitName.replace('Exhibit ','')"/>
+            <underline-form 
+                style="text-indent:0;" 
+                textwidth="6rem" 
+                beforetext="is a copy of a criminal records check dated" 
+                hint="(mmm/dd/yyyy)" 
+                :text="crcRecord.fileDate | beautify-date"/>
+            <div style="display:inline;">
+                <underline-form 
+                    style="text-indent:0;" 
+                    textwidth="32rem" 
+                    beforetext="obtained from the" 
+                    hint="(name and location of police force or department from which the criminal records check was obtained )" 
+                    :text="policeDept"/>
+                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                    .
+                </div>
+            </div>                
+        </section>
+
+    <!-- <12> -->
+        <section>
+            <i>
+                Select whichever option is correct.
+            </i>
+            <check-box style="margin:0 0 0 1rem;" 
+                    :check="!pastConviction?'yes':''" 
+                    text="There are no criminal offences, other than those, if any, specified in the criminal records check referred to in paragraph 11 of
+                    this affidavit, of which I have been convicted and not pardoned."/> 
+
+            <check-box 
+                style="margin:1rem 0 0 1rem;" 
+                :check="pastConviction?'yes':''" 
+                text="In addition to the convictions, if any, specified in the criminal records check referred to in paragraph 11 of this affidavit, I have
+                been convicted of, and not pardoned for, the following criminal offences:<br><i>Provide details of any criminal convictions, not referred to in the criminal records check, for which you have not received a
+                pardon</i>"/>
+            
+            <div v-if="pastConviction" 
+                class="answerbox">{{ convictionDetails }}</div>
+            <div v-else style="margin-bottom:3rem;"></div>  
+        </section>
+
+    <!-- <13> -->
+        <section>
+            <i>
+                Select whichever option is correct.
+            </i>
+            <check-box style="margin:0 0 0 1rem;" 
+                    :check="!currentlyConvicted?'yes':''" 
+                    text="<b>I am not</b> currently charged with any criminal offences."/> 
+
+            <check-box 
+                style="margin:1rem 0 0 1rem;" 
+                :check="currentlyConvicted?'yes':''" 
+                text="<b>I am</b> currently charged with criminal offences. The particulars of each charge are set out below:"/>
+            
+            <b-table
+                :items="currentCharges"
+                :fields="chargeFields"
+                class="mt-2"
+                small
+                bordered>             
+                    <template v-slot:cell()="data">
+                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                    </template>
+                    <template v-slot:head(chargeDate)>
+                        Date of alleged offence <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
                     </template>
             </b-table>  
         </section>
-
-
 
 
         <!-- <SWEAR > -->        
@@ -281,8 +439,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } from '@/types/Application/Affidavit';
-import { childGaInfoType } from '@/types/Application/GuardianshipAffidavit';
+import { aboutAffiantGaDataInfoType, backgroundCivilCourtProceedingsDataInfoType, backgroundCriminalHistoryDataInfoType, backgroundFamilyViolenceDataInfoType, caringForChildGaChildInfoDataInfoType, caringForChildGaDataInfoType, chargesDataInfoType, childGaInfoType, exhibitsDataInfoType, guardianshipAffidavitDataInfoType } from '@/types/Application/GuardianshipAffidavit';
 
 @Component({
     components:{
@@ -304,22 +461,65 @@ export default class Form5Layout extends Vue {
    
     yourInfo = {} as yourInformationInfoDataInfoType; 
     address = '';
-    supportApplication = false;
-    appType = '';   
-    otherType = '';
-    additionalAppType = []; 
-    stories: storyDataInfoType[] = [];
-    lastStory = {} as storyDataInfoType; 
-    storyCount = 0;
 
-    childrenInfo: childGaInfoType[] = [];
+    childrenInfo = [];
+    careDetails = '';
+    otherChildrenExist = false;
+    otherChildrenInfo = [];
 
-    childrenFields = [
+    familyViolenceExists = false;
+    familyViolenceDesc = '';
+
+    courtProceedingsExist = false;
+    civilProceedingInfo = [];
+    exhibitList = [];
+    orderList = [];
+    porsRecord = {} as exhibitsDataInfoType;
+    mcfdRecord = {} as exhibitsDataInfoType;
+    crcRecord = {} as exhibitsDataInfoType;
+    policeDept = '';
+
+    pastConviction = false;
+    convictionDetails = '';
+    currentlyConvicted = false; 
+    currentCharges = [];
+
+    childFields = [
         {key:"fullName",               label:"Child's full name",                                           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",                         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"dob",                    label:"Child's date of birth",                                       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
         {key:"currentGuardiansToChild",label:"Name(s) of child's current guardian(s)",                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
         {key:"parentsNotGuardians",    label:"Name(s) of child's parent(s) who are not current guardian(s)",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
-    ]  
+    ];
+
+    childRelationshipFields = [
+        {key:"fullName",               label:"Child's full name",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"relationWithchild",      label:"Nature of relationship to child",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"lengthOfRelationship",   label:"Length of relationship",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+    ];  
+
+    childLivingArrangementFields = [
+        {key:"fullName",               label:"Child's full name",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"currentLiving",          label:"Current living arrangements",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+    ]; 
+
+    otherChildrenFields = [
+        {key:"fullName",               label:"Child's full name",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",                    label:"Child's date of birth",             tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"relation",               label:"Nature of relationship to child",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+    ];
+
+    proceedingFields = [
+        {key:"itemNo",                 label:"Item #",                                                                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"partyNames",             label:"Names of the parties to the proceeding",                                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
+        {key:"courtOrderDates",        label:"Date of any orders concerning children under my care made in the proceeding", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+    ];
+
+    chargeFields = [
+        {key:"chargeNature",             label:"Nature of alleged offence",                                       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"chargeDate",               label:"Date of alleged offence",                                         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
+        {key:"chargeCourtLocation",      label:"Name and location of court in which proceedings are outstanding", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+    ];
    
     mounted(){
         this.dataReady = false;
@@ -328,80 +528,28 @@ export default class Form5Layout extends Vue {
         this.dataReady = true;        
     }
    
-    public extractInfo(){        
-        this.getAffidavitInfo();  
-        this.getAffiantInfo();  
-        this.getStoryInfo();
-        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        
+    public extractInfo(){
+        this.getGaAffiantInfo();  
+        this.getExhibitInfo();        
+        this.childrenInfo = this.getChildrenDetails();
+        this.getCareDetails();
+        this.getFamilyViolenceInfo();
+        this.getChargeDetails();
+        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);        
     } 
 
-    public getAffidavitInfo(){    
-        
-        this.supportApplication = false;
-        this.appType = ''
-        this.additionalAppType = [];
-        this.otherType = '';
-
-        if(this.result?.affidavitSurvey){
-
-            let aff = {} as affidavitDataInfoType;
-            aff = this.result.affidavitSurvey;
-
-            this.supportApplication = aff.affidavitReason != 'response';            
-
-            const appTypeInfo = aff.applicationType?aff.applicationType:[];
-
-            const appList = [];
-            let otherTypeInfo = '';
-
-            for (const app of appTypeInfo){
-                if (app == 'other'){
-                    otherTypeInfo = aff.applicationTypeComment;
-                } else {
-                    appList.push('about ' + app.replace(/`/g, ''))
-                }
-            }
-
-            if (appList.length == 0){
-
-                this.appType = Vue.filter('truncate')(otherTypeInfo, 42);
-                this.otherType = '';
-                this.additionalAppType = [];
-
-            } else if (appList.length == 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                this.additionalAppType = [];
-
-            } else if (appList.length > 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                const additionalList = appList.slice(1)           
-
-                for (let index = 0; index < additionalList.length; index+=2){
-                    
-                    this.additionalAppType.push(additionalList[index] + (additionalList[index + 1]?(', ' + additionalList[index + 1]):''))
-                
-                }
-            }
-
-        }
-    }
-
-    public getAffiantInfo(){ 
+    public getGaAffiantInfo(){ 
 
         this.yourInfo = {} as yourInformationInfoDataInfoType; 
         this.address = '';
         
-        if(this.result?.aboutAffiantSurvey){
+        if(this.result?.aboutAffiantGaSurvey){
 
-            let aboutAffiant = {} as aboutAffiantDataInfoType;
-            aboutAffiant = this.result.aboutAffiantSurvey;
+            let aboutAffiant = {} as aboutAffiantGaDataInfoType;
+            aboutAffiant = this.result.aboutAffiantGaSurvey;
 
-            this.yourInfo = getYourInformationResults(aboutAffiant);            
+            this.yourInfo = getYourInformationResults(aboutAffiant);    
+            this.yourInfo.dob = Vue.filter("beautify-date")(aboutAffiant.Dob);       
             const addressInfo = aboutAffiant.ApplicantAddress;
 
             const addressText = addressInfo.street + ', ' 
@@ -415,43 +563,171 @@ export default class Form5Layout extends Vue {
             
     }
 
-    public getStoryInfo(){  
+    public getFamilyViolenceInfo(){ 
+
+        this.familyViolenceExists = false;
+        this.familyViolenceDesc = '';
+
+        if(this.result?.backgroundFamilyViolenceSurvey){
+
+            let familyViolenceData = {} as backgroundFamilyViolenceDataInfoType;
+            familyViolenceData = this.result.backgroundFamilyViolenceSurvey;
+
+            this.familyViolenceExists = familyViolenceData.familyViolenceExists == 'y'; 
+            
+            if(this.familyViolenceExists){
+                this.familyViolenceDesc = familyViolenceData.familyViolenceDesc;
+            }
+        }
+    
+    }
+
+    public getChildrenDetails(){
+
+        const childrenInfo = [];
         
-        this.stories = [];
-        this.storyCount = 0;
-        this.lastStory = {};
+        const childData: childGaInfoType[] =  this.result.childrenDetailsGaSurvey;
 
-        const storyList: storyDataInfoType[] = [];
-       
-        if(this.result?.yourStoryAffSurvey?.storyAff){
+        for (const child of childData){            
+            const childInfo = {fullName: '', dob:'', currentGuardiansToChild: '', parentsNotGuardians: '', relationWithchild: '', lengthOfRelationship: '', currentLiving:''};
+            childInfo.fullName = Vue.filter('getFullName')(child.name);
+            childInfo.dob = Vue.filter('beautify-date')(child.dob);
+            childInfo.currentGuardiansToChild = child.currentGuardiansToChild.map(function (guardian) { return guardian.name; }).join(', ');
+            if (child.parentsNotGuardiansExist == 'y'){
+                for (const parent of child.parentsNotGuardians)
+                childInfo.parentsNotGuardians = child.parentsNotGuardians.map(function (parent) { return parent.name; }).join(', ');
+            }
+            childInfo.relationWithchild = child.relationWithchild;
 
-            const storyInfo = this.result.yourStoryAffSurvey.storyAff;
-            for (const story in storyInfo){
-               storyList.push({index: Number(story) + 2, content:storyInfo[story].storyDescription})
+            if (child.lengthOfRelationship == 'sinceBirth'){
+                childInfo.lengthOfRelationship = "Since Birth";
+            } else {
+                childInfo.lengthOfRelationship = "Since "+ Vue.filter('beautify-date')(child.relationStartDate);
             }
 
-            this.storyCount = storyList.length;
+            childInfo.currentLiving = child.currentLiving;
+            childrenInfo.push(childInfo)
+        }        
 
-            if (this.storyCount == 0){
+        return childrenInfo;
+    }
 
-                this.stories = []
-                this.lastStory = {};
+    public getCareDetails(){
 
-            } else if (this.storyCount == 1){
+        this.careDetails = '';
+        this.otherChildrenExist = false;
+        this.otherChildrenInfo = [];
 
-                this.lastStory = storyList[0];                
-                this.stories = [];
+        const careData: caringForChildGaDataInfoType = this.result.caringForChildGaSurvey;
 
-            } else if (this.storyCount > 1){
+        if (careData){
 
-                this.stories = storyList.slice(0, this.storyCount - 1);
-                this.lastStory = storyList.slice(this.storyCount-1)[0];               
-            } 
+            this.careDetails = careData.caringForChildGa?.careDetails?careData.caringForChildGa.careDetails:'';
+            this.otherChildrenExist = careData.caringForChildGa?.parentOtherChild == 'y';        
 
+            if (this.otherChildrenExist){
+                const childData: caringForChildGaChildInfoDataInfoType[] = careData.childInfo;
+                for (const child of childData){            
+                    const childInfo = {fullName: '', dob:'', relation: ''};
+                    childInfo.fullName = Vue.filter('getFullName')(child.name);
+                    childInfo.dob = Vue.filter('beautify-date')(child.dob);            
+                    childInfo.relation = child.relation;           
+                    this.otherChildrenInfo.push(childInfo);
+                } 
+                
+            } else {
+                this.otherChildrenInfo = [{fullName: '', dob:'', relation: ''}];
+            }
+        } 
+    }
 
+    public getExhibitInfo(){  
+
+        this.courtProceedingsExist = false;
+        this.civilProceedingInfo = [{itemNo: '', partyNames: '', courtLocation:'', courtOrderDates: []}];
+        this.exhibitList = this.result.gaExhibitList;
+        this.orderList = [];
+
+        this.porsRecord = {} as exhibitsDataInfoType;
+        this.mcfdRecord = {} as exhibitsDataInfoType;
+        this.crcRecord = {} as exhibitsDataInfoType;
+        this.policeDept = '';
+
+        const proceedingData: backgroundCivilCourtProceedingsDataInfoType = this.result.backgroundCivilCourtProceedingsSurvey;
+
+        if (proceedingData && this.result.gaExhibitList){
+
+            this.courtProceedingsExist = proceedingData.courtProceedingsExist == 'y';
+            if(this.courtProceedingsExist){
+                this.orderList = this.exhibitList.filter(exhibit => exhibit.itemNo != 0); 
+                const civilProceedingsData = this.orderList;
+                this.civilProceedingInfo = [];               
+                
+                for (const proceeding of civilProceedingsData){ 
+                    console.log(proceeding)           
+                    const proceedingInfo = {itemNo: '', partyNames: '', courtLocation:'', courtOrderDates: []};
+                    const index = this.civilProceedingInfo.findIndex(proc=>{return(proc.itemNo == proceeding.itemNo)})
+                    if(index >= 0 ){                
+                        this.civilProceedingInfo[index].courtOrderDates.push(Vue.filter('beautify-date')(proceeding.fileDate)); 
+                    } else {
+                        proceedingInfo.itemNo = proceeding.itemNo;
+                        proceedingInfo.partyNames = proceeding.partyNames;
+                        proceedingInfo.courtLocation = proceeding.courtLocation;
+                        proceedingInfo.courtOrderDates.push(Vue.filter('beautify-date')(proceeding.fileDate));            
+                        console.log(proceedingInfo)  
+                        this.civilProceedingInfo.push(proceedingInfo);
+                    }                   
+                } 
+            }
         }
+
+        if(this.result?.guardianshipAffidavitSurvey){
+
+            const ga: guardianshipAffidavitDataInfoType = this.result.guardianshipAffidavitSurvey
+
+            if (ga.haveBrcResults == 'y'){
+                this.mcfdRecord = this.exhibitList.filter(exhibit => exhibit.fileName == "Ministry of Children and Family Development Record Check dated ")[0];
+                this.crcRecord = this.exhibitList.filter(exhibit => exhibit.fileName == "Criminal Record Check dated ")[0];
+                this.porsRecord = this.exhibitList.filter(exhibit => exhibit.fileName == "Protection Order Record Check from the Protection Order Registry dated ")[0];
+                this.policeDept = ga.policeDept?ga.policeDept:'';
+            }
+        }        
             
     }  
+
+    public getChargeDetails(){
+
+        this.convictionDetails = '';
+        this.pastConviction = false;
+        this.currentlyConvicted = false;
+        this.currentCharges = [];
+
+        const criminalData: backgroundCriminalHistoryDataInfoType = this.result.backgroundCriminalHistorySurvey;
+
+        if (criminalData){
+
+            this.pastConviction = criminalData.pastConviction == 'y';
+            if (this.pastConviction){
+                this.convictionDetails = criminalData.convictionDetails?criminalData.convictionDetails:'';
+            }
+            
+            this.currentlyConvicted = criminalData.currentlyConvicted == 'y';       
+
+            if (this.currentlyConvicted){
+                const chargeData: chargesDataInfoType[] = criminalData.currentCharges;
+                for (const charge of chargeData){            
+                    const chargeInfo = {chargeNature: '', chargeDate:'', chargeCourtLocation: ''};
+                    chargeInfo.chargeNature = charge.chargeNature;
+                    chargeInfo.chargeDate = Vue.filter('beautify-date')(charge.chargeDate);            
+                    chargeInfo.chargeCourtLocation = charge.chargeCourtLocation;           
+                    this.currentCharges.push(chargeInfo);
+                } 
+                
+            } else {
+                this.currentCharges = [{chargeNature: '', chargeDate:'', chargeCourtLocation: ''}];
+            }
+        } 
+    }
  
 }
 </script>

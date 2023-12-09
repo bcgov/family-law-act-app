@@ -19,7 +19,6 @@
                     "inputType": "date"
                 },
                 {
-                    "isRequired": true,  
                     "type": "paneldynamic",
                     "name": "currentGuardiansToChild",
                     "title": "<div style = 'color: #556077; font-size: 1.5rem; line-height: 1.2;'>Who is currently a guardian of the child?</b>",
@@ -45,7 +44,6 @@
                     "description": "A parent is not a guardian of a child if they have never lived with the child unless:<ul><li>the parent regularly cares for their child, or</li><li>there is an agreement or order that says they are a guardian.</li></ul>"
                 },
                 {
-                    "isRequired": true,  
                     "type": "paneldynamic",
                     "visible": false,
                     "visibleIf": "{parentsNotGuardiansExist} = 'y'",
