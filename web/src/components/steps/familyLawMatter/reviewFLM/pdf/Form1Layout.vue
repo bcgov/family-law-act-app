@@ -62,6 +62,7 @@
                 <check-box style="line-height:1.15rem;" :check="selectedPathways.includes('contactWithChild')?'yes':''" text="contact with a child"/>
                 <check-box style="line-height:1.15rem;" :check="selectedPathways.includes('guardianOfChild')?'yes':''" text="appointing a guardian of a child"/>
                 <check-box style="line-height:1.15rem;margin-bottom:0.25rem;" :check="selectedPathways.includes('spousalSupport')?'yes':''" text="spousal support"/>
+                <check-box style="line-height:1.15rem;margin-bottom:0.25rem;" :check="selectedPathways.includes('companionAnimal')?'yes':''" text="property division in respect of a companion animal"/>
             </div>
         </section>
 
@@ -75,7 +76,7 @@
                 text="I understand the following people must be given notice of my application:"/>
             <ul style="margin:0 0 0 1.5rem;">
                 <li style="text-indent:0.25rem;">all parents and current guardians of each child who is the subject of the family law matter</li>
-                <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support</li>
+                <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support or property division in respect of a companion animal</li>
                 <li style="text-indent:0.25rem;">each other adult who the application about a family law matter is about</li>
             </ul>
             <p style="margin:0.05rem 0 0rem 2.1rem; text-indent:0;">They are the other party/parties in this case.</p>                
@@ -245,7 +246,11 @@
             <div style="margin-top:1rem;"><b>Existing written agreements or court orders</b></div>
 <!-- <7> -->
             <section>
-                <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
+                <div style="display:inline; margin-left:0.25rem">
+                    There is an existing written agreement or court order about parenting arrangements, 
+                    child support, contact with a child, guardianship of a child, spousal support, and/or 
+                    property division in respect of a companion animal. 
+                </div>          
                 <div style="margin-left:1rem">
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>                    
@@ -255,7 +260,12 @@
 
  <!-- <8> -->
         <section> 
-            <div style="display:inline; margin-left:0.25rem">There is an existing court order protecting one of the parties, the child(ren), or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition and other criminal order</div>            
+            <div style="display:inline; margin-left:0.25rem">
+                There is an existing court order, agreement or plan protecting one of the parties, the 
+                child(ren), or restraining contact between the parties, including a protection order, 
+                an order, agreement or plan involving child protection services, a peace bond, restraining 
+                order, bail condition or other criminal order.
+            </div>            
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>                
@@ -396,7 +406,7 @@ export default class Form1Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.extractInfo();       
+        this.extractInfo();     
         this.dataReady = true;
     } 
 

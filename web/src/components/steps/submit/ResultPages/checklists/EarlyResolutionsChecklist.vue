@@ -162,18 +162,23 @@
                 If you do not resolve all issues during the early resolution process, either party can make an application 
                 to the Provincial Court for a court order by filing an 
                 <a
-                    href="https://www2.gov.bc.ca/assets/download/30F4D4D7C888474FB8329B7E3B540464"
+                    href="https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178"
                     target="_blank">Application About a Family Law Matter Claim Form 3
                 </a>.
             </p>
 
-            <p>
+            <p style="font-weight: 700">
                 Contact the 
                 <a 
                     href="https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F" 
                     target="_blank">Justice Access Centre
                 </a> 
                 in person or by phone to find out more about meeting the requirements.
+                More information about their services, including contact information, can be found at 
+                <a 
+                    href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/justice-services/family-justice-services-division" 
+                    target="_blank">Family Justice Services Division
+                </a>.
             </p>
 
         </div>

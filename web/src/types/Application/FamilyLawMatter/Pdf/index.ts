@@ -401,3 +401,22 @@ export interface existingSpousalSupportPayDetails {
 export interface aboutExistingSpousalSupportInfoType {
     chSinceOrder: string;
 }
+
+export interface compAnimalDataInfoType {
+    animalName?: string;
+    animalOwnership?: string;
+    animalType?: string;
+}
+
+export interface schedule11DataInfoType {    
+    compAnimalInfo: compAnimalDataInfoType[];
+    compAnimalFacts?: string;
+}
+
+export interface schedule12DataInfoType {
+    agreementDate?: string;
+    reason: string;
+    replace: boolean;
+    agreementReplacementDetails: string;
+    setAside: boolean;
+}
