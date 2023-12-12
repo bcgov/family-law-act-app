@@ -1038,6 +1038,13 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight, margin?){
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
 			`.form-header-cs{display:block; margin:-2rem 0 4rem 0;}`+
 			`.court-header-after{margin:-1rem 0 0 0;}`+
+            `.list-brackets{
+                    ol { counter-reset: item }
+                    li { display: block ; counter-increment: item; }
+                    li:before {
+                        content: " (" counter(item,lower-alpha) ") ";
+                    }
+            }`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+

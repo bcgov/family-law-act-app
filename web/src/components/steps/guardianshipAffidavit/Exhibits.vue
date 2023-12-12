@@ -92,7 +92,6 @@ export default class Exhibits extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
           
-          
         this.exhibits = this.setExhibitList();      
         this.UpdateCommonStepResults({data:{'gaExhibitList':this.exhibits}});        
           
@@ -184,8 +183,7 @@ export default class Exhibits extends Vue {
 
             }           
         }
-        console.log(gaExhibitList);             
-      
+        
         return gaExhibitList;
    }
   
@@ -197,10 +195,8 @@ export default class Exhibits extends Vue {
         Vue.prototype.$UpdateGotoNextStepPage();       
     } 
 
-    beforeDestroy() {
-        
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
-        
+    beforeDestroy() {        
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);        
     }
 }
 </script>

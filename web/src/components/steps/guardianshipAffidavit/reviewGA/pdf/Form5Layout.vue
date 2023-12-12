@@ -251,7 +251,7 @@
                     <li v-for="exhibit in orderList" :key="exhibit.exhibitIndex" style="margin:0.5rem 0 0 0;">
                         
                         <underline-form 
-                            style="text-indent:0;margin-left:.25rem;display:inline-block;" 
+                            style="text-indent:0;margin-left:.75rem;display:inline-block;" 
                             textwidth="6rem" 
                             beforetext="The order dated" 
                             hint="(mmm/dd/yyyy)" 
@@ -279,22 +279,23 @@
         
         <section>            
             <underline-form 
-                style="text-indent:0;margin-left:.25rem;" 
+                style="text-indent:0;margin-left:.25rem;display:inline;" 
                 textwidth="2.5rem" 
                 beforetext="Attached to this affidavit and marked as Exhibit" 
                 hint="(A, B, etc.)" 
                 :text="mcfdRecord.exhibitName.replace('Exhibit ','')"/>
-            <div style="display:inline;">
+                <div style="text-indent:5px;display:inline;"> 
+                    is a copy of a British Columbia Ministry of
+                </div>           
                 <underline-form 
-                    style="text-indent:0;" 
+                    style="text-indent:0;display: inline-block; margin: 0.25rem 0;" 
                     textwidth="6rem" 
-                    beforetext="is a copy of a British Columbia Ministry of Children and Family Development records check dated" 
+                    beforetext=" Children and Family Development records check dated" 
                     hint="(mmm/dd/yyyy)" 
                     :text="mcfdRecord.fileDate | beautify-date"/>
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                     .
-                </div>
-            </div>
+                </div>            
                     
         </section>
 
@@ -302,23 +303,26 @@
         
         <section>            
             <underline-form 
-                style="text-indent:0;margin-left:.25rem;" 
+                style="text-indent:0;margin-left:.25rem;display:inline;" 
                 textwidth="2.5rem" 
                 beforetext="Attached to this affidavit and marked as Exhibit" 
                 hint="(A, B, etc.)" 
                 :text="porsRecord.exhibitName.replace('Exhibit ','')"/>
 
-                <div style="display:inline;">
-                    <underline-form 
-                        style="text-indent:0;" 
-                        textwidth="6rem" 
-                        beforetext="is a copy of a Protection Order Registry protection order records check dated" 
-                        hint="(mmm/dd/yyyy)" 
-                        :text="porsRecord.fileDate | beautify-date"/>
-                    <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                        .
-                    </div>
-                </div>
+            <div style="text-indent:5px;display:inline;"> 
+                is a copy of a Protection Order Registry protection order
+            </div>
+               
+            <underline-form 
+                style="text-indent:0;display: inline-block; margin: 0.35rem 0;"
+                textwidth="6rem" 
+                beforetext=" records check dated" 
+                hint="(mmm/dd/yyyy)" 
+                :text="porsRecord.fileDate | beautify-date"/>
+            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                .
+            </div>
+               
           
         </section>
 
@@ -326,28 +330,36 @@
         
         <section>            
             <underline-form 
-                style="text-indent:0;margin-left:.25rem;" 
+                style="text-indent:0;margin-left:.25rem;display:inline;" 
                 textwidth="2.5rem" 
                 beforetext="Attached to this affidavit and marked as Exhibit" 
                 hint="(A, B, etc.)" 
                 :text="crcRecord.exhibitName.replace('Exhibit ','')"/>
+
+            <div style="text-indent:5px;display:inline;"> 
+                    is a copy of a criminal records check dated
+            </div>
             <underline-form 
-                style="text-indent:0;" 
+                style="text-indent:0;display: inline; margin: 0.25rem 0;" 
                 textwidth="6rem" 
-                beforetext="is a copy of a criminal records check dated" 
+                beforetext="" 
                 hint="(mmm/dd/yyyy)" 
                 :text="crcRecord.fileDate | beautify-date"/>
-            <div style="display:inline;">
-                <underline-form 
-                    style="text-indent:0;" 
-                    textwidth="32rem" 
-                    beforetext="obtained from the" 
-                    hint="(name and location of police force or department from which the criminal records check was obtained )" 
-                    :text="policeDept"/>
-                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                    .
-                </div>
-            </div>                
+
+            <div style="text-indent:5px;display:inline;"> 
+                obtained from the
+            </div>
+            
+            <underline-form 
+                style="text-indent:0;display: inline-block; margin: 0.35rem 0;" 
+                textwidth="26.75rem" 
+                beforetext="" 
+                hint="(name and location of police force or department from which the criminal records check was obtained )" 
+                :text="policeDept"/>
+            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                .
+            </div>
+                           
         </section>
 
     <!-- <12> -->
@@ -367,7 +379,7 @@
                 been convicted of, and not pardoned for, the following criminal offences:<br><i>Provide details of any criminal convictions, not referred to in the criminal records check, for which you have not received a
                 pardon</i>"/>
             
-            <div v-if="pastConviction" 
+            <div style="margin:0rem 0 0 1rem;" v-if="pastConviction" 
                 class="answerbox">{{ convictionDetails }}</div>
             <div v-else style="margin-bottom:3rem;"></div>  
         </section>
@@ -523,7 +535,6 @@ export default class Form5Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
@@ -663,8 +674,8 @@ export default class Form5Layout extends Vue {
                 const civilProceedingsData = this.orderList;
                 this.civilProceedingInfo = [];               
                 
-                for (const proceeding of civilProceedingsData){ 
-                    console.log(proceeding)           
+                for (const proceeding of civilProceedingsData){
+
                     const proceedingInfo = {itemNo: '', partyNames: '', courtLocation:'', courtOrderDates: []};
                     const index = this.civilProceedingInfo.findIndex(proc=>{return(proc.itemNo == proceeding.itemNo)})
                     if(index >= 0 ){                
@@ -673,8 +684,7 @@ export default class Form5Layout extends Vue {
                         proceedingInfo.itemNo = proceeding.itemNo;
                         proceedingInfo.partyNames = proceeding.partyNames;
                         proceedingInfo.courtLocation = proceeding.courtLocation;
-                        proceedingInfo.courtOrderDates.push(Vue.filter('beautify-date')(proceeding.fileDate));            
-                        console.log(proceedingInfo)  
+                        proceedingInfo.courtOrderDates.push(Vue.filter('beautify-date')(proceeding.fileDate));
                         this.civilProceedingInfo.push(proceedingInfo);
                     }                   
                 } 
@@ -691,8 +701,7 @@ export default class Form5Layout extends Vue {
                 this.porsRecord = this.exhibitList.filter(exhibit => exhibit.fileName == "Protection Order Record Check from the Protection Order Registry dated ")[0];
                 this.policeDept = ga.policeDept?ga.policeDept:'';
             }
-        }        
-            
+        }    
     }  
 
     public getChargeDetails(){
