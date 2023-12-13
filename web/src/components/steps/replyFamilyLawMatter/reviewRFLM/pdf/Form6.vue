@@ -13,6 +13,8 @@
         <schedule-8 v-bind:result="result" v-if="selectedSchedules.includes('schedule8')" />
         <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
         <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
+        <schedule-101 v-bind:result="result" v-if="selectedSchedules.includes('schedule10.1')" />
+        <schedule-102 v-bind:result="result" v-if="selectedSchedules.includes('schedule10.2')" />
         <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
         <schedule-12 v-bind:result="result"  v-if="selectedSchedules.includes('schedule12')" />
         <schedule-13 v-bind:result="result"  v-if="selectedSchedules.includes('schedule13')" />
@@ -23,6 +25,8 @@
         <schedule-18 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule18')" />
         <schedule-19 v-bind:result="result"  v-if="selectedSchedules.includes('schedule19')" />
         <schedule-20 v-bind:result="result" v-if="selectedSchedules.includes('schedule20')" />
+        <schedule-21 v-bind:result="result" v-if="selectedSchedules.includes('schedule21')" />
+        <schedule-22 v-bind:result="result" v-if="selectedSchedules.includes('schedule22')" />
 
     </b-card>
 </div>
@@ -47,6 +51,8 @@ import Schedule7 from "./Schedules/Schedule7.vue"
 import Schedule8 from "./Schedules/Schedule8.vue"
 import Schedule9 from "./Schedules/Schedule9.vue"
 import Schedule10 from "./Schedules/Schedule10.vue"
+import Schedule101 from "./Schedules/Schedule10.1.vue"
+import Schedule102 from "./Schedules/Schedule10.2.vue"
 import Schedule11 from "./Schedules/Schedule11.vue"
 import Schedule12 from "./Schedules/Schedule12.vue"
 import Schedule13 from "./Schedules/Schedule13.vue"
@@ -57,6 +63,8 @@ import Schedule17 from "./Schedules/Schedule17.vue"
 import Schedule18 from "./Schedules/Schedule18.vue"
 import Schedule19 from "./Schedules/Schedule19.vue"
 import Schedule20 from "./Schedules/Schedule20.vue"
+import Schedule21 from "./Schedules/Schedule21.vue"
+import Schedule22 from "./Schedules/Schedule22.vue"
 
 import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
@@ -78,6 +86,8 @@ import { getForm6PopulationInfo } from "@/components/utils/PopulateForms/Populat
         Schedule8,
         Schedule9,
         Schedule10, 
+        Schedule101, 
+        Schedule102, 
         Schedule11,
         Schedule12,
         Schedule13,
@@ -87,7 +97,9 @@ import { getForm6PopulationInfo } from "@/components/utils/PopulateForms/Populat
         Schedule17,
         Schedule18,
         Schedule19,
-        Schedule20
+        Schedule20,
+        Schedule21,
+        Schedule22
     }
 })
 
