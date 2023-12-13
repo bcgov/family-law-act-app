@@ -20,11 +20,6 @@ import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/background-civil-court-proceedings.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 import { courtProceedingsDataInfoType } from '@/types/Application/GuardianshipAffidavit';
 
 @Component
@@ -32,9 +27,6 @@ export default class CivilProceedingsSurvey extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;    
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
     
     courtProceeding = {} as courtProceedingsDataInfoType;
 

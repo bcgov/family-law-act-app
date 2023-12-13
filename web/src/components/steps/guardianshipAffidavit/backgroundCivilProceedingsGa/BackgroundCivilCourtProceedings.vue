@@ -164,11 +164,11 @@ import CivilProceedingsSurvey from "./CivilProceedingsSurvey.vue";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
-import { courtProceedingsDataInfoType } from '@/types/Application/GuardianshipAffidavit';
+
 const applicationState = namespace("Application");
 
 @Component({
@@ -259,7 +259,7 @@ export default class BackgroundCivilCourtProceedings extends Vue {
         this.civilProceedingsData = [...this.civilProceedingsData, newCivilProceeding];
 
         this.showTable = true; 
-        this.resetCivilProceedingRelatedPages(this.civilProceedingsData);
+        this.resetCivilProceedingRelatedPages();
     }
 
     public deleteRow(rowToBeDeleted) {
@@ -267,7 +267,7 @@ export default class BackgroundCivilCourtProceedings extends Vue {
         this.civilProceedingsData = this.civilProceedingsData.filter(data => {
             return data.id !== rowToBeDeleted;
         }); 
-        this.resetCivilProceedingRelatedPages(this.civilProceedingsData);
+        this.resetCivilProceedingRelatedPages();
         this.surveyHasError();
     }
 
@@ -277,7 +277,7 @@ export default class BackgroundCivilCourtProceedings extends Vue {
         });
         this.showTable = true;
         this.surveyHasError();
-        this.resetCivilProceedingRelatedPages(this.civilProceedingsData);
+        this.resetCivilProceedingRelatedPages();
     }
 
     public onPrev() {
@@ -329,15 +329,13 @@ export default class BackgroundCivilCourtProceedings extends Vue {
         return resultString
     }
 
-    public resetCivilProceedingRelatedPages(civilProceedingsData?) {
+    public resetCivilProceedingRelatedPages() {
     
-        const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
-        const p = stPgNo.GA;
-
+        const p = this.stPgNo.GA;
         const pages = [
             p.Exhibits,
             p.ReviewYourAnswersGA
-        ]
+        ];
         Vue.filter('setProgressForPages')(p._StepNo, pages,50);    
 
     }
@@ -360,7 +358,6 @@ export default class BackgroundCivilCourtProceedings extends Vue {
     public isDisableNext() {
         return (this.courtProceedingsExist == 'y' && this.civilProceedingsData?.length == 0);
     }
-
 
     beforeDestroy() {
         this.surveyHasError();        

@@ -15,25 +15,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import { childInfoType } from '@/types/Application/CommonInformation';
+
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-caringchildInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import { childInfoType } from '@/types/Application/CommonInformation';
 
 @Component
 export default class CaringChildrenSurvey extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;    
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
     
     child = {} as childInfoType;
 
