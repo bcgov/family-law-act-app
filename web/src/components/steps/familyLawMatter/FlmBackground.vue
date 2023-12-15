@@ -72,9 +72,6 @@ export default class FlmBackground extends Vue {
     spousalSupportNewPages = []
     spousalSupportExistingPages = []
 
-    companionAnimalNewPages = []
-    companionAnimalExistingPages = []
-
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
@@ -109,10 +106,6 @@ export default class FlmBackground extends Vue {
 
         this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
         this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]
-
-        this.companionAnimalNewPages = [p.PropertyDivisionCompanionAnimal, p.CompanionAnimalFacts]
-        this.companionAnimalExistingPages = [p.CompanionAnimalExistingAgreement]
-
     }
 
     public initializeSurvey(){
@@ -239,13 +232,6 @@ export default class FlmBackground extends Vue {
                         togglePages(this.spousalSupportExistingPages, true, this.currentStep);
                     else
                         togglePages(this.spousalSupportNewPages, true, this.currentStep);
-                }
-
-                if (this.selectedForms.includes("companionAnimal")) { 
-                    if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Property Division in Respect of a Companion Animal'))
-                        togglePages(this.companionAnimalExistingPages , true, this.currentStep);
-                    else          
-                        togglePages(this.companionAnimalNewPages, true, this.currentStep);
                 }
 
             }

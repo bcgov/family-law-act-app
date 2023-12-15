@@ -205,9 +205,6 @@ export interface FLMstPgTypes{
     CalculatingSpousalSupport: number;
     AboutExistingSpousalSupportOrder: number;
     UnpaidSpousalSupport: number;
-    PropertyDivisionCompanionAnimal: number;
-    CompanionAnimalFacts: number;
-    CompanionAnimalExistingAgreement: number;
     FlmAdditionalDocuments: number;
     ReviewYourAnswersFLM: number;
     PreviewFormsFLM: number;

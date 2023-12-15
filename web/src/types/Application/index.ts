@@ -6,7 +6,6 @@ import { aboutContactWithChildOrderSurveyInfoType, contactWithChildOrderSurveyIn
 import { guardianOfChildBestInterestsOfChildSurveyInfoType, guardianOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
 import { aboutParentingArrangementsSurveyInfoType, otherParentingArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestsOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
 import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrderSurveyInfoType, calculatingSpousalSupportSurveyInfoType, existingSpousalSupportAgreementSurveyInfoType, existingSpousalSupportFinalOrderSurveyInfoType, existingSpousalSupportOrderAgreementSurveyInfoType, spousalSupportIncomeAndEarningPotentialSurveyInfoType, spousalSupportSurveyInfoType, unpaidSpousalSupportSurveyInfoType } from "./FamilyLawMatter/SpousalSupport";
-import { companionAnimalExistingAgreementSurveyInfoType, companionAnimalFactsSurveyInfoType, propertyDivisionCompanionAnimalSurveyInfoType } from "./FamilyLawMatter/CompanionAnimal";
 import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
 import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType, ppmAdditionalDocumentsSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
@@ -226,10 +225,6 @@ export interface stepInfoType {
     spousalSupportSurvey?: spousalSupportSurveyInfoType;
     spousalSupportIncomeAndEarningPotentialSurvey?: spousalSupportIncomeAndEarningPotentialSurveyInfoType;
     unpaidSpousalSupportSurvey?: unpaidSpousalSupportSurveyInfoType;
-
-    propertyDivisionCompanionAnimalSurvey?: propertyDivisionCompanionAnimalSurveyInfoType;    
-    companionAnimalFactsSurvey?: companionAnimalFactsSurveyInfoType;
-    companionAnimalExistingAgreementSurvey?: companionAnimalExistingAgreementSurveyInfoType;
 
     //__Step 6 CASE MANAGEMENT
 

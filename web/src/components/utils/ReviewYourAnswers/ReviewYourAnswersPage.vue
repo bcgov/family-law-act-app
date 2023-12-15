@@ -79,9 +79,6 @@ export default class ReviewYourAnswersPage extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.State
-    applicationLocation!: any
-
     fields =[
         {key:'title', label:'Question', thClass:'border-right', tdClass:'border-top border-right ', thStyle:''},
         {key:'value', label:'Response', thClass:'', tdClass:'border-top border-right', thStyle:''},
@@ -124,7 +121,6 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{firstQuestionText}/g,'');
         adjQuestion = adjQuestion.replace(/{applicationIdentifier}/g,'application(s)');
         adjQuestion = adjQuestion.replace(/{verb}/g,'was/were');
-        adjQuestion = adjQuestion.replace(/{registryLocation}/g,this.applicationLocation);
         adjQuestion = adjQuestion.replace(/{applicationList}/g, getWrittenResponseApplications(this.$store.state.Application.types).join(' and '));
         adjQuestion = adjQuestion.replace(/{calculationDate}/g,'the above mentioned date');
         adjQuestion = adjQuestion.replace(/{disagreeReasonQuestion}/g,'Why don’t you agree with the requested order?');

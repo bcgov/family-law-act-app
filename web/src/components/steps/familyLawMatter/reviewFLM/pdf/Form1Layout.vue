@@ -62,7 +62,6 @@
                 <check-box style="line-height:1.15rem;" :check="selectedPathways.includes('contactWithChild')?'yes':''" text="contact with a child"/>
                 <check-box style="line-height:1.15rem;" :check="selectedPathways.includes('guardianOfChild')?'yes':''" text="appointing a guardian of a child"/>
                 <check-box style="line-height:1.15rem;margin-bottom:0.25rem;" :check="selectedPathways.includes('spousalSupport')?'yes':''" text="spousal support"/>
-                <check-box style="line-height:1.15rem;margin-bottom:0.25rem;" :check="selectedPathways.includes('companionAnimal')?'yes':''" text="property division in respect of a companion animal"/>
             </div>
         </section>
 
@@ -76,7 +75,7 @@
                 text="I understand the following people must be given notice of my application:"/>
             <ul style="margin:0 0 0 1.5rem;">
                 <li style="text-indent:0.25rem;">all parents and current guardians of each child who is the subject of the family law matter</li>
-                <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support or property division in respect of a companion animal</li>
+                <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support</li>
                 <li style="text-indent:0.25rem;">each other adult who the application about a family law matter is about</li>
             </ul>
             <p style="margin:0.05rem 0 0rem 2.1rem; text-indent:0;">They are the other party/parties in this case.</p>                
@@ -246,11 +245,7 @@
             <div style="margin-top:1rem;"><b>Existing written agreements or court orders</b></div>
 <!-- <7> -->
             <section>
-                <div style="display:inline; margin-left:0.25rem">
-                    There is an existing written agreement or court order about parenting arrangements, 
-                    child support, contact with a child, guardianship of a child, spousal support, and/or 
-                    property division in respect of a companion animal. 
-                </div>          
+                <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
                 <div style="margin-left:1rem">
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>                    
@@ -260,31 +255,24 @@
 
  <!-- <8> -->
         <section> 
-            <div style="display:inline; margin-left:0.25rem">
-                There is an existing court order, agreement or plan protecting one of the parties, the 
-                child(ren), or restraining contact between the parties, including a protection order, 
-                an order, agreement or plan involving child protection services, a peace bond, restraining 
-                order, bail condition or other criminal order.
-            </div>            
+            <div style="display:inline; margin-left:0.25rem">There is an existing court order protecting one of the parties, the child(ren), or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition and other criminal order</div>            
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>                
             </div>
         </section> 
 
-        <div class="print-block" style="border:1px solid #414142; padding: 1rem; margin-top: 2rem;" >
+        <div class="print-block">
                 <div style="margin-top:0rem;"><b>NOTE TO THE PARTIES:</b></div>
-                <div style="margin-top:0rem; font-size:9pt; text-align:justify;">
-                    This Notice to Resolve a Family Law Matter has been filed with the Provincial 
-                    Court of British Columbia.
-                    Before proceeding any further with your case, each party is required to meet 
-                    the early resolution requirements described in the rules. If you do not resolve 
-                    all family law matters during the early resolution process, either party can apply 
-                    to the Provincial Court for a court order. If you do not participate in the 
-                    early resolution process, the other party will be allowed to proceed to the 
-                    Provincial Court to ask for a court order. A party must have met the early 
-                    resolution requirements before they will be allowed to file an Application About a
-                    Family Law Matter or Reply to an Application About a Family Law Matter in the case. 
+                <div 
+                    style="margin-top:0rem; font-size:9pt; text-align:justify;">
+                    <b>This Notice to Resolve a Family Law Matter has been filed with the Provincial Court of British Columbia.
+                        Before proceeding any further with your case, each party is required to meet the early resolution requirements described in the rules.
+                        If you do not resolve all family law matters during the early resolution process, either party can apply to the Provincial Court for a court
+                        order. If you do not participate in the early resolution process, the other party will be allowed to proceed to the Provincial Court to ask for
+                        a court order. A party must have met the early resolution requirements before they will be allowed to file an Application About a Family
+                        Law Matter or Reply to an Application About a Family Law Matter in the case. 
+                    </b>
                 </div>                
         </div>
 
@@ -293,16 +281,17 @@
             <div style="margin-left:1rem; margin-top:0.5rem;">
                 
                 <ordered-check-box :order="1" text="<b>Contact</b> Family Justice Services Division to <b>schedule</b> your individual <b>needs assessment</b>." style="display:inline-block;" :check="false?'yes':''"/>            
-                <div style="margin-left:3rem; margin-top:0.75rem;">
+                <div style="margin-left:3rem; margin-top:0.25rem;">
                     If you have already participated in some or all of the early resolution requirements within the last year,
                     Family Justice Services Division will confirm you have met the early resolution requirements and prepare
                     the required documents for the court.
                 </div>
 
-                <div style="margin:0.75rem 0 0.5rem 3rem;">
-                    <b>NOTE:</b> You may be contacted by a needs assessor if someone else has filed a Notice to Resolve a Family
+                <div style="margin:0.25rem 0 0.5rem 3rem;">
+                    <b>Note:</b> You may be contacted by a needs assessor if someone else has filed a Notice to Resolve a Family
                     Law Matter and named you as the other party in that document.
                 </div>
+
 
                 <ordered-check-box :order="2"  :check="false?'yes':''" text="<b>Participate in a needs assessment</b>"/>
                 <div style="margin-left:3rem;margin-bottom:0.5rem">
@@ -331,18 +320,18 @@
         <div class="print-block">
                 <div style="margin-top:1rem;"><b>NOTE TO THE PARTIES:</b></div>
                 <div 
-                    style="margin-top:0.5rem; font-size:9.7pt; text-align:justify;">
-                    <div style="margin-bottom:2rem">
+                    style="margin-top:0rem; font-size:9.7pt; text-align:justify;">
+                    <div style="margin-bottom:0.25rem">
                         <b>If you require a time sensitive order on a family law matter</b>
                         you may be able to postpone participation in one or more of the early resolution requirements until after you have received 
                         your time sensitive order. Please speak to Family Justice Services Division or the court registry if this situation applies to you.
                     </div>
-                    <b>Reminder:</b>
+                    <b >Reminder:</b>
                     <div>
                         If you do not resolve all family law matters during the early resolution requirements, either party can file an
                         application in the Provincial Court to request a court order.
                     </div>
-                    <div style="margin-top:1rem;">
+                    <div  style="margin-top:0.5rem">
                         If you do not participate in the early resolution requirements, the other party will be allowed to proceed to the
                         Provincial Court to ask for a court order. A party must have met the requirements for early resolution before
                         they will be allowed to file an Application About a Family Law Matter or Reply to an Application About a Family
@@ -407,7 +396,7 @@ export default class Form1Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.extractInfo();     
+        this.extractInfo();       
         this.dataReady = true;
     } 
 
