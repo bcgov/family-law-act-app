@@ -45,16 +45,14 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType } from "@/types/Application";
 import * as _ from 'underscore';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import Tooltip from "@/components/survey/Tooltip.vue";
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import { exhibitsDataInfoType, guardianshipAffidavitDataInfoType } from '@/types/Application/GuardianshipAffidavit';
-import { guardianOfChildDataInfoType } from '@/types/Application/FamilyLawMatter/GuardianShip';
   
 @Component({
     components:{
@@ -65,16 +63,7 @@ import { guardianOfChildDataInfoType } from '@/types/Application/FamilyLawMatter
 export default class Exhibits extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;     
-
-    @applicationState.Action
-    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void   
+    step!: stepInfoType;      
       
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
@@ -94,15 +83,12 @@ export default class Exhibits extends Vue {
           
         this.exhibits = this.setExhibitList();      
         this.UpdateCommonStepResults({data:{'gaExhibitList':this.exhibits}});        
-          
-                
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
     }  
 
     public setExhibitList(){
        
         const gaExhibitList: exhibitsDataInfoType[] = [];
-
         let baseIndex = 1;
 
         if (this.step.result?.backgroundCivilCourtProceedingsSurvey?.data) {
@@ -130,10 +116,8 @@ export default class Exhibits extends Vue {
                     }
                     itemNo++;
                 }                
-            }
-            
+            }            
         } 
-
      
         if (this.step.result.guardianshipAffidavitSurvey?.data){
             const gaData: guardianshipAffidavitDataInfoType = this.step.result.guardianshipAffidavitSurvey?.data;
@@ -180,7 +164,6 @@ export default class Exhibits extends Vue {
                     gaExhibitList.push(exhibit);
                     baseIndex++;
                 } 
-
             }           
         }
         
@@ -201,8 +184,7 @@ export default class Exhibits extends Vue {
 }
 </script>
   
-  <style lang="scss">
+<style lang="scss">
   @import "../../../styles/survey";
 
-  </style>
-  
+</style>  

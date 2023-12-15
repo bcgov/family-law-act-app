@@ -17,7 +17,6 @@ import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import "@/store/modules/application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -28,10 +27,7 @@ const applicationState = namespace("Application");
 export default class AboutAffiantGa extends Vue {
         
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;    
+    step!: stepInfoType; 
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

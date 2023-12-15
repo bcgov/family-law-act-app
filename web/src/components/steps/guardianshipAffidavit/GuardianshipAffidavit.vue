@@ -76,23 +76,19 @@ export default class GuardianshipAffidavit extends Vue {
         })
     }
     
-    public reloadPageInformation() {
-    
+    public reloadPageInformation() {    
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
         if (this.step.result?.guardianshipAffidavitSurvey) {            
             this.survey.data = this.step.result.guardianshipAffidavitSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        } 
-        
+        }         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
 
     public resetExhibitRelatedPages() {
     
-        const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
-        const p = stPgNo.GA;
-
+        const p = this.stPgNo.GA;
         const pages = [
             p.Exhibits,
             p.ReviewYourAnswersGA

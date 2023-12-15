@@ -146,10 +146,7 @@ export default class caringForChildGa extends Vue {
     step!: stepInfoType
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
-    @applicationState.State
-    public steps!: stepInfoType[];    
+    public stPgNo!: stepsAndPagesNumberInfoType;  
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -186,7 +183,6 @@ export default class caringForChildGa extends Vue {
         if (this.step.result?.caringForChildGaSurvey?.data) {
 
             const caringInfo = this.step.result.caringForChildGaSurvey.data;
-            console.log
             this.childData = caringInfo.childInfo?caringInfo.childInfo:[];
             this.careDetails = caringInfo.caringForChildGa?.careDetails?caringInfo.caringForChildGa.careDetails:'';
             this.parentOtherChild = caringInfo.caringForChildGa?.parentOtherChild?caringInfo.caringForChildGa.parentOtherChild:'n';
@@ -304,8 +300,7 @@ export default class caringForChildGa extends Vue {
 
     public resetChildrenRelatedPages(childData?) {
     
-        const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
-        const p = stPgNo.GA;
+        const p = this.stPgNo.GA;
 
         const pages = [
             p.ReviewYourAnswersGA

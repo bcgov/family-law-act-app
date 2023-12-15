@@ -32,9 +32,6 @@ export default class BackgroundCriminalHistory extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
-
     survey = new SurveyVue.Model(surveyJson);
 
     currentStep = 0;
@@ -50,8 +47,7 @@ export default class BackgroundCriminalHistory extends Vue {
         this.disableNextButton = false;       
     }
 
-    mounted(){
-        
+    mounted(){        
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -76,7 +72,6 @@ export default class BackgroundCriminalHistory extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        
         if (this.step.result?.backgroundCriminalHistorySurvey) {
             this.survey.data = this.step.result.backgroundCriminalHistorySurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
@@ -102,7 +97,6 @@ export default class BackgroundCriminalHistory extends Vue {
     beforeDestroy() {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
         this.UpdateStepResultData({step:this.step, data: {backgroundCriminalHistorySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }

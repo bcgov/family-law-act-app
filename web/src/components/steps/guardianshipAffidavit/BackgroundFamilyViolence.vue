@@ -32,9 +32,6 @@ export default class BackgroundFamilyViolence extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
-
     survey = new SurveyVue.Model(surveyJson);
 
     currentStep = 0;
@@ -50,8 +47,7 @@ export default class BackgroundFamilyViolence extends Vue {
         this.disableNextButton = false;       
     }
 
-    mounted(){
-        
+    mounted(){        
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -75,17 +71,14 @@ export default class BackgroundFamilyViolence extends Vue {
     
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
-
         
         if (this.step.result?.backgroundFamilyViolenceSurvey) {
             this.survey.data = this.step.result.backgroundFamilyViolenceSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
-              
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
-
    
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
@@ -97,10 +90,8 @@ export default class BackgroundFamilyViolence extends Vue {
         }
     }  
     
-    beforeDestroy() {
-        
+    beforeDestroy() {        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
         this.UpdateStepResultData({step:this.step, data: {backgroundFamilyViolenceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }

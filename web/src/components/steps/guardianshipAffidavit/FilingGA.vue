@@ -17,7 +17,7 @@ import { electronicFilingDocumentInfoType, stepInfoType, stepResultInfoType } fr
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
-import { togglePages, toggleStep } from '@/components/utils/TogglePages';
+import { togglePages } from '@/components/utils/TogglePages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -73,8 +73,7 @@ export default class FilingGa extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
 
-            this.determinePages();            
-            
+            this.determinePages(); 
             
         })
     }
@@ -84,8 +83,7 @@ export default class FilingGa extends Vue {
         if (this.survey.data?.sworn && this.steps[this.stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
             const eFiling = this.steps[this.stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';
             togglePages([this.stPgNo.GA.ElectronicFilingStatementGA], this.survey.data.sworn == 'y' && eFiling, this.currentStep);
-        }
-            
+        }            
     }
     
     public reloadPageInformation() {
@@ -132,10 +130,8 @@ export default class FilingGa extends Vue {
     
     beforeDestroy() {   
         
-        this.setEfsDocumentList();
-        
+        this.setEfsDocumentList();        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
         this.UpdateStepResultData({step:this.step, data: {filingGaSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }

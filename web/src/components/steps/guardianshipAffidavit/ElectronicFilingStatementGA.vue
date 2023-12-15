@@ -17,7 +17,6 @@ import surveyJson from "./forms/electronic-filing-statement-ga.json";
 import PageBase from "../PageBase.vue";
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 
 @Component({
     components:{
@@ -28,9 +27,6 @@ export default class ElectronicFilingStatementGa extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -154,7 +150,6 @@ export default class ElectronicFilingStatementGa extends Vue {
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
         this.UpdateStepResultData({step:this.step, data: {electronicFilingStatementGaSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }

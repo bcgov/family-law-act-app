@@ -99,9 +99,6 @@ export default class ChildrenDetailsGa extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.State
-    public steps!: stepInfoType[];    
-
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
@@ -237,22 +234,9 @@ export default class ChildrenDetailsGa extends Vue {
 
     public resetChildrenRelatedPages(childData?) {
     
-        const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
-        const p = stPgNo.GA;
+        const p = this.stPgNo.GA;
 
-        const pages = [
-            // p.ParentingArrangements,
-            // p.ParentalResponsibilities,
-            // p.ParentingTime,
-            // p.ParentingOrderAgreement,
-            // p.BestInterestsOfChild,
-            // p.ChildSupportCurrentArrangements,
-            // p.AboutChildSupportOrder,
-            // p.SpecialAndExtraordinaryExpenses,
-            // p.ContactWithChild,
-            // p.ContactWithChildOrder,
-            // p.AboutContactWithChildOrder,
-            // p.ContactWithChildBestInterestsOfChild,
+        const pages = [            
             p.CaringForChildGa,
             p.ReviewYourAnswersGA
         ]
