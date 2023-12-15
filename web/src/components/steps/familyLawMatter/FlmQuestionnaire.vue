@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="checkbox-border">
-                    <b-form-checkbox value="guardianOfChild"><div class="checkbox-choices">Guardianship of a Child</div>
+                    <b-form-checkbox value="guardianOfChild"><div class="checkbox-choices">Guardianship of a child</div>
                     <p>
                         Guardianship is who is responsible for a child. Only guardians have parental responsibilities and parenting time with a child. 
                         An agreement or order about parenting arrangements can say a child’s guardians share parental responsibilities 
@@ -69,17 +69,6 @@
                         <p>
                             Spousal support is the money that one spouse pays to another spouse for their financial support after separation. A person is not 
                             entitled to spousal support in every case. 
-                        </p>
-                    </b-form-checkbox>
-                </div>
-
-                <div class="checkbox-border">
-                    <b-form-checkbox value="companionAnimal"><div class="checkbox-choices">Property Division in Respect of a Companion Animal</div>
-                        <p>
-                            Property division in respect of a <tooltip title="companion animal" size="lg" :index="0"/> is who will have ownership and possession of a companion animal 
-                            when <tooltip title="spouses"  size="lg" :index="0"/> separate. The court may make an order for ownership and possession of a companion animal by one spouse. 
-                            Spouses may agree out of court to share ownership and possession of a companion animal.
-                            
                         </p>
                     </b-form-checkbox>
                 </div>
@@ -297,7 +286,6 @@ export default class FlmQuestionnaire extends Vue {
             if(form=='contactWithChild')        result+='Contact With a Child'+'\n';
             if(form=='guardianOfChild')         result+='Guardian Of a Child'+'\n';
             if(form=='spousalSupport')          result+='Spousal Support'+'\n';
-            if(form=='companionAnimal')         result+='Property Division in Respect of a Companion Animal'+'\n';
         }
         return result;
     }

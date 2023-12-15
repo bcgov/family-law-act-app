@@ -43,12 +43,10 @@
                         <div class="checkbox-border">
                             <b-form-checkbox :disabled="selectedReplyForms.includes('replyFlm')" value="familyLawMatter">  
                             <span v-if="returningUser"><div class="checkbox-choices">Family Law Matters including parenting arrangements, child support, contact with a 
-                                child, guardianship of a child, spousal support and property division in respect of a <tooltip title="companion animal" size="lg" index="0" /> under the <i>Family Law Act.</i></div>
+                                child, guardianship of a child and spousal support under the <i>Family Law Act.</i></div>
                                 <p>
-                                    Applying for a new order about a Family Law Matter. Applying to change or cancel 
-                                    all or part of a <tooltip title="final order" size="lg" :index="0"/> about a Family Law Matter, other than property division 
-                                    in respect of a companion animal. Applying to set aside or replace all or part of 
-                                    an agreement you already have about a family law matter.
+                                Applying for an application for a new order, to change an order, or to cancel an order about
+                                a Family Law Matter.
                                 </p>
                             </span>
                             <span v-else><div class="checkbox-choices">Family law matter</div>

@@ -47,10 +47,6 @@
         <about-existing-spousal-support-order         v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.AboutExistingSpousalSupportOrder"/>
         <unpaid-spousal-support                       v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.UnpaidSpousalSupport"/>
 
-        <property-division-companion-animal           v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.PropertyDivisionCompanionAnimal"/>        
-        <companion-animal-facts                       v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.CompanionAnimalFacts"/>
-        <companion-animal-existing-agreement          v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.CompanionAnimalExistingAgreement"/>
-
         <flm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.FlmAdditionalDocuments"/>
         <review-your-answers-flm  v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ReviewYourAnswersFLM"/>
         <preview-forms-flm        v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.PreviewFormsFLM"/>
@@ -105,10 +101,6 @@ import ExistingSpousalSupportFinalOrder from "./spousalSupport/ExistingSpousalSu
 import AboutExistingSpousalSupportOrder from "./spousalSupport/AboutExistingSpousalSupportOrder.vue";
 import ExistingSpousalSupportOrderAgreement from "./spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
 import UnpaidSpousalSupport from "./spousalSupport/UnpaidSpousalSupport.vue";
-
-import PropertyDivisionCompanionAnimal from "./companionAnimal/PropertyDivisionCompanionAnimal.vue";
-import CompanionAnimalFacts from "./companionAnimal/CompanionAnimalFacts.vue";
-import CompanionAnimalExistingAgreement from "./companionAnimal/CompanionAnimalExistingAgreement.vue"
 
 import FlmAdditionalDocuments from "./FlmAdditionalDocuments.vue"
 import ReviewYourAnswersFlm from "./reviewFLM/ReviewYourAnswersFLM.vue"
@@ -174,10 +166,6 @@ const applicationState = namespace("Application");
         AboutExistingSpousalSupportOrder,
         ExistingSpousalSupportOrderAgreement,
         UnpaidSpousalSupport,
-
-        PropertyDivisionCompanionAnimal,
-        CompanionAnimalFacts,
-        CompanionAnimalExistingAgreement,
         
         FlmAdditionalDocuments,
 

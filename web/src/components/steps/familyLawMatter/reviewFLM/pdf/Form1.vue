@@ -132,11 +132,7 @@ export default class Form1 extends Vue {
                     
         if (selectedFLMs?.includes("spousalSupport")){
             pathways.push("spousalSupport")
-        } 
-        
-        if (selectedFLMs?.includes("companionAnimal")){
-            pathways.push("companionAnimal");
-        }
+        }        
         
         return pathways;
     }

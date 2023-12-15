@@ -1,8 +1,10 @@
 <template>
     <div> 
         <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-        
-        <div style="font-size:14pt;font-weight:600; margin-bottom:1rem;">Checklist for Notice to Resolve Family Law Matter</div>
+        <div style="font-size:13pt;font-weight:600; margin-bottom:1rem;">
+            Only applies to Early Resolutions Registries – <span style="font-weight:400;">Surrey and Victoria</span>
+        </div>
+        <div style="font-size:14pt;font-weight:600; margin-bottom:1rem;">Checklist for Notice to Resolve Family Claim</div>
 
 <!-- <Step 1> -->
         <div>
@@ -33,21 +35,6 @@
                 be sure it’s readable.
             </p>
             <p>
-                Registry staff and staff at any 
-                <a href="https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F"
-                target="_blank">Justice Access Centre</a> or 
-                <a href="https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA"
-                target="_blank">Family Justice Centre</a>
-                can help answer questions about the forms but they cannot help complete your forms 
-                or give advice about legal problems. If you need help filling in the forms and do 
-                not have a lawyer, ask the court registry staff or staff at the Justice Access 
-                Center or Family Justice Centre to refer you to someone who can help.
-            </p>
-            <p>
-                You need to complete and file the main part of the form and only the 
-                schedules that apply to your application.
-            </p>
-            <!-- <p>
                 Follow the instructions provided in the form and include all 
                 the information that is asked for. To prepare the form for filing:
                 <ul>
@@ -63,7 +50,7 @@
                         </a>
                     </li>
                 </ul>
-            </p>             -->
+            </p>            
         </div>
 
 <!-- <Step 2> -->
@@ -110,10 +97,7 @@
             </p>
             <p>
                 The registry clerk will review your package to make sure it is complete before filing it. 
-                You will be given a copy for your records. 
-            </p>
-            <p>
-                There are no fees for filing Provincial Court 
+                You will be given a copy for your records. There are no fees for filing Provincial Court 
                 family documents.
             </p>
             
@@ -178,23 +162,18 @@
                 If you do not resolve all issues during the early resolution process, either party can make an application 
                 to the Provincial Court for a court order by filing an 
                 <a
-                    href="https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178"
+                    href="https://www2.gov.bc.ca/assets/download/30F4D4D7C888474FB8329B7E3B540464"
                     target="_blank">Application About a Family Law Matter Claim Form 3
                 </a>.
             </p>
 
-            <p style="font-weight: 700">
+            <p>
                 Contact the 
                 <a 
                     href="https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F" 
                     target="_blank">Justice Access Centre
                 </a> 
                 in person or by phone to find out more about meeting the requirements.
-                More information about their services, including contact information, can be found at 
-                <a 
-                    href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/justice-services/family-justice-services-division" 
-                    target="_blank">Family Justice Services Division
-                </a>.
             </p>
 
         </div>

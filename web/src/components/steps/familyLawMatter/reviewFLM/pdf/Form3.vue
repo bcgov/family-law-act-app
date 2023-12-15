@@ -13,8 +13,6 @@
         <schedule-8 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule8')" />
         <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
         <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
-        <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
-        <schedule-12 v-bind:result="result" v-if="selectedSchedules.includes('schedule12')" />
 
     </b-card>
 </div>
@@ -38,8 +36,6 @@ import Schedule7 from "./Schedules/Schedule7.vue"
 import Schedule8 from "./Schedules/Schedule8.vue"
 import Schedule9 from "./Schedules/Schedule9.vue"
 import Schedule10 from "./Schedules/Schedule10.vue"
-import Schedule11 from "./Schedules/Schedule11.vue"
-import Schedule12 from "./Schedules/Schedule12.vue"
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
@@ -58,9 +54,7 @@ import moment from 'moment';
         Schedule7,
         Schedule8,
         Schedule9,
-        Schedule10,
-        Schedule11,
-        Schedule12 
+        Schedule10, 
     }
 })
 
@@ -167,9 +161,6 @@ export default class Form3 extends Vue {
             if (selectedFLMs?.includes("spousalSupport")){
                 schedules.push("schedule9")
             }
-            if (selectedFLMs?.includes("companionAnimal")){
-                schedules.push("schedule11")
-            }
 
         } else if (flmBackgroundInfo?.ExistingOrdersFLM == 'y' && flmBackgroundInfo?.existingOrdersListFLM?.length > 0){
 
@@ -203,14 +194,6 @@ export default class Form3 extends Vue {
                     schedules.push("schedule10")
                 } else {
                     schedules.push("schedule9");
-                }
-            } 
-
-            if (selectedFLMs?.includes("companionAnimal")){
-                if (flmBackgroundInfo.existingOrdersListFLM?.includes("Property Division in Respect of a Companion Animal")){
-                    schedules.push("schedule12")
-                } else {
-                    schedules.push("schedule11");
                 }
             } 
         }

@@ -187,10 +187,6 @@
                     <check-box  :check="selectedSchedules.includes('schedule9')?'yes':''" text="spousal support – new <i>[complete and attach Schedule 9]</i>"/>
                     <check-box  :check="selectedSchedules.includes('schedule10')?'yes':''" text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>
 
-                    <div style="margin-top:0.25rem;"><b>Property division</b></div>
-                    <check-box  :check="selectedSchedules.includes('schedule11')?'yes':''" text="in respect a companion animal - new <i>[complete and attach Schedule 11]</i>"/>
-                    <check-box  :check="selectedSchedules.includes('schedule12')?'yes':''" text="companion animal agreement – existing <i>[complete and attach Schedule 12]</i>"/>
-
                 </div>
             </section>
         </div>
