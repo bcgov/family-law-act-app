@@ -28,8 +28,8 @@
                         I do not agree with the order requested by the other party about 
                         property division in respect of a companion animal because:
                     </div>
-                    <div v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails" 
-                        class="answerbox">{{exCompInfo.agreementReplacementDetails}}</div>
+                    <div v-if="exReplyCompInfo.disagreeReason" 
+                        class="answerbox">{{exReplyCompInfo.disagreeReason}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
                 </div>
                 
@@ -42,10 +42,10 @@
                         Select only one of the options below                   
                     </i>
                     <div style="margin:0 0 2rem 3.25rem;">
-                        <check-box  :check="exCompInfo.setAside?'yes':''" text="I would like the existing agreement about property division in respect of a companion animal to continue to be in place"/>
-                        <check-box  :check="exCompInfo.replace?'yes':''" text="I am applying to replace the existing agreement about property division in respect of a companion animal as follows:"/>                  
-                        <div v-if="exCompInfo.reason" 
-                            class="answerbox">{{exCompInfo.reason}}</div>
+                        <check-box  :check="!exReplyCompInfo.replace?'yes':''" text="I would like the existing agreement about property division in respect of a companion animal to continue to be in place"/>
+                        <check-box  :check="exReplyCompInfo.replace?'yes':''" text="I am applying to replace the existing agreement about property division in respect of a companion animal as follows:"/>                  
+                        <div v-if="exReplyCompInfo.replace && exReplyCompInfo.replaceDetails" 
+                            class="answerbox">{{exReplyCompInfo.replaceDetails}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
                 </section> 
@@ -60,7 +60,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { schedule12DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { schedule102DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 import { companionAnimalExistingAgreementDataInfoType } from '@/types/Application/FamilyLawMatter/CompanionAnimal';
 
 @Component({
@@ -76,7 +76,7 @@ export default class Schedule102 extends Vue {
     result!: any; 
    
     dataReady = false;
-    exCompInfo = {} as schedule12DataInfoType;
+    exReplyCompInfo = {} as schedule102DataInfoType;
    
     mounted(){
         this.dataReady = false;      
@@ -85,34 +85,30 @@ export default class Schedule102 extends Vue {
     }    
 
     public extractInfo(){ 
-        this.exCompInfo = this.getExCompanionAnimalInfo(); 
+        this.exReplyCompInfo = this.getExReplyCompanionAnimalInfo(); 
     }
 
-    public getExCompanionAnimalInfo(){
+    public getExReplyCompanionAnimalInfo(){
        
-        let exCompInfo = {} as schedule12DataInfoType;
+        let exReplyCompInfo = {} as schedule102DataInfoType;
 
-        exCompInfo = {
-            agreementDate: '',
-            reason: '',
+        exReplyCompInfo = {
+            disagreeReason: '',
             replace: false,
-            agreementReplacementDetails: '',
-            setAside: false
+            replaceDetails: ''  
         }
 
         if (this.result.companionAnimalExistingAgreementSurvey){
-            const exCompData: companionAnimalExistingAgreementDataInfoType = this.result.companionAnimalExistingAgreementSurvey;
+            const exReplyCompData: companionAnimalExistingAgreementDataInfoType = this.result.companionAnimalExistingAgreementSurvey;
             
-            exCompInfo.agreementDate = Vue.filter('beautify-date')(exCompData.agreementDate);
-            exCompInfo.reason = exCompData.setAsideReason;
-            exCompInfo.replace = exCompData.existingAgreementDecision == 'Replaced';
-            exCompInfo.setAside = exCompData.existingAgreementDecision == 'SetAside';
-            if (exCompInfo.replace){
-                exCompInfo.agreementReplacementDetails = exCompData.agreementReplacement?exCompData.agreementReplacement:'';
+            exReplyCompInfo.disagreeReason = ''//exCompData.setAsideReason;
+            exReplyCompInfo.replace = false //exCompData.existingAgreementDecision == 'Replaced';            
+            if (exReplyCompInfo.replace){
+                exReplyCompInfo.replaceDetails = ''// exCompData.agreementReplacement?exCompData.agreementReplacement:'';
             }
         }
 
-       return exCompInfo;
+       return exReplyCompInfo;
    } 
 
 }
