@@ -272,17 +272,19 @@
             </div>
         </section> 
 
-        <div class="print-block">
+        <div class="print-block" style="border:1px solid #414142; padding: 1rem; margin-top: 2rem;" >
                 <div style="margin-top:0rem;"><b>NOTE TO THE PARTIES:</b></div>
-                <div 
-                    style="margin-top:0rem; font-size:9pt; text-align:justify;">
-                    <b>This Notice to Resolve a Family Law Matter has been filed with the Provincial Court of British Columbia.
-                        Before proceeding any further with your case, each party is required to meet the early resolution requirements described in the rules.
-                        If you do not resolve all family law matters during the early resolution process, either party can apply to the Provincial Court for a court
-                        order. If you do not participate in the early resolution process, the other party will be allowed to proceed to the Provincial Court to ask for
-                        a court order. A party must have met the early resolution requirements before they will be allowed to file an Application About a Family
-                        Law Matter or Reply to an Application About a Family Law Matter in the case. 
-                    </b>
+                <div style="margin-top:0rem; font-size:9pt; text-align:justify;">
+                    This Notice to Resolve a Family Law Matter has been filed with the Provincial 
+                    Court of British Columbia.
+                    Before proceeding any further with your case, each party is required to meet 
+                    the early resolution requirements described in the rules. If you do not resolve 
+                    all family law matters during the early resolution process, either party can apply 
+                    to the Provincial Court for a court order. If you do not participate in the 
+                    early resolution process, the other party will be allowed to proceed to the 
+                    Provincial Court to ask for a court order. A party must have met the early 
+                    resolution requirements before they will be allowed to file an Application About a
+                    Family Law Matter or Reply to an Application About a Family Law Matter in the case. 
                 </div>                
         </div>
 
@@ -291,17 +293,16 @@
             <div style="margin-left:1rem; margin-top:0.5rem;">
                 
                 <ordered-check-box :order="1" text="<b>Contact</b> Family Justice Services Division to <b>schedule</b> your individual <b>needs assessment</b>." style="display:inline-block;" :check="false?'yes':''"/>            
-                <div style="margin-left:3rem; margin-top:0.25rem;">
+                <div style="margin-left:3rem; margin-top:0.75rem;">
                     If you have already participated in some or all of the early resolution requirements within the last year,
                     Family Justice Services Division will confirm you have met the early resolution requirements and prepare
                     the required documents for the court.
                 </div>
 
-                <div style="margin:0.25rem 0 0.5rem 3rem;">
-                    <b>Note:</b> You may be contacted by a needs assessor if someone else has filed a Notice to Resolve a Family
+                <div style="margin:0.75rem 0 0.5rem 3rem;">
+                    <b>NOTE:</b> You may be contacted by a needs assessor if someone else has filed a Notice to Resolve a Family
                     Law Matter and named you as the other party in that document.
                 </div>
-
 
                 <ordered-check-box :order="2"  :check="false?'yes':''" text="<b>Participate in a needs assessment</b>"/>
                 <div style="margin-left:3rem;margin-bottom:0.5rem">
@@ -330,18 +331,18 @@
         <div class="print-block">
                 <div style="margin-top:1rem;"><b>NOTE TO THE PARTIES:</b></div>
                 <div 
-                    style="margin-top:0rem; font-size:9.7pt; text-align:justify;">
-                    <div style="margin-bottom:0.25rem">
+                    style="margin-top:0.5rem; font-size:9.7pt; text-align:justify;">
+                    <div style="margin-bottom:2rem">
                         <b>If you require a time sensitive order on a family law matter</b>
                         you may be able to postpone participation in one or more of the early resolution requirements until after you have received 
                         your time sensitive order. Please speak to Family Justice Services Division or the court registry if this situation applies to you.
                     </div>
-                    <b >Reminder:</b>
+                    <b>Reminder:</b>
                     <div>
                         If you do not resolve all family law matters during the early resolution requirements, either party can file an
                         application in the Provincial Court to request a court order.
                     </div>
-                    <div  style="margin-top:0.5rem">
+                    <div style="margin-top:1rem;">
                         If you do not participate in the early resolution requirements, the other party will be allowed to proceed to the
                         Provincial Court to ask for a court order. A party must have met the requirements for early resolution before
                         they will be allowed to file an Application About a Family Law Matter or Reply to an Application About a Family
