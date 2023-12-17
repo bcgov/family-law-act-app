@@ -51,8 +51,7 @@ export default class ChildrenSurvey extends Vue {
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
     
-    public addSurveyListener(){
-        Vue.filter('surveyChanged')('guardianshipAffidavit')        
+    public addSurveyListener(){       
         this.survey.onComplete.add((sender, options) => {
             this.populateChildModel(sender.data);
             let id = sender.getVariable("id");
@@ -68,6 +67,9 @@ export default class ChildrenSurvey extends Vue {
     public reloadPageInformation() {
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
+        } else {
+            this.survey.setValue("currentGuardiansToChild", []);
+            this.survey.setValue("parentsNotGuardians", []);
         }
         
         let progress = 50;
@@ -96,8 +98,7 @@ export default class ChildrenSurvey extends Vue {
             this.child.parentsNotGuardiansExist = childData.parentsNotGuardiansExist;
             this.child.parentsNotGuardians = childData.parentsNotGuardians;
             this.child.relationWithchild = childData.relationWithchild;
-            this.child.lengthOfRelationship = childData.lengthOfRelationship?.selected;
-            this.child.relationStartDate = childData.lengthOfRelationship?.relationStartDate;
+            this.child.lengthOfRelationship = childData.lengthOfRelationship;
             this.child.currentLiving = childData.currentLiving;
         }
     }
@@ -105,16 +106,14 @@ export default class ChildrenSurvey extends Vue {
     public populateFormWithPreExistingValues(editRowProp, survey) {
         survey.data = {
             name: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
-        };
+        };        
         survey.setValue("dob", editRowProp.dob);
         survey.setValue("currentGuardiansToChild", editRowProp.currentGuardiansToChild);
         survey.setValue("parentsNotGuardiansExist", editRowProp.parentsNotGuardiansExist);
         survey.setValue("parentsNotGuardians", editRowProp.parentsNotGuardians);
         survey.setValue("relationWithchild", editRowProp.relationWithchild);
         survey.setValue("lengthOfRelationship", editRowProp.lengthOfRelationship);
-        survey.setValue("relationStartDate", editRowProp.relationStartDate);
         survey.setValue("currentLiving", editRowProp.currentLiving);
-
         survey.setVariable("id", editRowProp.id);
     }
 

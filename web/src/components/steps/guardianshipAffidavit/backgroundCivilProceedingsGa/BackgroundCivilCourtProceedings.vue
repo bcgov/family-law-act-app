@@ -225,12 +225,10 @@ export default class BackgroundCivilCourtProceedings extends Vue {
         }        
 
         this.dataReady = true;
-        
     }
 
     public situationChanged(){
         this.updated++;
-        Vue.filter('surveyChanged')('guardianshipAffidavit');
     }
     
     public openForm(anyRowToBeEdited?) {

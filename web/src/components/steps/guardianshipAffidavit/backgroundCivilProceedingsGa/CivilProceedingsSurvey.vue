@@ -54,7 +54,6 @@ export default class CivilProceedingsSurvey extends Vue {
     }
     
     public addSurveyListener(){
-        Vue.filter('surveyChanged')('guardianshipAffidavit')        
         this.survey.onComplete.add((sender, options) => {
             this.populateProceedingModel(sender.data);
             let id = sender.getVariable("id");

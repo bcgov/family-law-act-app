@@ -41,8 +41,8 @@
                                     <td v-if="child.parentsNotGuardiansExist == 'y'">{{child.parentsNotGuardians.map(party=>party.name).join(', ')}}</td>
                                     <td v-else></td>
                                     <td >{{child.relationWithchild}}</td>
-                                    <td v-if="child.lengthOfRelationship == 'sinceBirth'">Since Birth</td>
-                                    <td v-else>Since {{child.relationStartDate}}</td>
+                                    <td v-if="child.lengthOfRelationship.selected == 'sinceBirth'">Since Birth</td>
+                                    <td v-else>Since {{child.lengthOfRelationship.relationStartDate}}</td>
                                     <td >{{child.currentLiving}}</td>
                                     <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
@@ -182,7 +182,7 @@ export default class ChildrenDetailsGa extends Vue {
 
     public surveyHasError(){
         let progress = this.childData.length==0? 50 : 100;
-        this.incompleteError =  false;        
+        this.incompleteError =  false;
         for(const child of this.childData){
             if (!child.dob || !child.currentGuardiansToChild || !child.parentsNotGuardiansExist || (child.parentsNotGuardiansExist == 'y' && (!child.parentsNotGuardians || child.parentsNotGuardians?.length == 0)) || !child.relationWithchild){            
                 this.incompleteError = true;  

@@ -93,7 +93,7 @@ export default class GuardianshipAffidavit extends Vue {
             p.Exhibits,
             p.ReviewYourAnswersGA
         ]
-        Vue.filter('setProgressForPages')(p._StepNo, pages,50);    
+        Vue.filter('setProgressForPages')(p._StepNo, pages,50);
 
     }
    

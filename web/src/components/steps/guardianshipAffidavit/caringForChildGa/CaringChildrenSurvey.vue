@@ -53,8 +53,7 @@ export default class CaringChildrenSurvey extends Vue {
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
     
-    public addSurveyListener(){
-        Vue.filter('surveyChanged')('guardianshipAffidavit')        
+    public addSurveyListener(){         
         this.survey.onComplete.add((sender, options) => {
             this.populateChildModel(sender.data);
             let id = sender.getVariable("id");

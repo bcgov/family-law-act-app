@@ -60,8 +60,6 @@
             </div>
 
         </div>
-
-        
         
         
         <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 2rem;"> 
@@ -88,7 +86,7 @@
                 small
                 bordered>                    
                     <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                        <div style="min-height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                     </template>
                     <template v-slot:head(dob)>
                         Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
@@ -247,9 +245,8 @@
 
             <div style="display:block; font-size: 9pt; margin: 1rem 0;"> 
                 <ol class="list-brackets" style="margin:0.25rem 0 0 1.5rem;" type="a">
-
-                    <li v-for="exhibit in orderList" :key="exhibit.exhibitIndex" style="margin:0.5rem 0 0 0;">
-                        
+                    
+                    <li v-for="exhibit in orderList" :key="exhibit.exhibitIndex" style="margin:0.5rem 0 0 0;">                        
                         <underline-form 
                             style="text-indent:0;margin-left:.75rem;display:inline-block;" 
                             textwidth="6rem" 
@@ -283,7 +280,7 @@
                 textwidth="2.5rem" 
                 beforetext="Attached to this affidavit and marked as Exhibit" 
                 hint="(A, B, etc.)" 
-                :text="mcfdRecord.exhibitName.replace('Exhibit ','')"/>
+                :text="mcfdRecord.exhibitName?mcfdRecord.exhibitName.replace('Exhibit ',''):''"/>
                 <div style="text-indent:5px;display:inline;"> 
                     is a copy of a British Columbia Ministry of
                 </div>           
@@ -292,7 +289,7 @@
                     textwidth="6rem" 
                     beforetext=" Children and Family Development records check dated" 
                     hint="(mmm/dd/yyyy)" 
-                    :text="mcfdRecord.fileDate | beautify-date"/>
+                    :text="mcfdRecord.fileDate?mcfdRecord.fileDate:''"/>                    
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                     .
                 </div>            
@@ -307,7 +304,7 @@
                 textwidth="2.5rem" 
                 beforetext="Attached to this affidavit and marked as Exhibit" 
                 hint="(A, B, etc.)" 
-                :text="porsRecord.exhibitName.replace('Exhibit ','')"/>
+                :text="porsRecord.exhibitName?porsRecord.exhibitName.replace('Exhibit ',''):''"/>
 
             <div style="text-indent:5px;display:inline;"> 
                 is a copy of a Protection Order Registry protection order
@@ -318,7 +315,7 @@
                 textwidth="6rem" 
                 beforetext=" records check dated" 
                 hint="(mmm/dd/yyyy)" 
-                :text="porsRecord.fileDate | beautify-date"/>
+                :text="porsRecord.fileDate?porsRecord.fileDate:''"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 .
             </div>
@@ -334,7 +331,7 @@
                 textwidth="2.5rem" 
                 beforetext="Attached to this affidavit and marked as Exhibit" 
                 hint="(A, B, etc.)" 
-                :text="crcRecord.exhibitName.replace('Exhibit ','')"/>
+                :text="crcRecord.exhibitName?crcRecord.exhibitName.replace('Exhibit ',''):''"/>
 
             <div style="text-indent:5px;display:inline;"> 
                     is a copy of a criminal records check dated
@@ -344,7 +341,7 @@
                 textwidth="6rem" 
                 beforetext="" 
                 hint="(mmm/dd/yyyy)" 
-                :text="crcRecord.fileDate | beautify-date"/>
+                :text="crcRecord.fileDate?crcRecord.fileDate:''"/>
 
             <div style="text-indent:5px;display:inline;"> 
                 obtained from the
@@ -434,9 +431,8 @@
             <div style="margin:.5rem 0 0 0">
                 <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="" hint="[print name or affix stamp of commissioner]" text="" />
             </div>
-        </div>
-
     </div>
+
 </template>
 
 <script lang="ts">
@@ -610,10 +606,10 @@ export default class Form5Layout extends Vue {
             }
             childInfo.relationWithchild = child.relationWithchild;
 
-            if (child.lengthOfRelationship == 'sinceBirth'){
+            if (child.lengthOfRelationship.selected == 'sinceBirth'){
                 childInfo.lengthOfRelationship = "Since Birth";
             } else {
-                childInfo.lengthOfRelationship = "Since "+ Vue.filter('beautify-date')(child.relationStartDate);
+                childInfo.lengthOfRelationship = "Since "+ child.lengthOfRelationship?.relationStartDate?Vue.filter('beautify-date')(child.lengthOfRelationship.relationStartDate):'';
             }
 
             childInfo.currentLiving = child.currentLiving;
@@ -672,7 +668,9 @@ export default class Form5Layout extends Vue {
             if(this.courtProceedingsExist){
                 this.orderList = this.exhibitList.filter(exhibit => exhibit.itemNo != 0); 
                 const civilProceedingsData = this.orderList;
-                this.civilProceedingInfo = [];               
+                this.civilProceedingInfo = [];  
+                
+                let maxItemNo = '';
                 
                 for (const proceeding of civilProceedingsData){
 
@@ -686,8 +684,28 @@ export default class Form5Layout extends Vue {
                         proceedingInfo.courtLocation = proceeding.courtLocation;
                         proceedingInfo.courtOrderDates.push(Vue.filter('beautify-date')(proceeding.fileDate));
                         this.civilProceedingInfo.push(proceedingInfo);
-                    }                   
+                    }  
+                    
+                    maxItemNo = proceeding.itemNo;
+                }
+                
+                let noOrderBaseIndex = Number(maxItemNo) + 1;
+
+                for (const proceeding of proceedingData.courtProceedings){
+
+                    if(proceeding.courtOrdersExist == 'n'){
+                        const proceedingInfo = {itemNo: '', partyNames: '', courtLocation:'', courtOrderDates: []};                        
+                        proceedingInfo.itemNo = String(noOrderBaseIndex);
+                        proceedingInfo.partyNames = proceeding.partyNames;
+                        proceedingInfo.courtLocation = proceeding.courtLocation;
+                        proceedingInfo.courtOrderDates = [];
+                        this.civilProceedingInfo.push(proceedingInfo); 
+                        noOrderBaseIndex++;
+                    }
+                                 
                 } 
+
+
             }
         }
 
@@ -696,9 +714,17 @@ export default class Form5Layout extends Vue {
             const ga: guardianshipAffidavitDataInfoType = this.result.guardianshipAffidavitSurvey
 
             if (ga.haveBrcResults == 'y'){
-                this.mcfdRecord = this.exhibitList.filter(exhibit => exhibit.fileName == "Ministry of Children and Family Development Record Check dated ")[0];
-                this.crcRecord = this.exhibitList.filter(exhibit => exhibit.fileName == "Criminal Record Check dated ")[0];
-                this.porsRecord = this.exhibitList.filter(exhibit => exhibit.fileName == "Protection Order Record Check from the Protection Order Registry dated ")[0];
+                const mcfdRecordData = this.exhibitList.filter(exhibit => exhibit.fileName == "Ministry of Children and Family Development Record Check dated ")[0];                
+                this.mcfdRecord.exhibitName = mcfdRecordData.exhibitName;
+                this.mcfdRecord.fileDate = Vue.filter('beautify-date')(mcfdRecordData.fileDate);
+
+                const crcRecordData = this.exhibitList.filter(exhibit => exhibit.fileName == "Criminal Record Check dated ")[0];
+                this.crcRecord.exhibitName = crcRecordData.exhibitName;
+                this.crcRecord.fileDate = Vue.filter('beautify-date')(crcRecordData.fileDate);
+
+                const porsRecordData = this.exhibitList.filter(exhibit => exhibit.fileName == "Protection Order Record Check from the Protection Order Registry dated ")[0];
+                this.porsRecord.exhibitName = porsRecordData.exhibitName;
+                this.porsRecord.fileDate = Vue.filter('beautify-date')(porsRecordData.fileDate)
                 this.policeDept = ga.policeDept?ga.policeDept:'';
             }
         }    

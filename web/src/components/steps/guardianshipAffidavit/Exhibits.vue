@@ -112,9 +112,10 @@ export default class Exhibits extends Vue {
                             exhibit.courtLocation = proceeding.courtLocation;
                             gaExhibitList.push(exhibit);
                             baseIndex++;
-                        }                        
+                        } 
+                        itemNo++;                       
                     }
-                    itemNo++;
+                    
                 }                
             }            
         } 

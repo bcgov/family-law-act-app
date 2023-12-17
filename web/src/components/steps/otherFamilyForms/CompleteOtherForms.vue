@@ -372,6 +372,12 @@ export default class CompleteOtherForms extends Vue {
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Guardianship Affidavit'){
+                const step = this.stPgNo.GA._StepNo
+                const page = this.stPgNo.GA.PreviewFormsGA
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }
             
             if(pdf_type) await this.removeGeneratedPDF(pdf_type)

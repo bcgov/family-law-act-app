@@ -203,8 +203,7 @@ export default class caringForChildGa extends Vue {
     }
 
     public situationChanged(){
-        this.updated++;
-        Vue.filter('surveyChanged')('guardianshipAffidavit');
+        this.updated++;        
     }
     
     public openForm(anyRowToBeEdited?) {

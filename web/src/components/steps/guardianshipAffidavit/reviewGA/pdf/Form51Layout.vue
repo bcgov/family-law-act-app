@@ -103,7 +103,7 @@
                 
                 <underline-form 
                     style="text-indent:2px;margin-left:0rem;display:inline-block;" 
-                    textwidth="17rem" 
+                    textwidth="23rem" 
                     beforetext="The" 
                     hint="name and identifying description of document" 
                     :text="documents"/>   
@@ -112,7 +112,7 @@
                 </div>
 
                 <underline-form 
-                    style="text-indent:2px;margin: 0.5rem 0 0 -1rem;display:inline-block; font-size: 9pt;" 
+                    style="text-indent:10px;margin: 0.5rem 0 0 -1rem;display:inline-block; font-size: 9pt;" 
                     textwidth="20rem" 
                     beforetext=" on behalf of" 
                     hint="(full name of party/parties)" 
@@ -198,8 +198,7 @@ export default class Form51Layout extends Vue {
         this.dataReady = true;        
     }
    
-    public extractInfo(){   
-        console.log(this.result)     
+    public extractInfo(){       
         this.getDocumentInfo();    
         this.getFilingInfo();    
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);        

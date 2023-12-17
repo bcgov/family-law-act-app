@@ -33,8 +33,9 @@
                 "visible": false,
                 "visibleIf": "{currentlyConvicted} = 'y'",             
                 "elements": [
-                    {
-                        "isRequired": true,  
+                    { 
+                        "visible": false,
+                        "visibleIf": "{currentlyConvicted} = 'y'",
                         "type": "paneldynamic",
                         "name": "currentCharges",
                         "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>Please set out the details requested below for each criminal offence you are currently charged with:</b>",

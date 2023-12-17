@@ -39,9 +39,13 @@ export interface childGaInfoType {
     parentsNotGuardiansExist?: string;
     parentsNotGuardians?: fullNameInfoType[];
     relationWithchild?: string;
-    lengthOfRelationship?: string;
-    relationStartDate?: string;
+    lengthOfRelationship?: lengthOfRelationshipChildGaChildInfoDataInfoType;    
     currentLiving?: string;
+}
+
+export interface lengthOfRelationshipChildGaChildInfoDataInfoType { 
+    selected?: string;
+    relationStartDate?: string;
 }
 
 export interface childrenDetailsGaSurveyInfoType {
