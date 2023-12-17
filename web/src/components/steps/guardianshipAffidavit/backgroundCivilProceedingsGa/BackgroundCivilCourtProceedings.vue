@@ -41,29 +41,20 @@
                             If your court proceedings were about a separation or divorce that did not involve a child under 
                             your care, you do not need to include it.
                         </p>
-                        <div v class="radio-border">
+                        <div>
                             <b-form-group>
                                 <b-form-radio-group  
                                     style="color: #556077; font-size: 1.5em; line-height: 1.2;"
-                                    class="ml-3"                          
+                                    class="ml-3 survey-yesno-vue"                          
                                     v-model="courtProceedingsExist"
                                     name="otherChild"
                                     @change="situationChanged">                
-                                    <div>
-                                        <b-form-radio class="radio-choices" value='y'>
-                                            <div>
-                                                Yes
-                                            </div>                                      
-                                        </b-form-radio>
-                                    </div>
-
-                                    <div>
-                                        <b-form-radio class="radio-choices" value='n'>
-                                            <div>
-                                                No
-                                            </div>                                      
-                                        </b-form-radio>
-                                    </div>
+                                    <b-form-radio class="mr-5" value="y">
+                                        <div style="transform:translate(5px,-5px);">Yes</div>                                   
+                                    </b-form-radio>                                    
+                                    <b-form-radio value="n">
+                                        <div style="transform:translate(5px,-5px);">No</div>                                      
+                                    </b-form-radio>
 
                                 </b-form-radio-group>
                             </b-form-group>

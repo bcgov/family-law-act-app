@@ -351,7 +351,7 @@
                 style="text-indent:0;display: inline-block; margin: 0.35rem 0;" 
                 textwidth="26.75rem" 
                 beforetext="" 
-                hint="(name and location of police force or department from which the criminal records check was obtained )" 
+                hint="(name and location of police force or department from which the criminal records check was obtained)" 
                 :text="policeDept"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 .

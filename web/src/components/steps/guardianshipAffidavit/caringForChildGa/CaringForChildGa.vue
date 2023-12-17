@@ -21,7 +21,7 @@
                             words. You do not need to use any special wording. 
                             The key is to be clear about how they will be cared for.
                         </p>  
-                        <div v class="radio-border">
+                        <div>
                             <b-form-group>
                                 <b-textarea                  
                                     v-model="careDetails"
@@ -40,30 +40,20 @@
                             application about guardianship. If you do, the court needs 
                             some information about them too.
                         </p>  
-                        <div v class="radio-border">
-                            <b-form-group>
+                        <div>
+                            <b-form-group>                                
                                 <b-form-radio-group  
-                                    style="color: #556077; font-size: 1.5em; line-height: 1.2;"
-                                    class="ml-3"                          
+                                    style="color: #556077; font-size: 1.5em; line-height: 1.2; display: inline-block;"
+                                    class="ml-3 survey-yesno-vue"                          
                                     v-model="parentOtherChild"
                                     name="otherChild"
-                                    @change="situationChanged">                
-                                    <div>
-                                        <b-form-radio class="radio-choices" value='y'>
-                                            <div>
-                                                Yes
-                                            </div>                                      
-                                        </b-form-radio>
-                                    </div>
-
-                                    <div>
-                                        <b-form-radio class="radio-choices" value='n'>
-                                            <div>
-                                                No
-                                            </div>                                      
-                                        </b-form-radio>
-                                    </div>
-
+                                    @change="situationChanged">
+                                    <b-form-radio class="mr-5" value="y">
+                                        <div style="transform:translate(5px,-5px);">Yes</div>                                   
+                                    </b-form-radio>                                    
+                                    <b-form-radio value="n">
+                                        <div style="transform:translate(5px,-5px);">No</div>                                      
+                                    </b-form-radio>
                                 </b-form-radio-group>
                             </b-form-group>
                         </div>                
