@@ -30,7 +30,6 @@
                         ownership and possession of a companion animal <b>by one spouse.</b>
                     </i>
                 </div>
-                
              
                 <b-table
                     :items="compInfo.compAnimalInfo"
@@ -55,26 +54,26 @@
                 
 <!-- <2> -->
                 <section>
-
-                    The facts on which this application is based are as follows:
-
-                    <i style="display:block; margin-left:0.85rem">
+                    The facts on which this application is based are as follows:                    
+                    <div style="display:block;margin-left:1rem;font-style: italic;">
                         In determining whether to make an order respecting a companion animal, the court 
                         must consider the following factors set out in section 97 (4.1) of the Family Law Act:
-                        <ul>
-                            <li><span class="mx-3">the circumstances in which the companion animal was acquired</span></li>
-                            <li><span class="mx-3">the extent to which each spouse cared for the companion animal</span></li>
-                            <li><span class="mx-3">any history of family violence</span></li>
-                            <li><span class="mx-3">the risk of family violence</span></li>
-                            <li><span class="mx-3">a spouse’s cruelty, or threat of cruelty, toward an animal</span></li>
-                            <li><span class="mx-3">the relationship that a child has with the companion animal</span></li>
-                            <li><span class="mx-3">the willingness and ability of each spouse to care for the basic needs of the companion animal</span></li>
-                            <li><span class="mx-3">any other circumstances the court considers relevant</span></li>
-                        </ul>
+                    </div>
+                    <ul style="display:block;font-style: italic;">
+                        <li><span class="mx-3">the circumstances in which the companion animal was acquired</span></li>
+                        <li><span class="mx-3">the extent to which each spouse cared for the companion animal</span></li>
+                        <li><span class="mx-3">any history of family violence</span></li>
+                        <li><span class="mx-3">the risk of family violence</span></li>
+                        <li><span class="mx-3">a spouse’s cruelty, or threat of cruelty, toward an animal</span></li>
+                        <li><span class="mx-3">the relationship that a child has with the companion animal</span></li>
+                        <li><span class="mx-3">the willingness and ability of each spouse to care for the basic needs of the companion animal</span></li>
+                        <li><span class="mx-3">any other circumstances the court considers relevant</span></li>
+                    </ul>
+                    <div style="font-style: italic;margin-left:1rem;">
                         Provide the facts you want the court to consider and why the court should make the order you are applying for. 
-                    </i>
-                    <div>
-                        
+                    </div>
+                   
+                    <div>                        
                         <div v-if="compInfo.compAnimalFacts" 
                             class="answerbox">{{compInfo.compAnimalFacts}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>

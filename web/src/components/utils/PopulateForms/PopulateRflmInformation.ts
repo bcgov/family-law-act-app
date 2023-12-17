@@ -5,13 +5,14 @@ import { agreeDisagreeInfoType, form6PopulationInfoType } from '@/types/Applicat
 import { replyExistingContactWithChildDataInfoType, replyNewContactWithChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ContactWithChild';
 import { replyAppointingGuardianOfChildDataInfoType, replyCancellingGuardianOfChildDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
 import { replyExistingSpouseSupportDataInfoType, replyNewSpouseSupportDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/SpousalSupport';
+import { replyExistingPropertyDivisionDataInfoType, replyNewPropertyDivisionDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/CompanionAnimal';
 
 export function getForm6PopulationInfo(result) {
 
     let form6PopulationInfo = {} as form6PopulationInfoType;
 
     let agreeDisagreeResults = {} as agreeDisagreeInfoType;
-    let schedules: string[] = [];
+    const schedules: string[] = [];
 
     const rflmQuestionnaireInfo: rflmQuestionnaireDataInfoType = result.rflmQuestionnaireSurvey;
     const rflmCounterAppInfo: rflmCounterAppDataInfoType = result.rflmCounterAppSurvey;
@@ -34,7 +35,9 @@ export function getForm6PopulationInfo(result) {
         appointGuardian: { opApplied: false, agree: false},
         cancelGuardian: { opApplied: false, agree: false},
         newSpouseSupport: { opApplied: false, agree: false},
-        existingSpouseSupport: { opApplied: false, agree: false}
+        existingSpouseSupport: { opApplied: false, agree: false},
+        newCompanionAnimal: { opApplied: false, agree: false},
+        existingCompanionAnimal: { opApplied: false, agree: false}
     }    
 
     if (rflmQuestionnaireInfo.selectedParentingArrangementsForm.includes('newParentingArrangements')){
@@ -138,7 +141,7 @@ export function getForm6PopulationInfo(result) {
         if (!agreed){
             schedules.push('schedule8')
         }
-    }
+    }    
 
     if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('newSpouseSupport')){
 
@@ -159,6 +162,29 @@ export function getForm6PopulationInfo(result) {
 
         if (!agreed){
             schedules.push('schedule10');
+        }
+        
+    }
+
+    if (rflmQuestionnaireInfo.selectedCompanionAnimalForm.includes('newCompanionAnimal')){
+
+        const newCompanionAnimal: replyNewPropertyDivisionDataInfoType = result.replyNewPropertyDivisionSurvey;    
+        const agreed = newCompanionAnimal.agreeCourtMakeOrder == 'y';
+
+        agreeDisagreeResults.newCompanionAnimal = { opApplied: true, agree: agreed }
+        
+        if (!agreed){
+            schedules.push('schedule101')
+        }
+    } else if (rflmQuestionnaireInfo.selectedCompanionAnimalForm.includes('existingCompanionAnimal')){
+
+        const existingCompanionAnimal: replyExistingPropertyDivisionDataInfoType = result.replyExistingPropertyDivisionSurvey;    
+        const agreed = existingCompanionAnimal.agreeCourtMakeOrder == 'y';
+
+        agreeDisagreeResults.existingCompanionAnimal = { opApplied: true, agree: agreed }
+
+        if (!agreed){
+            schedules.push('schedule102');
         }
         
     }
@@ -217,6 +243,13 @@ export function getForm6PopulationInfo(result) {
 
         }
 
+        if (counterList.includes('companionAnimal')) {
+            if (existingFlmList.includes("Property Division in Respect of a Companion Animal")){
+                schedules.push('schedule22')
+            } else {
+                schedules.push('schedule21')
+            }
+        }
     }    
 
     form6PopulationInfo = {
