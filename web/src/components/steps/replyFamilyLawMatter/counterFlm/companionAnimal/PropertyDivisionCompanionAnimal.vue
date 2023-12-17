@@ -98,7 +98,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 import PropertyDivisionCompanionAnimalSurvey from "./PropertyDivisionCompanionAnimalSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import PageBase from "../../PageBase.vue";
+import PageBase from "../../../PageBase.vue";
 
 import LegalAssistanceFaqDropdown from "@/components/utils/FaqDropdowns/LegalAssistanceFaqDropdown.vue";
 import OtherPartyNotSpouseFaqDropdown from "@/components/utils/FaqDropdowns/OtherPartyNotSpouseFaqDropdown.vue";

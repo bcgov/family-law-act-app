@@ -370,6 +370,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Parenting Arrangements
         p = {} as pageInfoType;
         p.key = "4";
         p.name = "ReplyNewParentingArrangements";
@@ -410,6 +411,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Child Support
         p = {} as pageInfoType;
         p.key = "9";
         p.name = "ReplyNewChildSupport";
@@ -466,6 +468,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Contact with a Child
         p = {} as pageInfoType;
         p.key = "16";
         p.name = "ReplyNewContactWithChild";
@@ -490,6 +493,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Guardian of Child
         p = {} as pageInfoType;
         p.key = "19";
         p.name = "ReplyAppointingGuardianOfChild";
@@ -522,6 +526,7 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Spouse Support
         p = {} as pageInfoType;
         p.key = "23";
         p.name = "ReplyNewSpouseSupport";
@@ -586,8 +591,59 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+//_____ Companion Animal
+
         p = {} as pageInfoType;
         p.key = "31";
+        p.name = "ReplyNewPropertyDivision";
+        p.label = "Reply New Property Division";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "32";
+        p.name = "AnimalRelationshipToOtherParty";
+        p.label = "Relationship to Other Party";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "33";
+        p.name = "DisagreePropertyDivision";
+        p.label = "Disagree Property Division";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "34";
+        p.name = "PropertyDivisionOrder";
+        p.label = "Property Division Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "35";
+        p.name = "ReplyExistingPropertyDivision";
+        p.label = "Reply Existing Property Division";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "36";
+        p.name = "DisagreeExistingPropertyDivisionOrder";
+        p.label = "Disagree Existing Property Division Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+//_____ RFLM Additional Documents
+        p = {} as pageInfoType;
+        p.key = "37";
         p.name = "RflmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = false;
@@ -595,16 +651,18 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "32";
+        p.key = "38";
         p.name = "YourApplication";
         p.label = "Your Application";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
-        //____________Parenting Arrangements_________
+//___________ COUNTER APPLICATIONS___________
+
+//____________Parenting Arrangements_________
         p = {} as pageInfoType;
-        p.key = "33";
+        p.key = "39";
         p.name = "ParentingArrangements";
         p.label = "Parenting Arrangements";
         p.active = false;
@@ -612,7 +670,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "34";
+        p.key = "40";
         p.name = "ParentalResponsibilities";
         p.label = "Parental Responsibilities";
         p.active = false;
@@ -620,7 +678,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "35";
+        p.key = "41";
         p.name = "ParentingTime";
         p.label = "Parenting Time";
         p.active = false;
@@ -628,7 +686,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "36";
+        p.key = "42";
         p.name = "OtherParentingArrangements";
         p.label = "Other Parenting Arrangements";
         p.active = false;
@@ -636,7 +694,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "37";
+        p.key = "43";
         p.name = "ParentingOrderAgreement";
         p.label = "Parenting Order/Agreement";
         p.active = false;
@@ -644,7 +702,7 @@ class Application extends VuexModule {
         s.pages.push(p);
         
         p = {} as pageInfoType;
-        p.key = "38";
+        p.key = "44";
         p.name = "AboutParentingArrangements";
         p.label = "About Parenting Arrangements";
         p.active = false;
@@ -652,7 +710,7 @@ class Application extends VuexModule {
         s.pages.push(p);
         
         p = {} as pageInfoType;
-        p.key = "39";
+        p.key = "45";
         p.name = "ParentingArrangementChanges";
         p.label = "Parenting Arrangement Changes";
         p.active = false;
@@ -660,7 +718,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "40";
+        p.key = "46";
         p.name = "BestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
@@ -670,7 +728,7 @@ class Application extends VuexModule {
 
 //____________Child Support__________
         p = {} as pageInfoType;
-        p.key = "41";
+        p.key = "47";
         p.name = "ChildSupport";
         p.label = "Child Support";
         p.active = false;
@@ -678,7 +736,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "42";
+        p.key = "48";
         p.name = "ChildSupportCurrentArrangements";
         p.label = "Current Arrangements";
         p.active = false;
@@ -686,7 +744,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "43";
+        p.key = "49";
         p.name = "IncomeAndEarningPotential";
         p.label = "Income and Earning Potential";
         p.active = false;
@@ -694,7 +752,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "44";
+        p.key = "50";
         p.name = "AboutChildSupportOrder";
         p.label = "About the Order";
         p.active = false;
@@ -702,7 +760,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "45";
+        p.key = "51";
         p.name = "ChildSupportOrderAgreement";
         p.label = "Child Support Order/Agreement";
         p.active = false;
@@ -710,7 +768,7 @@ class Application extends VuexModule {
         s.pages.push(p);
         
         p = {} as pageInfoType;
-        p.key = "46";
+        p.key = "52";
         p.name = "AboutExistingChildSupport";
         p.label = "About Existing Child Support";
         p.active = false;
@@ -718,7 +776,7 @@ class Application extends VuexModule {
         s.pages.push(p);        
 
         p = {} as pageInfoType;
-        p.key = "47";
+        p.key = "53";
         p.name = "CalculatingChildSupport";
         p.label = "Calculating Child Support";
         p.active = false;
@@ -726,7 +784,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "48";
+        p.key = "54";
         p.name = "UndueHardship";
         p.label = "Undue Hardship";
         p.active = false;
@@ -734,7 +792,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "49";
+        p.key = "55";
         p.name = "SpecialAndExtraordinaryExpenses";
         p.label = "Special and Extraordinary Expenses";
         p.active = false;
@@ -742,7 +800,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "50";
+        p.key = "56";
         p.name = "AboutChildSupportChanges";
         p.label = "About Child Support Changes";
         p.active = false;
@@ -750,7 +808,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "51";
+        p.key = "57";
         p.name = "UnpaidChildSupport";
         p.label = "Unpaid Child Support";
         p.active = false;
@@ -759,7 +817,7 @@ class Application extends VuexModule {
 
 //____________Contact with a Child
         p = {} as pageInfoType;
-        p.key = "52";
+        p.key = "58";
         p.name = "ContactWithChild";
         p.label = "Contact with a Child";
         p.active = false;
@@ -767,7 +825,7 @@ class Application extends VuexModule {
         s.pages.push(p);        
 
         p = {} as pageInfoType;
-        p.key = "53";
+        p.key = "59";
         p.name = "ContactWithChildOrder";
         p.label = "Contact Order/Agreement";
         p.active = false;
@@ -775,7 +833,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "54";
+        p.key = "60";
         p.name = "AboutContactWithChildOrder";
         p.label = "About the Order";
         p.active = false;
@@ -783,7 +841,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "55";
+        p.key = "61";
         p.name = "ContactWithChildBestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
@@ -792,7 +850,7 @@ class Application extends VuexModule {
 
 //____________Guardianship of a Child
         p = {} as pageInfoType;
-        p.key = "56";
+        p.key = "62";
         p.name = "GuardianOfChild";
         p.label = "Guardianship of a Child";
         p.active = false;
@@ -800,7 +858,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "57";
+        p.key = "63";
         p.name = "GuardianOfChildBestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
@@ -808,7 +866,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "58";
+        p.key = "64";
         p.name = "IndigenousAncestryOfChild";
         p.label = "Indigenous Ancestry of Child";
         p.active = false;
@@ -817,7 +875,7 @@ class Application extends VuexModule {
 
 //____________Spousal Support
         p = {} as pageInfoType;
-        p.key = "59";
+        p.key = "65";
         p.name = "SpousalSupport";
         p.label = "Spousal Support";
         p.active = false;
@@ -825,7 +883,7 @@ class Application extends VuexModule {
         s.pages.push(p);  
         
         p = {} as pageInfoType;
-        p.key = "60";
+        p.key = "66";
         p.name = "SpousalSupportIncomeAndEarningPotential";
         p.label = "Income and Earning Potential";
         p.active = false;
@@ -833,7 +891,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "61";
+        p.key = "67";
         p.name = "AboutSpousalSupportOrder";
         p.label = "About the Order";
         p.active = false;
@@ -841,7 +899,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "62";
+        p.key = "68";
         p.name = "ExistingSpousalSupportOrderAgreement";
         p.label = "Spousal Support Order/Agreement";
         p.active = false;
@@ -849,7 +907,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "63";
+        p.key = "69";
         p.name = "ExistingSpousalSupportFinalOrder";
         p.label = "Existing Final Order";
         p.active = false;
@@ -857,7 +915,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "64";
+        p.key = "70";
         p.name = "ExistingSpousalSupportAgreement";
         p.label = "Existing Written Agreement";
         p.active = false;
@@ -865,7 +923,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "65";
+        p.key = "71";
         p.name = "CalculatingSpousalSupport";
         p.label = "Calculating Spousal Support";
         p.active = false;
@@ -873,7 +931,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "66";
+        p.key = "72";
         p.name = "AboutExistingSpousalSupportOrder";
         p.label = "About the Order";
         p.active = false;
@@ -881,16 +939,41 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "67";
+        p.key = "73";
         p.name = "UnpaidSpousalSupport";
         p.label = "Unpaid Spousal Support";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
+//______ Companion Animal
+        p = {} as pageInfoType;
+        p.key = "74";
+        p.name = "PropertyDivisionCompanionAnimal";
+        p.label = "Companion Animal";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "75";
+        p.name = "CompanionAnimalFacts";
+        p.label = "Companion Animal Facts";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "76";
+        p.name = "CompanionAnimalExistingAgreement";
+        p.label = "Companion Animal Existing Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
 //______ Additional Documents
         p = {} as pageInfoType;
-        p.key = "68";
+        p.key = "77";
         p.name = "FlmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = false;
@@ -898,7 +981,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "69";
+        p.key = "78";
         p.name = "ReviewYourAnswersRFLM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -906,7 +989,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "70";
+        p.key = "79";
         p.name = "PreviewFormsRFLM";
         p.label = "Preview Forms";
         p.active = false;

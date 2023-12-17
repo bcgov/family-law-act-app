@@ -435,4 +435,38 @@ ol li.bracketalpha {
 
 ol li.bracketalpha:before {
   content:counter(alpha, lower-alpha)") ";
-}		
+}	
+
+.survey-yesno-vue {
+  
+  label::before {
+    visibility: hidden !important;
+  }
+  label>div{
+    background: #eee;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    color: #666;
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    margin: 1.2rem -1.5rem 1rem -2.5rem;
+    overflow: hidden;
+    text-align: center;
+    text-transform: uppercase;
+    width: 60px;
+    user-select: none;
+  }
+  label>div:hover {
+    border-color: #38598a;
+    box-shadow: 0 1px 2px 1px rgba(#000, 0.1);
+    color: #38598a;
+  }
+  input:checked + label>div {
+    background: #38598a;
+    border: 2px solid #ccc;
+    color: #fff;
+  }
+}

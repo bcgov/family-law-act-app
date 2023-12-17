@@ -8,7 +8,7 @@
         </div>
         <div class="mx-4 mb-5"  v-if="showAssistance">
             Section 92 of the 
-            <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_01#section1' target='_blank'>Family Law Act</a> 
+            <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_05#section92' target='_blank'>Family Law Act</a> 
             provides that spouses may make agreements respecting the division of property, including agreements to: 
             <ul>
                 <li>
