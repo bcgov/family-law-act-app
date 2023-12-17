@@ -38,10 +38,10 @@
                     </p>
 
                     <h3 class="mt-5">Order Details</h3>
-                    <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">
+                    <p>
                         I am applying for a property division order for sole ownership and possession of 
                         the companion animal(s) as follows: 
-                    </h2>
+                    </p>
                     <p>
                         Please enter the details of the order in the fields below. Add each companion animal 
                         who is the subject of your family law matter application. To add a companion animal, 
@@ -98,7 +98,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 import PropertyDivisionCompanionAnimalSurvey from "./PropertyDivisionCompanionAnimalSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import PageBase from "../../PageBase.vue";
+import PageBase from "../../../PageBase.vue";
 
 import LegalAssistanceFaqDropdown from "@/components/utils/FaqDropdowns/LegalAssistanceFaqDropdown.vue";
 import OtherPartyNotSpouseFaqDropdown from "@/components/utils/FaqDropdowns/OtherPartyNotSpouseFaqDropdown.vue";

@@ -31,6 +31,8 @@ import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoTyp
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
+import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
+// import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
 
 
 //This is what our database saves.
@@ -174,6 +176,13 @@ export interface stepInfoType {
     replyExistingSpouseSupportSurvey?: replyExistingSpouseSupportSurveyInfoType;
     rflmUnpaidSpouseSupportSurvey?: rflmUnpaidSpouseSupportSurveyInfoType;
     disagreeExistingSpouseSupportSurvey?: disagreeExistingSpouseSupportSurveyInfoType; 
+
+    replyNewPropertyDivisionSurvey?: replyNewPropertyDivisionSurveyInfoType;
+    animalRelationshipToOtherPartySurvey?: animalRelationshipToOtherPartySurveyInfoType;
+    disagreePropertyDivisionSurvey?: disagreePropertyDivisionSurveyInfoType;
+    propertyDivisionOrderSurvey?: propertyDivisionOrderSurveyInfoType;
+    replyExistingPropertyDivisionSurvey?: replyExistingPropertyDivisionSurveyInfoType;
+    disagreeExistingPropertyDivisionOrderSurvey?: disagreeExistingPropertyDivisionOrderSurveyInfoType;
 
     rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
 

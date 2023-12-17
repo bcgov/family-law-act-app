@@ -5,8 +5,8 @@
                 <p>
                     At the beginning of this step, you selected that you want to make a counter 
                     application about the following family law matter(s):
-                    <ul>
-                        <li  v-for="(appType,inx) in selectedCounterApplications" :key="inx">{{appType}}</li>                        
+                    <ul class="mt-2">
+                        <li  v-for="(appType,inx) in selectedCounterApplications" :key="inx"><b>{{appType}}</b></li>                        
                     </ul>
                 </p>
                 <p>
@@ -84,10 +84,12 @@ export default class RflmQuestionnaire extends Vue {
             if(form=='newContactWithChild')        result.push('New Contact With a Child');
             if(form=='guardianOfChild')            result.push('Guardian Of a Child');
             if(form=='newSpousalSupport')          result.push('New Spousal Support');
+            if(form=='newCompanionAnimal')         result.push('New Companion Animal');
             if(form=='existingParentingArrangements')   result.push('Existing Parenting Arrangements');
             if(form=='existingChildSupport')            result.push('Existing Child Support');
             if(form=='existingContactWithChild')        result.push('Existing Contact With a Child');
-             if(form=='existingSpousalSupport')          result.push('Existing Spousal Support');
+            if(form=='existingSpousalSupport')          result.push('Existing Spousal Support');
+            if(form=='existingCompanionAnimal')         result.push('Existing Companion Animal');
         }       
         
         return result;

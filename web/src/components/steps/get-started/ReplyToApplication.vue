@@ -24,9 +24,9 @@
                                 <div class="checkbox-choices">Application About a Family Law Matter Form 3</div>
                                 <p>
                                     Family law matters include: parenting arrangements (<tooltip title="parental responsibilities" size="xl" :index="0"/>
-                                    and <tooltip title="parenting time" :index="0"/>), <tooltip title="child support" :index="0"/>, 
-                                    <tooltip title="contact with a child" size="md" :index="0"/>, <tooltip title="guardianship of a child" size="md" index="0"/> 
-                                    and <tooltip title="spousal support" size="md" index="0" />. As part of the Reply to an Application About a Family 
+                                    and <tooltip title="parenting time" :index="0"/>), <tooltip title="child support" size="md" :index="0"/>, 
+                                    <tooltip title="contact with a child" size="md" :index="0"/>, <tooltip title="guardianship of a child" size="md" index="0"/>, 
+                                    <tooltip title="spousal support" size="md" index="0" />, and property division in respect of a <tooltip title="companion animal" size="lg" :index="0"/>. As part of the Reply to an Application About a Family 
                                     Law Matter, you can apply for an order about any family law matter that is not included in the other 
                                     party’s application.
                                 </p>                            

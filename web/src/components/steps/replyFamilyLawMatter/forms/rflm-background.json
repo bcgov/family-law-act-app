@@ -13,8 +13,8 @@
                      "name": "ExistingOrdersFLM",
                      "visible": false,
                      "visibleIf": "({includesCounter})",
-                     "title": "Are there any existing written agreements or court `orders` about parenting arrangements, `child support`, contact with a child, guardianship of a child and/or spousal support?",
-                     "description": "A written agreement includes a separation agreement or mediation agreement. A court order may be from any court in any place, including the Supreme Court.",
+                     "title": "Are there any existing written agreements or court `orders` about parenting arrangements, `child support`, contact with a child, guardianship of a child, spousal support, and/or property division in respect of a companion animal?",
+                     "description": "A written agreement includes a separation agreement or mediation agreement. A court order may be from any court in any place, including the Supreme Court.<br><br>If you have an agreement about a companion animal, only select yes if it is about the same companion animal that is the subject of this application. You cannot apply to change or cancel a `final order` about property division in respect of a companion animal.",
                      "isRequired": true
                   },                  
                   {
@@ -30,7 +30,8 @@
                         "Child Support",
                         "Contact with a Child",
                         "Guardianship of a Child",
-                        "Spousal Support"
+                        "Spousal Support",
+                        "Property Division in Respect of a Companion Animal"
                      ]
                   },
                   {
@@ -38,7 +39,7 @@
                      "name": "otherPartyAttach",
                      "visible": false,
                      "visibleIf": "(!{includesCounter}) or (({ExistingOrdersFLM} = 'y') and ({includesCounter}))",
-                     "title": "Did the other party attach a copy of all existing written agreements or court orders about parenting arrangements, child support, contact with a child, guardianship of a child and/or spousal support to their application?",
+                     "title": "Did the other party attach a copy of all existing written agreements or court orders about parenting arrangements, child support, contact with a child, guardianship of a child, spousal support and/or property division in respect of a companion animal to their application?",
                      "description": "If a current agreement or order was missed, you can include a copy with your reply. Check the documents you were served to see if a copy was included already.",
                      "isRequired": true
                   },

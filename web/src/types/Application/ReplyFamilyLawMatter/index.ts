@@ -5,7 +5,8 @@ export interface rflmQuestionnaireDataInfoType {
     selectedChildSupportForm?: string[];
     selectedContactWithChildForm?: string[];
     selectedGuardianshipForm?: string[];
-    selectedSpousalSupportForm?: string[]; 
+    selectedSpousalSupportForm?: string[];
+    selectedCompanionAnimalForm?: string[];
 }
 
 export interface rflmQuestionnaireSurveyInfoType {

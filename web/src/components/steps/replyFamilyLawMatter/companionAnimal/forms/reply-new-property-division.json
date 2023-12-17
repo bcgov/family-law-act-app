@@ -1,0 +1,39 @@
+{
+  "title": "Reply New Property Division",
+  "pages": [
+    {
+      "name": "ReplyNewPropertyDivision",
+      "description": "The other party has made an application for an order about property division in respect of a companion animal.<br><br>A companion animal is often a family pet. Section 1 of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_01#section1' target='_blank'>Family Law Act</a> defines a companion animal as an animal that is kept primarily for the purpose of companionship. Section 3.1 of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_01#section3' target='_blank'>Family Law Act</a> states that a companion animal is not:<ul class='mt-2'><li>a guide dog or service dog within the meaning of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/15017' target='_blank'>Guide Dog and Service Dog Act</a>;</li><li>an animal that is kept as part of a business;</li><li>an animal that is kept for agricultural purposes.</li></ul>",
+      "elements": [
+        {
+          "type": "html",
+          "name": "companionAnimalDesciption",
+          "visible": true,
+          "html": "Property division in respect of a companion animal is who will have ownership and possession of a companion animal when spouses separate. The court may only make an order for ownership and possession of a companion animal <b>by one spouse</b>, but spouses may agree out of court to share ownership and possession of a companion animal."
+        },
+        {
+          "type": "html",
+          "name": "companionAnimalDesciptionExt",
+          "visible": true,
+          "html": "The details of the order the other party is asking for can be found in Schedule 11 – Property Division in Respect of a Companion Animal – New of their Application About a Family Law Matter. You will need to refer to their application for these next questions."
+        },        
+        {
+          "type": "panel",
+          "name": "NewPropertyDivisionPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "agreeCourtMakeOrder",
+              "title": "Do you agree the court should make the order?",   
+              "description": "Look at the order the other party is applying for. The order they are asking for is set out in their response to <b>Question 1</b> on <b>Schedule 11 – Property Division in Respect of a Companion Animal – New</b>. Should the court make the order? <br><br>If you agree to only part of the order, for example, there is more than one companion animal the order is about and you want something different for one animal, select NO. This service will help you to explain why the order should be different.",
+              "isRequired": true              
+            }
+          ]
+        }
+      ],
+      "title": "Reply New Property Division"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
