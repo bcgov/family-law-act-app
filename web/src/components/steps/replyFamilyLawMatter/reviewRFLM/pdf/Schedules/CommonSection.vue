@@ -454,7 +454,6 @@
                         text="spousal support order/agreement – existing <i>[complete and attach Schedule 20]</i>"/>                    
                 </div>  
                 
-                <!-- TODO: populate -->
                 <div style="margin-left:1rem;">                    
                     <div style="margin-top:0.25rem;"><b>Property division</b></div>
                     <check-box  
