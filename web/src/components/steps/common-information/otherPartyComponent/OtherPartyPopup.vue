@@ -14,7 +14,7 @@
                         all parents and current guardians of each child who is the subject of the family law matter
                     </li>
                     <li>
-                        my spouse, if I am applying for spousal support
+                        my spouse, if I am applying for spousal support or property division in respect of a companion animal
                     </li>
                     <li>
                         each other adult who the application about a family law matter is about                       

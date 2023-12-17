@@ -1,0 +1,28 @@
+{
+  "title": "Facts - Property division in respect of a companion animal",
+  "pages": [
+    {
+      "name": "CompanionAnimalFacts",
+      "description": "In determining whether to make an order in respect of a companion animal, the court must consider the following factors set out in section 97 (4.1) of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_01#section1' target='_blank'>Family Law Act</a>: <ul><li>the circumstances in which the companion animal was acquired</li><li>the extent to which each spouse cared for the companion animal</li><li>any history of family violence</li><li>the risk of family violence</li><li>a spouse’s cruelty, or threat of cruelty, toward an animal</li><li>the relationship that a child has with the companion animal</li><li>the willingness and ability of each spouse to care for the basic needs of the companion animal</li><li>any other circumstances the court considers relevant</li></ul>",
+      "elements": [        
+        {
+          "type": "panel",
+          "name": "FactsPanel",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "animalFacts",
+              "visible": true,              
+              "title": "The facts on which this application is based are as follows:",
+              "description": "Give a short summary of the facts you want the court to consider. Include any relevant information about the factors set out above when you explain why you believe the court should make the order you are asking for. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order.",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Facts - Property division in respect of a companion animal"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
