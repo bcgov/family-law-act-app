@@ -38,10 +38,10 @@
                     </p>
 
                     <h3 class="mt-5">Order Details</h3>
-                    <p>
+                    <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">
                         I am applying for a property division order for sole ownership and possession of 
                         the companion animal(s) as follows: 
-                    </p>
+                    </h2>
                     <p>
                         Please enter the details of the order in the fields below. Add each companion animal 
                         who is the subject of your family law matter application. To add a companion animal, 
