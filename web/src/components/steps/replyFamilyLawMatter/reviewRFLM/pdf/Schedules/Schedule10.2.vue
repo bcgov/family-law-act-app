@@ -23,25 +23,23 @@
 <!-- <1> -->
             <section class="resetquestion">
 
-                <div style="margin:1rem 3rem 2rem 1rem;">                      
-                    <div>
-                        I do not agree with the order requested by the other party about 
-                        property division in respect of a companion animal because:
-                    </div>
-                    <div v-if="exReplyCompInfo.disagreeReason" 
-                        class="answerbox">{{exReplyCompInfo.disagreeReason}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
+                <div style="display:inline;">
+                    I do not agree with the order requested by the other party about 
+                    property division in respect of a companion animal because:
                 </div>
+                <div v-if="exReplyCompInfo.disagreeReason" 
+                    class="answerbox">{{exReplyCompInfo.disagreeReason}}</div>
+                <div v-else style="margin-bottom:3rem;"></div>
                 
             </section>
 
             <div class="print-block">
 <!-- <2> -->
                 <section>                    
-                    <i style="margin:0 0 0 1.5rem;">
+                    <i style="margin:0 0 0 0.5rem;">
                         Select only one of the options below                   
                     </i>
-                    <div style="margin:0 0 2rem 3.25rem;">
+                    <div style="margin:0 0 2rem 1.5rem;">
                         <check-box  :check="!exReplyCompInfo.replace?'yes':''" text="I would like the existing agreement about property division in respect of a companion animal to continue to be in place"/>
                         <check-box  :check="exReplyCompInfo.replace?'yes':''" text="I am applying to replace the existing agreement about property division in respect of a companion animal as follows:"/>                  
                         <div v-if="exReplyCompInfo.replace && exReplyCompInfo.replaceDetails" 
@@ -61,7 +59,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule102DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
-import { companionAnimalExistingAgreementDataInfoType } from '@/types/Application/FamilyLawMatter/CompanionAnimal';
+import { disagreeExistingPropertyDivisionOrderDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/CompanionAnimal';
 
 @Component({
     components:{
@@ -98,13 +96,13 @@ export default class Schedule102 extends Vue {
             replaceDetails: ''  
         }
 
-        if (this.result.companionAnimalExistingAgreementSurvey){
-            const exReplyCompData: companionAnimalExistingAgreementDataInfoType = this.result.companionAnimalExistingAgreementSurvey;
+        if (this.result.disagreeExistingPropertyDivisionOrderSurvey){
+            const exReplyCompData: disagreeExistingPropertyDivisionOrderDataInfoType = this.result.disagreeExistingPropertyDivisionOrderSurvey;
             
-            exReplyCompInfo.disagreeReason = ''//exCompData.setAsideReason;
-            exReplyCompInfo.replace = false //exCompData.existingAgreementDecision == 'Replaced';            
+            exReplyCompInfo.disagreeReason = exReplyCompData.disagreeExistingCompanionAnimalOrder?exReplyCompData.disagreeExistingCompanionAnimalOrder:''//exCompData.setAsideReason;
+            exReplyCompInfo.replace = exReplyCompData.existingOrderContinue == 'n';         
             if (exReplyCompInfo.replace){
-                exReplyCompInfo.replaceDetails = ''// exCompData.agreementReplacement?exCompData.agreementReplacement:'';
+                exReplyCompInfo.replaceDetails = exReplyCompData.replaceExistingAgreementChanges?exReplyCompData.replaceExistingAgreementChanges:'';
             }
         }
 
