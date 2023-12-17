@@ -420,3 +420,16 @@ export interface schedule12DataInfoType {
     agreementReplacementDetails: string;
     setAside: boolean;
 }
+
+export interface schedule101DataInfoType {
+    newOrderDetails: string;
+    disagreeReason: string;
+    spouse: boolean;
+    relationshipDetails: string;    
+}
+
+export interface schedule102DataInfoType {
+    disagreeReason: string;
+    replace: boolean;
+    replaceDetails: string;   
+}

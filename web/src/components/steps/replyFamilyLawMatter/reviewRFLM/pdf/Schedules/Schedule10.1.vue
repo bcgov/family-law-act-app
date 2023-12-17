@@ -21,15 +21,15 @@
 
 <!-- <1> -->
             <section class="resetquestion">
-                <div style="margin:0 0 0 1.5rem;">
+                <div style="display:inline;">
                     Select only one of the options below                   
                 </div>
-                <div style="margin:0 0 2rem 3.25rem;">
-                    <check-box  :check="exCompInfo.setAside?'yes':''" text="I am (or was) the other party’s spouse"/>
-                    <check-box  :check="exCompInfo.replace?'yes':''" text="I have never been the other party’s spouse"/>
-                    <div>Please describe your relationship to the other party:</div>                    
-                    <div v-if="exCompInfo.reason" 
-                        class="answerbox">{{exCompInfo.reason}}</div>
+                <div style="margin:0 0 2rem 1.25rem;">
+                    <check-box  :check="replyNewCompInfo.spouse?'yes':''" text="I am (or was) the other party’s spouse"/>
+                    <check-box  :check="!replyNewCompInfo.spouse?'yes':''" text="I have never been the other party’s spouse"/>
+                    <div style="margin:0 0 0rem 1.75rem;">Please describe your relationship to the other party:</div>                    
+                    <div v-if="!replyNewCompInfo.spouse && replyNewCompInfo.relationshipDetails" 
+                        class="answerbox">{{replyNewCompInfo.relationshipDetails}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
                 </div>
             </section>
@@ -37,34 +37,30 @@
             <div class="print-block">
 <!-- <2> -->
                 <section>
-                    <div style="margin:1rem 3rem 2rem 1rem;">                      
-                        <div>
-                            I do not agree with the order requested by the other party about 
-                            property division in respect of a companion animal because:
-                        </div>
-                        <div v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails" 
-                            class="answerbox">{{exCompInfo.agreementReplacementDetails}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
+                    <div style="display:inline;">
+                        I do not agree with the order requested by the other party about 
+                        property division in respect of a companion animal because:
                     </div>
+                    <div v-if="replyNewCompInfo.disagreeReason" 
+                        class="answerbox">{{replyNewCompInfo.disagreeReason}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>                   
                 </section> 
             </div>
 
             <div class="print-block">
 <!-- <3> -->
                 <section>
-                    <div style="display:inline; margin-left:0.35rem">
+                    <div style="display:inline;">
                         I believe the court should make the following order for property division in respect of a companion animal:
                     </div>
-                    <div style="margin:1rem 0 0 1rem;">
-                        <i> 
-                            Note: Under section 97 of the Family Law Act, the court may only make 
-                            an order for ownership and possession of a companion animal <b>by one spouse.</b>
-                        </i>                        
+                    <div style="font-style: italic;display:block;margin:0 0 0 1rem;">                        
+                        Note: Under section 97 of the Family Law Act, the court may only make 
+                        an order for ownership and possession of a companion animal <b>by one spouse.</b>                                             
                     </div>                   
                     
-                    <div style="margin:1rem 3rem 2rem 1rem;">
-                        <div v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails" 
-                            class="answerbox">{{exCompInfo.agreementReplacementDetails}}</div>
+                    <div style="margin:1rem 3rem 2rem 0.25rem;">
+                        <div v-if="replyNewCompInfo.newOrderDetails" 
+                            class="answerbox">{{replyNewCompInfo.newOrderDetails}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
                 </section> 
@@ -79,8 +75,8 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { schedule12DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
-import { companionAnimalExistingAgreementDataInfoType } from '@/types/Application/FamilyLawMatter/CompanionAnimal';
+import { schedule101DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { animalRelationshipToOtherPartyDataInfoType, disagreePropertyDivisionDataInfoType, propertyDivisionOrderDataInfoType, replyNewPropertyDivisionDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/CompanionAnimal';
 
 @Component({
     components:{
@@ -95,7 +91,7 @@ export default class Schedule101 extends Vue {
     result!: any; 
    
     dataReady = false;
-    exCompInfo = {} as schedule12DataInfoType;
+    replyNewCompInfo = {} as schedule101DataInfoType;
    
     mounted(){
         this.dataReady = false;      
@@ -104,34 +100,39 @@ export default class Schedule101 extends Vue {
     }    
 
     public extractInfo(){ 
-        this.exCompInfo = this.getExCompanionAnimalInfo(); 
+        this.replyNewCompInfo = this.getReplyNewCompanionAnimalInfo(); 
     }
 
-    public getExCompanionAnimalInfo(){
+    public getReplyNewCompanionAnimalInfo(){
        
-        let exCompInfo = {} as schedule12DataInfoType;
+        let replyNewCompanionInfo = {} as schedule101DataInfoType;
 
-        exCompInfo = {
-            agreementDate: '',
-            reason: '',
-            replace: false,
-            agreementReplacementDetails: '',
-            setAside: false
+        replyNewCompanionInfo = {
+            newOrderDetails: '',
+            disagreeReason: '',
+            spouse: false,
+            relationshipDetails: '' 
         }
 
-        if (this.result.companionAnimalExistingAgreementSurvey){
-            const exCompData: companionAnimalExistingAgreementDataInfoType = this.result.companionAnimalExistingAgreementSurvey;
-            
-            exCompInfo.agreementDate = Vue.filter('beautify-date')(exCompData.agreementDate);
-            exCompInfo.reason = exCompData.setAsideReason;
-            exCompInfo.replace = exCompData.existingAgreementDecision == 'Replaced';
-            exCompInfo.setAside = exCompData.existingAgreementDecision == 'SetAside';
-            if (exCompInfo.replace){
-                exCompInfo.agreementReplacementDetails = exCompData.agreementReplacement?exCompData.agreementReplacement:'';
+        if (this.result.disagreePropertyDivisionSurvey){
+            const disagreePropertyDivisionData: disagreePropertyDivisionDataInfoType = this.result.disagreePropertyDivisionSurvey;
+            replyNewCompanionInfo.disagreeReason = disagreePropertyDivisionData.disagreeCompanionAnimalOrder?disagreePropertyDivisionData.disagreeCompanionAnimalOrder:'';           
+        }
+
+        if (this.result.animalRelationshipToOtherPartySurvey){
+            const animalRelationshipToOtherPartyData: animalRelationshipToOtherPartyDataInfoType = this.result.animalRelationshipToOtherPartySurvey;
+            replyNewCompanionInfo.spouse = animalRelationshipToOtherPartyData.otherPartyIsSpouse == 'y';
+            if (!replyNewCompanionInfo.spouse){
+                replyNewCompanionInfo.relationshipDetails = animalRelationshipToOtherPartyData.otherPartyRelationshipDesc?animalRelationshipToOtherPartyData.otherPartyRelationshipDesc:'';
             }
         }
 
-       return exCompInfo;
+        if (this.result.propertyDivisionOrderSurvey){
+            const propertyDivisionOrderData: propertyDivisionOrderDataInfoType = this.result.propertyDivisionOrderSurvey;
+            replyNewCompanionInfo.newOrderDetails = propertyDivisionOrderData.propertyDivisionCourtOrderBelief?propertyDivisionOrderData.propertyDivisionCourtOrderBelief:'';           
+        }
+        
+       return replyNewCompanionInfo;
    } 
 
 }

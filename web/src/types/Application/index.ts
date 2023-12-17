@@ -30,6 +30,7 @@ import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurvey
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
+import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
 // import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
 
 
@@ -172,6 +173,13 @@ export interface stepInfoType {
     replyExistingSpouseSupportSurvey?: replyExistingSpouseSupportSurveyInfoType;
     rflmUnpaidSpouseSupportSurvey?: rflmUnpaidSpouseSupportSurveyInfoType;
     disagreeExistingSpouseSupportSurvey?: disagreeExistingSpouseSupportSurveyInfoType; 
+
+    replyNewPropertyDivisionSurvey?: replyNewPropertyDivisionSurveyInfoType;
+    animalRelationshipToOtherPartySurvey?: animalRelationshipToOtherPartySurveyInfoType;
+    disagreePropertyDivisionSurvey?: disagreePropertyDivisionSurveyInfoType;
+    propertyDivisionOrderSurvey?: propertyDivisionOrderSurveyInfoType;
+    replyExistingPropertyDivisionSurvey?: replyExistingPropertyDivisionSurveyInfoType;
+    disagreeExistingPropertyDivisionOrderSurvey?: disagreeExistingPropertyDivisionOrderSurveyInfoType;
 
     rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
 

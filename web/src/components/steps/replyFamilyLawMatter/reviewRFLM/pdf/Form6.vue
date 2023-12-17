@@ -13,8 +13,8 @@
         <schedule-8 v-bind:result="result" v-if="selectedSchedules.includes('schedule8')" />
         <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
         <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
-        <schedule-101 v-bind:result="result" v-if="selectedSchedules.includes('schedule10.1')" />
-        <schedule-102 v-bind:result="result" v-if="selectedSchedules.includes('schedule10.2')" />
+        <schedule-101 v-bind:result="result" v-if="selectedSchedules.includes('schedule101')" />
+        <schedule-102 v-bind:result="result" v-if="selectedSchedules.includes('schedule102')" />
         <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
         <schedule-12 v-bind:result="result"  v-if="selectedSchedules.includes('schedule12')" />
         <schedule-13 v-bind:result="result"  v-if="selectedSchedules.includes('schedule13')" />
@@ -121,7 +121,8 @@ export default class Form6 extends Vue {
     mounted(){
         this.dataReady = false;
         this.result = this.getRFLMResultData();
-        this.populationInfo = getForm6PopulationInfo(this.result)
+        this.populationInfo = getForm6PopulationInfo(this.result);
+
         this.selectedSchedules = this.populationInfo.schedules;
         this.agreeDisagreeResults = this.populationInfo.agreeDisagree;
 
