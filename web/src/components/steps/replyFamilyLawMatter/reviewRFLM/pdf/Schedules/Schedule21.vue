@@ -45,7 +45,7 @@
                         </template>
                         <template v-slot:cell(animalOwnership)="data">      
                             <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
-                            <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value != 'Myself'?'yes':''" text="Other party"/>
+                            <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value == 'The other party'?'yes':''" text="Other party"/>
                         </template>
                 </b-table>
             </section>
@@ -127,7 +127,7 @@ export default class Schedule21 extends Vue {
         let newCompInfo = {} as schedule11DataInfoType;
 
         newCompInfo = {
-            compAnimalInfo: [],
+            compAnimalInfo: [{animalName: '', animalType:'', animalOwnership: ''}],
             compAnimalFacts: ''
         }
 
