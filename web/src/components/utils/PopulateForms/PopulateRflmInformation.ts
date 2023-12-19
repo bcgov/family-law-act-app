@@ -244,7 +244,7 @@ export function getForm6PopulationInfo(result) {
         }
 
         if (counterList.includes('companionAnimal')) {
-            if (existingFlmList.includes("Property Division in Respect of a Companion Animal")){
+            if (existingFlmList.includes("Property Division in respect of a companion animal")){
                 schedules.push('schedule22')
             } else {
                 schedules.push('schedule21')
