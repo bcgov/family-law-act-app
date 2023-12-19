@@ -202,7 +202,7 @@
                             class="mt-3"
                             v-on:change="changeSelection('companionAnimal', 'newCompanionAnimal', $event)" 
                             value="newCompanionAnimal">
-                            <div class="checkbox-choices">In respect of a Companion Animal - new</div>
+                            <div class="checkbox-choices">In respect of a companion animal - new</div>
                             <p>
                                 Schedule 11 of the application was completed by the other party. 
                                 They are asking for an order about property division in respect of 
@@ -212,7 +212,7 @@
                         <b-form-checkbox 
                             v-on:change="changeSelection('companionAnimal', 'existingCompanionAnimal', $event)" 
                             value="existingCompanionAnimal">
-                            <div class="checkbox-choices">Companion Animal agreement – existing </div>
+                            <div class="checkbox-choices">Companion animal agreement – existing </div>
                             <p>
                                 Schedule 12 of the application was completed by the other party. 
                                 They are asking for an order about a property division agreement 
