@@ -202,6 +202,9 @@
                     <check-box
                         :check="form26Info.agreementList.includes('section58')?'yes':''" 
                         text="section 58 (3) <i>[agreements respecting contact]</i>"/>   
+                    <check-box
+                        :check="form26Info.agreementList.includes('section92')?'yes':''" 
+                        text="section 92(e), (f) and (g) <i>[agreements respecting property division]</i>"/>
                     <check-box                            
                         :check="form26Info.agreementList.includes('section148')?'yes':''" 
                         text="section 148 (2) <i>[agreements respecting child support]</i>"/>   
