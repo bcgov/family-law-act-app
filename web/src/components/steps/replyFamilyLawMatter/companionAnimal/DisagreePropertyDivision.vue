@@ -69,8 +69,8 @@ export default class DisagreePropertyDivision extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if ( this.step.result?.replyNewPropertyDivisionSurvey) {
-            this.survey.data = this.step.result.replyNewPropertyDivisionSurvey.data;
+        if ( this.step.result?.disagreePropertyDivisionSurvey) {
+            this.survey.data = this.step.result.disagreePropertyDivisionSurvey.data;
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -91,7 +91,7 @@ export default class DisagreePropertyDivision extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {replyNewPropertyDivisionSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {disagreePropertyDivisionSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

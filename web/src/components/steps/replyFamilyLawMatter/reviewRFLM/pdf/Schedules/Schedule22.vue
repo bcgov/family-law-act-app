@@ -30,10 +30,10 @@
 <!-- <2> -->
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
-                    <div style="margin:0 0 0 1.5rem;">
+                    <div style="margin:0 0 0 1rem;">
                         I am applying for the existing written agreement about a companion animal to be:                   
                     </div>
-                    <div style="margin:0 0 2rem 3.25rem;">
+                    <div style="margin:0 0 2rem 2.25rem;">
                         <check-box  :check="exCompInfo.setAside?'yes':''" text="set aside"/>
                         <check-box  :check="exCompInfo.replace?'yes':''" text="replaced"/>
                         <div>I believe the agreement should be set aside or replaced because:</div>                    
@@ -49,7 +49,7 @@
                 <div style="margin-top:1rem;"><b>About the order</b></div>
 <!-- <3> -->
                 <section>
-                    <i style="display:inline; margin-left:0.35rem">
+                    <i style="display:inline; margin-left:0.15rem">
                         Complete only if you are applying for the court to make an order to replace the existing 
                         written agreement about a companion animal. You may leave this section blank.
                     </i>
@@ -130,7 +130,7 @@ export default class Schedule22 extends Vue {
         }
 
        return exCompInfo;
-   } 
+    } 
 
 }
 </script>

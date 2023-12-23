@@ -188,7 +188,7 @@ export default class RflmBackground extends Vue {
             }
             
             if (this.counterList.includes("companionAnimal")) {
-                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Property Division in Respect of a Companion Animal')) {
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Property Division in respect of a companion animal')) {
                     togglePages(this.companionAnimalExistingPages, true, this.currentStep);
                     this.selectedCounterApplications.push("existingCompanionAnimal");
                 } else {
