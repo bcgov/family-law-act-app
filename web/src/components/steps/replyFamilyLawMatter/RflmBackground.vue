@@ -188,7 +188,7 @@ export default class RflmBackground extends Vue {
             }
             
             if (this.counterList.includes("companionAnimal")) {
-                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Property Division in Respect of a Companion Animal')) {
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Property Division in respect of a companion animal')) {
                     togglePages(this.companionAnimalExistingPages, true, this.currentStep);
                     this.selectedCounterApplications.push("existingCompanionAnimal");
                 } else {
@@ -269,11 +269,9 @@ export default class RflmBackground extends Vue {
             
             if (this.selectedRepliesData.selectedCompanionAnimalForm.length > 0){                
                 if(this.selectedRepliesData.selectedCompanionAnimalForm.includes("existingCompanionAnimal")){
-                    togglePages(this.rflmCompanionAnimalExistingPages, true, this.currentStep);
-                    Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, true, 'reply')
+                    togglePages(this.rflmCompanionAnimalExistingPages, true, this.currentStep);                    
                 }else{    
-                    togglePages(this.rflmCompanionAnimalNewPages, true, this.currentStep);               
-                    Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, true, 'reply');
+                    togglePages(this.rflmCompanionAnimalNewPages, true, this.currentStep);                                   
                 }
             }
         }
