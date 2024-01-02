@@ -1,0 +1,78 @@
+{
+  "title": "Background",
+  "pages": [
+    {
+        "name": "Background",
+        "description": "<div style='font-size: 1.5rem;text-decoration: underline;'>Criminal history",
+        "elements": [
+            {
+                "type": "yesno",
+                "name": "pastConviction",
+                "title": "Have you been convicted, and not received a pardon or record suspension, of any criminal offences other than those identified in your criminal records check?",
+                "description": "If you have been convicted of a crime, you have stated to the court you are guilty (called pleading guilty) or you have been found guilty by the court (judge or jury).",
+                "isRequired": true
+            },
+            {
+                "type": "comment",
+                "name": "convictionDetails",
+                "isRequired": true,
+                "visible": false,
+                "visibleIf": "{pastConviction} = 'y'",
+                "title": "Provide the details of any criminal convictions, not referred to in your criminal records check, for which you have not received a pardon or record suspension.",
+                "description": "Try to include:<ul><li>the date of offence,</li><li>where the offence took place,</li><li>a description of the charge, accusation or offence type, and,</li><li>the results or disposition (sentence or outcome).</li></ul>"
+            },
+            {
+                "type": "yesno",
+                "name": "currentlyConvicted",
+                "title": "Are you currently charged with a criminal offence?",
+                "isRequired": true
+            },
+            {
+                "type": "panel",
+                "name": "ChargesPanel",
+                "visible": false,
+                "visibleIf": "{currentlyConvicted} = 'y'",             
+                "elements": [
+                    { 
+                        "visible": false,
+                        "visibleIf": "{currentlyConvicted} = 'y'",
+                        "type": "paneldynamic",
+                        "name": "currentCharges",
+                        "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>Please set out the details requested below for each criminal offence you are currently charged with:</b>",
+                        "description": "Please enter the details of each charge in the fields below. Add each additional criminal offence you are charged with. To add information about a new charge, click the “Add Charge” button. If you are done entering all the criminal offences you are currently charged with, click the “Next” button.",                            
+                        "templateElements": [                  
+                            {
+                                "type": "comment",
+                                "name": "chargeNature",
+                                "isRequired": true,
+                                "title": "What is the nature of the alleged offence?",
+                                "description": "You do not need to use any special wording. Briefly describe the crime you have been accused of committing. Crown counsel decides what offences you are charged with. Your charges are written in an Information."
+                            },
+                            {
+                                "type": "text",
+                                "name": "chargeDate",
+                                "title": "Date of alleged offence:",
+                                "isRequired": true,
+                                "inputType": "date",
+                                "dateYearsAhead": "0"
+                            },
+                            {
+                                "type": "comment",
+                                "name": "chargeCourtLocation",
+                                "isRequired": true,
+                                "title": "Name and location of the court in which the proceedings are outstanding:",
+                                "description": "Indicate which court location the court case about the alleged offence is being held at. For example, Vancouver Law Courts or Fort St. John Provincial Court."
+                            }
+                        ],
+                        "panelAddText": "Add Charge",
+                        "panelRemoveText": "Remove Charge"
+                    }
+                ]
+            }
+      ],
+      "title": "Background"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

@@ -1,0 +1,34 @@
+{
+    "title": "Child(ren) Information",
+    "pages": [
+        {
+            "name": "Child(ren) Information",
+            "elements": [
+                {
+                    "type": "personname",
+                    "name": "childName",
+                    "title": "What is the child’s name?",
+                    "isRequired": true,
+                    "defaultSubstitution": "{ChildName}"
+                },
+                {
+                    "type": "text",
+                    "name": "childDateOfBirth",
+                    "title": "What is the child's date of birth?",
+                    "isRequired": true,
+                    "inputType": "date"
+                },
+                {
+                    "type": "comment",
+                    "name": "relationToChild",
+                    "title": "What is the nature of your relationship to the child?",
+                    "description": "Specify whether you are a parent, stepparent, grandparent, aunt, uncle, family friend, etc. Use whatever wording best describes your relationship.",
+                    "isRequired": true
+                }
+                
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

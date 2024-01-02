@@ -349,7 +349,9 @@
         submitEnable = true;
         currentPage=0;
         affIsExemptGuidedPathway = false;
+        gaIsExemptGuidedPathway = false;
         requiresEfsp = false;
+        requiresGaEfsp = false;
 
         mounted(){
 
@@ -616,7 +618,9 @@
         public extractInfo(){
 
             this.affIsExemptGuidedPathway = false;
+            this.gaIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
+            this.requiresGaEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -655,7 +659,18 @@
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement', type: 'EFSP'});
 
                         }
-                    }                 
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Guardianship Affidavit"){   
+                        this.determineGaGuidedPathway();
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('GA')) continue
+                        
+                        if (this.gaIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Guardianship Affidavit', type: 'GA'});    
+                        
+                        if (this.requiresGaEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
+                        }
+                    }                    
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -727,6 +742,34 @@
             }
             
         }      
+
+        public determineGaGuidedPathway(){
+
+            let requiresGa = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'GA')})
+            if (index >=0 && this.eFiling){
+                const gaFilingInfo = this.$store.state.Application.steps[this.stPgNo.GA._StepNo].result?.filingGaSurvey?.data;              
+                requiresGa = gaFilingInfo?.sworn;
+                requiresEfsp = gaFilingInfo?.sworn == 'y';
+            } 
+
+            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
+            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
+
+            for (const selectedForm of selectedFormInfoList){                
+                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Guardianship Affidavit"){
+                    this.gaIsExemptGuidedPathway = requiresGa;
+                    this.requiresGaEfsp = requiresEfsp;
+                } else {
+                    this.gaIsExemptGuidedPathway = false;
+                    this.requiresGaEfsp = false;
+                }          
+            }
+
+        }     
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

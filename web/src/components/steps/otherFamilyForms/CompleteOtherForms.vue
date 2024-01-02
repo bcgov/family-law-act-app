@@ -190,7 +190,7 @@ export default class CompleteOtherForms extends Vue {
         {formName: 'Electronic Filing Statement',                           formNumber: 'Form 51',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'electronicFilingStatement',    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa768.pdf?forcedownload=true'},
         {formName: 'Fax Filing Cover Page',                                 formNumber: 'Form 52',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'faxFilingCoverPage',           formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa734.pdf'},
         {formName: 'Financial Statement',                                   formNumber: 'Form 4',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'financialStatement',           formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true'},
-        {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'guardianshipAffidavit',        formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa733.pdf?forcedownload=true'},
+        {formName: 'Guardianship Affidavit',                                formNumber: 'Form 5',   pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'guardianshipAffidavit',        formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa733.pdf?forcedownload=true'},
         {formName: 'Notice of Address Change',                              formNumber: 'Form 46',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeOfAddressChange',        formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa763.pdf?forcedownload=true'},
         {formName: 'Notice of Discontinuance',                              formNumber: 'Form 50',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'noticeDiscontinuance',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa767.pdf?forcedownload=true'},
         {formName: 'Notice of Exemption from Parenting Education Program',  formNumber: 'Form 20',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'noticeExemptionParentingEducationProgram', formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa740.pdf?forcedownload=true'},
@@ -369,6 +369,12 @@ export default class CompleteOtherForms extends Vue {
             }else if(formName=='Affidavit – General'){
                 const step = this.stPgNo.AFF._StepNo
                 const page = this.stPgNo.AFF.PreviewFormsAFF
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Guardianship Affidavit'){
+                const step = this.stPgNo.GA._StepNo
+                const page = this.stPgNo.GA.PreviewFormsGA
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
