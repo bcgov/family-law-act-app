@@ -191,6 +191,38 @@
                     
                 </b-form-checkbox-group>
 
+                <b-form-checkbox-group
+                    :disabled="rejectedPathway"
+                    v-model="selectedCompanionAnimalForm" 
+                    stacked
+                    >                                
+                    <div class="checkbox-border">
+                        <div class="checkbox-choices-header text-primary">Property Division</div>
+                        <b-form-checkbox 
+                            class="mt-3"
+                            v-on:change="changeSelection('companionAnimal', 'newCompanionAnimal', $event)" 
+                            value="newCompanionAnimal">
+                            <div class="checkbox-choices">In respect of a companion animal - new</div>
+                            <p>
+                                Schedule 11 of the application was completed by the other party. 
+                                They are asking for an order about property division in respect of 
+                                a companion animal because there wasn’t already one in place.
+                            </p>                    
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('companionAnimal', 'existingCompanionAnimal', $event)" 
+                            value="existingCompanionAnimal">
+                            <div class="checkbox-choices">Companion animal agreement – existing </div>
+                            <p>
+                                Schedule 12 of the application was completed by the other party. 
+                                They are asking for an order about a property division agreement 
+                                in respect of a companion animal that already exists.
+                            </p>                    
+                        </b-form-checkbox>
+                    </div>
+                    
+                </b-form-checkbox-group>
+
             </b-form-group>
         </div>
       </div>
@@ -239,7 +271,8 @@ export default class RflmQuestionnaire extends Vue {
     selectedChildSupportForm = [];
     selectedContactWithChildForm = [];
     selectedGuardianshipForm = [];
-    selectedSpousalSupportForm = [];   
+    selectedSpousalSupportForm = [];
+    selectedCompanionAnimalForm = [];   
 
     currentStep = 0;
     currentPage = 0;
@@ -254,6 +287,7 @@ export default class RflmQuestionnaire extends Vue {
     public reloadPageInformation() {   
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.forceAddExistingLocation()
         
         if (this.step.result?.rflmQuestionnaireSurvey) {
             const rflmData = this.step.result.rflmQuestionnaireSurvey.data;
@@ -262,6 +296,7 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedContactWithChildForm = rflmData.selectedContactWithChildForm?rflmData.selectedContactWithChildForm:[];
             this.selectedGuardianshipForm = rflmData.selectedGuardianshipForm?rflmData.selectedGuardianshipForm:[];
             this.selectedSpousalSupportForm = rflmData.selectedSpousalSupportForm?rflmData.selectedSpousalSupportForm:[];
+            this.selectedCompanionAnimalForm = rflmData.selectedCompanionAnimalForm?rflmData.selectedCompanionAnimalForm:[];
             if(this.getSelected())
                 this.determineSteps();
         }
@@ -279,7 +314,8 @@ export default class RflmQuestionnaire extends Vue {
                         this.selectedChildSupportForm.length>0 ||
                         this.selectedContactWithChildForm.length>0 ||
                         this.selectedGuardianshipForm.length>0 ||
-                        this.selectedSpousalSupportForm.length>0
+                        this.selectedSpousalSupportForm.length>0 ||
+                        this.selectedCompanionAnimalForm.length>0
 
         return selected;
 
@@ -305,6 +341,10 @@ export default class RflmQuestionnaire extends Vue {
             if (list.length>0){
                 this.selectedSpousalSupportForm = [selection];            
             }
+        } else if (category == 'companionAnimal'){
+            if (list.length>0){
+                this.selectedCompanionAnimalForm = [selection];            
+            }
         }
 
         this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:false})        
@@ -316,7 +356,8 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedChildSupportForm = [];
             this.selectedContactWithChildForm = [];
             this.selectedGuardianshipForm = [];
-            this.selectedSpousalSupportForm = [];                                    
+            this.selectedSpousalSupportForm = [];
+            this.selectedCompanionAnimalForm = [];
         }
         Vue.filter('surveyChanged')('replyFlm'); 
     }    
@@ -399,6 +440,9 @@ export default class RflmQuestionnaire extends Vue {
         if (this.selectedSpousalSupportForm.includes('newSpouseSupport')) result+='New Spousal Support'+'\n';
         else if (this.selectedSpousalSupportForm.includes('existingSpouseSupport')) result+='Existing Spousal Support'+'\n';
         
+        if (this.selectedCompanionAnimalForm.includes('newCompanionAnimal')) result+='New Companion Animal'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('existingCompanionAnimal')) result+='Existing Companion Animal'+'\n';
+
         return result;
     }
 
@@ -408,9 +452,25 @@ export default class RflmQuestionnaire extends Vue {
         result.selectedChildSupportForm = this.selectedChildSupportForm;
         result.selectedContactWithChildForm = this.selectedContactWithChildForm;
         result.selectedGuardianshipForm = this.selectedGuardianshipForm;
-        result.selectedSpousalSupportForm = this.selectedSpousalSupportForm;        
+        result.selectedSpousalSupportForm = this.selectedSpousalSupportForm;
+        result.selectedCompanionAnimalForm = this.selectedCompanionAnimalForm;        
         return result;
     }
+
+    public forceAddExistingLocation(){
+        const locationStep = this.stPgNo.COMMON._StepNo
+        const locationPage = this.stPgNo.COMMON.FilingLocation
+        
+        const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
+        const replyExistingOrder = existingOrders.filter(order => order.type=='RPL');
+        if(replyExistingOrder[0] && !replyExistingOrder[0].fileNumber)
+            this.NavigateToPage(locationStep,locationPage)
+    }
+
+    public NavigateToPage(stepNo, pageNo){
+        this.$store.commit("Application/setCurrentStep", stepNo);
+        this.$store.commit("Application/setCurrentStepPage", {currentStep: stepNo, currentPage: pageNo });        
+    }   
   
     beforeDestroy() {
         const progress = !this.getSelected()? 50 : 100;

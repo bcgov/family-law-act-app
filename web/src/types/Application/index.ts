@@ -6,6 +6,7 @@ import { aboutContactWithChildOrderSurveyInfoType, contactWithChildOrderSurveyIn
 import { guardianOfChildBestInterestsOfChildSurveyInfoType, guardianOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
 import { aboutParentingArrangementsSurveyInfoType, otherParentingArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestsOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
 import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrderSurveyInfoType, calculatingSpousalSupportSurveyInfoType, existingSpousalSupportAgreementSurveyInfoType, existingSpousalSupportFinalOrderSurveyInfoType, existingSpousalSupportOrderAgreementSurveyInfoType, spousalSupportIncomeAndEarningPotentialSurveyInfoType, spousalSupportSurveyInfoType, unpaidSpousalSupportSurveyInfoType } from "./FamilyLawMatter/SpousalSupport";
+import { companionAnimalExistingAgreementSurveyInfoType, companionAnimalFactsSurveyInfoType, propertyDivisionCompanionAnimalSurveyInfoType } from "./FamilyLawMatter/CompanionAnimal";
 import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
 import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType, ppmAdditionalDocumentsSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
@@ -29,6 +30,7 @@ import { noticeRemoveLawyerChildSurveyInfoType, otherPartyNLCRConfirmationSurvey
 import { noticeLawyerPartySurveyInfoType, otherPartyNLPConfirmationSurveyInfoType } from "./LawyerParty";
 import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurveyInfoType } from "./NoticeRemoveLawyerParty";
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
+import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
 // import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
 
 
@@ -172,6 +174,13 @@ export interface stepInfoType {
     rflmUnpaidSpouseSupportSurvey?: rflmUnpaidSpouseSupportSurveyInfoType;
     disagreeExistingSpouseSupportSurvey?: disagreeExistingSpouseSupportSurveyInfoType; 
 
+    replyNewPropertyDivisionSurvey?: replyNewPropertyDivisionSurveyInfoType;
+    animalRelationshipToOtherPartySurvey?: animalRelationshipToOtherPartySurveyInfoType;
+    disagreePropertyDivisionSurvey?: disagreePropertyDivisionSurveyInfoType;
+    propertyDivisionOrderSurvey?: propertyDivisionOrderSurveyInfoType;
+    replyExistingPropertyDivisionSurvey?: replyExistingPropertyDivisionSurveyInfoType;
+    disagreeExistingPropertyDivisionOrderSurvey?: disagreeExistingPropertyDivisionOrderSurveyInfoType;
+
     rflmAdditionalDocumentsSurvey?: rflmAdditionalDocumentsSurveyInfoType;
 
     //_____Step 4   WR_____________
@@ -225,6 +234,10 @@ export interface stepInfoType {
     spousalSupportSurvey?: spousalSupportSurveyInfoType;
     spousalSupportIncomeAndEarningPotentialSurvey?: spousalSupportIncomeAndEarningPotentialSurveyInfoType;
     unpaidSpousalSupportSurvey?: unpaidSpousalSupportSurveyInfoType;
+
+    propertyDivisionCompanionAnimalSurvey?: propertyDivisionCompanionAnimalSurveyInfoType;    
+    companionAnimalFactsSurvey?: companionAnimalFactsSurveyInfoType;
+    companionAnimalExistingAgreementSurvey?: companionAnimalExistingAgreementSurveyInfoType;
 
     //__Step 6 CASE MANAGEMENT
 

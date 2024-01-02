@@ -84,7 +84,7 @@
                     v-if="applicationDocumentTypes.includes('NTRF')" 
                     @click="checklist=true;checklistType='RFC';includesOtherForms=false;" 
                     style="color:blue; cursor:pointer;">
-                    Checklist for Notice to Resolve Family Claim
+                    Checklist for Notice to Resolve Family Law Matter
                 </div>
                 <div 
                     v-if="applicationDocumentTypes.includes('AXP')" 
@@ -312,6 +312,7 @@ import Checklists from "./checklists/Checklists.vue";
 
 import {whichCaseMgmtForm} from "@/components/steps/caseMgmt/reviewCM/RequiredForm"
 import {whichAgreementEnfrcForm} from '@/components/steps/agreementEnfrc/reviewAE/RequiredFormEnfrc'
+import { GetFilingLocations } from "@/components/status/GetFilingLocations";
 
 @Component({
     components:{        
@@ -389,14 +390,16 @@ export default class SuccessPage extends Vue {
         }
 
         this.$http.put(url, data, header)
-        .then(res => {                            
+        .then(res => {                                       
             this.getApplicationTypes(id);
         }, err => {
             console.error(err);
         });    
     }
 
-    public getApplicationTypes(applicationId: string) {
+    public async getApplicationTypes(applicationId: string) {
+
+        await GetFilingLocations(); 
 
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
@@ -464,6 +467,7 @@ export default class SuccessPage extends Vue {
                     this.applicationDocumentTypes.push('FLC');
 
                 }
+                console.log(applicationLocationName)
             }
 
             if (includesCm){

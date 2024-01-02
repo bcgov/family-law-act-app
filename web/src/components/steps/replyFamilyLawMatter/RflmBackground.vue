@@ -69,6 +69,9 @@ export default class RflmBackground extends Vue {
     spousalSupportNewPages = []
     spousalSupportExistingPages = []
 
+    companionAnimalNewPages = []
+    companionAnimalExistingPages = []
+
     rflmChildRelatedPages = [];
 
     rflmParentingArrangementsNewPages = []
@@ -85,6 +88,9 @@ export default class RflmBackground extends Vue {
 
     rflmSpousalSupportNewPages = []
     rflmSpousalSupportExistingPages = []
+
+    rflmCompanionAnimalNewPages = []
+    rflmCompanionAnimalExistingPages = []
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -179,7 +185,17 @@ export default class RflmBackground extends Vue {
                     togglePages(this.spousalSupportNewPages, true, this.currentStep);
                     this.selectedCounterApplications.push("newSpousalSupport");
                 }
-            }           
+            }
+            
+            if (this.counterList.includes("companionAnimal")) {
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Property Division in respect of a companion animal')) {
+                    togglePages(this.companionAnimalExistingPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("existingCompanionAnimal");
+                } else {
+                    togglePages(this.companionAnimalNewPages, true, this.currentStep);
+                    this.selectedCounterApplications.push("newCompanionAnimal");
+                }
+            }
         }
     }
 
@@ -249,7 +265,15 @@ export default class RflmBackground extends Vue {
                     togglePages(this.rflmSpousalSupportNewPages, true, this.currentStep);               
                     Vue.filter('requestRflmRequiredDocs')(this.currentPage, this.currentStep, true, 'reply');
                 }
-            }            
+            }
+            
+            if (this.selectedRepliesData.selectedCompanionAnimalForm.length > 0){                
+                if(this.selectedRepliesData.selectedCompanionAnimalForm.includes("existingCompanionAnimal")){
+                    togglePages(this.rflmCompanionAnimalExistingPages, true, this.currentStep);                    
+                }else{    
+                    togglePages(this.rflmCompanionAnimalNewPages, true, this.currentStep);                                   
+                }
+            }
         }
     }
 
@@ -326,6 +350,9 @@ export default class RflmBackground extends Vue {
         this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
         this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]
 
+        this.companionAnimalNewPages = [p.PropertyDivisionCompanionAnimal, p.CompanionAnimalFacts]
+        this.companionAnimalExistingPages = [p.CompanionAnimalExistingAgreement]
+
         //__Reply Pages_________        
 
         this.rflmChildRelatedPages = [p.RflmChildrenInfo];
@@ -345,6 +372,8 @@ export default class RflmBackground extends Vue {
         this.rflmSpousalSupportNewPages = [p.ReplyNewSpouseSupport, p.RelationshipToOtherParty, p.DisagreeSpouseSupport, p.RflmSpouseSupportOrder, p.RflmCalculatingSpouseSupport]//, p.RflmAdditionalDocuments]
         this.rflmSpousalSupportExistingPages = [p.ReplyExistingSpouseSupport, p.RflmUnpaidSpouseSupport, p.DisagreeExistingSpouseSupport, p.RflmCalculatingSpouseSupport]//, p.RflmAdditionalDocuments]
 
+        this.rflmCompanionAnimalNewPages = [p.ReplyNewPropertyDivision, p.AnimalRelationshipToOtherParty, p.DisagreePropertyDivision, p.PropertyDivisionOrder]
+        this.rflmCompanionAnimalExistingPages = [p.ReplyExistingPropertyDivision, p.DisagreeExistingPropertyDivisionOrder]
 
     }
 

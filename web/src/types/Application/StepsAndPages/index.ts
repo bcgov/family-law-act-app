@@ -104,7 +104,13 @@ export interface RFLMstPgTypes{
     RflmCalculatingSpouseSupport: number;
     ReplyExistingSpouseSupport: number;
     RflmUnpaidSpouseSupport: number;
-    DisagreeExistingSpouseSupport: number;    
+    DisagreeExistingSpouseSupport: number;
+    ReplyNewPropertyDivision: number;
+    AnimalRelationshipToOtherParty: number;
+    DisagreePropertyDivision: number;
+    PropertyDivisionOrder: number;
+    ReplyExistingPropertyDivision: number;
+    DisagreeExistingPropertyDivisionOrder: number;
     RflmAdditionalDocuments: number;
     YourApplication: number;
     ParentingArrangements: number;
@@ -142,6 +148,9 @@ export interface RFLMstPgTypes{
     CalculatingSpousalSupport: number;
     AboutExistingSpousalSupportOrder: number;
     UnpaidSpousalSupport: number;
+    PropertyDivisionCompanionAnimal: number;
+    CompanionAnimalFacts: number;
+    CompanionAnimalExistingAgreement: number;
     FlmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
@@ -205,6 +214,9 @@ export interface FLMstPgTypes{
     CalculatingSpousalSupport: number;
     AboutExistingSpousalSupportOrder: number;
     UnpaidSpousalSupport: number;
+    PropertyDivisionCompanionAnimal: number;
+    CompanionAnimalFacts: number;
+    CompanionAnimalExistingAgreement: number;
     FlmAdditionalDocuments: number;
     ReviewYourAnswersFLM: number;
     PreviewFormsFLM: number;

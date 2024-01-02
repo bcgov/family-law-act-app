@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.18.1";
+    const CURRENT_VERSION = "1.2.20.1";
     //__________________________
     //___________________________
     //___________________________
@@ -554,6 +554,11 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 					requiredDocuments.push("Spousal Support calculation");
 				}
 			
+		const companionAnimalRequirement = (questions.companionAnimalExistingAgreementSurvey?.agreementDate)
+
+		if( (!RFLM && questions.flmQuestionnaireSurvey?.includes("companionAnimal") && companionAnimalRequirement) || 
+			(RFLM && counterList.includes("companionAnimal") && companionAnimalRequirement))
+				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 
 		if(Vue.filter('FLMform5Required')(RFLM)){		
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");

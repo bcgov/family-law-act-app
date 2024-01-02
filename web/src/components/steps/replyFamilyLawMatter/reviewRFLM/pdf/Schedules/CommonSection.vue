@@ -142,9 +142,10 @@
 <!-- <7> -->
             <section>
                 <div style="display:inline; margin-left:0.25rem">
-                    There is an existing written agreement or court order about parenting arrangements, child support, 
-                    contact with a child, guardianship of a child, and/or spousal support that was not provided by the 
-                    other party with their application
+                    There is an existing agreement or court order about parenting arrangements, 
+                    child support, contact with a child, guardianship of a child, spousal support, 
+                    and/or property division in respect of a companion animal that was not provided 
+                    by the other party with their application.
                 </div>          
                 <div style="margin-left:1rem">
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
@@ -268,7 +269,17 @@
                     <check-box  
                         :check="agreeDisagreeResults.existingSpouseSupport.opApplied && agreeDisagreeResults.existingSpouseSupport.agree?'yes':''" 
                         text="spousal support order/agreement – existing <i>[see Schedule 10 of Application About a Family Law Matter]</i>"/>                    
-                </div>                   
+                </div>  
+                
+                <div style="margin-left:1rem;">                    
+                    <div style="margin-top:0.25rem;"><b>Property division</b></div>
+                    <check-box  
+                        :check="agreeDisagreeResults.newCompanionAnimal.opApplied && agreeDisagreeResults.newCompanionAnimal.agree?'yes':''" 
+                        text="in respect of a companion animal – new <i>[see Schedule 11 of Application About a Family Law Matter]</i>"/>
+                    <check-box  
+                        :check="agreeDisagreeResults.existingCompanionAnimal.opApplied && agreeDisagreeResults.existingCompanionAnimal.agree?'yes':''" 
+                        text="companion animal agreement – existing <i>[see Schedule 12 of Application About a Family Law Matter]</i>"/>                    
+                </div>
               
             </section>
         </div>
@@ -345,7 +356,16 @@
                     <check-box  
                         :check="!agreeDisagreeResults.existingSpouseSupport.agree && agreeDisagreeResults.existingSpouseSupport.opApplied?'yes':''" 
                         text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>                    
-                </div>                   
+                </div> 
+                <div style="margin-left:1rem;">                    
+                    <div style="margin-top:0.25rem;"><b>Property division</b></div>
+                    <check-box  
+                        :check="!agreeDisagreeResults.newCompanionAnimal.agree && agreeDisagreeResults.newCompanionAnimal.opApplied?'yes':''" 
+                        text="in respect of a companion animal – new <i>[complete and attach Schedule 10.1]</i>"/>
+                    <check-box  
+                        :check="!agreeDisagreeResults.existingCompanionAnimal.agree && agreeDisagreeResults.existingCompanionAnimal.opApplied?'yes':''" 
+                        text="companion animal agreement – existing <i>[complete and attach Schedule 10.2]</i>"/>                    
+                </div>
               
             </section>
         </div>
@@ -432,7 +452,17 @@
                     <check-box  
                         :check="selectedSchedules.includes('schedule20')?'yes':''" 
                         text="spousal support order/agreement – existing <i>[complete and attach Schedule 20]</i>"/>                    
-                </div>                   
+                </div>  
+                
+                <div style="margin-left:1rem;">                    
+                    <div style="margin-top:0.25rem;"><b>Property division</b></div>
+                    <check-box  
+                        :check="selectedSchedules.includes('schedule21')?'yes':''" 
+                        text="in respect of a companion animal – new <i>[complete and attach Schedule 21]</i>"/>
+                    <check-box  
+                        :check="selectedSchedules.includes('schedule22')?'yes':''" 
+                        text="companion animal agreement – existing <i>[complete and attach Schedule 22]</i>"/>                    
+                </div>
               
             </section>
         </div>

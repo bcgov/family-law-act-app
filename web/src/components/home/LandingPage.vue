@@ -17,6 +17,7 @@
                                         <li>Contact with a child</li>
                                         <li>Guardianship</li>
                                         <li>Spousal Support</li>
+                                        <li>Property Division – Companion animal</li>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">

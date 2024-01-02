@@ -92,6 +92,10 @@
                       "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section58' target='_blank'>Section 58(3)</a> [agreements respecting contact]</b></br><div style='font-size:12pt;'>A written agreement about contact with a child is made between a guardian and a non-guardian of a child. It is about contact between a child and a non-guardian.</br></br>"
                     },
                     {
+                        "value": "section92",
+                        "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_05#section92' target='_blank'>Section 92(e), (f) and (g)</a> [agreements respecting property division]</b></br><div style='font-size:12pt;'>A written agreement in respect of a companion animal is who will have ownership and possession of a companion animal when spouses separate. It may include that spouses jointly own, share possession, or give exclusive ownership or possession of the companion animal to one of the spouses.</br></br>"
+                    },
+                    {
                       "value": "section148",
                       "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_07#section148' target='_blank'>Section 148(2)</a> [agreements respecting child support]</b></br><div style='font-size:12pt;'>A written agreement about child support may include terms about the amount of child support, when it must be paid and extraordinary and special expenses. If you need to enforce a written agreement about child support, you may want to contact the <a href='https://www.bcfma.ca/' target='_blank'>BC Family Maintenance Agency</a> (BCFMA) first to see if they can help. Once filed, you or BCFMA can enforce it like a court order.</br></br>"
                     },
@@ -118,7 +122,7 @@
                   "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'writtenAgreement'",
                   "title": "What if my written agreement is about property division or pension division?",
                   "titleLocation": "hidden",
-                  "body": "The Provincial Court does not have jurisdiction to make an order or to enforce an order about property division or pension division. The Supreme Court has exclusive jurisdiction in BC about these issues. If you need to enforce a written agreement about property division or pension division, you will need to file it in Supreme Court.</br></br>For more information on filing a written agreement in Supreme Court, see <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/169_2009_01#rule2-1' target='_blank'>Supreme Court Family Rule 2-1 [Agreements]</a>. "
+                  "body": "The Provincial Court only has jurisdiction to make an order about property division in respect of a companion animal.  The Provincial Court <u>does not</u> have jurisdiction to make any other orders about property division or to enforce any other order about property division or pension division.  The Supreme Court has exclusive jurisdiction in BC about property division, unless the property is a companion animal, or pension division.  You will need to file it in the Supreme Court.</br></br>For more information on filing a written agreement in Supreme Court, see <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/169_2009_01#rule2-1' target='_blank'>Supreme Court Family Rule 2-1 [Agreements]</a>. "
                 }
               ]
             },

@@ -20,7 +20,7 @@
                             </p>
                             <b-form-radio-group
                                 v-model="correctChildInfo"
-                                class="mt-2 ml-3"
+                                class="mt-2 ml-3 survey-yesno-vue"
                                 style="font-size:1.40em; display: inline-block;">
                                 <b-form-radio class="mr-5" value="Yes"><div style="transform:translate(5px,-5px);">Yes</div></b-form-radio>
                                 <b-form-radio value="No"><div style="transform:translate(5px,-5px);">No</div></b-form-radio>               
@@ -289,7 +289,13 @@ export default class RflmChildrenInfo extends Vue {
         
         const counter = this.step.result?.rflmCounterAppSurvey?.data?.counter
         const selectedCounters = this.step.result?.rflmCounterAppSurvey?.data?.counterList
-        if(this.correctChildInfo == 'Yes' && counter == 'Yes' && selectedCounters.length==1 && selectedCounters?.includes('spousalSupport'))
+        if( (   this.correctChildInfo == 'Yes' &&  counter == 'Yes' ) && 
+            (
+                (selectedCounters.length==1 && selectedCounters?.includes('spousalSupport')) ||
+                (selectedCounters.length==1 && selectedCounters?.includes('companionAnimal')) ||
+                (selectedCounters.length==2 && selectedCounters?.includes('spousalSupport') && selectedCounters?.includes('companionAnimal'))
+            )
+        )
             childrenInfo = null
         
         this.UpdateStepResultData({step:this.step, data: {correctChildInfo: this.correctChildInfo, childrenInfoSurvey: childrenInfo , rflmChildBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
