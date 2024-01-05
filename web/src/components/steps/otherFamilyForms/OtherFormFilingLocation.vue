@@ -180,14 +180,21 @@ export default class OtherFormFilingLocation extends Vue {
     public eFilingAffidavit(){
 
         const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
-        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavit")                
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavit");                
 
     }
 
     public eFilingGuardianshipAffidavit(){
 
         const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
-        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("guardianshipAffidavit")                
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("guardianshipAffidavit");                
+
+    }
+
+    public eFilingAffidavitPersonalService(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("affidavitPersonalService");                
 
     }
 
@@ -214,6 +221,8 @@ export default class OtherFormFilingLocation extends Vue {
         togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit, this.stPgNo.AFF._StepNo);
         toggleStep(this.stPgNo.GA._StepNo, this.requiredGuidedPathways.includes("guardianshipAffidavit"));
         togglePages([this.stPgNo.GA.FilingGA], this.eFilingGuardianshipAffidavit, this.stPgNo.GA._StepNo);
+        toggleStep(this.stPgNo.APS._StepNo, this.requiredGuidedPathways.includes("affidavitPersonalService"));
+        togglePages([this.stPgNo.APS.FilingAPS], this.eFilingAffidavitPersonalService, this.stPgNo.APS._StepNo);
         
     }   
 

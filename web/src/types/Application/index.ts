@@ -32,7 +32,7 @@ import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurvey
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
-// import { electronicFilingStatementSurveyInfoType } from "./ElectronicFilingStatement";
+import { aboutAffiantApsSurveyInfoType, affidavitPersonalServiceSurveyInfoType, electronicFilingStatementApsSurveyInfoType, filingApsSurveyInfoType, yourStoryApsSurveyInfoType } from "./AffidavitPersonalService";
 
 
 //This is what our database saves.
@@ -111,6 +111,7 @@ export interface stepInfoType {
     supportingDocumentForm4?: number[];
     affEfsDocuments?: electronicFilingDocumentInfoType[];
     gaEfsDocuments?: electronicFilingDocumentInfoType[];
+    apsEfsDocuments?: electronicFilingDocumentInfoType[];
     gaExhibitList?: exhibitsDataInfoType[];
 
     //______Step 1 PO____
@@ -356,12 +357,18 @@ export interface stepInfoType {
     caringForChildGaSurvey?: caringForChildGaSurveyInfoType; 
     backgroundFamilyViolenceSurvey?: backgroundFamilyViolenceSurveyInfoType;
     backgroundCivilCourtProceedingsSurvey?: backgroundCivilCourtProceedingsSurveyInfoType;
-    backgroundCriminalHistorySurvey?: backgroundCriminalHistorySurveyInfoType;
-    // exhibits?: any;//affidavitSurveyInfoType;
+    backgroundCriminalHistorySurvey?: backgroundCriminalHistorySurveyInfoType;    
     filingGaSurvey?: filingGaSurveyInfoType;
     electronicFilingStatementGaSurvey?: electronicFilingStatementGaSurveyInfoType;
+
+    //_____Step 23 AFFIDAVIT OF PERSONAL SERVICE_____________    
+    affidavitPersonalServiceSurvey?: affidavitPersonalServiceSurveyInfoType;    
+    aboutAffiantApsSurvey?: aboutAffiantApsSurveyInfoType;
+    yourStoryApsSurvey?: yourStoryApsSurveyInfoType;
+    filingApsSurvey?: filingApsSurveyInfoType;
+    electronicFilingStatementApsSurvey?: electronicFilingStatementApsSurveyInfoType;
     
-    //__Step 21 SUBMIT
+    //__Step 24 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -387,6 +394,7 @@ export interface stepInfoType {
     noticeRemoveLawyerParty?: boolean; 
     affidavit?: boolean;
     guardianshipAffidavit?: boolean;
+    affidavitPersonalService?: boolean;
   }
 
   export interface electronicFilingDocumentInfoType {

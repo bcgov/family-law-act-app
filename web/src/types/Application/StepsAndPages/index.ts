@@ -28,8 +28,9 @@ export interface stepsAndPagesNumberInfoType{
     NLCR: NLCRstPgTypes;
     NLP: NLPstPgTypes;
     NLPR: NLPRstPgTypes;
-    AFF: AFFstPgTypes;
+    AFF: AFFstPgTypes;    
     GA: GAstPgTypes;
+    APS: APSstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -383,6 +384,19 @@ export interface AFFstPgTypes{
     ReviewYourAnswersAFF: number;
     PreviewFormsAFF: number;
     PreviewFormsEFSP: number;
+}
+
+export interface APSstPgTypes{
+    _StepNo: number;
+
+    AffidavitPersonalService: number;
+    AboutAffiantAps: number;
+    YourStoryAPS: number;
+    FilingAPS: number;
+    ElectronicFilingStatementAPS: number;
+    ReviewYourAnswersAPS: number;
+    PreviewFormsAPS: number;
+    PreviewFormsApsEFSP: number;
 }
 
 export interface NLPstPgTypes{

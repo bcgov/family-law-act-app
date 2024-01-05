@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.21";
+    const CURRENT_VERSION = "1.2.22";
     //__________________________
     //___________________________
     //___________________________
@@ -783,6 +783,7 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepNLPR = store.state.Application.stPgNo.NLPR;
         const stepAFF = store.state.Application.stPgNo.AFF;
         const stepGA = store.state.Application.stPgNo.GA;
+        const stepAPS = store.state.Application.stPgNo.APS;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -864,6 +865,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepGA._StepNo; 
 			reviewPage = stepGA.ReviewYourAnswersGA; 
 			previewPages = [stepGA.PreviewFormsGA, stepGA.PreviewFormsGaEFSP];
+		} else if(typeName == 'affidavitPersonalService'){
+			step = stepAPS._StepNo; 
+			reviewPage = stepAPS.ReviewYourAnswersAPS; 
+			previewPages = [stepAPS.PreviewFormsAPS, stepAPS.PreviewFormsApsEFSP];
 		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -886,7 +891,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService']
 	
 	if(type == 'allExPO'){
         
@@ -911,6 +916,7 @@ Vue.filter('surveyChanged', function(type: string) {
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
         pathwayCompleted.guardianshipAffidavit = false;
+        pathwayCompleted.affidavitPersonalService = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")

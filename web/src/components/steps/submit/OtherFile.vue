@@ -350,8 +350,10 @@
         currentPage=0;
         affIsExemptGuidedPathway = false;
         gaIsExemptGuidedPathway = false;
+        apsIsExemptGuidedPathway = false;
         requiresEfsp = false;
         requiresGaEfsp = false;
+        requiresApsEfsp = false;
 
         mounted(){
 
@@ -619,8 +621,10 @@
 
             this.affIsExemptGuidedPathway = false;
             this.gaIsExemptGuidedPathway = false;
+            this.apsIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
             this.requiresGaEfsp = false;
+            this.requiresApsEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -669,6 +673,17 @@
                         
                         if (this.requiresGaEfsp){
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
+                        }
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal service"){   
+                        this.determineApsGuidedPathway();
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('APS')) continue
+                        
+                        if (this.apsIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Affidavit of Personal service', type: 'APS'});    
+                        
+                        if (this.requiresApsEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
                         }
                     }                    
                 }
@@ -766,6 +781,34 @@
                 } else {
                     this.gaIsExemptGuidedPathway = false;
                     this.requiresGaEfsp = false;
+                }          
+            }
+
+        }
+        
+        public determineApsGuidedPathway(){
+
+            let requiresAps = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APS')})
+            if (index >=0 && this.eFiling){
+                const apsFilingInfo = this.$store.state.Application.steps[this.stPgNo.APS._StepNo].result?.filingGaSurvey?.data;              
+                requiresAps = apsFilingInfo?.sworn;
+                requiresEfsp = apsFilingInfo?.sworn == 'y';
+            } 
+
+            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
+            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
+
+            for (const selectedForm of selectedFormInfoList){                
+                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal service"){
+                    this.apsIsExemptGuidedPathway = requiresAps;
+                    this.requiresApsEfsp = requiresEfsp;
+                } else {
+                    this.apsIsExemptGuidedPathway = false;
+                    this.requiresApsEfsp = false;
                 }          
             }
 
