@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class Affidavit extends Vue {
+export default class AffidavitPersonalService extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;

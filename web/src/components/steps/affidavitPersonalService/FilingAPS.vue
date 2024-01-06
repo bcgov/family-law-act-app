@@ -17,7 +17,7 @@ import { electronicFilingDocumentInfoType, stepInfoType, stepResultInfoType } fr
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
-import { togglePages, toggleStep } from '@/components/utils/TogglePages';
+import { togglePages } from '@/components/utils/TogglePages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -122,9 +122,9 @@ export default class FilingAps extends Vue {
        
         const efsDocumentList: electronicFilingDocumentInfoType[] = this.steps[this.stPgNo.GETSTART._StepNo].result?.apsEfsDocuments?.length>0?this.steps[this.stPgNo.GETSTART._StepNo].result.apsEfsDocuments:[];
       
-        if (this.step.result.aboutAffiantSurvey?.data?.ApplicantName){
-            const applicantName = this.step.result.aboutAffiantSurvey.data.ApplicantName
-            efsDocumentList.push({documentName: 'Affidavit', efsApplicantName: applicantName});
+        if (this.step.result.aboutAffiantApsSurvey?.data?.ApplicantName){
+            const applicantName = this.step.result.aboutAffiantApsSurvey.data.ApplicantName
+            efsDocumentList.push({documentName: 'Affidavit of Personal service', efsApplicantName: applicantName});
         }
               
        this.UpdateCommonStepResults({data:{'apsEfsDocuments':efsDocumentList}});

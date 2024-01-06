@@ -2,7 +2,7 @@ import store from '@/store';
 
 export function whichForm(stepApsResult?) {
 
-    const requiredForm = ['P45'];
+    const requiredForm = ['P48'];
     let resultAps = stepApsResult
 
     const stPgNo = store.state.Application.stPgNo;

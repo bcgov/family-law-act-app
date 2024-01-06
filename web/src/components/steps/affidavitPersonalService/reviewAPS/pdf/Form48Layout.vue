@@ -3,29 +3,33 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-reloc">
+        <div  class="form-header-aps">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Affidavit – General</b></div>               
-                <div style="font-size:10pt;"><b>FORM 45</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rules 171 and 172</div>
+            <div class="my-0">
+                <div class="text-right" >
+
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                        textwidth="10rem" 
+                        beforetext="Court File No." 
+                        hint="" 
+                        :italicHint="false" :text="existingFileNumber"/>                    
+                </div>    
+                
+                <div class="text-right" >
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                        textwidth="10rem" 
+                        beforetext="Court Location" 
+                        hint="" 
+                        :italicHint="false" :text="result.applicationLocation"/>                    
+                </div>  
             </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>                
-            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <div style="font-size:13pt;"><b>AFFIDAVIT OF PERSONAL SERVICE</b></div>               
+                <div style="font-size:13pt; font-style: italic;"><b>(Emergency Intervention Disclosure Act)</b></div>
+                <div style="font-size:17pt;"><b>In the Provincial Court of British Columbia</b></div>
+            </div>            
         </div> 
         
 
@@ -33,51 +37,114 @@
             style="text-indent:2px;display:inline-block; font-size: 9pt;" 
             textwidth="22rem" 
             beforetext="I" 
-            hint="(full name)" 
+            hint="Name" 
             :italicHint="false" :text="yourInfo.name | getFullName"/>
 
         <underline-form 
             style="text-indent:2px;display:inline-block; font-size: 9pt;" 
             textwidth="15rem" 
             beforetext="," 
-            hint="(occupation)" 
+            hint="Occupation" 
             :italicHint="false" :text="yourInfo.occupation"/>
+        
 
-        <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-            of
-        </div>
-
-        <div style="margin-top: 1rem;">  
-
+        <div style="margin: 1rem 0;">
             <underline-form 
                 style="text-indent:2px;font-size: 9pt;" 
-                textwidth="30rem" 
-                beforetext="" 
-                hint="(address of party, city, province)" 
-                :italicHint="false" :text="address"/>
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                ,
-            </div>
-
-        </div>
-
-        
-        
-        
-        <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
-            Swear or affirm that:
+                textwidth="37.25rem" 
+                beforetext="of" 
+                hint="Address" 
+                :italicHint="false" :text="address"/> 
         </div> 
-        <div style="display:block; font-size: 9pt; margin: 1rem 0 0 5px; font-weight: 700;"> 
-            I know or believe the following facts to be true. If these facts are based on information 
-            from others, I believe that information to be true.
-        </div>
+
+        <check-box 
+            checkbox="" 
+            inline="inline-block" 
+            boxMargin="0" 
+            style="display:block; margin-left: 3rem;" 
+            :check="supportApplication?'yes':''" 
+            text="MAKE OATH AND SAY THAT:"/>
+
+        <check-box 
+            checkbox="" 
+            inline="inline" 
+            boxMargin="0" 
+            style="display:inline; margin-left: 3rem;" 
+            :check="supportApplication?'yes':''" 
+            text="SOLEMNLY AFFIRM THAT:"/>
            
         <div style="margin-top: 1rem;"></div>  
 
-    <!-- <1> -->
-        <section>
+        <underline-form 
+            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+            textwidth="31.25rem" 
+            beforetext="I personally served" 
+            hint="Name of person" 
+            :italicHint="false" :text="yourInfo.name | getFullName"/>
+
+        <underline-form 
+            style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" 
+            textwidth="2rem" 
+            beforetext="on the" 
+            hint="" 
+            :italicHint="false" :text="yourInfo.occupation"/>
+        <underline-form 
+            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+            textwidth="10rem" 
+            beforetext="day of" 
+            hint="" 
+            :italicHint="false" :text="yourInfo.occupation"/>
+        <underline-form 
+            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+            textwidth="2rem" 
+            beforetext="20" 
+            hint="" 
+            :italicHint="false" :text="yourInfo.occupation"/>
+        
+
+        <div style="margin: 1rem 0;">
+            <underline-form 
+                style="text-indent:2px;font-size: 9pt;" 
+                textwidth="40rem" 
+                beforetext="at" 
+                hint="Address" 
+                :italicHint="false" :text="address"/> 
+        </div> 
+
+        <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 1rem;"> 
+            with a copy of the following document(s):
+        </div> 
+        <div style="display:block; font-size: 9pt; margin: 0 0 0 5px; font-style: italic;"> 
+            (Make sure a copy of each document is attached and marked with the correct exhibit letter.)
+        </div>
+
+        <div>            
+            <underline-form 
+                style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
+                textwidth="29rem" 
+                beforetext='EXHIBIT "A":' 
+                hint="(occupation)" 
+                :italicHint="false" :text="yourInfo.occupation"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                I am making this affidavit
+                (name of document)
+            </div>
+        </div>        
+
+        <div>            
+            <underline-form 
+                style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
+                textwidth="29rem" 
+                beforetext='EXHIBIT "B":' 
+                hint="(occupation)" 
+                :italicHint="false" :text="yourInfo.occupation"/>
+            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                (name of document)
+            </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+            <div style="display:block; font-size: 9pt;"> 
+                The person served was identified to me in this manner:
             </div>
            
             <check-box 
@@ -86,115 +153,166 @@
                 boxMargin="0" 
                 style="display:inline; margin-left: 1rem;" 
                 :check="supportApplication?'yes':''" 
-                text="in support of an application"/>
-            <underline-form 
-                style="text-indent:1px;display:inline-block;" 
-                textwidth="17.5rem" 
-                beforetext="" 
-                hint="(briefly describe the type of application)" 
-                :text="supportApplication?appType:''"/>
-            <div v-if="supportApplication" style="margin:0.5rem 0 0 9rem;">
+                text="I know the person"/>
 
-                <div  v-for="app, inx in additionalAppType" :key="inx" style="margin:0.5rem 0 0 1rem;"> 
-                    
-                    <underline-form
-                        style="text-indent:0;margin-left:1rem;display:inline;" 
-                        textwidth="30rem"
-                        beforetext=""
-                        hint="" 
-                        :text="app | truncate(65)"/>                    
-                </div>
-
-                <div v-if="otherType.length>0" style="margin:0.5rem 0 0 1rem;"> 
-                    
-                    <underline-form
-                        style="text-indent:0;margin-left:1rem;display:inline;" 
-                        textwidth="30rem"
-                        beforetext=""
-                        hint="" 
-                        :text="otherType | truncate(65)"/>                    
-                </div>
-            </div>            
+            <check-box 
+                checkbox="" 
+                inline="inline" 
+                boxMargin="0" 
+                style="display:block; margin-left: 1rem;" 
+                :check="supportApplication?'yes':''" 
+                text="He/she admitted to being the person"/>            
             
-            <div style="margin:0.5rem 0 0 11rem;">
+            <div style="display:block;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0" 
-                    style="display:inline;" 
+                    :shiftmark="1"
+                    style="display:inline; margin-left: 1rem;" 
                     :check="!supportApplication?'yes':''" 
-                    text="in response to an application"/>
+                    text="Other (specify)"/>
                 <underline-form 
-                    style="text-indent:1px;display:inline-block;" 
-                    textwidth="17rem" 
+                    style="text-indent:1px;display:inline;" 
+                    textwidth="32.5rem" 
                     beforetext="" 
-                    hint="(briefly describe the type of application)" 
+                    hint="" 
                     :text="!supportApplication?appType:''"/>            
             </div>
-            <div v-if="!supportApplication" style="margin:0.5rem 0 0 9rem;">
-
-                <div  v-for="app, inx in additionalAppType" :key="inx" style="margin:0.5rem 0 0 1rem;"> 
-                    
-                    <underline-form
-                        style="text-indent:0;margin-left:1rem;display:inline;" 
-                        textwidth="30rem"
-                        beforetext=""
-                        hint="" 
-                        :text="app | truncate(65)"/>                    
-                </div>
-                
-                <div v-if="otherType.length>0" style="margin:0.5rem 0 0 1rem;"> 
-                    
-                    <underline-form
-                        style="text-indent:0;margin-left:1rem;display:inline;" 
-                        textwidth="30rem"
-                        beforetext=""
-                        hint="" 
-                        :text="otherType | truncate(65)"/>                    
-                </div>
-            </div>
-        </section>
             
-        <div style="margin-top: 1rem;">
-            <i>
-                List the facts that you wish to present to the court. If certain facts are not within 
-                your personal knowledge, identify the source of your information. If you refer to 
-                documents, attach them to this affidavit and mark them as exhibits.
-            </i>
         </div>
-        <!-- <2> -->        
 
-        <div v-for="story in stories" :key="story.index"
-            style="display:block; font-size: 9pt; margin-top: 1rem;"> 
-            <b>{{ story.index }}.</b> {{ story.content }}
-        </div> 
+        <div style="margin-top: 1rem;">
+            <div style="display:block; font-size: 9pt;"> 
+                The person was served in this manner:
+            </div>
+           
+            <check-box 
+                checkbox="" 
+                inline="inline" 
+                boxMargin="0" 
+                style="display:inline; margin-left: 1rem;" 
+                :check="supportApplication?'yes':''" 
+                text="By handing to and leaving a copy of the document(s) with him or her"/>
+
+            <div style="display:block;">
+                <check-box
+                    checkbox="" 
+                    inline="inline"
+                    :shiftmark="1"
+                    boxMargin="0" 
+                    style="display:inline; margin-left: 1rem;" 
+                    :check="!supportApplication?'yes':''" 
+                    text="As directed by the Court by"/>
+                <underline-form 
+                    style="text-indent:2rem;display:block;" 
+                    textwidth="32.5rem" 
+                    beforetext="" 
+                    hint="(State how the Court said service of the documents should be made.)" 
+                    :text="!supportApplication?appType:''"/>            
+            </div>            
+        </div>
 
         <div class="print-block">
 
-            <div style="display:block; font-size: 9pt; margin-top: 1rem;"> 
-                <b>{{ lastStory.index }}.</b> {{ lastStory.content }}
-            </div>
+            <div style="margin-top: 1rem;">
+                <div style="display:block; font-size: 9pt;"> 
+                    SWORN or AFFIRMED BEFORE ME at the City of <span style="margin-left: 1rem;">)</span>
+                </div>
 
-        <!-- <SWEAR > -->        
+                <div style="display:block; font-size: 9pt;">
+                    <underline-form 
+                        style="text-indent:1.5px;display:inline-block; font-size: 9pt; margin-top: 0.5rem;" 
+                        textwidth="10rem" 
+                        beforetext="" 
+                        hint="" 
+                        :italicHint="false" :text="yourInfo.occupation"/>
+                    <div style="text-indent:4px;display:inline; font-size: 9pt;"> 
+                        , British Columbia <span style="margin-left: 0.9rem;">)</span>
+                    </div>
+                    
+                </div>
 
-            <div style="margin:1rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem" beforetext="Sworn or affirmed before me at" hint="(city)" text="" />
-            </div>
-            <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="British Columbia on" hint="(date)" text="" />
-            </div>
+                <div style="margin-top: 1rem;">
 
-            <div style="margin:2rem 0 0 0">
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block;"></div>
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                        textwidth="2rem" 
+                        beforetext="on the" 
+                        hint="" 
+                        :italicHint="false" :text="yourInfo.occupation"/>
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                        textwidth="9rem" 
+                        beforetext="day of" 
+                        hint="" 
+                        :italicHint="false" :text="yourInfo.occupation"/>
+                    <div style="text-indent:4px;display:inline; font-size: 9pt; margin-left: 0.9rem;"> 
+                        )
+                    </div>
+                    <underline-form 
+                        style="text-indent:4px;display:inline-block; font-size: 9pt;" 
+                        textwidth="23rem" 
+                        beforetext="" 
+                        hint="" 
+                        :italicHint="false" :text="yourInfo.occupation"/>                    
+                </div>
+
+                <div>
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                        textwidth="2rem" 
+                        beforetext="20" 
+                        hint="" 
+                        :italicHint="false" :text="yourInfo.occupation"/>
+                    <div style="text-indent:4px;display:inline; font-size: 9pt;"> 
+                        .
+                    </div>
+
+                    <div style="text-indent:4px;display:inline; font-size: 9pt; margin-left: 13.5rem;"> 
+                        )
+                    </div>
+
+                    <div style="text-indent:4px;display:inline; font-size: 9pt; margin-left: 1rem;"> 
+                        (Signature of person who served the documents)
+                    </div>
+
+                </div>
+
+                <div style="margin-top: 0.5rem;">
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                        textwidth="16.5rem" 
+                        beforetext="" 
+                        hint="" 
+                        :italicHint="false" :text="yourInfo.occupation"/>
+
+                    <div style="text-indent:4px;display:inline; font-size: 9pt; margin-left: 0.6rem;"> 
+                        )
+                    </div>
+
+                </div>
+
+                <div>                
+                    <div style="text-indent:4px;display:inline; font-size: 9pt;"> 
+                        A Commissioner for Taking Affidavits
+                    </div>
+                    <div style="text-indent:4px;display:inline; font-size: 9pt; margin-left: 4.25rem;"> 
+                        )
+                    </div>
+                </div>
+
+                <div>                
+                    <div style="text-indent:4px;display:inline; font-size: 9pt;"> 
+                        For British Columbia
+                    </div>
+                    <div style="text-indent:4px;display:inline; font-size: 9pt; margin-left: 10rem;"> 
+                        )
+                    </div>
+                </div>
+
             </div>
-            <div>
-                <div style="width:20rem; display:inline-block; font-size:9pt" >A Commissioner for taking Affidavits in British Columbia</div>
-                <div style="width:20rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
-            </div>
-            <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="" hint="[print name or affix stamp of commissioner]" text="" />
-            </div>
+            
         </div>
 
     </div>

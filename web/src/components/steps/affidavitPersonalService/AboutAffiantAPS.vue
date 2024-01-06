@@ -78,8 +78,8 @@ export default class AboutAffiantAps extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result?.aboutAffiantSurvey){
-            this.survey.data = this.step.result.aboutAffiantSurvey.data; 
+        if (this.step.result?.aboutAffiantApsSurvey){
+            this.survey.data = this.step.result.aboutAffiantApsSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);              
         }
         
@@ -98,7 +98,7 @@ export default class AboutAffiantAps extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {aboutAffiantSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutAffiantApsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

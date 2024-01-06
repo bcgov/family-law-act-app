@@ -59,7 +59,7 @@ export default class ReviewYourAnswersAps extends Vue {
     mounted(){
         this.pageHasError = false;
         const requiredForm = whichForm();
-        this.form48 = requiredForm.includes('APS');
+        this.form48 = requiredForm.includes('P48');
         this.form51 = requiredForm.includes('P51');        
         this.reloadPageInformation();
         this.checkStepHasError();
@@ -79,7 +79,7 @@ export default class ReviewYourAnswersAps extends Vue {
 
     public checkStepHasError(){
 
-        const optionalLabels = ["Preview Form","Preview Form 51"];        
+        const optionalLabels = ["Preview Form 48","Preview Form 51"];        
         const step = this.$store.state.Application.steps[this.currentStep];
 
         for(const page of step.pages){

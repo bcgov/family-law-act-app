@@ -2717,7 +2717,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "6";
         p.name = "PreviewFormsAPS";
-        p.label = "Preview Form";
+        p.label = "Preview Form 48";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);

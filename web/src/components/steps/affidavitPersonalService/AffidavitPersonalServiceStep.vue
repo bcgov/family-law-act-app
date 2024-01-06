@@ -44,7 +44,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
         PreviewFormsApsEfsp
     }
 })
-export default class AffidavitStep extends Vue {
+export default class AffidavitPersonalServiceStep extends Vue {
   
     @Prop({required: true})
     step!: stepInfoType

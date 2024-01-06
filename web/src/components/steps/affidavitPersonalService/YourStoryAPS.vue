@@ -1,7 +1,6 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
-        <survey v-bind:survey="survey"></survey>       
-
+        <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
