@@ -31,6 +31,7 @@ export interface stepsAndPagesNumberInfoType{
     AFF: AFFstPgTypes;    
     GA: GAstPgTypes;
     APS: APSstPgTypes;
+    APSP: APSPstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -397,6 +398,19 @@ export interface APSstPgTypes{
     ReviewYourAnswersAPS: number;
     PreviewFormsAPS: number;
     PreviewFormsApsEFSP: number;
+}
+
+export interface APSPstPgTypes{
+    _StepNo: number;
+
+    AffidavitPersonalServicePO: number;
+    AboutAffiantApsp: number;
+    YourStoryAPSP: number;
+    FilingAPSP: number;
+    ElectronicFilingStatementAPSP: number;
+    ReviewYourAnswersAPSP: number;
+    PreviewFormsAPSP: number;
+    PreviewFormsApspEFSP: number;
 }
 
 export interface NLPstPgTypes{

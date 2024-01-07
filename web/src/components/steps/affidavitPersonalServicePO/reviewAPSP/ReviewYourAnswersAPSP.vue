@@ -45,13 +45,13 @@ export default class ReviewYourAnswersApsp extends Vue {
     currentPage =0;
     pageHasError = false;
 
-    form48 = false;
+    form49 = false;
     form51 = false;
 
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"affidavitPersonalService", isCompleted:false})
+        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"affidavitPersonalServicePO", isCompleted:false})
         this.toggleFormPages();
         this.setFormsProgress(); 
     }
@@ -59,14 +59,14 @@ export default class ReviewYourAnswersApsp extends Vue {
     mounted(){
         this.pageHasError = false;
         const requiredForm = whichForm();
-        this.form48 = requiredForm.includes('P48');
+        this.form49 = requiredForm.includes('P49');
         this.form51 = requiredForm.includes('P51');        
         this.reloadPageInformation();
         this.checkStepHasError();
     }
 
     public toggleFormPages(){
-        togglePages([this.stPgNo.APSP.PreviewFormsAPSP], !this.pageHasError && this.form48, this.currentStep);
+        togglePages([this.stPgNo.APSP.PreviewFormsAPSP], !this.pageHasError && this.form49, this.currentStep);
         togglePages([this.stPgNo.APSP.PreviewFormsApspEFSP], !this.pageHasError && this.form51, this.currentStep);        
     }
 
@@ -79,7 +79,7 @@ export default class ReviewYourAnswersApsp extends Vue {
 
     public checkStepHasError(){
 
-        const optionalLabels = ["Preview Form 48","Preview Form 51"];        
+        const optionalLabels = ["Preview Form 49","Preview Form 51"];        
         const step = this.$store.state.Application.steps[this.currentStep];
 
         for(const page of step.pages){

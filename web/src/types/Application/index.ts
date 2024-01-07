@@ -112,6 +112,7 @@ export interface stepInfoType {
     affEfsDocuments?: electronicFilingDocumentInfoType[];
     gaEfsDocuments?: electronicFilingDocumentInfoType[];
     apsEfsDocuments?: electronicFilingDocumentInfoType[];
+    apspEfsDocuments?: electronicFilingDocumentInfoType[];
     gaExhibitList?: exhibitsDataInfoType[];
 
     //______Step 1 PO____
@@ -367,6 +368,13 @@ export interface stepInfoType {
     yourStoryApsSurvey?: yourStoryApsSurveyInfoType;
     filingApsSurvey?: filingApsSurveyInfoType;
     electronicFilingStatementApsSurvey?: electronicFilingStatementApsSurveyInfoType;
+
+    //_____Step 25 AFFIDAVIT OF PERSONAL SERVICE PO_____________    
+    affidavitPersonalServicePoSurvey?: affidavitPersonalServicePoSurveyInfoType;    
+    aboutAffiantApspSurvey?: aboutAffiantApspSurveyInfoType;
+    yourStoryApspSurvey?: yourStoryApspSurveyInfoType;
+    filingApspSurvey?: filingApspSurveyInfoType;
+    electronicFilingStatementApspSurvey?: electronicFilingStatementApspSurveyInfoType;
     
     //__Step 24 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
@@ -395,6 +403,7 @@ export interface stepInfoType {
     affidavit?: boolean;
     guardianshipAffidavit?: boolean;
     affidavitPersonalService?: boolean;
+    affidavitPersonalServicePO?: boolean;
   }
 
   export interface electronicFilingDocumentInfoType {

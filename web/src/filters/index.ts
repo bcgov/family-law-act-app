@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.22.1";
+    const CURRENT_VERSION = "1.2.22.2";
     //__________________________
     //___________________________
     //___________________________
@@ -784,6 +784,7 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepAFF = store.state.Application.stPgNo.AFF;
         const stepGA = store.state.Application.stPgNo.GA;
         const stepAPS = store.state.Application.stPgNo.APS;
+        const stepAPSP = store.state.Application.stPgNo.APSP;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -869,6 +870,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepAPS._StepNo; 
 			reviewPage = stepAPS.ReviewYourAnswersAPS; 
 			previewPages = [stepAPS.PreviewFormsAPS, stepAPS.PreviewFormsApsEFSP];
+		} else if(typeName == 'affidavitPersonalServicePO'){
+			step = stepAPSP._StepNo; 
+			reviewPage = stepAPSP.ReviewYourAnswersAPSP; 
+			previewPages = [stepAPSP.PreviewFormsAPSP, stepAPSP.PreviewFormsApspEFSP];
 		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -891,7 +896,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO']
 	
 	if(type == 'allExPO'){
         

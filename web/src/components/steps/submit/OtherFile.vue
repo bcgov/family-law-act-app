@@ -351,9 +351,11 @@
         affIsExemptGuidedPathway = false;
         gaIsExemptGuidedPathway = false;
         apsIsExemptGuidedPathway = false;
+        apspIsExemptGuidedPathway = false;
         requiresEfsp = false;
         requiresGaEfsp = false;
         requiresApsEfsp = false;
+        requiresApspEfsp = false;
 
         mounted(){
 
@@ -622,9 +624,11 @@
             this.affIsExemptGuidedPathway = false;
             this.gaIsExemptGuidedPathway = false;
             this.apsIsExemptGuidedPathway = false;
+            this.apspIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
             this.requiresGaEfsp = false;
             this.requiresApsEfsp = false;
+            this.requiresApspEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -685,7 +689,18 @@
                         if (this.requiresApsEfsp){
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
                         }
-                    }                    
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal Service of Protection Order"){   
+                        this.determineApspGuidedPathway();
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('APSP')) continue
+                        
+                        if (this.apspIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Affidavit of Personal Service of Protection Order', type: 'APSP'});    
+                        
+                        if (this.requiresApspEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal Service of Protection Order', type: 'EFSP'});
+                        }
+                    }                      
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -794,7 +809,7 @@
             const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APS')})
             if (index >=0 && this.eFiling){
-                const apsFilingInfo = this.$store.state.Application.steps[this.stPgNo.APS._StepNo].result?.filingGaSurvey?.data;              
+                const apsFilingInfo = this.$store.state.Application.steps[this.stPgNo.APS._StepNo].result?.filingApspSurvey?.data;              
                 requiresAps = apsFilingInfo?.sworn;
                 requiresEfsp = apsFilingInfo?.sworn == 'y';
             } 
@@ -813,6 +828,34 @@
             }
 
         }     
+
+        public determineApspGuidedPathway(){
+
+            let requiresApsp = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APSP')})
+            if (index >=0 && this.eFiling){
+                const apspFilingInfo = this.$store.state.Application.steps[this.stPgNo.APSP._StepNo].result?.filingApspSurvey?.data;              
+                requiresApsp = apspFilingInfo?.sworn;
+                requiresEfsp = apspFilingInfo?.sworn == 'y';
+            } 
+
+            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
+            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
+
+            for (const selectedForm of selectedFormInfoList){                
+                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal Service of Protection Order"){
+                    this.apspIsExemptGuidedPathway = requiresApsp;
+                    this.requiresApspEfsp = requiresEfsp;
+                } else {
+                    this.apspIsExemptGuidedPathway = false;
+                    this.requiresApspEfsp = false;
+                }          
+            }
+
+        }  
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

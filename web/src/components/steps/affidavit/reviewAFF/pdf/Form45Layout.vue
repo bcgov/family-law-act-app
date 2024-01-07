@@ -221,7 +221,7 @@ import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } fr
     }
 })
 
-export default class Form40Layout extends Vue {
+export default class Form45Layout extends Vue {
 
     @Prop({required:true})
     result!: any;    

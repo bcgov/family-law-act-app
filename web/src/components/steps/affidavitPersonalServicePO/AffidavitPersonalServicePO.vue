@@ -81,8 +81,8 @@ export default class AffidavitPersonalService extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.affidavitPersonalServiceSurvey) {            
-            this.survey.data = this.step.result.affidavitPersonalServiceSurvey.data;
+        if (this.step.result?.affidavitPersonalServicePoSurvey) {            
+            this.survey.data = this.step.result.affidavitPersonalServicePoSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } 
         
@@ -111,7 +111,7 @@ export default class AffidavitPersonalService extends Vue {
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        this.UpdateStepResultData({step:this.step, data: {affidavitPersonalServiceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {affidavitPersonalServicePoSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

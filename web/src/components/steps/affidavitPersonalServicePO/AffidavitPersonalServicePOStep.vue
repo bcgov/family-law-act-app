@@ -7,7 +7,7 @@
         <electronic-filing-statement-apsp  v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.ElectronicFilingStatementAPSP" />
         <review-your-answers-apsp          v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.ReviewYourAnswersAPSP"/>
         <preview-forms-apsp                v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.PreviewFormsAPSP"/>
-        <preview-forms-apsp-efsp           v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.PreviewFormsApsEFSP"/> 
+        <preview-forms-apsp-efsp           v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.PreviewFormsApspEFSP"/> 
     </step-base>
 </template>
 
@@ -26,7 +26,7 @@ import FilingApsp from "./FilingAPSP.vue";
 import ElectronicFilingStatementApsp from "./ElectronicFilingStatementAPSP.vue";
 import ReviewYourAnswersApsp from "./reviewAPSP/ReviewYourAnswersAPSP.vue";
 import PreviewFormsApsp from "./reviewAPSP/PreviewFormsAPSP.vue";
-import PreviewFormsApspEfsp from "./reviewAPSP/PreviewFormsApsEFSP.vue";
+import PreviewFormsApspEfsp from "./reviewAPSP/PreviewFormsApspEFSP.vue";
 
 import { stepInfoType } from "@/types/Application";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
