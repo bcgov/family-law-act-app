@@ -42,8 +42,8 @@ export default class Form51 extends Vue {
            
     public onPrint() { 
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("electronicFilingStatement");
-        const pdf_name = "electronic-filing-statement";       
+        const pdf_type = Vue.filter('getPathwayPdfType')("electronicFilingStatementGa");
+        const pdf_name = "electronic-filing-statement-ga";       
         const el = document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
@@ -68,7 +68,7 @@ export default class Form51 extends Vue {
         .then(res => {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"electronicFilingStatement", isCompleted:true});
+            this.UpdatePathwayCompleted({pathway:"electronicFilingStatementGa", isCompleted:true});
 
             this.$emit('enableNext',true)                   
         },err => {
