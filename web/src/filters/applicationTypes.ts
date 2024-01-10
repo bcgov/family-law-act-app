@@ -40,6 +40,9 @@ export const FLA_Types = [
     {pathway:"consentOrder",                                pdfType:"COR",   appType:"COR",          familyType:"COR",    otherForms:true, fullName:"Consent Order"},
     {pathway:"consentInformalTrial",                        pdfType:"CIFT",  appType:"CIFT",         familyType:"CIFT",   otherForms:true, fullName:"Consent to an Informal Trial (Kamloops only)"},
     {pathway:"electronicFilingStatement",                   pdfType:"EFSP",  appType:"EFSP",         familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement"},
+    {pathway:"electronicFilingStatementAff",                pdfType:"EFSPAFF",  appType:"EFSPA",     familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Affidavit General"},
+    {pathway:"electronicFilingStatementGa",                 pdfType:"EFSPGA",  appType:"EFSPG",      familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Guardianship Affidavit"},
+    {pathway:"electronicFilingStatementAps",                pdfType:"EFSPAPS",  appType:"EFSPS",      familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Affidavit of Personal service"},
     {pathway:"faxFilingCoverPage",                          pdfType:"FF",    appType:"FF",           familyType:"FF",     otherForms:true, fullName:"Fax Filing Cover Page"},
     
     {pathway:"financialStatement",                          pdfType:"FS",    appType:"FS",           familyType:"FS",     otherForms:true, fullName:"Financial Statement"},

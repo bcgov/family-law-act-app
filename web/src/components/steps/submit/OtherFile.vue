@@ -656,7 +656,7 @@
                         
                         this.requiredDocumentLists.push({description: name, type: pdfType});                       
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){   
-                        this.determineAffGuidedPathway();
+                        this.determineAffGuidedPathway(selectedForm);
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes('AFF')) continue
                         
@@ -664,11 +664,11 @@
                             this.requiredDocumentLists.push({description: 'Affidavit – General', type: 'AFF'});    
                         
                         if (this.requiresEfsp){
-                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement', type: 'EFSP'});
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
 
                         }
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Guardianship Affidavit"){   
-                        this.determineGaGuidedPathway();
+                        this.determineGaGuidedPathway(selectedForm);
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes('GA')) continue
                         
@@ -679,7 +679,7 @@
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
                         }
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal service"){   
-                        this.determineApsGuidedPathway();
+                        this.determineApsGuidedPathway(selectedForm);
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes('APS')) continue
                         
@@ -690,7 +690,7 @@
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
                         }
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal Service of Protection Order"){   
-                        this.determineApspGuidedPathway();
+                        this.determineApspGuidedPathway(selectedForm);
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes('APSP')) continue
                         
@@ -745,7 +745,7 @@
             return false;
         } 
         
-        public determineAffGuidedPathway(){
+        public determineAffGuidedPathway(selectedForm){
 
             let requiresAff = false;
             let requiresEfsp = false;
@@ -754,26 +754,18 @@
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'AFF')})
             if (index >=0 && this.eFiling){
                 const affFilingInfo = this.$store.state.Application.steps[this.stPgNo.AFF._StepNo].result?.filingAffSurvey?.data;              
-                requiresAff = affFilingInfo?.sworn;
+                requiresAff = affFilingInfo?.sworn?true:false;
                 requiresEfsp = affFilingInfo?.sworn == 'y';
+            }  
+                   
+            if (selectedForm.pathwayExists){
+                this.affIsExemptGuidedPathway = requiresAff;
+                this.requiresEfsp = requiresEfsp;
             } 
-
-            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
-            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
-
-            for (const selectedForm of selectedFormInfoList){                
-                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){
-                    this.affIsExemptGuidedPathway = requiresAff;
-                    this.requiresEfsp = requiresEfsp;
-                } else {
-                    this.affIsExemptGuidedPathway = false;
-                    this.requiresEfsp = false;
-                }          
-            }
             
         }      
 
-        public determineGaGuidedPathway(){
+        public determineGaGuidedPathway(selectedForm){
 
             let requiresGa = false;
             let requiresEfsp = false;
@@ -782,26 +774,17 @@
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'GA')})
             if (index >=0 && this.eFiling){
                 const gaFilingInfo = this.$store.state.Application.steps[this.stPgNo.GA._StepNo].result?.filingGaSurvey?.data;              
-                requiresGa = gaFilingInfo?.sworn;
+                requiresGa = gaFilingInfo?.sworn?true:false;
                 requiresEfsp = gaFilingInfo?.sworn == 'y';
             } 
+                   
+            if (selectedForm.pathwayExists){
+                this.gaIsExemptGuidedPathway = requiresGa;
+                this.requiresGaEfsp = requiresEfsp;
+            } 
+        } 
 
-            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
-            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
-
-            for (const selectedForm of selectedFormInfoList){                
-                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Guardianship Affidavit"){
-                    this.gaIsExemptGuidedPathway = requiresGa;
-                    this.requiresGaEfsp = requiresEfsp;
-                } else {
-                    this.gaIsExemptGuidedPathway = false;
-                    this.requiresGaEfsp = false;
-                }          
-            }
-
-        }
-        
-        public determineApsGuidedPathway(){
+        public determineApsGuidedPathway(selectedForm){
 
             let requiresAps = false;
             let requiresEfsp = false;
@@ -809,27 +792,18 @@
             const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APS')})
             if (index >=0 && this.eFiling){
-                const apsFilingInfo = this.$store.state.Application.steps[this.stPgNo.APS._StepNo].result?.filingApspSurvey?.data;              
-                requiresAps = apsFilingInfo?.sworn;
+                const apsFilingInfo = this.$store.state.Application.steps[this.stPgNo.APS._StepNo].result?.filingApsSurvey?.data;              
+                requiresAps = apsFilingInfo?.sworn?true:false;
                 requiresEfsp = apsFilingInfo?.sworn == 'y';
             } 
+                
+            if (selectedForm.pathwayExists){
+                this.apsIsExemptGuidedPathway = requiresAps;
+                this.requiresApsEfsp = requiresEfsp;
+            } 
+        }
 
-            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
-            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
-
-            for (const selectedForm of selectedFormInfoList){                
-                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal service"){
-                    this.apsIsExemptGuidedPathway = requiresAps;
-                    this.requiresApsEfsp = requiresEfsp;
-                } else {
-                    this.apsIsExemptGuidedPathway = false;
-                    this.requiresApsEfsp = false;
-                }          
-            }
-
-        }     
-
-        public determineApspGuidedPathway(){
+        public determineApspGuidedPathway(selectedForm){
 
             let requiresApsp = false;
             let requiresEfsp = false;
@@ -838,24 +812,17 @@
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APSP')})
             if (index >=0 && this.eFiling){
                 const apspFilingInfo = this.$store.state.Application.steps[this.stPgNo.APSP._StepNo].result?.filingApspSurvey?.data;              
-                requiresApsp = apspFilingInfo?.sworn;
+                requiresApsp = apspFilingInfo?.sworn?true:false;
                 requiresEfsp = apspFilingInfo?.sworn == 'y';
             } 
+                
+            if (selectedForm.pathwayExists){
+                this.apspIsExemptGuidedPathway = requiresApsp;
+                this.requiresApspEfsp = requiresEfsp;
+            } 
+        }
 
-            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
-            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
 
-            for (const selectedForm of selectedFormInfoList){                
-                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal Service of Protection Order"){
-                    this.apspIsExemptGuidedPathway = requiresApsp;
-                    this.requiresApspEfsp = requiresEfsp;
-                } else {
-                    this.apspIsExemptGuidedPathway = false;
-                    this.requiresApspEfsp = false;
-                }          
-            }
-
-        }  
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");
