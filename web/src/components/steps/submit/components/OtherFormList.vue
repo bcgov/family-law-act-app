@@ -155,7 +155,6 @@ export default class OtherFormList extends Vue {
             { name:'P51',  appName:'electronicFilingStatementAff',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatementAff"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.AFF._StepNo],                       color:"danger", title:"Electronic Filing Statement - Affidavit General (Form 51)",           requiresSignature: true, requiresSwear: false},
             { name:'P51',  appName:'electronicFilingStatementGa',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatementGa"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.GA._StepNo],                          color:"danger", title:"Electronic Filing Statement - Guardianship Affidavit (Form 51)",      requiresSignature: true, requiresSwear: false},
             { name:'P51',  appName:'electronicFilingStatementAps',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatementAps"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.APS._StepNo],                       color:"danger", title:"Electronic Filing Statement - Affidavit of Personal Service (Form 51)",requiresSignature: true, requiresSwear: false}
-        
         ];
 
         this.currentStep = this.$store.state.Application.currentStep;
