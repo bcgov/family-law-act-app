@@ -92,6 +92,33 @@
                 the form name. The PDF will download or open in another window. 
             </p>
 
+            <p v-if="requiresEFSP">
+                If you are completing the PDF version of the form to fill out, 
+                you will also need to submit an Electronic Filing Statement 
+                when efiling. 
+            </p>
+
+            <ul v-if="requiresEFSP">
+                <li>
+                    <b-row  class="my-2">
+                        <b-col cols="6">
+                            Electronic Filing Statement (Form 51)                            
+                        </b-col>
+                        <b-col cols="4">
+                        </b-col>
+                        <b-col>
+                            <b-button
+                                :disabled="rejectedPathway"
+                                style="min-height: 2.5rem; font-size: 0.8rem; width: 120%; margin-left:-2rem;"
+                                variant="primary"
+                                @click="downloadEFSP()">
+                                <b-icon-check variant="success" scale="2" class="ml-n2 mr-2" /> Complete PDF form
+                            </b-button>
+                        </b-col>
+                    </b-row>                                
+                </li>
+            </ul>
+
             <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                 <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
             </div>    
@@ -173,8 +200,12 @@ export default class CompleteOtherForms extends Vue {
     selectedForms: otherFormInfoType[] = [];
     selectedFormInfoList: otherFormPathwayInfoType[] = [];
     filingMethod = null;
+    requiresEFSP = false;
 
     showGetHelpForPDF = false;
+
+    eFiling = false;
+    efspNotSelected = false;    
 
     currentStep =0;
     currentPage =0;  
@@ -223,6 +254,7 @@ export default class CompleteOtherForms extends Vue {
             this.filingMethod = stepResults.otherFormsSurvey.data.filingMethod;
         }
         this.selectedFormInfoList = [];
+        this.requiresEFSP = false;
 
         if (stepResults.completeOtherFormsSurvey?.data?.selectedFormInfoList){
 
@@ -252,6 +284,12 @@ export default class CompleteOtherForms extends Vue {
                 }
             }   
         }
+
+        this.eFiling = this.filingMethod != "inPerson"
+        const efspIndex = this.selectedFormInfoList.findIndex((selectedFormInfo) => {if(selectedFormInfo.formName == 'Electronic Filing Statement')return true})
+        this.efspNotSelected = efspIndex == -1;
+
+        this.determineEfspRequired();        
 
         this.determineSteps(false);      
 
@@ -302,10 +340,23 @@ export default class CompleteOtherForms extends Vue {
         return includesGuided;
     }   
 
+    async downloadEFSP(){ 
+        
+        const efspIndex = this.otherFormsList.findIndex((formInfo) => {if(formInfo.formName == 'Electronic Filing Statement')return true})
+       
+        if (efspIndex != -1) {
+            window.open(this.otherFormsList[efspIndex].formLink, '_blank'); 
+        }  
+    }
+
     async changeSelectedActivity(index: number, pathwaySelected: boolean, formName){           
 
         this.selectedFormInfoList[index].pathwayState = pathwaySelected;
         this.selectedFormInfoList[index].manualState = !pathwaySelected;
+
+        this.requiresEFSP = false;
+
+        this.determineEfspRequired();        
 
         if (!pathwaySelected){
             window.open(this.selectedFormInfoList[index].formLink, '_blank');        
@@ -396,6 +447,20 @@ export default class CompleteOtherForms extends Vue {
                 
     } 
 
+    public determineEfspRequired(){       
+//TODO: add all pathways that require EFSP
+        const formsRequiringEfsp = ["Affidavit – General", "Guardianship Affidavit"];
+
+        if (this.eFiling && this.efspNotSelected){
+            for(const selectedForm of this.selectedFormInfoList){
+
+                if (formsRequiringEfsp.findIndex((formName) => {if(formName == selectedForm.formName && selectedForm.manualState)return true}) != -1){                    
+                    this.requiresEFSP = true;                            
+                }
+            } 
+        }
+    }
+
     public allFormsDecided(){
 
         let decided = true;
@@ -435,7 +500,7 @@ export default class CompleteOtherForms extends Vue {
   
     beforeDestroy() {
         const progress = this.allFormsDecided()? 100 : 50;
-        const pageData = {selectedFormInfoList: this.selectedFormInfoList};
+        const pageData = {selectedFormInfoList: this.selectedFormInfoList, requiresEFSP: this.requiresEFSP};
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);  
         this.UpdateStepResultData({step:this.step, data: {completeOtherFormsSurvey: {data: pageData, currentStep:this.currentStep, currentPage:this.currentPage}}});
         

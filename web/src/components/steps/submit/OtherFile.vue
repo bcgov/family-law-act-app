@@ -501,7 +501,7 @@
             for(const form of existingOrdersInfo){
 
                 const pathwayInfo = selectedFormInfoList.filter(selectedForm => {if(Vue.filter('getPathwayPdfType')(selectedForm.pathwayName) == form.type) return form;})[0]
-                if (!pathwayInfo.pathwayState){
+                if (pathwayInfo && !pathwayInfo.pathwayState){
                     form.doNotIncludePdf = true;                   
                 }
                 updatedExistingOrders.push(form)
@@ -650,7 +650,8 @@
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes(pdfType)) continue
                         
-                        this.requiredDocumentLists.push({description: name, type: pdfType});                       
+                        this.requiredDocumentLists.push({description: name, type: pdfType});
+                        this.determineEfspPdfRequired(selectedForm);                       
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){   
                         this.determineAffGuidedPathway(selectedForm);
                         
@@ -661,7 +662,6 @@
                         
                         if (this.requiresEfsp){
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
-
                         }
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Guardianship Affidavit"){   
                         this.determineGaGuidedPathway(selectedForm);
@@ -729,6 +729,22 @@
             }
             return false;
         } 
+
+        public determineEfspPdfRequired(selectedForm){
+//TODO: add all pathways that require EFSP
+            if(this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data){
+                const completeOtherFormsData = this.steps[this.stPgNo.OTHER._StepNo].result.completeOtherFormsSurvey.data;
+                if(completeOtherFormsData.requiresEFSP){
+
+                    if(selectedForm.formName=="Guardianship Affidavit"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Affidavit – General"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
+                    }
+                }
+            }            
+
+        }   
         
         public determineAffGuidedPathway(selectedForm){
 
