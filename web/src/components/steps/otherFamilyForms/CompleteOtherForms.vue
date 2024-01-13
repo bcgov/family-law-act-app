@@ -449,7 +449,7 @@ export default class CompleteOtherForms extends Vue {
 
     public determineEfspRequired(){       
 //TODO: add all pathways that require EFSP
-        const formsRequiringEfsp = ["Affidavit – General", "Guardianship Affidavit"];
+        const formsRequiringEfsp = ["Affidavit – General", "Guardianship Affidavit", "Affidavit of Personal service"];
 
         if (this.eFiling && this.efspNotSelected){
             for(const selectedForm of this.selectedFormInfoList){
