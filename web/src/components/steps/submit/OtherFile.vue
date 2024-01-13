@@ -757,6 +757,8 @@
                         this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
                     } else if(selectedForm.formName=="Affidavit of Personal service"){
                         this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Affidavit of Personal Service of Protection Order"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal Service of Protection Order', type: 'EFSP'});
                     }
                 }
             }            
