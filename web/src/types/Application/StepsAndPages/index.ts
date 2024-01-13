@@ -32,6 +32,7 @@ export interface stepsAndPagesNumberInfoType{
     GA: GAstPgTypes;
     APS: APSstPgTypes;
     APSP: APSPstPgTypes;
+    CSV: CSVstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -411,6 +412,19 @@ export interface APSPstPgTypes{
     ReviewYourAnswersAPSP: number;
     PreviewFormsAPSP: number;
     PreviewFormsApspEFSP: number;
+}
+
+export interface CSVstPgTypes{
+    _StepNo: number;
+
+    CertificateOfService: number;
+    AboutAffiantCsv: number;
+    YourStoryCSV: number;
+    FilingCSV: number;
+    ElectronicFilingStatementCSV: number;
+    ReviewYourAnswersCSV: number;
+    PreviewFormsCSV: number;
+    PreviewFormsCsvEFSP: number;
 }
 
 export interface NLPstPgTypes{

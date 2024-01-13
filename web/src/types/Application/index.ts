@@ -34,6 +34,7 @@ import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfo
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
 import { aboutAffiantApsSurveyInfoType, affidavitPersonalServiceSurveyInfoType, electronicFilingStatementApsSurveyInfoType, filingApsSurveyInfoType, yourStoryApsSurveyInfoType } from "./AffidavitPersonalService";
 import { aboutAffiantApspSurveyInfoType, affidavitPersonalServicePoSurveyInfoType, electronicFilingStatementApspSurveyInfoType, filingApspSurveyInfoType, yourStoryApspSurveyInfoType } from "./AffidavitPersonalServicePO";
+import { aboutAffiantCsvSurveyInfoType, certificateOfServiceSurveyInfoType, electronicFilingStatementCsvSurveyInfoType, filingCsvSurveyInfoType, yourStoryCsvSurveyInfoType } from "./CertificateOfService";
 
 
 //This is what our database saves.
@@ -114,6 +115,7 @@ export interface stepInfoType {
     gaEfsDocuments?: electronicFilingDocumentInfoType[];
     apsEfsDocuments?: electronicFilingDocumentInfoType[];
     apspEfsDocuments?: electronicFilingDocumentInfoType[];
+    csvEfsDocuments?: electronicFilingDocumentInfoType[];
     gaExhibitList?: exhibitsDataInfoType[];
 
     //______Step 1 PO____
@@ -377,12 +379,12 @@ export interface stepInfoType {
     filingApspSurvey?: filingApspSurveyInfoType;
     electronicFilingStatementApspSurvey?: electronicFilingStatementApspSurveyInfoType;
 
-    // //_____Step 26 CERTIFICATE OF SERVICE_____________    
-    // certificateOfServiceSurvey?: certificateOfServiceSurveyInfoType;    
-    // aboutAffiantCsvSurvey?: aboutAffiantCsvpSurveyInfoType;
-    // yourStoryCsvSurvey?: yourStoryCsvSurveyInfoType;
-    // filingCsvSurvey?: filingCsvSurveyInfoType;
-    // electronicFilingStatementCsvSurvey?: electronicFilingStatementCsvSurveyInfoType;
+    //_____Step 26 CERTIFICATE OF SERVICE_____________    
+    certificateOfServiceSurvey?: certificateOfServiceSurveyInfoType;    
+    aboutAffiantCsvSurvey?: aboutAffiantCsvSurveyInfoType;
+    yourStoryCsvSurvey?: yourStoryCsvSurveyInfoType;
+    filingCsvSurvey?: filingCsvSurveyInfoType;
+    electronicFilingStatementCsvSurvey?: electronicFilingStatementCsvSurveyInfoType;
     
     //__Step 27 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
@@ -412,6 +414,7 @@ export interface stepInfoType {
     guardianshipAffidavit?: boolean;
     affidavitPersonalService?: boolean;
     affidavitPersonalServicePO?: boolean;
+    certificateOfService?: boolean;
   }
 
   export interface electronicFilingDocumentInfoType {

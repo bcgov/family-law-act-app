@@ -2816,11 +2816,93 @@ class Application extends VuexModule {
 
         // Affidavit of Personal service PO STOP 
 
+        // Certificate of Service START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "26";
+        s.name = "CSV";
+        s.label = "Certificate of Service";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "certificateOfService";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "CertificateOfService";
+        p.label = "Certificate of Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantCsv";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "YourStoryCSV";
+        p.label = "Your Story";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";        
+        p.name = "FilingCSV";
+        p.label = "Filing an Affidavit";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ElectronicFilingStatementCSV";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ReviewYourAnswersCSV";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsCSV";
+        p.label = "Preview Form 7";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "PreviewFormsCsvEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Certificate of Service STOP 
+
 
         //Submit START
         s = {} as stepInfoType;
         s.active = false;        
-        s.id = "26";
+        s.id = "27";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
