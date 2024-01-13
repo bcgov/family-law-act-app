@@ -50,7 +50,8 @@ export interface otherFormsFilingLocationSurveyInfoType {
 }
 
 export interface completeOtherFormsSurveyDataInfoType {
-    selectedFormInfoList: otherFormPathwayInfoType[];      
+    selectedFormInfoList: otherFormPathwayInfoType[];
+    requiresEFSP: boolean;      
 }
 
 
