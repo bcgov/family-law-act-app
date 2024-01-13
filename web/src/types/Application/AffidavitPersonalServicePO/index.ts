@@ -1,4 +1,4 @@
-import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
+import { addressInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface affidavitPersonalServicePoDataInfoType {    
     affidavitReason?: string;
@@ -30,7 +30,7 @@ export interface aboutAffiantApspSurveyInfoType {
 }
 
 export interface yourStoryApspDataInfoType {    
-    storyAps?: string[];
+    storyApsp?: string[];
 }
 
 export interface yourStoryApspSurveyInfoType {
@@ -42,7 +42,7 @@ export interface yourStoryApspSurveyInfoType {
 }
 
 export interface filingApspSurveyInfoType {
-    data: filingApsDataInfoType;
+    data: filingApspDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;

@@ -33,6 +33,7 @@ import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInf
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
 import { aboutAffiantApsSurveyInfoType, affidavitPersonalServiceSurveyInfoType, electronicFilingStatementApsSurveyInfoType, filingApsSurveyInfoType, yourStoryApsSurveyInfoType } from "./AffidavitPersonalService";
+import { aboutAffiantApspSurveyInfoType, affidavitPersonalServicePoSurveyInfoType, electronicFilingStatementApspSurveyInfoType, filingApspSurveyInfoType, yourStoryApspSurveyInfoType } from "./AffidavitPersonalServicePO";
 
 
 //This is what our database saves.
@@ -375,8 +376,15 @@ export interface stepInfoType {
     yourStoryApspSurvey?: yourStoryApspSurveyInfoType;
     filingApspSurvey?: filingApspSurveyInfoType;
     electronicFilingStatementApspSurvey?: electronicFilingStatementApspSurveyInfoType;
+
+    // //_____Step 26 CERTIFICATE OF SERVICE_____________    
+    // certificateOfServiceSurvey?: certificateOfServiceSurveyInfoType;    
+    // aboutAffiantCsvSurvey?: aboutAffiantCsvpSurveyInfoType;
+    // yourStoryCsvSurvey?: yourStoryCsvSurveyInfoType;
+    // filingCsvSurvey?: filingCsvSurveyInfoType;
+    // electronicFilingStatementCsvSurvey?: electronicFilingStatementCsvSurveyInfoType;
     
-    //__Step 24 SUBMIT
+    //__Step 27 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
