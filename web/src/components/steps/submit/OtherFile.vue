@@ -352,10 +352,12 @@
         gaIsExemptGuidedPathway = false;
         apsIsExemptGuidedPathway = false;
         apspIsExemptGuidedPathway = false;
+        csvIsExemptGuidedPathway = false;
         requiresEfsp = false;
         requiresGaEfsp = false;
         requiresApsEfsp = false;
         requiresApspEfsp = false;
+        requiresCsvEfsp = false;
 
         mounted(){
 
@@ -625,10 +627,12 @@
             this.gaIsExemptGuidedPathway = false;
             this.apsIsExemptGuidedPathway = false;
             this.apspIsExemptGuidedPathway = false;
+            this.csvIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
             this.requiresGaEfsp = false;
             this.requiresApsEfsp = false;
             this.requiresApspEfsp = false;
+            this.requiresCsvEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -700,7 +704,18 @@
                         if (this.requiresApspEfsp){
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal Service of Protection Order', type: 'EFSP'});
                         }
-                    }                      
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Certificate of Service"){   
+                        this.determineCsvGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('CSV')) continue
+                        
+                        if (this.csvIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Certificate of Service', type: 'CSV'});    
+                        
+                        if (this.requiresCsvEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'CSV'});
+                        }
+                    }                 
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -759,6 +774,8 @@
                         this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
                     } else if(selectedForm.formName=="Affidavit of Personal Service of Protection Order"){
                         this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal Service of Protection Order', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Certificate of Service"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
                     }
                 }
             }            
@@ -842,7 +859,24 @@
             } 
         }
 
+        public determineCsvGuidedPathway(selectedForm){
 
+            let requiresCsv = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'CSV')})
+            if (index >=0 && this.eFiling){
+                const csvFilingInfo = this.$store.state.Application.steps[this.stPgNo.CSV._StepNo].result?.filingCsvSurvey?.data;              
+                requiresCsv = csvFilingInfo?.sworn?true:false;
+                requiresEfsp = csvFilingInfo?.sworn == 'y';
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.csvIsExemptGuidedPathway = requiresCsv;
+                this.requiresCsvEfsp = requiresEfsp;
+            } 
+        }
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

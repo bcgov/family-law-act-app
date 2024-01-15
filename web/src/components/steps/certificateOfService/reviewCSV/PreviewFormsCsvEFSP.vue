@@ -41,15 +41,15 @@ export default class PreviewFormsCsvEfsp extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         
-        const apspPageNumber = this.stPgNo.CSV.PreviewFormsCSV;
+        const csvPageNumber = this.stPgNo.CSV.PreviewFormsCSV;
         
         let nonCompleteForm = false;
         let nonCompleteFormPage = 0;
         
-        const pageForm = this.$store.state.Application.steps[this.stPgNo.CSV._StepNo].pages[apspPageNumber]
+        const pageForm = this.$store.state.Application.steps[this.stPgNo.CSV._StepNo].pages[csvPageNumber]
         if(pageForm.active && pageForm.progress !=100){
             nonCompleteForm = true;
-            nonCompleteFormPage = apspPageNumber            
+            nonCompleteFormPage = csvPageNumber            
         }
 
         if(nonCompleteForm){

@@ -246,9 +246,9 @@ export default class Form51Layout extends Vue {
         
         this.documents = '';        
 
-        if(this.result?.apspEfsDocuments?.length>0){
-            const documentName = this.result.apspEfsDocuments[0].documentName;
-            const applicant = Vue.filter('getFullName')(this.result.apspEfsDocuments[0].efsApplicantName);
+        if(this.result?.csvEfsDocuments?.length>0){
+            const documentName = this.result.csvEfsDocuments[0].documentName;
+            const applicant = Vue.filter('getFullName')(this.result.csvEfsDocuments[0].efsApplicantName);
             this.documents = documentName + ' of ' + applicant;
         }        
     

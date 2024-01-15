@@ -43,7 +43,7 @@ export default class Form51 extends Vue {
     public onPrint() { 
 
         const pdf_type = Vue.filter('getPathwayPdfType')("electronicFilingStatementCsv");
-        const pdf_name = "electronic-filing-statement-apsp";       
+        const pdf_name = "electronic-filing-statement-csv";       
         const el = document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;

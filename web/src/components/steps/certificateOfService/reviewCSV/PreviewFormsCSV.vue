@@ -1,7 +1,7 @@
 <template>
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">           
-            <form48 @enableNext="EnableNext"/>
+            <form7 @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
@@ -13,18 +13,18 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import Form48 from  "./pdf/Form49.vue"
+import Form7 from  "./pdf/Form7.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 @Component({
     components:{       
-        Form48,
+        Form7,
         PageBase
     }
 })
-export default class PreviewFormsp extends Vue {
+export default class PreviewFormsCsv extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
@@ -60,7 +60,7 @@ export default class PreviewFormsp extends Vue {
 
     public checkErrorOnPages(steps){
 
-        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Form 49","Preview Form 51", "File"]
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Form 7","Preview Form 51", "File"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){

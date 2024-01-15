@@ -45,13 +45,13 @@ export default class ReviewYourAnswersCsv extends Vue {
     currentPage =0;
     pageHasError = false;
 
-    form49 = false;
+    form7 = false;
     form51 = false;
 
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"affidavitPersonalServicePO", isCompleted:false})
+        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"certificateOfService", isCompleted:false})
         this.toggleFormPages();
         this.setFormsProgress(); 
     }
@@ -59,14 +59,14 @@ export default class ReviewYourAnswersCsv extends Vue {
     mounted(){
         this.pageHasError = false;
         const requiredForm = whichForm();
-        this.form49 = requiredForm.includes('P49');
+        this.form7 = requiredForm.includes('P7');
         this.form51 = requiredForm.includes('P51');        
         this.reloadPageInformation();
         this.checkStepHasError();
     }
 
     public toggleFormPages(){
-        togglePages([this.stPgNo.CSV.PreviewFormsCSV], !this.pageHasError && this.form49, this.currentStep);
+        togglePages([this.stPgNo.CSV.PreviewFormsCSV], !this.pageHasError && this.form7, this.currentStep);
         togglePages([this.stPgNo.CSV.PreviewFormsCsvEFSP], !this.pageHasError && this.form51, this.currentStep);        
     }
 
@@ -79,7 +79,7 @@ export default class ReviewYourAnswersCsv extends Vue {
 
     public checkStepHasError(){
 
-        const optionalLabels = ["Preview Form 49","Preview Form 51"];        
+        const optionalLabels = ["Preview Form 7","Preview Form 51"];        
         const step = this.$store.state.Application.steps[this.currentStep];
 
         for(const page of step.pages){

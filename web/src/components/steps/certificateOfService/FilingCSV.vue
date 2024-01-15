@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/filling-affidavit-apsp.json";
+import surveyJson from "./forms/filling-affidavit-csv.json";
 
 import PageBase from "../PageBase.vue";
 import { electronicFilingDocumentInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -120,14 +120,14 @@ export default class FilingCsv extends Vue {
 
     public setEfsDocumentList(){
        
-        const efsDocumentList: electronicFilingDocumentInfoType[] = this.steps[this.stPgNo.GETSTART._StepNo].result?.apspEfsDocuments?.length>0?this.steps[this.stPgNo.GETSTART._StepNo].result.apsEfsDocuments:[];
+        const efsDocumentList: electronicFilingDocumentInfoType[] = this.steps[this.stPgNo.GETSTART._StepNo].result?.csvEfsDocuments?.length>0?this.steps[this.stPgNo.GETSTART._StepNo].result.apsEfsDocuments:[];
       
         if (this.step.result.aboutAffiantCsvSurvey?.data?.ApplicantName){
             const applicantName = this.step.result.aboutAffiantCsvSurvey.data.ApplicantName
-            efsDocumentList.push({documentName: 'Affidavit of Personal service of Protection Order', efsApplicantName: applicantName});
+            efsDocumentList.push({documentName: 'Certificate of Service', efsApplicantName: applicantName});
         }
               
-       this.UpdateCommonStepResults({data:{'apspEfsDocuments':efsDocumentList}});
+       this.UpdateCommonStepResults({data:{'csvEfsDocuments':efsDocumentList}});
     }
     
     beforeDestroy() {   

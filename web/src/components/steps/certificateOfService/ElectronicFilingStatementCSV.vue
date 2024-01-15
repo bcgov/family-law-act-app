@@ -13,7 +13,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/electronic-filing-statement-apsp.json";
+import surveyJson from "./forms/electronic-filing-statement-csv.json";
 import PageBase from "../PageBase.vue";
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";

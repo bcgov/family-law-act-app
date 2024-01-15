@@ -1,13 +1,13 @@
 <template>
     <step-base v-bind:step="step">    
-        <affidavit-personal-service-po     v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.AffidavitPersonalServicePO" />
-        <about-affiant-apsp                v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.AboutAffiantCsv" />
-        <your-story-apsp                   v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.YourStoryCSV" />
-        <filing-apsp                       v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.FilingCSV" />
-        <electronic-filing-statement-apsp  v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.ElectronicFilingStatementCSV" />
-        <review-your-answers-apsp          v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.ReviewYourAnswersCSV"/>
-        <preview-forms-apsp                v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.PreviewFormsCSV"/>
-        <preview-forms-apsp-efsp           v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.PreviewFormsCsvEFSP"/> 
+        <certificate-of-service           v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.CertificateOfService" />
+        <about-affiant-csv                v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.AboutAffiantCsv" />
+        <your-story-csv                   v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.YourStoryCSV" />
+        <filing-csv                       v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.FilingCSV" />
+        <electronic-filing-statement-csv  v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.ElectronicFilingStatementCSV" />
+        <review-your-answers-csv          v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.ReviewYourAnswersCSV"/>
+        <preview-forms-csv                v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.PreviewFormsCSV"/>
+        <preview-forms-csv-efsp           v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.PreviewFormsCsvEFSP"/> 
     </step-base>
 </template>
 
@@ -19,7 +19,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import StepBase from "../StepBase.vue";
-import AffidavitPersonalServicePo from "./CertificateOfService.vue";
+import CertificateOfService from "./CertificateOfService.vue";
 import AboutAffiantCsv from "./AboutAffiantCSV.vue";
 import YourStoryCsv from "./YourStoryCSV.vue";
 import FilingCsv from "./FilingCSV.vue";
@@ -34,7 +34,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 @Component({
     components:{
         StepBase,        
-        AffidavitPersonalServicePo,        
+        CertificateOfService,        
         AboutAffiantCsv,
         YourStoryCsv,
         FilingCsv,
@@ -44,7 +44,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
         PreviewFormsCsvEfsp
     }
 })
-export default class AffidavitPersonalServicePoStep extends Vue {
+export default class CertificateOfServiceStep extends Vue {
   
     @Prop({required: true})
     step!: stepInfoType

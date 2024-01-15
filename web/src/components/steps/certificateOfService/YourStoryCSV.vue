@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/your-story-apsp.json";
+import surveyJson from "./forms/your-story-csv.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";

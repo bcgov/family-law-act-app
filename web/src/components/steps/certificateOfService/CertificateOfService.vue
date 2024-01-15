@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/affidavit-personal-service-po.json";
+import surveyJson from "./forms/certificate-of-service.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class AffidavitPersonalService extends Vue {
+export default class CertificateOfService extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -81,8 +81,8 @@ export default class AffidavitPersonalService extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.affidavitPersonalServicePoSurvey) {            
-            this.survey.data = this.step.result.affidavitPersonalServicePoSurvey.data;
+        if (this.step.result?.certificateOfServiceSurvey) {            
+            this.survey.data = this.step.result.certificateOfServiceSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         } 
         
@@ -111,7 +111,7 @@ export default class AffidavitPersonalService extends Vue {
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        this.UpdateStepResultData({step:this.step, data: {affidavitPersonalServicePoSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {certificateOfServiceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

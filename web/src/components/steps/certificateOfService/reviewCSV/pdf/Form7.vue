@@ -1,7 +1,7 @@
 <template>
     <div v-if="dataReady">
         <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-            <form-49-layout v-bind:result="result"/>
+            <form-7-layout v-bind:result="result"/>
         </b-card>
     </div>
 </template>
@@ -13,17 +13,17 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import Form49Layout from "./Form49Layout.vue"
+import Form7Layout from "./Form7Layout.vue"
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
 
 @Component({
     components:{        
-        Form49Layout
+        Form7Layout
     }
 })
-export default class Form49 extends Vue {
+export default class Form7 extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
@@ -43,12 +43,12 @@ export default class Form49 extends Vue {
            
     public onPrint() { 
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("affidavitPersonalServicePO")
-        const pdf_name = "affidavitPersonalServicePO";       
+        const pdf_type = Vue.filter('getPathwayPdfType')("certificateOfService")
+        const pdf_name = "certificateOfService";       
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA766    `+moment().format("MMMM D, YYYY")+` \\a           Form 49";`;
+        const bottomLeftText = `"PFA714    `+moment().format("MMMM D, YYYY")+` \\a           Form 7";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
@@ -69,7 +69,7 @@ export default class Form49 extends Vue {
         .then(res => {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"affidavitPersonalServicePO", isCompleted:true});
+            this.UpdatePathwayCompleted({pathway:"certificateOfService", isCompleted:true});
 
             this.$emit('enableNext',true)                   
         },err => {

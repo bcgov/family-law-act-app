@@ -205,6 +205,13 @@ export default class OtherFormFilingLocation extends Vue {
 
     }
 
+    public eFilingCertificateOfService(){
+
+        const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+        return filingMethod == 'eFile' && this.requiredGuidedPathways.includes("certificateOfService");                
+
+    }
+
     public setGuidedPathwaySteps(){
 
         this.requiredGuidedPathways = [];
@@ -232,6 +239,8 @@ export default class OtherFormFilingLocation extends Vue {
         togglePages([this.stPgNo.APS.FilingAPS], this.eFilingAffidavitPersonalService, this.stPgNo.APS._StepNo);
         toggleStep(this.stPgNo.APSP._StepNo, this.requiredGuidedPathways.includes("affidavitPersonalServicePO"));
         togglePages([this.stPgNo.APSP.FilingAPSP], this.eFilingAffidavitPersonalServicePO, this.stPgNo.APSP._StepNo);
+        toggleStep(this.stPgNo.CSV._StepNo, this.requiredGuidedPathways.includes("certificateOfService"));
+        togglePages([this.stPgNo.CSV.FilingCSV], this.eFilingCertificateOfService, this.stPgNo.CSV._StepNo);
         
     }   
 
