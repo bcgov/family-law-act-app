@@ -42,8 +42,8 @@ export default class Form51 extends Vue {
            
     public onPrint() { 
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("electronicFilingStatementAff");
-        const pdf_name = "electronic-filing-statement-aff";       
+        const pdf_type = Vue.filter('getPathwayPdfType')("electronicFilingStatementGa");
+        const pdf_name = "electronic-filing-statement-ga";       
         const el = document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
@@ -68,7 +68,7 @@ export default class Form51 extends Vue {
         .then(res => {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"electronicFilingStatementAff", isCompleted:true});
+            this.UpdatePathwayCompleted({pathway:"electronicFilingStatementGa", isCompleted:true});
 
             this.$emit('enableNext',true)                   
         },err => {
@@ -79,7 +79,7 @@ export default class Form51 extends Vue {
     public getEFSPResultData() {         
         
         const result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.AFF._StepNo]){
+        for(const stepIndex of [this.stPgNo.OTHER._StepNo, this.stPgNo.GA._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])

@@ -26,11 +26,7 @@ const applicationState = namespace("Application");
 export default class RelocationOfChildBestInterestsOfChild extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;    
-
-    
-
-    
+    step!: stepInfoType;      
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

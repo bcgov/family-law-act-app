@@ -43,6 +43,10 @@ export interface nameInfoType {
   last: string;
 }
 
+export interface fullNameInfoType {
+    name: string;
+}
+
 export interface contactInfoType {
   phone?: string;
   fax?: string;

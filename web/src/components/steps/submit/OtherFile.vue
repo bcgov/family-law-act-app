@@ -349,7 +349,9 @@
         submitEnable = true;
         currentPage=0;
         affIsExemptGuidedPathway = false;
+        gaIsExemptGuidedPathway = false;
         requiresEfsp = false;
+        requiresGaEfsp = false;
 
         mounted(){
 
@@ -497,7 +499,7 @@
             for(const form of existingOrdersInfo){
 
                 const pathwayInfo = selectedFormInfoList.filter(selectedForm => {if(Vue.filter('getPathwayPdfType')(selectedForm.pathwayName) == form.type) return form;})[0]
-                if (!pathwayInfo.pathwayState){
+                if (pathwayInfo && !pathwayInfo.pathwayState){
                     form.doNotIncludePdf = true;                   
                 }
                 updatedExistingOrders.push(form)
@@ -616,7 +618,9 @@
         public extractInfo(){
 
             this.affIsExemptGuidedPathway = false;
+            this.gaIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
+            this.requiresGaEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -642,9 +646,10 @@
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes(pdfType)) continue
                         
-                        this.requiredDocumentLists.push({description: name, type: pdfType});                       
+                        this.requiredDocumentLists.push({description: name, type: pdfType});
+                        this.determineEfspPdfRequired(selectedForm);                       
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){   
-                        this.determineAffGuidedPathway();
+                        this.determineAffGuidedPathway(selectedForm);
                         
                         if(this.rejectedPathway && !rejectedFormTypesList.includes('AFF')) continue
                         
@@ -652,10 +657,21 @@
                             this.requiredDocumentLists.push({description: 'Affidavit – General', type: 'AFF'});    
                         
                         if (this.requiresEfsp){
-                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement', type: 'EFSP'});
-
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
                         }
-                    }                 
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Guardianship Affidavit"){   
+                        this.determineGaGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('GA')) continue
+                        
+                        if (this.gaIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Guardianship Affidavit', type: 'GA'});    
+                        
+                        if (this.requiresGaEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
+                        }
+                    }  
+                    
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -699,8 +715,24 @@
             }
             return false;
         } 
+
+        public determineEfspPdfRequired(selectedForm){
+//TODO: add all pathways that require EFSP
+            if(this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data){
+                const completeOtherFormsData = this.steps[this.stPgNo.OTHER._StepNo].result.completeOtherFormsSurvey.data;
+                if(completeOtherFormsData.requiresEFSP){
+
+                    if(selectedForm.formName=="Guardianship Affidavit"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Affidavit – General"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
+                    }
+                }
+            }            
+
+        }   
         
-        public determineAffGuidedPathway(){
+        public determineAffGuidedPathway(selectedForm){
 
             let requiresAff = false;
             let requiresEfsp = false;
@@ -709,24 +741,35 @@
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'AFF')})
             if (index >=0 && this.eFiling){
                 const affFilingInfo = this.$store.state.Application.steps[this.stPgNo.AFF._StepNo].result?.filingAffSurvey?.data;              
-                requiresAff = affFilingInfo?.sworn;
+                requiresAff = affFilingInfo?.sworn?true:false;
                 requiresEfsp = affFilingInfo?.sworn == 'y';
+            }  
+                   
+            if (selectedForm.pathwayExists){
+                this.affIsExemptGuidedPathway = requiresAff;
+                this.requiresEfsp = requiresEfsp;
             } 
-
-            const completeOtherFormsPageResults = this.steps[this.stPgNo.OTHER._StepNo].result?.completeOtherFormsSurvey?.data;
-            const selectedFormInfoList = completeOtherFormsPageResults?.selectedFormInfoList?completeOtherFormsPageResults.selectedFormInfoList:[];
-
-            for (const selectedForm of selectedFormInfoList){                
-                if (selectedForm.pathwayExists && selectedForm.pathwayState && selectedForm.formName=="Affidavit – General"){
-                    this.affIsExemptGuidedPathway = requiresAff;
-                    this.requiresEfsp = requiresEfsp;
-                } else {
-                    this.affIsExemptGuidedPathway = false;
-                    this.requiresEfsp = false;
-                }          
-            }
             
         }      
+
+        public determineGaGuidedPathway(selectedForm){
+
+            let requiresGa = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'GA')})
+            if (index >=0 && this.eFiling){
+                const gaFilingInfo = this.$store.state.Application.steps[this.stPgNo.GA._StepNo].result?.filingGaSurvey?.data;              
+                requiresGa = gaFilingInfo?.sworn?true:false;
+                requiresEfsp = gaFilingInfo?.sworn == 'y';
+            } 
+                   
+            if (selectedForm.pathwayExists){
+                this.gaIsExemptGuidedPathway = requiresGa;
+                this.requiresGaEfsp = requiresEfsp;
+            } 
+        }     
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

@@ -116,11 +116,7 @@ export default class CmChildrenInfo extends Vue {
     step!: stepInfoType
 
     @applicationState.State
-    public steps!: stepInfoType[];
-
-    
-
-    
+    public steps!: stepInfoType[];    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

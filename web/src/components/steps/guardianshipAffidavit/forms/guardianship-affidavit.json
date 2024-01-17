@@ -1,0 +1,114 @@
+{
+    "title": "Guardianship Affidavit",
+    "pages": [
+      {
+        "name": "Guardianship Affidavit",
+        "description": "A guardianship affidavit is used to present evidence to the court in support of an application about guardianship of a child under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section51' target='_blank'>section 51</a> of the Family Law Act, including an application for a consent order for guardianship.<br><br>It is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book) or affirm (non-religious promise) to be true. After you swear or affirm the affidavit, it is evidence of the facts and events it sets out, just as if you took the stand in a courtroom to provide those facts.",
+        "elements": [
+          {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "How do I swear or affirm an affidavit?",
+              "titleLocation": "hidden",              
+              "body": "To swear or affirm an affidavit, you must meet with a commissioner for taking oaths. The commissioner will check your photo ID to make sure you are who you say you are, ask you if you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true. The commissioner will then watch you sign the document before signing it themselves.<br><br>If you do not speak or read English, you can bring an interpreter with you when you meet with the commissioner. For information about interpreters and language help, click on the Language Resources link on the bottom toolbar.<br><br>Lawyers, notary publics and many court registry staff are commissioners for taking oaths. You can go to any <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>Provincial Court Registry</a> or <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=FD6DB5BA2A5248038EEF54D9F9F37C4D'>Service BC location</a> to swear or affirm the affidavit. If you have the document sworn or affirmed at a different court registry, you will still need to file it at the court registry where the existing case is filed."
+          },
+          {
+              "type": "html",
+              "name": "affidavitHeading",            
+              "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Do not sign the affidavit until you are with a commissioner for taking affidavits and they tell you to sign it. Make sure that you bring any documents you are attaching to your affidavit as exhibits with you. The commissioner will also need to date and sign the exhibits.</div><br>If you cannot get the document sworn or affirmed before the document is filed, the unsworn document can be filed if you will be avail­able to swear or affirm that the contents of the document are true during your court appearance.</div>"
+          },
+          {
+              "type": "html",
+              "name": "getStartedHeading",            
+              "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>What you need to get started</div><br>Before you can complete the guardianship affidavit, you must complete the following background record checks referenced in the form:<ul><li>a Ministry of Children and Family Development record check;</li><li>a protection order record check from the Protection Order Registry; and</li><li>a criminal record check.</li></ul>The background record checks must be dated within 60 days of the date that the record check is filed with the guardianship affidavit.<br><br>They will be attached to your guardianship affidavit as exhibits.</div>"
+          },
+          {
+              "type": "helptext",
+              "name": "FAQLegalAdvice1",
+              "title": "How do I get these background record checks?",
+              "titleLocation": "hidden",              
+              "body": "<div><ul><li><b>Ministry of Children and Family Development record check</b><br>You must fill out a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf' target='_blank'>Section 51 – Consent for Child Protection Record Check</a> form and give it to the court registry where you have filed your application about guardianship of a child. You are usually required to file this with your application.<br><br>The registry will let you know when the results from the record check come in. The registry will then give you copies to attach to your affidavit.<br><br>It may take some time to get the results back. You can check in with the registry to find out when the results might be expected.</li></br><li><b>Protection order record check from the Protection Order Registry</b><br>You must fill out a <a href='https://www2.gov.bc.ca/assets/download/08AAA8834EC54C22A6274E62096A1489' target='_blank'>Request for Protection Order Registry Search</a> form and give it to the court registry where you have filed your application about guardianship of a child. You are usually required to file this with your application.<br><br>The registry will let you know when the results from the record check come in. The registry will then give you copies to attach to your affidavit.<br><br>It may take some time to get the results back. You can check in with the registry to find out when the results might be expected.</li></br><li><b>Criminal record check</b><br>To get a criminal record check, ask at the front desk of the police station or RCMP detachment in your community. There is a fee you will need to pay to get the criminal record check.<br><br>The police or RCMP will send you your results.</li></ul>"
+          },
+          {
+              "type": "html",
+              "name": "getStartedHeading2",            
+              "html": "The court can make an interim order for guardianship without the completed affidavit and record checks. The interim order will last up to 90 days. During this time, you must:<ul><li>get your background record checks done, and</li><li>fill out and file the guardianship affidavit.</li></ul>This pathway will help you to complete the Form 5 Guardianship Affidavit."
+          },
+          {
+            "type": "panel",
+            "name": "AffidavitPanel",
+            "elements": [  
+                  {
+                      "type": "yesno",
+                      "name": "haveBrcResults",
+                      "isRequired": true,
+                      "title": "Do you have your results from your background record checks?",
+                      "description": "You will be unable to complete your guardianship affidavit without the results from the following background record checks:<ul><li>a Ministry of Children and Family Development record check;</li><li>a protection order record check from the Protection Order Registry; and</li><li>a criminal record check.</li></ul>"
+                  },
+                  {
+                      "type": "html",
+                      "name": "BrcInfoAvailable",  
+                      "visible": false,
+                      "visibleIf": "{haveBrcResults} = 'y'",          
+                      "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>You will need to have your background record checks available to answer these next questions.</div>"
+                  },
+                  {
+                      "type": "text",
+                      "name": "mcfdRecordCheckDate",
+                      "title": "What is the date the Ministry of Children and Family Development records check was issued?",
+                      "description": "The record check must be dated within 60 days of the date you will file the affidavit generated by this pathway. If you are past 60 days, you will need to request a new record check.",
+                      "isRequired": true,
+                      "inputType": "date",
+                      "dateYearsAhead": "0",
+                      "visible": false,
+                      "visibleIf": "{haveBrcResults} = 'y'"
+                  },
+                  {
+                      "type": "text",
+                      "name": "porsRecordCheckDate",
+                      "title": "What is the date the Protection Order Registry Search records check was issued?",
+                      "description": "The issued date can be found near the bottom of the form following the name of the Protection Order Registry Clerk.<br>The record check must be dated within 60 days of the date you will file the affidavit generated by this pathway. If you are past 60 days, you will need to request a new record check.",
+                      "isRequired": true,
+                      "inputType": "date",
+                      "dateYearsAhead": "0",
+                      "visible": false,
+                      "visibleIf": "{haveBrcResults} = 'y'"
+                  },
+                  {
+                      "type": "comment",
+                      "name": "policeDept",
+                      "title": "Which police department or RCMP detachment did you get your Criminal Records Check from?",
+                      "description": "Write the name of the police department or RCMP detachment in the space provided.",
+                      "isRequired": true,                
+                      "visible": false,
+                      "visibleIf": "{haveBrcResults} = 'y'"
+                  },
+                  {
+                      "type": "text",
+                      "name": "criminalRecordCheckDate",
+                      "title": "What is the date the Criminal Records Check was issued?",
+                      "description": "The record check must be dated within 60 days of the date you will file the affidavit generated by this pathway. If you are past 60 days, you will need to request a new record check.",
+                      "isRequired": true,
+                      "inputType": "date",
+                      "dateYearsAhead": "0",
+                      "visible": false,
+                      "visibleIf": "{haveBrcResults} = 'y'"
+                  },
+                  {
+                      "type": "infotext",
+                      "name": "POSelectedWarning",
+                      "title": "You will be unable to complete the guardianship affidavit without the results from your background record checks. Please refer to the information above about how to get the record checks completed and to get a copy of the results.<br>Once you have received your record checks, you can return to this part of the pathway and change your answer to ‘Yes’. There are a few more questions about your record checks that you will need to answer to complete the pathway.",
+                      "titleLocation": "hidden",
+                      "visible": false,
+                      "visibleIf": "{haveBrcResults} = 'n'"
+                  }
+  
+              ]
+          }
+        ],
+        "title": "Guardianship Affidavit"
+      }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+  }
