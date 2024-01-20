@@ -2899,11 +2899,93 @@ class Application extends VuexModule {
 
         // Certificate of Service STOP 
 
+        // Financial Statement START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "27";
+        s.name = "FS";
+        s.label = "Financial Statement";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "financialStatement";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "FinancialStatement";
+        p.label = "Financial Statement";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantFs";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "YourStoryFS";
+        p.label = "Your Story";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";        
+        p.name = "FilingFS";
+        p.label = "Filing an Affidavit";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ElectronicFilingStatementFS";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ReviewYourAnswersFS";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsFS";
+        p.label = "Preview Form 4";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "PreviewFormsFsEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Financial Statement STOP 
+
 
         //Submit START
         s = {} as stepInfoType;
         s.active = false;        
-        s.id = "27";
+        s.id = "28";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -3419,7 +3501,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, APS: {}, APSP: {}, CSV: {},SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, APS: {}, APSP: {}, CSV: {}, FS:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
          const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

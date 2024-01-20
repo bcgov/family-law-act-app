@@ -13,7 +13,7 @@ import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, E
 import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
 import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpensesSurveyInfoType, detrermineArrearsSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
 import { aboutWrittenResponseOrderSurveyInfoType, agreeDisagreeSurveyInfoType, wrReplyingToApplicationSurveyInfoType } from "./WrittenResponse";
-import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmChildDetailsSurveyInfoType, rflmAdditionalDocumentsSurveyInfoType } from "./ReplyFamilyLawMatter";
+import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmAdditionalDocumentsSurveyInfoType } from "./ReplyFamilyLawMatter";
 import { replyExistingParentingArrangementsSurveyInfoType, replyNewConditionsParentingTimeSurveyInfoType, replyNewParentalResponsibilitiesSurveyInfoType, replyNewParentingTimeSurveyInfoType } from "./ReplyFamilyLawMatter/ParentingArrangements";
 import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyInfoType, relationshipToChildSurveyInfoType, replyExistingChildSupportSurveyInfoType, replyNewChildSupportSurveyInfoType, rflmCalculatingChildSupportSurveyInfoType, rflmUnpaidChildSupportSurveyInfoType } from "./ReplyFamilyLawMatter/ChildSupport";
 import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
@@ -35,6 +35,7 @@ import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyD
 import { aboutAffiantApsSurveyInfoType, affidavitPersonalServiceSurveyInfoType, electronicFilingStatementApsSurveyInfoType, filingApsSurveyInfoType, yourStoryApsSurveyInfoType } from "./AffidavitPersonalService";
 import { aboutAffiantApspSurveyInfoType, affidavitPersonalServicePoSurveyInfoType, electronicFilingStatementApspSurveyInfoType, filingApspSurveyInfoType, yourStoryApspSurveyInfoType } from "./AffidavitPersonalServicePO";
 import { aboutAffiantCsvSurveyInfoType, certificateOfServiceSurveyInfoType, electronicFilingStatementCsvSurveyInfoType, filingCsvSurveyInfoType, yourStoryCsvSurveyInfoType } from "./CertificateOfService";
+import { aboutAffiantFsSurveyInfoType, electronicFilingStatementFsSurveyInfoType, filingFsSurveyInfoType, financialStatementSurveyInfoType, yourStoryFsSurveyInfoType } from "./FinancialStatement";
 
 
 //This is what our database saves.
@@ -116,6 +117,7 @@ export interface stepInfoType {
     apsEfsDocuments?: electronicFilingDocumentInfoType[];
     apspEfsDocuments?: electronicFilingDocumentInfoType[];
     csvEfsDocuments?: electronicFilingDocumentInfoType[];
+    fsEfsDocuments?: electronicFilingDocumentInfoType[];
     gaExhibitList?: exhibitsDataInfoType[];
 
     //______Step 1 PO____
@@ -385,8 +387,15 @@ export interface stepInfoType {
     yourStoryCsvSurvey?: yourStoryCsvSurveyInfoType;
     filingCsvSurvey?: filingCsvSurveyInfoType;
     electronicFilingStatementCsvSurvey?: electronicFilingStatementCsvSurveyInfoType;
+
+    //_____Step 27 CERTIFICATE OF SERVICE_____________    
+    financialStatementSurvey?: financialStatementSurveyInfoType;    
+    aboutAffiantFsSurvey?: aboutAffiantFsSurveyInfoType;
+    yourStoryFsSurvey?: yourStoryFsSurveyInfoType;
+    filingFsSurvey?: filingFsSurveyInfoType;
+    electronicFilingStatementFsSurvey?: electronicFilingStatementFsSurveyInfoType;
     
-    //__Step 27 SUBMIT
+    //__Step 28 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 

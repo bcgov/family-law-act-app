@@ -49,8 +49,8 @@ export interface  applicationJsonInfoType {
     fileNum?: string;
     rejected?: boolean;
     packageResults?: any;
-    refApplications?: any[]
-    efilingDocs?: any[],
+    refApplications?: any[];
+    efilingDocs?: any[];
     last_efiling_submission: {
         package_number?: string;
         package_url?: string;

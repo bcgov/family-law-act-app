@@ -45,6 +45,7 @@ export const FLA_Types = [
     {pathway:"electronicFilingStatementAps",                pdfType:"EFSPAPS",  appType:"EFSPS",     familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Affidavit of Personal service"},
     {pathway:"electronicFilingStatementApsp",               pdfType:"EFSPAPSP",  appType:"EFSPP",    familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Affidavit of Personal Service of Protection Order"},
     {pathway:"electronicFilingStatementCsv",                pdfType:"EFSPCSV",  appType:"EFSPC",     familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Certificate of Service"},
+    {pathway:"electronicFilingStatementFs",                 pdfType:"EFSPFS",  appType:"EFSPFS",     familyType:"EFSP",   otherForms:true, fullName:"Electronic Filing Statement - Financial Statement"},
     {pathway:"faxFilingCoverPage",                          pdfType:"FF",    appType:"FF",           familyType:"FF",     otherForms:true, fullName:"Fax Filing Cover Page"},
     
     {pathway:"financialStatement",                          pdfType:"FS",    appType:"FS",           familyType:"FS",     otherForms:true, fullName:"Financial Statement"},
