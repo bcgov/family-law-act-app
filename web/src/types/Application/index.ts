@@ -424,6 +424,7 @@ export interface stepInfoType {
     affidavitPersonalService?: boolean;
     affidavitPersonalServicePO?: boolean;
     certificateOfService?: boolean;
+    financialStatement?: boolean;
   }
 
   export interface electronicFilingDocumentInfoType {
