@@ -65,7 +65,10 @@ class Application extends VuexModule {
         noticeRemoveLawyerChild: false,                    
         noticeLawyerParty: false,
         noticeRemoveLawyerParty: false,
-        affidavit: false          
+        affidavit: false,
+        guardianshipAffidavit: false,
+        affidavitPersonalService: false,
+        affidavitPersonalServicePO: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
