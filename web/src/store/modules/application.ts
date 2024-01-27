@@ -65,7 +65,8 @@ class Application extends VuexModule {
         noticeRemoveLawyerChild: false,                    
         noticeLawyerParty: false,
         noticeRemoveLawyerParty: false,
-        affidavit: false          
+        affidavit: false,
+        guardianshipAffidavit: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -2527,13 +2528,136 @@ class Application extends VuexModule {
 
         this.steps.push(s);
 
-        // Affidavit STOP       
+        // Affidavit STOP     
+
+
+        // Guardianship Affidavit START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "23";
+        s.name = "GA";
+        s.label = "Guardianship Affidavit";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "guardianshipAffidavit";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "GuardianshipAffidavit";
+        p.label = "Guardianship Affidavit";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantGa";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);  
+        
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "ChildrenDetailsGa";
+        p.label = "Children Details";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "CaringForChildGa";
+        p.label = "Caring for the child";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";        
+        p.name = "BackgroundFamilyViolence";
+        p.label = "Background Family Violence";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";        
+        p.name = "BackgroundCivilCourtProceedings";
+        p.label = "Background Civil Court Proceedings";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";        
+        p.name = "BackgroundCriminalHistory";
+        p.label = "Background Criminal History";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";        
+        p.name = "Exhibits";
+        p.label = "Exhibits";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";        
+        p.name = "FilingGA";
+        p.label = "Filing an Affidavit";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "ElectronicFilingStatementGA";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "ReviewYourAnswersGA";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.name = "PreviewFormsGA";
+        p.label = "Preview Form 5";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "PreviewFormsGaEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Guardianship Affidavit STOP  
 
 
         //Submit START
         s = {} as stepInfoType;
         s.active = false;        
-        s.id = "23";
+        s.id = "24";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -3049,7 +3173,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
          const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

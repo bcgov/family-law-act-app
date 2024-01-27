@@ -1,0 +1,65 @@
+{
+    "title": "Court Proceeding Information",
+    "pages": [
+        {
+            "name": "Court Proceeding Information",
+            "elements": [
+                {
+                    "type": "comment",
+                    "name": "partyNames",
+                    "isRequired": true,
+                    "title": "Names of the parties to the proceeding:",
+                    "description": "Please write each name in the field provided. If there is more than one party, separate each name with a comma."
+                },
+                {
+                    "type": "comment",
+                    "name": "courtLocation",
+                    "isRequired": true,
+                    "title": "Name and location of the court in which the proceeding was conducted:",
+                    "description": "For example, Vancouver Law Courts or Fort St. John Provincial Court."
+                },
+                {
+                    "type": "yesno",
+                    "name": "courtOrdersExist",
+                    "title": "Are there any orders made concerning a child under your care on this proceeding?",
+                    "isRequired": true
+                },                  
+                {
+                    "type": "panel",
+                    "name": "CourtOrdersPanel",   
+                    "visible": false,
+                    "visibleIf": "{courtOrdersExist} = 'y'",                        
+                    "elements": [
+                        {    
+                            "type": "paneldynamic",
+                            "name": "courtOrderDates",
+                            "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>The date of each court order in the proceeding concerning a child in your care:</b>",
+                            "description": "If an interim order has been replaced with a final order, you only need to indicate the date of the final order.<br>Add each additional court order in the proceeding. To add the date of a new order, click the “Add Court Order” button. If you are done entering all the dates of the court orders under the proceeding, click the “Next” button.",
+                            "templateElements": [                  
+                                {
+                                    "type": "text",
+                                    "name": "orderDate",
+                                    "isRequired": true,
+                                    "title": " ",
+                                    "titleLocation": "hidden",
+                                    "inputType": "date",
+                                    "dateYearsAhead": "0"
+                                }
+                            ],
+                            "panelAddText": "Add Court Order",
+                            "panelRemoveText": "Remove Court Order"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "exhibitInfo",
+                            "title": "Each court order must be attached to your affidavit as an exhibit. When you bring your affidavit to be sworn or affirmed, you must also bring all your exhibits.<br><br>Each exhibit will be marked by the commissioner for taking affidavits using a certificate (usually a stamp) with wording like this: “This is Exhibit [A, B, C…] referred to in the affidavit of [name] sworn (or affirmed) before me on [date] at [location]” and is signed by the commissioner for taking affidavits.",                    
+                            "titleLocation": "hidden"
+                        }
+                    ]
+                }        
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

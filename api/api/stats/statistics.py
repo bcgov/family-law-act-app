@@ -81,6 +81,7 @@ def application_details(applications):
         "NLP":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "NLPR":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "AFF":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "GA":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "EFSP":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0}
     }
     stat_keys = list(stat.keys())
@@ -112,6 +113,7 @@ def application_details(applications):
             "NLP":["NLP"],
             "NLPR":["NLPR"],
             "AFF":["AFF"],
+            "GA":["GA"],
             "EFSP":["EFSP"]
         }
 

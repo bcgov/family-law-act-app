@@ -1,0 +1,36 @@
+{
+  "title": "Background",
+  "pages": [
+    {
+      "name": "Background",
+      "description": "This next section will collect information for the court to help them make a decision about guardianship that is in the best interest of the child. It includes questions to collect information about family violence, court proceedings, criminal and child protection history.<br><br>Remember, the information you provide will be included in a written document that contains facts that you must swear under oath (usually on a Bible or other religious book) or affirm (non-religious promise) to be true.",
+      "elements": [        
+        {
+            "type": "html",
+            "name": "sectionHeading",            
+            "html": "<div style='margin-bottom:-0.75rem; font-size: 1.5rem;text-decoration: underline;'>Family violence</div>"
+        },
+        {
+            "type": "yesno",
+            "name": "familyViolenceExists",
+            "title": "Are you aware of any incidents of family violence that affect the child(ren) you are applying for guardianship of?",
+            "description": "`Family violence` includes physical, sexual, and psychological or emotional abuse of a family member. Psychological or emotional abuse includes intimidate, harassment, coercion, threats, financial abuse, stalking, and intentional damage to property.<br><br>In the case of a child, it includes witnessing or being exposed to family violence.",
+            "isRequired": true
+        },
+        {
+            "type": "comment",
+            "name": "familyViolenceDesc",
+            "title": "Please describe the incident(s) of family violence that you are aware.",
+            "description": "You do not need to use any special wording. The key is to be clear.",
+            "isRequired": true,
+            "visible": false,
+            "visibleIf": "{familyViolenceExists} = 'y'"
+        }        
+        
+      ],
+      "title": "Background"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
