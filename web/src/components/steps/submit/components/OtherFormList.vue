@@ -128,10 +128,9 @@ export default class OtherFormList extends Vue {
         } 
 
         const apsIndex = existingOrdersInfo.findIndex(order=>{return(order.type == 'APS')})
-        if (apsIndex >=0 && this.type == 'Submit'){            
-            const apsFilingInfo = this.$store.state.Application.steps[this.stPgNo.APS._StepNo].result?.filingApsSurvey?.data;              
-            apsRequiresSignature = apsFilingInfo?.sworn == 'n';
-            this.requiresApsEfsp = apsFilingInfo?.sworn == 'y';   
+        if (apsIndex >=0 && this.type == 'Submit'){ 
+            apsRequiresSignature = false;
+            this.requiresApsEfsp = true;   
             existingOrdersInfo[apsIndex].doNotIncludePdf = true;  
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});

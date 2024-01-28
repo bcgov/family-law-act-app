@@ -2,15 +2,14 @@
    "pages": [
       {
          "name": "About the Affiant",
-         "description": "An affiant is a person who makes an `affidavit`. An affidavit must be written from the writer’s point of view, using 'I' statements.<br><br>An affidavit starts with an opening paragraph that states the person’s name, their occupation and address.",
+         "description": "An affiant is a person who makes an `affidavit`. An affidavit of personal service must be written from the writer’s point of view, using 'I' statements.<br><br>An affidavit of personal service starts with an opening paragraph that states the person’s name, their occupation and address.",
          "elements": [
             {
                 "type": "personname",
                 "name": "ApplicantName",
                 "title": "What is your full name?",
-                "description": "This is the name of the person whose affidavit it is. If you are helping someone use this service, use their name.",                  
+                "description": "This is the name of the person who completed the personal service and whose affidavit it is. If you are helping someone use this service, use their name.",                  
                 "isRequired": true,              
-                "defaultSubstitution": "(Applicant Name)",
                 "descFirstName": "First Name is also known as Given Name",
                 "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
                 "descLastName": "Last Name is also known as Family Name or Surname"

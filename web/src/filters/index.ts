@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.22.1";
+    const CURRENT_VERSION = "1.2.23";
     //__________________________
     //___________________________
     //___________________________
@@ -92,6 +92,28 @@ Vue.filter('beautify-date-blank', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
 		return MonthList[Number(date.substr(5,2))] + ' ' +date.substr(8,2) + ' ' +  date.substr(0,4);
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-day', function(date){
+	if(date)
+		return date.substr(8,2);
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-full-month', function(date){
+	enum MonthList {'January' = 1, 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+	if(date)
+		return MonthList[Number(date.substr(5,2))];
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-short-year', function(date){
+	if(date)
+		return (date.substr(0,4)).substr(-1,2);
 	else
 		return ' '
 })

@@ -218,12 +218,11 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(this.stPgNo.NLP._StepNo, this.requiredGuidedPathways.includes("noticeLawyerParty"));
         toggleStep(this.stPgNo.NLPR._StepNo, this.requiredGuidedPathways.includes("noticeRemoveLawyerParty"));
         toggleStep(this.stPgNo.AFF._StepNo, this.requiredGuidedPathways.includes("affidavit"));
-        togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit, this.stPgNo.AFF._StepNo);
+        togglePages([this.stPgNo.AFF.FilingAFF], this.eFilingAffidavit(), this.stPgNo.AFF._StepNo);
         toggleStep(this.stPgNo.GA._StepNo, this.requiredGuidedPathways.includes("guardianshipAffidavit"));
-        togglePages([this.stPgNo.GA.FilingGA], this.eFilingGuardianshipAffidavit, this.stPgNo.GA._StepNo);
+        togglePages([this.stPgNo.GA.FilingGA], this.eFilingGuardianshipAffidavit(), this.stPgNo.GA._StepNo);
         toggleStep(this.stPgNo.APS._StepNo, this.requiredGuidedPathways.includes("affidavitPersonalService"));
-        togglePages([this.stPgNo.APS.FilingAPS], this.eFilingAffidavitPersonalService, this.stPgNo.APS._StepNo);
-        
+        togglePages([this.stPgNo.APS.ElectronicFilingStatementAPS], this.eFilingAffidavitPersonalService(), this.stPgNo.APS._StepNo);
     }   
 
     public saveApplicationLocation(location){       
