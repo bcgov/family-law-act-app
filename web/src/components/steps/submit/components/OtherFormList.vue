@@ -79,15 +79,18 @@ export default class OtherFormList extends Vue {
 
     requiresEfsp = false;
     requiresGaEfsp = false;
+    requiresApsEfsp = false;
+
 
     mounted(){
 
         this.requiresEfsp = false;
         this.requiresGaEfsp = false;
-
+        this.requiresApsEfsp = false;
         let ndtRequiresSignature = false;
         let affRequiresSignature = false;
-        let gaRequiresSignature = false;//TODO
+        let gaRequiresSignature = false;
+        let apsRequiresSignature = false;
 
         const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
         const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'NDT')})
@@ -123,6 +126,17 @@ export default class OtherFormList extends Vue {
             Vue.nextTick(() => Vue.prototype.$saveChanges() );
 
         } 
+
+        const apsIndex = existingOrdersInfo.findIndex(order=>{return(order.type == 'APS')})
+        if (apsIndex >=0 && this.type == 'Submit'){ 
+            apsRequiresSignature = false;
+            this.requiresApsEfsp = true;   
+            existingOrdersInfo[apsIndex].doNotIncludePdf = true;  
+            
+            this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});
+            Vue.nextTick(() => Vue.prototype.$saveChanges() );
+
+        } 
         
         this.formsListTemplate = [ 
             { name:'P2',   appName:'noticeIntentionProceed',       pdfType: Vue.filter('getPathwayPdfType')("noticeIntentionProceed"),      chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NPR._StepNo],                             color:"danger", title:"Notice of Intention to Proceed (Form 2)",                             requiresSignature: false, requiresSwear: false},                              
@@ -135,9 +149,11 @@ export default class OtherFormList extends Vue {
             { name:'P43',  appName:'noticeRemoveLawyerParty',      pdfType: Vue.filter('getPathwayPdfType')("noticeRemoveLawyerParty"),     chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NLPR._StepNo],                            color:"danger", title:"Notice of Removal of Lawyer for Party (Form 43)",                     requiresSignature: false, requiresSwear: false},            
             { name:'P45',  appName:'affidavit',                    pdfType: Vue.filter('getPathwayPdfType')("affidavit"),                   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.AFF._StepNo],                             color:"danger", title:"Affidavit – General (Form 45)",                                       requiresSignature: affRequiresSignature, requiresSwear: this.requiresEfsp},            
             { name:'P46',  appName:'noticeOfAddressChange',        pdfType: Vue.filter('getPathwayPdfType')("noticeOfAddressChange"),       chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NCD._StepNo],                             color:"danger", title:"Notice of Address Change (Form 46)",                                  requiresSignature: false, requiresSwear: false},            
+            { name:'P48',  appName:'affidavitPersonalService',     pdfType: Vue.filter('getPathwayPdfType')("affidavitPersonalService"),    chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.APS._StepNo],                             color:"danger", title:"Affidavit of Personal Service (Form 48)",                             requiresSignature: apsRequiresSignature, requiresSwear: this.requiresApsEfsp},            
             { name:'P50',  appName:'noticeDiscontinuance',         pdfType: Vue.filter('getPathwayPdfType')("noticeDiscontinuance"),        chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.NDT._StepNo],                             color:"danger", title:"Notice of Discontinuance (Form 50)",                                  requiresSignature: ndtRequiresSignature, requiresSwear: false},
-            { name:'P51',  appName:'electronicFilingStatementAff',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatementAff"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.AFF._StepNo],                             color:"danger", title:"Electronic Filing Statement - Affidavit General (Form 51)",           requiresSignature: true, requiresSwear: false},
-            { name:'P51',  appName:'electronicFilingStatementGa',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatementGa"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.GA._StepNo],                              color:"danger", title:"Electronic Filing Statement - Guardianship Affidavit (Form 51)",      requiresSignature: true, requiresSwear: false}
+            { name:'P51',  appName:'electronicFilingStatementAff',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatementAff"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.AFF._StepNo],                       color:"danger", title:"Electronic Filing Statement - Affidavit General (Form 51)",           requiresSignature: true, requiresSwear: false},
+            { name:'P51',  appName:'electronicFilingStatementGa',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatementGa"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.GA._StepNo],                          color:"danger", title:"Electronic Filing Statement - Guardianship Affidavit (Form 51)",      requiresSignature: true, requiresSwear: false},
+            { name:'P51',  appName:'electronicFilingStatementAps',    pdfType: Vue.filter('getPathwayPdfType')("electronicFilingStatementAps"),   chkSteps:[this.stPgNo.OTHER._StepNo,this.stPgNo.APS._StepNo],                       color:"danger", title:"Electronic Filing Statement - Affidavit of Personal Service (Form 51)",requiresSignature: true, requiresSwear: false}
         ];
 
         this.currentStep = this.$store.state.Application.currentStep;
@@ -155,7 +171,8 @@ export default class OtherFormList extends Vue {
 
             if((pathwayInfo?.pathwayState && this.pathwayCompleted[form.appName]) || 
                 (form.appName == 'electronicFilingStatementAff' && this.requiresEfsp && this.pathwayCompleted[form.appName]) || 
-                (form.appName == 'electronicFilingStatementGa' && this.requiresGaEfsp && this.pathwayCompleted[form.appName])){
+                (form.appName == 'electronicFilingStatementGa' && this.requiresGaEfsp && this.pathwayCompleted[form.appName]) || 
+                (form.appName == 'electronicFilingStatementAps' && this.requiresApsEfsp && this.pathwayCompleted[form.appName])){
 
                 if(this.generatedForms?.includes(form.name))
                     form.color = "success"

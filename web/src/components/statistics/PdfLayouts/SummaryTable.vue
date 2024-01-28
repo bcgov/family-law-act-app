@@ -93,6 +93,10 @@
                         <b-td class="text-center">{{applicationDetailsInfo.GA.total}}</b-td> 
                     </b-tr>
                     <b-tr>                        
+                        <b-th>Affidavit of Personal service</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.APS.total}}</b-td> 
+                    </b-tr>
+                    <b-tr>                        
                         <b-th>Electronic Filing Statement</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.EFSP.total}}</b-td>                                          
                     </b-tr>

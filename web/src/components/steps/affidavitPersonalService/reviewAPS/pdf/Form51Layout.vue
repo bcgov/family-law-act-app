@@ -103,18 +103,18 @@
                 
                 <underline-form 
                     style="text-indent:2px;margin-left:0rem;display:inline-block;" 
-                    textwidth="17rem" 
+                    textwidth="22rem" 
                     beforetext="The" 
                     hint="name and identifying description of document" 
                     :text="documents"/>   
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                    is being submitted for filing electronically <i>(add if applicable)</i>
-                </div>
+                    is being submitted for filing electronically
+                </div>                
 
                 <underline-form 
-                    style="text-indent:2px;margin: 0.5rem 0 0 -1rem;display:inline-block; font-size: 9pt;" 
+                    style="text-indent:2px;margin: 0.5rem 0 0 -1rem;display:block; font-size: 9pt;" 
                     textwidth="20rem" 
-                    beforetext=" on behalf of" 
+                    beforetext="<i>(add if applicable)</i> on behalf of" 
                     hint="(full name of party/parties)" 
                     :italicHint="false" :text="isLawyer?parties:''"/>                
             </div>
@@ -198,7 +198,8 @@ export default class Form51Layout extends Vue {
         this.dataReady = true;        
     }
    
-    public extractInfo(){ 
+    public extractInfo(){   
+        console.log(this.result)     
         this.getDocumentInfo();    
         this.getFilingInfo();    
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);        
@@ -212,11 +213,11 @@ export default class Form51Layout extends Vue {
         this.otherParties = '';
         this.applicant = '';
 
-        if(this.result?.electronicFilingStatementAffSurvey){
+        if(this.result?.electronicFilingStatementApsSurvey){
 
             let electronicFilingStatement = {} as electronicFilingStatementDataInfoType;
 
-            electronicFilingStatement = this.result.electronicFilingStatementAffSurvey; 
+            electronicFilingStatement = this.result.electronicFilingStatementApsSurvey; 
             
             this.isLawyer = electronicFilingStatement.Lawyer == 'y';
 
@@ -245,9 +246,9 @@ export default class Form51Layout extends Vue {
         
         this.documents = '';        
 
-        if(this.result?.affEfsDocuments?.length>0){
-            const documentName = this.result.affEfsDocuments[0].documentName;
-            const applicant = Vue.filter('getFullName')(this.result.affEfsDocuments[0].efsApplicantName);
+        if(this.result?.apsEfsDocuments?.length>0){
+            const documentName = this.result.apsEfsDocuments[0].documentName;
+            const applicant = Vue.filter('getFullName')(this.result.apsEfsDocuments[0].efsApplicantName);
             this.documents = documentName + ' of ' + applicant;
         }        
     
