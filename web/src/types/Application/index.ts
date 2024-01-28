@@ -32,8 +32,8 @@ import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurvey
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
-import { aboutAffiantApsSurveyInfoType, affidavitPersonalServiceSurveyInfoType, electronicFilingStatementApsSurveyInfoType, filingApsSurveyInfoType, yourStoryApsSurveyInfoType } from "./AffidavitPersonalService";
 import { aboutAffiantApspSurveyInfoType, affidavitPersonalServicePoSurveyInfoType, electronicFilingStatementApspSurveyInfoType, filingApspSurveyInfoType, yourStoryApspSurveyInfoType } from "./AffidavitPersonalServicePO";
+import { aboutAffiantApsSurveyInfoType, aboutServiceApsSurveyInfoType, electronicFilingStatementApsSurveyInfoType} from "./AffidavitPersonalService";
 
 
 //This is what our database saves.
@@ -364,10 +364,9 @@ export interface stepInfoType {
     electronicFilingStatementGaSurvey?: electronicFilingStatementGaSurveyInfoType;
 
     //_____Step 23 AFFIDAVIT OF PERSONAL SERVICE_____________    
-    affidavitPersonalServiceSurvey?: affidavitPersonalServiceSurveyInfoType;    
+    //affidavitPersonalServiceSurvey?: affidavitPersonalServiceSurveyInfoType;    
     aboutAffiantApsSurvey?: aboutAffiantApsSurveyInfoType;
-    yourStoryApsSurvey?: yourStoryApsSurveyInfoType;
-    filingApsSurvey?: filingApsSurveyInfoType;
+    aboutServiceApsSurvey?: aboutServiceApsSurveyInfoType;
     electronicFilingStatementApsSurvey?: electronicFilingStatementApsSurveyInfoType;
 
     //_____Step 25 AFFIDAVIT OF PERSONAL SERVICE PO_____________    

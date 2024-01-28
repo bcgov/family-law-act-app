@@ -1,0 +1,85 @@
+{
+  "title": "About the Service",
+  "pages": [
+    {
+      "name": "About the Service",
+      "elements": [
+        {
+            "type": "personname",
+            "name": "ServedPersonName",
+            "title": "What is the full name of the person you served?",
+            "description": "This is the name of the person whom you served with the documents.",                  
+            "isRequired": true,
+            "descFirstName": "First Name is also known as Given Name",
+            "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+            "descLastName": "Last Name is also known as Family Name or Surname"
+        },
+        {
+            "type": "radiogroup",
+            "name": "idMethod",
+            "title": "How did you identify the person you served?",
+            "description": "Select only one of the options below.",
+            "isRequired": true,
+            "hasOther": true,
+            "otherText": "Other (please specify)",
+            "choices": [
+                "I know the person",
+                "The person served admitted to being this person"
+            ]
+        }, 
+        {
+            "type": "customdatetime",
+            "name": "dateTimeServed",
+            "title":"What date and time did you serve the documents?",
+            "isRequired":true,
+            "dateYearsAhead": "0"
+        }, 
+        {
+            "type": "address",
+            "name": "locationServed",                
+            "title": "Where did you serve the documents?",
+            "description": "You need to indicate the address or location where the service took place.",
+            "isRequired": true,
+            "validators": [
+                {
+                    "type": "expression",
+                    "text": "Please Fill in all Required Fields.",
+                    "expression": "{locationServed.street} notempty and {locationServed.postcode} notempty and {locationServed.city} notempty"
+                }
+            ]
+        }, 
+        {
+            "type": "panel",
+            "name": "DocumentsPanel",             
+            "elements": [
+              {
+                "isRequired": true,  
+                "type": "paneldynamic",
+                "name": "documentListAps",
+                "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>What document(s) did you serve?</b>",
+                "description": "You need to indicate each document that was served by marking it with an exhibit letter, listing it below and attaching a copy to the affidavit.  When you bring your affidavit to be sworn or affirmed, you must also bring all your exhibits.  Each exhibit will be marked by the commissioner for taking affidavits using a certificate (usually a stamp) with wording like this: “This is Exhibit [A, B, C…] referred to in the affidavit of [name] sworn (or affirmed) before me on [date] at [location]” and signed by the commissioner for taking affidavits.",
+                "templateElements": [                  
+                  {
+                    "type": "text",
+                    "name": "exhibitName",
+                    "isRequired": true,
+                    "title": "Exhibit Letter"
+                  },
+                  {
+                    "type": "text",
+                    "name": "fileName",
+                    "isRequired": true,
+                    "title": "Name of document"
+                  }
+
+                ]
+              }
+            ]
+        }
+      ],
+      "title": "About the Service"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

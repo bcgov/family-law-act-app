@@ -2,8 +2,7 @@
     <step-base v-bind:step="step">    
         <affidavit-personal-service       v-bind:step="step"     v-if="step.currentPage == stPgNo.APS.AffidavitPersonalService" />
         <about-affiant-aps                v-bind:step="step"     v-if="step.currentPage == stPgNo.APS.AboutAffiantAps" />
-        <your-story-aps                   v-bind:step="step"     v-if="step.currentPage == stPgNo.APS.YourStoryAPS" />
-        <filing-aps                       v-bind:step="step"     v-if="step.currentPage == stPgNo.APS.FilingAPS" />
+        <about-service-aps                v-bind:step="step"     v-if="step.currentPage == stPgNo.APS.AboutServiceAPS" />       
         <electronic-filing-statement-aps  v-bind:step="step"     v-if="step.currentPage == stPgNo.APS.ElectronicFilingStatementAPS" />
         <review-your-answers-aps          v-bind:step="step"     v-if="step.currentPage == stPgNo.APS.ReviewYourAnswersAPS"/>
         <preview-forms-aps                v-bind:step="step"     v-if="step.currentPage == stPgNo.APS.PreviewFormsAPS"/>
@@ -21,8 +20,7 @@ const applicationState = namespace("Application");
 import StepBase from "../StepBase.vue";
 import AffidavitPersonalService from "./AffidavitPersonalService.vue";
 import AboutAffiantAps from "./AboutAffiantAPS.vue";
-import YourStoryAps from "./YourStoryAPS.vue";
-import FilingAps from "./FilingAPS.vue";
+import AboutServiceAps from "./AboutServiceAPS.vue";
 import ElectronicFilingStatementAps from "./ElectronicFilingStatementAPS.vue";
 import ReviewYourAnswersAps from "./reviewAPS/ReviewYourAnswersAPS.vue";
 import PreviewFormsAps from "./reviewAPS/PreviewFormsAPS.vue";
@@ -36,8 +34,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
         StepBase,        
         AffidavitPersonalService,        
         AboutAffiantAps,
-        YourStoryAps,
-        FilingAps,
+        AboutServiceAps,
         ElectronicFilingStatementAps,
         ReviewYourAnswersAps,
         PreviewFormsAps,

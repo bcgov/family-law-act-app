@@ -40,6 +40,13 @@ export function getQuestionResults(stepNumbers, currentStep) {
                     return true;
             })
 
+    if(currentStep == stPgNo.APS._StepNo) // filter APS page from Step APS        
+        questionResults = questionResults.filter(questionResult=>
+        {
+            if(questionResult.pageName !='Affidavit – Personal Service')
+                return true;
+        })
+
        
     return questionResults;          
 }

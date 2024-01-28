@@ -244,7 +244,6 @@ export default class Form45Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
@@ -260,7 +259,7 @@ export default class Form45Layout extends Vue {
     public getAffidavitInfo(){    
         
         this.supportApplication = false;
-        this.appType = ''
+        this.appType = '';
         this.additionalAppType = [];
         this.otherType = '';
 
