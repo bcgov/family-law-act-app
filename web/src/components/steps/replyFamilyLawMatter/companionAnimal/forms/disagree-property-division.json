@@ -1,0 +1,33 @@
+{
+  "title": "Disagree – Property division in respect of a companion animal",
+  "pages": [
+    {
+      "name": "DisagreePropertyDivision",
+      "description": "The court may only make an order for ownership and possession of a companion animal <b>by one spouse.</b> <br><br>In determining whether to make an order in respect of a companion animal, the court must consider the following factors set out in section 97 (4.1) of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_05#section97' target='_blank'>Family Law Act</a>",
+      "elements": [
+        {
+          "type": "html",
+          "name": "disagreePropertyDivisionDesciption",
+          "visible": true,
+          "html": "<ul><li>the circumstances in which the companion animal was acquired</li><li>the extent to which each spouse cared for the companion animal</li><li>any history of family violence</li><li>the risk of family violence</li><li>a spouse’s cruelty, or threat of cruelty, toward an animal</li><li>the relationship that a child has with the companion animal</li><li>the willingness and ability of each spouse to care for the basic needs of the companion animal</li><li>any other circumstances the court considers relevant</li></ul>"
+        },            
+        {
+          "type": "panel",
+          "name": "DisagreePropertyDivisionPanel",
+          "elements": [            
+            {
+              "type": "comment",
+              "name": "disagreeCompanionAnimalOrder",
+              "title": "Why don’t you agree with the order requested by the other party about property division in respect of a companion animal?",
+              "description": "Explain why you do not agree with the other party’s requested order about property division in respect of a companion animal. You do not need to use any special wording. The key is to be clear about what you mean.",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Disagree – Property division in respect of a companion animal"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

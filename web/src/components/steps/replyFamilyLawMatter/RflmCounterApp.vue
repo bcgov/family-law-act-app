@@ -28,7 +28,7 @@
                     <b-form-radio-group
                         :disabled="rejectedPathway"
                         v-model="counter"
-                        class="mt-2 ml-3"
+                        class="mt-2 ml-3 survey-yesno-vue"
                         style="font-size:1.40em; display: inline-block;"
                         v-on:change="onChangeCounter($event)">
                         <b-form-radio class="mr-5" value="Yes"><div style="transform:translate(5px,-5px);">Yes</div></b-form-radio>
@@ -105,6 +105,18 @@
                             </p>
                         </b-form-checkbox>
                     </div>
+
+                    <div v-if="allowCompanionAnimal" class="checkbox-border">
+                        <b-form-checkbox value="companionAnimal"><div class="checkbox-choices">Property Division in respect of a Companion Animal</div>
+                            <p>
+                                Property division in respect of a  <tooltip title="companion animal" size="lg" :index="0"/> 
+                                is who will have ownership and possession of a companion animal when <tooltip title="spouses" size="lg" :index="0"/> separate. 
+                                The court may make an order for ownership and possession of a companion animal by one spouse. 
+                                Spouses may agree out of court to share ownership and possession of a companion animal. 
+                            </p>
+                        </b-form-checkbox>
+                    </div>                    
+
                     </b-form-checkbox-group>
                 </b-form-group>
 
@@ -181,6 +193,7 @@ export default class RflmCounterApp extends Vue {
     allowChildSupport = false;
     allowContact = false;
     allowSpousalSupport = false;
+    allowCompanionAnimal = false;
 
     showLegalAssistance = false
     showHelpText = false
@@ -274,6 +287,16 @@ export default class RflmCounterApp extends Vue {
                     this.selectedCounters.splice(index, 1);
                 }
             }
+
+            if (this.selectedRepliesData.selectedCompanionAnimalForm.length == 0){
+                this.allowCompanionAnimal = true; 
+            } else {
+
+                const index = this.selectedCounters.indexOf('companionAnimal');
+                if (index != -1){
+                    this.selectedCounters.splice(index, 1);
+                }
+            }
         }
     }
 
@@ -296,7 +319,8 @@ export default class RflmCounterApp extends Vue {
                         this.selectedRepliesData.selectedChildSupportForm.length>0 ||
                         this.selectedRepliesData.selectedContactWithChildForm.length>0 ||
                         this.selectedRepliesData.selectedGuardianshipForm.length>0 ||
-                        this.selectedRepliesData.selectedSpousalSupportForm.length>0
+                        this.selectedRepliesData.selectedSpousalSupportForm.length>0 ||
+                        this.selectedRepliesData.selectedCompanionAnimalForm.length>0
 
         return selected;
     }
@@ -342,6 +366,7 @@ export default class RflmCounterApp extends Vue {
                 if(form=='contactWithChild')        result+='Contact With a Child'+'\n';
                 if(form=='guardianOfChild')         result+='Guardian Of a Child'+'\n';
                 if(form=='spousalSupport')          result+='Spousal Support'+'\n';
+                if(form=='companionAnimal')         result+='Companion Animal'+'\n';
             }
         } else {
             result = 'None';

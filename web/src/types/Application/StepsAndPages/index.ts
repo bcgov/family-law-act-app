@@ -29,6 +29,7 @@ export interface stepsAndPagesNumberInfoType{
     NLP: NLPstPgTypes;
     NLPR: NLPRstPgTypes;
     AFF: AFFstPgTypes;
+    GA: GAstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -104,7 +105,13 @@ export interface RFLMstPgTypes{
     RflmCalculatingSpouseSupport: number;
     ReplyExistingSpouseSupport: number;
     RflmUnpaidSpouseSupport: number;
-    DisagreeExistingSpouseSupport: number;    
+    DisagreeExistingSpouseSupport: number;
+    ReplyNewPropertyDivision: number;
+    AnimalRelationshipToOtherParty: number;
+    DisagreePropertyDivision: number;
+    PropertyDivisionOrder: number;
+    ReplyExistingPropertyDivision: number;
+    DisagreeExistingPropertyDivisionOrder: number;
     RflmAdditionalDocuments: number;
     YourApplication: number;
     ParentingArrangements: number;
@@ -142,6 +149,9 @@ export interface RFLMstPgTypes{
     CalculatingSpousalSupport: number;
     AboutExistingSpousalSupportOrder: number;
     UnpaidSpousalSupport: number;
+    PropertyDivisionCompanionAnimal: number;
+    CompanionAnimalFacts: number;
+    CompanionAnimalExistingAgreement: number;
     FlmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
@@ -386,6 +396,24 @@ export interface NLPRstPgTypes{
     NoticeRemoveLawyerParty: number;
     ReviewYourAnswersNLPR: number;
     PreviewFormsNLPR: number;
+}
+
+export interface GAstPgTypes{
+    _StepNo: number;
+
+    GuardianshipAffidavit: number;
+    AboutAffiantGa: number;
+    ChildrenDetailsGa: number;
+    CaringForChildGa: number;
+    BackgroundFamilyViolence: number;
+    BackgroundCivilCourtProceedings: number;
+    BackgroundCriminalHistory: number;
+    Exhibits: number;
+    FilingGA: number;
+    ElectronicFilingStatementGA: number;
+    ReviewYourAnswersGA: number;
+    PreviewFormsGA: number;
+    PreviewFormsGaEFSP: number;
 }
 
 export interface SUBMITstPgTypes{

@@ -1,0 +1,36 @@
+{
+  "title": "Relationship to Other Party – Property division",
+  "pages": [
+    {
+      "name": "AnimalRelationshipToOtherParty",
+      "description": "The Family Law Act can only be used to resolve disputes about property division in respect of a companion animal if the parties were spouses.",
+      "elements": [            
+        {
+          "type": "panel",
+          "name": "AnimalRelationshipPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "otherPartyIsSpouse",
+              "title": "Was (is) the other party your spouse?",   
+              "description": "You’re a “spouse” if:<ul><li>you were legally married to your former partner</li><li>you were unmarried but lived together in a marriage-like relationship for two or more years with your former partner, or</li><li>you lived in a marriage-like relationship for less than two years, but you have a child together</li></ul>",
+              "isRequired": true              
+            },
+            {
+              "type": "comment",
+              "name": "otherPartyRelationshipDesc",
+              "title": "You and the other party have never been spouses. Please describe your relationship to the other party:",
+              "description": "You do not need to use any special wording.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{otherPartyIsSpouse} = 'n'"
+            }
+          ]
+        }
+      ],
+      "title": "Relationship to Other Party – Property division "
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

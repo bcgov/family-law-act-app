@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.18.1";
+    const CURRENT_VERSION = "1.2.21";
     //__________________________
     //___________________________
     //___________________________
@@ -101,6 +101,14 @@ Vue.filter('beautify-date-weekday', function(date){
 		return	moment(date).format('ddd MMM DD, YYYY HH:mm');
 	else
 		return ''
+})
+
+Vue.filter('getAlphabetBasedOnIndex', function(index){
+	enum AlphabetList {'A' = 1, 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}
+	if(index)
+		return AlphabetList[Number(index)];
+	else
+		return '';
 })
 
 Vue.filter('scrollToLocation', function(locationName){
@@ -554,6 +562,11 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 					requiredDocuments.push("Spousal Support calculation");
 				}
 			
+		const companionAnimalRequirement = (questions.companionAnimalExistingAgreementSurvey?.agreementDate)
+
+		if( (!RFLM && questions.flmQuestionnaireSurvey?.includes("companionAnimal") && companionAnimalRequirement) || 
+			(RFLM && counterList.includes("companionAnimal") && companionAnimalRequirement))
+				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 
 		if(Vue.filter('FLMform5Required')(RFLM)){		
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
@@ -769,6 +782,7 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepNLP = store.state.Application.stPgNo.NLP;	
         const stepNLPR = store.state.Application.stPgNo.NLPR;
         const stepAFF = store.state.Application.stPgNo.AFF;
+        const stepGA = store.state.Application.stPgNo.GA;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -846,6 +860,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepAFF._StepNo; 
 			reviewPage = stepAFF.ReviewYourAnswersAFF; 
 			previewPages = [stepAFF.PreviewFormsAFF, stepAFF.PreviewFormsEFSP];
+		} else if(typeName == 'guardianshipAffidavit'){
+			step = stepGA._StepNo; 
+			reviewPage = stepGA.ReviewYourAnswersGA; 
+			previewPages = [stepGA.PreviewFormsGA, stepGA.PreviewFormsGaEFSP];
 		}
 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -868,7 +886,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit']
 	
 	if(type == 'allExPO'){
         
@@ -892,6 +910,7 @@ Vue.filter('surveyChanged', function(type: string) {
         pathwayCompleted.noticeLawyerParty = false;	
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
+        pathwayCompleted.guardianshipAffidavit = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")
@@ -1024,6 +1043,13 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight, margin?){
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
 			`.form-header-cs{display:block; margin:-2rem 0 4rem 0;}`+
 			`.court-header-after{margin:-1rem 0 0 0;}`+
+            `.list-brackets{
+                    ol { counter-reset: item }
+                    li { display: block ; counter-increment: item; }
+                    li:before {
+                        content: " (" counter(item,lower-alpha) ") ";
+                    }
+            }`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+

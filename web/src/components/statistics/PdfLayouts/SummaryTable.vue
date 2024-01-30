@@ -89,6 +89,10 @@
                         <b-td class="text-center">{{applicationDetailsInfo.AFF.total}}</b-td> 
                     </b-tr>
                     <b-tr>                        
+                        <b-th>Guardianship Affidavit</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.GA.total}}</b-td> 
+                    </b-tr>
+                    <b-tr>                        
                         <b-th>Electronic Filing Statement</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.EFSP.total}}</b-td>                                          
                     </b-tr>

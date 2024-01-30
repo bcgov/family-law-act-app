@@ -42,7 +42,13 @@
         <disagree-existing-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeExistingSpouseSupport"/>
         
         <rflm-calculating-spouse-support v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.RflmCalculatingSpouseSupport"/>
-       
+        
+        <reply-new-property-division               v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyNewPropertyDivision"/>        
+        <animal-relationship-to-other-party        v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AnimalRelationshipToOtherParty"/>
+        <disagree-property-division                v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreePropertyDivision"/>
+        <property-division-order                   v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PropertyDivisionOrder"/>
+        <reply-existing-property-division          v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.ReplyExistingPropertyDivision"/>
+        <disagree-existing-property-division-order v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.DisagreeExistingPropertyDivisionOrder"/>
         
         <your-application v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.YourApplication"/>
 
@@ -87,6 +93,10 @@
         <calculating-spousal-support                  v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.CalculatingSpousalSupport"/> 
         <about-existing-spousal-support-order         v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.AboutExistingSpousalSupportOrder"/>
         <unpaid-spousal-support                       v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.UnpaidSpousalSupport"/>
+
+        <property-division-companion-animal           v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.PropertyDivisionCompanionAnimal"/>        
+        <companion-animal-facts                       v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.CompanionAnimalFacts"/>
+        <companion-animal-existing-agreement          v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.CompanionAnimalExistingAgreement"/>
 
         <flm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.RFLM.FlmAdditionalDocuments"/>
 
@@ -148,6 +158,12 @@ import ReplyExistingSpouseSupport from "./spouseSupport/ReplyExistingSpouseSuppo
 import RflmUnpaidSpouseSupport from "./spouseSupport/RflmUnpaidSpouseSupport.vue";
 import DisagreeExistingSpouseSupport from "./spouseSupport/DisagreeExistingSpouseSupport.vue";
 
+import ReplyNewPropertyDivision from "./companionAnimal/ReplyNewPropertyDivision.vue";
+import AnimalRelationshipToOtherParty from "./companionAnimal/AnimalRelationshipToOtherParty.vue";
+import DisagreePropertyDivision from "./companionAnimal/DisagreePropertyDivision.vue";
+import PropertyDivisionOrder from "./companionAnimal/PropertyDivisionOrder.vue";
+import ReplyExistingPropertyDivision from "./companionAnimal/ReplyExistingPropertyDivision.vue";
+import DisagreeExistingPropertyDivisionOrder from "./companionAnimal/DisagreeExistingPropertyDivisionOrder.vue";
 import YourApplication from './YourApplication.vue';
 
 import ParentingArrangements from "./counterFlm/parentingArrangements/ParentingArrangements.vue";
@@ -189,6 +205,10 @@ import ExistingSpousalSupportFinalOrder from "./counterFlm/spousalSupport/Existi
 import AboutExistingSpousalSupportOrder from "./counterFlm/spousalSupport/AboutExistingSpousalSupportOrder.vue";
 import ExistingSpousalSupportOrderAgreement from "./counterFlm/spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
 import UnpaidSpousalSupport from "./counterFlm/spousalSupport/UnpaidSpousalSupport.vue";
+
+import PropertyDivisionCompanionAnimal from "./counterFlm/companionAnimal/PropertyDivisionCompanionAnimal.vue";
+import CompanionAnimalFacts from "./counterFlm/companionAnimal/CompanionAnimalFacts.vue";
+import CompanionAnimalExistingAgreement from "./counterFlm/companionAnimal/CompanionAnimalExistingAgreement.vue"
 
 import FlmAdditionalDocuments from "./FlmAdditionalDocuments.vue";
 
@@ -233,7 +253,12 @@ import { stepInfoType } from "@/types/Application";
         RflmUnpaidSpouseSupport,
         DisagreeExistingSpouseSupport,        
         YourApplication,
-
+        ReplyNewPropertyDivision,
+        AnimalRelationshipToOtherParty,
+        DisagreePropertyDivision,
+        PropertyDivisionOrder,
+        ReplyExistingPropertyDivision,
+        DisagreeExistingPropertyDivisionOrder,
         ParentingArrangements,
         ParentalResponsibilities,
         ParentingTime,
@@ -278,6 +303,10 @@ import { stepInfoType } from "@/types/Application";
         AboutExistingSpousalSupportOrder,
         ExistingSpousalSupportOrderAgreement,
         UnpaidSpousalSupport,
+
+        PropertyDivisionCompanionAnimal,
+        CompanionAnimalFacts,
+        CompanionAnimalExistingAgreement,
         
         FlmAdditionalDocuments,
 

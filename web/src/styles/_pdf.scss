@@ -40,6 +40,13 @@ table.compactfullsize :deep(td) {padding:0 0 0 .5rem; color: #313132;}
 .form-header-enf{display:block; margin:0 0 4.5rem 0;}
 .form-header-cs{display:block; margin:0 0 4rem 0;}
 .court-header-after{margin:1rem 0 0 0;}
+.list-brackets{
+    ol { counter-reset: item }
+    li { display: block ; counter-increment: item; }
+    li:before {
+        content: " (" counter(item,lower-alpha) ") ";
+    }
+}
 
 section{
     counter-increment: question-counter;         
