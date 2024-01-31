@@ -49,11 +49,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
-    
-
-    
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -137,7 +133,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
 
     public getDescription() {
         let description = '';
-        let listOfIssues = [];
+        const listOfIssues = [];
         const firstDescriptionSection = 'Usually, an application for an order must be made with notice to all other parties so ' +
         'that they can decide if they want to participate in the application. There are circumstances when the court may make an ' + 
         'order without you having to tell the other party about the application and without you having to attend a court appearance.<br><br>\n' + 
@@ -180,7 +176,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
 
             if (needWithoutNotice == 'n') {
                 togglePages([this.stPgNo.CM.ByConsent, this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], true, this.currentStep); 
-            } else{                              
+            } else {                              
                 togglePages([this.stPgNo.CM.ByConsent,this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], this.needConsent(), this.currentStep); 
             }
 
@@ -191,6 +187,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.Scheduling, 0, false);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutCaseManagementOrder, 0, false);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmChildrenInfo, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ApplicationUnderFOAEAA, 0, false);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 0, false);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ChangingOrCancellingAServiceOrNotice, 0, false);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ChangingOrCancellingAnyOtherRequirement, 0, false);

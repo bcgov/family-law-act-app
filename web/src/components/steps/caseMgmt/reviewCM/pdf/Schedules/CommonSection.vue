@@ -148,8 +148,10 @@
                     <check-box  :check="selectedSchedules.includes('schedule3')?'yes':''" text="waiving or modifying any other requirement under the rules <i>[complete and attach Schedule 3]</i>"/>
                     <check-box  :check="selectedSchedules.includes('schedule4')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the <i> Family Law Act [complete and attach Schedule 4]</i>"/>
                     
-                    <check-box  :check="selectedSchedules.includes('schedule5')?'yes':''" text="recognizing an extraprovincial order other than a support order <i>[complete and attach Schedule 5]</i>"/>
-                    
+                    <check-box  :check="(caseList.includes('section12') && understandWithoutNotice)?'yes':''" 
+                                text="authorizing an official of the court, in accordance with section 10 of the <i>Family Orders and Agreements Enforcement Assistance Act (Canada)</i>, to make an application under section 12 of that Act for the release of information <i>[file a criminal
+                                record check and completed affidavit that meets the requirements of sections 8 and 9 of the Family Orders and Agreements Enforcement Assistance Act (Canada)]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule5')?'yes':''" text="recognizing an extraprovincial order other than a support order <i>[complete and attach Schedule 5]</i>"/> 
                 </div>                  
             </section>
         </div>   
@@ -201,6 +203,7 @@ export default class CommonSection extends Vue {
     childrenInfo: childrenInfoSurveyInfoType[] = [];  
     filingLocationReason = '';    
     understandWithoutNotice = false;
+    caseList = [];
    
     childrenFields = [
         {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
@@ -218,6 +221,7 @@ export default class CommonSection extends Vue {
         this.otherPartyInfo = this.getOtherPartyInfo();  
         this.childrenInfo = this.getChildrenInfo(); 
         this.locationInfo = this.getLocationInfo();
+        this.caseList = [];
 
         if (this.result?.withoutNoticeOrAttendanceSurvey){
             const withoutNoticeData: withoutNoticeOrAttendanceSurveyDataInfoType = this.result.withoutNoticeOrAttendanceSurvey;
@@ -225,6 +229,10 @@ export default class CommonSection extends Vue {
         } else {
             this.understandWithoutNotice = false;
         }  
+
+        if (this.result?.cmQuestionnaireSurvey){
+            this.caseList = this.result.cmQuestionnaireSurvey
+        }
         
         if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
             this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';

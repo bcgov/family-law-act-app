@@ -209,6 +209,8 @@
                     <check-box  :check="form10Info.caseList.includes('nonPartyDisclosure')?'yes':''" text="specifying or requiring information that must be disclosed by a person who is not a party to the case"/>
                     <check-box  :check="form10Info.caseList.includes('section33')?'yes':''" text="requiring that a parentage test be taken under section 33 <i>[parentage tests]</i> of the Family Law Act"/>
                     <check-box  :check="form10Info.caseList.includes('section242')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the Family Law Act"/>
+                    <check-box  :check="form10Info.caseList.includes('section12')?'yes':''"  
+                                text="authorizing an official of the court, in accordance with section 10 of the Family Orders and Agreements Enforcement Assistance Act (Canada), to make an application under section 12 of that Act for the release of information"/>
                     <check-box  :check="form10Info.caseList.includes('otherProvinceOrder')?'yes':''" text="recognizing an extraprovincial order other than a support order"/>
                     <check-box  :check="form10Info.caseList.includes('changeServiceRequirement')?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for
                                                                     the service of a document"/>
@@ -283,8 +285,13 @@
                         any delay in making this application.</i>
                 </div>
 
-                <div v-if="form10Info.orderFacts" class="answerbox">{{form10Info.orderFacts}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>                
+                <div class="answerbox" v-if="includesFoaeaaOnly">
+                    Please see the affidavit filed in support of this application.
+                </div>
+                <div v-if="!includesFoaeaaOnly && form10Info.orderFacts" class="answerbox">
+                    {{form10Info.orderFacts}}
+                </div>
+                <div v-else-if="!includesFoaeaaOnly && !form10Info.orderFacts" style="margin-bottom:3rem;"></div>                
             </section>
         </div>   
 
@@ -333,6 +340,7 @@ export default class Form10Layout extends Vue {
     childrenInfo: childrenInfoSurveyInfoType[] = []; 
     form10Info = {} as form10DataInfoType;  
     filingLocationReason = ''; 
+    includesFoaeaaOnly = false;
     
     childrenFields=[
         {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
@@ -453,7 +461,13 @@ export default class Form10Layout extends Vue {
         if (this.result?.aboutCaseManagementOrderSurvey){
             const aboutOrderData: aboutCaseManagementOrderSurveyDataInfoType = this.result.aboutCaseManagementOrderSurvey;
             form10Info.orderDetails = aboutOrderData.orderDescription;
-            form10Info.orderFacts = aboutOrderData.applicationFacts;
+            if (form10Info.caseList.length == 1 && form10Info.caseList.includes("section12")){
+                form10Info.orderFacts = '';
+                this.includesFoaeaaOnly = true;
+            } else {
+                form10Info.orderFacts = aboutOrderData.applicationFacts;
+                this.includesFoaeaaOnly = false;
+            }
         }  
         
         if (this.result?.cmNoticeSurvey){
