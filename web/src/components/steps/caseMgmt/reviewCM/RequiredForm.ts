@@ -37,7 +37,8 @@ function determineNoticeTurquoise(results){
         'changeRequirement',
         'remoteAttendance',
         'otherProvinceOrder',
-        'section242'
+        'section242',
+        'section12'
     ]
 
     const needNotice = needNoticeList.some(turquoise => selectedCaseManagementItems.includes(turquoise)); 
