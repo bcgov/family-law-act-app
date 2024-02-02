@@ -59,10 +59,7 @@
                 ,
             </div>
 
-        </div>
-
-        
-        
+        </div>        
         
         <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
             Swear or affirm that:

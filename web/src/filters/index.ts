@@ -88,6 +88,17 @@ Vue.filter('convert-time24to12', function(time) {
     }  
 })
 
+Vue.filter('convert-date-time24to12', function(date) {
+    const time = date.substr(11);
+    const time12 = (Number(time.substr(0,2)) % 12 || 12 ) + time.substr(2,3)
+    
+    if (Number(time.substr(0,2))<12) {
+      return time12 +' AM'
+    } else {
+      return time12 +' PM'
+    }  
+})
+
 Vue.filter('beautify-date-blank', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
