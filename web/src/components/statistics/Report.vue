@@ -40,6 +40,8 @@
         <nlpr-table class="mt-5" :results="results"/>
         <aff-table class="mt-5" :results="results"/>
         <ga-table class="mt-5" :results="results"/>
+        <aps-table class="mt-5" :results="results"/>
+        <apsp-table class="mt-5" :results="results"/>
         <efsp-table class="mt-5" :results="results"/>
         
     </div>

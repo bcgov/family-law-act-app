@@ -12,12 +12,11 @@ export function whichForm(stepApsResult?) {
         resultAps = stepAPS.result
     }
   
-    if(resultAps?.filingApsSurvey?.data?.sworn && store.state.Application.steps[stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
+    if(store.state.Application.steps[stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
         
-        const eFiling = store.state.Application.steps[stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';
-        const sworn = resultAps?.filingApsSurvey?.data?.sworn == 'y';        
+        const eFiling = store.state.Application.steps[stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';            
 
-        if(sworn && eFiling){
+        if(eFiling){
             requiredForm.push('P51');
         }			
 

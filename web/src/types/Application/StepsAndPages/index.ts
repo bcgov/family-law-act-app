@@ -393,8 +393,7 @@ export interface APSstPgTypes{
 
     AffidavitPersonalService: number;
     AboutAffiantAps: number;
-    YourStoryAPS: number;
-    FilingAPS: number;
+    AboutServiceAPS: number;
     ElectronicFilingStatementAPS: number;
     ReviewYourAnswersAPS: number;
     PreviewFormsAPS: number;
@@ -406,8 +405,7 @@ export interface APSPstPgTypes{
 
     AffidavitPersonalServicePO: number;
     AboutAffiantApsp: number;
-    YourStoryAPSP: number;
-    FilingAPSP: number;
+    AboutServiceAPSP: number;
     ElectronicFilingStatementAPSP: number;
     ReviewYourAnswersAPSP: number;
     PreviewFormsAPSP: number;

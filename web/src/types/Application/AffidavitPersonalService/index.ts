@@ -29,28 +29,27 @@ export interface aboutAffiantApsSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface yourStoryApsDataInfoType {    
-    storyAps?: string[];
+export interface aboutServiceApsDataInfoType {    
+    ServedPersonName?: nameInfoType;   
+    locationServed?: addressInfoType;
+    idMethod?: string;
+    idMethodComment?: string;
+    dateTimeServed?: string;
+    documentListAps?: exhibitsApsDataInfoType[];
 }
 
-export interface yourStoryApsSurveyInfoType {
-    data: yourStoryApsDataInfoType;
+export interface exhibitsApsDataInfoType {    
+    exhibitIndex?: number;
+    exhibitName?: string;
+    fileName?: string;   
+}
+
+export interface aboutServiceApsSurveyInfoType {
+    data: aboutServiceApsDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
-}
-
-export interface filingApsSurveyInfoType {
-    data: filingApsDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface filingApsDataInfoType {    
-    sworn?: string;
 }
 
 export interface storyDataInfoType {
