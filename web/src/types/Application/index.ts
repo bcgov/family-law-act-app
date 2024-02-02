@@ -32,7 +32,7 @@ import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurvey
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
-import { aboutAffiantApspSurveyInfoType, affidavitPersonalServicePoSurveyInfoType, electronicFilingStatementApspSurveyInfoType, filingApspSurveyInfoType, yourStoryApspSurveyInfoType } from "./AffidavitPersonalServicePO";
+import { aboutAffiantApspSurveyInfoType, electronicFilingStatementApspSurveyInfoType, aboutServiceApspSurveyInfoType } from "./AffidavitPersonalServicePO";
 import { aboutAffiantApsSurveyInfoType, aboutServiceApsSurveyInfoType, electronicFilingStatementApsSurveyInfoType} from "./AffidavitPersonalService";
 
 
@@ -364,16 +364,13 @@ export interface stepInfoType {
     electronicFilingStatementGaSurvey?: electronicFilingStatementGaSurveyInfoType;
 
     //_____Step 23 AFFIDAVIT OF PERSONAL SERVICE_____________    
-    //affidavitPersonalServiceSurvey?: affidavitPersonalServiceSurveyInfoType;    
     aboutAffiantApsSurvey?: aboutAffiantApsSurveyInfoType;
     aboutServiceApsSurvey?: aboutServiceApsSurveyInfoType;
     electronicFilingStatementApsSurvey?: electronicFilingStatementApsSurveyInfoType;
 
     //_____Step 25 AFFIDAVIT OF PERSONAL SERVICE PO_____________    
-    affidavitPersonalServicePoSurvey?: affidavitPersonalServicePoSurveyInfoType;    
     aboutAffiantApspSurvey?: aboutAffiantApspSurveyInfoType;
-    yourStoryApspSurvey?: yourStoryApspSurveyInfoType;
-    filingApspSurvey?: filingApspSurveyInfoType;
+    aboutServiceApspSurvey?: aboutServiceApspSurveyInfoType;
     electronicFilingStatementApspSurvey?: electronicFilingStatementApspSurveyInfoType;
 
     // //_____Step 26 CERTIFICATE OF SERVICE_____________    

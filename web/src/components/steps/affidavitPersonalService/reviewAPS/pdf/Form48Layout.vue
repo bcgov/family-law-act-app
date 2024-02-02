@@ -62,37 +62,37 @@
         
            
         <div style="margin-top: 1rem;"></div>  
-
+    <!-- <1> -->
         <section>
 
             <underline-form 
                 style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="17rem" 
+                textwidth="20rem" 
                 beforetext="I personally served" 
                 hint="(full name of person served)" 
-                :italicHint="false" :text="servedPersonName"/>
+                :italicHint="false" :text="servedPersonName"/>        
 
             <underline-form 
                 style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" 
-                textwidth="8rem" 
+                textwidth="12.5rem" 
                 beforetext="on" 
-                hint="(date the document(s) were served)" 
+                hint="(date the document(s) were served mmm/dd/yyyy)" 
                 :italicHint="false" :text="serviceDate"/>
-            <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="6rem" 
-                beforetext="at" 
-                hint="(time the document(s) were served)" 
-                :italicHint="false" :text="serviceTime"/>
-          
+                  
 
-            <div style="margin: 1rem 0;">
+            <div style="margin: 0.5rem 0 2rem 0;">
+                <underline-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" 
+                    textwidth="11rem" 
+                    beforetext="at" 
+                    hint="(time the document(s) were served a.m./p.m.)" 
+                    :italicHint="false" :text="serviceTime"/>  
                 <underline-form 
                     style="text-indent:2px;font-size: 9pt;" 
-                    textwidth="39.5rem" 
+                    textwidth="28.5rem" 
                     beforetext="at" 
                     hint="(address or location where service took place, city, province)" 
-                    :italicHint="false" :text="address"/> 
+                    :italicHint="false" :text="serviceAddress"/> 
             </div> 
 
             <div style="display:block; font-size: 9pt; margin: 1rem 0 0.5rem 0.25rem;"> 
@@ -112,6 +112,9 @@
             </div>
 
         </section>
+
+    <!-- <2> -->
+
         <section>
             
             <div style="display:inline; font-size: 9pt;"> 
@@ -222,7 +225,6 @@ export default class Form48Layout extends Vue {
    
     yourInfo = {} as yourInformationInfoDataInfoType; 
     address = '';
-    oath = false;
     servedPersonName = '';
     serviceDate = '';
     serviceTime = '';
@@ -230,10 +232,7 @@ export default class Form48Layout extends Vue {
     exhibitList = [];
 
     idMethod = '';
-    idMethodComment = '';
-
-    serviceMethod = '';
-    serviceMethodComment = '';   
+    idMethodComment = '';    
    
     mounted(){
         this.dataReady = false;
@@ -282,10 +281,7 @@ export default class Form48Layout extends Vue {
         this.exhibitList = [];  
 
         this.idMethod = '';
-        this.idMethodComment = '';
-
-        this.serviceMethod = '';
-        this.serviceMethodComment = '';       
+        this.idMethodComment = '';           
        
         if(this.result?.aboutServiceApsSurvey){
 

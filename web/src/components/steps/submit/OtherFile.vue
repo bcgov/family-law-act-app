@@ -828,10 +828,9 @@
 
             const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APSP')})
-            if (index >=0 && this.eFiling){
-                const apspFilingInfo = this.$store.state.Application.steps[this.stPgNo.APSP._StepNo].result?.filingApspSurvey?.data;              
-                requiresApsp = apspFilingInfo?.sworn?true:false;
-                requiresEfsp = apspFilingInfo?.sworn == 'y';
+            if (index >=0 && this.eFiling){                             
+                requiresApsp = this.eFiling;
+                requiresEfsp = this.eFiling;
             } 
                 
             if (selectedForm.pathwayExists){

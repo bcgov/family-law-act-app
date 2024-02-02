@@ -72,14 +72,14 @@
                 textwidth="20rem" 
                 beforetext="I personally served" 
                 hint="(full name of person served)" 
-                :italicHint="false" :text="yourInfo.name | getFullName"/>        
+                :italicHint="false" :text="servedPersonName"/>        
 
             <underline-form 
                 style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" 
                 textwidth="12.5rem" 
                 beforetext="on" 
                 hint="(date the document(s) were served mmm/dd/yyyy)" 
-                :italicHint="false" :text="yourInfo.occupation"/>
+                :italicHint="false" :text="serviceDate"/>
                   
 
             <div style="margin: 0.5rem 0 2rem 0;">
@@ -88,14 +88,19 @@
                     textwidth="11rem" 
                     beforetext="at" 
                     hint="(time the document(s) were served a.m./p.m.)" 
-                    :italicHint="false" :text="yourInfo.occupation"/>  
+                    :italicHint="false" :text="serviceTime"/>  
                 <underline-form 
                     style="text-indent:2px;font-size: 9pt;" 
                     textwidth="28.5rem" 
                     beforetext="at" 
                     hint="(address or location where service took place, city, province)" 
-                    :italicHint="false" :text="address"/> 
+                    :italicHint="false" :text="serviceAddress"/> 
             </div> 
+
+            <div style="display:block; margin: 0.5rem 0 0 0;"> 
+                with a copy of the attached protection order made under Part 9 of the 
+                Family Law Act, marked as Exhibit “A”.
+            </div>
             
         </section>
 
@@ -106,7 +111,7 @@
                 inline="inline-block" 
                 boxMargin="0" 
                 style="display:inline; margin-left: 0.5rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="exhibitList.length>0?'yes':''" 
                 text="I also personally served them with a copy of the following document(s):"/>
             
             <div style="display:block; font-style: italic; margin: 1rem 0 0 1rem;"> 
@@ -114,74 +119,67 @@
                 an exhibit letter, listing it below, and attaching a copy to the affidavit.
             </div>
             
-            <div v-if="supportApplication" style="margin:0.5rem 0 0 9rem;">
+            <div v-if="exhibitList.length>0" style="margin:0.5rem 0 0 1rem;">
 
-                <div  v-for="app, inx in additionalAppType" :key="inx" style="margin:0.5rem 0 0 1rem;"> 
-                    
-                    <underline-form
-                        style="text-indent:0;margin-left:1rem;display:inline;" 
-                        textwidth="30rem"
-                        :beforetext="'Exhibit '+ app"
+                <div v-for="exhibit,inx in exhibitList" :key="inx">            
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
+                        textwidth="30rem" 
+                        :beforetext="'EXHIBIT ' + exhibit.exhibitName +':'"
                         hint="(name of document)" 
-                        :text="app | truncate(65)"/>                    
-                </div>
-
-                <div v-if="otherType.length>0" style="margin:0.5rem 0 0 1rem;"> 
-                    
-                    <underline-form
-                        style="text-indent:0;margin-left:1rem;display:inline;" 
-                        textwidth="30rem"
-                        beforetext=""
-                        hint="" 
-                        :text="otherType | truncate(65)"/>                    
+                        :italicHint="false" :text="exhibit.fileName"/>              
                 </div>
             </div> 
            
         </section>
 
-         <!-- <3> -->
+<!-- <3> -->
 
         <section>
             
-            <div style="display:inline;"> 
+            <div style="display:inline; font-size: 9pt;"> 
                 The person served was identified to me in this manner:
             </div>
 
-            <div style="display:block; font-style: italic; margin-left: 1rem;"> 
+            <div style="display:block; font-style: italic; margin: 0 0 0 1rem;"> 
                 Select only one of the options below
             </div>
-           
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
-                text="I know the person"/>
-
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
-                text="He/she admitted to being the person"/>            
             
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0"
+                    shiftmark="-3"
+                    style="text-indent: 5px;" 
+                    :check="idMethod == 'I know the person'?'yes':''" 
+                    text="I know the person"/>
+            </div>
+
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0"
+                    shiftmark="-3"
+                    style="text-indent: 5px;" 
+                    :check="idMethod == 'The person served admitted to being this person'?'yes':''" 
+                    text="the person served admitted to being this person"/>   
+            </div>         
+                
             <div style="display:block;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0"
-                    style="display:inline; margin-left: 1rem;" 
-                    :check="!supportApplication?'yes':''" 
+                    shiftmark="-3"
+                    style="text-indent: 5px;" 
+                    :check="idMethod == 'other'?'yes':''" 
                     text="Other (specify):"/>
-                <underline-form 
-                    style="text-indent:1px;display:inline;" 
-                    textwidth="32.5rem" 
-                    beforetext="" 
-                    hint="" 
-                    :text="!supportApplication?appType:''"/>            
-            </div>      
+                    
+                <div v-if="idMethod == 'other'" class="answerbox">{{idMethodComment}}</div>
+                <div v-else style="margin-bottom:3rem;"></div> 
+            </div>
             
         </section>
 
@@ -224,7 +222,8 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } from '@/types/Application/Affidavit';
+import { aboutAffiantDataInfoType} from '@/types/Application/Affidavit';
+import { aboutServiceApspDataInfoType } from '@/types/Application/AffidavitPersonalServicePO';
 
 @Component({
     components:{
@@ -246,13 +245,14 @@ export default class Form49Layout extends Vue {
    
     yourInfo = {} as yourInformationInfoDataInfoType; 
     address = '';
-    supportApplication = false;
-    appType = '';   
-    otherType = '';
-    additionalAppType = []; 
-    stories: storyDataInfoType[] = [];
-    lastStory = {} as storyDataInfoType; 
-    storyCount = 0;
+    servedPersonName = '';
+    serviceDate = '';
+    serviceTime = '';
+    serviceAddress = '';
+    exhibitList = [];
+
+    idMethod = '';
+    idMethodComment = '';    
    
     mounted(){
         this.dataReady = false;
@@ -262,77 +262,21 @@ export default class Form49Layout extends Vue {
     }
    
     public extractInfo(){        
-        this.getAffidavitInfo();  
         this.getAffiantInfo();  
-        this.getStoryInfo();
+        this.getServiceInfo();
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
         
     } 
-
-    public getAffidavitInfo(){    
-        
-        this.supportApplication = false;
-        this.appType = ''
-        this.additionalAppType = [];
-        this.otherType = '';
-
-        if(this.result?.affidavitSurvey){
-
-            let aff = {} as affidavitDataInfoType;
-            aff = this.result.affidavitSurvey;
-
-            this.supportApplication = aff.affidavitReason != 'response';            
-
-            const appTypeInfo = aff.applicationType?aff.applicationType:[];
-
-            const appList = [];
-            let otherTypeInfo = '';
-
-            for (const app of appTypeInfo){
-                if (app == 'other'){
-                    otherTypeInfo = aff.applicationTypeComment;
-                } else {
-                    appList.push('about ' + app.replace(/`/g, ''))
-                }
-            }
-
-            if (appList.length == 0){
-
-                this.appType = Vue.filter('truncate')(otherTypeInfo, 42);
-                this.otherType = '';
-                this.additionalAppType = [];
-
-            } else if (appList.length == 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                this.additionalAppType = [];
-
-            } else if (appList.length > 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                const additionalList = appList.slice(1)           
-
-                for (let index = 0; index < additionalList.length; index+=2){
-                    
-                    this.additionalAppType.push(additionalList[index] + (additionalList[index + 1]?(', ' + additionalList[index + 1]):''))
-                
-                }
-            }
-
-        }
-    }
 
     public getAffiantInfo(){ 
 
         this.yourInfo = {} as yourInformationInfoDataInfoType; 
         this.address = '';
         
-        if(this.result?.aboutAffiantSurvey){
+        if(this.result?.aboutAffiantApspSurvey){
 
             let aboutAffiant = {} as aboutAffiantDataInfoType;
-            aboutAffiant = this.result.aboutAffiantSurvey;
+            aboutAffiant = this.result.aboutAffiantApspSurvey;
 
             this.yourInfo = getYourInformationResults(aboutAffiant);            
             const addressInfo = aboutAffiant.ApplicantAddress;
@@ -348,39 +292,44 @@ export default class Form49Layout extends Vue {
             
     }
 
-    public getStoryInfo(){  
-        
-        this.stories = [];
-        this.storyCount = 0;
-        this.lastStory = {};
+    public getServiceInfo(){  
 
-        const storyList: storyDataInfoType[] = [];
+        this.servedPersonName = '';
+        this.serviceDate = '';
+        this.serviceTime = '';      
+        this.serviceAddress = '';
+        this.exhibitList = [];  
+
+        this.idMethod = '';
+        this.idMethodComment = '';
+      
        
-        if(this.result?.yourStoryAffSurvey?.storyAff){
+        if(this.result?.aboutServiceApspSurvey){
 
-            const storyInfo = this.result.yourStoryAffSurvey.storyAff;
-            for (const story in storyInfo){
-               storyList.push({index: Number(story) + 2, content:storyInfo[story].storyDescription})
+            const serviceData: aboutServiceApspDataInfoType = this.result.aboutServiceApspSurvey;
+            
+            this.servedPersonName = serviceData.ServedPersonName?Vue.filter('getFullName')(serviceData.ServedPersonName):'';
+            
+            if(serviceData.dateTimeServed){
+                this.serviceDate = Vue.filter('beautify-date')(serviceData.dateTimeServed);
+                this.serviceTime = Vue.filter('convert-date-time24to12')(serviceData.dateTimeServed);                           
             }
 
-            this.storyCount = storyList.length;
+            if(serviceData.locationServed){
 
-            if (this.storyCount == 0){
+                const addressInfo = serviceData.locationServed
+                const addressText = addressInfo.street + ', ' 
+                                    + addressInfo.city + ', ' 
+                                    + addressInfo.state + ', ' 
+                                    + addressInfo.country + ', ' 
+                                    + addressInfo.postcode;
+                this.serviceAddress = addressText;
+            }            
+            
+            this.exhibitList = serviceData.documentListApsp?serviceData.documentListApsp:[];
 
-                this.stories = []
-                this.lastStory = {};
-
-            } else if (this.storyCount == 1){
-
-                this.lastStory = storyList[0];                
-                this.stories = [];
-
-            } else if (this.storyCount > 1){
-
-                this.stories = storyList.slice(0, this.storyCount - 1);
-                this.lastStory = storyList.slice(this.storyCount-1)[0];               
-            } 
-
+            this.idMethod = serviceData.idMethod?serviceData.idMethod:'';
+            this.idMethodComment = (this.idMethod == 'other' && serviceData.idMethodComment)?serviceData.idMethodComment:'';
 
         }
             

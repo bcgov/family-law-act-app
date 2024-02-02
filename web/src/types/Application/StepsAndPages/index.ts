@@ -404,8 +404,7 @@ export interface APSPstPgTypes{
 
     AffidavitPersonalServicePO: number;
     AboutAffiantApsp: number;
-    YourStoryAPSP: number;
-    FilingAPSP: number;
+    AboutServiceAPSP: number;
     ElectronicFilingStatementAPSP: number;
     ReviewYourAnswersAPSP: number;
     PreviewFormsAPSP: number;

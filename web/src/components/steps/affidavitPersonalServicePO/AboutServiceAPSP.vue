@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/your-story-apsp.json";
+import surveyJson from "./forms/about-service-apsp.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -23,7 +23,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class YourStoryApsp extends Vue {
+export default class AboutServiceApsp extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -76,12 +76,12 @@ export default class YourStoryApsp extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
         
-        if (this.step.result?.yourStoryApspSurvey) {
-            this.survey.data = this.step.result.yourStoryApspSurvey.data;
+        if (this.step.result?.aboutServiceApspSurvey) {
+            this.survey.data = this.step.result.aboutServiceApspSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
               
         } else {
-            this.survey.setValue('storyApsp',[]);
+            this.survey.setValue('documentListApsp',[]);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
@@ -102,7 +102,7 @@ export default class YourStoryApsp extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {yourStoryApspSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutServiceApspSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

@@ -47,6 +47,13 @@ export function getQuestionResults(stepNumbers, currentStep) {
                 return true;
         })
 
+    if(currentStep == stPgNo.APSP._StepNo) // filter APS page from Step APSP        
+        questionResults = questionResults.filter(questionResult=>
+        {
+            if(questionResult.pageName !='Affidavit – Personal Service Of Protection Order')
+                return true;
+        })
+
        
     return questionResults;          
 }
