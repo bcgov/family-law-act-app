@@ -32,7 +32,8 @@ import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurvey
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
-import { aboutAffiantApsSurveyInfoType, aboutServiceApsSurveyInfoType, affidavitPersonalServiceSurveyInfoType, electronicFilingStatementApsSurveyInfoType} from "./AffidavitPersonalService";
+import { aboutAffiantApspSurveyInfoType, electronicFilingStatementApspSurveyInfoType, aboutServiceApspSurveyInfoType } from "./AffidavitPersonalServicePO";
+import { aboutAffiantApsSurveyInfoType, aboutServiceApsSurveyInfoType, electronicFilingStatementApsSurveyInfoType} from "./AffidavitPersonalService";
 
 
 //This is what our database saves.
@@ -112,6 +113,7 @@ export interface stepInfoType {
     affEfsDocuments?: electronicFilingDocumentInfoType[];
     gaEfsDocuments?: electronicFilingDocumentInfoType[];
     apsEfsDocuments?: electronicFilingDocumentInfoType[];
+    apspEfsDocuments?: electronicFilingDocumentInfoType[];
     gaExhibitList?: exhibitsDataInfoType[];
 
     //______Step 1 PO____
@@ -362,12 +364,23 @@ export interface stepInfoType {
     electronicFilingStatementGaSurvey?: electronicFilingStatementGaSurveyInfoType;
 
     //_____Step 23 AFFIDAVIT OF PERSONAL SERVICE_____________    
-    //affidavitPersonalServiceSurvey?: affidavitPersonalServiceSurveyInfoType;    
     aboutAffiantApsSurvey?: aboutAffiantApsSurveyInfoType;
     aboutServiceApsSurvey?: aboutServiceApsSurveyInfoType;
     electronicFilingStatementApsSurvey?: electronicFilingStatementApsSurveyInfoType;
+
+    //_____Step 25 AFFIDAVIT OF PERSONAL SERVICE PO_____________    
+    aboutAffiantApspSurvey?: aboutAffiantApspSurveyInfoType;
+    aboutServiceApspSurvey?: aboutServiceApspSurveyInfoType;
+    electronicFilingStatementApspSurvey?: electronicFilingStatementApspSurveyInfoType;
+
+    // //_____Step 26 CERTIFICATE OF SERVICE_____________    
+    // certificateOfServiceSurvey?: certificateOfServiceSurveyInfoType;    
+    // aboutAffiantCsvSurvey?: aboutAffiantCsvpSurveyInfoType;
+    // yourStoryCsvSurvey?: yourStoryCsvSurveyInfoType;
+    // filingCsvSurvey?: filingCsvSurveyInfoType;
+    // electronicFilingStatementCsvSurvey?: electronicFilingStatementCsvSurveyInfoType;
     
-    //__Step 24 SUBMIT
+    //__Step 27 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }
 
@@ -394,6 +407,7 @@ export interface stepInfoType {
     affidavit?: boolean;
     guardianshipAffidavit?: boolean;
     affidavitPersonalService?: boolean;
+    affidavitPersonalServicePO?: boolean;
   }
 
   export interface electronicFilingDocumentInfoType {

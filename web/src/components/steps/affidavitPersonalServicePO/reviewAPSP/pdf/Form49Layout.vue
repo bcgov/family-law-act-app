@@ -6,10 +6,11 @@
         <div  class="form-header-reloc">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Affidavit of Personal Service</b></div>               
-                <div style="font-size:10pt;"><b>FORM 48</b></div>
+                <div style="font-size:13pt;"><b>Affidavit of Personal Service</b></div>  
+                <div style="font-size:13pt;"><b>of Protection Order</b></div>              
+                <div style="font-size:10pt;"><b>FORM 49</b></div>
                 <div>Provincial Court Family Rules</div>
-                <div>Rule 183</div>
+                <div>Rules 183</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -27,11 +28,12 @@
                 </b-table>                
             </div>
         </div> 
+        
 
         <underline-form 
-            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+            style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
             textwidth="22rem" 
-            beforetext="I, " 
+            beforetext="I" 
             hint="(full name)" 
             :italicHint="false" :text="yourInfo.name | getFullName"/>
 
@@ -41,29 +43,29 @@
             beforetext="," 
             hint="(occupation)" 
             :italicHint="false" :text="yourInfo.occupation"/>
-        
 
-        <div style="margin: 1rem 0;">
+        <div style="margin-top: 1rem;">  
+
             <underline-form 
                 style="text-indent:2px;font-size: 9pt;" 
-                textwidth="37.25rem" 
+                textwidth="37rem" 
                 beforetext="of" 
                 hint="(address of party, city, province)" 
-                :italicHint="false" :text="address"/> 
-            <div style="text-indent:5px;display:inline; font-size: 9pt;">
-            ,
+                :italicHint="false" :text="address"/>
+            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                ,
             </div>
-        </div> 
 
+        </div>
+        
         <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
             SWEAR OR AFFIRM THAT:
-        </div>
-
-        
+        </div> 
            
         <div style="margin-top: 1rem;"></div>  
-    <!-- <1> -->
-        <section>
+
+        <!-- <1> -->
+        <section>  
 
             <underline-form 
                 style="text-indent:2px;display:inline-block; font-size: 9pt;" 
@@ -95,25 +97,43 @@
                     :italicHint="false" :text="serviceAddress"/> 
             </div> 
 
-            <div style="display:block; font-size: 9pt; margin: 1rem 0 0.5rem 0.25rem;"> 
-                with a copy of the following document(s):
-            </div> 
-            <div style="display:block; font-size: 9pt; margin: 0 0 0 0.25rem; font-style: italic;"> 
-                Indicate each document served by marking it with an exhibit letter, listing it below, and attaching a copy to the affidavit.
+            <div style="display:block; margin: 0.5rem 0 0 0;"> 
+                with a copy of the attached protection order made under Part 9 of the 
+                Family Law Act, marked as Exhibit “A”.
             </div>
-
-            <div v-for="exhibit,inx in exhibitList" :key="inx">            
-                <underline-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
-                    textwidth="35rem" 
-                    :beforetext="'EXHIBIT ' + exhibit.exhibitName +':'"
-                    hint="(name of document)" 
-                    :italicHint="false" :text="exhibit.fileName"/>              
-            </div>
-
+            
         </section>
 
     <!-- <2> -->
+        <section>
+            <check-box 
+                checkbox="" 
+                inline="inline-block" 
+                boxMargin="0" 
+                style="display:inline; margin-left: 0.5rem;" 
+                :check="exhibitList.length>0?'yes':''" 
+                text="I also personally served them with a copy of the following document(s):"/>
+            
+            <div style="display:block; font-style: italic; margin: 1rem 0 0 1rem;"> 
+                Indicate each additional document served by marking it with 
+                an exhibit letter, listing it below, and attaching a copy to the affidavit.
+            </div>
+            
+            <div v-if="exhibitList.length>0" style="margin:0.5rem 0 0 1rem;">
+
+                <div v-for="exhibit,inx in exhibitList" :key="inx">            
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
+                        textwidth="30rem" 
+                        :beforetext="'EXHIBIT ' + exhibit.exhibitName +':'"
+                        hint="(name of document)" 
+                        :italicHint="false" :text="exhibit.fileName"/>              
+                </div>
+            </div> 
+           
+        </section>
+
+<!-- <3> -->
 
         <section>
             
@@ -160,10 +180,11 @@
                 <div v-if="idMethod == 'other'" class="answerbox">{{idMethodComment}}</div>
                 <div v-else style="margin-bottom:3rem;"></div> 
             </div>
-
-        </section>       
+            
+        </section>
 
         <div class="print-block">
+
         <!-- <SWEAR > -->        
 
             <div style="margin:1rem 0 0 0">
@@ -182,9 +203,8 @@
                 <div style="width:20rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
             </div>
             <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="" hint="(print name or affix stamp of commissioner)" text="" />
+                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="" hint="[print name or affix stamp of commissioner]" text="" />
             </div>
-            
         </div>
 
     </div>
@@ -202,8 +222,8 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType,} from '@/types/Application/Affidavit';
-import { aboutServiceApsDataInfoType } from '@/types/Application/AffidavitPersonalService';
+import { aboutAffiantDataInfoType} from '@/types/Application/Affidavit';
+import { aboutServiceApspDataInfoType } from '@/types/Application/AffidavitPersonalServicePO';
 
 @Component({
     components:{
@@ -212,7 +232,7 @@ import { aboutServiceApsDataInfoType } from '@/types/Application/AffidavitPerson
     }
 })
 
-export default class Form48Layout extends Vue {
+export default class Form49Layout extends Vue {
 
     @Prop({required:true})
     result!: any;    
@@ -246,17 +266,17 @@ export default class Form48Layout extends Vue {
         this.getServiceInfo();
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
         
-    }    
+    } 
 
     public getAffiantInfo(){ 
 
         this.yourInfo = {} as yourInformationInfoDataInfoType; 
         this.address = '';
         
-        if(this.result?.aboutAffiantApsSurvey){
+        if(this.result?.aboutAffiantApspSurvey){
 
             let aboutAffiant = {} as aboutAffiantDataInfoType;
-            aboutAffiant = this.result.aboutAffiantApsSurvey;
+            aboutAffiant = this.result.aboutAffiantApspSurvey;
 
             this.yourInfo = getYourInformationResults(aboutAffiant);            
             const addressInfo = aboutAffiant.ApplicantAddress;
@@ -281,11 +301,12 @@ export default class Form48Layout extends Vue {
         this.exhibitList = [];  
 
         this.idMethod = '';
-        this.idMethodComment = '';           
+        this.idMethodComment = '';
+      
        
-        if(this.result?.aboutServiceApsSurvey){
+        if(this.result?.aboutServiceApspSurvey){
 
-            const serviceData: aboutServiceApsDataInfoType = this.result.aboutServiceApsSurvey;
+            const serviceData: aboutServiceApspDataInfoType = this.result.aboutServiceApspSurvey;
             
             this.servedPersonName = serviceData.ServedPersonName?Vue.filter('getFullName')(serviceData.ServedPersonName):'';
             
@@ -305,7 +326,7 @@ export default class Form48Layout extends Vue {
                 this.serviceAddress = addressText;
             }            
             
-            this.exhibitList = serviceData.documentListAps?serviceData.documentListAps:[];
+            this.exhibitList = serviceData.documentListApsp?serviceData.documentListApsp:[];
 
             this.idMethod = serviceData.idMethod?serviceData.idMethod:'';
             this.idMethodComment = (this.idMethod == 'other' && serviceData.idMethodComment)?serviceData.idMethodComment:'';
