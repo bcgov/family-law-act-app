@@ -53,7 +53,7 @@ export default class Form10 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA717    `+moment().format("MMMM D, YYYY")+` \\a           Form 10";`;        
+        const bottomLeftText = `"PFA717 02/2024    `+moment().format("MMMM D, YYYY")+` \\a           Form 10";`;        
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
