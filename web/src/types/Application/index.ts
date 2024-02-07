@@ -32,7 +32,7 @@ import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurvey
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
-import { aboutAffiantCsvSurveyInfoType, certificateOfServiceSurveyInfoType, electronicFilingStatementCsvSurveyInfoType, filingCsvSurveyInfoType, yourStoryCsvSurveyInfoType } from "./CertificateOfService";
+import { aboutAffiantCsvSurveyInfoType, aboutServiceCsvSurveyInfoType, certificateOfServiceSurveyInfoType, electronicFilingStatementCsvSurveyInfoType, yourStoryCsvSurveyInfoType } from "./CertificateOfService";
 import { aboutAffiantApspSurveyInfoType, electronicFilingStatementApspSurveyInfoType, aboutServiceApspSurveyInfoType } from "./AffidavitPersonalServicePO";
 import { aboutAffiantApsSurveyInfoType, aboutServiceApsSurveyInfoType, electronicFilingStatementApsSurveyInfoType} from "./AffidavitPersonalService";
 
@@ -377,9 +377,9 @@ export interface stepInfoType {
     electronicFilingStatementApspSurvey?: electronicFilingStatementApspSurveyInfoType;
 
     //_____Step 26 CERTIFICATE OF SERVICE_____________    
-    //certificateOfServiceSurvey?: certificateOfServiceSurveyInfoType;    
+    
     aboutAffiantCsvSurvey?: aboutAffiantCsvSurveyInfoType;
-  //  aboutServiceCsvSurvey?: aboutServiceCsvSurveyInfoType;   
+    aboutServiceCsvSurvey?: aboutServiceCsvSurveyInfoType;   
     electronicFilingStatementCsvSurvey?: electronicFilingStatementCsvSurveyInfoType;
     
     //__Step 27 SUBMIT

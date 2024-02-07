@@ -29,33 +29,27 @@ export interface aboutAffiantCsvSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface yourStoryCsvDataInfoType {    
-    storyCsv?: string[];
+export interface aboutServiceCsvDataInfoType {    
+    ServedPersonName?: nameInfoType;   
+    locationServed?: addressInfoType;
+    idMethod?: string;
+    idMethodComment?: string;
+    dateTimeServed?: string;
+    documentListCsv?: exhibitsCsvDataInfoType[];
 }
 
-export interface yourStoryCsvSurveyInfoType {
-    data: yourStoryCsvDataInfoType;
+export interface exhibitsCsvDataInfoType {    
+    exhibitIndex?: number;
+    exhibitName?: string;
+    fileName?: string; 
+}
+
+export interface aboutServiceCsvSurveyInfoType {
+    data: aboutServiceCsvDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
-}
-
-export interface filingCsvSurveyInfoType {
-    data: filingCsvDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface filingCsvDataInfoType {    
-    sworn?: string;
-}
-
-export interface storyDataInfoType {
-    index?: number;
-    content?: string;
 }
 
 export interface electronicFilingStatementDataInfoType {

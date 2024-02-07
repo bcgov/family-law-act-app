@@ -418,8 +418,7 @@ export interface CSVstPgTypes{
 
     CertificateOfService: number;
     AboutAffiantCsv: number;
-    YourStoryCSV: number;
-    FilingCSV: number;
+    AboutServiceCSV: number;   
     ElectronicFilingStatementCSV: number;
     ReviewYourAnswersCSV: number;
     PreviewFormsCSV: number;

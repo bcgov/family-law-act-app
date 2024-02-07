@@ -863,10 +863,10 @@
 
             const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
             const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'CSV')})
-            if (index >=0 && this.eFiling){
-                const csvFilingInfo = this.$store.state.Application.steps[this.stPgNo.CSV._StepNo].result?.filingCsvSurvey?.data;              
-                requiresCsv = csvFilingInfo?.sworn?true:false;
-                requiresEfsp = csvFilingInfo?.sworn == 'y';
+            
+            if (index >=0 && this.eFiling){                             
+                requiresCsv = this.eFiling;
+                requiresEfsp = this.eFiling;
             } 
                 
             if (selectedForm.pathwayExists){

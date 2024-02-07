@@ -156,10 +156,9 @@ export default class OtherFormList extends Vue {
         } 
 
         const csvIndex = existingOrdersInfo.findIndex(order=>{return(order.type == 'CSV')})
-        if (csvIndex >=0 && this.type == 'Submit'){            
-            const csvFilingInfo = this.$store.state.Application.steps[this.stPgNo.CSV._StepNo].result?.filingCsvSurvey?.data;              
-            csvRequiresSignature = csvFilingInfo?.sworn == 'n';
-            this.requiresCsvEfsp = csvFilingInfo?.sworn == 'y';   
+        if (csvIndex >=0 && this.type == 'Submit'){
+            csvRequiresSignature = false;
+            this.requiresCsvEfsp = true;   
             existingOrdersInfo[csvIndex].doNotIncludePdf = true;  
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});

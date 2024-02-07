@@ -2843,22 +2843,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "2";        
-        p.name = "YourStoryCSV";
-        p.label = "Your Story";
+        p.name = "AboutServiceCSV";
+        p.label = "About Service";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "3";        
-        p.name = "FilingCSV";
-        p.label = "Filing an Affidavit";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "3";
         p.name = "ElectronicFilingStatementCSV";
         p.label = "Electronic Filing Statement";
         p.active = false;
@@ -2867,7 +2859,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "4";
         p.name = "ReviewYourAnswersCSV";
         p.label = "Review Your Answers";
         p.active = true;
@@ -2875,7 +2867,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "6";
+        p.key = "5";
         p.name = "PreviewFormsCSV";
         p.label = "Preview Form 7";
         p.active = false;
@@ -2883,7 +2875,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "7";
+        p.key = "6";
         p.name = "PreviewFormsCsvEFSP";
         p.label = "Preview Form 51";
         p.active = false;

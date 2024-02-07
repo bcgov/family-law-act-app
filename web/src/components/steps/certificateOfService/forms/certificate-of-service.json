@@ -1,67 +1,50 @@
 {
-  "title": "Affidavit - General",
-  "pages": [
-    {
-      "name": "Affidavit - General",
-      "description": "An affidavit is used to present evidence to the court. It is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book) or affirm (non-religious promise) to be true. After you swear or affirm the affidavit, it is evidence of the facts and events it sets out, just as if you took the stand in a courtroom to provide those facts.<br>An affidavit:<ul><li>must be in the first person (from the writer’s point of view, using “I”)</li><li>must include facts (what you saw, heard, did or said)</li><li>must identify the source of your information if certain facts are not within your personal knowledge</li><li>must include information that is relevant to the application the court needs to decide (and should not include information that is not), and</li><li>can have important documents or photographs referenced and attached to it - these are called exhibits.</li></ul>If the person writing the affidavit needs help with English, click on the Language Resources link on the bottom toolbar for more information about interpreters and other resources to help with preparing court forms.",
-      "elements": [
-        {
-            "type": "helptext",
-            "name": "FAQLegalAdvice",
-            "title": "How do I swear or affirm an affidavit?",
-            "titleLocation": "hidden",              
-            "body": "To swear or affirm an affidavit, you must meet with a commissioner for taking oaths. The commissioner will check your photo ID to make sure you are who you say you are, ask you if you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true. The commissioner will then watch you sign the document before signing it themselves.<br><br>If you do not speak or read English, you can bring an interpreter with you when you meet with the commissioner. For information about interpreters and language help, click on the Language Resources link on the bottom toolbar.<br><br>Lawyers, notary publics and many court registry staff are commissioners for taking oaths. You can go to any <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>Provincial Court Registry</a> or <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=FD6DB5BA2A5248038EEF54D9F9F37C4D'>Service BC location</a> to swear or affirm the affidavit. If you have the document sworn or affirmed at a different court registry, you will still need to file it at the court registry where the existing case is filed."
-        },
-        {
-            "type": "html",
-            "name": "affidavitHeading",            
-            "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Do not sign the affidavit until you are with a commissioner for taking affidavits and they tell you to sign it. Make sure that you bring any documents you are attaching to your affidavit as exhibits with you. The commissioner will also need to date and sign the exhibits.</div><br>If you cannot get the document sworn or affirmed before the document is filed, the unsworn document can be filed if you will be avail­able to swear or affirm that the contents of the document are true during your court appearance.</div>"
-        },
-        {
-          "type": "panel",
-          "name": "AffidavitPanel",
-          "elements": [  
-            {
-                "type": "radiogroup",
-                "name": "affidavitReason",
-                "isRequired": true,
-                "title": "Why are you filing an affidavit?",
-                "description": "An affidavit should only be filed when there is an application before the court that the affidavit is about.<br><br>You can file an affidavit in support of an application or to respond to someone else’s application.",
-                "choices": [
-                    {
-                        "value": "application",
-                        "text": "<b>In support of an application</b><div style='margin-left: 2rem;'>Giving assistance to or showing approval of an application"
-                    },
-                    {
-                        "value": "response",
-                        "text": "<b>In response to an application</b><div style='margin-left: 2rem;'>To answer or reply to someone else’s application"
-                    }
-                ]
-            },                     
-            {
-                "type": "checkbox",
-                "name": "applicationType",
-                "title": "What is the application about?",
-                "description": "Look at the application this affidavit is being filed for. The name of the application will tell you what the application is about. If someone has asked you to write an affidavit in support of their application, ask them what the application is about.<br>If your affidavit is in support or response to more than one application, select each option that applies",
-                "otherText":"Other (please specify):",
-                "hasOther": true,
-                "choices": [
-                    "A `family law matter`",
-                    "Case management", 
-                    "Protection",  
-                    "A priority parenting matter",
-                    "Relocation of a child or guardian",
-                    "Enforcement"                   
-                ],
-                "isRequired": true
-             }
+    "title": "Certificate of Service",
+    "pages": [
+      {
+        "name": "Certificate of Service",
+        "description": "A certificate of service is used to prove service of document(s) to the court.  It is a written document that contains facts about the `service` of documents and the person who completed the service must certify the facts to be true. After the certificate of service is completed, it must be filed at the existing court registry where the existing case is in order to prove service.<br><br>If the person writing the certificate of service needs help with English, click on the Language Resources link on the bottom toolbar for more information about interpreters and other resources to help with preparing court forms.",
+        "elements": [
 
-          ]
-        }
-      ],
-      "title": "Affidavit - General"
-    }
-  ],
-  "showQuestionNumbers": "off",
-  "requiredText": ""
-}
+            {
+                "type": "html",
+                "name": "ServiceDescription",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='color: #5475a7;'>What is service?</div>Service is the act of giving or leaving documents with the required person. It is important that each other party:<ul><li>know that a case is going on,</li><li>are aware of what step is being taken, and</li><li>are given a chance to tell their side of the story to the court.</li></ul>Different court documents must be served in different ways. It is important to make sure you are serving a document properly. Your matter can be delayed if the other person is not properly served."
+            },
+            {
+                "type": "html",
+                "name": "personalServiceDescription",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Personal service</div>Personal service requires an adult who is not a party to hand-deliver the document directly to the person being served.</div>"
+            },
+            {
+                "type": "html",
+                "name": "ordinaryServiceDescription",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Ordinary service</div>For most documents, they can be served to the address for service.  A party’s address for service is the address they have provided to the court.  You can serve in any of the following ways:<ul><li>by leaving the documents at the party’s address for service</li><li>by mailing the documents by ordinary mail to the party’s address for service</li><li>by mailing the documents by registered mail to the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>If you can’t serve the documents in the way required by the court, you can ask for a court order allowing another method of service. To apply, you will need to complete an <a target='_blank' href='https://www2.gov.bc.ca/assets/download/D6B5BF5B2ECB46B08BBC54808F4F7BB1'>Application for a Case Management Order without Notice or Appearance Form 11</a>."
+            },           
+           
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice",
+                "title": "What document(s) are required to be personally served?",
+                "titleLocation": "hidden",              
+                "body": "There are specific documents that require personal service by an adult who is not a party or the person to be served.<ul><li>an application about a family law matter</li><li>summons or subpoena</li><li>application about a protection order</li><li>a protection order, if the person against whom the protection order application is made was not present in court</li><li>a request for court enforcement under the <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96127_01'>Family Maintenance Enforcement Act</a></li><li>any document that the court has determined requires personal service</li><li>any application to be served on a party who has not provided an address of service</li></ul>"
+            },
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice2",
+                "title": "When is the document deemed to be served on the party?",
+                "titleLocation": "hidden",              
+                "body": "If you serve a document(s) by one of the following methods below, and service is before 4 p.m. on a day that is not a Saturday or holiday, the document is deemed to be served on that day; however, if the document is served on a Saturday or holiday, or if it is served after 4 p.m. on any other day, it is deemed to be served on the next day that is not a Saturday or holiday.<ul><li>by personal service</li><li>by leaving the documents at the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>If service is completed by mailing the documents by ordinary mail to the party’s address for service, the document(s) are deemed to be served on the 14th day after it is mailed."
+            },
+            {
+                "type": "html",
+                "name": "serviceCompletionDescription",            
+                "html": "<div style='margin-bottom:-0.75rem'>If service is completed by registered mail to the party’s address for service, it is deemed served on the date that the party signed for receipt of the registered mail.</div>"
+            }
+        ],
+        "title": "Certificate of Service"
+      }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+  }

@@ -206,6 +206,8 @@ export default class ReviewYourAnswersPage extends Vue {
                 return this.getDocumentInfo(value);
             } else if (dataItem.name == 'documentListApsp'){
                 return this.getDocumentInfo(value);
+            } else if (dataItem.name == 'documentListCsv'){
+                return this.getDocumentInfo(value);
             }
             else{
                 this.pageHasError = true;
