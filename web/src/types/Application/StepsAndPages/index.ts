@@ -237,6 +237,7 @@ export interface CMstPgTypes{
     Scheduling: number;
     AboutCaseManagementOrder: number;
     CmChildrenInfo: number;
+    ApplicationUnderFOAEAA: number;
     AttendanceUsingElectronicCommunication: number;
     ChangingOrCancellingAServiceOrNotice: number;
     ChangingOrCancellingAnyOtherRequirement: number;
