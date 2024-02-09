@@ -202,8 +202,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType,} from '@/types/Application/Affidavit';
-import { aboutServiceApsDataInfoType } from '@/types/Application/AffidavitPersonalService';
+import { aboutAffiantApsDataInfoType, aboutServiceApsDataInfoType } from '@/types/Application/AffidavitPersonalService';
 
 @Component({
     components:{
@@ -255,7 +254,7 @@ export default class Form48Layout extends Vue {
         
         if(this.result?.aboutAffiantApsSurvey){
 
-            let aboutAffiant = {} as aboutAffiantDataInfoType;
+            let aboutAffiant = {} as aboutAffiantApsDataInfoType;
             aboutAffiant = this.result.aboutAffiantApsSurvey;
 
             this.yourInfo = getYourInformationResults(aboutAffiant);            

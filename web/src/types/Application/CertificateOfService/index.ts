@@ -1,24 +1,7 @@
-import { addressInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
-
-export interface certificateOfServiceDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
-}
-  
-export interface certificateOfServiceSurveyInfoType {
-    data: certificateOfServiceDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
+import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface aboutAffiantCsvDataInfoType {    
     ApplicantName?: nameInfoType;
-    ApplicantOccupation?: string;
-    inCareOf?: string[];
-    ApplicantAddress?: addressInfoType;
 }
 
 export interface aboutAffiantCsvSurveyInfoType {
@@ -31,17 +14,21 @@ export interface aboutAffiantCsvSurveyInfoType {
 
 export interface aboutServiceCsvDataInfoType {    
     ServedPersonName?: nameInfoType;   
-    locationServed?: addressInfoType;
-    idMethod?: string;
-    idMethodComment?: string;
+    locationServed?: addressInfoType;   
     dateTimeServed?: string;
-    documentListCsv?: exhibitsCsvDataInfoType[];
+    documentListCsv?: string[];
+    documentListCsvComment?: string;
+    serviceContact?: contactInfoType;
+    otherServiceLocation?: string;
+    personalServiceMethod?: string;
+    personalServiceMethodComment?: string;
+    ordinaryServiceMethod?: ordinaryServiceMethodDataInfoType; 
 }
 
-export interface exhibitsCsvDataInfoType {    
-    exhibitIndex?: number;
-    exhibitName?: string;
-    fileName?: string; 
+export interface ordinaryServiceMethodDataInfoType {
+    mailServiceDate?: string;
+    selected?: string;
+    otherComment?: string;
 }
 
 export interface aboutServiceCsvSurveyInfoType {

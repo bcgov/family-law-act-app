@@ -222,8 +222,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType} from '@/types/Application/Affidavit';
-import { aboutServiceApspDataInfoType } from '@/types/Application/AffidavitPersonalServicePO';
+import { aboutAffiantApspDataInfoType, aboutServiceApspDataInfoType } from '@/types/Application/AffidavitPersonalServicePO';
 
 @Component({
     components:{
@@ -231,7 +230,6 @@ import { aboutServiceApspDataInfoType } from '@/types/Application/AffidavitPerso
         CheckBox       
     }
 })
-
 export default class Form49Layout extends Vue {
 
     @Prop({required:true})
@@ -265,7 +263,6 @@ export default class Form49Layout extends Vue {
         this.getAffiantInfo();  
         this.getServiceInfo();
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        
     } 
 
     public getAffiantInfo(){ 
@@ -275,7 +272,7 @@ export default class Form49Layout extends Vue {
         
         if(this.result?.aboutAffiantApspSurvey){
 
-            let aboutAffiant = {} as aboutAffiantDataInfoType;
+            let aboutAffiant = {} as aboutAffiantApspDataInfoType;
             aboutAffiant = this.result.aboutAffiantApspSurvey;
 
             this.yourInfo = getYourInformationResults(aboutAffiant);            
@@ -301,8 +298,7 @@ export default class Form49Layout extends Vue {
         this.exhibitList = [];  
 
         this.idMethod = '';
-        this.idMethodComment = '';
-      
+        this.idMethodComment = '';      
        
         if(this.result?.aboutServiceApspSurvey){
 

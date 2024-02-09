@@ -146,6 +146,8 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the full name of the other party?</b>", "What is the full name of the other party?");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>Please set out the details requested below for each criminal offence you are currently charged with:</b>", "Please set out the details requested below for each criminal offence you are currently charged with:");
         adjQuestion = adjQuestion.replace("<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>What document(s) did you serve?</b>", "What document(s) did you serve?");
+        adjQuestion = adjQuestion.replace("serviceContact", "Service Contact Information");    
+        adjQuestion = adjQuestion.replace("<div style = 'color: #494949; font-size: 1rem; font-weight: 400;'>Other Location", "Other service location/method");
         return adjQuestion
     }
 

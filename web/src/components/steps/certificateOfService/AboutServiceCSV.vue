@@ -67,10 +67,7 @@ export default class AboutServiceCsv extends Vue {
         
         if (this.step.result?.aboutServiceCsvSurvey) {
             this.survey.data = this.step.result.aboutServiceCsvSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
-              
-        } else {
-            this.survey.setValue('documentListCsv',[]);
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       

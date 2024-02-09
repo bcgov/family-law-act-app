@@ -44,34 +44,36 @@
             textwidth="38rem" 
             beforetext="<b>served</b>" 
             hint="Full name of the person served (copy their name from the document you served them)" 
-            :italicHint="false" :text="yourInfo.occupation"/>
+            :italicHint="false" :text="servedPersonName"/>
 
         <underline-form 
             style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
             textwidth="15rem" 
             beforetext="<b>on</b>" 
             hint="Date the document(s) were service (mmm/dd/yyyy)" 
-            :italicHint="false" :text="yourInfo.name | getFullName"/>
+            :italicHint="false" :text="serviceDate"/>
 
         <underline-form 
             style="text-indent:2px;display:inline-block; font-size: 9pt;" 
             textwidth="15rem" 
             beforetext="<b>at</b>" 
             hint="Time the document(s) were served" 
-            :italicHint="false" :text="yourInfo.occupation"/>
+            :italicHint="false" :text="serviceTime"/>
 
         <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
             a.m./p.m.
         </div>
 
-        <div style="margin-top: 1rem;">  
-
+        <div style="margin-top: 1rem;">
             <underline-form 
                 style="text-indent:2px;font-size: 9pt;" 
                 textwidth="40rem" 
                 beforetext="<b>at</b>" 
                 hint="Street address or location, city, province, or email address or fax number where the document(s) were served." 
-                :italicHint="false" :text="address"/>
+                :italicHint="false" :text="serviceDetails.substring(0,85)"/>
+
+            <div v-if="serviceDetails.length>85" class="answerbox">{{serviceDetails.substring(85)}}</div>
+            <div v-else style="margin-bottom:3rem;"></div> 
         </div>
         
         <div style="display:block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
@@ -92,16 +94,18 @@
                     checkbox=""
                     style="display:inline;" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0"
-                    :check="true?'yes':''" text="Application About a Family Law Matter"/>
+                    :check="documentList.includes('Application About a Family Law Matter')?'yes':''" text="Application About a Family Law Matter"/>
             </div>
             <div style="width:50%;">
                 <check-box
                     checkbox=""
                     style="display:inline;" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0"
-                    :check="true?'yes':''" text="Order"/>
+                    :check="documentList.includes('Order')?'yes':''" text="Order"/>
             </div>
         </div>
 
@@ -111,17 +115,19 @@
                     class="" 
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Financial Statement"/>
+                    :check="documentList.includes('Financial Statement')?'yes':''" text="Financial Statement"/>
             </div>
             <div style="width:50%;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Reply to a Counter Application"/>
+                    :check="documentList.includes('Reply to a Counter Application')?'yes':''" text="Reply to a Counter Application"/>
             </div>
         </div>
 
@@ -131,17 +137,19 @@
                     class="" 
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Guardianship Affidavit"/>
+                    :check="documentList.includes('Guardianship Affidavit')?'yes':''" text="Guardianship Affidavit"/>
             </div>
             <div style="width:50%;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Application for Order Prohibiting the Relocation of a Child"/>
+                    :check="documentList.includes('Application for Order Prohibiting the Relocation of a Child')?'yes':''" text="Application for Order Prohibiting the Relocation of a Child"/>
             </div>
         </div>
 
@@ -151,38 +159,19 @@
                     class="" 
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Instructions about filing reply"/>
+                    :check="documentList.includes('Instructions about filing reply')?'yes':''" text="Instructions about filing reply"/>
             </div>
             <div style="width:50%;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Application About Enforcement"/>
-            </div>
-        </div>
-
-
-        <div class="marginleft row" style="margin:0.25rem 0 0 0;">
-            <div style="width:50%;">
-                <check-box 
-                    class="" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="true?'yes':''" text="Application for Case Management Order"/>
-            </div>
-            <div style="width:50%;">
-                <check-box
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="true?'yes':''" text="Written Response to Application"/>
+                    :check="documentList.includes('Application About Enforcement')?'yes':''" text="Application About Enforcement"/>
             </div>
         </div>
 
@@ -192,17 +181,19 @@
                     class="" 
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Application About a Protection Order"/>
+                    :check="documentList.includes('Application for Case Management Order')?'yes':''" text="Application for Case Management Order"/>
             </div>
             <div style="width:50%;">
                 <check-box
                     checkbox="" 
-                    inline="inline" 
+                    inline="inline"
+                    :shiftmark="1" 
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Notice of Intention to Proceed"/>
+                    :check="documentList.includes('Written Response to Application')?'yes':''" text="Written Response to Application"/>
             </div>
         </div>
 
@@ -212,17 +203,41 @@
                     class="" 
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Application About Priority Parenting Matter"/>
+                    :check="documentList.includes('Application About a Protection Order')?'yes':''" text="Application About a Protection Order"/>
             </div>
             <div style="width:50%;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="true?'yes':''" text="Other (list any additional document(s) that you served here):"/>
+                    :check="documentList.includes('Notice of Intention to Proceed')?'yes':''" text="Notice of Intention to Proceed"/>
+            </div>
+        </div>
+
+        <div class="marginleft row" style="margin:0.25rem 0 0 0;">
+            <div style="width:50%;">
+                <check-box 
+                    class="" 
+                    checkbox="" 
+                    inline="inline" 
+                    :shiftmark="1"
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="documentList.includes('Application About Priority Parenting Matter')?'yes':''" text="Application About Priority Parenting Matter"/>
+            </div>
+            <div style="width:50%;">
+                <check-box
+                    checkbox="" 
+                    inline="inline" 
+                    :shiftmark="1"
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="documentList.includes('other')?'yes':''" text="Other (list any additional document(s) that you served here):"/>
             </div>
         </div>
 
@@ -233,7 +248,7 @@
                 textwidth="42rem" 
                 beforetext="" 
                 hint="" 
-                :italicHint="false" :text="address"/>
+                :italicHint="false" :text="documentList.includes('other')?documentListComment:''"/>
         </div>
         
         <div style="display:inline;margin-top: 1rem;"> 
@@ -255,19 +270,22 @@
         <check-box 
             checkbox="" 
             inline="inline" 
+            :shiftmark="1"
             boxMargin="0" 
             style="display:block; margin-left: 1rem;" 
-            :check="supportApplication?'yes':''" 
+            :check="personalServiceMethod == 'leaving a copy of the document(s) with the person'?'yes':''" 
             text="leaving a copy of the document(s) with the person"/>
 
         <check-box 
             checkbox="" 
             inline="inline" 
+            :shiftmark="1"
             boxMargin="0" 
             style="display:block; margin-left: 1rem;" 
-            :check="supportApplication?'yes':''" 
+            :check="personalServiceMethod == 'other'?'yes':''" 
             text="alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"/>            
-                    
+        <div v-if="personalServiceMethod == 'other'" class="answerbox">{{personalServiceMethodComment}}</div>
+        <div v-else style="margin-bottom:3rem;"></div>             
 
         <div style="display:block;text-decoration: underline; font-weight: 700;"> 
             Ordinary service
@@ -280,25 +298,27 @@
             <check-box 
                 checkbox="" 
                 inline="inline" 
+                :shiftmark="1"
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="ordinaryServiceMethod == 'leaveCopy'?'yes':''" 
                 text="leaving a copy of the document(s) at the person’s address for delivery"/>               
             
             <div style="display:block;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0"
                     style="display:inline; margin-left: 1rem;" 
-                    :check="!supportApplication?'yes':''" 
+                    :check="ordinaryServiceMethod == 'ordinaryMail'?'yes':''" 
                     text="mailing the document(s) by ordinary mail to the person’s address for delivery on"/>
                 <underline-form 
                     style="text-indent:1px;display:inline;" 
                     textwidth="8rem" 
                     beforetext="" 
                     hint="(mmm/dd/yyyy)" 
-                    :text="!supportApplication?appType:''"/>   
+                    :text="mailServiceDate"/>   
                     
                 <div style="display:block; margin-left: 2.5rem; font-style: italic;"> 
                     Note: The date the document(s) were served is 14 days after the documents were mailed.
@@ -309,9 +329,10 @@
                 <check-box 
                     checkbox="" 
                     inline="inline" 
+                    :shiftmark="1"
                     boxMargin="0" 
                     style="display:block; margin-left: 1rem;" 
-                    :check="supportApplication?'yes':''" 
+                    :check="ordinaryServiceMethod == 'registeredMail'?'yes':''" 
                     text="mailing the document(s) by registered mail to the person’s address for delivery"/>   
                 <div style="display:block; margin-left: 2.5rem; font-style: italic;"> 
                     Note: The date the document(s) were served is the date the document(s) 
@@ -324,30 +345,32 @@
             <check-box 
                 checkbox="" 
                 inline="inline" 
+                :shiftmark="1"
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="ordinaryServiceMethod == 'email'?'yes':''" 
                 text="emailing the document(s) to the person’s email address for delivery"/>           
 
             <check-box 
                 checkbox="" 
                 inline="inline" 
+                :shiftmark="1"
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="ordinaryServiceMethod == 'fax'?'yes':''" 
                 text="faxing the document(s) to the person’s fax number for delivery"/>           
 
             <check-box 
                 checkbox="" 
                 inline="inline" 
+                :shiftmark="1"
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="ordinaryServiceMethod == 'other'?'yes':''" 
                 text="alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"/>           
             
-            
-            
-       
+            <div v-if="ordinaryServiceMethod == 'other'" class="answerbox">{{ordinaryServiceMethodComment}}</div>
+            <div v-else style="margin-bottom:3rem;"></div>
 
         <div class="print-block">
 
@@ -379,7 +402,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } from '@/types/Application/Affidavit';
+import { aboutAffiantCsvDataInfoType, aboutServiceCsvDataInfoType } from '@/types/Application/CertificateOfService';
 
 @Component({
     components:{
@@ -398,16 +421,20 @@ export default class Form7Layout extends Vue {
     dataReady = false; 
     existingFileNumber = '';  
    
-    yourInfo = {} as yourInformationInfoDataInfoType; 
-    address = '';
-    supportApplication = false;
-    appType = '';   
-    otherType = '';
-    additionalAppType = []; 
-    stories: storyDataInfoType[] = [];
-    lastStory = {} as storyDataInfoType; 
-    storyCount = 0;
-   
+    yourInfo = {} as yourInformationInfoDataInfoType;
+    servedPersonName = '';
+    serviceDate = '';
+    serviceTime = '';
+    
+    documentList = [];
+    documentListComment = '';
+    serviceDetails = '';    
+    personalServiceMethod = '';
+    personalServiceMethodComment = '';
+    ordinaryServiceMethod = '';
+    ordinaryServiceMethodComment = '';
+    mailServiceDate = '';
+    
     mounted(){
         this.dataReady = false;
         console.log(this.result)
@@ -416,129 +443,90 @@ export default class Form7Layout extends Vue {
     }
    
     public extractInfo(){        
-        this.getAffidavitInfo();  
         this.getAffiantInfo();  
-        this.getStoryInfo();
+        this.getServiceInfo();
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
         
     } 
 
-    public getAffidavitInfo(){    
-        
-        this.supportApplication = false;
-        this.appType = ''
-        this.additionalAppType = [];
-        this.otherType = '';
-
-        if(this.result?.affidavitSurvey){
-
-            let aff = {} as affidavitDataInfoType;
-            aff = this.result.affidavitSurvey;
-
-            this.supportApplication = aff.affidavitReason != 'response';            
-
-            const appTypeInfo = aff.applicationType?aff.applicationType:[];
-
-            const appList = [];
-            let otherTypeInfo = '';
-
-            for (const app of appTypeInfo){
-                if (app == 'other'){
-                    otherTypeInfo = aff.applicationTypeComment;
-                } else {
-                    appList.push('about ' + app.replace(/`/g, ''))
-                }
-            }
-
-            if (appList.length == 0){
-
-                this.appType = Vue.filter('truncate')(otherTypeInfo, 42);
-                this.otherType = '';
-                this.additionalAppType = [];
-
-            } else if (appList.length == 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                this.additionalAppType = [];
-
-            } else if (appList.length > 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                const additionalList = appList.slice(1)           
-
-                for (let index = 0; index < additionalList.length; index+=2){
-                    
-                    this.additionalAppType.push(additionalList[index] + (additionalList[index + 1]?(', ' + additionalList[index + 1]):''))
-                
-                }
-            }
-
-        }
-    }
-
     public getAffiantInfo(){ 
 
-        this.yourInfo = {} as yourInformationInfoDataInfoType; 
-        this.address = '';
+        this.yourInfo = {} as yourInformationInfoDataInfoType;
         
-        if(this.result?.aboutAffiantSurvey){
+        if(this.result?.aboutAffiantCsvSurvey){
 
-            let aboutAffiant = {} as aboutAffiantDataInfoType;
-            aboutAffiant = this.result.aboutAffiantSurvey;
-
-            this.yourInfo = getYourInformationResults(aboutAffiant);            
-            const addressInfo = aboutAffiant.ApplicantAddress;
-
-            const addressText = addressInfo.street + ', ' 
-                                + addressInfo.city + ', ' 
-                                + addressInfo.state + ', ' 
-                                + addressInfo.country + ', ' 
-                                + addressInfo.postcode;
-
-            this.address = aboutAffiant.inCareOf?.length>0?('Care of '+ addressText ):addressText;
+            let aboutAffiant = {} as aboutAffiantCsvDataInfoType;
+            aboutAffiant = this.result.aboutAffiantCsvSurvey;
+            this.yourInfo = getYourInformationResults(aboutAffiant);
         }
             
     }
 
-    public getStoryInfo(){  
-        
-        this.stories = [];
-        this.storyCount = 0;
-        this.lastStory = {};
+    public getServiceInfo(){  
 
-        const storyList: storyDataInfoType[] = [];
-       
-        if(this.result?.yourStoryAffSurvey?.storyAff){
+        this.servedPersonName = '';
+        this.serviceDate = '';
+        this.serviceTime = '';      
+        let serviceAddress = '';
+        let otherServiceLocation = '';
+        let serviceEmail = '';
+        let serviceFax = '';
+        let servicePhone = '';
+        this.documentList = [];
+        this.documentListComment = '';
+        this.serviceDetails = '';    
+        this.personalServiceMethod = '';
+        this.personalServiceMethodComment = '';
+        this.ordinaryServiceMethod = '';
+        this.ordinaryServiceMethodComment = '';
+        this.mailServiceDate = '';
 
-            const storyInfo = this.result.yourStoryAffSurvey.storyAff;
-            for (const story in storyInfo){
-               storyList.push({index: Number(story) + 2, content:storyInfo[story].storyDescription})
+        if(this.result?.aboutServiceCsvSurvey){
+
+            const serviceData: aboutServiceCsvDataInfoType = this.result.aboutServiceCsvSurvey;
+            
+            this.servedPersonName = serviceData.ServedPersonName?Vue.filter('getFullName')(serviceData.ServedPersonName):'';
+            
+            if(serviceData.dateTimeServed){
+                this.serviceDate = Vue.filter('beautify-date')(serviceData.dateTimeServed);
+                this.serviceTime = Vue.filter('convert-date-time24to12')(serviceData.dateTimeServed);                           
             }
 
-            this.storyCount = storyList.length;
+            if(serviceData.locationServed){
 
-            if (this.storyCount == 0){
-
-                this.stories = []
-                this.lastStory = {};
-
-            } else if (this.storyCount == 1){
-
-                this.lastStory = storyList[0];                
-                this.stories = [];
-
-            } else if (this.storyCount > 1){
-
-                this.stories = storyList.slice(0, this.storyCount - 1);
-                this.lastStory = storyList.slice(this.storyCount-1)[0];               
+                const addressInfo = serviceData.locationServed
+                const addressText = addressInfo.street + ', ' 
+                                    + addressInfo.city + ', ' 
+                                    + addressInfo.state + ', ' 
+                                    + addressInfo.country + ', ' 
+                                    + addressInfo.postcode;
+                serviceAddress = addressText;
             } 
-
-
-        }
             
-    }  
+            otherServiceLocation = serviceData.otherServiceLocation?.length>0? 'other: '+ serviceData.otherServiceLocation:'';
+            serviceEmail = serviceData.serviceContact?.email?.length>0? 'email: '+ serviceData.serviceContact?.email:'';
+            serviceFax = serviceData.serviceContact?.fax?.length>0? 'fax: '+ serviceData.serviceContact?.fax:'';
+            servicePhone = serviceData.serviceContact?.phone?.length>0? 'phone: '+ serviceData.serviceContact?.phone:'';
+
+            this.serviceDetails = serviceAddress + ' ' + serviceEmail + ' ' + serviceFax + ' ' + servicePhone + ' ' + otherServiceLocation;
+            
+            this.documentList = serviceData.documentListCsv?serviceData.documentListCsv:[];
+            this.documentListComment = (this.documentList.includes('other')&&serviceData.documentListCsvComment)?serviceData.documentListCsvComment:''; 
+           
+            this.personalServiceMethod = serviceData.personalServiceMethod;
+            this.personalServiceMethodComment = (serviceData.personalServiceMethod == 'other' && serviceData.personalServiceMethodComment)?serviceData.personalServiceMethodComment:'';
+        
+            this.ordinaryServiceMethod = serviceData.ordinaryServiceMethod.selected;
+            this.ordinaryServiceMethodComment = (this.ordinaryServiceMethod == 'other' && serviceData.ordinaryServiceMethod.otherComment)?serviceData.ordinaryServiceMethod.otherComment:'';
+            this.mailServiceDate = (this.ordinaryServiceMethod == 'ordinaryMail' && serviceData.ordinaryServiceMethod.mailServiceDate)?Vue.filter('beautify-date')(serviceData.ordinaryServiceMethod.mailServiceDate):'';
+            
+        
+        }
+    
+}  
+
+   
+
  
 }
 </script>

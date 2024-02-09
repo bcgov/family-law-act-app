@@ -2,6 +2,7 @@ import Vue from "vue";
 
 import AddressInfo from "./components/AddressInfo.vue";
 import ContactInfo from "./components/ContactInfo.vue";
+import FaxContactInfo from "./components/FaxContactInfo.vue";
 import CustomDate from "./components/CustomDate.vue";
 import HelpText from "./components/HelpText.vue";
 import InfoText from "./components/InfoText.vue";
@@ -214,6 +215,41 @@ function initContactInfoBlock(Survey: any) {
   Vue.component("ContactInfo", ContactInfo);
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
+
+function initFaxContactInfoBlock(Survey: any) {
+    const widget = {
+      name: "FaxContactInfo",
+      title: "Fax Contact Info",
+      iconName: "icon-multipletext",
+      widgetIsLoaded: function() {
+        return true;
+      },
+      isFit: function(question: any) {
+        return question.getType() === "faxcontactinfo";
+      },
+      activatedByChanged: function(activatedBy: any) {
+        Survey.JsonObject.metaData.addClass(
+          "faxcontactinfo",
+          [
+            {
+              name: "labelEmail:text"
+            },
+            {
+              name: "labelFax:text"
+            },
+            {
+              name: "labelPhone:text"
+            }
+          ],
+          null,
+          "empty"
+        );
+      }
+    };
+  
+    Vue.component("FaxContactInfo", FaxContactInfo);
+    Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+  }
 
 function initCustomDate(Survey: any) {
   const widget = {
@@ -590,6 +626,7 @@ export function addQuestionTypes(Survey: any) {
   initPersonName(Survey);
   initAddressBlock(Survey);
   initContactInfoBlock(Survey);
+  initFaxContactInfoBlock(Survey);
   initCustomDate(Survey);
   
   initInfoTextTitle(Survey);
@@ -666,6 +703,16 @@ export function addToolboxOptions(editor: any) {
     iconName: "icon-multipletext",
     json: {
       type: "contactinfo"
+    }
+  });
+  editor.toolbox.addItem({
+    name: "faxcontactinfo",
+    title: "Contact Information",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-multipletext",
+    json: {
+      type: "faxcontactinfo"
     }
   });
 
