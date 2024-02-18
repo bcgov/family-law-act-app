@@ -284,16 +284,23 @@
             style="display:block; margin-left: 1rem;" 
             :check="personalServiceMethod == 'other'?'yes':''" 
             text="alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"/>            
-        <div v-if="personalServiceMethod == 'other'" class="answerbox">{{personalServiceMethodComment}}</div>
-        <div v-else style="margin-bottom:3rem;"></div>             
-
-        <div style="display:block;text-decoration: underline; font-weight: 700;"> 
-            Ordinary service
+        <div 
+            v-if="personalServiceMethod == 'other'" 
+            class="answerbox"
+            style="margin-left: 3rem;">
+            {{personalServiceMethodComment}}
         </div>
+        <div v-else style="margin-bottom:3rem;"></div>      
+        
+        <div class="print-block">
 
-        <div style="display:block; margin-left: 1rem; font-style: italic;"> 
-            Note: This method of service is not allowed for an Application About a Family Law Matter or About a Protection Order.
-        </div>
+            <div style="display:block;text-decoration: underline; font-weight: 700;"> 
+                Ordinary service
+            </div>
+
+            <div style="display:block; margin-left: 1rem; font-style: italic;"> 
+                Note: This method of service is not allowed for an Application About a Family Law Matter or About a Protection Order.
+            </div>
            
             <check-box 
                 checkbox="" 
@@ -369,8 +376,13 @@
                 :check="ordinaryServiceMethod == 'other'?'yes':''" 
                 text="alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"/>           
             
-            <div v-if="ordinaryServiceMethod == 'other'" class="answerbox">{{ordinaryServiceMethodComment}}</div>
+            <div 
+                v-if="ordinaryServiceMethod == 'other'" 
+                class="answerbox"
+                style="margin-left: 3rem;">{{ordinaryServiceMethodComment}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
+            
+        </div>
 
         <div class="print-block">
 

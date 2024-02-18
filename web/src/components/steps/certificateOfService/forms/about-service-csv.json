@@ -98,7 +98,7 @@
                             "otherText": "alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"
                         },                        
                         {
-                            "type": "advancedradiogroup",
+                            "type": "advancedradiogroupwithdescription",
                             "name": "ordinaryServiceMethod",              
                             "title": "<div style = 'color: #494949; font-size: 1rem;'>`Ordinary service`</b>",
                             "description": "This method of service is not allowed for an Application About a Family Law Matter or About a Protection Order.",
@@ -106,7 +106,8 @@
                             "inputNames":"{};{mailServiceDate};{};{};{}",
                             "inputTypes":"{};{date};{};{};{}",
                             "inputWidths":"{};{12rem};{};{};{}",                  
-                            "textBeforeInputs":"{leaving a copy of the document(s) at the person’s address for delivery};{mailing the document(s) by ordinary mail to the person’s address for delivery on},{};{mailing the document(s) by registered mail to the person’s address for delivery<br><i>Note: The date the document(s) were served is the date the document(s) were confirmed to have been delivered by <a href='https://www.canadapost.ca' target='_blank'>Canada Post</a>. Attach a copy of the delivery confirmation from Canada Post.</i>};{emailing the document(s) to the person’s email address for delivery};{faxing the document(s) to the person’s fax number for delivery}",
+                            "textBeforeInputs":"{leaving a copy of the document(s) at the person’s address for delivery<br><i>Note: A party’s address for service is the address they have provided to the court.</i>};{mailing the document(s) by ordinary mail to the person’s address for delivery on},{};{mailing the document(s) by registered mail to the person’s address for delivery<br><i>Note: The date the document(s) were served is the date the document(s) were confirmed to have been delivered by <a href='https://www.canadapost.ca' target='_blank'>Canada Post</a>. Attach a copy of the delivery confirmation from Canada Post.</i>};{emailing the document(s) to the person’s email address for delivery};{faxing the document(s) to the person’s fax number for delivery}",
+                            "textAfterInputs":"{};{<br><i>Note: The date the document(s) were served is 14 days after the documents were mailed.</i>},{};{};{};{}",
                             "textClass": "sv_q_description font-weight-normal ",
                             "radioMargins":"0 0 1rem 0",
                             "radioTextMargins":"-0.6rem 0 0 0",
