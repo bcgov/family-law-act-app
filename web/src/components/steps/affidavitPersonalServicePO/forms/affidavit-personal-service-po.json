@@ -1,65 +1,38 @@
 {
-  "title": "Affidavit - General",
+  "title": "Affidavit – Personal Service Of Protection Order",
   "pages": [
     {
-      "name": "Affidavit - General",
-      "description": "An affidavit is used to present evidence to the court. It is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book) or affirm (non-religious promise) to be true. After you swear or affirm the affidavit, it is evidence of the facts and events it sets out, just as if you took the stand in a courtroom to provide those facts.<br>An affidavit:<ul><li>must be in the first person (from the writer’s point of view, using “I”)</li><li>must include facts (what you saw, heard, did or said)</li><li>must identify the source of your information if certain facts are not within your personal knowledge</li><li>must include information that is relevant to the application the court needs to decide (and should not include information that is not), and</li><li>can have important documents or photographs referenced and attached to it - these are called exhibits.</li></ul>If the person writing the affidavit needs help with English, click on the Language Resources link on the bottom toolbar for more information about interpreters and other resources to help with preparing court forms.",
-      "elements": [
-        {
-            "type": "helptext",
-            "name": "FAQLegalAdvice",
-            "title": "How do I swear or affirm an affidavit?",
-            "titleLocation": "hidden",              
-            "body": "To swear or affirm an affidavit, you must meet with a commissioner for taking oaths. The commissioner will check your photo ID to make sure you are who you say you are, ask you if you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true. The commissioner will then watch you sign the document before signing it themselves.<br><br>If you do not speak or read English, you can bring an interpreter with you when you meet with the commissioner. For information about interpreters and language help, click on the Language Resources link on the bottom toolbar.<br><br>Lawyers, notary publics and many court registry staff are commissioners for taking oaths. You can go to any <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>Provincial Court Registry</a> or <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=FD6DB5BA2A5248038EEF54D9F9F37C4D'>Service BC location</a> to swear or affirm the affidavit. If you have the document sworn or affirmed at a different court registry, you will still need to file it at the court registry where the existing case is filed."
-        },
-        {
-            "type": "html",
-            "name": "affidavitHeading",            
-            "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Do not sign the affidavit until you are with a commissioner for taking affidavits and they tell you to sign it. Make sure that you bring any documents you are attaching to your affidavit as exhibits with you. The commissioner will also need to date and sign the exhibits.</div><br>If you cannot get the document sworn or affirmed before the document is filed, the unsworn document can be filed if you will be avail­able to swear or affirm that the contents of the document are true during your court appearance.</div>"
-        },
-        {
-          "type": "panel",
-          "name": "AffidavitPanel",
-          "elements": [  
+        "name": "Affidavit – Personal Service Of Protection Order",
+        "description": "An `affidavit of personal service of protection order` is used to prove service of document(s) to the court. It is a written document that contains facts about the personal service and the person who completed the personal service must swear under oath (usually on a Bible or other religious book) or affirm (non-religious promise) the facts to be true. After the affidavit of personal service of protection order is sworn or affirmed by the person who completed the personal service, it is evidence of the facts and events it sets out, just as if the person took the stand in a courtroom to provide those facts.<br>An affidavit:<ul><li>must be sworn by the person who completed the personal service on the other party</li><li>must be in the first person (from the writer’s point of view, using “I”)</li><li>must include facts (who you served, date and time of service, place of service and documents served)</li><li>must identify the source of your information if certain facts are not within your personal knowledge and</li><li>must have copies of the documents that were served on the other party referenced and attached to it - these are called exhibits.</li></ul>If the person writing the affidavit needs help with English, click on the Language Resources link on the bottom toolbar for more information about interpreters and other resources to help with preparing court forms.",
+        "elements": [
             {
-                "type": "radiogroup",
-                "name": "affidavitReason",
-                "isRequired": true,
-                "title": "Why are you filing an affidavit?",
-                "description": "An affidavit should only be filed when there is an application before the court that the affidavit is about.<br><br>You can file an affidavit in support of an application or to respond to someone else’s application.",
-                "choices": [
-                    {
-                        "value": "application",
-                        "text": "<b>In support of an application</b><div style='margin-left: 2rem;'>Giving assistance to or showing approval of an application"
-                    },
-                    {
-                        "value": "response",
-                        "text": "<b>In response to an application</b><div style='margin-left: 2rem;'>To answer or reply to someone else’s application"
-                    }
-                ]
-            },                     
+                "type": "helptext",
+                "name": "FAQLegalAdvice",
+                "title": "How do I swear or affirm an affidavit?",
+                "titleLocation": "hidden",              
+                "body": "To swear or affirm an affidavit, the person who served the documents must meet with a commissioner for taking oaths. The commissioner will check their photo ID to make sure they are who you say you are, ask the person if they understand the contents of the affidavit, then ask them to swear or affirm that the contents are true. The commissioner will then watch them sign the document before signing it themselves.<br><br>If the person does not speak or read English, they can bring an interpreter with them when they meet with the commissioner. For information about interpreters and language help, click on the Language Resources link on the bottom toolbar.<br><br>Lawyers, notary publics and many court registry staff are commissioners for taking oaths. The person who served the documents can go to any <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>Provincial Court Registry</a> or <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=FD6DB5BA2A5248038EEF54D9F9F37C4D'>Service BC location</a> to swear or affirm the affidavit. If they have the document sworn or affirmed at a different court registry, you will still need to file it at the court registry where the existing case is filed."
+            },
             {
-                "type": "checkbox",
-                "name": "applicationType",
-                "title": "What is the application about?",
-                "description": "Look at the application this affidavit is being filed for. The name of the application will tell you what the application is about. If someone has asked you to write an affidavit in support of their application, ask them what the application is about.<br>If your affidavit is in support or response to more than one application, select each option that applies",
-                "otherText":"Other (please specify):",
-                "hasOther": true,
-                "choices": [
-                    "A `family law matter`",
-                    "Case management", 
-                    "Protection",  
-                    "A priority parenting matter",
-                    "Relocation of a child or guardian",
-                    "Enforcement"                   
-                ],
-                "isRequired": true
-             }
-
-          ]
-        }
-      ],
-      "title": "Affidavit - General"
+                "type": "html",
+                "name": "affidavitHeading",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Do not sign the affidavit until you are with a commissioner for taking affidavits and they tell you to sign it. Make sure that you bring any documents you are attaching to your affidavit as exhibits with you. The commissioner will also need to date and sign the exhibits.</div>"
+            },
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice",
+                "title": "What document(s) are required to be personally served?",
+                "titleLocation": "hidden",              
+                "body": "There are specific documents that require personal service by an adult who is not a party or the person to be served.<ul><li>an application about a family law matter</li><li>summons or subpoena</li><li>application about a protection order</li><li>a protection order, if the person against whom the protection order application is made was not present in court</li><li>a request for court enforcement under the <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96127_01'>Family Maintenance Enforcement Act</a></li><li>any document that the court has determined requires personal service</li><li>any application to be served on a party who has not provided an address of service</li></ul>Service is the act of giving or leaving documents with the required person. Personal service requires that an adult (at least 19 years old) who is not a party hand-deliver the documents to the party to be served.<br>A document is deemed to have been personally served on a person,<ul><li>If the document (s) is served at or before 4 p.m. on a day that is not a Saturday or holiday, the document is deemed to be served on the day of service, or</li><li>If the document(s) is served on a Saturday or holiday or after 4 p.m. on any other day, the document is deemed to be served on the next day that is not a Saturday or holiday.</li></ul>"
+            },
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice",
+                "title": "How do I reference and attach an exhibit?",
+                "titleLocation": "hidden",              
+                "body": "Exhibits are documents that you attach to the affidavit of personal service, usually to support a fact you talk about in the affidavit of personal service. For example, if you say that you served an application about a family matter, you will need to attach a filed copy to show the document that you served.<br>When you attach an exhibit, you must introduce it in your affidavit. To introduce it, you must indicate what the document is, reference the document, and say that you are attaching it as an exhibit.<br>Each exhibit is identified with a letter, Exhibit “A”, “B”, “C” and so on. For example:<br>Exhibit A – Application About a Family Law Matter filed Jan 24, 2022. The application is attached to this affidavit as Exhibit A."
+            }
+        ],
+      "title": "Affidavit – Personal Service Of Protection Order"
     }
   ],
   "showQuestionNumbers": "off",

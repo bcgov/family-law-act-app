@@ -238,6 +238,7 @@ export interface CMstPgTypes{
     Scheduling: number;
     AboutCaseManagementOrder: number;
     CmChildrenInfo: number;
+    ApplicationUnderFOAEAA: number;
     AttendanceUsingElectronicCommunication: number;
     ChangingOrCancellingAServiceOrNotice: number;
     ChangingOrCancellingAnyOtherRequirement: number;
@@ -394,8 +395,7 @@ export interface APSstPgTypes{
 
     AffidavitPersonalService: number;
     AboutAffiantAps: number;
-    YourStoryAPS: number;
-    FilingAPS: number;
+    AboutServiceAPS: number;
     ElectronicFilingStatementAPS: number;
     ReviewYourAnswersAPS: number;
     PreviewFormsAPS: number;
@@ -407,8 +407,7 @@ export interface APSPstPgTypes{
 
     AffidavitPersonalServicePO: number;
     AboutAffiantApsp: number;
-    YourStoryAPSP: number;
-    FilingAPSP: number;
+    AboutServiceAPSP: number;
     ElectronicFilingStatementAPSP: number;
     ReviewYourAnswersAPSP: number;
     PreviewFormsAPSP: number;
@@ -420,8 +419,7 @@ export interface CSVstPgTypes{
 
     CertificateOfService: number;
     AboutAffiantCsv: number;
-    YourStoryCSV: number;
-    FilingCSV: number;
+    AboutServiceCSV: number;   
     ElectronicFilingStatementCSV: number;
     ReviewYourAnswersCSV: number;
     PreviewFormsCSV: number;

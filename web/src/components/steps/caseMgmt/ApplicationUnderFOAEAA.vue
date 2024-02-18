@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -9,14 +9,13 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/certificate-of-service.json";
+import surveyJson from "./forms/application-under-foaeaa.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -24,32 +23,24 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class CertificateOfService extends Vue {
+export default class ApplicationUnderFOAEAA extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
+    public steps!: stepInfoType[];      
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
-
-    survey = new SurveyVue.Model(surveyJson);
+    survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
-    currentPage =0;    
-    disableNextButton = false;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
-    }
-
-    created() {
-        this.disableNextButton = false;       
     }
 
     mounted(){
@@ -58,28 +49,33 @@ export default class CertificateOfService extends Vue {
         this.reloadPageInformation();
     }
 
-    public initializeSurvey(){        
+    public initializeSurvey(){       
         this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }
+    }    
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => { 
-            
+        this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('caseMgmt')
         })
     }
     
-    public reloadPageInformation() {
-    
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
+    public reloadPageInformation() { 
         
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
-    }
-   
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.applicationUnderFOAEAASurvey) {
+            this.survey.data = this.step.result.applicationUnderFOAEAASurvey.data; 
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        }
+        
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    }   
+
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
     }
@@ -88,10 +84,11 @@ export default class CertificateOfService extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             Vue.prototype.$UpdateGotoNextStepPage()
         }
-    }  
+    } 
     
-    beforeDestroy() {        
+    beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
+        this.UpdateStepResultData({step:this.step, data: {applicationUnderFOAEAASurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

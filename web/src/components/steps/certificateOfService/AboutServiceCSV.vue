@@ -6,56 +6,46 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/your-story-apsp.json";
-
+import surveyJson from "./forms/about-service-csv.json";
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-
 @Component({
     components:{
         PageBase
     }
 })
-export default class YourStoryApsp extends Vue {
+export default class AboutServiceCsv extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
+    
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
-
     survey = new SurveyVue.Model(surveyJson);
-
     currentStep = 0;
     currentPage = 0;
     disableNextButton = false;
-
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
-
     created() {
         this.disableNextButton = false;       
     }
-
     mounted(){
         
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
     }
-
     public initializeSurvey(){        
         this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
@@ -74,24 +64,18 @@ export default class YourStoryApsp extends Vue {
     
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
-
         
-        if (this.step.result?.yourStoryApspSurvey) {
-            this.survey.data = this.step.result.yourStoryApspSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
-              
-        } else {
-            this.survey.setValue('storyApsp',[]);
+        if (this.step.result?.aboutServiceCsvSurvey) {
+            this.survey.data = this.step.result.aboutServiceCsvSurvey.data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
-
    
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
     }
-
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
             Vue.prototype.$UpdateGotoNextStepPage()
@@ -102,7 +86,7 @@ export default class YourStoryApsp extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {yourStoryApspSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutServiceCsvSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

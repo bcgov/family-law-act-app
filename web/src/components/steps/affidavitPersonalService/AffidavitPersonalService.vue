@@ -67,12 +67,9 @@ export default class AffidavitPersonalService extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {            
+        this.survey.onValueChanged.add((sender, options) => {           
 
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-            }
+          
         })
     }
     
@@ -81,10 +78,7 @@ export default class AffidavitPersonalService extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.affidavitPersonalServiceSurvey) {            
-            this.survey.data = this.step.result.affidavitPersonalServiceSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        } 
+      
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
@@ -101,17 +95,10 @@ export default class AffidavitPersonalService extends Vue {
     
     beforeDestroy() {     
         
-        if(this.survey.data?.["ApplicantName"]) {
-            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-            const commonData = {
-                'applicantName':this.survey.data["ApplicantName"],
-                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}]
-            };
-            this.UpdateCommonStepResults({data:commonData});
-        }
+    
         
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        this.UpdateStepResultData({step:this.step, data: {affidavitPersonalServiceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 100, true);
+        
     }
 }
 </script>

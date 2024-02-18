@@ -10,7 +10,7 @@ import { companionAnimalExistingAgreementSurveyInfoType, companionAnimalFactsSur
 import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
 import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType, ppmAdditionalDocumentsSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
-import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
+import { aboutCaseManagementOrderSurveyInfoType, applicationUnderFOAEAASurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
 import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpensesSurveyInfoType, detrermineArrearsSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
 import { aboutWrittenResponseOrderSurveyInfoType, agreeDisagreeSurveyInfoType, wrReplyingToApplicationSurveyInfoType } from "./WrittenResponse";
 import { rflmQuestionnaireSurveyInfoType, rflmCounterAppSurveyInfoType, rflmBackgroundSurveyInfoType, rflmAdditionalDocumentsSurveyInfoType } from "./ReplyFamilyLawMatter";
@@ -32,10 +32,10 @@ import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurvey
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
-import { aboutAffiantApsSurveyInfoType, affidavitPersonalServiceSurveyInfoType, electronicFilingStatementApsSurveyInfoType, filingApsSurveyInfoType, yourStoryApsSurveyInfoType } from "./AffidavitPersonalService";
-import { aboutAffiantApspSurveyInfoType, affidavitPersonalServicePoSurveyInfoType, electronicFilingStatementApspSurveyInfoType, filingApspSurveyInfoType, yourStoryApspSurveyInfoType } from "./AffidavitPersonalServicePO";
-import { aboutAffiantCsvSurveyInfoType, certificateOfServiceSurveyInfoType, electronicFilingStatementCsvSurveyInfoType, filingCsvSurveyInfoType, yourStoryCsvSurveyInfoType } from "./CertificateOfService";
 import { aboutAffiantFsSurveyInfoType, electronicFilingStatementFsSurveyInfoType, filingFsSurveyInfoType, financialStatementSurveyInfoType, yourStoryFsSurveyInfoType } from "./FinancialStatement";
+import { aboutAffiantCsvSurveyInfoType, aboutServiceCsvSurveyInfoType, electronicFilingStatementCsvSurveyInfoType } from "./CertificateOfService";
+import { aboutAffiantApspSurveyInfoType, electronicFilingStatementApspSurveyInfoType, aboutServiceApspSurveyInfoType } from "./AffidavitPersonalServicePO";
+import { aboutAffiantApsSurveyInfoType, aboutServiceApsSurveyInfoType, electronicFilingStatementApsSurveyInfoType} from "./AffidavitPersonalService";
 
 
 //This is what our database saves.
@@ -259,6 +259,7 @@ export interface stepInfoType {
     schedulingSurvey?: schedulingSurveyInfoType;
     aboutCaseManagementOrderSurvey?: aboutCaseManagementOrderSurveyInfoType;
     cmChildrenInfoSurvey?: cmChildrenInfoSurveyInfoType;
+    applicationUnderFOAEAASurvey?: applicationUnderFOAEAASurveyInfoType;
     childRelatedTypeSurvey?: string;
     attendanceUsingElectronicCommunicationSurvey?: attendanceUsingElectronicCommunicationSurveyInfoType;
 
@@ -368,24 +369,19 @@ export interface stepInfoType {
     electronicFilingStatementGaSurvey?: electronicFilingStatementGaSurveyInfoType;
 
     //_____Step 23 AFFIDAVIT OF PERSONAL SERVICE_____________    
-    affidavitPersonalServiceSurvey?: affidavitPersonalServiceSurveyInfoType;    
     aboutAffiantApsSurvey?: aboutAffiantApsSurveyInfoType;
-    yourStoryApsSurvey?: yourStoryApsSurveyInfoType;
-    filingApsSurvey?: filingApsSurveyInfoType;
+    aboutServiceApsSurvey?: aboutServiceApsSurveyInfoType;
     electronicFilingStatementApsSurvey?: electronicFilingStatementApsSurveyInfoType;
 
     //_____Step 25 AFFIDAVIT OF PERSONAL SERVICE PO_____________    
-    affidavitPersonalServicePoSurvey?: affidavitPersonalServicePoSurveyInfoType;    
     aboutAffiantApspSurvey?: aboutAffiantApspSurveyInfoType;
-    yourStoryApspSurvey?: yourStoryApspSurveyInfoType;
-    filingApspSurvey?: filingApspSurveyInfoType;
+    aboutServiceApspSurvey?: aboutServiceApspSurveyInfoType;
     electronicFilingStatementApspSurvey?: electronicFilingStatementApspSurveyInfoType;
 
     //_____Step 26 CERTIFICATE OF SERVICE_____________    
-    certificateOfServiceSurvey?: certificateOfServiceSurveyInfoType;    
+    
     aboutAffiantCsvSurvey?: aboutAffiantCsvSurveyInfoType;
-    yourStoryCsvSurvey?: yourStoryCsvSurveyInfoType;
-    filingCsvSurvey?: filingCsvSurveyInfoType;
+    aboutServiceCsvSurvey?: aboutServiceCsvSurveyInfoType;   
     electronicFilingStatementCsvSurvey?: electronicFilingStatementCsvSurveyInfoType;
 
     //_____Step 27 CERTIFICATE OF SERVICE_____________    

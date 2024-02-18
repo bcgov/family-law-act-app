@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.24";
+    const CURRENT_VERSION = "1.2.26";
     //__________________________
     //___________________________
     //___________________________
@@ -88,10 +88,43 @@ Vue.filter('convert-time24to12', function(time) {
     }  
 })
 
+Vue.filter('convert-date-time24to12', function(date) {
+    const time = date.substr(11);
+    const time12 = (Number(time.substr(0,2)) % 12 || 12 ) + time.substr(2,3)
+    
+    if (Number(time.substr(0,2))<12) {
+      return time12 +' AM'
+    } else {
+      return time12 +' PM'
+    }  
+})
+
 Vue.filter('beautify-date-blank', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
 		return MonthList[Number(date.substr(5,2))] + ' ' +date.substr(8,2) + ' ' +  date.substr(0,4);
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-day', function(date){
+	if(date)
+		return date.substr(8,2);
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-full-month', function(date){
+	enum MonthList {'January' = 1, 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+	if(date)
+		return MonthList[Number(date.substr(5,2))];
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-short-year', function(date){
+	if(date)
+		return (date.substr(0,4)).substr(-1,2);
 	else
 		return ' '
 })
@@ -638,7 +671,21 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		
 		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
 			requiredDocuments.push("Certified copy of the order from outside BC")
-	}
+	
+        if(questions.cmQuestionnaireSurvey?.includes("section12")){
+
+            if (stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active
+                && questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'y' 
+                && stepCM.pages[stPgCM.ApplicationUnderFOAEAA].active
+                && questions.applicationUnderFOAEAASurvey?.criminalRecordCheckAcknowledgement.includes('I understand')){
+                requiredDocuments.push("Affidavit - General Form 45")
+                requiredDocuments.push("Criminal Record Check")
+            } else {
+                requiredDocuments.push("Affidavit - General Form 45");
+            }
+        }
+    
+    }
 
 	if(type == 'agreementEnfrc'){
 		const stPgENFRC = store.state.Application.stPgNo.ENFRC

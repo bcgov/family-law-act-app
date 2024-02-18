@@ -1544,6 +1544,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "8";
+        p.name = "ApplicationUnderFOAEAA";
+        p.label = "Application Under FOAEAA";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
         p.name = "AttendanceUsingElectronicCommunication";
         p.label = "Attendance Using Another Method of Attendance";
         p.active = false;
@@ -1551,7 +1559,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "9";
+        p.key = "10";
         p.name = "ChangingOrCancellingAServiceOrNotice";
         p.label = "Changing or Cancelling a Service or Notice";
         p.active = false;
@@ -1559,7 +1567,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "10";
+        p.key = "11";
         p.name = "ChangingOrCancellingAnyOtherRequirement";
         p.label = "Changing or Cancelling Any Other Requirement";
         p.active = false;
@@ -1567,7 +1575,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "11";
+        p.key = "12";
         p.name = "RequiringAccessToInformation";
         p.label = "Requiring Access to Information";
         p.active = false;
@@ -1575,7 +1583,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "12";
+        p.key = "13";
         p.name = "RecognizingAnOrderFromOutsideBc";
         p.label = "Recognizing an Order from Outside BC";
         p.active = false;
@@ -1583,7 +1591,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "13";
+        p.key = "14";
         p.name = "ContactInformationOtherParty";
         p.label = "Contact Information Other Party";
         p.active = false;
@@ -1592,7 +1600,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "14";
+        p.key = "15";
         p.name = "ReviewYourAnswersCM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -1600,7 +1608,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "15";
+        p.key = "16";
         p.name = "PreviewForm10CM";
         p.label = "Preview Form 10";
         p.active = false;
@@ -1608,7 +1616,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "16";
+        p.key = "17";
         p.name = "PreviewForm11CM";
         p.label = "Preview Form 11";
         p.active = false;
@@ -2688,22 +2696,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "2";        
-        p.name = "YourStoryAPS";
-        p.label = "Your Story";
+        p.name = "AboutServiceAPS";
+        p.label = "About the Service";
         p.active = true;
         p.progress = 0;    
-        s.pages.push(p);
+        s.pages.push(p);       
 
         p = {} as pageInfoType;
-        p.key = "3";        
-        p.name = "FilingAPS";
-        p.label = "Filing an Affidavit";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "3";
         p.name = "ElectronicFilingStatementAPS";
         p.label = "Electronic Filing Statement";
         p.active = false;
@@ -2712,7 +2712,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "4";
         p.name = "ReviewYourAnswersAPS";
         p.label = "Review Your Answers";
         p.active = true;
@@ -2720,7 +2720,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "6";
+        p.key = "5";
         p.name = "PreviewFormsAPS";
         p.label = "Preview Form 48";
         p.active = false;
@@ -2728,7 +2728,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "7";
+        p.key = "6";
         p.name = "PreviewFormsApsEFSP";
         p.label = "Preview Form 51";
         p.active = false;
@@ -2770,22 +2770,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "2";        
-        p.name = "YourStoryAPSP";
-        p.label = "Your Story";
+        p.name = "AboutServiceAPSP";
+        p.label = "About Service";
         p.active = true;
         p.progress = 0;    
-        s.pages.push(p);
+        s.pages.push(p);       
 
         p = {} as pageInfoType;
-        p.key = "3";        
-        p.name = "FilingAPSP";
-        p.label = "Filing an Affidavit";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "3";
         p.name = "ElectronicFilingStatementAPSP";
         p.label = "Electronic Filing Statement";
         p.active = false;
@@ -2794,7 +2786,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "4";
         p.name = "ReviewYourAnswersAPSP";
         p.label = "Review Your Answers";
         p.active = true;
@@ -2802,7 +2794,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "6";
+        p.key = "5";
         p.name = "PreviewFormsAPSP";
         p.label = "Preview Form 49";
         p.active = false;
@@ -2810,7 +2802,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "7";
+        p.key = "6";
         p.name = "PreviewFormsApspEFSP";
         p.label = "Preview Form 51";
         p.active = false;
@@ -2852,22 +2844,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "2";        
-        p.name = "YourStoryCSV";
-        p.label = "Your Story";
+        p.name = "AboutServiceCSV";
+        p.label = "About Service";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "3";        
-        p.name = "FilingCSV";
-        p.label = "Filing an Affidavit";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "3";
         p.name = "ElectronicFilingStatementCSV";
         p.label = "Electronic Filing Statement";
         p.active = false;
@@ -2876,7 +2860,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "4";
         p.name = "ReviewYourAnswersCSV";
         p.label = "Review Your Answers";
         p.active = true;
@@ -2884,7 +2868,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "6";
+        p.key = "5";
         p.name = "PreviewFormsCSV";
         p.label = "Preview Form 7";
         p.active = false;
@@ -2892,7 +2876,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "7";
+        p.key = "6";
         p.name = "PreviewFormsCsvEFSP";
         p.label = "Preview Form 51";
         p.active = false;

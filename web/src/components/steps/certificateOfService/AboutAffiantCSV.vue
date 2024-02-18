@@ -14,7 +14,7 @@ import surveyJson from "./forms/about-affiant-csv.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { electronicFilingDocumentInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
@@ -32,6 +32,12 @@ export default class AboutAffiantCsv extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
+
+    @applicationState.State
+    public steps!: stepInfoType[];
+
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -69,6 +75,11 @@ export default class AboutAffiantCsv extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+
+            if(options.name == "ApplicantName") {
+                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
+            }  
                               
         })   
     }
@@ -86,6 +97,14 @@ export default class AboutAffiantCsv extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);     
     }
 
+    public setEfsDocumentList(ApplicantName){
+       
+       const efsDocumentList: electronicFilingDocumentInfoType[] = this.steps[this.stPgNo.GETSTART._StepNo].result?.csvEfsDocuments?.length>0?this.steps[this.stPgNo.GETSTART._StepNo].result.csvEfsDocuments:[];
+       efsDocumentList.push({documentName: 'Certificate of Service', efsApplicantName: ApplicantName});
+     
+       return efsDocumentList;
+    }
+
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
     }
@@ -97,6 +116,21 @@ export default class AboutAffiantCsv extends Vue {
     }
 
     beforeDestroy() {
+
+        if(this.survey.data?.["ApplicantName"]) {
+            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+            const efsDocumentList = this.setEfsDocumentList(this.survey.data?.["ApplicantName"]);
+            const commonData = {
+                'applicantName':this.survey.data["ApplicantName"],
+                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}],
+                'csvEfsDocuments':efsDocumentList
+            };
+            this.UpdateCommonStepResults({data:commonData});
+            
+        }
+
+
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {aboutAffiantCsvSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

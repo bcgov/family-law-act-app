@@ -2,8 +2,7 @@
     <step-base v-bind:step="step">    
         <certificate-of-service           v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.CertificateOfService" />
         <about-affiant-csv                v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.AboutAffiantCsv" />
-        <your-story-csv                   v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.YourStoryCSV" />
-        <filing-csv                       v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.FilingCSV" />
+        <about-service-csv                   v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.AboutServiceCSV" />       
         <electronic-filing-statement-csv  v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.ElectronicFilingStatementCSV" />
         <review-your-answers-csv          v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.ReviewYourAnswersCSV"/>
         <preview-forms-csv                v-bind:step="step"     v-if="step.currentPage == stPgNo.CSV.PreviewFormsCSV"/>
@@ -21,8 +20,7 @@ const applicationState = namespace("Application");
 import StepBase from "../StepBase.vue";
 import CertificateOfService from "./CertificateOfService.vue";
 import AboutAffiantCsv from "./AboutAffiantCSV.vue";
-import YourStoryCsv from "./YourStoryCSV.vue";
-import FilingCsv from "./FilingCSV.vue";
+import AboutServiceCsv from "./AboutServiceCSV.vue";
 import ElectronicFilingStatementCsv from "./ElectronicFilingStatementCSV.vue";
 import ReviewYourAnswersCsv from "./reviewCSV/ReviewYourAnswersCSV.vue";
 import PreviewFormsCsv from "./reviewCSV/PreviewFormsCSV.vue";
@@ -36,8 +34,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
         StepBase,        
         CertificateOfService,        
         AboutAffiantCsv,
-        YourStoryCsv,
-        FilingCsv,
+        AboutServiceCsv,
         ElectronicFilingStatementCsv,
         ReviewYourAnswersCsv,
         PreviewFormsCsv,

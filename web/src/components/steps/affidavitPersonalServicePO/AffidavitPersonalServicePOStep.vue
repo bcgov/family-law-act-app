@@ -2,8 +2,7 @@
     <step-base v-bind:step="step">    
         <affidavit-personal-service-po     v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.AffidavitPersonalServicePO" />
         <about-affiant-apsp                v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.AboutAffiantApsp" />
-        <your-story-apsp                   v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.YourStoryAPSP" />
-        <filing-apsp                       v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.FilingAPSP" />
+        <about-service-apsp                v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.AboutServiceAPSP" />
         <electronic-filing-statement-apsp  v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.ElectronicFilingStatementAPSP" />
         <review-your-answers-apsp          v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.ReviewYourAnswersAPSP"/>
         <preview-forms-apsp                v-bind:step="step"     v-if="step.currentPage == stPgNo.APSP.PreviewFormsAPSP"/>
@@ -21,8 +20,7 @@ const applicationState = namespace("Application");
 import StepBase from "../StepBase.vue";
 import AffidavitPersonalServicePo from "./AffidavitPersonalServicePO.vue";
 import AboutAffiantApsp from "./AboutAffiantAPSP.vue";
-import YourStoryApsp from "./YourStoryAPSP.vue";
-import FilingApsp from "./FilingAPSP.vue";
+import AboutServiceApsp from "./AboutServiceAPSP.vue";
 import ElectronicFilingStatementApsp from "./ElectronicFilingStatementAPSP.vue";
 import ReviewYourAnswersApsp from "./reviewAPSP/ReviewYourAnswersAPSP.vue";
 import PreviewFormsApsp from "./reviewAPSP/PreviewFormsAPSP.vue";
@@ -36,8 +34,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
         StepBase,        
         AffidavitPersonalServicePo,        
         AboutAffiantApsp,
-        YourStoryApsp,
-        FilingApsp,
+        AboutServiceApsp,
         ElectronicFilingStatementApsp,
         ReviewYourAnswersApsp,
         PreviewFormsApsp,

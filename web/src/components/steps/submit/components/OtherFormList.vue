@@ -137,10 +137,9 @@ export default class OtherFormList extends Vue {
         } 
 
         const apsIndex = existingOrdersInfo.findIndex(order=>{return(order.type == 'APS')})
-        if (apsIndex >=0 && this.type == 'Submit'){            
-            const apsFilingInfo = this.$store.state.Application.steps[this.stPgNo.APS._StepNo].result?.filingApsSurvey?.data;              
-            apsRequiresSignature = apsFilingInfo?.sworn == 'n';
-            this.requiresApsEfsp = apsFilingInfo?.sworn == 'y';   
+        if (apsIndex >=0 && this.type == 'Submit'){ 
+            apsRequiresSignature = false;
+            this.requiresApsEfsp = true;   
             existingOrdersInfo[apsIndex].doNotIncludePdf = true;  
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});
@@ -149,10 +148,9 @@ export default class OtherFormList extends Vue {
         } 
 
         const apspIndex = existingOrdersInfo.findIndex(order=>{return(order.type == 'APSP')})
-        if (apspIndex >=0 && this.type == 'Submit'){            
-            const apspFilingInfo = this.$store.state.Application.steps[this.stPgNo.APSP._StepNo].result?.filingApspSurvey?.data;              
-            apspRequiresSignature = apspFilingInfo?.sworn == 'n';
-            this.requiresApsEfsp = apspFilingInfo?.sworn == 'y';   
+        if (apspIndex >=0 && this.type == 'Submit'){                          
+            apspRequiresSignature = false;
+            this.requiresApspEfsp = true;   
             existingOrdersInfo[apspIndex].doNotIncludePdf = true;  
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});
@@ -161,10 +159,9 @@ export default class OtherFormList extends Vue {
         } 
 
         const csvIndex = existingOrdersInfo.findIndex(order=>{return(order.type == 'CSV')})
-        if (csvIndex >=0 && this.type == 'Submit'){            
-            const csvFilingInfo = this.$store.state.Application.steps[this.stPgNo.CSV._StepNo].result?.filingCsvSurvey?.data;              
-            csvRequiresSignature = csvFilingInfo?.sworn == 'n';
-            this.requiresCsvEfsp = csvFilingInfo?.sworn == 'y';   
+        if (csvIndex >=0 && this.type == 'Submit'){
+            csvRequiresSignature = false;
+            this.requiresCsvEfsp = true;   
             existingOrdersInfo[csvIndex].doNotIncludePdf = true;  
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrdersInfo}});

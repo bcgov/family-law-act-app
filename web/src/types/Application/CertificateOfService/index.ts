@@ -1,24 +1,7 @@
-import { addressInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
-
-export interface certificateOfServiceDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
-}
-  
-export interface certificateOfServiceSurveyInfoType {
-    data: certificateOfServiceDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
+import { addressInfoType, contactInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface aboutAffiantCsvDataInfoType {    
     ApplicantName?: nameInfoType;
-    ApplicantOccupation?: string;
-    inCareOf?: string[];
-    ApplicantAddress?: addressInfoType;
 }
 
 export interface aboutAffiantCsvSurveyInfoType {
@@ -29,33 +12,31 @@ export interface aboutAffiantCsvSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface yourStoryCsvDataInfoType {    
-    storyCsv?: string[];
+export interface aboutServiceCsvDataInfoType {    
+    ServedPersonName?: nameInfoType;   
+    locationServed?: addressInfoType;   
+    dateTimeServed?: string;
+    documentListCsv?: string[];
+    documentListCsvComment?: string;
+    serviceContact?: contactInfoType;
+    otherServiceLocation?: string;
+    personalServiceMethod?: string;
+    personalServiceMethodComment?: string;
+    ordinaryServiceMethod?: ordinaryServiceMethodDataInfoType; 
 }
 
-export interface yourStoryCsvSurveyInfoType {
-    data: yourStoryCsvDataInfoType;
+export interface ordinaryServiceMethodDataInfoType {
+    mailServiceDate?: string;
+    selected?: string;
+    otherComment?: string;
+}
+
+export interface aboutServiceCsvSurveyInfoType {
+    data: aboutServiceCsvDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
     currentPage?: number | string;
-}
-
-export interface filingCsvSurveyInfoType {
-    data: filingCsvDataInfoType;
-    questions?: questionInfoType[];
-    pageName?: string;
-    currentStep?: number | string;
-    currentPage?: number | string;
-}
-
-export interface filingCsvDataInfoType {    
-    sworn?: string;
-}
-
-export interface storyDataInfoType {
-    index?: number;
-    content?: string;
 }
 
 export interface electronicFilingStatementDataInfoType {

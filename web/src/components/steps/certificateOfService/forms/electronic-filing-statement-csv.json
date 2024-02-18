@@ -8,7 +8,7 @@
             {
                 "type": "yesno",
                 "name": "Lawyer",
-                "title": "Are you a lawyer filing the affidavit on behalf of a party?",
+                "title": "Are you a lawyer filing the affidavit  or other signed document on behalf of a party?",
                 "isRequired": true
             },
             {

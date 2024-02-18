@@ -12,12 +12,11 @@ export function whichForm(stepCsvResult?) {
         resultCsv = stepCSV.result
     }
   
-    if(resultCsv?.filingCsvSurvey?.data?.sworn && store.state.Application.steps[stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
+    if(store.state.Application.steps[stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
         
         const eFiling = store.state.Application.steps[stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod == 'eFile';
-        const sworn = resultCsv?.filingCsvSurvey?.data?.sworn == 'y';        
 
-        if(sworn && eFiling){
+        if(eFiling){
             requiredForm.push('P51');
         }			
 
