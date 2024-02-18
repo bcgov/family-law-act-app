@@ -713,7 +713,7 @@
                             this.requiredDocumentLists.push({description: 'Certificate of Service', type: 'CSV'});    
                         
                         if (this.requiresCsvEfsp){
-                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'CSV'});
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
                         }
                     }                 
                 }
