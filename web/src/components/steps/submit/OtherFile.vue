@@ -717,7 +717,7 @@
                             this.requiredDocumentLists.push({description: 'Certificate of Service', type: 'CSV'});    
                         
                         if (this.requiresCsvEfsp){
-                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'CSV'});
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
                         }
                     } else if (selectedForm.pathwayState && selectedForm.formName=="Financial Statement"){   
                         this.determineFsGuidedPathway(selectedForm);
@@ -728,7 +728,7 @@
                             this.requiredDocumentLists.push({description: 'Financial Statement', type: 'FS'});    
                         
                         if (this.requiresFsEfsp){
-                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Financial Statement', type: 'FS'});
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Financial Statement', type: 'EFSP'});
                         }
                     }                  
                 }
