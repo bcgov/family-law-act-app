@@ -118,6 +118,7 @@ def application_details(applications):
             "GA":["GA"],
             "APS":["APS"],
             "APSP":["APSP"],
+            "CSV":["CSV"],
             "EFSP":["EFSP"]
         }
 

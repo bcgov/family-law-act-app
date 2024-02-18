@@ -1,0 +1,24 @@
+{
+   "pages": [
+      {
+         "name": "About the Affiant",
+         "description": "<b style = 'font-size: 1.15em; line-height: 1.2;'>About the Person who completed the service</b><br>The person who completed the service must complete the certificate of service.<br>The certificate of service must be written from the writer’s point of view, using 'I' statements.",
+         "elements": [
+            {
+                "type": "personname",
+                "name": "ApplicantName",
+                "title": "What is your full name?",
+                "description": "This is the name of the person who completed the service. If you are helping someone use this service, use their name.",                  
+                "isRequired": true,              
+                "defaultSubstitution": "(Applicant Name)",
+                "descFirstName": "First Name is also known as Given Name",
+                "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                "descLastName": "Last Name is also known as Family Name or Surname"
+            }           
+         ],
+         "title": "About the Affiant"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

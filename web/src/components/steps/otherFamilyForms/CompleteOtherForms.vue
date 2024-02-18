@@ -214,7 +214,7 @@ export default class CompleteOtherForms extends Vue {
         {formName: 'Affidavit – General',                                   formNumber: 'Form 45',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'affidavit',                    formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true'},
         {formName: 'Affidavit of Personal service',                         formNumber: 'Form 48',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'affidavitPersonalService',     formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa765.pdf?forcedownload=true'},
         {formName: 'Affidavit of Personal Service of Protection Order',     formNumber: 'Form 49',  pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'affidavitPersonalServicePO',   formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa766.pdf?forcedownload=true'},
-        {formName: 'Certificate of Service',                                formNumber: 'Form 7',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'certificateOfService',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa714.pdf?forcedownload=true'},
+        {formName: 'Certificate of Service',                                formNumber: 'Form 7',   pathwayExists: true,     pathwayState: false, manualState: false,   pathwayName:'certificateOfService',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa714.pdf?forcedownload=true'},
         {formName: 'Consent adjournment',                                   formNumber: 'PFA920',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentAdjournment',           formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa920.pdf?forcedownload=true'},
         {formName: 'Consent Order',                                         formNumber: 'Form 18',  pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentOrder',                 formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa739.pdf?forcedownload=true'},
         {formName: 'Consent to an Informal Trial (Kamloops only)',          formNumber: 'PFA709',   pathwayExists: false,    pathwayState: false, manualState: false,   pathwayName:'consentInformalTrial',         formLink:'https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa709.pdf?forcedownload=true'},
@@ -441,6 +441,12 @@ export default class CompleteOtherForms extends Vue {
                 Vue.filter('setSurveyProgress')(null, step, page, 50, false);
                 toggleStep(step, false);
                 pdf_type=Vue.filter('fullNameToPdfType')(formName)
+            }else if(formName=='Certificate of Service'){
+                const step = this.stPgNo.CSV._StepNo
+                const page = this.stPgNo.CSV.PreviewFormsCSV
+                Vue.filter('setSurveyProgress')(null, step, page, 50, false);
+                toggleStep(step, false);
+                pdf_type=Vue.filter('fullNameToPdfType')(formName)
             }
             
             if(pdf_type) await this.removeGeneratedPDF(pdf_type)
@@ -455,7 +461,7 @@ export default class CompleteOtherForms extends Vue {
 
     public determineEfspRequired(){       
 //TODO: add all pathways that require EFSP
-        const formsRequiringEfsp = ["Affidavit – General", "Guardianship Affidavit", "Affidavit of Personal service", "Affidavit of Personal Service of Protection Order"];
+        const formsRequiringEfsp = ["Affidavit – General", "Guardianship Affidavit", "Affidavit of Personal service", "Affidavit of Personal Service of Protection Order", "Certificate of Service"];
 
         if (this.eFiling && this.efspNotSelected){
             for(const selectedForm of this.selectedFormInfoList){

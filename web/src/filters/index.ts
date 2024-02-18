@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.24.1";
+    const CURRENT_VERSION = "1.2.25";
     //__________________________
     //___________________________
     //___________________________
@@ -671,7 +671,21 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		
 		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
 			requiredDocuments.push("Certified copy of the order from outside BC")
-	}
+	
+        if(questions.cmQuestionnaireSurvey?.includes("section12")){
+
+            if (stepCM.pages[stPgCM.WithoutNoticeOrAttendance].active
+                && questions.withoutNoticeOrAttendanceSurvey?.needWithoutNotice == 'y' 
+                && stepCM.pages[stPgCM.ApplicationUnderFOAEAA].active
+                && questions.applicationUnderFOAEAASurvey?.criminalRecordCheckAcknowledgement.includes('I understand')){
+                requiredDocuments.push("Affidavit - General Form 45")
+                requiredDocuments.push("Criminal Record Check")
+            } else {
+                requiredDocuments.push("Affidavit - General Form 45");
+            }
+        }
+    
+    }
 
 	if(type == 'agreementEnfrc'){
 		const stPgENFRC = store.state.Application.stPgNo.ENFRC
@@ -818,6 +832,7 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepGA = store.state.Application.stPgNo.GA;
         const stepAPS = store.state.Application.stPgNo.APS;
         const stepAPSP = store.state.Application.stPgNo.APSP;
+        const stepCSV = store.state.Application.stPgNo.CSV;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -907,8 +922,12 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepAPSP._StepNo; 
 			reviewPage = stepAPSP.ReviewYourAnswersAPSP; 
 			previewPages = [stepAPSP.PreviewFormsAPSP, stepAPSP.PreviewFormsApspEFSP];
+		} else if(typeName == 'certificateOfService'){
+			step = stepCSV._StepNo; 
+			reviewPage = stepCSV.ReviewYourAnswersCSV; 
+			previewPages = [stepCSV.PreviewFormsCSV, stepCSV.PreviewFormsCsvEFSP];
 		}
-
+ 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
 
@@ -929,7 +948,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO', 'certificateOfService']
 	
 	if(type == 'allExPO'){
         

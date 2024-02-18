@@ -42,6 +42,7 @@
         <ga-table class="mt-5" :results="results"/>
         <aps-table class="mt-5" :results="results"/>
         <apsp-table class="mt-5" :results="results"/>
+        <csv-table class="mt-5" :results="results"/>
         <efsp-table class="mt-5" :results="results"/>
         
     </div>

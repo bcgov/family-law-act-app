@@ -1,0 +1,125 @@
+{
+    "title": "About the Service",
+    "pages": [
+        {
+            "name": "About the Service",
+            "elements": [
+                {
+                    "type": "personname",
+                    "name": "ServedPersonName",
+                    "title": "What is the full name of the person you served?",
+                    "description": "This is the name of the person whom you served with the documents.",                  
+                    "isRequired": true,
+                    "descFirstName": "First Name is also known as Given Name",
+                    "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                    "descLastName": "Last Name is also known as Family Name or Surname"
+                },                
+                {
+                    "type": "customdatetime",
+                    "name": "dateTimeServed",
+                    "title":"What date and time did you serve the documents?",
+                    "description": "You need to indicate the date and time that you served the documents.  If you served by registered mail, the date of service is the date the other party signed for the registered mail and not the date you mailed it.",
+                    "isRequired":true,
+                    "dateYearsAhead": "0"
+                }, 
+                {
+                    "type": "address",
+                    "name": "locationServed",                
+                    "title": "Where did you serve the documents?",
+                    "description": "You need to indicate the:<ul><li>physical address or location, city, province,</li><li>email address,</li><li>phone number</li><li>fax number, or</li><li>other location</li></ul>where the documents were served.",
+                    "isRequired": true,
+                    "validators": [
+                        {
+                            "type": "expression",
+                            "text": "Please Fill in all Required Fields.",
+                            "expression": "{locationServed.street} notempty and {locationServed.postcode} notempty and {locationServed.city} notempty"
+                        }
+                    ]
+                }, 
+                {
+                    "type": "faxcontactinfo",
+                    "name": "serviceContact",
+                    "title": "",
+                    "titleLocation": "hidden",
+                    "labelEmail": "Email (Optional)",
+                    "labelFax": "Fax Number (Optional)",
+                    "labelPhone": "Daytime Phone Number"
+                },
+                {
+                    "type": "text",
+                    "name": "otherServiceLocation",
+                    "title": "<div style = 'color: #494949; font-size: 1rem; font-weight: 400;'>Other Location"
+                },
+                {
+                    "type": "panel",
+                    "name": "DocumentsPanel",             
+                    "elements": [
+                        {
+                            "isRequired": true,
+                            "hasOther": true,
+                            "otherText": "Other (list any additional document(s) that you served here):",  
+                            "type": "checkbox",
+                            "name": "documentListCsv",
+                            "title": "What document(s) did you serve?",
+                            "description": "You need to select all options that apply.  Attach a copy of each document you have selected below (except the blank reply) to this Certificate of Service.",
+                            "choices": [
+                                    "Application About a Family Law Matter",
+                                    "Financial Statement",
+                                    "Guardianship Affidavit",
+                                    "Instructions about filing reply",
+                                    "Application for Case Management Order",
+                                    "Application About a Protection Order",
+                                    "Application About Priority Parenting Matter",
+                                    "Order",
+                                    "Reply to a Counter Application",
+                                    "Application for Order Prohibiting the Relocation of a Child",
+                                    "Application About Enforcement",
+                                    "Written Response to Application",
+                                    "Notice of Intention to Proceed"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "panel",
+                    "name": "ServicePanel",     
+                    "title": "<div style = 'color: #556077; font-size: 1.5em; line-height: 1.2;'>How did you serve the document(s)?",
+                    "description": "Select the appropriate option for how you serve the other party with the document(s)",        
+                    "elements": [
+                        {   
+                            "type": "radiogroup",
+                            "name": "personalServiceMethod",
+                            "title": "<div style = 'color: #494949; font-size: 1rem;'>`Personal service`</b>",
+                            "description": "The Application About a Family Law Matter or About a Protection Order can only be served this way.",
+                            "choices": [
+                                "leaving a copy of the document(s) with the person"
+                            ],
+                            "hasOther": true,
+                            "otherText": "alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"
+                        },                        
+                        {
+                            "type": "advancedradiogroupwithdescription",
+                            "name": "ordinaryServiceMethod",              
+                            "title": "<div style = 'color: #494949; font-size: 1rem;'>`Ordinary service`</b>",
+                            "description": "This method of service is not allowed for an Application About a Family Law Matter or About a Protection Order.",
+                            "radioOutputValues":"{leaveCopy},{ordinaryMail},{registeredMail},{email},{fax}",
+                            "inputNames":"{};{mailServiceDate};{};{};{}",
+                            "inputTypes":"{};{date};{};{};{}",
+                            "inputWidths":"{};{12rem};{};{};{}",                  
+                            "textBeforeInputs":"{leaving a copy of the document(s) at the person’s address for delivery<br><i>Note: A party’s address for service is the address they have provided to the court.</i>};{mailing the document(s) by ordinary mail to the person’s address for delivery on},{};{mailing the document(s) by registered mail to the person’s address for delivery<br><i>Note: The date the document(s) were served is the date the document(s) were confirmed to have been delivered by <a href='https://www.canadapost.ca' target='_blank'>Canada Post</a>. Attach a copy of the delivery confirmation from Canada Post.</i>};{emailing the document(s) to the person’s email address for delivery};{faxing the document(s) to the person’s fax number for delivery}",
+                            "textAfterInputs":"{};{<br><i>Note: The date the document(s) were served is 14 days after the documents were mailed.</i>},{};{};{};{}",
+                            "textClass": "sv_q_description font-weight-normal ",
+                            "radioMargins":"0 0 1rem 0",
+                            "radioTextMargins":"-0.6rem 0 0 0",
+                            "hasOther": true,
+                            "otherText": "alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"                            
+                          }
+                    ]
+                }
+            ],
+            "title": "About the Service"
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+  }

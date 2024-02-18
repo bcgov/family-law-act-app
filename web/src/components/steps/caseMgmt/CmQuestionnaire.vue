@@ -27,8 +27,7 @@
                 >       
                     <div>
                         <b-form-checkbox v-for="order,inx in orderItems " :key="inx" class="checkbox-choices" :value="order.value">
-                            <div class="d-inline" >
-                                {{processTooltip(order.text)[0]}}
+                            <div class="d-inline" v-html="processTooltip(order.text)[0]">
                             </div>
                             <div v-if="processTooltip(order.text)[1]" class="d-inline">
                                 <tooltip :index="0" size="lg" :title="processTooltip(order.text)[1]" />
@@ -161,7 +160,11 @@ export default class CmQuestionnaire extends Vue {
                 togglePages([p.OtherPersons, p.CmChildrenInfo, p.ReviewYourAnswersCM], true, this.currentStep);                              
                 
                 for(const form of this.selectedCaseManagement)
-                    getOrderTypeCM(form,true);           
+                    getOrderTypeCM(form,true);   
+                
+                if (this.selectedCaseManagement.length == 1 && this.selectedCaseManagement.includes("section12")){
+                    togglePages([p.WithoutNoticeOrAttendance], true, this.currentStep);
+                }          
         
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
 
@@ -179,11 +182,12 @@ export default class CmQuestionnaire extends Vue {
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.RequiringAccessToInformation, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.RecognizingAnOrderFromOutsideBc, 0, false);                                                       
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactInformationOtherParty, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ApplicationUnderFOAEAA, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
                 }
 
                 if (this.step.result?.withoutNoticeOrAttendanceSurvey?.data?.needWithoutNotice) {
-                    const needWithoutNotice = this.step.result.withoutNoticeOrAttendanceSurvey.data.needWithoutNotice
+                    const needWithoutNotice = this.$store.state.Application.steps[this.currentStep].pages[p.WithoutNoticeOrAttendance]?.active? this.step.result.withoutNoticeOrAttendanceSurvey.data.needWithoutNotice : ''
                     if (needWithoutNotice == 'n') {
                         togglePages([p.ByConsent, p.CmNotice, p.AboutCaseManagementOrder], true, this.currentStep); 
                     } else{                              

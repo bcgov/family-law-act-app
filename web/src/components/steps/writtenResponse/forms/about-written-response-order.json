@@ -37,7 +37,7 @@
               "visible": false,
               "visibleIf": "{requiredChanges} = 'y'",
               "title": "Please provide the details of the order you are asking the court to make:",
-              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.</br></br>Remember that you can only ask for orders about the same issue that is before the court, for example, case management, enforcement, protection order terms, etc., or changes to the proposed order in the application you are replying to.</br></br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='blank'>Family Law Act Picklist</a> includes commonly used order terms that might be helpful. "
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.</br></br>Remember that you can only ask for orders about the same issue that is before the court, for example, case management, enforcement, protection order terms, etc., or changes to the proposed order in the application you are replying to.</br></br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Court%20Orders%20-%20January%202022.docx' target='blank'>Family Law Act Picklist</a> includes commonly used order terms that might be helpful. "
             },
             {
               "type": "helptext",

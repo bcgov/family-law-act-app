@@ -68,7 +68,8 @@ class Application extends VuexModule {
         affidavit: false,
         guardianshipAffidavit: false,
         affidavitPersonalService: false,
-        affidavitPersonalServicePO: false
+        affidavitPersonalServicePO: false,
+        certificateOfService: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -1542,6 +1543,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "8";
+        p.name = "ApplicationUnderFOAEAA";
+        p.label = "Application Under FOAEAA";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
         p.name = "AttendanceUsingElectronicCommunication";
         p.label = "Attendance Using Another Method of Attendance";
         p.active = false;
@@ -1549,7 +1558,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "9";
+        p.key = "10";
         p.name = "ChangingOrCancellingAServiceOrNotice";
         p.label = "Changing or Cancelling a Service or Notice";
         p.active = false;
@@ -1557,7 +1566,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "10";
+        p.key = "11";
         p.name = "ChangingOrCancellingAnyOtherRequirement";
         p.label = "Changing or Cancelling Any Other Requirement";
         p.active = false;
@@ -1565,7 +1574,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "11";
+        p.key = "12";
         p.name = "RequiringAccessToInformation";
         p.label = "Requiring Access to Information";
         p.active = false;
@@ -1573,7 +1582,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "12";
+        p.key = "13";
         p.name = "RecognizingAnOrderFromOutsideBc";
         p.label = "Recognizing an Order from Outside BC";
         p.active = false;
@@ -1581,7 +1590,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "13";
+        p.key = "14";
         p.name = "ContactInformationOtherParty";
         p.label = "Contact Information Other Party";
         p.active = false;
@@ -1590,7 +1599,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "14";
+        p.key = "15";
         p.name = "ReviewYourAnswersCM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -1598,7 +1607,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "15";
+        p.key = "16";
         p.name = "PreviewForm10CM";
         p.label = "Preview Form 10";
         p.active = false;
@@ -1606,7 +1615,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "16";
+        p.key = "17";
         p.name = "PreviewForm11CM";
         p.label = "Preview Form 11";
         p.active = false;
@@ -2803,11 +2812,85 @@ class Application extends VuexModule {
 
         // Affidavit of Personal service PO STOP 
 
+        // Certificate of Service START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "26";
+        s.name = "CSV";
+        s.label = "Certificate of Service";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "certificateOfService";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "CertificateOfService";
+        p.label = "Certificate of Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantCsv";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "AboutServiceCSV";
+        p.label = "About Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ElectronicFilingStatementCSV";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersCSV";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsCSV";
+        p.label = "Preview Form 7";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsCsvEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Certificate of Service STOP 
+
 
         //Submit START
         s = {} as stepInfoType;
         s.active = false;        
-        s.id = "26";
+        s.id = "27";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -3323,7 +3406,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, APS: {}, APSP: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, APS: {}, APSP: {}, CSV: {},SUBMIT: {}} as stepsAndPagesNumberInfoType
          const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

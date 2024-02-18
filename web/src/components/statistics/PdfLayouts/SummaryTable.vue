@@ -101,6 +101,10 @@
                         <b-td class="text-center">{{applicationDetailsInfo.APSP.total}}</b-td> 
                     </b-tr>
                     <b-tr>                        
+                        <b-th>Certificate of Service</b-th>
+                        <b-td class="text-center">{{applicationDetailsInfo.CSV.total}}</b-td> 
+                    </b-tr>
+                    <b-tr>                        
                         <b-th>Electronic Filing Statement</b-th>
                         <b-td class="text-center">{{applicationDetailsInfo.EFSP.total}}</b-td>                                          
                     </b-tr>
