@@ -90,7 +90,7 @@ export default class Statistics extends Vue {
 
         const start = this.reportDateRange.startDate? this.reportDateRange.startDate?.slice(0,10) : null
         const end = this.reportDateRange.endDate? this.reportDateRange.endDate?.slice(0,10) : null
-        const url = '/statistics?start_date='+start+
+        const url = '/statistics/?start_date='+start+
                     '&end_date='+end+
                     '&tz='+moment().utcOffset();
         

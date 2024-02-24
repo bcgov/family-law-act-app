@@ -39,7 +39,7 @@ class StatisticsView(APIView):
             tz =  0
         else:
             tz = int(tz)        
-        logger.info("STATISTIC -> startDate: %s, endDate: %s, tz: %i", start_date, end_date, tz)
+        
         return Response(statistics_info(start_date, end_date, tz))
 
 

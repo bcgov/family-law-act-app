@@ -468,8 +468,8 @@ export default class NavigationTopbar extends Vue {
     }
 
     public viewStatus() {
-        if(this.$route.name != "applicant-status")
-            this.$router.push({ name: "applicant-status" });
+
+        this.$router.push({ name: "applicant-status" });
     }
 }
 </script>
