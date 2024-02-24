@@ -65,7 +65,7 @@ urlpatterns = [
     path("efiling/<int:application_id>/rejection/<int:package_id>/", EFilingRejectionView.as_view()),
     path("efiling/<int:package_id>/doc/<int:doc_id>/", EFilingDocumentView.as_view()),
     path("print-fillable-pdf", FillablePdfView.as_view()),
-    path("statistics", StatisticsView.as_view())
+    path("statistics/", StatisticsView.as_view())
 ]
 
 if settings.OIDC_ENABLED:

@@ -32,39 +32,20 @@ def statistics_info(start_date, end_date, tz):
         last_updated__gte=start_date,
         last_updated__lte=end_date
     )
-    LOGGER.info("STATISTIC -> Application in this period: %i", len(applications_with_date))
 
     report = {"start_date":start_date, "end_date":end_date}
-    try:
-        report["users_registration_info"] = get_users_info(start_date, end_date)
-    except Exception as err:
-        LOGGER.debug(err)
+    report["users_registration_info"] = get_users_info(start_date, end_date)
 
-    try:
-        report["users_with_application"] = users(applications_with_date)
-    except Exception as err:
-        LOGGER.debug(err)
-    
-    try:
-        report["logged_in_users"] = get_logged_in_users()
-    except Exception as err:
-        LOGGER.debug(err)
+    report["users_with_application"] = users(applications_with_date)
 
-    try:
-        report["prepared_pdfs"] = num_of_prepared_pdfs(start_date, end_date)
-    except Exception as err:
-        LOGGER.debug(err)
+    report["logged_in_users"] = get_logged_in_users()
 
-    try:
-        report["efiling_submissions"] = num_of_efiling_submissions(start_date, end_date)
-    except Exception as err:
-        LOGGER.debug(err)
+    report["prepared_pdfs"] = num_of_prepared_pdfs(start_date, end_date)
+    report["efiling_submissions"] = num_of_efiling_submissions(start_date, end_date)
 
     # report["steps"] = steps(applications_with_date)
-    try:
-        report["application_details"] = application_details(applications_with_date)
-    except Exception as err:
-        LOGGER.debug(err)
+
+    report["application_details"] = application_details(applications_with_date)
 
     return report
 
