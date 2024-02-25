@@ -103,8 +103,11 @@ export default class Statistics extends Vue {
             this.searching = false;
             
         },(err) => {
-            this.searching = false;
-            this.error = err.response.data           
+            this.searching = false;            
+            if(err.response.status==502)
+                this.error ="Openshift resource issues were encountered. Please select a shorter date range.";
+            else
+                this.error = err.response.data;
         });  
         
     }
