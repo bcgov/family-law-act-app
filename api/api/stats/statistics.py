@@ -44,7 +44,7 @@ def statistics_info(start_date, end_date, tz):
         report["users_with_application"] = users(applications_with_date)
     except Exception as err:
         LOGGER.debug(err)
-    
+
     try:
         report["logged_in_users"] = get_logged_in_users()
     except Exception as err:
@@ -103,6 +103,7 @@ def application_details(applications):
         "GA":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "APS":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "APSP":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "CSV":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "EFSP":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0}
     }
     stat_keys = list(stat.keys())
