@@ -29,8 +29,11 @@
             <remove-lawyer-party-step v-if="getCurrentStepIndex() == 21" v-bind:step="getStep(21)"></remove-lawyer-party-step>
             <affidavit-step v-if="getCurrentStepIndex() == 22" v-bind:step="getStep(22)"></affidavit-step>
             <guardianship-affidavit-step v-if="getCurrentStepIndex() == 23" v-bind:step="getStep(23)"></guardianship-affidavit-step>
+            <affidavit-personal-service-step v-if="getCurrentStepIndex() == 24" v-bind:step="getStep(24)"></affidavit-personal-service-step>
+            <affidavit-personal-service-po-step v-if="getCurrentStepIndex() == 25" v-bind:step="getStep(25)"></affidavit-personal-service-po-step>
+            <certificate-of-service-step v-if="getCurrentStepIndex() == 26" v-bind:step="getStep(26)"></certificate-of-service-step>
 
-            <step-submit v-if="getCurrentStepIndex() == 24" v-bind:step="getStep(24)"></step-submit>    
+            <step-submit v-if="getCurrentStepIndex() == 27" v-bind:step="getStep(27)"></step-submit>    
         </main>
     </div>
 </template>
@@ -57,6 +60,9 @@ import DiscontinuanceStep from "./steps/discontinuance/DiscontinuanceStep.vue";
 import IntentionProceedStep from "./steps/intentionProceed/IntentionProceedStep.vue";
 import AffidavitStep from "./steps/affidavit/AffidavitStep.vue";
 import GuardianshipAffidavitStep from "./steps/guardianshipAffidavit/GuardianshipAffidavitStep.vue";
+import AffidavitPersonalServiceStep from "./steps/affidavitPersonalService/AffidavitPersonalServiceStep.vue";
+import AffidavitPersonalServicePoStep from "./steps/affidavitPersonalServicePO/AffidavitPersonalServicePOStep.vue";
+import CertificateOfServiceStep from "./steps/certificateOfService/CertificateOfServiceStep.vue";
 import RequestSchedulingStep from "./steps/requestScheduling/RequestSchedulingStep.vue";
 import RemoveLawyerPartyStep from "./steps/noticeRemoveLawyerParty/RemoveLawyerPartyStep.vue";
 import LawyerPartyStep from "./steps/noticeLawyerParty/LawyerPartyStep.vue";
@@ -94,7 +100,10 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
         LawyerPartyStep,
         RemoveLawyerPartyStep,
         AffidavitStep,
-        GuardianshipAffidavitStep
+        GuardianshipAffidavitStep,
+        AffidavitPersonalServiceStep,
+        AffidavitPersonalServicePoStep,
+        CertificateOfServiceStep
     }
 })
 

@@ -66,7 +66,10 @@ class Application extends VuexModule {
         noticeLawyerParty: false,
         noticeRemoveLawyerParty: false,
         affidavit: false,
-        guardianshipAffidavit: false
+        guardianshipAffidavit: false,
+        affidavitPersonalService: false,
+        affidavitPersonalServicePO: false,
+        certificateOfService: false
     }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
@@ -2661,11 +2664,233 @@ class Application extends VuexModule {
 
         // Guardianship Affidavit STOP  
 
+        // Affidavit of Personal service START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "24";
+        s.name = "APS";
+        s.label = "Affidavit of Personal service";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "affidavitPersonalService";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "AffidavitPersonalService";
+        p.label = "Affidavit of Personal service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantAps";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "AboutServiceAPS";
+        p.label = "About the Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ElectronicFilingStatementAPS";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersAPS";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsAPS";
+        p.label = "Preview Form 48";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsApsEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Affidavit of Personal service STOP 
+
+        // Affidavit of Personal service PO START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "25";
+        s.name = "APSP";
+        s.label = "Affidavit of Personal Service of Protection Order";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "affidavitPersonalServicePO";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "AffidavitPersonalServicePO";
+        p.label = "Affidavit of Personal Service of Protection Order";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantApsp";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "AboutServiceAPSP";
+        p.label = "About Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);       
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ElectronicFilingStatementAPSP";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersAPSP";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsAPSP";
+        p.label = "Preview Form 49";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsApspEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Affidavit of Personal service PO STOP 
+
+        // Certificate of Service START
+
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "26";
+        s.name = "CSV";
+        s.label = "Certificate of Service";
+        s.icon = "fas fa-file-contract";
+        s.lastUpdate = null;
+        s.type = "certificateOfService";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;        
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "CertificateOfService";
+        p.label = "Certificate of Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "AboutAffiantCsv";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);   
+
+        p = {} as pageInfoType;
+        p.key = "2";        
+        p.name = "AboutServiceCSV";
+        p.label = "About Service";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ElectronicFilingStatementCSV";
+        p.label = "Electronic Filing Statement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersCSV";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewFormsCSV";
+        p.label = "Preview Form 7";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsCsvEFSP";
+        p.label = "Preview Form 51";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Certificate of Service STOP 
+
 
         //Submit START
         s = {} as stepInfoType;
         s.active = false;        
-        s.id = "24";
+        s.id = "27";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa fa-paper-plane";
@@ -3181,7 +3406,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, APS: {}, APSP: {}, CSV: {},SUBMIT: {}} as stepsAndPagesNumberInfoType
          const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

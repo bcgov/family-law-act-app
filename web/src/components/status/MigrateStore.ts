@@ -224,6 +224,9 @@ export class MigrateStore{
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
         pathwayCompleted.guardianshipAffidavit = false;
+        pathwayCompleted.affidavitPersonalService = false;
+        pathwayCompleted.affidavitPersonalServicePO = false;
+        pathwayCompleted.certificateOfService = false;
 
         pathwayCompleted.other = false;
         //TODO: add the other pathway

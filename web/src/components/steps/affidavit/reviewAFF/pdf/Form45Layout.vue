@@ -59,10 +59,7 @@
                 ,
             </div>
 
-        </div>
-
-        
-        
+        </div>        
         
         <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
             Swear or affirm that:
@@ -221,7 +218,7 @@ import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } fr
     }
 })
 
-export default class Form40Layout extends Vue {
+export default class Form45Layout extends Vue {
 
     @Prop({required:true})
     result!: any;    
@@ -244,7 +241,6 @@ export default class Form40Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
@@ -260,7 +256,7 @@ export default class Form40Layout extends Vue {
     public getAffidavitInfo(){    
         
         this.supportApplication = false;
-        this.appType = ''
+        this.appType = '';
         this.additionalAppType = [];
         this.otherType = '';
 

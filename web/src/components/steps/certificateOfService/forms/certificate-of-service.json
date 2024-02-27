@@ -1,0 +1,50 @@
+{
+    "title": "Certificate of Service",
+    "pages": [
+      {
+        "name": "Certificate of Service",
+        "description": "A certificate of service is used to prove service of document(s) to the court.  It is a written document that contains facts about the `service` of documents and the person who completed the service must certify the facts to be true. After the certificate of service is completed, it must be filed at the existing court registry where the existing case is in order to prove service.<br><br>If the person writing the certificate of service needs help with English, click on the Language Resources link on the bottom toolbar for more information about interpreters and other resources to help with preparing court forms.",
+        "elements": [
+
+            {
+                "type": "html",
+                "name": "ServiceDescription",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='color: #5475a7;'>What is service?</div>Service is the act of giving or leaving documents with the required person. It is important that each other party:<ul><li>know that a case is going on,</li><li>are aware of what step is being taken, and</li><li>are given a chance to tell their side of the story to the court.</li></ul>Different court documents must be served in different ways. It is important to make sure you are serving a document properly. Your matter can be delayed if the other person is not properly served."
+            },
+            {
+                "type": "html",
+                "name": "personalServiceDescription",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Personal service</div>Personal service requires an adult who is not a party to hand-deliver the document directly to the person being served.</div>"
+            },
+            {
+                "type": "html",
+                "name": "ordinaryServiceDescription",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Ordinary service</div>For most documents, they can be served to the address for service.  A party’s address for service is the address they have provided to the court.  You can serve in any of the following ways:<ul><li>by leaving the documents at the party’s address for service</li><li>by mailing the documents by ordinary mail to the party’s address for service</li><li>by mailing the documents by registered mail to the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>If you can’t serve the documents in the way required by the court, you can ask for a court order allowing another method of service. To apply, you will need to complete an <a target='_blank' href='https://www2.gov.bc.ca/assets/download/D6B5BF5B2ECB46B08BBC54808F4F7BB1'>Application for a Case Management Order without Notice or Appearance Form 11</a>."
+            },           
+           
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice",
+                "title": "What document(s) are required to be personally served?",
+                "titleLocation": "hidden",              
+                "body": "There are specific documents that require personal service by an adult who is not a party or the person to be served.<ul><li>an application about a family law matter</li><li>summons or subpoena</li><li>application about a protection order</li><li>a protection order, if the person against whom the protection order application is made was not present in court</li><li>a request for court enforcement under the <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96127_01'>Family Maintenance Enforcement Act</a></li><li>any document that the court has determined requires personal service</li><li>any application to be served on a party who has not provided an address of service</li></ul>"
+            },
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice2",
+                "title": "When is the document deemed to be served on the party?",
+                "titleLocation": "hidden",              
+                "body": "If you serve a document(s) by one of the following methods below, and service is before 4 p.m. on a day that is not a Saturday or holiday, the document is deemed to be served on that day; however, if the document is served on a Saturday or holiday, or if it is served after 4 p.m. on any other day, it is deemed to be served on the next day that is not a Saturday or holiday.<ul><li>by personal service</li><li>by leaving the documents at the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>If service is completed by mailing the documents by ordinary mail to the party’s address for service, the document(s) are deemed to be served on the 14th day after it is mailed."
+            },
+            {
+                "type": "html",
+                "name": "serviceCompletionDescription",            
+                "html": "<div style='margin-bottom:-0.75rem'>If service is completed by registered mail to the party’s address for service, it is deemed served on the date that the party signed for receipt of the registered mail.</div>"
+            }
+        ],
+        "title": "Certificate of Service"
+      }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+  }

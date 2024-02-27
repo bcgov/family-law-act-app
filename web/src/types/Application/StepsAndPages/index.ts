@@ -28,8 +28,11 @@ export interface stepsAndPagesNumberInfoType{
     NLCR: NLCRstPgTypes;
     NLP: NLPstPgTypes;
     NLPR: NLPRstPgTypes;
-    AFF: AFFstPgTypes;
+    AFF: AFFstPgTypes;    
     GA: GAstPgTypes;
+    APS: APSstPgTypes;
+    APSP: APSPstPgTypes;
+    CSV: CSVstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -384,6 +387,42 @@ export interface AFFstPgTypes{
     ReviewYourAnswersAFF: number;
     PreviewFormsAFF: number;
     PreviewFormsEFSP: number;
+}
+
+export interface APSstPgTypes{
+    _StepNo: number;
+
+    AffidavitPersonalService: number;
+    AboutAffiantAps: number;
+    AboutServiceAPS: number;
+    ElectronicFilingStatementAPS: number;
+    ReviewYourAnswersAPS: number;
+    PreviewFormsAPS: number;
+    PreviewFormsApsEFSP: number;
+}
+
+export interface APSPstPgTypes{
+    _StepNo: number;
+
+    AffidavitPersonalServicePO: number;
+    AboutAffiantApsp: number;
+    AboutServiceAPSP: number;
+    ElectronicFilingStatementAPSP: number;
+    ReviewYourAnswersAPSP: number;
+    PreviewFormsAPSP: number;
+    PreviewFormsApspEFSP: number;
+}
+
+export interface CSVstPgTypes{
+    _StepNo: number;
+
+    CertificateOfService: number;
+    AboutAffiantCsv: number;
+    AboutServiceCSV: number;   
+    ElectronicFilingStatementCSV: number;
+    ReviewYourAnswersCSV: number;
+    PreviewFormsCSV: number;
+    PreviewFormsCsvEFSP: number;
 }
 
 export interface NLPstPgTypes{

@@ -40,6 +40,27 @@ export function getQuestionResults(stepNumbers, currentStep) {
                     return true;
             })
 
+    if(currentStep == stPgNo.APS._StepNo) // filter APS page from Step APS        
+        questionResults = questionResults.filter(questionResult=>
+        {
+            if(questionResult.pageName !='Affidavit – Personal Service')
+                return true;
+        })
+
+    if(currentStep == stPgNo.APSP._StepNo) // filter APSP page from Step APSP        
+        questionResults = questionResults.filter(questionResult=>
+        {
+            if(questionResult.pageName !='Affidavit – Personal Service Of Protection Order')
+                return true;
+        })
+
+        if(currentStep == stPgNo.CSV._StepNo) // filter CSV page from Step CSV        
+        questionResults = questionResults.filter(questionResult=>
+        {
+            if(questionResult.pageName !='Certificate of Service')
+                return true;
+        })
+
        
     return questionResults;          
 }

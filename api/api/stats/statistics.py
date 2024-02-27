@@ -101,6 +101,8 @@ def application_details(applications):
         "NLPR":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "AFF":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "GA":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "APS":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
+        "APSP":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0},
         "EFSP":{"total":0, "started":0, "draft":0, "completed":0, "efiled":0}
     }
     stat_keys = list(stat.keys())
@@ -133,6 +135,9 @@ def application_details(applications):
             "NLPR":["NLPR"],
             "AFF":["AFF"],
             "GA":["GA"],
+            "APS":["APS"],
+            "APSP":["APSP"],
+            "CSV":["CSV"],
             "EFSP":["EFSP"]
         }
 

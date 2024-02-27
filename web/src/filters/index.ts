@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.23";
+    const CURRENT_VERSION = "1.2.25";
     //__________________________
     //___________________________
     //___________________________
@@ -88,10 +88,43 @@ Vue.filter('convert-time24to12', function(time) {
     }  
 })
 
+Vue.filter('convert-date-time24to12', function(date) {
+    const time = date.substr(11);
+    const time12 = (Number(time.substr(0,2)) % 12 || 12 ) + time.substr(2,3)
+    
+    if (Number(time.substr(0,2))<12) {
+      return time12 +' AM'
+    } else {
+      return time12 +' PM'
+    }  
+})
+
 Vue.filter('beautify-date-blank', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
 		return MonthList[Number(date.substr(5,2))] + ' ' +date.substr(8,2) + ' ' +  date.substr(0,4);
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-day', function(date){
+	if(date)
+		return date.substr(8,2);
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-full-month', function(date){
+	enum MonthList {'January' = 1, 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'}
+	if(date)
+		return MonthList[Number(date.substr(5,2))];
+	else
+		return ' '
+})
+
+Vue.filter('get-datetime-short-year', function(date){
+	if(date)
+		return (date.substr(0,4)).substr(-1,2);
 	else
 		return ' '
 })
@@ -797,6 +830,9 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepNLPR = store.state.Application.stPgNo.NLPR;
         const stepAFF = store.state.Application.stPgNo.AFF;
         const stepGA = store.state.Application.stPgNo.GA;
+        const stepAPS = store.state.Application.stPgNo.APS;
+        const stepAPSP = store.state.Application.stPgNo.APSP;
+        const stepCSV = store.state.Application.stPgNo.CSV;
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -878,8 +914,20 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepGA._StepNo; 
 			reviewPage = stepGA.ReviewYourAnswersGA; 
 			previewPages = [stepGA.PreviewFormsGA, stepGA.PreviewFormsGaEFSP];
+		} else if(typeName == 'affidavitPersonalService'){
+			step = stepAPS._StepNo; 
+			reviewPage = stepAPS.ReviewYourAnswersAPS; 
+			previewPages = [stepAPS.PreviewFormsAPS, stepAPS.PreviewFormsApsEFSP];
+		} else if(typeName == 'affidavitPersonalServicePO'){
+			step = stepAPSP._StepNo; 
+			reviewPage = stepAPSP.ReviewYourAnswersAPSP; 
+			previewPages = [stepAPSP.PreviewFormsAPSP, stepAPSP.PreviewFormsApspEFSP];
+		} else if(typeName == 'certificateOfService'){
+			step = stepCSV._StepNo; 
+			reviewPage = stepCSV.ReviewYourAnswersCSV; 
+			previewPages = [stepCSV.PreviewFormsCSV, stepCSV.PreviewFormsCsvEFSP];
 		}
-
+ 
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
 
@@ -900,7 +948,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO', 'certificateOfService']
 	
 	if(type == 'allExPO'){
         
@@ -925,6 +973,7 @@ Vue.filter('surveyChanged', function(type: string) {
         pathwayCompleted.noticeRemoveLawyerParty = false;
         pathwayCompleted.affidavit = false;
         pathwayCompleted.guardianshipAffidavit = false;
+        pathwayCompleted.affidavitPersonalService = false;
 		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")
@@ -1052,6 +1101,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight, margin?){
 			`.form-header-cm{display:block; margin:0 0 7rem 0;}`+
 			`.form-header-cmo{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-reloc{display:block; margin:0 0 6.25rem 0;}`+
+            `.form-header-aps{display:block; margin:0 0 1rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+

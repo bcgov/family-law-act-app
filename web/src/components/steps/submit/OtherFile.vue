@@ -350,8 +350,14 @@
         currentPage=0;
         affIsExemptGuidedPathway = false;
         gaIsExemptGuidedPathway = false;
+        apsIsExemptGuidedPathway = false;
+        apspIsExemptGuidedPathway = false;
+        csvIsExemptGuidedPathway = false;
         requiresEfsp = false;
         requiresGaEfsp = false;
+        requiresApsEfsp = false;
+        requiresApspEfsp = false;
+        requiresCsvEfsp = false;
 
         mounted(){
 
@@ -619,8 +625,14 @@
 
             this.affIsExemptGuidedPathway = false;
             this.gaIsExemptGuidedPathway = false;
+            this.apsIsExemptGuidedPathway = false;
+            this.apspIsExemptGuidedPathway = false;
+            this.csvIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
             this.requiresGaEfsp = false;
+            this.requiresApsEfsp = false;
+            this.requiresApspEfsp = false;
+            this.requiresCsvEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -670,8 +682,40 @@
                         if (this.requiresGaEfsp){
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
                         }
-                    }  
-                    
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal service"){   
+                        this.determineApsGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('APS')) continue
+                        
+                        if (this.apsIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Affidavit of Personal service', type: 'APS'});    
+                        
+                        if (this.requiresApsEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
+                        }
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Affidavit of Personal Service of Protection Order"){   
+                        this.determineApspGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('APSP')) continue
+                        
+                        if (this.apspIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Affidavit of Personal Service of Protection Order', type: 'APSP'});    
+                        
+                        if (this.requiresApspEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal Service of Protection Order', type: 'EFSP'});
+                        }
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Certificate of Service"){   
+                        this.determineCsvGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('CSV')) continue
+                        
+                        if (this.csvIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Certificate of Service', type: 'CSV'});    
+                        
+                        if (this.requiresCsvEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
+                        }
+                    }                 
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -726,6 +770,12 @@
                         this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Guardianship Affidavit', type: 'EFSP'});
                     } else if(selectedForm.formName=="Affidavit – General"){
                         this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit – General', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Affidavit of Personal service"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal service', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Affidavit of Personal Service of Protection Order"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Affidavit of Personal Service of Protection Order', type: 'EFSP'});
+                    } else if(selectedForm.formName=="Certificate of Service"){
+                        this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
                     }
                 }
             }            
@@ -769,7 +819,61 @@
                 this.gaIsExemptGuidedPathway = requiresGa;
                 this.requiresGaEfsp = requiresEfsp;
             } 
-        }     
+        } 
+
+        public determineApsGuidedPathway(selectedForm){
+            let requiresAps = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APS')})
+            if (index >=0 && this.eFiling){                            
+                requiresAps = this.eFiling;
+                requiresEfsp = this.eFiling;
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.apsIsExemptGuidedPathway = requiresAps;
+                this.requiresApsEfsp = requiresEfsp;
+            } 
+        }
+
+        public determineApspGuidedPathway(selectedForm){
+
+            let requiresApsp = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'APSP')})
+            if (index >=0 && this.eFiling){                             
+                requiresApsp = this.eFiling;
+                requiresEfsp = this.eFiling;
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.apspIsExemptGuidedPathway = requiresApsp;
+                this.requiresApspEfsp = requiresEfsp;
+            } 
+        }
+
+        public determineCsvGuidedPathway(selectedForm){
+
+            let requiresCsv = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'CSV')})
+            
+            if (index >=0 && this.eFiling){                             
+                requiresCsv = this.eFiling;
+                requiresEfsp = this.eFiling;
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.csvIsExemptGuidedPathway = requiresCsv;
+                this.requiresCsvEfsp = requiresEfsp;
+            } 
+        }
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

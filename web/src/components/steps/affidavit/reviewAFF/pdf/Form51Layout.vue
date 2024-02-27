@@ -198,8 +198,7 @@ export default class Form51Layout extends Vue {
         this.dataReady = true;        
     }
    
-    public extractInfo(){   
-        console.log(this.result)     
+    public extractInfo(){ 
         this.getDocumentInfo();    
         this.getFilingInfo();    
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);        
