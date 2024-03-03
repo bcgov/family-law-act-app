@@ -2906,26 +2906,194 @@ class Application extends VuexModule {
         p.label = "Financial Statement";
         p.active = true;
         p.progress = 0;    
-        s.pages.push(p);        
+        s.pages.push(p);     
 
         p = {} as pageInfoType;
         p.key = "1";
-        p.name = "AboutAffiantFs";
-        p.label = "About Affiant";        
+        p.name = "IncomeInformation";
+        p.label = "Income Information";        
         p.active = true;
         p.progress = 0;    
-        s.pages.push(p);   
+        s.pages.push(p);  
 
         p = {} as pageInfoType;
-        p.key = "2";        
-        p.name = "YourStoryFS";
-        p.label = "Your Story";
+        p.key = "2";
+        p.name = "ChangesIncomeFS";
+        p.label = "Changes to income";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);  
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "IncomeSummaryFS";
+        p.label = "Income Summary";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);  
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "DisclosureInformationFS";
+        p.label = "Disclosure of Information";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);  
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ExpensesFS";
+        p.label = "Expenses";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+        
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "DebtsFS";
+        p.label = "Debts";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "AssetsFS";
+        p.label = "Assets";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "RealEstateFS";
+        p.label = "Real Estate";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.name = "CarsBoatsVehiclesFS";
+        p.label = "Cars, boats or vehicles";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "CashAssetsFS";
+        p.label = "Cash assets";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.name = "InvestmentsFS";
+        p.label = "Investments";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "LoansCreditsFS";
+        p.label = "Loans and credits";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "13";
+        p.name = "OtherAssetsFS";
+        p.label = "Other Assets";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.name = "DispositionAssetsFS";
+        p.label = "Disposition of Assets";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "15";
+        p.name = "IncomeOtherPersonHouseholdFS";
+        p.label = "Income of Other Persons in Household";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "16";
+        p.name = "ContributionTowardExpensesFS";
+        p.label = "Contribution toward expenses";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "17";
+        p.name = "UndueHardshipFS";
+        p.label = "Undue Hardship";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "18";
+        p.name = "UnusuallyHighExpensesFS";
+        p.label = "Unusually high expenses";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "19";
+        p.name = "LegalDutyDependentChildFS";
+        p.label = "Legal duty – dependent child";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "20";
+        p.name = "LegalDutyAnotherPersonFS";
+        p.label = "Legal duty – another person";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "21";
+        p.name = "OtherCircumstancesFS";
+        p.label = "Other circumstances";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "22";
+        p.name = "AffidavitFS";
+        p.label = "Affidavit";        
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "3";        
+        p.key = "23";
+        p.name = "AboutAffiantFs";
+        p.label = "About Affiant";        
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+       
+        p = {} as pageInfoType;
+        p.key = "24";        
         p.name = "FilingFS";
         p.label = "Filing an Affidavit";
         p.active = false;
@@ -2933,7 +3101,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "25";
         p.name = "ElectronicFilingStatementFS";
         p.label = "Electronic Filing Statement";
         p.active = false;
@@ -2942,7 +3110,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "26";
         p.name = "ReviewYourAnswersFS";
         p.label = "Review Your Answers";
         p.active = true;
@@ -2950,7 +3118,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "6";
+        p.key = "27";
         p.name = "PreviewFormsFS";
         p.label = "Preview Form 4";
         p.active = false;
@@ -2958,7 +3126,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "7";
+        p.key = "28";
         p.name = "PreviewFormsFsEFSP";
         p.label = "Preview Form 51";
         p.active = false;

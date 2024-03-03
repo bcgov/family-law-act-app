@@ -38,9 +38,9 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/special-and-extraordinary-expenses.json";
+import surveyJson from "./forms/expenses-fs.json";
 
-import PageBase from "../../PageBase.vue";
+import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   

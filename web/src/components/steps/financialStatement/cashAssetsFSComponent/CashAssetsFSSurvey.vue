@@ -17,7 +17,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 import { otherPartyInfoType, addressInfoType, contactInfoType, nameInfoType} from "@/types/Application/CommonInformation";
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/survey-opInfo.json";
+import surveyJson from "./forms/cash-assets-fs.json";
 import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import { namespace } from "vuex-class";   

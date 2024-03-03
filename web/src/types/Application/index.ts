@@ -32,7 +32,7 @@ import { noticeRemoveLawyerPartySurveyInfoType, otherPartyNLPRConfirmationSurvey
 import { aboutAffiantSurveyInfoType, affidavitSurveyInfoType, filingAffSurveyInfoType, yourStoryAffSurveyInfoType, electronicFilingStatementAffSurveyInfoType} from "./Affidavit";
 import { aboutAffiantGaSurveyInfoType, backgroundCivilCourtProceedingsSurveyInfoType, backgroundCriminalHistorySurveyInfoType, backgroundFamilyViolenceSurveyInfoType, caringForChildGaSurveyInfoType, childrenDetailsGaSurveyInfoType, electronicFilingStatementGaSurveyInfoType, exhibitsDataInfoType, filingGaSurveyInfoType, guardianshipAffidavitSurveyInfoType } from "./GuardianshipAffidavit";
 import { animalRelationshipToOtherPartySurveyInfoType, disagreeExistingPropertyDivisionOrderSurveyInfoType, disagreePropertyDivisionSurveyInfoType, propertyDivisionOrderSurveyInfoType, replyExistingPropertyDivisionSurveyInfoType, replyNewPropertyDivisionSurveyInfoType } from "./ReplyFamilyLawMatter/CompanionAnimal";
-import { aboutAffiantFsSurveyInfoType, electronicFilingStatementFsSurveyInfoType, filingFsSurveyInfoType, financialStatementSurveyInfoType, yourStoryFsSurveyInfoType } from "./FinancialStatement";
+import { aboutAffiantFsSurveyInfoType, affidavitFSSurveyInfoType, assetsFSSurveyInfoType, carsBoatsVehiclesFSSurveyInfoType, cashAssetsFSSurveyInfoType, changesIncomeFSSurveyInfoType, contributionTowardExpensesFSSurveyInfoType, debtsFSSurveyInfoType, disclosureInformationFSSurveyInfoType, dispositionAssetsFSSurveyInfoType, electronicFilingStatementFsSurveyInfoType, expensesFSSurveyInfoType, filingFsSurveyInfoType, financialStatementSurveyInfoType, incomeInformationSurveyInfoType, incomeOtherPersonHouseholdFSSurveyInfoType, incomeSummaryFSSurveyInfoType, investmentsFSSurveyInfoType, legalDutyAnotherPersonFSSurveyInfoType, legalDutyDependentChildFSSurveyInfoType, loansCreditsFSSurveyInfoType, otherAssetsFSSurveyInfoType, otherCircumstancesFSSurveyInfoType, realEstateFSSurveyInfoType, undueHardshipFSSurveyInfoType, unusuallyHighExpensesFSSurveyInfoType } from "./FinancialStatement";
 import { aboutAffiantCsvSurveyInfoType, aboutServiceCsvSurveyInfoType, electronicFilingStatementCsvSurveyInfoType } from "./CertificateOfService";
 import { aboutAffiantApspSurveyInfoType, electronicFilingStatementApspSurveyInfoType, aboutServiceApspSurveyInfoType } from "./AffidavitPersonalServicePO";
 import { aboutAffiantApsSurveyInfoType, aboutServiceApsSurveyInfoType, electronicFilingStatementApsSurveyInfoType} from "./AffidavitPersonalService";
@@ -384,10 +384,31 @@ export interface stepInfoType {
     aboutServiceCsvSurvey?: aboutServiceCsvSurveyInfoType;   
     electronicFilingStatementCsvSurvey?: electronicFilingStatementCsvSurveyInfoType;
 
-    //_____Step 27 CERTIFICATE OF SERVICE_____________    
-    financialStatementSurvey?: financialStatementSurveyInfoType;    
-    aboutAffiantFsSurvey?: aboutAffiantFsSurveyInfoType;
-    yourStoryFsSurvey?: yourStoryFsSurveyInfoType;
+    //_____Step 27 FINANCIAL STATEMENT_____________    
+    financialStatementSurvey?: financialStatementSurveyInfoType;   
+    incomeInformationSurvey?: incomeInformationSurveyInfoType;
+    changesIncomeFSSurvey?: changesIncomeFSSurveyInfoType;
+    incomeSummaryFSSurvey?: incomeSummaryFSSurveyInfoType;
+    disclosureInformationFSSurvey?: disclosureInformationFSSurveyInfoType;
+    expensesFSSurvey?: expensesFSSurveyInfoType;
+    debtsFSSurvey?: debtsFSSurveyInfoType;
+    assetsFSSurvey?: assetsFSSurveyInfoType;
+    realEstateFSSurvey?: realEstateFSSurveyInfoType;
+    carsBoatsVehiclesFSSurvey?: carsBoatsVehiclesFSSurveyInfoType;
+    cashAssetsFSSurvey?: cashAssetsFSSurveyInfoType;
+    investmentsFSSurvey?: investmentsFSSurveyInfoType;
+    loansCreditsFSSurvey?: loansCreditsFSSurveyInfoType;
+    otherAssetsFSSurvey?: otherAssetsFSSurveyInfoType;
+    dispositionAssetsFSSurvey?: dispositionAssetsFSSurveyInfoType;
+    incomeOtherPersonHouseholdFSSurvey?: incomeOtherPersonHouseholdFSSurveyInfoType;
+    contributionTowardExpensesFSSurvey?: contributionTowardExpensesFSSurveyInfoType;
+    undueHardshipFSSurvey?: undueHardshipFSSurveyInfoType;
+    unusuallyHighExpensesFSSurvey?: unusuallyHighExpensesFSSurveyInfoType;
+    legalDutyDependentChildFSSurvey?: legalDutyDependentChildFSSurveyInfoType;
+    legalDutyAnotherPersonFSSurvey?: legalDutyAnotherPersonFSSurveyInfoType;
+    otherCircumstancesFSSurvey?: otherCircumstancesFSSurveyInfoType;
+    affidavitFSSurvey?: affidavitFSSurveyInfoType;  
+    aboutAffiantFsSurvey?: aboutAffiantFsSurveyInfoType;    
     filingFsSurvey?: filingFsSurveyInfoType;
     electronicFilingStatementFsSurvey?: electronicFilingStatementFsSurveyInfoType;
     

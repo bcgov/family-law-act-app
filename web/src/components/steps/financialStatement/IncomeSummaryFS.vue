@@ -1,6 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
-        <survey v-bind:survey="survey"></survey>
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">        
         <div v-if="showTable" :key="tableKey">
             <b-table
                 :items="childrenSupportExpenseItem"
@@ -36,11 +35,8 @@
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
-import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/special-and-extraordinary-expenses.json";
 
-import PageBase from "../../PageBase.vue";
+import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
@@ -59,16 +55,12 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: stepInfoType[];
-
-    
-
-    
+    public steps!: stepInfoType[];    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    survey = new SurveyVue.Model(surveyJson);
+   
     currentStep =0;
     currentPage =0;
     showTable = false;
@@ -89,32 +81,10 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     childrenSupportExpenseFields = [
         {key:"name", label:"Name of Child:", tdClass:"border-top-0 align-middle", thClass:"text-primary text-right border-bottom-0", thStyle:"font-size:12pt; width:26%;"},       
     ]
-   
-    beforeCreate() {
-        const Survey = SurveyVue;
-        surveyEnv.setCss(Survey);
-    }
 
     mounted(){
-        this.showTable = false;
-        this.initializeSurvey();
-        this.addSurveyListener();
+        this.showTable = false;       
         this.reloadPageInformation();
-    }
-
-    public initializeSurvey(){
-        this.survey = new SurveyVue.Model(surveyJson);
-        this.survey.commentPrefix = "Comment";
-        this.survey.showQuestionNumbers = "off";
-        this.survey.showNavigationButtons = false;
-        surveyEnv.setGlossaryMarkdown(this.survey);
-    }
-    
-    public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')           
-            this.determineShowingTable()
-        })
     }
     
     public reloadPageInformation() {        
@@ -122,15 +92,15 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         if (this.step.result?.specialAndExtraordinaryExpensesSurvey) {
-            this.survey.data = this.step.result.specialAndExtraordinaryExpensesSurvey.data;           
+            const data = this.step.result.specialAndExtraordinaryExpensesSurvey.data;           
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
         this.populateChildrenInfo()
-        this.determineShowingTable();
+       
 
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
     }
 
     public populateChildrenInfo(){
@@ -146,10 +116,10 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
                     this.childrenSupportExpenseItem[0][key]= 'Annual Amount';
                     for(let index=1; index<8; index++){
 
-                        if(this.survey.data?.childrenSupportExpenseItem?.[index]?.[key])
-                            this.childrenSupportExpenseItem[index][key] = this.survey.data.childrenSupportExpenseItem[index][key]
-                        else
-                            this.childrenSupportExpenseItem[index][key] = 0
+                        // if(this.survey.data?.childrenSupportExpenseItem?.[index]?.[key])
+                        //     this.childrenSupportExpenseItem[index][key] = this.survey.data.childrenSupportExpenseItem[index][key]
+                        // else
+                        //     this.childrenSupportExpenseItem[index][key] = 0
                     }
                 }
         }
@@ -173,19 +143,11 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
-    public onNext() {
-        if(!this.survey.isCurrentPageHasErrors) {
-            Vue.prototype.$UpdateGotoNextStepPage()
-        }
+    public onNext() {       
+        Vue.prototype.$UpdateGotoNextStepPage()      
     }
 
-    public determineShowingTable(){
-        if(this.survey.data?.applyForExtraordinaryExpenses=='y')
-            this.showTable=true;
-        else
-            this.showTable=false;
-    }
-
+ 
     public getTotalExpenses(){
         let result = ''
         for (const [key, value] of Object.entries(this.childrenSupportExpenseItem[7]))
@@ -200,13 +162,10 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         return result
     }
     
-    beforeDestroy() {
+    beforeDestroy() {       
         
-        this.survey.setValue("childrenSupportExpenseItem",this.childrenSupportExpenseItem)
-        this.survey.setValue("childrenSupportExpenseFields",this.childrenSupportExpenseFields)
-        
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {specialAndExtraordinaryExpensesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, this.getTotalExpenses())}})
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);        
+        this.UpdateStepResultData({step:this.step, data: {specialAndExtraordinaryExpensesSurvey: Vue.filter('getSurveyResults')(null, this.currentStep, this.currentPage, this.getTotalExpenses())}})
     }
 }
 </script>

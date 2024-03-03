@@ -10,7 +10,7 @@ import { namespace } from "vuex-class";
 import * as _ from 'underscore';  
 
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/about-affiant-fs.json";
+import surveyJson from "./forms/assets-fs.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import PageBase from "../PageBase.vue";

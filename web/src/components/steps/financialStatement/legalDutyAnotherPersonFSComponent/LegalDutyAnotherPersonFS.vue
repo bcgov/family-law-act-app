@@ -108,7 +108,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import RflmChildrenSurvey from "./RflmChildrenSurvey.vue";
+import RflmChildrenSurvey from "./LegalDutyAnotherPersonFSSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 

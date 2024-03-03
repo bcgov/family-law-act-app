@@ -1,21 +1,23 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
-        <survey v-bind:survey="survey"></survey>
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >        
+        <survey v-bind:survey="survey"></survey>        
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';   
+import { namespace } from "vuex-class";  
+import * as _ from 'underscore';  
 
 import * as SurveyVue from "survey-vue";
+import surveyJson from "./forms/unusually-high-expenses-fs.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import surveyJson from "./forms/your-story-fs.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
-import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -23,22 +25,24 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class YourStoryFs extends Vue {
-    
+export default class AboutAffiantFs extends Vue {
+        
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
+    public UpdatePathwayCompleted!: (changedpathway) => void
 
     survey = new SurveyVue.Model(surveyJson);
-
-    currentStep = 0;
-    currentPage = 0;
     disableNextButton = false;
+    currentStep =0;
+    currentPage =0;   
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -50,44 +54,38 @@ export default class YourStoryFs extends Vue {
     }
 
     mounted(){
-        
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
     }
 
-    public initializeSurvey(){        
+    public initializeSurvey(){
         this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }
+    }    
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {  
-            
-        })
+        this.survey.onValueChanged.add((sender, options) => {
+                              
+        })   
     }
-    
+
     public reloadPageInformation() {
-    
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        
-        if (this.step.result?.yourStoryFsSurvey) {
-            this.survey.data = this.step.result.yourStoryFsSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);    
-              
-        } else {
-            this.survey.setValue('storyFs',[]);
+        if (this.step.result?.aboutAffiantFsSurvey){
+            this.survey.data = this.step.result.aboutAffiantFsSurvey.data; 
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);              
         }
         
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);     
     }
 
-   
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
     }
@@ -96,13 +94,11 @@ export default class YourStoryFs extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             Vue.prototype.$UpdateGotoNextStepPage()
         }
-    }  
-    
+    }
+
     beforeDestroy() {
-        
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {yourStoryFsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
+        this.UpdateStepResultData({step:this.step, data: {aboutAffiantFsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

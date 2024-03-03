@@ -146,27 +146,18 @@
 
         <b-card v-if="confirmedError && showTable"  class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
 
-        <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
-            
-            <other-party-popup />            
-
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="popInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closePopInfo">I understand</b-button>                
-            </template>            
-        </b-modal>         
+             
 
     </page-base>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
-import OtherPartyCommonSurvey from "./OtherPartyCommonSurvey.vue";
+import OtherPartyCommonSurvey from "./InvestmentsFSSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 import Tooltip from "@/components/survey/Tooltip.vue";
 
-import OtherPartyPopup from "./OtherPartyPopup.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -177,8 +168,7 @@ const applicationState = namespace("Application");
     components:{
       OtherPartyCommonSurvey,
       PageBase,
-      Tooltip,
-      OtherPartyPopup
+      Tooltip
     }
 })
 export default class OtherPartyCommon extends Vue {
