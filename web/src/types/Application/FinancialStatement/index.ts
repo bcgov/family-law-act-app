@@ -14,10 +14,18 @@ export interface financialStatementSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface incomeAmountsDataInfoType {    
+    income: boolean;
+    incomeName: string;
+    monthlyAmount: number;
+    yearlyAmount: number;   
+}
+
 export interface incomeInformationDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    incomeAmounts: incomeAmountsDataInfoType[];    
+    nameOfEmployer?: string;
+    govSource?: string;
+    otherDesc?: string;
 }
   
 export interface incomeInformationSurveyInfoType {

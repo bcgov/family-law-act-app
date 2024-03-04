@@ -17,6 +17,8 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+import { togglePages } from '@/components/utils/TogglePages';
+import _ from 'underscore';
 const applicationState = namespace("Application");
 
 @Component({
@@ -67,13 +69,105 @@ export default class FinancialStatement extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {            
+        this.survey.onValueChanged.add((sender, options) => {   
 
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-            }
+            this.determineFsRequired(); 
+            this.determinePages(true);            
         })
+    }
+
+    public determineFsRequired(){
+
+        if(this.survey.data?.spousalAppExists == 'n' && (this.survey.data?.childAppExists == 'n' || 
+            (this.survey.data?.childAppExists == 'y' && this.survey.data?.situationType?.includes('None of the above')))){
+            this.disableNextButton = true;
+            this.survey.setVariable('fsNotRequired', true);
+        } else {
+            this.disableNextButton = false;
+            this.survey.setVariable('fsNotRequired', false);
+        }
+
+    }
+
+    public determinePages(surveyChanged: boolean){
+
+        const fsData = this.survey.data;
+        const p = this.stPgNo.FS;
+        const allPages = _.range(this.stPgNo.FS.IncomeInformation, Object.keys(p).length-2) 
+        console.log(allPages)
+        togglePages(allPages, false, this.currentStep); 
+        
+        const situationTypes = fsData.situationType?fsData.situationType:[];
+        const part1Options = [
+            "I am the person required to pay child support", 
+            "Parenting time is `split or shared` for one or more of the children", 
+            "There is a claim for section 7 special or extraordinary expenses",
+            "There is a child 19 years or older for whom support is being applied for",
+            "A party has been acting as a parent to a child of the other party",
+            "The payor earns more than $150,000 per year",
+            "I am claiming undue hardship",
+            "The other party is claiming undue hardship"
+        ];
+        const part2and3Options = [            
+            "Parenting time is `split or shared` for one or more of the children", 
+            "There is a claim for section 7 special or extraordinary expenses",
+            "There is a child 19 years or older for whom support is being applied for",
+            "A party has been acting as a parent to a child of the other party",
+            "The payor earns more than $150,000 per year",
+            "I am claiming undue hardship",
+            "The other party is claiming undue hardship"
+        ];
+
+        const part4Options = [
+            "I am claiming undue hardship",
+            "The other party is claiming undue hardship"
+        ];
+
+        const part5Options = [
+            "I am claiming undue hardship"
+        ];
+
+        const part1Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists = 'y' && part1Options.some(s=>situationTypes.indexOf(s) > -1));
+        const part2and3Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists = 'y' && part2and3Options.some(s=>situationTypes.indexOf(s) > -1));
+        const part4Required = fsData.childAppExists = 'y' && part4Options.some(s=>situationTypes.indexOf(s) > -1);
+        const part5Required = fsData.childAppExists = 'y' && part5Options.some(s=>situationTypes.indexOf(s) > -1);
+
+        const part1Pages = [p.IncomeInformation, p.ChangesIncomeFS, p.IncomeSummaryFS, p.DisclosureInformationFS];
+        const part2and3Pages = [p.ExpensesFS, p.DebtsFS, p.AssetsFS];
+        const part4Pages = [p.IncomeOtherPersonHouseholdFS];
+        const part5Pages = [p.UndueHardshipFS];
+        const commonPages = [p.UnusuallyHighExpensesFS, p.LegalDutyDependentChildFS, p.LegalDutyAnotherPersonFS, p.OtherCircumstancesFS, p.AffidavitFS, p.AboutAffiantFs, p.FilingFS];
+
+        if (part1Required){
+            togglePages(part1Pages, true, this.currentStep);
+        } 
+        
+        if (part2and3Required){
+            togglePages(part2and3Pages, true, this.currentStep);
+        }          
+
+        if (part4Required){
+            togglePages(part4Pages, true, this.currentStep);
+        }  
+
+        if (part5Required){
+            togglePages(part5Pages, true, this.currentStep);
+        }  
+
+        if (part1Required || part2and3Required || part4Required || part5Required){
+            togglePages(commonPages, true, this.currentStep);   
+            Vue.filter('setSurveyProgress')(null, this.currentStep, p.FilingFS, 0, false); 
+            Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFS, 0, false);        
+        } 
+
+        if(surveyChanged){
+            for (const page of allPages){
+                Vue.filter('setSurveyProgress')(null, this.currentStep, page, 0, false); 
+            }
+        }
+
+                     
+        
     }
     
     public reloadPageInformation() {
@@ -81,10 +175,12 @@ export default class FinancialStatement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.financialStatementSurvey) {            
+        if (this.step.result?.financialStatementSurvey?.data) {            
             this.survey.data = this.step.result.financialStatementSurvey.data;
+            this.determineFsRequired();
+            this.determinePages(false);
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        } 
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
