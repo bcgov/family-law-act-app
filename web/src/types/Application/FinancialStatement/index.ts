@@ -37,9 +37,9 @@ export interface incomeInformationSurveyInfoType {
 }
 
 export interface changesIncomeFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    changesExist?: string;
+    expectedIncome?: string;    
+    changeReason?: string;
 }
   
 export interface changesIncomeFSSurveyInfoType {

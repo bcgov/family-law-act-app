@@ -70,7 +70,7 @@
                                 <template v-slot:cell(yearlyAmount)="data">
                                     <div style="text-align:left;font-size:12pt;color:#000">                            
                                         <b-form>
-                                            <label style="float:left;margin:0.5rem 0; margin-right:0.75rem;">$</label>
+                                            <label class="dollar-label">$</label>
                                             <b-form-input 
                                                 style="float:left;margin-left:0.1rem;width:85%;"
                                                 @change="inputYearlyValueChanged()"                                    
@@ -81,8 +81,8 @@
                                     </div>                                
                                 </template>
                                 <template v-slot:cell(amountName)="data">
-                                    <div v-if="data" style="text-align:left;font-size:12pt;">
-                                        My <b>total annual income before adjustments</b>
+                                    <div v-if="data" class="item-rows">
+                                        <p>My <b>total annual income before adjustments</b></p>
                                         <p class="sub-title">[Line 15000 of tax return or expected amount for this year]</p>
                                     </div>                                
                                 </template>
@@ -109,9 +109,9 @@
                                 <template v-slot:cell(yearlyAmount)="data">
                                     <div style="text-align:left;font-size:12pt;color:#000">                            
                                         <b-form>
-                                            <label v-if="data.index == 0" style="float:left;margin:0.5rem 0; margin-right:0.75rem;">$</label>
-                                            <label v-else-if="data.index == 10" style="float:left;margin:0.5rem 0;">- $</label>
-                                            <label v-else style="float:left;margin:0.5rem 0;">+ $</label>
+                                            <label v-if="data.index == 0" class="dollar-label">$</label>
+                                            <label v-else-if="data.index == 10" class="plus-dollar-label">- $</label>
+                                            <label v-else class="plus-dollar-label">+ $</label>
                                             <b-form-input 
                                                 :disabled="data.index == 10"
                                                 style="float:left;margin-left:0.1rem;width:85%;"
@@ -123,18 +123,18 @@
                                     </div>                                
                                 </template>
                                 <template v-slot:cell(amountName)="data">
-                                    <div v-if="data.value=='childSupportReceived'" style="text-align:left;font-size:12pt;" >
+                                    <div v-if="data.value=='childSupportReceived'" class="item-rows" >
                                         <p>
                                             Taxable child support received (if you receive child support
                                              based on an order or agreement made <b>before</b> May 1, 1997)
                                         </p>
-                                        <p class="sub-title">[Portion for taxable child support from line 12800 of tax return]</p>
+                                        <p class="sub-title" style="margin-bottom: 0; margin-top: -1rem;">[Portion for taxable child support from line 12800 of tax return]</p>
                                     </div>
-                                    <div v-else-if="data.value=='spouseSupportReceived'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='spouseSupportReceived'" class="item-rows" >
                                         <p>Spousal support received</p>
                                         <p class="sub-title">[Portion for spousal support from line 12800 of tax return]</p>
                                     </div>
-                                    <div v-else-if="data.value=='uccb'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='uccb'" class="item-rows" >
                                         <p>
                                             Universal childcare benefit (UCCB) lump-sum payment (In July 2016, 
                                             UCCB was replaced by the tax-free Canada Child Benefit which is 
@@ -142,14 +142,14 @@
                                         </p>
                                         <p class="sub-title">[Line 11700 of tax return]</p>
                                     </div>
-                                    <div v-else-if="data.value=='splitPension'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='splitPension'" class="item-rows" >
                                         <p>Split-pension amount</p>
                                         <p class="sub-title"> 
                                             [Eligible pension income that your spouse or common-law partner 
                                             transferred to you from line 11600 of tax return]
                                         </p>
                                     </div>
-                                    <div v-else-if="data.value=='employmentExpense'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='employmentExpense'" class="item-rows" >
                                         <p>
                                             Employment expenses including union dues and other professional dues
                                         </p>
@@ -157,7 +157,7 @@
                                             [Line 21200 and 22900 of tax return]
                                         </p>
                                     </div>
-                                    <div v-else-if="data.value=='socialAssistance'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='socialAssistance'" class="item-rows" >
                                         <p>
                                             Social assistance received for other members of your household
                                         </p>
@@ -168,7 +168,7 @@
                                             assistance rate tables if available online.]
                                         </p>
                                     </div>
-                                    <div v-else-if="data.value=='excessPortion'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='excessPortion'" class="item-rows" >
                                         <p>
                                             Excess portion of dividends from taxable Canadian corporations
                                         </p>
@@ -176,15 +176,15 @@
                                             [Line 12000 of tax return minus total amount of dividends received on T5]
                                         </p>
                                     </div>
-                                    <div v-else-if="data.value=='investmentLosses'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='investmentLosses'" class="item-rows" >
                                         <p>Actual business investment losses</p>
                                         <p class="sub-title">[Line 21699 of tax return]</p>
                                     </div>
-                                    <div v-else-if="data.value=='carryingCharges'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='carryingCharges'" class="item-rows" >
                                         <p>Carrying charges</p>
                                         <p class="sub-title">[Line 22100 of tax return]</p>
                                     </div>
-                                    <div v-else-if="data.value=='partnership'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='partnership'" class="item-rows" >
                                         <p>
                                             Partnership or sole proprietorship income required to use for capital 
                                             in the partnership/proprietorship
@@ -220,8 +220,8 @@
                                 <template v-slot:cell(yearlyAmount)="data">
                                     <div style="text-align:left;font-size:12pt;color:#000">                            
                                         <b-form>
-                                            <label v-if="data.index == 0" style="float:left;margin:0.5rem 0; margin-right:0.75rem;">$</label>
-                                            <label v-else style="float:left;margin:0.5rem 0;">+ $</label>
+                                            <label v-if="data.index == 0" class="dollar-label">$</label>
+                                            <label v-else class="plus-dollar-label">+ $</label>
                                             <b-form-input 
                                                 :disabled="data.index == 4"
                                                 style="float:left;margin-left:0.1rem;width:85%;"
@@ -233,7 +233,7 @@
                                     </div>                                
                                 </template>
                                 <template v-slot:cell(amountName)="data">
-                                    <div v-if="data.value=='capitalOffset'" style="text-align:left;font-size:12pt;">
+                                    <div v-if="data.value=='capitalOffset'" class="item-rows">
                                         <p>
                                             Offset of capital gains and capital losses (if zero or less, 
                                             indicate “0” in this line)
@@ -242,7 +242,7 @@
                                             [Line 19700 of “Schedule 3 – Capital Gains (or Losses) minus line 12700 of tax return]
                                         </p>
                                     </div>
-                                    <div v-else-if="data.value=='selfEmployment'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='selfEmployment'" class="item-rows" >
                                         <p>
                                             Payments made from self-employment income including wages to 
                                             <b>non-arm’s length parties</b> (like a family member) except 
@@ -256,7 +256,7 @@
                                             the amount to earn the self-employment income.]
                                         </p>
                                     </div>
-                                    <div v-else-if="data.value=='capitalCost'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='capitalCost'" class="item-rows" >
                                         <p>
                                             Capital cost allowance for property
                                         </p>
@@ -266,7 +266,7 @@
                                             on this line.]
                                         </p>
                                     </div>
-                                    <div v-else-if="data.value=='employeeStock'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='employeeStock'" class="item-rows" >
                                         <p>
                                             Value of exercised employee stock options with Canadian-controlled 
                                             private corporation
@@ -277,8 +277,8 @@
                                             private corporation (or a publicly traded corporation that is 
                                             subject to the same tax treatment regarding stock options as 
                                             a Canadian-controlled private corporation).
-                                        </p>
-                                        <p class="sub-title">
+                                            <br>
+                                        
                                             You need to put “0” on this line if you sold the shares in the same 
                                             year you exercised the stock options to obtain the shares. Otherwise, 
                                             to calculate the employee stock option benefit to be included:
@@ -316,7 +316,7 @@
                                 <template v-slot:cell(yearlyAmount)="data">
                                     <div style="text-align:left;font-size:12pt;color:#000">                            
                                         <b-form>
-                                            <label style="float:left;margin:0.5rem 0; margin-right:0.75rem;">$</label>
+                                            <label class="dollar-label">$</label>
                                             <b-form-input 
                                                 disabled
                                                 style="float:left;margin-left:0.1rem;width:85%;"
@@ -347,9 +347,9 @@
                                 <template v-slot:cell(yearlyAmount)="data">
                                     <div style="text-align:left;font-size:12pt;color:#000">                            
                                         <b-form>
-                                            <label v-if="data.index == 3" style="float:left;margin:0.5rem 0; margin-right:0.75rem;">$</label>
-                                            <label v-else-if="data.index == 0 || data.index == 1" style="float:left;margin:0.5rem 0;">+ $</label>
-                                            <label v-else-if="data.index == 2" style="float:left;margin:0.5rem 0;">- $</label>                                            
+                                            <label v-if="data.index == 3" class="dollar-label">$</label>
+                                            <label v-else-if="data.index == 0 || data.index == 1" class="plus-dollar-label">+ $</label>
+                                            <label v-else-if="data.index == 2" class="plus-dollar-label">- $</label>                                            
                                             <b-form-input 
                                                 :disabled="data.index == 3"
                                                 style="float:left;margin-left:0.1rem;width:85%;"
@@ -361,7 +361,7 @@
                                     </div>                                
                                 </template>
                                 <template v-slot:cell(amountName)="data">
-                                    <div v-if="data.value=='benefitPaid'" style="text-align:left;font-size:12pt;" class="row">
+                                    <div v-if="data.value=='benefitPaid'" class="item-rows row">
                                         
                                         <div class="col-md-1" style="font-weight: 700;">
                                             Add
@@ -372,7 +372,7 @@
                                         </div>
 
                                     </div>
-                                    <div v-else-if="data.value=='spousalReceived'" style="text-align:left;font-size:12pt;" class="row">
+                                    <div v-else-if="data.value=='spousalReceived'" class="item-rows row">
                                         
                                         <div class="col-md-1" style="font-weight: 700;">
                                             Add
@@ -382,7 +382,7 @@
                                         </div>
 
                                     </div>
-                                    <div v-else-if="data.value=='spousalPaid'" style="text-align:left;font-size:12pt;" class="row">
+                                    <div v-else-if="data.value=='spousalPaid'" class="item-rows row">
                                         
                                         <div class="col-md-1" style="font-weight: 700;">
                                             Subtract
@@ -415,8 +415,8 @@
                                 <template v-slot:cell(yearlyAmount)="data">
                                     <div style="text-align:left;font-size:12pt;color:#000">                            
                                         <b-form>
-                                            <label v-if="data.index == 3" style="float:left;margin:0.5rem 0; margin-right:0.75rem;">$</label>
-                                            <label v-else style="float:left;margin:0.5rem 0;">+ $</label>
+                                            <label v-if="data.index == 3" class="dollar-label">$</label>
+                                            <label v-else class="plus-dollar-label">+ $</label>
                                             <b-form-input 
                                                 :disabled="data.index == 3"
                                                 style="float:left;margin-left:0.1rem;width:85%;"
@@ -428,17 +428,17 @@
                                     </div>                                
                                 </template>
                                 <template v-slot:cell(amountName)="data">
-                                    <div v-if="data.value=='childReceived'" style="text-align:left;font-size:12pt;">
+                                    <div v-if="data.value=='childReceived'" class="item-rows">
                                         <p>
                                             Total child support received
                                         </p>                                        
                                     </div>
-                                    <div v-else-if="data.value=='socialAssist'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='socialAssist'" class="item-rows" >
                                         <p>
                                             Social assistance received for other members of your household
                                         </p>
                                     </div>
-                                    <div v-else-if="data.value=='govBenefit'" style="text-align:left;font-size:12pt;" >
+                                    <div v-else-if="data.value=='govBenefit'" class="item-rows" >
                                         <p>
                                             Any government benefit received for a child that is not included 
                                             in the income on line 18
@@ -497,7 +497,6 @@ export default class IncomeSummaryFs extends Vue {
     extraExpenses = false;
     spouseSupport = false;
     
-
     totalIncomeItem = [
         {lineNumber: 1, amountName:"totalIncome",   yearlyAmount: 0}
     ];
@@ -732,6 +731,17 @@ export default class IncomeSummaryFs extends Vue {
         text-align:left;
         font-size:12pt;
     }
+
+    .plus-dollar-label {
+        float:left;
+        margin:0.5rem 0;
+    }
+
+    .dollar-label {
+        float:left;
+        margin:0.5rem 0; 
+        margin-right:0.75rem;
+    }
 </style>
 
 <style scoped lang="scss">
@@ -763,5 +773,7 @@ export default class IncomeSummaryFs extends Vue {
 
 .sub-title {
     font-size: 10pt;
+    margin-bottom: 0; 
+    margin-top: -1rem;
 }
 </style>
