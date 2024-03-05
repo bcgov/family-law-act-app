@@ -1,9 +1,9 @@
 import { addressInfoType, nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface financialStatementDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    spousalAppExists?: string;
+    childAppExists?: string;
+    situationType?: string[];
 }
   
 export interface financialStatementSurveyInfoType {
@@ -50,10 +50,19 @@ export interface changesIncomeFSSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface incomeSummaryAmountsFSDataInfoType {    
+    lineNumber: number;
+    amountName: string;
+    yearlyAmount: number;   
+}
+
 export interface incomeSummaryFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    totalIncome: incomeSummaryAmountsFSDataInfoType[]; 
+    deduction: incomeSummaryAmountsFSDataInfoType[];
+    addition: incomeSummaryAmountsFSDataInfoType[];
+    childSupportFund: incomeSummaryAmountsFSDataInfoType[];
+    extraExpenses: incomeSummaryAmountsFSDataInfoType[];
+    spouseExpenses: incomeSummaryAmountsFSDataInfoType[];
 }
   
 export interface incomeSummaryFSSurveyInfoType {

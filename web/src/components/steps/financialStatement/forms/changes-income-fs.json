@@ -1,54 +1,36 @@
 {
    "pages": [
       {
-         "name": "About the Affiant",
-         "description": "An affiant is a person who makes an `affidavit`. An affidavit must be written from the writer’s point of view, using 'I' statements.<br><br>An affidavit starts with an opening paragraph that states the person’s name, their occupation and address.",
+         "name": "Changes to income",
+         "description": "The income you recorded in the last step includes the monthly amount you are currently receiving. You are required to keep the court and the other party informed of changes to your income. This is to ensure that you are paying the right amount of support based on accurate income information.<br>You may be aware of changes that will affect your total income this year, such as a change in employment or benefits.",
          "elements": [
             {
-                "type": "personname",
-                "name": "ApplicantName",
-                "title": "What is your full name?",
-                "description": "This is the name of the person whose affidavit it is. If you are helping someone use this service, use their name.",                  
-                "isRequired": true,              
-                "defaultSubstitution": "(Applicant Name)",
-                "descFirstName": "First Name is also known as Given Name",
-                "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
-                "descLastName": "Last Name is also known as Family Name or Surname"
+                "type": "yesno",
+                "name": "changesExist",
+                "title": "Do you expect any significant changes to your total annual income this year?",
+                "isRequired": true
             },
             {
                 "type": "text",
-                "name": "ApplicantOccupation",
-                "isRequired": true,                
-                "title": "What is your job or profession?",
-                "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
+                "inputType": "number",
+                "name": "expectedIncome",
+                "isRequired": true,   
+                "visible": false,
+                "visibleIf": "{changesExist} = 'y'",             
+                "title": "How much do you expect your total annual income to be this year?",
+                "description": "To calculate income, you must include the amounts related to the sources of income used to calculate your “Total income” of the T1 General Form issued by the <a target='_blank', href='https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/reporting-income.html'>Canada Revenue Agency</a>."
             },
             {
-                "type": "checkbox",
-                "name": "inCareOf",
-                "title": "What is your address?",
-                "description": "The address you include here will be available to the parties and the court. You do not need to use the address where you live,  especially if you have any safety concerns about someone knowing your address, but you need to be clear if it is not.<br><br>If you are a party to the case, you can include your address for service. If you are not a party, you may want to use your work address. For example, if you are a child’s teacher making the affidavit, you may choose to use the school address instead of your home address.<br><br>If you do not live at the address for service, check the box for “care of”.",
-                "choices": [
-                    "Care of"                 
-                ]
-            },
-            {
-                "type": "address",
-                "name": "ApplicantAddress",                
-                "title": "",
-                "titleLocation": "hidden",
+                "type": "comment",
+                "name": "changeReason",
+                "title": "Why do you expect changes to your total annual income?",
                 "isRequired": true,
-                "referLabel": "Applicant's Address",
-                "validators": [
-                    {
-                        "type": "expression",
-                        "text": "Please Fill in all Required Fields.",
-                        "expression": "{ApplicantAddress.street} notempty and {ApplicantAddress.postcode} notempty and {ApplicantAddress.city} notempty"
-                    }
-                ]
-              }
+                "visible": false,
+                "visibleIf": "{changesExist} = 'y'"
+            }
            
          ],
-         "title": "About the Affiant"
+         "title": "Changes to income"
       }
    ],
    "showQuestionNumbers": "off",
