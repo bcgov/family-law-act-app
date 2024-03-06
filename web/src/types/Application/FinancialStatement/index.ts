@@ -74,9 +74,10 @@ export interface incomeSummaryFSSurveyInfoType {
 }
 
 export interface disclosureInformationFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    incomeAcknowledgement?: boolean;
+    corporation?: string;
+    incomeProofAcknowledgement?: boolean;
+    otherIncomeProofDocs?: string;
 }
   
 export interface disclosureInformationFSSurveyInfoType {
@@ -87,10 +88,25 @@ export interface disclosureInformationFSSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface expensesFSDataInfoType {
+    amountName: string;
+    monthlyAmount: number;
+    yearlyAmount: number;
+}
+
 export interface expensesFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    housing: expensesFSDataInfoType[]; 
+    food: expensesFSDataInfoType[];
+    transport: expensesFSDataInfoType[];
+    clothing: expensesFSDataInfoType[];
+    health: expensesFSDataInfoType[];
+    children: expensesFSDataInfoType[];
+    miscellaneous: expensesFSDataInfoType[];
+    premiums: expensesFSDataInfoType[];
+    tax: expensesFSDataInfoType[];
+    other: expensesFSDataInfoType[];
+    total: expensesFSDataInfoType[];
+    otherDesc?: string;
 }
   
 export interface expensesFSSurveyInfoType {
