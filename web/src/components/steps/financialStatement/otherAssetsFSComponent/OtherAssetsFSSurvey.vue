@@ -6,7 +6,7 @@
                 <button type="button" class="btn btn-secondary" @click="goBack()">Cancel</button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-success" @click="saveDebt()">Save</button>
+                <button type="button" class="btn btn-success" @click="saveOtherAssets()">Save</button>
             </div>
         </div>
         <br />
@@ -16,17 +16,17 @@
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/debts-fs.json";
+import surveyJson from "./forms/other-assets-fs.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
-import { debtsFSDataInfoType } from '@/types/Application/FinancialStatement';
+import { otherAssetsFSDataInfoType } from '@/types/Application/FinancialStatement';
 
 @Component
-export default class DebtsFSSurvey extends Vue {
+export default class OtherAssetsFSSurvey extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;
 
-    creditor = {} as debtsFSDataInfoType;
+    otherAssets = {} as otherAssetsFSDataInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
@@ -63,30 +63,28 @@ export default class DebtsFSSurvey extends Vue {
         this.$emit("showTable", true);
     }
 
-    public saveDebt() {
+    public saveOtherAssets() {
         if(!this.survey.isCurrentPageHasErrors){
-            this.populateCreditorModel(this.survey.data)
+            this.populateOtherAssetsModel(this.survey.data)
             let id = this.survey.getVariable("id");
             if (id == null || id == undefined) {
-                this.$emit("surveyData", this.creditor);
+                this.$emit("surveyData", this.otherAssets);
             } else {
-                this.$emit("editedData", { ...this.creditor, id });
+                this.$emit("editedData", { ...this.otherAssets, id });
                 id = null;
             }
         }
     }
 
-    public populateCreditorModel(creditorData) {
-        this.creditor.creditorName = creditorData.creditorName;       
-        this.creditor.reasonForBorrowing = creditorData.reasonForBorrowing;
-        this.creditor.balanceOwing = creditorData.balanceOwing;        
+    public populateOtherAssetsModel(otherAssetsData) {
+        this.otherAssets.otherAssetsDescription = otherAssetsData.otherAssetsDescription;       
+        this.otherAssets.otherAssetsValue = otherAssetsData.otherAssetsValue;
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
         
-        survey.setValue("creditorName", editRowProp.creditorName);        
-        survey.setValue("reasonForBorrowing", editRowProp.reasonForBorrowing);
-        survey.setValue("balanceOwing", editRowProp.balanceOwing);
+        survey.setValue("otherAssetsDescription", editRowProp.otherAssetsDescription);        
+        survey.setValue("otherAssetsValue", editRowProp.otherAssetsValue);
         survey.setVariable("id", editRowProp.id);
     } 
   

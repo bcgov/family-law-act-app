@@ -145,13 +145,13 @@ export interface assetsFSSurveyInfoType {
 }
 
 export interface realEstateFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    realEstateDescription?: string;
+    realEstateValue?: number;
+    id?: number;
 }
   
 export interface realEstateFSSurveyInfoType {
-    data: realEstateFSDataInfoType;
+    data: realEstateFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
@@ -159,13 +159,13 @@ export interface realEstateFSSurveyInfoType {
 }
 
 export interface carsBoatsVehiclesFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    carsBoatsVehiclesDescription?: string;
+    carsBoatsVehiclesValue?: number;
+    id?: number;
 }
   
 export interface carsBoatsVehiclesFSSurveyInfoType {
-    data: carsBoatsVehiclesFSDataInfoType;
+    data: carsBoatsVehiclesFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
@@ -173,13 +173,13 @@ export interface carsBoatsVehiclesFSSurveyInfoType {
 }
 
 export interface cashAssetsFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    cashAssetsDescription?: string;
+    cashAssetsValue?: number;
+    id?: number;
 }
   
 export interface cashAssetsFSSurveyInfoType {
-    data: cashAssetsFSDataInfoType;
+    data: cashAssetsFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
@@ -187,13 +187,13 @@ export interface cashAssetsFSSurveyInfoType {
 }
 
 export interface investmentsFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    investmentsDescription?: string;
+    investmentsValue?: number;
+    id?: number;
 }
   
 export interface investmentsFSSurveyInfoType {
-    data: investmentsFSDataInfoType;
+    data: investmentsFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
@@ -201,13 +201,13 @@ export interface investmentsFSSurveyInfoType {
 }
 
 export interface loansCreditsFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    loansCreditsDescription?: string;
+    loansCreditsValue?: number;
+    id?: number;
 }
   
 export interface loansCreditsFSSurveyInfoType {
-    data: loansCreditsFSDataInfoType;
+    data: loansCreditsFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
@@ -215,13 +215,13 @@ export interface loansCreditsFSSurveyInfoType {
 }
 
 export interface otherAssetsFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    otherAssetsDescription?: string;
+    otherAssetsValue?: number;
+    id?: number;
 }
   
 export interface otherAssetsFSSurveyInfoType {
-    data: otherAssetsFSDataInfoType;
+    data: otherAssetsFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;

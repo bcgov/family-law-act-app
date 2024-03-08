@@ -88,7 +88,7 @@ export default class AssetsFs extends Vue {
         togglePages([this.stPgNo.FS.InvestmentsFS], assetTypes.includes('investments'), this.currentStep);
         togglePages([this.stPgNo.FS.LoansCreditsFS], assetTypes.includes('loans'), this.currentStep);
         togglePages([this.stPgNo.FS.OtherAssetsFS], assetTypes.includes('otherAssets'), this.currentStep);
-                    
+        togglePages([this.stPgNo.FS.DispositionAssetsFS], assetTypes.length>0, this.currentStep);
     }
 
     public reloadPageInformation() {

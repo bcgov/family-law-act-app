@@ -10,7 +10,7 @@
         <assets-fs                          v-bind:step="step"     v-if="step.currentPage == stPgNo.FS.AssetsFS" />
         <real-estate-fs                     v-bind:step="step"     v-if="step.currentPage == stPgNo.FS.RealEstateFS" />
         <cars-boats-vehicles-fs             v-bind:step="step"     v-if="step.currentPage == stPgNo.FS.CarsBoatsVehiclesFS" />
-        <cash-assets-fs                     v-bind:step="step"     v-if="step.currentPage == stPgNo.FS.CarsBoatsVehiclesFS" />
+        <cash-assets-fs                     v-bind:step="step"     v-if="step.currentPage == stPgNo.FS.CashAssetsFS" />
         <investments-fs                     v-bind:step="step"     v-if="step.currentPage == stPgNo.FS.InvestmentsFS" />
         <loans-credits-fs                   v-bind:step="step"     v-if="step.currentPage == stPgNo.FS.LoansCreditsFS" />
         <other-assets-fs                    v-bind:step="step"     v-if="step.currentPage == stPgNo.FS.OtherAssetsFS" />

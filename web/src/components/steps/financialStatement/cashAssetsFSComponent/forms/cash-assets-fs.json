@@ -1,126 +1,23 @@
 {
-    "title": "Other Party Information",
+    "title": "Cash assets Information",
     "pages": [
         {
-            "name": "Other Party",
+            "name": "Cash assets",
             "elements": [
                 {
-                    "type": "personname",
-                    "name": "OtherPartyName",
-                    "title": "What is the full name of the other party?",
-                    "description": "Copy the name of the other party from the application or other document filed in your existing case.",
+                    "type": "comment",
+                    "name": "cashAssetsDescription",
+                    "title": "Description of asset",
+                    "description": "Include the type of cash asset, for example, cash, savings account, chequing account. For bank accounts, include the name of the banking institution.",
                     "isRequired": true
-                },
-                {
-                    "type": "yesno",
-                    "name": "doYouKnowDOB",
-                    "visible": false,
-                    "visibleIf": "!({onlyFullNameRequired})",
-                    "title": "Do you know {OtherPartyName}'s exact date of birth?",
-                    "isRequired": true
-                },
+                },               
                 {
                     "type": "text",
-                    "name": "otherPartyDOB",
-                    "visible": false,
-                    "visibleIf": "({doYouKnowDOB} = \"y\") and !({onlyFullNameRequired})",
-                    "title": "Date of Birth",
-                    "inputType": "date",
+                    "name": "cashAssetsValue",
+                    "title": "Current value of asset",
+                    "description": "You may be the only owner of an asset, or you may be a joint owner. For assets that you jointly own, you must only put the value for the percentage that you own.",
+                    "inputType": "number",
                     "isRequired": true
-                },
-                {
-                    "type": "panel",
-                    "name": "otherDetailsPanel",
-                    "elements": [
-                        {
-                            "type": "text",
-                            "name": "dateOfMarriageLikeWithOtherParty",
-                            "title": "When did you and {OtherPartyName} begin to live together in a marriage-like relationship?",
-                            "isRequired": true,
-                            "inputType": "date",
-                            "visibleIf":"!({onlyFullNameRequired})"
-                        },
-                        {
-                            "type": "helptext",
-                            "name": "marriageStartDateFAQ",
-                            "title": "How do I determine the start date?",
-                            "visibleIf":"!({onlyFullNameRequired})",
-                            "titleLocation": "hidden",
-                            "body": "Under the law, the start date of a spousal relationship is the day two individuals begin living together in a marriage-like relationship, or the day they were married, whichever is first. The start date of a spousal relationship determines when rights or responsibilities start under the Family Law Act, particularly respecting property division.\n<br>\n<br>\nWhat do I do if I can't remember the exact date? \nIf you cannot remember the exact date then enter:\n<ul>\n<li>the last day of that month in which you decided to live in a marriage like relationship, and;</li>\n<li>year</li>\n</ul>"
-                        },
-                        {
-                            "type": "yesno",
-                            "name": "isLegallyMarried",
-                            "visibleIf":"!({onlyFullNameRequired})",
-                            "title": "Are you (or were you) legally married to {OtherPartyName}?",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "text",
-                            "name": "dateOfMarriage",
-                            "visibleIf": "!({onlyFullNameRequired}) and ({isLegallyMarried} = 'y')",
-                            "title": "When were you married?",
-                            "isRequired": true,
-                            "inputType": "date"
-                        },
-                        {
-                            "type": "yesno",
-                            "name": "isSeperatedOtherParty",
-                            "visibleIf": "!({onlyFullNameRequired})",
-                            "title": "Are you and {OtherPartyName} now separated?",
-                            "description": "Under section 3(4) of the Family Law Act, you may be separated despite continuing to live in the same residence.",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "text",
-                            "name": "dateOfSeparation",
-                            "visibleIf": "!({onlyFullNameRequired}) and {isSeperatedOtherParty} = \"y\"",
-                            "title": "When did you separate?",
-                            "isRequired": true,
-                            "inputType": "date"
-                        }
-                    ],
-                    "visible": false,
-                    "visibleIf": "({OtherPartyName} notempty) and ({isMarriedWithOtherParty} = 'y')"
-                },
-                {
-                    "type": "comment",
-                    "name": "otherPartyLawyer",
-                    "title": "<div style = 'font-size: 1.0em; font-weight: bold; margin: 2rem 0 -1rem 0'> Lawyer (if applicable):</b>",                
-                    "visible": false,
-                    "visibleIf": "!({onlyFullNameRequired})",
-                    "rows": 1
-                },
-                {
-                    "type": "infotext",
-                    "name": "ExplanationOpAddress",
-                    "visible": false,
-                    "visibleIf": "!({onlyFullNameRequired})",
-                    "title": "If the address is outside of Canada, please select the country first before entering the address information.",                    
-                    "titleLocation": "hidden"
-                },
-                {
-                    "type": "address",
-                    "name": "otherPartyAddress",
-                    "visible": false,
-                    "visibleIf": "!({onlyFullNameRequired})",
-                    "title": "Please provide the following address information for {OtherPartyName}."
-                },
-                {
-                    "type": "helptext",
-                    "name": "question4",
-                    "visible": false,
-                    "visibleIf": "!({onlyFullNameRequired})",
-                    "title": "What if I don't have contact information for the other party?",
-                    "titleLocation": "hidden",
-                    "body": "If you don't have contact information, you can leave any part of this section blank.  Provide as much information as you do have.  \n<br>\nYou will still be required to arrange for service of court documents on the other party but you don't always need a physical address to do that.  You might know a place where the person goes regularly like a gym or a coffee shop.\n<br>\n<br>\nYou also have options to apply to the court for an order allowing you to serve the other party in another way or the court registry can work with you to make a search request for information about where the other party may be located."
-                },
-                {
-                    "type": "contactinfo",
-                    "name": "otherPartyContact",
-                    "visible": false,
-                    "visibleIf": "!({onlyFullNameRequired})",
-                    "title": "Please provide contact information for {OtherPartyName}."
                 }
             ]
         }

@@ -121,7 +121,7 @@ export default class DebtsFS extends Vue {
     editId = null;
  
     created() {
-        if (this.step.result?.debtsFSSurvey) {
+        if (this.step.result?.debtsFSSurvey?.data) {
             this.creditorData = this.step.result.debtsFSSurvey.data;
         }
     }
