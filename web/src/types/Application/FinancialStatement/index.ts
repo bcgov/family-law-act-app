@@ -132,10 +132,8 @@ export interface debtsFSSurveyInfoType {
     currentPage?: number | string;
 }
 
-export interface assetsFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+export interface assetsFSDataInfoType {
+    assetTypes?: string[];
 }
   
 export interface assetsFSSurveyInfoType {

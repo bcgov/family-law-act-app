@@ -20,18 +20,23 @@ import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
+import { togglePages } from '@/components/utils/TogglePages';
+
 @Component({
     components:{
         PageBase
     }
 })
-export default class AboutAffiantFs extends Vue {
+export default class AssetsFs extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType;
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -68,9 +73,22 @@ export default class AboutAffiantFs extends Vue {
     }    
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-                              
+        this.survey.onValueChanged.add((sender, options) => {            
+            this.determinePages();                               
         })   
+    }
+
+    public determinePages(){
+
+        const assetTypes = this.survey.data?.assetTypes?this.survey.data.assetTypes:[];
+        
+        togglePages([this.stPgNo.FS.RealEstateFS], assetTypes.includes('realEstate'), this.currentStep);
+        togglePages([this.stPgNo.FS.CarsBoatsVehiclesFS], assetTypes.includes('cars'), this.currentStep);
+        togglePages([this.stPgNo.FS.CashAssetsFS], assetTypes.includes('cash'), this.currentStep);
+        togglePages([this.stPgNo.FS.InvestmentsFS], assetTypes.includes('investments'), this.currentStep);
+        togglePages([this.stPgNo.FS.LoansCreditsFS], assetTypes.includes('loans'), this.currentStep);
+        togglePages([this.stPgNo.FS.OtherAssetsFS], assetTypes.includes('otherAssets'), this.currentStep);
+                    
     }
 
     public reloadPageInformation() {
@@ -78,10 +96,12 @@ export default class AboutAffiantFs extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result?.aboutAffiantFsSurvey){
-            this.survey.data = this.step.result.aboutAffiantFsSurvey.data; 
+        if (this.step.result?.assetsFSSurvey){
+            this.survey.data = this.step.result.assetsFSSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);              
         }
+
+        this.determinePages();
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);     
     }
@@ -98,7 +118,7 @@ export default class AboutAffiantFs extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {aboutAffiantFsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {assetsFSSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
