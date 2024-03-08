@@ -17,7 +17,6 @@ import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import "@/store/modules/application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -25,19 +24,13 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class AboutAffiantFs extends Vue {
+export default class DispositionAssetsFS extends Vue {
         
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;    
+    step!: stepInfoType;    
 
     @applicationState.Action
-    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void    
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
@@ -78,8 +71,8 @@ export default class AboutAffiantFs extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result?.aboutAffiantFsSurvey){
-            this.survey.data = this.step.result.aboutAffiantFsSurvey.data; 
+        if (this.step.result?.dispositionAssetsFSSurvey){
+            this.survey.data = this.step.result.dispositionAssetsFSSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);              
         }
         
@@ -98,7 +91,7 @@ export default class AboutAffiantFs extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {aboutAffiantFsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {dispositionAssetsFSSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

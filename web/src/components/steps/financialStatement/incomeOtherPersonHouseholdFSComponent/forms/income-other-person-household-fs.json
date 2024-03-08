@@ -1,49 +1,33 @@
 {
-    "title": "Child(ren) Information",
+    "title": "Adult Information",
     "pages": [
         {
-            "name": "Child(ren) Information",
-            "elements": [
+            "name": "Adult Information",
+            "elements": [                
                 {
-                    "type": "personname",
-                    "name": "childName",
-                    "title": "What is the name of the child?",
-                    "isRequired": true,
-                    "defaultSubstitution": "{ChildName}"
+                    "type": "text",
+                    "name": "adultFullName",
+                    "title": "Full name of adult",
+                    "isRequired": true
                 },
                 {
                     "type": "text",
-                    "name": "childDateOfBirth",
-                    "title": "What is the child's date of birth?",
+                    "name": "adultAnnualIncome",
+                    "title": "Annual income of adult",
+                    "description": "The annual income of the other person must include all sources of income just as you have in the income section. This includes employment, benefits, investment and business income.",
                     "isRequired": true,
-                    "inputType": "date"
+                    "inputType": "number"
                 },
                 {
-                    "type": "comment",
-                    "name": "relationToChild",
-                    "title": "What is your relationship to the child?",
-                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                    "isRequired": true,
-                    "visible": false,
-                    "visibleIf": "{includesCounter}"
+                    "type": "html",
+                    "name": "adultInfoText",            
+                    "html": "<div style='margin-bottom:-0.75rem'><b style='margin-right:0.5rem'>Note:</b>The court may require additional details about a spouse, partner or other adult person living in your household to be able to apply the comparison of household standards of living test.</div>"
                 },
                 {
-                    "type": "comment",
-                    "name": "childRelationToOtherParty",
-                    "title": "What is the other party's relationship to the child?",
-                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                    "isRequired": true,
-                    "visible": false,
-                    "visibleIf": "{includesCounter}"
-                },
-                {
-                    "type": "text",
-                    "name": "childCurrentlyLivingWith",
-                    "title": "Who is the child currently living with?",
-                    "description": "You can use the name of the person or their relationship to the child.",
-                    "isRequired": true,
-                    "visible": false,
-                     "visibleIf": "{includesCounter}"
+                    "type": "yesno",
+                    "name": "married",
+                    "title": "Are you married or cohabitating in a marriage-like relationship with this adult?",
+                    "isRequired": true
                 }
             ]
         }

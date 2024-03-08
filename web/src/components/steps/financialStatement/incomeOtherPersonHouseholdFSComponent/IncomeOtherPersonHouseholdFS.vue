@@ -3,23 +3,29 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Children Details</h1>
-                    <p>The application is asking for orders about a child.</p>
+                    <h1>Income of Other Persons in Household</h1>
+                    <p>
+                        To determine if an amount for child support other than the guideline 
+                        amount should be paid, the court must look at each household’s 
+                        standard of living. In comparing standards of living, the court may 
+                        use the comparison of household standards of living test set out in 
+                        <a href="https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/page-18.html#docCont"
+                            target="_blank">
+                            Schedule II of the Federal Child Support Guidelines
+                        </a>.                        
+                    </p>
 
                     <div>
                         <b-form-group>
                             <div style="color:#556077; font-size:1.40em; font-weight:bold;">
-                                Is each child’s name and date of birth correct on the application?
+                                Do you live alone?
                             </div>
                             <p>
-                                Check the spelling of each child’s name and the date of birth to make 
-                                sure they are correct. If any of the information is wrong, we’ll collect 
-                                the correct information to include on your reply. You should also point it 
-                                out to the judge at your first court appearance so it can get corrected 
-                                on the court file.
+                                If a child or other adult lives with you at least part of the 
+                                time, you do not live alone.
                             </p>
                             <b-form-radio-group
-                                v-model="correctChildInfo"
+                                v-model="incomeOtherPersonHouseholdLiveAlone"
                                 class="mt-2 ml-3 survey-yesno-vue"
                                 style="font-size:1.40em; display: inline-block;">
                                 <b-form-radio class="mr-5" value="Yes"><div style="transform:translate(5px,-5px);">Yes</div></b-form-radio>
@@ -28,43 +34,80 @@
                         </b-form-group>
                     </div>
 
-                    <div class="mt-5" v-if="(correctChildInfo == 'No') || (correctChildInfo == 'Yes' && includesCounter == 'Yes')" >
+                    <div v-if="(incomeOtherPersonHouseholdLiveAlone == 'No')">
+                        <b-form-group>
+                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                                How many children live in your home?
+                            </div>
+                            <p>
+                                Include all children living in the home, even if they are not your own.
+                            </p>
+                            <b-form-input
+                                v-model="incomeOtherPersonHouseholdNumberOfChildren"
+                                type="number"
+                                class="mt-2"
+                                style="font-size:1.40em; display: inline-block;">
+                            </b-form-input>
+                        </b-form-group>
+                    </div>
+
+                    <div v-if="(incomeOtherPersonHouseholdLiveAlone == 'No')">
+                        <b-form-group>
+                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                                Do you live with another adult?
+                            </div>
+                            <p>
+                                This includes a partner or roommate.
+                            </p>
+                            <b-form-radio-group
+                                v-model="incomeOtherPersonHouseholdLiveWithAdult"
+                                class="mt-2 ml-3 survey-yesno-vue"
+                                @change="liveWithAdultChanged()"
+                                style="font-size:1.40em; display: inline-block;">
+                                <b-form-radio class="mr-5" value="Yes"><div style="transform:translate(5px,-5px);">Yes</div></b-form-radio>
+                                <b-form-radio value="No"><div style="transform:translate(5px,-5px);">No</div></b-form-radio>               
+                            </b-form-radio-group>
+                        </b-form-group>
+                    </div>
+
+                    <div v-if="(incomeOtherPersonHouseholdLiveAlone == 'No') && (incomeOtherPersonHouseholdLiveWithAdult == 'Yes')" >
+                        
+                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                            Please provide the following details about each other adult 
+                            living in your household.
+                        </div>
                         <p>
-                            Please enter the details of each child in the fields below. Add each 
-                            child who is the subject of the family law matter application including 
-                            any child identified in the application and any additional child if applicable. 
-                            To add a child, click the "Add Child" button. If you are done entering all the 
-                            children, click the "Next" button.
+                            To add an adult, click the “Add other adult” button and 
+                            provide the information requested.
+                        </p>
+                        <p>
+                            If you are done entering all your other adults, click the “Next” button.
                         </p>
                         <div class="childSection" v-if="showTable">
                             <div class="childAlign">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                        <th scope="col">Child's name</th>
-                                        <th scope="col">Child's date of birth</th>
-                                        <th v-if="includesCounter=='Yes'" scope="col">Your relationship to the child</th>
-                                        <th v-if="includesCounter=='Yes'" scope="col">Other party's relationship to the child</th>
-                                        <th v-if="includesCounter=='Yes'" scope="col">Child is currently living with</th>
+                                        <th scope="col">Full name of adult</th>
+                                        <th scope="col">Annual income of adult</th>
+                                        <th scope="col">Relationship to you</th>                                       
                                         <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <div></div>
-                                        <tr v-for="child in childData" :key="child.id">
-                                        <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
-                                        <td>{{child.dob | beautify-date}}</td>
-                                        <td v-if="includesCounter=='Yes'">{{child.relation}}</td>
-                                        <td v-if="includesCounter=='Yes'">{{child.opRelation}}</td>
-                                        <td v-if="includesCounter=='Yes' && child.currentLiving != 'other'">{{child.currentLiving}}</td>
-                                        <td v-else-if="includesCounter=='Yes' && child.currentLiving == 'other'">{{child.currentLivingComment}}</td>
-                                        <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
-                                        <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
+                                        <tr v-for="adult in adultData" :key="adult.id">
+                                        <td>{{adult.adultFullName}}</td>
+                                        <td>{{adult.adultAnnualIncome}}</td>
+                                        <td v-if="adult.married=='y'">Married/Cohabitating</td>
+                                        <td v-else>Not Married/Cohabitating</td>
+                                        <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(adult.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
+                                        <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(adult)"><i class="fa fa-edit"></i></a></td>
                                         </tr>
                                         <tr class="clickableRow" @click="openForm()">
                                         <td colspan = "7">
                                             <a :class="isDisableNext()?'text-danger h4 my-2':'h4 my-2'" style="cursor: pointer;"
-                                            >+Add Child</a>
+                                            >+Add other adult</a>
                                         </td>
                                         </tr>
                                     </tbody>
@@ -75,57 +118,38 @@
 
                 </div>
 
-                <div class="col-md-12" v-if="!showTable" id="child-info-survey">
-                    <rflm-children-survey :step="step" v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" :includesCounter="includesCounter" />
+                <div class="col-md-12" v-if="!showTable" id="income-other-person-household-fs-survey">
+                    <income-other-person-household-fs-survey :step="step" v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
                 </div>
                
             </div>
-        </div>
-        <b-card v-if="displayAcknowledgement" class="mb-5" style="max-width: 950px; border-radius: 20px; border:2px solid #ccc;">
-            <p>
-                The <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests" target="_blank"
-            >best interests of the child</a> is a test that the court uses to make decisions about children.  
-                Before making a decision, both parents and courts must consider the child's physical, psychological 
-                and emotional safety, security and well-being.  You must always think about the best interests of 
-                the child when you are asking the court for decisions about them.
-            </p>
-            
-            <b-form-checkbox 
-                size="lg" 
-                v-model="childBestInterestUnderstanding" 
-                style="display:inline-block;color:#556077; font-size:1.40em; font-weight:bold; transform:translate(0px,3px);">
-            </b-form-checkbox>
-            <div style="display:inline;color:#556077; font-size:1.5em; font-weight:bold;">
-                I understand that I must consider the child(ren)'s best interests with respect to each order about the child I am asking the court to make.
-            </div>
-            
-        </b-card>
+        </div>        
         <b-card v-if="incompleteError && showTable" name="incomplete-error" class="alert-danger p-3 my-4 " no-body>
-            <div>Required Child information is missing. Click the "Edit button <div class="d-inline fa fa-edit"></div> " to fix it. </div>
+            <div>Required Adult information is missing. Click the "Edit button <div class="d-inline fa fa-edit"></div> " to fix it. </div>
         </b-card>   
     </page-base>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import RflmChildrenSurvey from "./IncomeOtherPersonHouseholdFSSurvey.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import IncomeOtherPersonHouseholdFsSurvey from "./IncomeOtherPersonHouseholdFSSurvey.vue";
 import PageBase from "../../PageBase.vue";
-
-import {SearchForChildrenData} from "@/components/utils/ChildrenData/SearchForChildrenData";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
+
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 @Component({
     components:{
-      RflmChildrenSurvey,
-      PageBase
+        IncomeOtherPersonHouseholdFsSurvey,
+        PageBase
     }
 })
-export default class RflmChildrenInfo extends Vue {
+export default class IncomeOtherPersonHouseholdFS extends Vue {
 
     @Prop({required: true})
     step!: stepInfoType;
@@ -142,18 +166,20 @@ export default class RflmChildrenInfo extends Vue {
     currentStep =0;
     currentPage =0;
     showTable = true;
-    childBestInterestUnderstanding = false;
-    childData = [];
+
+    incomeOtherPersonHouseholdLiveAlone = null;
+    incomeOtherPersonHouseholdNumberOfChildren = 0;
+    incomeOtherPersonHouseholdLiveWithAdult = null;
+
+    adultData = [];
     anyRowToBeEdited = null;
     editId = null; 
-    incompleteError =  false;  
-    includesCounter = null;    
-    correctChildInfo = null; 
+    incompleteError =  false;
     
     public openForm(anyRowToBeEdited?) {
         this.showTable = false;
          Vue.nextTick(()=>{
-            const el = document.getElementById('child-info-survey')
+            const el = document.getElementById('income-other-person-household-fs-survey')
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -170,31 +196,28 @@ export default class RflmChildrenInfo extends Vue {
 
     public populateSurveyData(childValue) {
 
-        const currentIndexValue = this.childData?.length > 0 ? this.childData[this.childData.length - 1].id : 0;
+        const currentIndexValue = this.adultData?.length > 0 ? this.adultData[this.adultData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newChild = { ...childValue, id };
-        this.childData = [...this.childData, newChild];
+        this.adultData = [...this.adultData, newChild];
 
         this.showTable = true; 
-        this.resetChildrenRelatedPages(this.childData);
     }
 
     public deleteRow(rowToBeDeleted) {
        
-        this.childData = this.childData.filter(data => {
+        this.adultData = this.adultData.filter(data => {
             return data.id !== rowToBeDeleted;
-        }); 
-        this.resetChildrenRelatedPages(this.childData);
+        });
         this.surveyHasError();
     }
 
     public editRow(editedRow) {
-        this.childData = this.childData.map(data => {
+        this.adultData = this.adultData.map(data => {
             return data.id === this.editId ? editedRow : data;
         });
         this.showTable = true;
         this.surveyHasError();
-        this.resetChildrenRelatedPages(this.childData);
     }
 
     public onPrev() {
@@ -207,152 +230,105 @@ export default class RflmChildrenInfo extends Vue {
 
     created() {
 
-        if (this.step.result?.correctChildInfo) {
-            this.correctChildInfo = this.step.result.correctChildInfo;
+        if (this.step.result?.incomeOtherPersonHouseholdLiveAlone) {
+            this.incomeOtherPersonHouseholdLiveAlone = this.step.result.incomeOtherPersonHouseholdLiveAlone;
         }
 
-        if (this.step.result?.childrenInfoSurvey) {
-            this.childData = this.step.result.childrenInfoSurvey.data;
-        }
-        if (this.step.result?.rflmChildBestInterestAcknowledgement) {
-            this.childBestInterestUnderstanding = this.step.result.rflmChildBestInterestAcknowledgement;
+        if (this.step.result?.incomeOtherPersonHouseholdNumberOfChildren) {
+            this.incomeOtherPersonHouseholdNumberOfChildren = this.step.result.incomeOtherPersonHouseholdNumberOfChildren;
         }
 
-        if(this.childData?.length == 0){
-            this.childData= SearchForChildrenData('RFLM');            
+        if (this.step.result?.incomeOtherPersonHouseholdLiveWithAdult) {
+            this.incomeOtherPersonHouseholdLiveWithAdult = this.step.result.incomeOtherPersonHouseholdLiveWithAdult;
         }
 
-        this.includesCounter = 'No';
-
-        if (this.step.result?.rflmCounterAppSurvey?.data) {
-            const counterAppData = this.step.result.rflmCounterAppSurvey.data;
-            this.includesCounter = this.childRelatedCounter(counterAppData.counter, counterAppData.counterList)?'Yes':'No';           
-        }       
+        if (this.step.result?.incomeOtherPersonHouseholdFSSurvey?.data) {
+            this.adultData = this.step.result.incomeOtherPersonHouseholdFSSurvey.data;
+        }
+             
     }
 
     mounted(){
         Vue.nextTick(()=>this.surveyHasError());
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
-    }
-
-    public childRelatedCounter(counter, selectedCounters){
-
-        const childRelated = (counter == 'Yes' && 
-                (selectedCounters.includes('parentingArrangements') ||
-                selectedCounters.includes('childSupport') ||
-                selectedCounters.includes('contactWithChild') ||
-                selectedCounters.includes('guardianOfChild')));
-
-        return childRelated;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;   
+        this.liveWithAdultChanged();     
     }
 
     public surveyHasError(){
-        let progress = this.childData.length==0? 50 : 100;
+        let progress = this.adultData.length==0? 50 : 100;
         
-        if(this.correctChildInfo == 'Yes' && this.includesCounter == 'No') progress =100;
+        if(this.incomeOtherPersonHouseholdLiveAlone == 'Yes') progress =100;
 
         this.incompleteError =  false;        
-        for(const child of this.childData){
-            if (((this.includesCounter=='No') && !child.dob) || 
-                ((this.includesCounter=='Yes') && (!child.dob || !child.relation || !child.opRelation || !child.currentLiving))){            
+        for(const adult of this.adultData){
+            if ((this.incomeOtherPersonHouseholdLiveAlone=='No' && this.incomeOtherPersonHouseholdLiveWithAdult == 'Yes') && 
+                (!adult.adultFullName || !adult.adultAnnualIncome || !adult.married )){            
                 this.incompleteError = true;  
                 progress = 50;    
                 break
             }
-        }        
+        }    
+
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
-    get displayAcknowledgement(){
-
-        let display = false;
-
-        const includesCounterChildData = this.includesCounter=='Yes' && this.childData && this.childData.length > 0;
-        const includesCorrectedChildData = this.correctChildInfo == 'No' && this.childData && this.childData.length > 0;
-        const noChildDataRequired = this.includesCounter=='No' && this.correctChildInfo == 'Yes';
-
-        display = (this.showTable && (includesCounterChildData || includesCorrectedChildData)) || noChildDataRequired;
-
-        return display;
-    }
-
     public isDisableNext() {
-        return (!this.correctChildInfo || (this.correctChildInfo == 'No' && this.childData?.length <= 0 ) || 
-            (this.includesCounter == 'Yes' && this.childData?.length <= 0) || !this.childBestInterestUnderstanding);
+        return (!this.incomeOtherPersonHouseholdLiveAlone || 
+            (this.incomeOtherPersonHouseholdLiveAlone == 'No' && 
+            (!this.incomeOtherPersonHouseholdLiveWithAdult || this.incomeOtherPersonHouseholdLiveWithAdult == 'Yes') 
+            && this.adultData?.length <= 0 ));
     }
 
     beforeDestroy() {
         this.surveyHasError();  
         
-        let childrenInfo = this.getChildrenResults()
+        let adultInfo = this.getAdultResults()        
         
-        const counter = this.step.result?.rflmCounterAppSurvey?.data?.counter
-        const selectedCounters = this.step.result?.rflmCounterAppSurvey?.data?.counterList
-        if( (   this.correctChildInfo == 'Yes' &&  counter == 'Yes' ) && 
-            (
-                (selectedCounters.length==1 && selectedCounters?.includes('spousalSupport')) ||
-                (selectedCounters.length==1 && selectedCounters?.includes('companionAnimal')) ||
-                (selectedCounters.length==2 && selectedCounters?.includes('spousalSupport') && selectedCounters?.includes('companionAnimal'))
-            )
-        )
-            childrenInfo = null
+        if(this.incomeOtherPersonHouseholdLiveAlone == 'Yes' ||
+                (this.incomeOtherPersonHouseholdLiveAlone == 'No' && this.incomeOtherPersonHouseholdLiveWithAdult == 'No'))
+            adultInfo = null
         
-        this.UpdateStepResultData({step:this.step, data: {correctChildInfo: this.correctChildInfo, childrenInfoSurvey: childrenInfo , rflmChildBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
+        this.UpdateStepResultData(
+                {
+                    step:this.step, 
+                    data: {
+                        incomeOtherPersonHouseholdLiveAlone: this.incomeOtherPersonHouseholdLiveAlone, 
+                        incomeOtherPersonHouseholdNumberOfChildren: this.incomeOtherPersonHouseholdNumberOfChildren,
+                        incomeOtherPersonHouseholdLiveWithAdult: this.incomeOtherPersonHouseholdLiveWithAdult,
+                        incomeOtherPersonHouseholdFSSurvey: adultInfo
+                    }
+                }
+            )       
     }
 
-    public getChildrenResults(){
+    public getAdultResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
-        for(const child of this.childData)
+        for(const adult of this.adultData)
         {
-            questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
+            questionResults.push({name:'incomeOtherPersonHouseholdFSSurvey', value: this.getAdultInfo(adult), title:'Adult '+adult.id +' Information', inputType:''})
         }
         
-        return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
+        return {data: this.adultData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
-    public getChildInfo(child){
+    public getAdultInfo(adult){
         const resultString = [];
 
-        resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
-        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
-        if (this.includesCounter == 'Yes'){
-            resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
-            resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)
-            if (child.currentLiving == 'other'){
-                resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLivingComment)
-            } else {
-                resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)
-            }
-        }        
+        resultString.push(Vue.filter('styleTitle')("Name: ")+(adult.adultFullName));
+        resultString.push(Vue.filter('styleTitle')("Annual Income: ")+(adult.adultAnnualIncome))
+        resultString.push(Vue.filter('styleTitle')("Relationship to you: ")+(adult.married == 'y'?'Married/Cohabitating': 'Not Married/Cohabitating'))           
         
         return resultString
-    }  
+    } 
 
-    public resetChildrenRelatedPages(childData?) {
-    
-        const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
-        const p = stPgNo.RFLM;
-
-        const pages = [ 
-            p.ParentingArrangements,
-            p.ParentalResponsibilities,
-            p.ParentingTime,
-            p.ParentingOrderAgreement,
-            p.BestInterestsOfChild,
-            p.ChildSupportCurrentArrangements,
-            p.AboutChildSupportOrder,
-            p.SpecialAndExtraordinaryExpenses,
-            p.ContactWithChild,
-            p.ContactWithChildOrder,
-            p.AboutContactWithChildOrder,
-            p.ContactWithChildBestInterestsOfChild,
-            p.GuardianOfChild,           
-            p.ReviewYourAnswersRFLM
-        ]
-        Vue.filter('setProgressForPages')(p._StepNo, pages,50);    
-
+    public liveWithAdultChanged(){
+        
+        if(this.incomeOtherPersonHouseholdLiveWithAdult){
+            togglePages([this.stPgNo.FS.ContributionTowardExpensesFS], this.incomeOtherPersonHouseholdLiveWithAdult == 'Yes', this.currentStep);
+        }
     }
+    
 }
 </script>
 

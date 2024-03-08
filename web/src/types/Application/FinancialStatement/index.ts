@@ -229,9 +229,8 @@ export interface otherAssetsFSSurveyInfoType {
 }
 
 export interface dispositionAssetsFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    soldAsset?: string;    
+    soldAssetDescription?: string;
 }
   
 export interface dispositionAssetsFSSurveyInfoType {
@@ -243,13 +242,13 @@ export interface dispositionAssetsFSSurveyInfoType {
 }
 
 export interface incomeOtherPersonHouseholdFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    adultFullName?: string;
+    adultAnnualIncome?: number;
+    married?: string;
 }
   
 export interface incomeOtherPersonHouseholdFSSurveyInfoType {
-    data: incomeOtherPersonHouseholdFSDataInfoType;
+    data: incomeOtherPersonHouseholdFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
@@ -257,9 +256,9 @@ export interface incomeOtherPersonHouseholdFSSurveyInfoType {
 }
 
 export interface contributionTowardExpensesFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    otherAdultContribution?: number;
+    contributionFrequency?: string;
+    contributionFrequencyComment?: string;
 }
   
 export interface contributionTowardExpensesFSSurveyInfoType {

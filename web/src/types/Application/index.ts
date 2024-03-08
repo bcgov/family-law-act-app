@@ -400,6 +400,9 @@ export interface stepInfoType {
     loansCreditsFSSurvey?: loansCreditsFSSurveyInfoType;
     otherAssetsFSSurvey?: otherAssetsFSSurveyInfoType;
     dispositionAssetsFSSurvey?: dispositionAssetsFSSurveyInfoType;
+    incomeOtherPersonHouseholdLiveAlone?: string;
+    incomeOtherPersonHouseholdNumberOfChildren?: number;
+    incomeOtherPersonHouseholdLiveWithAdult?: string;
     incomeOtherPersonHouseholdFSSurvey?: incomeOtherPersonHouseholdFSSurveyInfoType;
     contributionTowardExpensesFSSurvey?: contributionTowardExpensesFSSurveyInfoType;
     undueHardshipFSSurvey?: undueHardshipFSSurveyInfoType;
