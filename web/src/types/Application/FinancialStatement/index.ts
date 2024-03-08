@@ -118,13 +118,14 @@ export interface expensesFSSurveyInfoType {
 }
 
 export interface debtsFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    creditorName?: string;
+    reasonForBorrowing?: string;
+    balanceOwing?: number;
+    id?: number;
 }
   
 export interface debtsFSSurveyInfoType {
-    data: debtsFSDataInfoType;
+    data: debtsFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;

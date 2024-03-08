@@ -34,6 +34,7 @@
                             Housing
                         </b-row>                        
                         <b-table
+                            :key="housingTableKey"
                             :items="housingItem"
                             :fields="expenseFields"                   
                             small                    
@@ -78,339 +79,15 @@
                         </b-table>                       
                     </div>
 
-                    <!-- deductions -->
-                    <!-- <div class="mt-2">
-                        <b-row class="ml-0 pl-2" style="width: 100%;">
-                            <b class="mr-2">Housing</b>
-                            
-                        </b-row>
+                    <!-- food -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Food & Household Supplies
+                        </b-row>                        
                         <b-table
-                            :key="deductionsTableKey"
-                            :items="deductionItem"
-                            :fields="expenseFields"
-                            small                    
-                            bordered>
-                                <template v-slot:cell(yearlyAmount)="data">
-                                    <div style="text-align:left;font-size:12pt;color:#000">                            
-                                        <b-form>
-                                            <label v-if="data.index == 0" class="dollar-label">$</label>
-                                            <label v-else-if="data.index == 10" class="plus-dollar-label">- $</label>
-                                            <label v-else class="plus-dollar-label">+ $</label>
-                                            <b-form-input 
-                                                :disabled="data.index == 10"
-                                                style="float:left;margin-left:0.1rem;width:85%;"
-                                                @change="inputValueChanged(tableName, amountType, data)"                                    
-                                                v-model="deductionItem[data.index][data.field.key]"
-                                                type="number">
-                                            </b-form-input>
-                                        </b-form>
-                                    </div>                                
-                                </template>
-                                <template v-slot:cell(amountName)="data">
-                                    <div v-if="data.value=='childSupportReceived'" class="item-rows" >
-                                        <p>
-                                            Taxable child support received (if you receive child support
-                                             based on an order or agreement made <b>before</b> May 1, 1997)
-                                        </p>
-                                        <p class="sub-title" style="margin-bottom: 0; margin-top: -1rem;">[Portion for taxable child support from line 12800 of tax return]</p>
-                                    </div>
-                                    <div v-else-if="data.value=='spouseSupportReceived'" class="item-rows" >
-                                        <p>Spousal support received</p>
-                                        <p class="sub-title">[Portion for spousal support from line 12800 of tax return]</p>
-                                    </div>
-                                    <div v-else-if="data.value=='uccb'" class="item-rows" >
-                                        <p>
-                                            Universal childcare benefit (UCCB) lump-sum payment (In July 2016, 
-                                            UCCB was replaced by the tax-free Canada Child Benefit which is 
-                                            not included in this calculation)
-                                        </p>
-                                        <p class="sub-title">[Line 11700 of tax return]</p>
-                                    </div>
-                                    <div v-else-if="data.value=='splitPension'" class="item-rows" >
-                                        <p>Split-pension amount</p>
-                                        <p class="sub-title"> 
-                                            [Eligible pension income that your spouse or common-law partner 
-                                            transferred to you from line 11600 of tax return]
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='employmentExpense'" class="item-rows" >
-                                        <p>
-                                            Employment expenses including union dues and other professional dues
-                                        </p>
-                                        <p class="sub-title">
-                                            [Line 21200 and 22900 of tax return]
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='socialAssistance'" class="item-rows" >
-                                        <p>
-                                            Social assistance received for other members of your household
-                                        </p>
-                                        <p class="sub-title">
-                                            [Portion of line 14500 of tax return that applies to other 
-                                            family members. If you are not sure how much that is, you 
-                                            can contact the social assistance office or refer to social 
-                                            assistance rate tables if available online.]
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='excessPortion'" class="item-rows" >
-                                        <p>
-                                            Excess portion of dividends from taxable Canadian corporations
-                                        </p>
-                                        <p class="sub-title">
-                                            [Line 12000 of tax return minus total amount of dividends received on T5]
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='investmentLosses'" class="item-rows" >
-                                        <p>Actual business investment losses</p>
-                                        <p class="sub-title">[Line 21699 of tax return]</p>
-                                    </div>
-                                    <div v-else-if="data.value=='carryingCharges'" class="item-rows" >
-                                        <p>Carrying charges</p>
-                                        <p class="sub-title">[Line 22100 of tax return]</p>
-                                    </div>
-                                    <div v-else-if="data.value=='partnership'" class="item-rows" >
-                                        <p>
-                                            Partnership or sole proprietorship income required to use for capital 
-                                            in the partnership/proprietorship
-                                        </p>
-                                        <p class="sub-title">
-                                            [If you earned income through a partnership or a sole proprietorship, 
-                                            deduct any amount included in your income that is required by the 
-                                            partnership or sole proprietorship for capitalization purposes. 
-                                            Enter the result on this line.]
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='deductionTotal'" class="total-rows">
-                                        Total deductions from income
-                                    </div>
-                                                                           
-                                </template>
-                        </b-table>
-                    </div> -->
-
-                    <!-- additions -->
-                    <!-- <div class="mt-2">
-                        <b-row class="bg-secondary ml-0 text-dark pl-2" style="width: 100%;">
-                            <b class="mr-2">Additions</b>
-                            (use annual amounts)
-                        </b-row>
-                        <b-table
-                            :key="additionsTableKey"
-                            :items="additionItem"
-                            :fields="expenseFields"
-                            thead-class="d-none"                            
-                            small                    
-                            bordered>
-                                <template v-slot:cell(yearlyAmount)="data">
-                                    <div style="text-align:left;font-size:12pt;color:#000">                            
-                                        <b-form>
-                                            <label v-if="data.index == 0" class="dollar-label">$</label>
-                                            <label v-else class="plus-dollar-label">+ $</label>
-                                            <b-form-input 
-                                                :disabled="data.index == 4"
-                                                style="float:left;margin-left:0.1rem;width:85%;"
-                                                @change="inputValueChanged(tableName, amountType, data)"                                    
-                                                v-model="additionItem[data.index][data.field.key]"
-                                                type="number">
-                                            </b-form-input>
-                                        </b-form>
-                                    </div>                                
-                                </template>
-                                <template v-slot:cell(amountName)="data">
-                                    <div v-if="data.value=='capitalOffset'" class="item-rows">
-                                        <p>
-                                            Offset of capital gains and capital losses (if zero or less, 
-                                            indicate “0” in this line)
-                                        </p>
-                                        <p class="sub-title">
-                                            [Line 19700 of “Schedule 3 – Capital Gains (or Losses) minus line 12700 of tax return]
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='selfEmployment'" class="item-rows" >
-                                        <p>
-                                            Payments made from self-employment income including wages to 
-                                            <b>non-arm’s length parties</b> (like a family member) except 
-                                            for the portion that is necessary to earn self-employment income
-                                        </p>
-                                        <p class="sub-title">
-                                            [Include on this line any income amount for salaries, benefits, 
-                                            wages, management fees or other payments paid to, or on behalf 
-                                            of, the other person. You don’t need to include the amount if 
-                                            it is reasonable, and it was necessary for you to have paid 
-                                            the amount to earn the self-employment income.]
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='capitalCost'" class="item-rows" >
-                                        <p>
-                                            Capital cost allowance for property
-                                        </p>
-                                        <p class="sub-title">
-                                            [If your return includes a deduction for capital cost allowance for 
-                                            real property (e.g. buildings), you will need to enter that amount 
-                                            on this line.]
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='employeeStock'" class="item-rows" >
-                                        <p>
-                                            Value of exercised employee stock options with Canadian-controlled 
-                                            private corporation
-                                        </p>
-                                        <p class="sub-title">
-                                            [You are required to enter an amount on this line where you have 
-                                            exercised a stock option to purchase shares of a Canadian-controlled 
-                                            private corporation (or a publicly traded corporation that is 
-                                            subject to the same tax treatment regarding stock options as 
-                                            a Canadian-controlled private corporation).
-                                            <br>
-                                        
-                                            You need to put “0” on this line if you sold the shares in the same 
-                                            year you exercised the stock options to obtain the shares. Otherwise, 
-                                            to calculate the employee stock option benefit to be included:
-                                            <ul>
-                                                <li>
-                                                    first, find the total value of shares acquired by stock 
-                                                    option (you can multiply the number of shares by the 
-                                                    market value of one of them)
-                                                </li>
-                                                <li>
-                                                    subtract from that amount the total amount that you paid 
-                                                    for the stock options and the shares
-                                                </li>
-                                            </ul>
-                                            The result is the stock option benefit. Enter the amount on this line.]                                        
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='additionsTotal'" class="total-rows" >
-                                        Total additions to income
-                                    </div>                                                                  
-                                </template>
-                        </b-table>
-                    </div>  -->
-
-                    <!-- extraordinary -->
-                    <!-- <div class="mt-2" v-if="extraExpenses">                        
-                        <b-table
-                            :key="extraExpensesTableKey"
-                            :items="extraExpensesItem"
-                            :fields="expenseFields"
-                            thead-class="d-none"                            
-                            small                    
-                            bordered>
-                                <template v-slot:cell(yearlyAmount)="data">
-                                    <div style="text-align:left;font-size:12pt;color:#000">                            
-                                        <b-form>
-                                            <label v-if="data.index == 3" class="dollar-label">$</label>
-                                            <label v-else-if="data.index == 0 || data.index == 1" class="plus-dollar-label">+ $</label>
-                                            <label v-else-if="data.index == 2" class="plus-dollar-label">- $</label>                                            
-                                            <b-form-input 
-                                                :disabled="data.index == 3"
-                                                style="float:left;margin-left:0.1rem;width:85%;"
-                                                @change="inputValueChanged(tableName, amountType, data)"                                    
-                                                v-model="extraExpensesItem[data.index][data.field.key]"
-                                                type="number">
-                                            </b-form-input>
-                                        </b-form>
-                                    </div>                                
-                                </template>
-                                <template v-slot:cell(amountName)="data">
-                                    <div v-if="data.value=='benefitPaid'" class="item-rows row">
-                                        
-                                        <div class="col-md-1" style="font-weight: 700;">
-                                            Add
-                                        </div>
-                                        <div class="col-md-11" style="padding-left: 2rem;">
-                                            Any benefit paid to you for a child for whom special or extraordinary 
-                                            expenses are being requested that is not included in the income on line 18
-                                        </div>
-
-                                    </div>
-                                    <div v-else-if="data.value=='spousalReceived'" class="item-rows row">
-                                        
-                                        <div class="col-md-1" style="font-weight: 700;">
-                                            Add
-                                        </div>
-                                        <div class="col-md-11" style="padding-left: 2rem;">
-                                            Spousal support received from other party (if any)
-                                        </div>
-
-                                    </div>
-                                    <div v-else-if="data.value=='spousalPaid'" class="item-rows row">
-                                        
-                                        <div class="col-md-1" style="font-weight: 700;">
-                                            Subtract
-                                        </div>
-                                        <div class="col-md-11" style="padding-left: 2rem;">
-                                            Spousal support paid to other party (if any)
-                                        </div>
-
-                                    </div>                                    
-                                    <div v-else-if="data.value=='specialTotal'" class="total-rows" >
-                                        Annual income for special or extraordinary expenses
-                                    </div>                                                                  
-                                </template>
-                        </b-table>
-                    </div> -->
-
-                    <!-- spousal -->
-                    <!-- <div class="mt-2" v-if="spouseSupport">
-                        <b-row class="bg-secondary ml-0 text-dark pl-2" style="width: 100%;">
-                            <b class="mr-2">Other additions to income for spousal support</b>
-                            <i>(complete only if there is an application for spousal support)</i>
-                        </b-row>
-                        <b-table
-                            :key="spouseExpensesTableKey"
-                            :items="spouseExpensesItem"
-                            :fields="expenseFields"
-                            thead-class="d-none"                            
-                            small                    
-                            bordered>
-                                <template v-slot:cell(yearlyAmount)="data">
-                                    <div style="text-align:left;font-size:12pt;color:#000">                            
-                                        <b-form>
-                                            <label v-if="data.index == 3" class="dollar-label">$</label>
-                                            <label v-else class="plus-dollar-label">+ $</label>
-                                            <b-form-input 
-                                                :disabled="data.index == 3"
-                                                style="float:left;margin-left:0.1rem;width:85%;"
-                                                @change="inputValueChanged(tableName, amountType, data)"                                    
-                                                v-model="spouseExpensesItem[data.index][data.field.key]"
-                                                type="number">
-                                            </b-form-input>
-                                        </b-form>
-                                    </div>                                
-                                </template>
-                                <template v-slot:cell(amountName)="data">
-                                    <div v-if="data.value=='childReceived'" class="item-rows">
-                                        <p>
-                                            Total child support received
-                                        </p>                                        
-                                    </div>
-                                    <div v-else-if="data.value=='socialAssist'" class="item-rows" >
-                                        <p>
-                                            Social assistance received for other members of your household
-                                        </p>
-                                    </div>
-                                    <div v-else-if="data.value=='govBenefit'" class="item-rows" >
-                                        <p>
-                                            Any government benefit received for a child that is not included 
-                                            in the income on line 18
-                                        </p>                                        
-                                    </div>                                   
-                                    <div v-else-if="data.value=='spouseSupportFund'" class="total-rows" >
-                                        Annual income for spousal support purposes
-                                    </div>                                                                  
-                                </template>
-                        </b-table>
-                    </div> -->
-
-                    <!-- total -->
-                    <div>                        
-                        <b-table
-                            :key="tableKey"
-                            :items="totalExpensesItem"
-                            :fields="expenseFields"
-                            tbody-tr-class="child-table"                            
-                            thead-class="d-none"                            
+                            :key="foodTableKey"
+                            :items="foodItem"
+                            :fields="expenseFields"                   
                             small                    
                             bordered>
                                 <template v-slot:cell(yearlyAmount)="data">
@@ -418,8 +95,440 @@
                                         <b-form>
                                             <label class="dollar-label">$</label>
                                             <b-form-input 
-                                                disabled
                                                 style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('food', true, data)"                                    
+                                                v-model="foodItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('food', false, data)"                                    
+                                                v-model="foodItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">                                    
+                                    <div v-if="data.value == 'Household supplies'" class="item-rows">
+                                        <p>
+                                            Household supplies such as cleaning supplies, lightbulbs, 
+                                            batteries, toilet paper and laundry detergent
+                                        </p>
+                                    </div> 
+                                    <div v-else class="item-rows">
+                                        {{ data.value }}
+                                    </div>                               
+                                </template>
+                        </b-table>                       
+                    </div>
+
+                    <!-- transportation -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Transportation
+                        </b-row>                        
+                        <b-table
+                            :key="transportTableKey"
+                            :items="transportItem"
+                            :fields="expenseFields"                   
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('transport', true, data)"                                    
+                                                v-model="transportItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('transport', false, data)"                                    
+                                                v-model="transportItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">
+                                    <div class="item-rows">
+                                        {{ data.value }}
+                                    </div>                               
+                                </template>
+                        </b-table>                       
+                    </div>
+
+                    <!-- clothing -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Clothing & Self-care
+                        </b-row>                        
+                        <b-table
+                            :key="clothingTableKey"
+                            :items="clothingItem"
+                            :fields="expenseFields"                   
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('clothing', true, data)"                                    
+                                                v-model="clothingItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('clothing', false, data)"                                    
+                                                v-model="clothingItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">
+                                    <div class="item-rows">
+                                        {{ data.value }}
+                                    </div>                               
+                                </template>
+                        </b-table>                       
+                    </div>
+
+                    <!-- health -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Health & Medical
+                        </b-row>                        
+                        <b-table
+                            :key="healthTableKey"
+                            :items="healthItem"
+                            :fields="expenseFields"                   
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('health', true, data)"                                    
+                                                v-model="healthItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('health', false, data)"                                    
+                                                v-model="healthItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">
+                                    <div class="item-rows">
+                                        {{ data.value }}
+                                    </div>                               
+                                </template>
+                        </b-table>                       
+                    </div>
+
+                    <!-- children -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Children
+                        </b-row>                        
+                        <b-table
+                            :key="childrenTableKey"
+                            :items="childrenItem"
+                            :fields="expenseFields"                   
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('children', true, data)"                                    
+                                                v-model="childrenItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('children', false, data)"                                    
+                                                v-model="childrenItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">
+                                    <div class="item-rows">
+                                        {{ data.value }}
+                                    </div>                               
+                                </template>
+                        </b-table>                       
+                    </div>
+
+                    <!-- miscellaneous -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Miscellaneous/Other
+                        </b-row>                        
+                        <b-table
+                            :key="miscellaneousTableKey"
+                            :items="miscellaneousItem"
+                            :fields="expenseFields"                   
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('miscellaneous', true, data)"                                    
+                                                v-model="miscellaneousItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('miscellaneous', false, data)"                                    
+                                                v-model="miscellaneousItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">
+                                    <div class="item-rows">
+                                        {{ data.value }}
+                                    </div>                               
+                                </template>
+                        </b-table>                       
+                    </div>
+
+                    <!-- premiums -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Premiums, Contributions and Debt Repayment
+                        </b-row>                        
+                        <b-table
+                            :key="premiumsTableKey"    
+                            :items="premiumsItem"
+                            :fields="expenseFields"                   
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('premiums', true, data)"                                    
+                                                v-model="premiumsItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('premiums', false, data)"                                    
+                                                v-model="premiumsItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">
+                                    <div class="item-rows">
+                                        {{ data.value }}
+                                    </div>                               
+                                </template>
+                        </b-table>                       
+                    </div>
+
+                    <!-- tax -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Reserve for income tax
+                        </b-row>                        
+                        <b-table
+                            :key="taxTableKey"    
+                            :items="taxItem"
+                            :fields="expenseFields"                   
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('tax', true, data)"                                    
+                                                v-model="taxItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('tax', false, data)"                                    
+                                                v-model="taxItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">
+                                    <div class="item-rows">
+                                        {{ data.value }}
+                                    </div>                               
+                                </template>
+                        </b-table>                       
+                    </div>
+
+                    <!-- other -->
+                    <div>
+                        <b-row class="bg-warning ml-0 text-white pl-2" style="width: 100%; font-weight: 700;">
+                            Other
+                        </b-row>                        
+                        <b-table
+                            :key="otherTableKey"
+                            :items="otherItem"
+                            :fields="expenseFields"                   
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('other', true, data)"                                    
+                                                v-model="otherItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                style="float:left;margin-left:0.1rem;width:85%;"
+                                                @change="inputValueChanged('other', false, data)"                                    
+                                                v-model="otherItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(amountName)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">
+                                        <b-form>
+                                            <label style="float:left;margin:0.5rem 0.5rem; font-weight: 700;">
+                                                <i>{{ data.value }}</i>
+                                            </label>
+                                            <b-form-textarea
+                                                style="float:left;margin-left:0.3rem; width:85% !important;"                                                                                    
+                                                v-model="otherDesc">
+                                            </b-form-textarea>
+                                        </b-form>
+                                    </div>                                    
+                                </template>
+                        </b-table>                       
+                    </div> 
+
+                    <!-- total -->
+                    <div>
+                        <b-row class="bg-primary ml-0 text-primary pl-2" style="width: 100%; font-weight: 700;">
+                            Total Expenses
+                        </b-row>                        
+                        <b-table
+                            :key="tableKey"
+                            :items="totalExpensesItem"
+                            :fields="expenseFields"                                                        
+                            small                    
+                            bordered>
+                                <template v-slot:cell(yearlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                disabled    
+                                                style="float:left;margin-left:0.1rem;width:85%;"                                                                                   
+                                                v-model="totalExpensesItem[data.index][data.field.key]"
+                                                type="number">
+                                            </b-form-input>
+                                        </b-form>
+                                    </div>                                
+                                </template>
+                                <template v-slot:cell(monthlyAmount)="data">
+                                    <div style="text-align:left;font-size:12pt;color:#000">                            
+                                        <b-form>
+                                            <label class="dollar-label">$</label>
+                                            <b-form-input 
+                                                disabled
+                                                style="float:left;margin-left:0.1rem;width:85%;"                                                                                
                                                 v-model="totalExpensesItem[data.index][data.field.key]"
                                                 type="number">
                                             </b-form-input>
@@ -427,8 +536,8 @@
                                     </div>                                
                                 </template>
                                 <template v-slot:cell(amountName)="data">
-                                    <div v-if="data" class="total-rows">
-                                        Annual income for child support purposes
+                                    <div class="total-rows">
+                                        {{ data.value }}
                                     </div>                                
                                 </template>
                         </b-table>                        
@@ -471,6 +580,18 @@ export default class ExpensesFs extends Vue {
     currentStep =0;
     currentPage =0;  
     tableKey = 0;
+    housingTableKey = 0;
+    foodTableKey = 0;
+    transportTableKey = 0;
+    clothingTableKey = 0;
+    healthTableKey = 0;
+    childrenTableKey = 0;
+    miscellaneousTableKey = 0;
+    premiumsTableKey = 0;
+    taxTableKey = 0;
+    otherTableKey = 0;
+
+    otherDesc = "";
 
     expenseFields = [
         {key:"amountName",      label:"Expenses",       tdClass:"border-left-0 align-middle",   thClass:"text-primary border-left-0",   thStyle:"font-size:12pt; width:60%;"}, 
@@ -523,19 +644,16 @@ export default class ExpensesFs extends Vue {
     ];
 
     taxItem = [
-        {amountName: "(amount of income tax you pay)",  monthlyAmount: 0,   yearlyAmount: 0}
+        {amountName: "amount of income tax you pay",  monthlyAmount: 0,   yearlyAmount: 0}
     ];
 
     otherItem = [
-        {amountName: "other",  monthlyAmount: 0,   yearlyAmount: 0}
-    ];   
-
+        {amountName: "Specify:",  monthlyAmount: 0,   yearlyAmount: 0}
+    ];
     
     totalExpensesItem = [
-        {amountName: "total",  monthlyAmount: 0,   yearlyAmount: 0}
+        {amountName: "Total",  monthlyAmount: 0,   yearlyAmount: 0}
     ];
-
-    
 
     mounted(){        
         this.reloadPageInformation();
@@ -587,6 +705,8 @@ export default class ExpensesFs extends Vue {
             if(expenseData.total){
                 this.totalExpensesItem = expenseData.total;
             }
+
+            this.otherDesc = expenseData.otherDesc?expenseData.otherDesc:''; 
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }      
@@ -601,10 +721,111 @@ export default class ExpensesFs extends Vue {
                 this.housingItem[data.index].monthlyAmount = this.housingItem[data.index].yearlyAmount/12;
             else
                 this.housingItem[data.index].yearlyAmount = 12 * this.housingItem[data.index].monthlyAmount;        
+            this.housingTableKey++
+        
+        } else if(tableName == 'food'){
+            if(amountType)
+                this.foodItem[data.index].monthlyAmount = this.foodItem[data.index].yearlyAmount/12;
+            else
+                this.foodItem[data.index].yearlyAmount = 12 * this.foodItem[data.index].monthlyAmount;        
+            this.foodTableKey++
+        
+        } else if(tableName == 'transport'){
+            if(amountType)
+                this.transportItem[data.index].monthlyAmount = this.transportItem[data.index].yearlyAmount/12;
+            else
+                this.transportItem[data.index].yearlyAmount = 12 * this.transportItem[data.index].monthlyAmount;        
+            this.transportTableKey++
+        
+        } else if(tableName == 'clothing'){
+            if(amountType)
+                this.clothingItem[data.index].monthlyAmount = this.clothingItem[data.index].yearlyAmount/12;
+            else
+                this.clothingItem[data.index].yearlyAmount = 12 * this.clothingItem[data.index].monthlyAmount;        
+            this.clothingTableKey++
+        
+        } else if(tableName == 'health'){
+            if(amountType)
+                this.healthItem[data.index].monthlyAmount = this.healthItem[data.index].yearlyAmount/12;
+            else
+                this.healthItem[data.index].yearlyAmount = 12 * this.healthItem[data.index].monthlyAmount;        
+            this.healthTableKey++
+        
+        } else if(tableName == 'children'){
+            if(amountType)
+                this.childrenItem[data.index].monthlyAmount = this.childrenItem[data.index].yearlyAmount/12;
+            else
+                this.childrenItem[data.index].yearlyAmount = 12 * this.childrenItem[data.index].monthlyAmount;        
+            this.childrenTableKey++
+        
+        } else if(tableName == 'miscellaneous'){
+            if(amountType)
+                this.miscellaneousItem[data.index].monthlyAmount = this.miscellaneousItem[data.index].yearlyAmount/12;
+            else
+                this.miscellaneousItem[data.index].yearlyAmount = 12 * this.miscellaneousItem[data.index].monthlyAmount;        
+            this.miscellaneousTableKey++
+        
+        } else if(tableName == 'premiums'){
+            if(amountType)
+                this.premiumsItem[data.index].monthlyAmount = this.premiumsItem[data.index].yearlyAmount/12;
+            else
+                this.premiumsItem[data.index].yearlyAmount = 12 * this.premiumsItem[data.index].monthlyAmount;        
+            this.premiumsTableKey++
+        
+        } else if(tableName == 'tax'){
+            if(amountType)
+                this.taxItem[data.index].monthlyAmount = this.taxItem[data.index].yearlyAmount/12;
+            else
+                this.taxItem[data.index].yearlyAmount = 12 * this.taxItem[data.index].monthlyAmount;        
+            this.taxTableKey++
+        
+        } else if(tableName == 'other'){
+            if(amountType)
+                this.otherItem[data.index].monthlyAmount = this.otherItem[data.index].yearlyAmount/12;
+            else
+                this.otherItem[data.index].yearlyAmount = 12 * this.otherItem[data.index].monthlyAmount;        
+            this.otherTableKey++
+        
         }
 
-        //TODO: add all
-        this.totalExpensesItem[0].yearlyAmount = Number(this.housingItem[0].yearlyAmount);
+        const totalMonthlyHousing = this.housingItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyHousing = this.housingItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyFood = this.foodItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyFood = this.foodItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyTransport = this.transportItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyTransport = this.transportItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyClothing = this.clothingItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyClothing = this.clothingItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyHealth = this.healthItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyHealth = this.healthItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyChildren = this.childrenItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyChildren = this.childrenItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyMiscellaneous = this.miscellaneousItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyMiscellaneous = this.miscellaneousItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyPremiums = this.premiumsItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyPremiums = this.premiumsItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyTax = this.taxItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyTax = this.taxItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+
+        const totalMonthlyOther = this.otherItem.reduce((sum, amount) => sum + Number(amount.monthlyAmount), 0);
+        const totalYearlyOther = this.otherItem.reduce((sum, amount) => sum + Number(amount.yearlyAmount), 0);
+       
+        this.totalExpensesItem[0].monthlyAmount = totalMonthlyHousing + totalMonthlyFood + totalMonthlyTransport
+                                                    + totalMonthlyClothing + totalMonthlyHealth + totalMonthlyChildren
+                                                    + totalMonthlyMiscellaneous + totalMonthlyPremiums + totalMonthlyTax
+                                                    + totalMonthlyOther;
+        this.totalExpensesItem[0].yearlyAmount = totalYearlyHousing + totalYearlyFood + totalYearlyTransport
+                                                    + totalYearlyClothing + totalYearlyHealth + totalYearlyChildren
+                                                    + totalYearlyMiscellaneous + totalYearlyPremiums + totalYearlyTax
+                                                    + totalYearlyOther;
         this.tableKey ++;
     }
 
@@ -642,10 +863,11 @@ export default class ExpensesFs extends Vue {
             premiums: this.premiumsItem,
             tax: this.taxItem,
             other: this.otherItem,
-            total: this.totalExpensesItem
+            total: this.totalExpensesItem,
+            otherDesc: this.otherDesc
         }
 
-        return result
+        return result;
     }
     
     beforeDestroy() {        
