@@ -10,12 +10,16 @@
             <p v-else>
                 If your document was accepted and stamped by the registry you will need to 
                 complete the following steps as outlined in your checklist:
-            </p>        
-
+            </p>   
             
-            <affidavit-of-personal-service-of-protection
+            <affidavit-of-personal-service
                 v-if="affidavitPersonalServiceApp.exist"                
                 :instructionsStep="affidavitPersonalServiceApp.step"  
+            />
+            
+            <affidavit-of-personal-service-of-protection
+                v-if="affidavitPersonalServicePoApp.exist"                
+                :instructionsStep="affidavitPersonalServicePoApp.step"  
             />
 
             <consent-adjournment
@@ -93,6 +97,7 @@ import ServeFinancialStatementOnOtherParty from "./postFilingStepsOther/ServeFin
 import ServeNoticeOfIntentionToProceedOnOtherParty from "./postFilingStepsOther/ServeNoticeOfIntentionToProceedOnOtherParty.vue"
 import WhatMustDoSection from "./postFilingStepsOther/WhatMustDoSection.vue"
 import ScheduleTrialWithJudicialCaseManager from "./postFilingStepsOther/ScheduleTrialWithJudicialCaseManager.vue"
+import AffidavitOfPersonalService from "./postFilingStepsOther/AffidavitOfPersonalService.vue"
 import AffidavitOfPersonalServiceOfProtection from "./postFilingStepsOther/AffidavitOfPersonalServiceOfProtection.vue"
 import ConsentAdjournment from "./postFilingStepsOther/ConsentAdjournment.vue"
 import ConsentToInformalTrialKamloops from "./postFilingStepsOther/ConsentToInformalTrialKamloops.vue"
@@ -107,6 +112,7 @@ import NoticeOfExemptionFromParentingEducationProgram from "./postFilingStepsOth
         ServeNoticeOfIntentionToProceedOnOtherParty,
         WhatMustDoSection,
         ScheduleTrialWithJudicialCaseManager,
+        AffidavitOfPersonalService,
         AffidavitOfPersonalServiceOfProtection,
         ConsentAdjournment,
         ConsentToInformalTrialKamloops,
@@ -134,6 +140,7 @@ export default class InstructionsOtherForms extends Vue {
     serveApps: {sevenDays:boolean, type: string; step: number}[] = [];
     financialStatementApp = {exist:false, step: 0}
     noticeOfIntentionApp = {exist:false, step: 0}
+    affidavitPersonalServicePoApp = {exist:false, step: 0}
     affidavitPersonalServiceApp = {exist:false, step: 0}
     consentAdjournmentApp = {exist:false, step: 0}
     consentInformalTrialKamloopsApp = {exist:false, step: 0}
@@ -201,9 +208,14 @@ export default class InstructionsOtherForms extends Vue {
 
             let step = 1;
 
-            if(apps.includes('APSP')){ 
+            if(apps.includes('APS')){ 
                 this.noInstructions = false
                 this.affidavitPersonalServiceApp = {exist:true, step: step++}
+            }
+
+            if(apps.includes('APSP')){ 
+                this.noInstructions = false
+                this.affidavitPersonalServicePoApp = {exist:true, step: step++}
             }
             if(apps.includes('CONA')){ 
                 this.noInstructions = false
