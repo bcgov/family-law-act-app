@@ -328,9 +328,8 @@ export interface legalDutyAnotherPersonFSSurveyInfoType {
 }
 
 export interface otherCircumstancesFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    otherCircumstancesExist?: string;   
+    otherCircumstancesDetails?: string;
 }
   
 export interface otherCircumstancesFSSurveyInfoType {
@@ -342,9 +341,8 @@ export interface otherCircumstancesFSSurveyInfoType {
 }
 
 export interface affidavitFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    fsConfirmation?: string;
+    fsDisclosure?: string;
 }
   
 export interface affidavitFSSurveyInfoType {

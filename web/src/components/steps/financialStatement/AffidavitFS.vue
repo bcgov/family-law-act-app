@@ -17,26 +17,19 @@ import surveyJson from "./forms/affidavit-fs.json";
 import PageBase from "../PageBase.vue";
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 
 @Component({
     components:{
         PageBase
     }
 })
-export default class ElectronicFilingStatementFs extends Vue {
+export default class AffidavitFs extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
+    step!: stepInfoType;   
 
     @applicationState.Action
-    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void   
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
@@ -68,11 +61,7 @@ export default class ElectronicFilingStatementFs extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-            }
+            
         })
     }
     
@@ -81,58 +70,13 @@ export default class ElectronicFilingStatementFs extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;            
 
-        if (this.step.result?.electronicFilingStatementFsSurvey) {            
-            this.survey.data = this.step.result.electronicFilingStatementFsSurvey.data;   
-                     
+        if (this.step.result?.affidavitFSSurvey?.data) {            
+            this.survey.data = this.step.result.affidavitFSSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        } else {
-            this.survey.setValue('OtherPartyInfoEfsp',[]); 
-            this.survey.setValue('PartyInfoEfsp',[]); 
-        }
+        } 
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
-    }    
-
-    public mergeRespondants(){
-
-        const respondentNames = [];
-
-        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondents){
-            const respondents = this.$store.state.Application.steps[0].result.respondents        
-            respondentNames.push(...respondents)
-        }
-
-        if(this.survey.data?.Lawyer){
-
-            const applicantIsLawyer = this.survey.data.Lawyer == 'y';
-
-            if (applicantIsLawyer){
-
-                if(this.survey.data?.PartyInfoEfsp && this.survey.data?.PartyInfoEfsp.length>0){
-                    const respondentNamesEfsp = this.survey.data.PartyInfoEfsp.map(party=>party.name)
-                    respondentNames.push(...respondentNamesEfsp)
-                } 
-
-            } else {
-                if(this.survey.data?.OtherPartyInfoEfsp && this.survey.data?.OtherPartyInfoEfsp.length>0){
-                    const respondentNamesEfsp = this.survey.data.OtherPartyInfoEfsp.map(otherParty=>otherParty.name)
-                    respondentNames.push(...respondentNamesEfsp)
-                } 
-            }
-        }        
-        
-        const fullNamesArray =[];
-        for(const name of respondentNames ){
-            fullNamesArray.push(Vue.filter('getFullName')(name))
-        }
-
-        const uniqueArray = respondentNames.filter(function(item, index) {
-            const fullName = Vue.filter('getFullName')(item)
-            return fullNamesArray.indexOf(fullName) == index;
-        })
-        
-        this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
-    }
+    }   
    
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage()
@@ -144,18 +88,10 @@ export default class ElectronicFilingStatementFs extends Vue {
         }
     }  
     
-    beforeDestroy() {
-
-        this.mergeRespondants();
-
-        if(this.survey.data?.["ApplicantName"]) {
-            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-            this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
-        }
+    beforeDestroy() {        
         
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {electronicFilingStatementFsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
+        this.UpdateStepResultData({step:this.step, data: {affidavitFSSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

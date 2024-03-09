@@ -1,107 +1,51 @@
 {
-  "title": "Electronic Filing Statement",
+  "title": "Affidavit",
   "pages": [
     {
-        "name": "Electronic Filing Statement",
-        "description": "<a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section193'>Rule 193</a> states that an affidavit or other signed document that is being filed for evidentiary purposes must be accompanied by an <a target='_blank' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa768.pdf?forcedownload=true'>Electronic Filing Statement in Form 51</a>. This pathway will help you complete it.<br><br>The Electronic Filing Statement is used to advise the court that the document you are filing electronically shows an original signature of the person identified and that the electronic version appears to be a true copy of the original paper version.<br><br>You must keep the original paper version of the document until the earliest of<ol style='list-style-type: lower-roman'><li>the date the proceeding, including any appeals, is completed</li><li>the date the appeal period has expired, if no appeal is filed</li><li>the date on which a judge orders the paper version be filed</li></ol>Note: If you are swearing or affirming the affidavit over video, please refer to <a href='http://www.provincialcourt.bc.ca/downloads/Practice%20Directions/NP%2020%20Affidavits%20for%20use%20in%20Court%20Proceedings.pdf' target='_blank'>NP21 Affidavits for use in Court Proceedings</a> to make sure you meet the necessary requirements of the Provincial Court.",
+        "name": "Affidavit",
+        "description": "The Financial Statement is used to present evidence to the court. It is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book) or affirm (non-religious promise) to be true. After you swear or affirm the affidavit, it is evidence of the facts and events it sets out, just as if you took the stand in a courtroom to provide those facts.",
         "elements": [
+
             {
-                "type": "yesno",
-                "name": "Lawyer",
-                "title": "Are you a lawyer filing the affidavit on behalf of a party?",
-                "isRequired": true
+                "type": "helptext",
+                "name": "FAQLegalAdvice",
+                "title": "How do I swear or affirm an affidavit?",
+                "titleLocation": "hidden",              
+                "body": "To swear or affirm an affidavit, you must meet with a commissioner for taking oaths. The commissioner will check your photo ID to make sure you are who you say you are, ask you if you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true. The commissioner will then watch you sign the document before signing it themselves.<br><br>If you do not speak or read English, you can bring an interpreter with you when you meet with the commissioner. For information about interpreters and language help, click on the Language Resources link on the bottom toolbar.<br><br>Lawyers, notary publics and many court registry staff are commissioners for taking oaths. You can go to any <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>Provincial Court Registry</a> or <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=FD6DB5BA2A5248038EEF54D9F9F37C4D'>Service BC location</a> to swear or affirm the affidavit. If you have the document sworn or affirmed at a different court registry, you will still need to file it at the court registry where the existing case is filed."
             },
             {
-                "type": "panel",
-                "name": "ApplicantLawyerContactPanel",
-                "visible": false,
-                "visibleIf": "{Lawyer} = 'y'",
-                "elements": [
-                    {
-                        "type": "personname",
-                        "name": "ApplicantName",
-                        "title": "What is your full name?",
-                        "description": "This is the name of the lawyer. If you are filing out this form for the lawyer, fill in their name.",                  
-                        "isRequired": true,    
-                        "visible": false,
-                        "visibleIf": "{Lawyer} = 'y'",          
-                        "defaultSubstitution": "(Applicant Name)",
-                        "descFirstName": "First Name is also known as Given Name",
-                        "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
-                        "descLastName": "Last Name is also known as Family Name or Surname"
-                    },
-                    {
-                        "type": "panel",
-                        "name": "PartyPanelEfsp",             
-                        "elements": [
-                            {
-                                "isRequired": true,  
-                                "visible": false,
-                                "visibleIf": "{Lawyer} = 'y'",
-                                "type": "paneldynamic",
-                                "name": "PartyInfoEfsp",
-                                "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the name of the party you are representing?</b>",
-                                "description": "Copy the name from a filed document.",                            
-                                "templateElements": [
-                                {
-                                    "type": "personname",
-                                    "name": "name",
-                                    "title": " ",
-                                    "titleLocation": "hidden"
-                                }
-                                ]
-                            }
-                        ]
-                    }
-                ]
+                "type": "html",
+                "name": "affidavitHeading",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Do not sign the affidavit until you are with a commissioner for taking affidavits and they tell you to sign it. Make sure that you bring any documents you are attaching to your affidavit as exhibits with you. The commissioner will also need to date and sign the exhibits.</div><br>If you cannot get the document sworn or affirmed before the document is filed, the unsworn document can be filed if you will be avail­able to swear or affirm that the contents of the document are true during your court appearance.</div>"
             },
             {
-                "type": "panel",
-                "name": "ApplicantPartyContactPanel",
-                "visible": false,
-                "visibleIf": "{Lawyer} = 'n'",
-                "elements": [
-                    {
-                        "type": "personname",
-                        "name": "ApplicantName",
-                        "title": "What is your full name?",
-                        "description": "This is the name of the party who is filing the affidavit. If you are filing out this form for the party, fill in their name.<br>Copy the name from any filed document.",                  
-                        "isRequired": true,        
-                        "visible": false,
-                        "visibleIf": "{Lawyer} = 'n'",      
-                        "defaultSubstitution": "(Applicant Name)",
-                        "descFirstName": "First Name is also known as Given Name",
-                        "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
-                        "descLastName": "Last Name is also known as Family Name or Surname"
-                    }                
-                ]
-            },
-            {
-                "type": "panel",
-                "name": "ContactInformationOtherPartyPanel",             
-                "elements": [
-                    {
-                        "isRequired": true,  
-                        "type": "paneldynamic",
-                        "name": "OtherPartyInfoEfsp",                        
-                        "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;'>What is the full name of the other party?</b>",
-                        "description": "Copy the name from any filed document.",                            
-                        "templateElements": [
-                            {
-                                "type": "personname",
-                                "name": "name",
-                                "title": " ",
-                                "titleLocation": "hidden"
-                            }
-                        ]
-                    }
-                ]
-            },
+                "type": "html",
+                "name": "confirmationHeading",
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Please confirm each of the following statements, if true:</div>The information set out in this financial statement is true, to the best of my knowledge.</div>"
+            },            
             {
                 "type": "checkbox",
-                "name": "StatementConfirmation",
-                "title": "Please confirm the following statement, if true:",
-                "description": "The original paper version of the document being submitted for filing electronically appears to have the original signature of the person identified as signing it and I have no reason to believe that the signature on the document is not their signature.<br><br>The version of the document that is being submitted for filing electronically appears to be a true copy of the original paper version of the document and I have no reason to believe that it is not a true copy of the original paper version.",
+                "name": "fsConfirmation",
+                "titleLocation": "hidden",
+                "title": "",
+                "choices": [
+                    {
+                        "value": "confirm",
+                        "text": "I confirm"
+                    }
+                ],
+                "isRequired": true
+            },   
+            {
+                "type": "html",
+                "name": "disclosureHeading",            
+                "html": "<div style='margin-bottom:-0.75rem'>I have made complete disclosure in this financial statement of:<ul><li>my income, including benefits and adjustments, if any</li><li>my expenses and debts</li><li>my assets</li><li>income of other person(s) in my household</li><li>undue hardship</li></ul></div>"
+            },         
+            {
+                "type": "checkbox",
+                "name": "fsDisclosure",
+                "titleLocation": "hidden",
+                "title": "",
                 "choices": [
                     {
                         "value": "confirm",
@@ -111,7 +55,7 @@
                 "isRequired": true
             } 
         ],
-      "title": "Electronic Filing Statement"
+      "title": "Affidavit"
     }
   ],
   "showQuestionNumbers": "off",

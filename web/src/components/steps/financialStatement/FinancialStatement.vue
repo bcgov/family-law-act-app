@@ -10,16 +10,17 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/financial-statement.json";
+import _ from 'underscore';
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
-import { togglePages } from '@/components/utils/TogglePages';
-import _ from 'underscore';
 const applicationState = namespace("Application");
+
+import { togglePages } from '@/components/utils/TogglePages';
 
 @Component({
     components:{
@@ -93,8 +94,8 @@ export default class FinancialStatement extends Vue {
 
         const fsData = this.survey.data;
         const p = this.stPgNo.FS;
-        const allPages = _.range(this.stPgNo.FS.IncomeInformation, Object.keys(p).length-2) 
-        console.log(allPages)
+        const allPages = _.range(this.stPgNo.FS.IncomeInformation, Object.keys(p).length-2); 
+       
         togglePages(allPages, false, this.currentStep); 
         
         const situationTypes = fsData.situationType?fsData.situationType:[];
@@ -136,7 +137,7 @@ export default class FinancialStatement extends Vue {
         const part2and3Pages = [p.ExpensesFS, p.DebtsFS, p.AssetsFS];
         const part4Pages = [p.IncomeOtherPersonHouseholdFS];
         const part5Pages = [p.UndueHardshipFS];
-        const commonPages = [p.UnusuallyHighExpensesFS, p.LegalDutyDependentChildFS, p.LegalDutyAnotherPersonFS, p.OtherCircumstancesFS, p.AffidavitFS, p.AboutAffiantFs, p.FilingFS];
+        const commonPages = [p.UnusuallyHighExpensesFS, p.LegalDutyDependentChildFS, p.LegalDutyAnotherPersonFS, p.OtherCircumstancesFS, p.AffidavitFS, p.AboutAffiantFs, p.ReviewYourAnswersFS];
 
         if (part1Required){
             togglePages(part1Pages, true, this.currentStep);
@@ -156,6 +157,10 @@ export default class FinancialStatement extends Vue {
 
         if (part1Required || part2and3Required || part4Required || part5Required){
             togglePages(commonPages, true, this.currentStep);   
+            
+            const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
+            togglePages([p.FilingFS], filingMethod == 'eFile', this.currentStep);
+            
             Vue.filter('setSurveyProgress')(null, this.currentStep, p.FilingFS, 0, false); 
             Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFS, 0, false);        
         } 

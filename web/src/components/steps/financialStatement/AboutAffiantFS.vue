@@ -14,7 +14,7 @@ import surveyJson from "./forms/about-affiant-fs.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { electronicFilingDocumentInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import "@/store/modules/application";
 import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
@@ -31,13 +31,19 @@ export default class AboutAffiantFs extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;    
+    public stPgNo!: stepsAndPagesNumberInfoType;  
+    
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
@@ -69,7 +75,10 @@ export default class AboutAffiantFs extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-                              
+            if(options.name == "ApplicantName") {
+                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
+            }                              
         })   
     }
 
@@ -96,7 +105,29 @@ export default class AboutAffiantFs extends Vue {
         }
     }
 
+    public setEfsDocumentList(ApplicantName){
+       
+        const efsDocumentList: electronicFilingDocumentInfoType[] = this.steps[this.stPgNo.GETSTART._StepNo].result?.fsEfsDocuments?.length>0?this.steps[this.stPgNo.GETSTART._StepNo].result.fsEfsDocuments:[];
+        efsDocumentList.push({documentName: 'Financial Statement', efsApplicantName: ApplicantName});
+      
+        return efsDocumentList;
+   }
+
     beforeDestroy() {
+
+        if(this.survey.data?.["ApplicantName"]) {
+            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+            const efsDocumentList = this.setEfsDocumentList(this.survey.data?.["ApplicantName"]);
+
+            const commonData = {
+                'applicantName':this.survey.data["ApplicantName"],
+                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}],
+                'fsEfsDocuments':efsDocumentList
+            };
+            this.UpdateCommonStepResults({data:commonData});
+            
+        }
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {aboutAffiantFsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
