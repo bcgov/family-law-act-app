@@ -1,54 +1,26 @@
 {
    "pages": [
       {
-         "name": "About the Affiant",
-         "description": "An affiant is a person who makes an `affidavit`. An affidavit must be written from the writer’s point of view, using 'I' statements.<br><br>An affidavit starts with an opening paragraph that states the person’s name, their occupation and address.",
-         "elements": [
+         "name": "Unusually high expenses",
+         "elements": [            
             {
-                "type": "personname",
-                "name": "ApplicantName",
-                "title": "What is your full name?",
-                "description": "This is the name of the person whose affidavit it is. If you are helping someone use this service, use their name.",                  
-                "isRequired": true,              
-                "defaultSubstitution": "(Applicant Name)",
-                "descFirstName": "First Name is also known as Given Name",
-                "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
-                "descLastName": "Last Name is also known as Family Name or Surname"
-            },
-            {
-                "type": "text",
-                "name": "ApplicantOccupation",
+                "type": "yesno",
+                "name": "unusualExpensesExist",
                 "isRequired": true,                
-                "title": "What is your job or profession?",
-                "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
+                "title": "Do you have unusually high expenses to exercise parenting time or contact with the child(ren)?",
+                "description": "You may have unusually high expenses because of the extensive time you spend with the child or related to being able to spend time with the child, such as travel expenses."
             },
             {
-                "type": "checkbox",
-                "name": "inCareOf",
-                "title": "What is your address?",
-                "description": "The address you include here will be available to the parties and the court. You do not need to use the address where you live,  especially if you have any safety concerns about someone knowing your address, but you need to be clear if it is not.<br><br>If you are a party to the case, you can include your address for service. If you are not a party, you may want to use your work address. For example, if you are a child’s teacher making the affidavit, you may choose to use the school address instead of your home address.<br><br>If you do not live at the address for service, check the box for “care of”.",
-                "choices": [
-                    "Care of"                 
-                ]
-            },
-            {
-                "type": "address",
-                "name": "ApplicantAddress",                
-                "title": "",
-                "titleLocation": "hidden",
+                "type": "comment",
+                "name": "unusualExpensesDetails",
+                "title": "Please describe the expenses you have.",                
                 "isRequired": true,
-                "referLabel": "Applicant's Address",
-                "validators": [
-                    {
-                        "type": "expression",
-                        "text": "Please Fill in all Required Fields.",
-                        "expression": "{ApplicantAddress.street} notempty and {ApplicantAddress.postcode} notempty and {ApplicantAddress.city} notempty"
-                    }
-                ]
-              }
+                "visible": false,
+                "visibleIf": "{unusualExpensesExist} = 'y'"
+            }
            
          ],
-         "title": "About the Affiant"
+         "title": "Unusually high expenses"
       }
    ],
    "showQuestionNumbers": "off",

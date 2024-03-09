@@ -245,6 +245,7 @@ export interface incomeOtherPersonHouseholdFSDataInfoType {
     adultFullName?: string;
     adultAnnualIncome?: number;
     married?: string;
+    id?: string;
 }
   
 export interface incomeOtherPersonHouseholdFSSurveyInfoType {
@@ -270,13 +271,15 @@ export interface contributionTowardExpensesFSSurveyInfoType {
 }
 
 export interface undueHardshipFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    creditorFullName?: string;
+    debtReason?: string;
+    debTotal?: number;
+    debtAnnualPayment?: number;
+    id?: string;
 }
   
 export interface undueHardshipFSSurveyInfoType {
-    data: undueHardshipFSDataInfoType;
+    data: undueHardshipFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
@@ -284,9 +287,8 @@ export interface undueHardshipFSSurveyInfoType {
 }
 
 export interface unusuallyHighExpensesFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    unusualExpensesExist?: string;    
+    unusualExpensesDetails?: string;
 }
   
 export interface unusuallyHighExpensesFSSurveyInfoType {
@@ -298,13 +300,13 @@ export interface unusuallyHighExpensesFSSurveyInfoType {
 }
 
 export interface legalDutyDependentChildFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    childFullName?: string;
+    monthlyPayment?: number;
+    yearlyPayment?: number;
 }
   
 export interface legalDutyDependentChildFSSurveyInfoType {
-    data: legalDutyDependentChildFSDataInfoType;
+    data: legalDutyDependentChildFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;
@@ -312,13 +314,13 @@ export interface legalDutyDependentChildFSSurveyInfoType {
 }
 
 export interface legalDutyAnotherPersonFSDataInfoType {    
-    affidavitReason?: string;
-    applicationType?: string[];
-    applicationTypeComment?: string;
+    antherPersonFullName?: string;
+    monthlyPayment?: number;
+    yearlyPayment?: number;
 }
   
 export interface legalDutyAnotherPersonFSSurveyInfoType {
-    data: legalDutyAnotherPersonFSDataInfoType;
+    data: legalDutyAnotherPersonFSDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
     currentStep?: number | string;

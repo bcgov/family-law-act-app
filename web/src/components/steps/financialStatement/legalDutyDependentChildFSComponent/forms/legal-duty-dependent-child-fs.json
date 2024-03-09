@@ -1,49 +1,33 @@
 {
-    "title": "Child(ren) Information",
+    "title": "Child Expense Information",
     "pages": [
         {
-            "name": "Child(ren) Information",
-            "elements": [
+            "name": "Child Expense Information",
+            "elements": [                
                 {
-                    "type": "personname",
-                    "name": "childName",
-                    "title": "What is the name of the child?",
+                    "type": "text",
+                    "name": "childFullName",
+                    "title": "What is the full name of the child?",
+                    "isRequired": true
+                },
+                {
+                    "type": "html",
+                    "name": "paymentHeading",
+                    "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>How much do you pay for support of the child?</div>Complete either the monthly or annual amount. This service will calculate the other amount for you.</div>"
+                },                
+                {
+                    "type": "text",
+                    "name": "monthlyPayment",
+                    "title": "Monthly: ",
                     "isRequired": true,
-                    "defaultSubstitution": "{ChildName}"
+                    "inputType": "number"
                 },
                 {
                     "type": "text",
-                    "name": "childDateOfBirth",
-                    "title": "What is the child's date of birth?",
+                    "name": "yearlyPayment",
+                    "title": "Annualy: ",
                     "isRequired": true,
-                    "inputType": "date"
-                },
-                {
-                    "type": "comment",
-                    "name": "relationToChild",
-                    "title": "What is your relationship to the child?",
-                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                    "isRequired": true,
-                    "visible": false,
-                    "visibleIf": "{includesCounter}"
-                },
-                {
-                    "type": "comment",
-                    "name": "childRelationToOtherParty",
-                    "title": "What is the other party's relationship to the child?",
-                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                    "isRequired": true,
-                    "visible": false,
-                    "visibleIf": "{includesCounter}"
-                },
-                {
-                    "type": "text",
-                    "name": "childCurrentlyLivingWith",
-                    "title": "Who is the child currently living with?",
-                    "description": "You can use the name of the person or their relationship to the child.",
-                    "isRequired": true,
-                    "visible": false,
-                     "visibleIf": "{includesCounter}"
+                    "inputType": "number"
                 }
             ]
         }

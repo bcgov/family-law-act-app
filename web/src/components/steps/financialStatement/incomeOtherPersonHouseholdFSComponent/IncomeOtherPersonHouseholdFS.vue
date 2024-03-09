@@ -309,7 +309,7 @@ export default class IncomeOtherPersonHouseholdFS extends Vue {
             questionResults.push({name:'incomeOtherPersonHouseholdFSSurvey', value: this.getAdultInfo(adult), title:'Adult '+adult.id +' Information', inputType:''})
         }
         
-        return {data: this.adultData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
+        return {data: this.adultData, questions:questionResults, pageName:'Income of Other Persons in Household', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
     public getAdultInfo(adult){

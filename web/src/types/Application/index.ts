@@ -405,9 +405,12 @@ export interface stepInfoType {
     incomeOtherPersonHouseholdLiveWithAdult?: string;
     incomeOtherPersonHouseholdFSSurvey?: incomeOtherPersonHouseholdFSSurveyInfoType;
     contributionTowardExpensesFSSurvey?: contributionTowardExpensesFSSurveyInfoType;
+    undueHardshipFsExists?: string;
     undueHardshipFSSurvey?: undueHardshipFSSurveyInfoType;
     unusuallyHighExpensesFSSurvey?: unusuallyHighExpensesFSSurveyInfoType;
+    legalDutyDependentChildFsExists?: string;
     legalDutyDependentChildFSSurvey?: legalDutyDependentChildFSSurveyInfoType;
+    legalDutyAnotherPersonFsExists?: string;
     legalDutyAnotherPersonFSSurvey?: legalDutyAnotherPersonFSSurveyInfoType;
     otherCircumstancesFSSurvey?: otherCircumstancesFSSurveyInfoType;
     affidavitFSSurvey?: affidavitFSSurveyInfoType;  

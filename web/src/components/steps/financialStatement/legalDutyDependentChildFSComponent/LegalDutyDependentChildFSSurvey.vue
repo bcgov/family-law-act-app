@@ -6,7 +6,7 @@
                 <button type="button" class="btn btn-secondary" @click="goBack()">Cancel</button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-success" @click="saveChild()">Save</button>
+                <button type="button" class="btn btn-success" @click="saveChildExpense()">Save</button>
             </div>
         </div>
         <br />
@@ -15,30 +15,19 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import { childInfoType } from '@/types/Application/CommonInformation';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/legal-duty-dependent-child-fs.json";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import { legalDutyDependentChildFSDataInfoType } from '@/types/Application/FinancialStatement';
 
 @Component
-export default class RflmChildrenSurvey extends Vue {
+export default class LegalDutyDependentChildFSSurvey extends Vue {
     
     @Prop({required: true})
-    editRowProp!: Object;   
+    editRowProp!: Object;    
     
-    @Prop({required: true})
-    includesCounter!: string;
-
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-    
-    child = {} as childInfoType;
+    childExpense = {} as legalDutyDependentChildFSDataInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
@@ -64,14 +53,23 @@ export default class RflmChildrenSurvey extends Vue {
     }
     
     public addSurveyListener(){
-        Vue.filter('surveyChanged')('replyFlm')        
+
+        this.survey.onValueChanged.add((sender, options) => {
+            
+            if(options.name == 'monthlyPayment')
+                this.survey.setValue('yearlyPayment',options.value * 12);
+            else if(options.name == 'yearlyPayment')
+                this.survey.setValue('monthlyPayment',options.value/12);
+                              
+        })
+
         this.survey.onComplete.add((sender, options) => {
             this.populateChildModel(sender.data);
             let id = sender.getVariable("id");
             if (id === null || id === undefined) {
-                this.$emit("surveyData", this.child);
+                this.$emit("surveyData", this.childExpense);
             } else {
-                this.$emit("editedData", { ...this.child, id });
+                this.$emit("editedData", { ...this.childExpense, id });
                 id = null;
             }
         });
@@ -88,43 +86,30 @@ export default class RflmChildrenSurvey extends Vue {
             
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })   
-        this.survey.setVariable("includesCounter", this.includesCounter == 'Yes');    
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })      
     }
   
     public goBack() {
         this.$emit("showTable", true);
     }
     
-    public saveChild() {
-        
+    public saveChildExpense() {        
         this.survey.completeLastPage();
     }
 
-    public populateChildModel(childData) {
-        if(childData){
-            this.child.name = childData.childName;       
-            this.child.dob = childData.childDateOfBirth;
-            this.child.relation = childData.relationToChild;
-            this.child.opRelation = childData.childRelationToOtherParty;
-            this.child.currentLiving = childData.childCurrentlyLivingWith;
-            this.child.ack = childData.childInfoAckknowledge;
-            this.child.additionalInfo = childData.childAdditionalInfo;
-            this.child.additionalInfoDetails = childData.additionInfoDetails;
+    public populateChildModel(childExpenseData) {
+        if(childExpenseData){
+            this.childExpense.childFullName = childExpenseData.childFullName;       
+            this.childExpense.monthlyPayment = childExpenseData.monthlyPayment;
+            this.childExpense.yearlyPayment = childExpenseData.yearlyPayment;
         }
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
-        survey.data = {
-            childName: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
-        };
-        survey.setValue("childDateOfBirth", editRowProp.dob);
-        survey.setValue("relationToChild", editRowProp.relation);
-        survey.setValue("childRelationToOtherParty", editRowProp.opRelation);
-        survey.setValue("childCurrentlyLivingWith", editRowProp.currentLiving);
-        survey.setValue("childInfoAckknowledge", editRowProp.ack);
-        survey.setValue("childAdditionalInfo", editRowProp.additionalInfo);
-        survey.setValue("additionInfoDetails", editRowProp.additionalInfoDetails);
+        
+        survey.setValue("childFullName", editRowProp.childFullName);
+        survey.setValue("debtReason", editRowProp.monthlyPayment);
+        survey.setValue("yearlyPayment", editRowProp.yearlyPayment);
         survey.setVariable("id", editRowProp.id);
     }
 

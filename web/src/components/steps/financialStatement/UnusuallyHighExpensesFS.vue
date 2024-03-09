@@ -25,7 +25,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class AboutAffiantFs extends Vue {
+export default class UnusuallyHighExpensesFS extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType;
@@ -35,9 +35,6 @@ export default class AboutAffiantFs extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
@@ -78,8 +75,8 @@ export default class AboutAffiantFs extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result?.aboutAffiantFsSurvey){
-            this.survey.data = this.step.result.aboutAffiantFsSurvey.data; 
+        if (this.step.result?.unusuallyHighExpensesFSSurvey){
+            this.survey.data = this.step.result.unusuallyHighExpensesFSSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);              
         }
         
@@ -98,7 +95,7 @@ export default class AboutAffiantFs extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {aboutAffiantFsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {unusuallyHighExpensesFSSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
