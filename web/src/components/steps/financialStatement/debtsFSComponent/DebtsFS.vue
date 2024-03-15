@@ -3,11 +3,11 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Debts</h1>
+                    <h4 class="page-title">Debts</h4>
                     <p>A debt is an amount of money you owe someone that you have a duty to pay.</p>
 
                     <div>
-                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                        <div class="question">
                             Identify your outstanding debts.
                         </div>
                         <p>
@@ -222,6 +222,20 @@ export default class DebtsFS extends Vue {
     padding-top: 2rem;
     max-width: 950px;
     color: black;
+}
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
+}
+
+.question {
+    color:#556077; 
+    font-size:1.40em; 
+    font-weight:bold;
 }
 .outerSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);

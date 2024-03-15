@@ -3,7 +3,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Investments</h1>
+                    <h4 class="page-title">Investments</h4>
                     <p>
                         Investments can include:
                         <ul>
@@ -74,7 +74,6 @@ import InvestmentsFsSurvey from "./InvestmentsFSSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import PageBase from "../../PageBase.vue";
-
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -209,6 +208,14 @@ export default class InvestmentsFS extends Vue {
     padding-top: 2rem;
     max-width: 950px;
     color: black;
+}
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
 }
 .outerSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);

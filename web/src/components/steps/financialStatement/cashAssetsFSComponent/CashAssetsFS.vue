@@ -3,7 +3,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Cash assets</h1>
+                    <h4 class="page-title">Cash assets</h4>
                     <p>
                         Cash assets include cash you have and any bank accounts with a 
                         balance (even if it is small).
@@ -202,6 +202,14 @@ export default class CashAssetsFS extends Vue {
     padding-top: 2rem;
     max-width: 950px;
     color: black;
+}
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
 }
 .outerSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);

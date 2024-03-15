@@ -3,11 +3,11 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Legal duty – another person</h1>
+                    <h4 class="page-title">Legal duty – another person</h4>
 
                     <div>                        
                         <b-form-group>
-                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                            <div class="question">
                                 Do you have a legal duty to support another person?
                             </div>
                             <p>
@@ -27,7 +27,7 @@
 
                     <div v-if="legalDutyAnotherPersonFsExists == 'Yes'" >
                         
-                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                        <div class="question">
                             Please provide the details about your legal duty to 
                             support another person.
                         </div>
@@ -93,8 +93,6 @@ import PageBase from "../../PageBase.vue";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 @Component({
@@ -106,10 +104,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 export default class LegalDutyAnotherPersonFS extends Vue {
 
     @Prop({required: true})
-    step!: stepInfoType;    
-
-    @applicationState.State
-    public steps!: stepInfoType[];    
+    step!: stepInfoType;        
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -268,6 +263,20 @@ export default class LegalDutyAnotherPersonFS extends Vue {
     padding-top: 2rem;
     max-width: 950px;
     color: black;
+}
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
+}
+
+.question {
+    color:#556077; 
+    font-size:1.40em; 
+    font-weight:bold;
 }
 .childSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);

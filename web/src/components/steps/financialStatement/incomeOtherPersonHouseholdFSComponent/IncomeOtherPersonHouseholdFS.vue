@@ -3,7 +3,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Income of Other Persons in Household</h1>
+                    <h4 class="page-title">Income of Other Persons in Household</h4>
                     <p>
                         To determine if an amount for child support other than the guideline 
                         amount should be paid, the court must look at each household’s 
@@ -17,7 +17,7 @@
 
                     <div>
                         <b-form-group>
-                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                            <div class="question">
                                 Do you live alone?
                             </div>
                             <p>
@@ -36,7 +36,7 @@
 
                     <div v-if="(incomeOtherPersonHouseholdLiveAlone == 'No')">
                         <b-form-group>
-                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                            <div class="question">
                                 How many children live in your home?
                             </div>
                             <p>
@@ -53,7 +53,7 @@
 
                     <div v-if="(incomeOtherPersonHouseholdLiveAlone == 'No')">
                         <b-form-group>
-                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                            <div class="question">
                                 Do you live with another adult?
                             </div>
                             <p>
@@ -72,7 +72,7 @@
 
                     <div v-if="(incomeOtherPersonHouseholdLiveAlone == 'No') && (incomeOtherPersonHouseholdLiveWithAdult == 'Yes')" >
                         
-                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                        <div class="question">
                             Please provide the following details about each other adult 
                             living in your household.
                         </div>
@@ -339,6 +339,19 @@ export default class IncomeOtherPersonHouseholdFS extends Vue {
     padding-top: 2rem;
     max-width: 950px;
     color: black;
+}
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
+}
+.question {
+    color:#556077; 
+    font-size:1.40em; 
+    font-weight:bold;
 }
 .childSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);

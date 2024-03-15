@@ -3,7 +3,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Real Estate</h1>
+                    <h4 class="page-title">Real Estate</h4>
                     <p>Real estate is real property including land and/or buildings.</p>
 
                     <div>                        
@@ -60,16 +60,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
-
-import RealEstateFsSurvey from "./RealEstateFSSurvey.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
-
-import PageBase from "../../PageBase.vue";
-
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import PageBase from "../../PageBase.vue";
+import RealEstateFsSurvey from "./RealEstateFSSurvey.vue";
+
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 @Component({
     components:{
@@ -200,6 +198,15 @@ export default class RealEstateFS extends Vue {
     padding-top: 2rem;
     max-width: 950px;
     color: black;
+}
+
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
 }
 .outerSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);

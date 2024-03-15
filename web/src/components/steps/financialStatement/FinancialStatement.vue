@@ -35,16 +35,16 @@ export default class FinancialStatement extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
     currentPage =0;    
-    disableNextButton = false;
+    disableNextButton = false;    
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -72,6 +72,10 @@ export default class FinancialStatement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {   
 
+            if(this.survey.data?.situationType?.includes('None of the above')){
+                this.survey.setValue('situationType', ['None of the above']);
+            }
+
             this.determineFsRequired(); 
             this.determinePages(true);            
         })
@@ -82,12 +86,11 @@ export default class FinancialStatement extends Vue {
         if(this.survey.data?.spousalAppExists == 'n' && (this.survey.data?.childAppExists == 'n' || 
             (this.survey.data?.childAppExists == 'y' && this.survey.data?.situationType?.includes('None of the above')))){
             this.disableNextButton = true;
-            this.survey.setVariable('fsNotRequired', true);
+            this.survey.setVariable('fsNotRequired', true);            
         } else {
             this.disableNextButton = false;
             this.survey.setVariable('fsNotRequired', false);
         }
-
     }
 
     public determinePages(surveyChanged: boolean){
@@ -97,82 +100,85 @@ export default class FinancialStatement extends Vue {
         const allPages = _.range(this.stPgNo.FS.IncomeInformation, Object.keys(p).length-2); 
        
         togglePages(allPages, false, this.currentStep); 
-        
-        const situationTypes = fsData.situationType?fsData.situationType:[];
-        const part1Options = [
-            "I am the person required to pay child support", 
-            "Parenting time is `split or shared` for one or more of the children", 
-            "There is a claim for section 7 special or extraordinary expenses",
-            "There is a child 19 years or older for whom support is being applied for",
-            "A party has been acting as a parent to a child of the other party",
-            "The payor earns more than $150,000 per year",
-            "I am claiming undue hardship",
-            "The other party is claiming undue hardship"
-        ];
-        const part2and3Options = [            
-            "Parenting time is `split or shared` for one or more of the children", 
-            "There is a claim for section 7 special or extraordinary expenses",
-            "There is a child 19 years or older for whom support is being applied for",
-            "A party has been acting as a parent to a child of the other party",
-            "The payor earns more than $150,000 per year",
-            "I am claiming undue hardship",
-            "The other party is claiming undue hardship"
-        ];
 
-        const part4Options = [
-            "I am claiming undue hardship",
-            "The other party is claiming undue hardship"
-        ];
+        if(!this.disableNextButton){
 
-        const part5Options = [
-            "I am claiming undue hardship"
-        ];
+            const situationTypes = fsData.situationType?fsData.situationType:[];
+            const part1Options = [
+                "I am the person required to pay child support", 
+                "Parenting time is `split or shared` for one or more of the children", 
+                "There is a claim for section 7 special or extraordinary expenses",
+                "There is a child 19 years or older for whom support is being applied for",
+                "A party has been acting as a parent to a child of the other party",
+                "The payor earns more than $150,000 per year",
+                "I am claiming undue hardship",
+                "The other party is claiming undue hardship"
+            ];
+            const part2and3Options = [            
+                "Parenting time is `split or shared` for one or more of the children", 
+                "There is a claim for section 7 special or extraordinary expenses",
+                "There is a child 19 years or older for whom support is being applied for",
+                "A party has been acting as a parent to a child of the other party",
+                "The payor earns more than $150,000 per year",
+                "I am claiming undue hardship",
+                "The other party is claiming undue hardship"
+            ];
 
-        const part1Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists = 'y' && part1Options.some(s=>situationTypes.indexOf(s) > -1));
-        const part2and3Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists = 'y' && part2and3Options.some(s=>situationTypes.indexOf(s) > -1));
-        const part4Required = fsData.childAppExists = 'y' && part4Options.some(s=>situationTypes.indexOf(s) > -1);
-        const part5Required = fsData.childAppExists = 'y' && part5Options.some(s=>situationTypes.indexOf(s) > -1);
+            const part4Options = [
+                "I am claiming undue hardship",
+                "The other party is claiming undue hardship"
+            ];
 
-        const part1Pages = [p.IncomeInformation, p.ChangesIncomeFS, p.IncomeSummaryFS, p.DisclosureInformationFS];
-        const part2and3Pages = [p.ExpensesFS, p.DebtsFS, p.AssetsFS];
-        const part4Pages = [p.IncomeOtherPersonHouseholdFS];
-        const part5Pages = [p.UndueHardshipFS];
-        const commonPages = [p.UnusuallyHighExpensesFS, p.LegalDutyDependentChildFS, p.LegalDutyAnotherPersonFS, p.OtherCircumstancesFS, p.AffidavitFS, p.AboutAffiantFs, p.ReviewYourAnswersFS];
+            const part5Options = [
+                "I am claiming undue hardship"
+            ];
 
-        if (part1Required){
-            togglePages(part1Pages, true, this.currentStep);
-        } 
-        
-        if (part2and3Required){
-            togglePages(part2and3Pages, true, this.currentStep);
-        }          
+            const part1Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists = 'y' && part1Options.some(s=>situationTypes.indexOf(s) > -1));
+            const part2and3Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists = 'y' && part2and3Options.some(s=>situationTypes.indexOf(s) > -1));
+            const part4Required = fsData.childAppExists = 'y' && part4Options.some(s=>situationTypes.indexOf(s) > -1);
+            const part5Required = fsData.childAppExists = 'y' && part5Options.some(s=>situationTypes.indexOf(s) > -1);
 
-        if (part4Required){
-            togglePages(part4Pages, true, this.currentStep);
-        }  
+            const part1Pages = [p.IncomeInformation, p.ChangesIncomeFS, p.IncomeSummaryFS, p.DisclosureInformationFS];
+            const part2and3Pages = [p.ExpensesFS, p.DebtsFS, p.AssetsFS];
+            const part4Pages = [p.IncomeOtherPersonHouseholdFS];
+            const part5Pages = [p.UndueHardshipFS];
+            const commonPages = [p.UnusuallyHighExpensesFS, p.LegalDutyDependentChildFS, p.LegalDutyAnotherPersonFS, p.OtherCircumstancesFS, p.AffidavitFS, p.AboutAffiantFs, p.ReviewYourAnswersFS];
 
-        if (part5Required){
-            togglePages(part5Pages, true, this.currentStep);
-        }  
-
-        if (part1Required || part2and3Required || part4Required || part5Required){
-            togglePages(commonPages, true, this.currentStep);   
+            if (part1Required){
+                togglePages(part1Pages, true, this.currentStep);
+            } 
             
-            const filingMethod = this.step.result.otherFormsSurvey?.data?.filingMethod?this.step.result.otherFormsSurvey.data.filingMethod:'';        
-            togglePages([p.FilingFS], filingMethod == 'eFile', this.currentStep);
-            
-            Vue.filter('setSurveyProgress')(null, this.currentStep, p.FilingFS, 0, false); 
-            Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFS, 0, false);        
-        } 
+            if (part2and3Required){
+                togglePages(part2and3Pages, true, this.currentStep);
+            }          
 
-        if(surveyChanged){
-            for (const page of allPages){
-                Vue.filter('setSurveyProgress')(null, this.currentStep, page, 0, false); 
+            if (part4Required){
+                togglePages(part4Pages, true, this.currentStep);
+            }  
+
+            if (part5Required){
+                togglePages(part5Pages, true, this.currentStep);
+            }  
+
+            if (part1Required || part2and3Required || part4Required || part5Required){
+                togglePages(commonPages, true, this.currentStep);   
+
+                if (this.steps[this.stPgNo.OTHER._StepNo].result?.otherFormsSurvey?.data?.filingMethod){
+                
+                    const filingMethod = this.steps[this.stPgNo.OTHER._StepNo].result.otherFormsSurvey.data.filingMethod;
+                    togglePages([p.FilingFS], filingMethod == 'eFile', this.currentStep);
+                }
+                
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.FilingFS, 0, false); 
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFS, 0, false);        
+            } 
+
+            if(surveyChanged){
+                for (const page of allPages){
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, page, 0, false); 
+                }
             }
         }
-
-                     
-        
     }
     
     public reloadPageInformation() {
@@ -200,16 +206,7 @@ export default class FinancialStatement extends Vue {
         }
     }  
     
-    beforeDestroy() {     
-        
-        if(this.survey.data?.["ApplicantName"]) {
-            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
-            const commonData = {
-                'applicantName':this.survey.data["ApplicantName"],
-                'respondents':[{first:"firstRespondent", middle:"", last:"lastRespondent"}]
-            };
-            this.UpdateCommonStepResults({data:commonData});
-        }
+    beforeDestroy() {         
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         this.UpdateStepResultData({step:this.step, data: {financialStatementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})

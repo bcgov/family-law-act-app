@@ -4,14 +4,14 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Expenses</h1>                   
+                    <h4 class="page-title">Expenses</h4>                   
                     
                     <p>
                         An expense is the amount of money <b>you</b> spend on something.
                     </p>
 
                     <div>
-                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                        <div class="question">
                             Estimate how much YOU pay for each of the expenses listed below.
                         </div>
                         <p>
@@ -877,7 +877,7 @@ export default class ExpensesFs extends Vue {
 }
 </script>
 
-<style lang="scss">   
+<style lang="scss">    
 
     .child-table {
         border: 2px solid #f9ca54;
@@ -908,34 +908,43 @@ export default class ExpensesFs extends Vue {
 
 <style scoped lang="scss">
 @import "src/styles/common";
-.home-content {
-    padding-bottom: 20px;
-    padding-top: 2rem;
-    max-width: 950px;
-    color: black;
-}
-.childSection {
-    border: 2px solid rgba($gov-pale-grey, 0.7);
-    border-radius: 18px;
-    width: 100%
-}
-.childAlign {
-    padding: 20px;
-}
-.table, td, th{
-    border: 1px solid rgba($gov-pale-grey, 0.9);
-  
-}
-.clickableRow {
-    background-color: rgba($gov-pale-grey, 0.5);
-    td a {
-        display: block;
-    }
-}
 
-.sub-title {
-    font-size: 10pt;
-    margin-bottom: 0; 
-    margin-top: -1rem;
-}
+    .home-content {
+        padding-bottom: 20px;
+        padding-top: 2rem;
+        max-width: 950px;
+        color: black;
+    }
+
+    .page-title {
+        font-size: 1.6em;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 1.25rem;
+        color: #494949;
+        text-align: left; 
+    }
+
+    .question {
+        color:#556077; 
+        font-size:1.40em; 
+        font-weight:bold;
+    }
+
+    .table, td, th{
+        border: 1px solid rgba($gov-pale-grey, 0.9);
+    
+    }
+    .clickableRow {
+        background-color: rgba($gov-pale-grey, 0.5);
+        td a {
+            display: block;
+        }
+    }
+
+    .sub-title {
+        font-size: 10pt;
+        margin-bottom: 0; 
+        margin-top: -1rem;
+    }
 </style>

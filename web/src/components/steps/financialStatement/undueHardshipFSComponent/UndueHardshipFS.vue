@@ -3,7 +3,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Undue Hardship</h1>
+                    <h4 class="page-title">Undue Hardship</h4>
                     <p>
                         Sometimes the amount of child support determined under the child support 
                         guidelines, when combined with other circumstances, may create undue 
@@ -22,9 +22,11 @@
                     </p>
 
                     <div>
-                        <h2>Unusual or excessive debt</h2>
+                        <b-row class="page-sub-title">
+                            Unusual or excessive debt
+                        </b-row>
                         <b-form-group>
-                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                            <div class="question">
                                 Do you have an unusual or excessive amount of debt that 
                                 you incurred to support the family prior to separation, 
                                 or to earn a living?
@@ -41,7 +43,7 @@
 
                     <div v-if="undueHardshipFsExists == 'Yes'" >
                         
-                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                        <div class="question">
                             Please provide the details of the unusual or excessive 
                             debts you incurred.
                         </div>
@@ -286,6 +288,23 @@ export default class UndueHardshipFS extends Vue {
     max-width: 950px;
     color: black;
 }
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
+}
+
+.page-sub-title {
+    font-size: 1.54912rem; 
+    font-weight: 700;
+    color: #494949;
+    text-align: left; 
+    margin-bottom: 0.5rem;
+    margin-left: 0.15rem;
+}
 .childSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);
     border-radius: 18px;
@@ -303,5 +322,11 @@ export default class UndueHardshipFS extends Vue {
     td a {
         display: block;
     }
+}
+
+.question {
+    color:#556077; 
+    font-size:1.40em; 
+    font-weight:bold;
 }
 </style>

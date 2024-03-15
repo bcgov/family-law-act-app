@@ -3,7 +3,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Cars, boats or vehicles</h1>
+                    <h4 class="page-title">Cars, boats or vehicles</h4>
                     <p>
                         This may include any cars, boats, motorcycles, RVs, snowmobiles, ATVs 
                         or other vehicles you own, or jointly own.
@@ -204,6 +204,15 @@ export default class CarsBoatsVehiclesFS extends Vue {
     max-width: 950px;
     color: black;
 }
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
+}
+
 .outerSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);
     border-radius: 18px;

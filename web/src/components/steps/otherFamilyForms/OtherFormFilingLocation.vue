@@ -249,8 +249,7 @@ export default class OtherFormFilingLocation extends Vue {
         toggleStep(this.stPgNo.CSV._StepNo, this.requiredGuidedPathways.includes("certificateOfService"));
         togglePages([this.stPgNo.CSV.ElectronicFilingStatementCSV], this.eFilingCertificateOfService(), this.stPgNo.CSV._StepNo);
         toggleStep(this.stPgNo.FS._StepNo, this.requiredGuidedPathways.includes("financialStatement"));
-        togglePages([this.stPgNo.FS.FilingFS], this.eFilingFinancialStatement, this.stPgNo.FS._StepNo);        
-        
+        // togglePages([this.stPgNo.FS.FilingFS], this.eFilingFinancialStatement(), this.stPgNo.FS._StepNo); depends on responses on the initial page        
     }   
 
     public saveApplicationLocation(location){       

@@ -3,11 +3,11 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Legal duty – dependent child</h1>
+                    <h4 class="page-title">Legal duty – dependent child</h4>
 
                     <div>                        
                         <b-form-group>
-                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                            <div class="question">
                                 Do you have a legal duty to support a dependent child 
                                 from another relationship?
                             </div>
@@ -24,7 +24,7 @@
 
                     <div v-if="legalDutyDependentChildFsExists == 'Yes'" >
                         
-                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                        <div class="question">
                             Please provide the details about your legal duty to 
                             support a dependent child.
                         </div>
@@ -286,5 +286,20 @@ export default class LegalDutyDependentChildFS extends Vue {
     td a {
         display: block;
     }
+}
+
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
+}
+
+.question {
+    color:#556077; 
+    font-size:1.40em; 
+    font-weight:bold;
 }
 </style>

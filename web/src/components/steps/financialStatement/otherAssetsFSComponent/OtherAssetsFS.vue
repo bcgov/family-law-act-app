@@ -3,7 +3,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Other assets</h1>
+                    <h4 class="page-title">Other assets</h4>
                     <p>
                         Other assets may include:
                         <ul>
@@ -14,8 +14,7 @@
                         </ul>  
                     </p>
 
-                    <div>                        
-                        
+                    <div>
                         <p>
                             To add an asset, click the “Add asset” button and provide 
                             the information requested.
@@ -67,16 +66,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
 import OtherAssetsFsSurvey from "./OtherAssetsFSSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import PageBase from "../../PageBase.vue";
-
-
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
 
 @Component({
     components:{
@@ -207,6 +204,15 @@ export default class OtherAssetsFS extends Vue {
     padding-top: 2rem;
     max-width: 950px;
     color: black;
+}
+
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
 }
 .outerSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);

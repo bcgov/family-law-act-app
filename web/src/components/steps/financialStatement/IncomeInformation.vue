@@ -4,7 +4,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Income Information</h1>
+                    <h4 class="page-title">Income Information</h4>
                     <p>
                         It can be hard to calculate the income used to decide the amount of 
                         child support or spousal support, especially if you are self-employed, 
@@ -24,11 +24,12 @@
                         filed your taxes.
                     </p>
 
-                    <h2>Sources of Income</h2>
-                   
+                    <b-row class="page-sub-title">
+                        Sources of Income
+                    </b-row>
 
                     <div>
-                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                        <div class="question">
                             Select each source of income you have and provide the amount 
                             of income for each source.
                         </div>
@@ -200,7 +201,6 @@ export default class IncomeInformation extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    
     currentStep =0;
     currentPage =0;
     showTable = false;
@@ -211,16 +211,16 @@ export default class IncomeInformation extends Vue {
     otherDesc = "";
 
     incomeInformationItem = [
-        {income: true, incomeName:"employee",       monthlyAmount: 0, yearlyAmount: 0},
-        {income: true, incomeName:"EI",             monthlyAmount: 0, yearlyAmount: 0},
-        {income: true, incomeName:"WCB",            monthlyAmount: 0, yearlyAmount: 0},
-        {income: true, incomeName:"investment",     monthlyAmount: 0, yearlyAmount: 0},
-        {income: true, incomeName:"pension",        monthlyAmount: 0, yearlyAmount: 0},    
-        {income: true, incomeName:"govAssist",      monthlyAmount: 0, yearlyAmount: 0},
-        {income: true, incomeName:"selfEmployed",   monthlyAmount: 0, yearlyAmount: 0},
-        {income: true, incomeName:"trust",          monthlyAmount: 0, yearlyAmount: 0},  
-        {income: true, incomeName:"partnership",    monthlyAmount: 0, yearlyAmount: 0},  
-        {income: true, incomeName:"other",          monthlyAmount: 0, yearlyAmount: 0}  
+        {income: false, incomeName:"employee",       monthlyAmount: 0, yearlyAmount: 0},
+        {income: false, incomeName:"EI",             monthlyAmount: 0, yearlyAmount: 0},
+        {income: false, incomeName:"WCB",            monthlyAmount: 0, yearlyAmount: 0},
+        {income: false, incomeName:"investment",     monthlyAmount: 0, yearlyAmount: 0},
+        {income: false, incomeName:"pension",        monthlyAmount: 0, yearlyAmount: 0},    
+        {income: false, incomeName:"govAssist",      monthlyAmount: 0, yearlyAmount: 0},
+        {income: false, incomeName:"selfEmployed",   monthlyAmount: 0, yearlyAmount: 0},
+        {income: false, incomeName:"trust",          monthlyAmount: 0, yearlyAmount: 0},  
+        {income: false, incomeName:"partnership",    monthlyAmount: 0, yearlyAmount: 0},  
+        {income: false, incomeName:"other",          monthlyAmount: 0, yearlyAmount: 0}  
         
     ];
 
@@ -337,14 +337,29 @@ export default class IncomeInformation extends Vue {
     max-width: 950px;
     color: black;
 }
-.childSection {
-    border: 2px solid rgba($gov-pale-grey, 0.7);
-    border-radius: 18px;
-    width: 100%
+
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
 }
-.childAlign {
-    padding: 20px;
+.page-sub-title {
+    font-size: 1.54912rem; 
+    font-weight: 700;
+    color: #494949;
+    text-align: left; 
+    margin-left: 0.05rem;
 }
+
+.question {
+    color:#556077; 
+    font-size:1.40em; 
+    font-weight:bold;
+}
+
 .table, td, th{
     border: 1px solid rgba($gov-pale-grey, 0.9);
   

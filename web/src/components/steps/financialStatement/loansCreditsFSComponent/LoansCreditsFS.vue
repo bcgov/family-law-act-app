@@ -3,7 +3,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Loans and credits</h1>
+                    <h4 class="page-title">Loans and credits</h4>
                     <p>
                         Loans and credits are money owing to you.
                     </p>
@@ -66,7 +66,6 @@ import LoansCreditsFsSurvey from "./LoansCreditsFSSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import PageBase from "../../PageBase.vue";
-
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -201,6 +200,15 @@ export default class LoansCreditsFS extends Vue {
     padding-top: 2rem;
     max-width: 950px;
     color: black;
+}
+
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
 }
 .outerSection {
     border: 2px solid rgba($gov-pale-grey, 0.7);

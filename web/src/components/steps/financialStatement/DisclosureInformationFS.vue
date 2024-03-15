@@ -4,7 +4,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Disclosure of Information</h1>
+                    <h4 class="page-title">Disclosure of Information</h4>
                     <p>
                         The child support guidelines describe the requirements for 
                         disclosure, calculating income, and proof of income that are 
@@ -18,13 +18,13 @@
                         – the information you need to provide as proof of income. 
                     </p>
 
-                    <b-card class="px-3 sv_p_container" style="border-radius: 8px;">
+                    <b-card class="px-3 sv_p_container" style="border-radius: 8px; padding-top: 0 !important;">
 
-                        <b-row style="font-size: 1.54912rem; font-weight: 700;">
+                        <b-row class="page-sub-title">
                             Income Information
                         </b-row>
 
-                        <b-row style="color: #556077; font-size:1.40em; font-weight:bold;">
+                        <b-row class="question">
                             I am required to attach a copy of the following documents 
                             from Canada Revenue Agency to my financial statement:                          
                         </b-row>
@@ -55,15 +55,14 @@
                                 <span style="color: #556077; font-size:1em; font-weight:bold;">3</span> 
                                 most recent taxation years.
                             </b-col>
-                        </b-row>
+                        </b-row>                        
 
                         <b-row align-h="center">
                             <b-form-checkbox
                                 style="color: #556077; font-size:1.4em;"
                                 class="mt-4"
                                 v-model="incomeAcknowledgement"
-                                @change="updateIncome()"
-                                unchecked-value=false>
+                                @change="determineReadyToContinue()">
                                 <h4 style="margin: 0.26rem 0.5rem;">
                                     I understand
                                 </h4>
@@ -77,7 +76,6 @@
                                 <span v-if="!showCopyDocsInfo" class='ml-2 fa fa-chevron-down'/>
                             </div>
                             <div class="mx-4" v-if="showCopyDocsInfo">
-
                                 If you do not have a copy of your income tax return or your notice of assessment 
                                 or notice of reassessment (if applicable) issued by the Canada Revenue Agency 
                                 (CRA), you can contact the CRA to get a copy:
@@ -114,7 +112,7 @@
 
                     <b-card class="px-3 my-5 sv_p_container" style="border-radius: 8px; width: 100%;">                        
                         <b-form-group>
-                            <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                            <div class="question">
                                 Do you control a corporation?
                             </div>                            
                             <b-form-radio-group
@@ -128,13 +126,13 @@
                         </b-form-group>
                     </b-card> 
                     
-                    <b-card class="px-3 sv_p_container" style="border-radius: 8px;" :key="showProofOfIncomeListKey">
+                    <b-card class="px-3 sv_p_container" style="border-radius: 8px; padding-top: 0 !important;" :key="showProofOfIncomeListKey">
 
-                        <b-row style="font-size: 1.54912rem; font-weight: 700;">
+                        <b-row class="page-sub-title">
                             Proof of income
                         </b-row>
 
-                        <b-row style="color: #556077; font-size:1.40em; font-weight:bold;">
+                        <b-row class="question">
                             I am required to attach a copy of the following documents as 
                             proof of income from each source of my income:                          
                         </b-row>
@@ -231,7 +229,8 @@
                                 </p>
                                 <b-form-textarea                                
                                     class="mt-2"
-                                    v-model="otherIncomeProofDocs"/>
+                                    v-model="otherIncomeProofDocs"
+                                    @change="determineReadyToContinue()"/>
                             </b-col>
                         </b-row>
 
@@ -240,8 +239,7 @@
                                 style="color: #556077; font-size:1.4em;"
                                 class="mt-4"
                                 v-model="incomeProofAcknowledgement"
-                                @change="updateIncomeProof()"
-                                unchecked-value=false>
+                                @change="determineReadyToContinue()">
                                 <h4 style="margin: 0.26rem 0.5rem;">
                                     I understand
                                 </h4>
@@ -327,6 +325,8 @@ export default class DisclosureInformationFS extends Vue {
             }
         }
 
+        this.determineReadyToContinue();       
+
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
     }
 
@@ -335,18 +335,12 @@ export default class DisclosureInformationFS extends Vue {
         this.showProofOfIncomeListKey ++;        
     }
 
-    public updateIncomeProof(){
-        this.determineReadyToContinue();       
-    }
+    public determineReadyToContinue(){       
 
-    public updateIncome(){
-        this.determineReadyToContinue();
-    }
-
-    public determineReadyToContinue(){
         this.disableNextButton = this.corporation == null || !this.incomeAcknowledgement || 
                                 !this.incomeProofAcknowledgement || 
                                 (this.proofOfIncomeList.includes('other') && this.otherIncomeProofDocs.length==0);
+
     }   
 
     public onPrev() {
@@ -419,12 +413,27 @@ export default class DisclosureInformationFS extends Vue {
     max-width: 950px;
     color: black;
 }
-.childSection {
-    border: 2px solid rgba($gov-pale-grey, 0.7);
-    border-radius: 18px;
-    width: 100%
+
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
 }
-.childAlign {
-    padding: 20px;
+
+.page-sub-title {
+    font-size: 1.54912rem; 
+    font-weight: 700;
+    color: #494949;
+    text-align: left; 
+    margin-bottom: 0.5rem;
 }
+.question {
+    color:#556077; 
+    font-size:1.40em; 
+    font-weight:bold;
+}
+
 </style>

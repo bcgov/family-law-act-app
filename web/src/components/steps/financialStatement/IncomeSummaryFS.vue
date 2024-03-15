@@ -4,7 +4,7 @@
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Income Summary</h1>
+                    <h4 class="page-title">Income Summary</h4>
                     <p>
                         To determine the total income used to calculate child support, 
                         special or extraordinary expenses and spousal support, you may 
@@ -33,7 +33,7 @@
                     </p>
 
                     <div>
-                        <div style="color:#556077; font-size:1.40em; font-weight:bold;">
+                        <div class="question">
                             Record the yearly (annual) amounts of your income and adjustments in the table below.<br> 
                             Put ‘0’ in a field if it doesn’t apply to you.
                         </div>
@@ -752,14 +752,22 @@ export default class IncomeSummaryFs extends Vue {
     max-width: 950px;
     color: black;
 }
-.childSection {
-    border: 2px solid rgba($gov-pale-grey, 0.7);
-    border-radius: 18px;
-    width: 100%
+
+.page-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    color: #494949;
+    text-align: left; 
 }
-.childAlign {
-    padding: 20px;
+
+.question {
+    color:#556077; 
+    font-size:1.40em; 
+    font-weight:bold;
 }
+
 .table, td, th{
     border: 1px solid rgba($gov-pale-grey, 0.9);
   
