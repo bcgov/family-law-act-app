@@ -1,0 +1,26 @@
+{
+    "title": "Loans and credits Information",
+    "pages": [
+        {
+            "name": "Loans and credits",
+            "elements": [
+                {
+                    "type": "comment",
+                    "name": "loansCreditsDescription",
+                    "title": "Description of asset",
+                    "description": "Include the name of the borrower",
+                    "isRequired": true
+                },               
+                {
+                    "type": "text",
+                    "name": "loansCreditsValue",
+                    "title": "Current value of asset",
+                    "inputType": "number",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

@@ -1,0 +1,28 @@
+{
+   "pages": [
+      {
+         "name": "Unusually high expenses",
+         "elements": [            
+            {
+                "type": "yesno",
+                "name": "unusualExpensesExist",
+                "isRequired": true,                
+                "title": "Do you have unusually high expenses to exercise parenting time or contact with the child(ren)?",
+                "description": "You may have unusually high expenses because of the extensive time you spend with the child or related to being able to spend time with the child, such as travel expenses."
+            },
+            {
+                "type": "comment",
+                "name": "unusualExpensesDetails",
+                "title": "Please describe the expenses you have.",                
+                "isRequired": true,
+                "visible": false,
+                "visibleIf": "{unusualExpensesExist} = 'y'"
+            }
+           
+         ],
+         "title": "Unusually high expenses"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

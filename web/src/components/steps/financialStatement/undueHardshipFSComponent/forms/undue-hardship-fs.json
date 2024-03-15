@@ -1,0 +1,40 @@
+{
+    "title": "Debt Information",
+    "pages": [
+        {
+            "name": "Debt Information",
+            "elements": [                
+                {
+                    "type": "text",
+                    "name": "creditorFullName",
+                    "title": "What is the name of the creditor?",
+                    "description": "A creditor is a person or company you owe money to. It could be a bank, finance company, person, etc.",
+                    "isRequired": true
+                },
+                {
+                    "type": "comment",
+                    "name": "debtReason",
+                    "title": "What is your reason for borrowing the money?",
+                    "description": "For example, mortgage, car loan, school, etc.",
+                    "isRequired": true
+                },
+                {
+                    "type": "text",
+                    "name": "debTotal",
+                    "title": "As of today’s date, what is the balance owing?",
+                    "isRequired": true,
+                    "inputType": "number"
+                },
+                {
+                    "type": "text",
+                    "name": "debtAnnualPayment",
+                    "title": "How much do you pay annually towards debt repayment?",
+                    "isRequired": true,
+                    "inputType": "number"
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

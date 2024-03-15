@@ -353,11 +353,13 @@
         apsIsExemptGuidedPathway = false;
         apspIsExemptGuidedPathway = false;
         csvIsExemptGuidedPathway = false;
+        fsIsExemptGuidedPathway = false;
         requiresEfsp = false;
         requiresGaEfsp = false;
         requiresApsEfsp = false;
         requiresApspEfsp = false;
         requiresCsvEfsp = false;
+        requiresFsEfsp = false;
 
         mounted(){
 
@@ -628,11 +630,13 @@
             this.apsIsExemptGuidedPathway = false;
             this.apspIsExemptGuidedPathway = false;
             this.csvIsExemptGuidedPathway = false;
+            this.fsIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
             this.requiresGaEfsp = false;
             this.requiresApsEfsp = false;
             this.requiresApspEfsp = false;
             this.requiresCsvEfsp = false;
+            this.requiresFsEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -715,7 +719,18 @@
                         if (this.requiresCsvEfsp){
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
                         }
-                    }                 
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Financial Statement"){   
+                        this.determineFsGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('FS')) continue
+                        
+                        if (this.fsIsExemptGuidedPathway)
+                            this.requiredDocumentLists.push({description: 'Financial Statement', type: 'FS'});    
+                        
+                        if (this.requiresFsEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Financial Statement', type: 'EFSP'});
+                        }
+                    }                  
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -874,6 +889,25 @@
                 this.requiresCsvEfsp = requiresEfsp;
             } 
         }
+
+        public determineFsGuidedPathway(selectedForm){
+
+            let requiresFs = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'FS')})
+            if (index >=0 && this.eFiling){
+                const fsFilingInfo = this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result?.filingFsSurvey?.data;              
+                requiresFs = fsFilingInfo?.sworn?true:false;
+                requiresEfsp = fsFilingInfo?.sworn == 'y';
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.fsIsExemptGuidedPathway = requiresFs;
+                this.requiresFsEfsp = requiresEfsp;
+            } 
+    }
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

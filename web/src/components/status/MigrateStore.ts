@@ -227,6 +227,7 @@ export class MigrateStore{
         pathwayCompleted.affidavitPersonalService = false;
         pathwayCompleted.affidavitPersonalServicePO = false;
         pathwayCompleted.certificateOfService = false;
+        pathwayCompleted.financialStatement = false;
 
         pathwayCompleted.other = false;
         //TODO: add the other pathway

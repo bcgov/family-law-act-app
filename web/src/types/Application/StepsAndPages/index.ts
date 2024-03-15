@@ -33,6 +33,7 @@ export interface stepsAndPagesNumberInfoType{
     APS: APSstPgTypes;
     APSP: APSPstPgTypes;
     CSV: CSVstPgTypes;
+    FS: FSstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
  
@@ -423,6 +424,40 @@ export interface CSVstPgTypes{
     ReviewYourAnswersCSV: number;
     PreviewFormsCSV: number;
     PreviewFormsCsvEFSP: number;
+}
+
+export interface FSstPgTypes{
+    _StepNo: number;
+
+    FinancialStatement: number;
+    IncomeInformation: number;
+    ChangesIncomeFS: number;
+    IncomeSummaryFS: number;
+    DisclosureInformationFS: number;
+    ExpensesFS: number;
+    DebtsFS: number;
+    AssetsFS: number;
+    RealEstateFS: number;
+    CarsBoatsVehiclesFS: number;
+    CashAssetsFS: number;
+    InvestmentsFS: number;
+    LoansCreditsFS: number;
+    OtherAssetsFS: number;
+    DispositionAssetsFS: number;
+    IncomeOtherPersonHouseholdFS: number;
+    ContributionTowardExpensesFS: number;
+    UndueHardshipFS: number;
+    UnusuallyHighExpensesFS: number;
+    LegalDutyDependentChildFS: number;
+    LegalDutyAnotherPersonFS: number;
+    OtherCircumstancesFS: number;
+    AffidavitFS: number;
+    AboutAffiantFs: number;
+    FilingFS: number;
+    ElectronicFilingStatementFS: number;
+    ReviewYourAnswersFS: number;
+    PreviewFormsFS: number;
+    PreviewFormsFsEFSP: number;
 }
 
 export interface NLPstPgTypes{

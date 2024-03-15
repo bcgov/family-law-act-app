@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.25";
+    const CURRENT_VERSION = "1.2.26.1";
     //__________________________
     //___________________________
     //___________________________
@@ -833,6 +833,7 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepAPS = store.state.Application.stPgNo.APS;
         const stepAPSP = store.state.Application.stPgNo.APSP;
         const stepCSV = store.state.Application.stPgNo.CSV;
+        const stepFS = store.state.Application.stPgNo.FS
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -926,6 +927,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepCSV._StepNo; 
 			reviewPage = stepCSV.ReviewYourAnswersCSV; 
 			previewPages = [stepCSV.PreviewFormsCSV, stepCSV.PreviewFormsCsvEFSP];
+		} else if(typeName == 'financialStatement'){
+			step = stepFS._StepNo; 
+			reviewPage = stepFS.ReviewYourAnswersFS; 
+			previewPages = [stepFS.PreviewFormsFS, stepFS.PreviewFormsFsEFSP];
 		}
  
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -948,7 +953,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO', 'certificateOfService']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO', 'certificateOfService', 'financialStatement']
 	
 	if(type == 'allExPO'){
         

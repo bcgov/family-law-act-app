@@ -32,8 +32,9 @@
             <affidavit-personal-service-step v-if="getCurrentStepIndex() == 24" v-bind:step="getStep(24)"></affidavit-personal-service-step>
             <affidavit-personal-service-po-step v-if="getCurrentStepIndex() == 25" v-bind:step="getStep(25)"></affidavit-personal-service-po-step>
             <certificate-of-service-step v-if="getCurrentStepIndex() == 26" v-bind:step="getStep(26)"></certificate-of-service-step>
+            <financial-statement-step v-if="getCurrentStepIndex() == 27" v-bind:step="getStep(27)"></financial-statement-step>
 
-            <step-submit v-if="getCurrentStepIndex() == 27" v-bind:step="getStep(27)"></step-submit>    
+            <step-submit v-if="getCurrentStepIndex() == 28" v-bind:step="getStep(28)"></step-submit>    
         </main>
     </div>
 </template>
@@ -63,6 +64,7 @@ import GuardianshipAffidavitStep from "./steps/guardianshipAffidavit/Guardianshi
 import AffidavitPersonalServiceStep from "./steps/affidavitPersonalService/AffidavitPersonalServiceStep.vue";
 import AffidavitPersonalServicePoStep from "./steps/affidavitPersonalServicePO/AffidavitPersonalServicePOStep.vue";
 import CertificateOfServiceStep from "./steps/certificateOfService/CertificateOfServiceStep.vue";
+import FinancialStatementStep from "./steps/financialStatement/FinancialStatementStep.vue";
 import RequestSchedulingStep from "./steps/requestScheduling/RequestSchedulingStep.vue";
 import RemoveLawyerPartyStep from "./steps/noticeRemoveLawyerParty/RemoveLawyerPartyStep.vue";
 import LawyerPartyStep from "./steps/noticeLawyerParty/LawyerPartyStep.vue";
@@ -103,7 +105,8 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
         GuardianshipAffidavitStep,
         AffidavitPersonalServiceStep,
         AffidavitPersonalServicePoStep,
-        CertificateOfServiceStep
+        CertificateOfServiceStep,
+        FinancialStatementStep
     }
 })
 
