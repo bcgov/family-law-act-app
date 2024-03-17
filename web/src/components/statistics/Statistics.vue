@@ -125,7 +125,7 @@ export default class Statistics extends Vue {
         const bottomLeftText = `"Family Law Act Reports Printed on `+time+`";`;
         const bottomRightText = `" "`;        
         
-        const url = '/statistics/'+'/?name=statistics_report' 
+        const url = '/statistics/?name=statistics_report' 
         const margin = '1.2in 0.7in 0.9in 0.7in'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText, margin );
 
