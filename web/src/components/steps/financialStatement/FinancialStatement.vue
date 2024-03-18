@@ -97,8 +97,7 @@ export default class FinancialStatement extends Vue {
 
         const fsData = this.survey.data;
         const p = this.stPgNo.FS;
-        const allPages = _.range(this.stPgNo.FS.IncomeInformation, Object.keys(p).length-2); 
-       
+        const allPages = _.range(this.stPgNo.FS.IncomeInformation, Object.keys(p).length-1);
         togglePages(allPages, false, this.currentStep); 
 
         if(!this.disableNextButton){

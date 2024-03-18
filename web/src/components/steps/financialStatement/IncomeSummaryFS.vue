@@ -651,32 +651,32 @@ export default class IncomeSummaryFs extends Vue {
 
             const incomeInfo = this.getIncomeInfo().totalIncome;
             for(const incomeType of incomeInfo) {
-                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: incomeType.amountName +' yearly amount:', inputType:''})
+                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: Vue.filter('beautify-amount-name')(Vue.filter('beautify-amount-name')(incomeType.amountName)) +' yearly amount:', inputType:''})
             }
 
             const deductionInfo = this.getIncomeInfo().deduction;
             for(const incomeType of deductionInfo) {
-                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: incomeType.amountName +' yearly amount:', inputType:''})
+                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: Vue.filter('beautify-amount-name')(incomeType.amountName) +' yearly amount:', inputType:''})
             }
 
             const additionInfo = this.getIncomeInfo().addition;
             for(const incomeType of additionInfo) {
-                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: incomeType.amountName +' yearly amount:', inputType:''})
+                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: Vue.filter('beautify-amount-name')(incomeType.amountName) +' yearly amount:', inputType:''})
             }
 
             const childSupportFundInfo = this.getIncomeInfo().childSupportFund;
             for(const incomeType of childSupportFundInfo) {
-                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: incomeType.amountName +' yearly amount:', inputType:''})
+                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: Vue.filter('beautify-amount-name')(incomeType.amountName) +' yearly amount:', inputType:''})
             }
 
             const extraExpensesInfo = this.getIncomeInfo().extraExpenses;
             for(const incomeType of extraExpensesInfo) {
-                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: incomeType.amountName +' yearly amount:', inputType:''})
+                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: Vue.filter('beautify-amount-name')(incomeType.amountName) +' yearly amount:', inputType:''})
             }
 
             const spouseExpensesInfo = this.getIncomeInfo().spouseExpenses;
             for(const incomeType of spouseExpensesInfo) {
-                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: incomeType.amountName +' yearly amount:', inputType:''})
+                questionResults.push({name:'incomeSummaryFSSurvey', value: '$ '+ incomeType.yearlyAmount, title: Vue.filter('beautify-amount-name')(incomeType.amountName) +' yearly amount:', inputType:''})
             }
         }  
         
