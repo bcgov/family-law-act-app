@@ -38,14 +38,18 @@
             },   
             {
                 "type": "html",
-                "name": "disclosureHeading",            
-                "html": "<div style='margin-bottom:-0.75rem'>I have made complete disclosure in this financial statement of:<ul><li>my income, including benefits and adjustments, if any</li><li>my expenses and debts</li><li>my assets</li><li>income of other person(s) in my household</li><li>undue hardship</li></ul></div>"
+                "name": "disclosureHeading",    
+                "visible": false,
+                "visibleIf": "{displayDisclosure}",        
+                "html": "<div style='margin-bottom:-0.75rem'>I have made complete disclosure in this financial statement of:{listOfItems}</div>"
             },         
             {
                 "type": "checkbox",
                 "name": "fsDisclosure",
                 "titleLocation": "hidden",
                 "title": "",
+                "visible": false,
+                "visibleIf": "{displayDisclosure}", 
                 "choices": [
                     {
                         "value": "confirm",

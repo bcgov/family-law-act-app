@@ -220,6 +220,14 @@
                             </b-col>
                         </b-row>
 
+                        <b-row class="mt-3" v-if="proofOfIncomeList.includes('trust')">
+                            <b-col cols="1" class="pl-4"><b-icon-check-2 scale="2" class="ml-2"/></b-col>
+                            <b-col>
+                                My trust settlement agreement and the trust’s three most recent 
+                                financial statements
+                            </b-col>
+                        </b-row>
+
                         <b-row class="mt-3" v-if="proofOfIncomeList.includes('other')">
                             <b-col cols="1" class="pl-4"><b-icon-check-2 scale="2" class="ml-2"/></b-col>
                             <b-col>

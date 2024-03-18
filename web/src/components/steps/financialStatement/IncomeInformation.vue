@@ -287,7 +287,7 @@ export default class IncomeInformation extends Vue {
             const incomeInfo = this.getIncomeInfo().incomeAmounts;
             for(const incomeType of incomeInfo) {
                 if(incomeType.income)
-                    questionResults.push({name:'incomeInformationSurvey', value: '$ '+ incomeType.yearlyAmount, title: incomeType.incomeName +' yearly amount:', inputType:''})
+                    questionResults.push({name:'incomeInformationSurvey', value: '$ '+ incomeType.yearlyAmount, title: Vue.filter('beautify-amount-name')(incomeType.incomeName) +' yearly amount:', inputType:''})
             }
         }  
         

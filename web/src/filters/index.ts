@@ -144,6 +144,17 @@ Vue.filter('getAlphabetBasedOnIndex', function(index){
 		return '';
 })
 
+Vue.filter('beautify-amount-name', function(amountName){
+
+    if(amountName?.length>0){
+
+        return (amountName.charAt(0).toUpperCase() + amountName.slice(1)).replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+
+    }
+	else
+		return '';
+})
+
 Vue.filter('scrollToLocation', function(locationName){
 	if(locationName){
 		Vue.nextTick(()=>{
