@@ -43,21 +43,33 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Street address
+                        <tr v-for="(realEstateItem,inx) in realEstate" :key="inx"> 
+                            <div  class="answer">{{ realEstateItem.desc }} </div>                            
+                        </tr>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Market Value
+                        <tr v-for="(realEstateItem,inx) in realEstate" :key="inx"> 
+                            <div  class="answer">${{ realEstateItem.value }} </div>                            
+                        </tr>
                     </td>
                 </tr> 
 
                 <tr style="border:1px solid #414142;" >
                     <td colspan="3" style="border:1px solid #414142;">
-                        Cars/Boats/Vehicles    
+                        Cars/Boats/Vehicles
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Make, model, year
+                        <tr v-for="(carItem,inx) in cars" :key="inx"> 
+                            <div  class="answer">{{ carItem.desc }} </div>                            
+                        </tr>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Market Value
+                        <tr v-for="(carItem,inx) in cars" :key="inx"> 
+                            <div  class="answer">${{ carItem.value }} </div>                            
+                        </tr>
                     </td>
                 </tr> 
 
@@ -66,10 +78,16 @@
                         Cash assets - including cash and bank accounts    
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
-                        Type of cash asset (for example cash, savings account, chequing account)    
+                        Type of cash asset (for example cash, savings account, chequing account) 
+                        <tr v-for="(cashItem,inx) in cash" :key="inx"> 
+                            <div  class="answer">{{ cashItem.desc }} </div>                            
+                        </tr>   
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
-                        Current Balance    
+                        Current Balance  
+                        <tr v-for="(cashItem,inx) in cash" :key="inx"> 
+                            <div  class="answer">${{ cashItem.value }} </div>                            
+                        </tr>  
                     </td>
                 </tr> 
 
@@ -79,9 +97,15 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Type of investment
+                        <tr v-for="(investmentItem,inx) in investment" :key="inx"> 
+                            <div  class="answer">{{ investmentItem.desc }} </div>                            
+                        </tr>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Current Balance
+                        <tr v-for="(investmentItem,inx) in investment" :key="inx"> 
+                            <div  class="answer">${{ investmentItem.value }} </div>                            
+                        </tr>
                     </td>
                 </tr> 
 
@@ -91,9 +115,15 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Name of borrower
+                        <tr v-for="(loanItem,inx) in loans" :key="inx"> 
+                            <div  class="answer">{{ loanItem.desc }} </div>                            
+                        </tr>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Amount owing
+                        <tr v-for="(loanItem,inx) in loans" :key="inx"> 
+                            <div  class="answer">${{ loanItem.value }} </div>                            
+                        </tr>                        
                     </td>
                 </tr> 
 
@@ -102,10 +132,16 @@
                         Other - including precious metals, art, jewelry or other items of high value    
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
-                        Brief description    
+                        Brief description  
+                        <tr v-for="(otherItem,inx) in other" :key="inx"> 
+                            <div  class="answer">{{ otherItem.desc }} </div>                            
+                        </tr>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
-                        Market Value    
+                        Market Value  
+                        <tr v-for="(otherItem,inx) in other" :key="inx"> 
+                            <div  class="answer">${{ otherItem.value }} </div>                            
+                        </tr>   
                     </td>
                 </tr> 
                 
@@ -114,7 +150,7 @@
                         Total               
                     </td>
                     
-                    <td colspan="3" style="border:1px solid #414142;"></td>
+                    <td colspan="3" style="border:1px solid #414142;"><div  class="answer">${{ total }} </div></td>
                 </tr>
             
             </table>       
@@ -131,11 +167,13 @@
                 I have sold or disposed of an asset(s) in the last two years
             </div>
             <div style="display:inline-block;">
-                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shiftmark="1"  marginLeft="1.25rem" :check="true?'yes':''"  text="Yes"/>                                  
-                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="!true?'yes':''" text="No"/> 
+                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shiftmark="1"  marginLeft="1.25rem" :check="disposedAsset?'yes':''"  text="Yes"/>                                  
+                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" shiftmark="1" marginLeft="0.5rem" :check="!disposedAsset?'yes':''" text="No"/> 
             </div>
 
-            <div v-if="true" class="answerbox"></div> 
+            <div v-if="disposedAsset" class="answerbox">
+                {{ disposedDesc }}
+            </div> 
                 
         </div>
 
@@ -152,9 +190,6 @@ const applicationState = namespace("Application");
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } from '@/types/Application/Affidavit';
 
 @Component({
     components:{
@@ -170,150 +205,224 @@ export default class Form4Layout extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;    
 
-    dataReady = false; 
-    existingFileNumber = '';  
+    dataReady = false;
    
-    yourInfo = {} as yourInformationInfoDataInfoType; 
-    address = '';
-    supportApplication = false;
-    appType = '';   
-    otherType = '';
-    additionalAppType = []; 
-    stories: storyDataInfoType[] = [];
-    lastStory = {} as storyDataInfoType; 
-    storyCount = 0;
+    realEstate = [];
+    totalRealEstate = 0;
+    cars = [];
+    totalCars = 0;
+    cash = [];
+    totalCash = 0;
+    investment = [];
+    totalInvestment = 0;
+    loans = [];
+    totalLoans = 0;
+    other = [];
+    totalOther = 0;
+    total = 0;
+    disposedAsset = false;
+    disposedDesc = '';
    
     mounted(){
-        this.dataReady = false;
-        console.log(this.result)
+        this.dataReady = false;        
         this.extractInfo();       
         this.dataReady = true;        
     }
    
-    public extractInfo(){        
-        this.getAffidavitInfo();  
-        this.getAffiantInfo();  
-        this.getStoryInfo();
-        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
+    public extractInfo(){  
+        
+        const assetTypes = this.result?.assetsFSSurvey?.assetTypes?this.result.assetsFSSurvey.assetTypes:[];
+        this.total = 0;
+        if(assetTypes.includes("realEstate")){
+            this.getRealEstateInfo();
+            this.total = this.total + this.totalRealEstate;
+        } 
+        if(assetTypes.includes("cars")){
+            this.getCarInfo();
+            this.total = this.total + this.totalCars;
+        } 
+        if(assetTypes.includes("cash")){
+            this.getCashInfo();
+            this.total = this.total + this.totalCash;
+        } 
+        if(assetTypes.includes("investments")){
+            this.getInvestmentInfo();
+            this.total = this.total + this.totalInvestment;
+        } 
+        if(assetTypes.includes("loans")){
+            this.getLoanInfo();
+            this.total = this.total + this.totalLoans;
+        } 
+        if(assetTypes.includes("otherAssets")){
+            this.getOtherInfo();
+            this.total = this.total + this.totalOther;
+        }
+
+        this.disposedAsset = false;
+        this.disposedDesc = '';
+        
+        if(this.result?.dispositionAssetsFSSurvey?.soldAsset)
+            this.disposedAsset = this.result.dispositionAssetsFSSurvey.soldAsset == 'y'
+
+        if(this.disposedAsset && this.result?.dispositionAssetsFSSurvey?.soldAssetDescription)
+            this.disposedDesc = this.result.dispositionAssetsFSSurvey.soldAssetDescription
         
     } 
 
-    public getAffidavitInfo(){    
-        
-        this.supportApplication = false;
-        this.appType = ''
-        this.additionalAppType = [];
-        this.otherType = '';
+    public getRealEstateInfo(){ 
 
-        if(this.result?.affidavitSurvey){
+        const emptyRealEstate = { desc: '', value: '' };
+        this.realEstate = [];    
+        this.totalRealEstate = 0;   
 
-            let aff = {} as affidavitDataInfoType;
-            aff = this.result.affidavitSurvey;
+        if(this.result?.realEstateFSSurvey){  
+            let totalRealEstateAmount = 0;          
 
-            this.supportApplication = aff.affidavitReason != 'response';            
-
-            const appTypeInfo = aff.applicationType?aff.applicationType:[];
-
-            const appList = [];
-            let otherTypeInfo = '';
-
-            for (const app of appTypeInfo){
-                if (app == 'other'){
-                    otherTypeInfo = aff.applicationTypeComment;
-                } else {
-                    appList.push('about ' + app.replace(/`/g, ''))
-                }
+            for(const realEstateSurvey of this.result.realEstateFSSurvey){
+                let realEstateInfo = {
+                    desc: realEstateSurvey.realEstateDescription?realEstateSurvey.realEstateDescription:'',                    
+                    value: realEstateSurvey.realEstateValue?Number(realEstateSurvey.realEstateValue):0
+                };
+                this.realEstate.push(realEstateInfo);
+                totalRealEstateAmount = totalRealEstateAmount +realEstateInfo.value;                
             }
-
-            if (appList.length == 0){
-
-                this.appType = Vue.filter('truncate')(otherTypeInfo, 42);
-                this.otherType = '';
-                this.additionalAppType = [];
-
-            } else if (appList.length == 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                this.additionalAppType = [];
-
-            } else if (appList.length > 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                const additionalList = appList.slice(1)           
-
-                for (let index = 0; index < additionalList.length; index+=2){
-                    
-                    this.additionalAppType.push(additionalList[index] + (additionalList[index + 1]?(', ' + additionalList[index + 1]):''))
-                
-                }
-            }
-
+            this.totalRealEstate = totalRealEstateAmount;
         }
+
+        if(this.realEstate.length == 0){
+            this.realEstate.push(emptyRealEstate);
+        }            
     }
 
-    public getAffiantInfo(){ 
+    public getCarInfo(){ 
 
-        this.yourInfo = {} as yourInformationInfoDataInfoType; 
-        this.address = '';
-        
-        if(this.result?.aboutAffiantSurvey){
+        const emptyCar = { desc: '', value: '' };
 
-            let aboutAffiant = {} as aboutAffiantDataInfoType;
-            aboutAffiant = this.result.aboutAffiantSurvey;
+        this.cars = [];    
+        this.totalCars = 0;   
 
-            this.yourInfo = getYourInformationResults(aboutAffiant);            
-            const addressInfo = aboutAffiant.ApplicantAddress;
+        if(this.result?.carsBoatsVehiclesFSSurvey){  
+            let totalCarAmount = 0;          
 
-            const addressText = addressInfo.street + ', ' 
-                                + addressInfo.city + ', ' 
-                                + addressInfo.state + ', ' 
-                                + addressInfo.country + ', ' 
-                                + addressInfo.postcode;
-
-            this.address = aboutAffiant.inCareOf?.length>0?('Care of '+ addressText ):addressText;
+            for(const carsSurvey of this.result.carsBoatsVehiclesFSSurvey){
+                let carsInfo = {
+                    desc: carsSurvey.carsBoatsVehiclesDescription?carsSurvey.carsBoatsVehiclesDescription:'',                    
+                    value: carsSurvey.carsBoatsVehiclesValue?Number(carsSurvey.carsBoatsVehiclesValue):0
+                };
+                this.cars.push(carsInfo);
+                totalCarAmount = totalCarAmount +carsInfo.value;                
+            }
+            this.totalCars = totalCarAmount;
         }
-            
+
+        if(this.cars.length == 0){
+            this.cars.push(emptyCar);
+        }            
     }
 
-    public getStoryInfo(){  
-        
-        this.stories = [];
-        this.storyCount = 0;
-        this.lastStory = {};
+    public getCashInfo(){ 
 
-        const storyList: storyDataInfoType[] = [];
-       
-        if(this.result?.yourStoryAffSurvey?.storyAff){
+        const emptyCash = { desc: '', value: '' };
 
-            const storyInfo = this.result.yourStoryAffSurvey.storyAff;
-            for (const story in storyInfo){
-               storyList.push({index: Number(story) + 2, content:storyInfo[story].storyDescription})
+        this.cash = [];    
+        this.totalCash = 0;   
+
+        if(this.result?.cashAssetsFSSurvey){  
+            let totalCashAmount = 0;          
+
+            for(const cashSurvey of this.result.cashAssetsFSSurvey){
+                let cashInfo = {
+                    desc: cashSurvey.cashAssetsDescription?cashSurvey.cashAssetsDescription:'',                    
+                    value: cashSurvey.cashAssetsValue?Number(cashSurvey.cashAssetsValue):0
+                };
+                this.cash.push(cashInfo);
+                totalCashAmount = totalCashAmount + cashInfo.value;                
             }
-
-            this.storyCount = storyList.length;
-
-            if (this.storyCount == 0){
-
-                this.stories = []
-                this.lastStory = {};
-
-            } else if (this.storyCount == 1){
-
-                this.lastStory = storyList[0];                
-                this.stories = [];
-
-            } else if (this.storyCount > 1){
-
-                this.stories = storyList.slice(0, this.storyCount - 1);
-                this.lastStory = storyList.slice(this.storyCount-1)[0];               
-            } 
-
-
+            this.totalCash = totalCashAmount;
         }
-            
-    }  
+
+        if(this.cash.length == 0){
+            this.cash.push(emptyCash);
+        }            
+    }
+
+    public getInvestmentInfo(){ 
+
+        const emptyInvestment = { desc: '', value: '' };
+
+        this.investment = [];    
+        this.totalInvestment = 0;   
+
+        if(this.result?.investmentsFSSurvey){  
+            let totalInvestmentAmount = 0;          
+
+            for(const investmentSurvey of this.result.investmentsFSSurvey){
+                let investmentInfo = {
+                    desc: investmentSurvey.investmentsDescription?investmentSurvey.investmentsDescription:'',                    
+                    value: investmentSurvey.investmentsValue?Number(investmentSurvey.investmentsValue):0
+                };
+                this.investment.push(investmentInfo);
+                totalInvestmentAmount = totalInvestmentAmount + investmentInfo.value;                
+            }
+            this.totalInvestment = totalInvestmentAmount;
+        }
+
+        if(this.investment.length == 0){
+            this.investment.push(emptyInvestment);
+        }            
+    }
+
+    public getLoanInfo(){ 
+
+        const emptyLoan = { desc: '', value: '' };
+
+        this.loans = [];    
+        this.totalLoans = 0;   
+
+        if(this.result?.loansCreditsFSSurvey){  
+            let totalLoanAmount = 0;          
+
+            for(const loanSurvey of this.result.loansCreditsFSSurvey){
+                let loanInfo = {
+                    desc: loanSurvey.loansCreditsDescription?loanSurvey.loansCreditsDescription:'',                    
+                    value: loanSurvey.loansCreditsValue?Number(loanSurvey.loansCreditsValue):0
+                };
+                this.loans.push(loanInfo);
+                totalLoanAmount = totalLoanAmount + loanInfo.value;                
+            }
+            this.totalLoans = totalLoanAmount;
+        }
+
+        if(this.loans.length == 0){
+            this.loans.push(emptyLoan);
+        }            
+    }
+
+    public getOtherInfo(){ 
+
+        const emptyOther = { desc: '', value: '' };
+
+        this.other = [];    
+        this.totalOther = 0;   
+
+        if(this.result?.otherAssetsFSSurvey){  
+            let totalOtherAmount = 0;          
+
+            for(const otherSurvey of this.result.otherAssetsFSSurvey){
+                let loanInfo = {
+                    desc: otherSurvey.otherAssetsDescription?otherSurvey.otherAssetsDescription:'',                    
+                    value: otherSurvey.otherAssetsValue?Number(otherSurvey.otherAssetsValue):0
+                };
+                this.other.push(loanInfo);
+                totalOtherAmount = totalOtherAmount + loanInfo.value;                
+            }
+            this.totalOther = totalOtherAmount;
+        }
+
+        if(this.other.length == 0){
+            this.other.push(emptyOther);
+        }            
+    }   
  
 }
 </script>

@@ -2,11 +2,11 @@
     <div v-if="dataReady">
         <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
             <form-4-layout v-bind:result="result"/>
-            <part-1-layout v-bind:result="result"/>
-            <part-2-layout v-bind:result="result"/>
-            <part-3-layout v-bind:result="result"/>
-            <part-4-layout v-bind:result="result"/>
-            <part-5-layout v-bind:result="result"/>
+            <part-1-layout v-if="requiredParts.part1Required" v-bind:result="result"/>
+            <part-2-layout v-if="requiredParts.part2and3Required" v-bind:result="result"/>
+            <part-3-layout v-if="requiredParts.part2and3Required" v-bind:result="result"/>
+            <part-4-layout v-if="requiredParts.part4Required" v-bind:result="result"/>
+            <part-5-layout v-if="requiredParts.part5Required" v-bind:result="result"/>
         </b-card>
     </div>
 </template>
@@ -47,11 +47,25 @@ export default class Form4 extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
 
     result;
-    dataReady = false;     
+    dataReady = false; 
+    requiredParts = {
+        part1Required: false,
+        part2and3Required: false,
+        part4Required: false,
+        part5Required: false
+    };     
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getFSResultData();       
+        this.result = this.getFSResultData(); 
+        this.requiredParts = {
+            part1Required: false,
+            part2and3Required: false,
+            part4Required: false,
+            part5Required: false
+        }
+        if(this.result?.financialStatementSurvey)
+            this.requiredParts = Vue.filter('getFsRequiredParts')(this.result.financialStatementSurvey);      
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
@@ -101,8 +115,26 @@ export default class Form4 extends Vue {
                 if(stepResults[stepResultInx])
                     result[stepResultInx]=stepResults[stepResultInx].data; 
             }
-        }        
+        }    
         
+        const incomeOtherPersonHouseholdLiveAlone = {incomeOtherPersonHouseholdLiveAlone:this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result.incomeOtherPersonHouseholdLiveAlone};
+        Object.assign(result, result, incomeOtherPersonHouseholdLiveAlone);
+
+        const incomeOtherPersonHouseholdNumberOfChildren = {incomeOtherPersonHouseholdNumberOfChildren:this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result.incomeOtherPersonHouseholdNumberOfChildren};
+        Object.assign(result, result, incomeOtherPersonHouseholdNumberOfChildren);
+
+        const incomeOtherPersonHouseholdLiveWithAdult = {incomeOtherPersonHouseholdLiveWithAdult:this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result.incomeOtherPersonHouseholdLiveWithAdult};
+        Object.assign(result, result, incomeOtherPersonHouseholdLiveWithAdult);
+
+        const undueHardshipFsExists = {undueHardshipFsExists:this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result.undueHardshipFsExists};
+        Object.assign(result, result, undueHardshipFsExists);
+
+        const legalDutyDependentChildFsExists = {legalDutyDependentChildFsExists:this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result.legalDutyDependentChildFsExists};
+        Object.assign(result, result, legalDutyDependentChildFsExists);
+
+        const legalDutyAnotherPersonFsExists = {legalDutyAnotherPersonFsExists:this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result.legalDutyAnotherPersonFsExists};
+        Object.assign(result, result, legalDutyAnotherPersonFsExists);        
+
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;
        

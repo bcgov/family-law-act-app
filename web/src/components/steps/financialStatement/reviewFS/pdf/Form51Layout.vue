@@ -103,18 +103,18 @@
                 
                 <underline-form 
                     style="text-indent:2px;margin-left:0rem;display:inline-block;" 
-                    textwidth="17rem" 
+                    textwidth="28rem" 
                     beforetext="The" 
                     hint="name and identifying description of document" 
                     :text="documents"/>   
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                    is being submitted for filing electronically <i>(add if applicable)</i>
+                    is being submitted for filing
                 </div>
 
                 <underline-form 
                     style="text-indent:2px;margin: 0.5rem 0 0 -1rem;display:inline-block; font-size: 9pt;" 
                     textwidth="20rem" 
-                    beforetext=" on behalf of" 
+                    beforetext="electronically <i>(add if applicable)</i> on behalf of" 
                     hint="(full name of party/parties)" 
                     :italicHint="false" :text="isLawyer?parties:''"/>                
             </div>
@@ -213,11 +213,11 @@ export default class Form51Layout extends Vue {
         this.otherParties = '';
         this.applicant = '';
 
-        if(this.result?.electronicFilingStatementCsvSurvey){
+        if(this.result?.electronicFilingStatementFsSurvey){
 
             let electronicFilingStatement = {} as electronicFilingStatementDataInfoType;
 
-            electronicFilingStatement = this.result.electronicFilingStatementCsvSurvey; 
+            electronicFilingStatement = this.result.electronicFilingStatementFsSurvey; 
             
             this.isLawyer = electronicFilingStatement.Lawyer == 'y';
 
@@ -246,9 +246,9 @@ export default class Form51Layout extends Vue {
         
         this.documents = '';        
 
-        if(this.result?.csvEfsDocuments?.length>0){
-            const documentName = this.result.csvEfsDocuments[0].documentName;
-            const applicant = Vue.filter('getFullName')(this.result.csvEfsDocuments[0].efsApplicantName);
+        if(this.result?.fsEfsDocuments?.length>0){
+            const documentName = this.result.fsEfsDocuments[0].documentName;
+            const applicant = Vue.filter('getFullName')(this.result.fsEfsDocuments[0].efsApplicantName);
             this.documents = documentName + ' of ' + applicant;
         }        
     

@@ -291,7 +291,7 @@ export default class IncomeOtherPersonHouseholdFS extends Vue {
         
         this.UpdateStepResultData(
                 {
-                    step:this.step, 
+                    step:this.step,
                     data: {
                         incomeOtherPersonHouseholdLiveAlone: this.incomeOtherPersonHouseholdLiveAlone, 
                         incomeOtherPersonHouseholdNumberOfChildren: this.incomeOtherPersonHouseholdNumberOfChildren,

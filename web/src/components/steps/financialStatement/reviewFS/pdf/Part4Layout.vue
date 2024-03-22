@@ -20,7 +20,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:inline; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="liveAlone?'yes':''" 
                 text="I live alone."/>
             
         </section>
@@ -33,14 +33,14 @@
                     inline="inline" 
                     boxMargin="0"
                     style="display:inline; margin-left: 1rem;" 
-                    :check="true?'yes':''" 
+                    :check="!liveAlone?'yes':''" 
                     text="I am living with"/>
                 <underline-form 
                     style="text-indent:1px;display:inline;" 
                     textwidth="21rem" 
                     beforetext="" 
                     hint="(full name of person I am married to or cohabitating with)" 
-                    :text="!supportApplication?appType:''"/>
+                    :text="!liveAlone?partnerName:''"/>
 
                 <div style="text-indent:1px;display:inline-block;">  
                     They have an annual income
@@ -50,7 +50,7 @@
                     textwidth="5rem" 
                     beforetext=" of $" 
                     hint="" 
-                    :text="!supportApplication?appType:''"/>
+                    :text="!liveAlone?partnerAnnualIncome:''"/>
                 <div style="text-indent:1px;display:inline-block;">  
                     .
                 </div>
@@ -64,10 +64,8 @@
                 inline="inline" 
                 boxMargin="0"
                 style="display:inline; margin-left: 1rem;" 
-                :check="!supportApplication?'yes':''" 
-                text="trust income of $"/>
-               
-         
+                :check="!liveAlone && adultDetails.length>0?'yes':''" 
+                text="I/we live with the following other adult(s):"/>         
             <table class="fullsize">                
                
                 <tr style="border:1px solid #414142; font-weight: 700;" >
@@ -75,9 +73,22 @@
                     <td style="border:1px solid #414142;" colspan="3">Annual income</td>
                 </tr>
 
-                <tr style="border:1px solid #414142;" >
-                    <td style="border:1px solid #414142;" colspan="12"></td>
-                    <td style="border:1px solid #414142;" colspan="3"></td>
+                <tr v-if="adultDetails.length == 0" style="border:1px solid #414142;" >
+                    <td style="border:1px solid #414142;" colspan="12">
+                        <div class="answer" style="visibility:hidden;">yyy</div> 
+                    </td>
+                    <td style="border:1px solid #414142;" colspan="3">
+                        <div class="answer"></div>                     
+                    </td>
+                </tr>
+
+                <tr v-for="(adult,inx) in adultDetails" :key="inx" style="border:1px solid #414142;" >
+                    <td style="border:1px solid #414142;" colspan="12">
+                        <div class="answer">{{adult.name}}</div> 
+                    </td>
+                    <td style="border:1px solid #414142;" colspan="3">
+                        <div class="answer">{{adult.income}}</div>                     
+                    </td>
                 </tr>
             </table>
         </section> 
@@ -90,14 +101,14 @@
                     inline="inline" 
                     boxMargin="0"
                     style="display:inline; margin-left: 1rem;" 
-                    :check="true?'yes':''" 
+                    :check="numberOfChildren>0?'yes':''" 
                     text="I/we have"/>
                 <underline-form 
                     style="text-indent:1px;display:inline;" 
                     textwidth="8rem" 
                     beforetext="" 
                     hint="[number of children]" 
-                    :text="!supportApplication?appType:''"/>
+                    :text="numberOfChildren>0?numberOfChildren:''"/>
                 <div style="display:inline;text-indent:1px;"> 
                     child(ren) who live(s) in the home.
                 </div> 
@@ -108,23 +119,22 @@
         <section>            
             <div style="display:inline;">                
                 <underline-form 
-                    style="text-indent:1px;display:inline;" 
+                    style="text-indent:10px;display:inline;" 
                     textwidth="5rem" 
                     beforetext="My spouse/partner or other adult(s) residing in the home contributes about $" 
                     hint="" 
-                    :text="!supportApplication?appType:''"/>
+                    :text="(liveWithAdult && contributionAmount>0)?contributionAmount:''"/>
                 <underline-form 
                     style="text-indent:1px;display:inline;" 
                     textwidth="19rem" 
                     beforetext="per" 
                     hint="(frequency of contribution(s))" 
-                    :text="!supportApplication?appType:''"/>
+                    :text="(liveWithAdult && contributionAmount>0)?contributionFreq:''"/>
             </div> 
             <div style="display:inline;text-indent:1px;"> 
                 towards the household expenses.
             </div> 
         </section>
-            
 
     </div>
 </template>
@@ -139,9 +149,6 @@ const applicationState = namespace("Application");
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } from '@/types/Application/Affidavit';
 
 @Component({
     components:{
@@ -158,149 +165,87 @@ export default class Form4Layout extends Vue {
     public applicantName!: nameInfoType;    
 
     dataReady = false; 
-    existingFileNumber = '';  
-   
-    yourInfo = {} as yourInformationInfoDataInfoType; 
-    address = '';
-    supportApplication = false;
-    appType = '';   
-    otherType = '';
-    additionalAppType = []; 
-    stories: storyDataInfoType[] = [];
-    lastStory = {} as storyDataInfoType; 
-    storyCount = 0;
+    liveAlone = false;
+    numberOfChildren = 0;
+    liveWithAdult = false;
+
+    contributionAmount = 0;  
+    contributionFreq = '';
+    ContributionFreqDesc = '';
+    partnerName = '';
+    partnerAnnualIncome = 0;
+    adultDetails = [];    
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
-    }
-   
+    }   
+
     public extractInfo(){        
-        this.getAffidavitInfo();  
-        this.getAffiantInfo();  
-        this.getStoryInfo();
-        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
+        this.liveAlone = false;
+        this.numberOfChildren = 0;
+        this.liveWithAdult = false; 
+        this.partnerName = '';
+        this.partnerAnnualIncome = 0;
+        this.adultDetails = [];
+        this.contributionAmount = 0;  
+        this.contributionFreq = '';       
         
-    } 
+        this.liveAlone = this.result?.incomeOtherPersonHouseholdLiveAlone && 
+                            this.result.incomeOtherPersonHouseholdLiveAlone == "Yes";
+        if(!this.liveAlone){
 
-    public getAffidavitInfo(){    
-        
-        this.supportApplication = false;
-        this.appType = ''
-        this.additionalAppType = [];
-        this.otherType = '';
+            this.liveWithAdult =  this.result?.incomeOtherPersonHouseholdLiveWithAdult && 
+                            this.result.incomeOtherPersonHouseholdLiveWithAdult == "Yes";
 
-        if(this.result?.affidavitSurvey){
+            this.numberOfChildren = this.result?.incomeOtherPersonHouseholdNumberOfChildren?this.result.incomeOtherPersonHouseholdNumberOfChildren:0; 
 
-            let aff = {} as affidavitDataInfoType;
-            aff = this.result.affidavitSurvey;
+            if(this.liveWithAdult){
 
-            this.supportApplication = aff.affidavitReason != 'response';            
+                if(this.result?.incomeOtherPersonHouseholdFSSurvey){
 
-            const appTypeInfo = aff.applicationType?aff.applicationType:[];
+                    for(const otherAdultInfo of this.result.incomeOtherPersonHouseholdFSSurvey){
 
-            const appList = [];
-            let otherTypeInfo = '';
-
-            for (const app of appTypeInfo){
-                if (app == 'other'){
-                    otherTypeInfo = aff.applicationTypeComment;
-                } else {
-                    appList.push('about ' + app.replace(/`/g, ''))
+                        let adultInfo = {
+                            name: otherAdultInfo.adultFullName?otherAdultInfo.adultFullName:'', 
+                            income: otherAdultInfo.adultAnnualIncome?Number(otherAdultInfo.adultAnnualIncome):0
+                        }
+                        
+                        if(otherAdultInfo.married == "y"){
+                            this.partnerName = adultInfo.name;
+                            this.partnerAnnualIncome = adultInfo.income;
+                        } else {
+                            this.adultDetails.push(adultInfo);
+                        }
+                                   
+                    }
                 }
             }
+        }
 
-            if (appList.length == 0){
-
-                this.appType = Vue.filter('truncate')(otherTypeInfo, 42);
-                this.otherType = '';
-                this.additionalAppType = [];
-
-            } else if (appList.length == 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                this.additionalAppType = [];
-
-            } else if (appList.length > 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                const additionalList = appList.slice(1)           
-
-                for (let index = 0; index < additionalList.length; index+=2){
+        if(this.liveWithAdult)
+            this.getContributionInfo();
                     
-                    this.additionalAppType.push(additionalList[index] + (additionalList[index + 1]?(', ' + additionalList[index + 1]):''))
-                
-                }
-            }
+    }
+    
+    public getContributionInfo(){           
 
-        }
+        if(this.result?.contributionTowardExpensesFSSurvey){  
+
+            const contributionInfo = this.result.contributionTowardExpensesFSSurvey
+
+            this.contributionAmount = contributionInfo.otherAdultContribution?contributionInfo.otherAdultContribution:0;  
+            this.contributionFreq = contributionInfo.contributionFrequency?contributionInfo.contributionFrequency:'';
+            if(contributionInfo.contributionFrequency == "other"){
+                this.contributionFreq = contributionInfo.contributionFrequencyComment?contributionInfo.contributionFrequencyComment:'';
+            } else {
+                this.contributionFreq = contributionInfo.contributionFrequency;
+            }
+        }               
     }
 
-    public getAffiantInfo(){ 
-
-        this.yourInfo = {} as yourInformationInfoDataInfoType; 
-        this.address = '';
-        
-        if(this.result?.aboutAffiantSurvey){
-
-            let aboutAffiant = {} as aboutAffiantDataInfoType;
-            aboutAffiant = this.result.aboutAffiantSurvey;
-
-            this.yourInfo = getYourInformationResults(aboutAffiant);            
-            const addressInfo = aboutAffiant.ApplicantAddress;
-
-            const addressText = addressInfo.street + ', ' 
-                                + addressInfo.city + ', ' 
-                                + addressInfo.state + ', ' 
-                                + addressInfo.country + ', ' 
-                                + addressInfo.postcode;
-
-            this.address = aboutAffiant.inCareOf?.length>0?('Care of '+ addressText ):addressText;
-        }
-            
-    }
-
-    public getStoryInfo(){  
-        
-        this.stories = [];
-        this.storyCount = 0;
-        this.lastStory = {};
-
-        const storyList: storyDataInfoType[] = [];
-       
-        if(this.result?.yourStoryAffSurvey?.storyAff){
-
-            const storyInfo = this.result.yourStoryAffSurvey.storyAff;
-            for (const story in storyInfo){
-               storyList.push({index: Number(story) + 2, content:storyInfo[story].storyDescription})
-            }
-
-            this.storyCount = storyList.length;
-
-            if (this.storyCount == 0){
-
-                this.stories = []
-                this.lastStory = {};
-
-            } else if (this.storyCount == 1){
-
-                this.lastStory = storyList[0];                
-                this.stories = [];
-
-            } else if (this.storyCount > 1){
-
-                this.stories = storyList.slice(0, this.storyCount - 1);
-                this.lastStory = storyList.slice(this.storyCount-1)[0];               
-            } 
-
-
-        }
-            
-    }  
+ 
  
 }
 </script>

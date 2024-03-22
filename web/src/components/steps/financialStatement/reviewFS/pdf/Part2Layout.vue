@@ -40,15 +40,15 @@
                             <td colspan="12" style="border:1px solid #414142;">
                                 Rent/mortgage
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Rent/mortgage'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Rent/mortgage'].yearlyAmount }}</td>
                         </tr>
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Property taxes and strata fees
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Property taxes and strata fees'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Property taxes and strata fees'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
@@ -57,46 +57,46 @@
                                 Include electricity, gas, water, waste, home phone, and
                                 internet
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Utilities'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Utilities'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Homeowner/renter’s Insurance
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Homeowner/renter’s insurance'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Homeowner/renter’s insurance'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Home maintenance and repair
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Home maintenance and repair'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Home maintenance and repair'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Other
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Other'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Other'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142; text-align: right; font-weight: 700;">
                                 Housing Subtotal:
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;">$</td>
-                            <td colspan="2" style="border:1px solid #414142;">$     -></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Total'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Total'].yearlyAmount }}</td>
                         </tr>
 
                     </table>                
                 </td>
-                <td colspan="2" style="border:1px solid #414142;"></td>
-                <td colspan="2" style="border:1px solid #414142;"></td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Total'].monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ housing['Total'].yearlyAmount }}</td>
                 
             </tr>
 
@@ -112,15 +112,16 @@
                             <td colspan="12" style="border:1px solid #414142;">
                                 Groceries
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Groceries'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Groceries'].yearlyAmount }}</td>
                         </tr>
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Eating out
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Eating out'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Eating out'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
@@ -128,30 +129,30 @@
                                 Household supplies such as cleaning supplies, lightbulbs,
                                 batteries, toilet paper and laundry detergent
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Household supplies'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Household supplies'].yearlyAmount }}</td>
                         </tr>                        
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Other
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Other'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Other'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142; text-align: right; font-weight: 700;">
                                 Food & Household supplies Subtotal:
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;">$</td>
-                            <td colspan="2" style="border:1px solid #414142;">$     -></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Total'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ food['Total'].yearlyAmount }}</td>
                         </tr>
 
                     </table>                
                 </td>
-                <td colspan="2" style="border:1px solid #414142;"></td>
-                <td colspan="2" style="border:1px solid #414142;"></td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ food['Total'].monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ food['Total'].yearlyAmount }}</td>
                 
             </tr>
 
@@ -167,53 +168,53 @@
                             <td colspan="12" style="border:1px solid #414142;">
                                 Car Insurance and car loan payments
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Car insurance and car loan payments'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Car insurance and car loan payments'].yearlyAmount }}</td>
                         </tr>
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Fuel
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Fuel'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Fuel'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Maintenance and repairs
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Maintenance and repairs'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Maintenance and repairs'].yearlyAmount }}</td>
                         </tr>   
                         
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Public Transit, taxis and parking
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Public transit, taxis and parking'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Public transit, taxis and parking'].yearlyAmount }}</td>
                         </tr>  
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142;">
                                 Other
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
-                            <td colspan="2" style="border:1px solid #414142;"></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Other'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Other'].yearlyAmount }}</td>
                         </tr>
 
                         <tr style="border:0px solid #414142;" >
                             <td colspan="12" style="border:1px solid #414142; text-align: right; font-weight: 700;">
                                 Transportation Subtotal:
                             </td>
-                            <td colspan="2" style="border:1px solid #414142;">$</td>
-                            <td colspan="2" style="border:1px solid #414142;">$     -></td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Total'].monthlyAmount }}</td>
+                            <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Total'].yearlyAmount }}</td>
                         </tr>
 
                     </table>                
                 </td>
-                <td colspan="2" style="border:1px solid #414142;"></td>
-                <td colspan="2" style="border:1px solid #414142;"></td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Total'].monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ transport['Total'].yearlyAmount }}</td>
                 
             </tr>
 
@@ -222,8 +223,8 @@
                     <b>Clothing & Self-care</b><br>
                     Include clothing, hair dresser/barber and cosmetics                
                 </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ clothing.monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ clothing.yearlyAmount }}</td>
             </tr>
 
             <tr style="border:1px solid #414142;" >
@@ -231,8 +232,8 @@
                     <b>Health & Medical</b><br>
                     Include regular dental care, orthodontics, medicine, eye glasses or contact lenses                
                 </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ health.monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ health.yearlyAmount }}</td>
             </tr>
 
             <tr style="border:1px solid #414142;" >
@@ -241,8 +242,8 @@
                     Include school activities, extracurricular activities, tuition/school fees, camps, babysitting,
                     allowances and daycare                
                 </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ children.monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ children.yearlyAmount }}</td>
             </tr>
 
             <tr style="border:1px solid #414142;" >
@@ -251,8 +252,8 @@
                     Include gifts & donations, alcohol, tobacco & cannabis, entertainment & recreation, cell phone,
                     cable, subscription services, pet expenses and vacations                
                 </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ miscellaneous.monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ miscellaneous.yearlyAmount }}</td>
             </tr>
 
             <tr style="border:1px solid #414142;" >
@@ -261,24 +262,24 @@
                     Include life or term insurance premiums, RRSP or other contributions, debt repayment
                     (for expenses not itemized above)               
                 </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ premiums.monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ premiums.yearlyAmount }}</td>
             </tr>
 
             <tr style="border:1px solid #414142;" >
                 <td colspan="12" style="border:1px solid #414142; font-weight: 700;">
-                    Other <i>(specify):</i>               
+                    Other <i>(specify):</i> <div class="answer"> {{ otherDesc }} </div>              
                 </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ other.monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ other.yearlyAmount }}</td>
             </tr>
 
             <tr style="border:1px solid #414142;" >
                 <td colspan="12" style="border:1px solid #414142; font-weight: 700; text-align: right;">
                     Total               
                 </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ totalExpenses.monthlyAmount }}</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ totalExpenses.yearlyAmount }}</td>
             </tr>
         
         </table>
@@ -313,31 +314,25 @@
                 <td colspan="2" style="border:1px solid #414142; font-weight: 700;">Balance owing</td>
             </tr> 
 
-            <tr style="border:1px solid #414142;" >
+            <tr v-for="(debtItem,inx) in debt" :key="inx" style="border:1px solid #414142;" >
                 <td colspan="7" style="border:1px solid #414142;">
-                    
+                    <div class="answer">{{debtItem.creditor}}</div>                    
                 </td>
                 <td colspan="7" style="border:1px solid #414142;">
+                    <div class="answer">{{debtItem.reason}}</div>
                    
                 </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-            </tr> 
-
-            <tr style="border:1px solid #414142;" >
-                <td colspan="7" style="border:1px solid #414142;">
-                    
+                <td colspan="2" style="border:1px solid #414142;">
+                    $ <div class="answer">{{debtItem.balanceOwing}}</div>
                 </td>
-                <td colspan="7" style="border:1px solid #414142;">
-                   
-                </td>
-                <td colspan="2" style="border:1px solid #414142;">$</td>
-            </tr> 
+            </tr>
+            
             <tr style="border:1px solid #414142;" >
                 <td colspan="14" style="border:1px solid #414142; font-weight: 700; text-align: right;">
                     Total               
                 </td>
                 
-                <td colspan="2" style="border:1px solid #414142;">$</td>
+                <td colspan="2" style="border:1px solid #414142;">$ {{ totalDebt }}</td>
             </tr>
         
         </table>
@@ -357,9 +352,7 @@ const applicationState = namespace("Application");
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } from '@/types/Application/Affidavit';
+import { expensesFSDataInfoType } from '@/types/Application/FinancialStatement';
 
 @Component({
     components:{
@@ -376,149 +369,218 @@ export default class Form4Layout extends Vue {
     public applicantName!: nameInfoType;    
 
     dataReady = false; 
-    existingFileNumber = '';  
-   
-    yourInfo = {} as yourInformationInfoDataInfoType; 
-    address = '';
-    supportApplication = false;
-    appType = '';   
-    otherType = '';
-    additionalAppType = []; 
-    stories: storyDataInfoType[] = [];
-    lastStory = {} as storyDataInfoType; 
-    storyCount = 0;
+
+    housing = {}; 
+    food = {};
+    transport = {};
+    clothing = {};
+    health = {};
+    children = {};
+    miscellaneous = {};
+    premiums = {};
+    tax = {};
+    other = {};
+    totalExpenses = {};
+    otherDesc = '';
+
+    debt = [];
+    totalDebt = 0;
+    
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;        
     }
    
     public extractInfo(){        
-        this.getAffidavitInfo();  
-        this.getAffiantInfo();  
-        this.getStoryInfo();
-        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        
+        this.getExpenseInfo();  
+        this.getDebtInfo();
     } 
 
-    public getAffidavitInfo(){    
+    public getExpenseInfo(){    
         
-        this.supportApplication = false;
-        this.appType = ''
-        this.additionalAppType = [];
-        this.otherType = '';
+        this.housing = {
+            'Rent/mortgage': {},
+            'Property taxes and strata fees': {},
+            'Utilities': {},
+            'Homeowner/renter’s insurance': {},
+            'Home maintenance and repair': {},
+            'Other': {},
+            'Total': {}
+        };
+        this.food = {
+            'Groceries': {},
+            'Eating out': {},
+            'Household supplies': {},
+            'Other': {},
+            'Total': {}
+        };
+        this.transport = {
+            'Car insurance and car loan payments': {},
+            'Fuel': {},
+            'Maintenance and repairs': {},
+            'Public transit, taxis and parking': {},
+            'Other': {},
+            'Total': {}
+        };
+        this.clothing = {};
+        this.health = {};
+        this.children = {};
+        this.miscellaneous = {};
+        this.premiums = {};
+        this.tax = {};
+        this.other = {};
+        this.totalExpenses = {};
+        this.otherDesc = '';
 
-        if(this.result?.affidavitSurvey){
+        if (this.result?.expensesFSSurvey) {
+            const expenseInfo: expensesFSDataInfoType = this.result.expensesFSSurvey;
 
-            let aff = {} as affidavitDataInfoType;
-            aff = this.result.affidavitSurvey;
-
-            this.supportApplication = aff.affidavitReason != 'response';            
-
-            const appTypeInfo = aff.applicationType?aff.applicationType:[];
-
-            const appList = [];
-            let otherTypeInfo = '';
-
-            for (const app of appTypeInfo){
-                if (app == 'other'){
-                    otherTypeInfo = aff.applicationTypeComment;
-                } else {
-                    appList.push('about ' + app.replace(/`/g, ''))
-                }
-            }
-
-            if (appList.length == 0){
-
-                this.appType = Vue.filter('truncate')(otherTypeInfo, 42);
-                this.otherType = '';
-                this.additionalAppType = [];
-
-            } else if (appList.length == 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                this.additionalAppType = [];
-
-            } else if (appList.length > 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                const additionalList = appList.slice(1)           
-
-                for (let index = 0; index < additionalList.length; index+=2){
-                    
-                    this.additionalAppType.push(additionalList[index] + (additionalList[index + 1]?(', ' + additionalList[index + 1]):''))
-                
-                }
-            }
-
-        }
-    }
-
-    public getAffiantInfo(){ 
-
-        this.yourInfo = {} as yourInformationInfoDataInfoType; 
-        this.address = '';
-        
-        if(this.result?.aboutAffiantSurvey){
-
-            let aboutAffiant = {} as aboutAffiantDataInfoType;
-            aboutAffiant = this.result.aboutAffiantSurvey;
-
-            this.yourInfo = getYourInformationResults(aboutAffiant);            
-            const addressInfo = aboutAffiant.ApplicantAddress;
-
-            const addressText = addressInfo.street + ', ' 
-                                + addressInfo.city + ', ' 
-                                + addressInfo.state + ', ' 
-                                + addressInfo.country + ', ' 
-                                + addressInfo.postcode;
-
-            this.address = aboutAffiant.inCareOf?.length>0?('Care of '+ addressText ):addressText;
-        }
+            this.otherDesc = expenseInfo.otherDesc?expenseInfo.otherDesc:'';
             
-    }
-
-    public getStoryInfo(){  
-        
-        this.stories = [];
-        this.storyCount = 0;
-        this.lastStory = {};
-
-        const storyList: storyDataInfoType[] = [];
-       
-        if(this.result?.yourStoryAffSurvey?.storyAff){
-
-            const storyInfo = this.result.yourStoryAffSurvey.storyAff;
-            for (const story in storyInfo){
-               storyList.push({index: Number(story) + 2, content:storyInfo[story].storyDescription})
+            if(expenseInfo.children && expenseInfo.children.length>0){
+                this.children = { 
+                    yearlyAmount: expenseInfo.children[0]?.yearlyAmount?expenseInfo.children[0].yearlyAmount:0,
+                    monthlyAmount: expenseInfo.children[0]?.monthlyAmount?expenseInfo.children[0].monthlyAmount:0
+                }
             }
 
-            this.storyCount = storyList.length;
+            if(expenseInfo.clothing && expenseInfo.clothing.length>0){
+                this.clothing = { 
+                    yearlyAmount: expenseInfo.clothing[0]?.yearlyAmount?expenseInfo.clothing[0].yearlyAmount:0,
+                    monthlyAmount: expenseInfo.clothing[0]?.monthlyAmount?expenseInfo.clothing[0].monthlyAmount:0
+                }
+            }            
+            
+            if(expenseInfo.food && expenseInfo.food.length>0){
+                let monthTotal = 0;
+                for(const food of expenseInfo.food) {                    
+                    if(food.amountName){                       
+                        this.food[food.amountName] = {
+                            monthlyAmount: food.monthlyAmount?food.monthlyAmount:0,
+                            yearlyAmount: food.yearlyAmount?food.yearlyAmount:0
+                        };
+                        monthTotal = monthTotal + Number(food.monthlyAmount);                       
+                    }                    
+                }
+                this.food['Total'] = {
+                    monthlyAmount: monthTotal,
+                    yearlyAmount: monthTotal * 12
+                };
 
-            if (this.storyCount == 0){
+            }
 
-                this.stories = []
-                this.lastStory = {};
+            if(expenseInfo.health && expenseInfo.health.length>0){
+                this.health = { 
+                    yearlyAmount: expenseInfo.health[0]?.yearlyAmount?expenseInfo.health[0].yearlyAmount:0,
+                    monthlyAmount: expenseInfo.health[0]?.monthlyAmount?expenseInfo.health[0].monthlyAmount:0
+                }
+            }  
 
-            } else if (this.storyCount == 1){
+            if(expenseInfo.housing && expenseInfo.housing.length>0){
+                let monthTotal = 0;
+                for(const housing of expenseInfo.housing) {                    
+                    if(housing.amountName){                       
+                        this.housing[housing.amountName] = {
+                            monthlyAmount: housing.monthlyAmount?housing.monthlyAmount:0,
+                            yearlyAmount: housing.yearlyAmount?housing.yearlyAmount:0
+                        };
+                        monthTotal = monthTotal + Number(housing.monthlyAmount);                       
+                    }                    
+                }
+                this.housing['Total'] = {
+                    monthlyAmount: monthTotal,
+                    yearlyAmount: monthTotal * 12
+                };
 
-                this.lastStory = storyList[0];                
-                this.stories = [];
+            }
 
-            } else if (this.storyCount > 1){
-
-                this.stories = storyList.slice(0, this.storyCount - 1);
-                this.lastStory = storyList.slice(this.storyCount-1)[0];               
+            if(expenseInfo.miscellaneous && expenseInfo.miscellaneous.length>0){
+                this.miscellaneous = { 
+                    yearlyAmount: expenseInfo.miscellaneous[0]?.yearlyAmount?expenseInfo.miscellaneous[0].yearlyAmount:0,
+                    monthlyAmount: expenseInfo.miscellaneous[0]?.monthlyAmount?expenseInfo.miscellaneous[0].monthlyAmount:0
+                }
             } 
 
+            if(expenseInfo.other && expenseInfo.other.length>0){
+                this.other = { 
+                    yearlyAmount: expenseInfo.other[0]?.yearlyAmount?expenseInfo.other[0].yearlyAmount:0,
+                    monthlyAmount: expenseInfo.other[0]?.monthlyAmount?expenseInfo.other[0].monthlyAmount:0
+                }
+            } 
 
+            if(expenseInfo.premiums && expenseInfo.premiums.length>0){
+                this.premiums = { 
+                    yearlyAmount: expenseInfo.premiums[0]?.yearlyAmount?expenseInfo.premiums[0].yearlyAmount:0,
+                    monthlyAmount: expenseInfo.premiums[0]?.monthlyAmount?expenseInfo.premiums[0].monthlyAmount:0
+                }
+            } 
+
+            if(expenseInfo.tax && expenseInfo.tax.length>0){
+                this.tax = { 
+                    yearlyAmount: expenseInfo.tax[0]?.yearlyAmount?expenseInfo.tax[0].yearlyAmount:0,
+                    monthlyAmount: expenseInfo.tax[0]?.monthlyAmount?expenseInfo.tax[0].monthlyAmount:0
+                }
+            }
+
+            if(expenseInfo.total && expenseInfo.total.length>0){
+                this.totalExpenses = { 
+                    yearlyAmount: expenseInfo.total[0]?.yearlyAmount?expenseInfo.total[0].yearlyAmount:0,
+                    monthlyAmount: expenseInfo.total[0]?.monthlyAmount?expenseInfo.total[0].monthlyAmount:0
+                }
+            }
+
+            if(expenseInfo.transport && expenseInfo.transport.length>0){
+                let monthTotal = 0;
+                for(const transport of expenseInfo.transport) {                    
+                    if(transport.amountName){                       
+                        this.transport[transport.amountName] = {
+                            monthlyAmount: transport.monthlyAmount?transport.monthlyAmount:0,
+                            yearlyAmount: transport.yearlyAmount?transport.yearlyAmount:0
+                        };
+                        monthTotal = monthTotal + Number(transport.monthlyAmount);                       
+                    }                    
+                }
+                this.transport['Total'] = {
+                    monthlyAmount: monthTotal,
+                    yearlyAmount: monthTotal * 12
+                };
+            }
         }
-            
-    }  
+    }
+
+    public getDebtInfo(){ 
+
+        const emptyDebt = {
+            creditor:'',
+            reason:'',
+            balanceOwing: ''
+        };
+
+        this.debt = [];    
+        this.totalDebt = 0;   
+        
+        if(this.result?.debtsFSSurvey){  
+            let totalDebtAmount = 0;          
+
+            for(const debtSurvey of this.result.debtsFSSurvey){
+                let debtInfo = {
+                    creditor: debtSurvey.creditorName?debtSurvey.creditorName:'',
+                    reason: debtSurvey.reasonForBorrowing?debtSurvey.reasonForBorrowing:'',
+                    balanceOwing: debtSurvey.balanceOwing?debtSurvey.balanceOwing:0
+                };
+                this.debt.push(debtInfo);
+                totalDebtAmount = totalDebtAmount + Number(debtInfo.balanceOwing);                
+            } 
+
+            this.totalDebt = totalDebtAmount;
+        }
+
+        if(this.debt.length == 0){
+            this.debt.push(emptyDebt);
+        }            
+    }
  
 }
 </script>

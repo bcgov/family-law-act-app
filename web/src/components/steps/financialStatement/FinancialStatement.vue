@@ -76,7 +76,7 @@ export default class FinancialStatement extends Vue {
                 this.survey.setValue('situationType', ['None of the above']);
             }
 
-            this.determineFsRequired(); 
+            this.determineFsRequired();
             this.determinePages(true);            
         })
     }
@@ -100,42 +100,14 @@ export default class FinancialStatement extends Vue {
         const allPages = _.range(this.stPgNo.FS.IncomeInformation, Object.keys(p).length-1);
         togglePages(allPages, false, this.currentStep); 
 
-        if(!this.disableNextButton){
+        if(!this.disableNextButton){           
 
-            const situationTypes = fsData.situationType?fsData.situationType:[];
-            const part1Options = [
-                "I am the person required to pay child support", 
-                "Parenting time is `split or shared` for one or more of the children", 
-                "There is a claim for section 7 special or extraordinary expenses",
-                "There is a child 19 years or older for whom support is being applied for",
-                "A party has been acting as a parent to a child of the other party",
-                "The payor earns more than $150,000 per year",
-                "I am claiming undue hardship",
-                "The other party is claiming undue hardship"
-            ];
-            const part2and3Options = [            
-                "Parenting time is `split or shared` for one or more of the children", 
-                "There is a claim for section 7 special or extraordinary expenses",
-                "There is a child 19 years or older for whom support is being applied for",
-                "A party has been acting as a parent to a child of the other party",
-                "The payor earns more than $150,000 per year",
-                "I am claiming undue hardship",
-                "The other party is claiming undue hardship"
-            ];
+            const requiredParts = Vue.filter('getFsRequiredParts')(fsData);            
 
-            const part4Options = [
-                "I am claiming undue hardship",
-                "The other party is claiming undue hardship"
-            ];
-
-            const part5Options = [
-                "I am claiming undue hardship"
-            ];
-
-            const part1Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists = 'y' && part1Options.some(s=>situationTypes.indexOf(s) > -1));
-            const part2and3Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists = 'y' && part2and3Options.some(s=>situationTypes.indexOf(s) > -1));
-            const part4Required = fsData.childAppExists = 'y' && part4Options.some(s=>situationTypes.indexOf(s) > -1);
-            const part5Required = fsData.childAppExists = 'y' && part5Options.some(s=>situationTypes.indexOf(s) > -1);
+            const part1Required = requiredParts.part1Required;
+            const part2and3Required = requiredParts.part2and3Required;
+            const part4Required = requiredParts.part4Required;
+            const part5Required = requiredParts.part4Required;
 
             const part1Pages = [p.IncomeInformation, p.ChangesIncomeFS, p.IncomeSummaryFS, p.DisclosureInformationFS];
             const part2and3Pages = [p.ExpensesFS, p.DebtsFS, p.AssetsFS];

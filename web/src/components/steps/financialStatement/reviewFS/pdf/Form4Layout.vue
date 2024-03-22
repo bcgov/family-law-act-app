@@ -27,7 +27,6 @@
                 </b-table>                
             </div>
         </div> 
-
        
         <underline-form 
             style="text-indent:2px;display:inline; font-size: 9pt; margin-top: 1rem;" 
@@ -48,7 +47,7 @@
             textwidth="17rem" 
             beforetext="of" 
             hint="(address of party, city, province)" 
-            :italicHint="false" :text="yourInfo.name | getFullName"/>
+            :italicHint="false" :text="address"/>
 
             
         <div style="text-indent:5px; display: block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
@@ -78,7 +77,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="requiredParts.part1Required?'yes':''" 
                 text="my income, including benefits and adjustments, if any, in Part 1"/>
 
             <check-box 
@@ -86,7 +85,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="requiredParts.part2and3Required?'yes':''" 
                 text="my expenses and debts, in Part 2"/>    
                 
             <check-box 
@@ -94,7 +93,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="requiredParts.part2and3Required?'yes':''" 
                 text="my assets, in Part 3"/>
 
             <check-box 
@@ -102,7 +101,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="requiredParts.part4Required?'yes':''" 
                 text="income of other person(s) in my household, in Part 4"/>    
             
             <check-box 
@@ -110,7 +109,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
-                :check="supportApplication?'yes':''" 
+                :check="requiredParts.part5Required?'yes':''" 
                 text="undue hardship, in Part 5"/>    
                     
         </section>
@@ -163,7 +162,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } from '@/types/Application/Affidavit';
+import { aboutAffiantDataInfoType} from '@/types/Application/Affidavit';
 
 @Component({
     components:{
@@ -184,93 +183,35 @@ export default class Form4Layout extends Vue {
    
     yourInfo = {} as yourInformationInfoDataInfoType; 
     address = '';
-    supportApplication = false;
-    appType = '';   
-    otherType = '';
-    additionalAppType = []; 
-    stories: storyDataInfoType[] = [];
-    lastStory = {} as storyDataInfoType; 
-    storyCount = 0;
+    requiredParts = {
+        part1Required: false,
+        part2and3Required: false,
+        part4Required: false,
+        part5Required: false
+    };   
    
     mounted(){
-        this.dataReady = false;
-        console.log(this.result)
+        this.dataReady = false;        
         this.extractInfo();       
         this.dataReady = true;        
     }
    
-    public extractInfo(){        
-        this.getAffidavitInfo();  
+    public extractInfo(){
         this.getAffiantInfo();  
-        this.getStoryInfo();
+        this.getFsInfo();
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
         
-    } 
-
-    public getAffidavitInfo(){    
-        
-        this.supportApplication = false;
-        this.appType = ''
-        this.additionalAppType = [];
-        this.otherType = '';
-
-        if(this.result?.affidavitSurvey){
-
-            let aff = {} as affidavitDataInfoType;
-            aff = this.result.affidavitSurvey;
-
-            this.supportApplication = aff.affidavitReason != 'response';            
-
-            const appTypeInfo = aff.applicationType?aff.applicationType:[];
-
-            const appList = [];
-            let otherTypeInfo = '';
-
-            for (const app of appTypeInfo){
-                if (app == 'other'){
-                    otherTypeInfo = aff.applicationTypeComment;
-                } else {
-                    appList.push('about ' + app.replace(/`/g, ''))
-                }
-            }
-
-            if (appList.length == 0){
-
-                this.appType = Vue.filter('truncate')(otherTypeInfo, 42);
-                this.otherType = '';
-                this.additionalAppType = [];
-
-            } else if (appList.length == 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                this.additionalAppType = [];
-
-            } else if (appList.length > 1){
-
-                this.appType = Vue.filter('truncate')(appList[0], 42);
-                this.otherType = otherTypeInfo;
-                const additionalList = appList.slice(1)           
-
-                for (let index = 0; index < additionalList.length; index+=2){
-                    
-                    this.additionalAppType.push(additionalList[index] + (additionalList[index + 1]?(', ' + additionalList[index + 1]):''))
-                
-                }
-            }
-
-        }
     }
-
+   
     public getAffiantInfo(){ 
 
         this.yourInfo = {} as yourInformationInfoDataInfoType; 
         this.address = '';
         
-        if(this.result?.aboutAffiantSurvey){
+        if(this.result?.aboutAffiantFsSurvey){
 
             let aboutAffiant = {} as aboutAffiantDataInfoType;
-            aboutAffiant = this.result.aboutAffiantSurvey;
+            aboutAffiant = this.result.aboutAffiantFsSurvey;
 
             this.yourInfo = getYourInformationResults(aboutAffiant);            
             const addressInfo = aboutAffiant.ApplicantAddress;
@@ -286,40 +227,17 @@ export default class Form4Layout extends Vue {
             
     }
 
-    public getStoryInfo(){  
+    public getFsInfo(){  
         
-        this.stories = [];
-        this.storyCount = 0;
-        this.lastStory = {};
-
-        const storyList: storyDataInfoType[] = [];
+        this.requiredParts = {
+            part1Required: false,
+            part2and3Required: false,
+            part4Required: false,
+            part5Required: false
+        }
        
-        if(this.result?.yourStoryAffSurvey?.storyAff){
-
-            const storyInfo = this.result.yourStoryAffSurvey.storyAff;
-            for (const story in storyInfo){
-               storyList.push({index: Number(story) + 2, content:storyInfo[story].storyDescription})
-            }
-
-            this.storyCount = storyList.length;
-
-            if (this.storyCount == 0){
-
-                this.stories = []
-                this.lastStory = {};
-
-            } else if (this.storyCount == 1){
-
-                this.lastStory = storyList[0];                
-                this.stories = [];
-
-            } else if (this.storyCount > 1){
-
-                this.stories = storyList.slice(0, this.storyCount - 1);
-                this.lastStory = storyList.slice(this.storyCount-1)[0];               
-            } 
-
-
+        if(this.result?.financialStatementSurvey){
+            this.requiredParts = Vue.filter('getFsRequiredParts')(this.result.financialStatementSurvey);
         }
             
     }  
