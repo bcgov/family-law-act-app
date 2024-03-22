@@ -155,6 +155,53 @@ Vue.filter('beautify-amount-name', function(amountName){
 		return '';
 })
 
+Vue.filter('getFsRequiredParts', function(fsData){
+
+    const situationTypes = fsData.situationType?fsData.situationType:[];
+    const part1Options = [
+        "I am the person required to pay child support", 
+        "Parenting time is `split or shared` for one or more of the children", 
+        "There is a claim for section 7 special or extraordinary expenses",
+        "There is a child 19 years or older for whom support is being applied for",
+        "A party has been acting as a parent to a child of the other party",
+        "The payor earns more than $150,000 per year",
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+    const part2and3Options = [            
+        "Parenting time is `split or shared` for one or more of the children", 
+        "There is a claim for section 7 special or extraordinary expenses",
+        "There is a child 19 years or older for whom support is being applied for",
+        "A party has been acting as a parent to a child of the other party",
+        "The payor earns more than $150,000 per year",
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+
+    const part4Options = [
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+
+    const part5Options = [
+        "I am claiming undue hardship"
+    ];
+
+    const part1Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists == 'y' && part1Options.some(s=>situationTypes.indexOf(s) > -1));
+    const part2and3Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists == 'y' && part2and3Options.some(s=>situationTypes.indexOf(s) > -1));
+    const part4Required = fsData.childAppExists == 'y' && part4Options.some(s=>situationTypes.indexOf(s) > -1);
+    const part5Required = fsData.childAppExists == 'y' && part5Options.some(s=>situationTypes.indexOf(s) > -1);
+
+    return {
+        part1Required: part1Required,
+        part2and3Required: part2and3Required,
+        part4Required: part4Required,
+        part5Required: part5Required
+    }
+
+})
+
+
 Vue.filter('scrollToLocation', function(locationName){
 	if(locationName){
 		Vue.nextTick(()=>{
