@@ -126,10 +126,10 @@
                         <div class="answer">{{ adult.name }}</div>
                     </td>
                     <td style="border:1px solid #414142;" colspan="4">
-                        <div class="answer">{{ adult.monthly }}</div>
+                        <div style="word-wrap: break-word;" class="answer">{{ adult.monthly }}</div>
                     </td>
                     <td style="border:1px solid #414142;" colspan="4">
-                        <div class="answer">{{ adult.yearly }}</div>
+                        <div style="word-wrap: break-word;" class="answer">{{ adult.yearly }}</div>
                     </td>
                 </tr>
             </table>
@@ -177,10 +177,10 @@
                         <div class="answer">{{ child.name }}</div>
                     </td>
                     <td style="border:1px solid #414142;" colspan="4">
-                        <div class="answer">{{ child.monthly }}</div>
+                        <div style="word-wrap: break-word;" class="answer">{{ child.monthly }}</div>
                     </td>
                     <td style="border:1px solid #414142;" colspan="4">
-                        <div class="answer">{{ child.yearly }}</div>
+                        <div style="word-wrap: break-word;" class="answer">{{ child.yearly }}</div>
                     </td>
                 </tr>
            </table>
