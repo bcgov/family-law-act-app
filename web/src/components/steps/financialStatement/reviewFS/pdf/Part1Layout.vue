@@ -12,20 +12,27 @@
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 I am attaching a copy of each of the following documents to my financial statement:
             </div>
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="true?'yes':''" 
-                text="my tax return and related schedules for each of the three most recent taxation years; and"/>
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="true?'yes':''" 
-                text="any notice of assessment and reassessment issued by the CRA for each of the three most recent taxation years."/> 
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline; margin-left: 1rem;" 
+                    :check="true?'yes':''" 
+                    text="my tax return and related schedules for each of the three most recent taxation years; and"/>
+            </div>
+
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline; margin-left: 1rem;" 
+                    :check="true?'yes':''" 
+                    text="any notice of assessment and reassessment issued by the CRA for each of the three most recent taxation years."/>
+            </div>
+            
+             
         </section>
 
     <!-- <2> --> 
@@ -361,7 +368,7 @@
                 
                 <table class="fullsize">
                     <tr style="border:1px solid #414142; font-weight: 700;" >
-                        <td colspan="12">Total income before adjustments</td>
+                        <td colspan="15">Total income before adjustments</td>
                     </tr>
                     <tr style="border:1px solid #414142">          
                         <td style="border:1px solid #414142; text-align: center;" colspan="1">1</td>

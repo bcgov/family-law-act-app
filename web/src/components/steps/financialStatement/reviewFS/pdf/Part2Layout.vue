@@ -1,17 +1,16 @@
 <template>
     <div v-if="dataReady">
 
-<!-- <Page 1> -->          
+<!-- <Page 1> -->  
+    <div class="print-block">        
 
-    <div style="display:block;font-weight: 700; margin-top: 1rem;"> 
-        Part 2 – Personal expenses and debts
-    </div>
+        <div style="display:block;font-weight: 700; margin-top: 1rem;"> 
+            Part 2 – Personal expenses and debts
+        </div>
 
-    <div style="display:block;font-weight: 700; margin-top: 1rem;"> 
-        Expenses
-    </div>
-    
-    <div class="print-block">
+        <div style="display:block;font-weight: 700; margin-top: 0.25rem;"> 
+            Expenses
+        </div>    
             
         <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
             An expense is the amount of money you spend on something.

@@ -1,13 +1,12 @@
 <template>
     <div v-if="dataReady">
 
-    <!-- <Page 1> -->          
+    <!-- <Page 1> -->      
+        <div class="print-block">    
 
-        <div style="display:block;font-weight: 700; margin-top: 1rem;"> 
-            Part 3 – Assets
-        </div>
-        
-        <div class="print-block">
+            <div style="display:block;font-weight: 700; margin-top: 1rem;"> 
+                Part 3 – Assets
+            </div>
             
             <div style="text-indent:0px;display:block; font-size: 9pt; font-style: italic;"> 
                 Complete this part only if you are required to provide information about assets. 
@@ -15,7 +14,7 @@
                 to your situation.
             </div>
 
-            <div style="text-indent:5px;display:block; font-size: 9pt; margin: 1rem 0;"> 
+            <div style="text-indent:0px;display:block; font-size: 9pt; margin: 0.25rem 0;"> 
                 An asset is something of value that you own or that belongs to you.
             </div>
 
@@ -43,15 +42,15 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Street address
-                        <tr v-for="(realEstateItem,inx) in realEstate" :key="inx"> 
-                            <div  class="answer">{{ realEstateItem.desc }} </div>                            
-                        </tr>
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(realEstateItem,inx) in realEstate" :key="inx">
+                            <div  class="answer">{{ realEstateItem.desc }} </div>
+                        </div>                        
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Market Value
-                        <tr v-for="(realEstateItem,inx) in realEstate" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(realEstateItem,inx) in realEstate" :key="inx">
                             <div  class="answer">${{ realEstateItem.value }} </div>                            
-                        </tr>
+                        </div>
                     </td>
                 </tr> 
 
@@ -61,15 +60,15 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Make, model, year
-                        <tr v-for="(carItem,inx) in cars" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(carItem,inx) in cars" :key="inx"> 
                             <div  class="answer">{{ carItem.desc }} </div>                            
-                        </tr>
+                        </div>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Market Value
-                        <tr v-for="(carItem,inx) in cars" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(carItem,inx) in cars" :key="inx"> 
                             <div  class="answer">${{ carItem.value }} </div>                            
-                        </tr>
+                        </div>
                     </td>
                 </tr> 
 
@@ -79,15 +78,15 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Type of cash asset (for example cash, savings account, chequing account) 
-                        <tr v-for="(cashItem,inx) in cash" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(cashItem,inx) in cash" :key="inx"> 
                             <div  class="answer">{{ cashItem.desc }} </div>                            
-                        </tr>   
+                        </div>   
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Current Balance  
-                        <tr v-for="(cashItem,inx) in cash" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(cashItem,inx) in cash" :key="inx"> 
                             <div  class="answer">${{ cashItem.value }} </div>                            
-                        </tr>  
+                        </div>  
                     </td>
                 </tr> 
 
@@ -97,15 +96,15 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Type of investment
-                        <tr v-for="(investmentItem,inx) in investment" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(investmentItem,inx) in investment" :key="inx"> 
                             <div  class="answer">{{ investmentItem.desc }} </div>                            
-                        </tr>
+                        </div>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Current Balance
-                        <tr v-for="(investmentItem,inx) in investment" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(investmentItem,inx) in investment" :key="inx"> 
                             <div  class="answer">${{ investmentItem.value }} </div>                            
-                        </tr>
+                        </div>
                     </td>
                 </tr> 
 
@@ -115,15 +114,15 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Name of borrower
-                        <tr v-for="(loanItem,inx) in loans" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(loanItem,inx) in loans" :key="inx"> 
                             <div  class="answer">{{ loanItem.desc }} </div>                            
-                        </tr>
+                        </div>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Amount owing
-                        <tr v-for="(loanItem,inx) in loans" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(loanItem,inx) in loans" :key="inx"> 
                             <div  class="answer">${{ loanItem.value }} </div>                            
-                        </tr>                        
+                        </div>                        
                     </td>
                 </tr> 
 
@@ -133,15 +132,15 @@
                     </td>
                     <td colspan="10" style="border:1px solid #414142; font-style: italic;">
                         Brief description  
-                        <tr v-for="(otherItem,inx) in other" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(otherItem,inx) in other" :key="inx"> 
                             <div  class="answer">{{ otherItem.desc }} </div>                            
-                        </tr>
+                        </div>
                     </td>
                     <td colspan="3" style="border:1px solid #414142; font-style: italic;">
                         Market Value  
-                        <tr v-for="(otherItem,inx) in other" :key="inx"> 
+                        <div style="margin-left: 0.25rem;" class="row" v-for="(otherItem,inx) in other" :key="inx"> 
                             <div  class="answer">${{ otherItem.value }} </div>                            
-                        </tr>   
+                        </div>   
                     </td>
                 </tr> 
                 

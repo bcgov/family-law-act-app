@@ -72,45 +72,55 @@
                 Select all options that apply
             </div>
 
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="requiredParts.part1Required?'yes':''" 
-                text="my income, including benefits and adjustments, if any, in Part 1"/>
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline; margin-left: 1rem;" 
+                    :check="requiredParts.part1Required?'yes':''" 
+                    text="my income, including benefits and adjustments, if any, in Part 1"/>
+            </div>
 
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="requiredParts.part2and3Required?'yes':''" 
-                text="my expenses and debts, in Part 2"/>    
-                
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="requiredParts.part2and3Required?'yes':''" 
-                text="my assets, in Part 3"/>
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline; margin-left: 1rem;" 
+                    :check="requiredParts.part2and3Required?'yes':''" 
+                    text="my expenses and debts, in Part 2"/>
+            </div>
 
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="requiredParts.part4Required?'yes':''" 
-                text="income of other person(s) in my household, in Part 4"/>    
-            
-            <check-box 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:block; margin-left: 1rem;" 
-                :check="requiredParts.part5Required?'yes':''" 
-                text="undue hardship, in Part 5"/>    
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline; margin-left: 1rem;" 
+                    :check="requiredParts.part2and3Required?'yes':''" 
+                    text="my assets, in Part 3"/>
+            </div>
+
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline; margin-left: 1rem;" 
+                    :check="requiredParts.part4Required?'yes':''" 
+                    text="income of other person(s) in my household, in Part 4"/>
+            </div>
+
+            <div style="display:block;">
+                <check-box 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline; margin-left: 1rem;" 
+                    :check="requiredParts.part5Required?'yes':''" 
+                    text="undue hardship, in Part 5"/>
+            </div>           
                     
         </section>
        
