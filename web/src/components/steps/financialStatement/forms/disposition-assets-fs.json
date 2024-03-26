@@ -1,0 +1,27 @@
+{
+   "pages": [
+      {
+         "name": "Disposition of Assets",
+         "elements": [
+            {
+                "type": "yesno",
+                "name": "soldAsset",
+                "title": "Have you sold or disposed of an asset in the last two years?",
+                "isRequired": true
+            },
+            {
+                "type": "comment",
+                "name": "soldAssetDescription",
+                "title": "Please describe:<ul><li>the asset(s) you sold or disposed of, and</li><li>how much money you made from the sale or disposal.</li></ul>",
+                "isRequired": true,
+                "visible": false,
+                "visibleIf": "{soldAsset} = 'y'"
+            }
+           
+         ],
+         "title": "Disposition of Assets"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

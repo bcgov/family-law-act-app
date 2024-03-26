@@ -1,0 +1,65 @@
+{
+  "title": "Financial Statement",
+  "pages": [
+    {
+      "name": "Financial Statement",
+      "description": "A court order about support is based in part on the financial information of the parties. Without financial information, it is impossible to decide a fair and proper amount for child support or spousal support. If a party’s income information or other financial information is necessary, they have an obligation to provide information to the court.<br><br>If a party does not give their complete, true, and up-to-date income information when needed, the court can:<ul><li>order that the income information be provided</li><li>assume the party’s income is a certain amount for support purposes and make an order based on it</li><li>require a party to give security</li><li>require a party to pay the other party’s expenses, an amount to the other party up to $5,000, or a fine up to $5,000</li><li>make any other order the court considers appropriate</li></ul>This pathway will help you complete the parts of the financial statement that apply to you. Which parts you must complete depends on which situation applies to you.",
+      "elements": [        
+        {
+          "type": "panel",
+          "name": "FinancialStatementPanel",
+          "elements": [  
+            {
+                "type": "yesno",
+                "name": "spousalAppExists",
+                "title": "Is there an application about spousal support?",
+                "description": "The application may have been made by either by you or the other party. Include an application for spousal support, or to change an existing order or agreement about spousal support.",
+                "isRequired": true
+            },
+            {
+                "type": "yesno",
+                "name": "childAppExists",
+                "title": "Is there an application about child support?",
+                "description": "The application may have been made by either by you or the other party. Include an application for child support, or to change an existing order or agreement about child support.",
+                "isRequired": true
+            },                              
+            {
+                "type": "checkbox",
+                "name": "situationType",
+                "title": "Which of the following situations apply to you?",
+                "description": "If you have made an application for child support, you may not know what the other party is asking for, or what their income is. You can answer this question based on what you know now or how they may reply if you want to prepare your financial statement before they reply so you have it ready.<br>Select each option that applies.",
+                "visibleIf":"{childAppExists} = 'y'",
+                "visible": false,
+                "choices": [
+                    "I am the person required to pay child support",
+                    "Parenting time is `split` or `shared` for one or more of the children", 
+                    "There is a claim for section 7 special or extraordinary expenses",
+                    "There is a child 19 years or older for whom support is being applied for",
+                    "A party has been acting as a parent to a child of the other party",
+                    "The payor earns more than $150,000 per year",
+                    "I am claiming undue hardship",
+                    "The other party is claiming undue hardship",
+                    "None of the above"
+
+                ],
+                "isRequired": true
+            },
+            {
+                "type": "infotext",
+                "name": "fsNotRequiredInfo",
+                "visible": false,
+                "visibleIf": "{fsNotRequired}",
+                "title": "Based on your responses, you are not required to file your financial information at this time. If you believe that the other party will make an application for support from you, or that any of the situations above may apply, you may choose to complete the Financial Statement at any time to avoid delay. If you wish to complete the Financial Statement, select the options above you believe will apply then select Next to complete this pathway.",
+                "titleLocation": "hidden",
+                "messageStyle": "info"
+            }
+
+          ]
+        }
+      ],
+      "title": "Financial Statement"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

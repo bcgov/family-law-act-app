@@ -1,0 +1,67 @@
+{
+  "title": "Affidavit",
+  "pages": [
+    {
+        "name": "Affidavit",
+        "description": "The Financial Statement is used to present evidence to the court. It is a written document that contains facts that you must swear under oath (usually on a Bible or other religious book) or affirm (non-religious promise) to be true. After you swear or affirm the affidavit, it is evidence of the facts and events it sets out, just as if you took the stand in a courtroom to provide those facts.",
+        "elements": [
+
+            {
+                "type": "helptext",
+                "name": "FAQLegalAdvice",
+                "title": "How do I swear or affirm an affidavit?",
+                "titleLocation": "hidden",              
+                "body": "To swear or affirm an affidavit, you must meet with a commissioner for taking oaths. The commissioner will check your photo ID to make sure you are who you say you are, ask you if you understand the contents of your affidavit, then ask you to swear or affirm that the contents are true. The commissioner will then watch you sign the document before signing it themselves.<br><br>If you do not speak or read English, you can bring an interpreter with you when you meet with the commissioner. For information about interpreters and language help, click on the Language Resources link on the bottom toolbar.<br><br>Lawyers, notary publics and many court registry staff are commissioners for taking oaths. You can go to any <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>Provincial Court Registry</a> or <a target='_blank' href='https://www2.gov.bc.ca/gov/content?id=FD6DB5BA2A5248038EEF54D9F9F37C4D'>Service BC location</a> to swear or affirm the affidavit. If you have the document sworn or affirmed at a different court registry, you will still need to file it at the court registry where the existing case is filed."
+            },
+            {
+                "type": "html",
+                "name": "affidavitHeading",            
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;'>Do not sign the affidavit until you are with a commissioner for taking affidavits and they tell you to sign it. Make sure that you bring any documents you are attaching to your affidavit as exhibits with you. The commissioner will also need to date and sign the exhibits.</div><br>If you cannot get the document sworn or affirmed before the document is filed, the unsworn document can be filed if you will be avail­able to swear or affirm that the contents of the document are true during your court appearance.</div>"
+            },
+            {
+                "type": "html",
+                "name": "confirmationHeading",
+                "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Please confirm each of the following statements, if true:</div>The information set out in this financial statement is true, to the best of my knowledge.</div>"
+            },            
+            {
+                "type": "checkbox",
+                "name": "fsConfirmation",
+                "titleLocation": "hidden",
+                "title": "",
+                "choices": [
+                    {
+                        "value": "confirm",
+                        "text": "I confirm"
+                    }
+                ],
+                "isRequired": true
+            },   
+            {
+                "type": "html",
+                "name": "disclosureHeading",    
+                "visible": false,
+                "visibleIf": "{displayDisclosure}",        
+                "html": "<div style='margin-bottom:-0.75rem'>I have made complete disclosure in this financial statement of:{listOfItems}</div>"
+            },         
+            {
+                "type": "checkbox",
+                "name": "fsDisclosure",
+                "titleLocation": "hidden",
+                "title": "",
+                "visible": false,
+                "visibleIf": "{displayDisclosure}", 
+                "choices": [
+                    {
+                        "value": "confirm",
+                        "text": "I confirm"
+                    }
+                ],
+                "isRequired": true
+            } 
+        ],
+      "title": "Affidavit"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

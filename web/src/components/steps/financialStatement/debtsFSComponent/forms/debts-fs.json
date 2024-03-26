@@ -1,0 +1,33 @@
+{
+    "title": "Creditor Information",
+    "pages": [
+        {
+            "name": "Creditor",
+            "elements": [
+                {
+                    "type": "text",
+                    "name": "creditorName",
+                    "title": "What is the name of the creditor?",
+                    "description": "A creditor is a person or company you owe money to. It could be a bank, finance company, person, etc.",
+                    "isRequired": true
+                },          
+                {
+                    "type": "comment",
+                    "name": "reasonForBorrowing",
+                    "title": "What is your reason for borrowing the money?",
+                    "description": "For example, mortgage, car loan, school, etc.",
+                    "isRequired": true
+                },
+                {
+                    "type": "text",
+                    "name": "balanceOwing",
+                    "title": "As of today’s date, what is the balance owing?",
+                    "inputType": "number",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

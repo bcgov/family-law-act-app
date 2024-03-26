@@ -1,0 +1,32 @@
+{
+   "pages": [
+      {
+         "name": "Contribution toward expenses",
+         "elements": [           
+            {
+                "type": "text",
+                "name": "otherAdultContribution",
+                "inputType": "number",
+                "isRequired": true,                
+                "title": "How much does the other adult(s) residing in the home contribute towards the household expenses?",
+                "description": "Household expenses include the expenses you identified in the expenses section. You indicated how much you pay for expenses. In this section, you must indicate how much the other adult(s) pay for expenses. You may provide an approximate amount."
+            },
+            {
+                "type": "radiogroup",
+                "name": "contributionFrequency",
+                "hasOther": true,
+                "otherText": "Other (specify)",
+                "title": "Frequency of contributions:",
+                "choices": [
+                    "Monthly",
+                    "Annually"                
+                ]
+            }
+           
+         ],
+         "title": "Contribution toward expenses"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

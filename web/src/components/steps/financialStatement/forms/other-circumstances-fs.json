@@ -1,0 +1,27 @@
+{
+    "pages": [
+       {
+          "name": "Other circumstances",
+          "elements": [            
+             {
+                 "type": "yesno",
+                 "name": "otherCircumstancesExist",
+                 "isRequired": true,                
+                 "title": "Are there any other circumstances that are causing undue hardship?"
+             },
+             {
+                 "type": "comment",
+                 "name": "otherCircumstancesDetails",
+                 "title": "Please specify the other circumstances:",                
+                 "isRequired": true,
+                 "visible": false,
+                 "visibleIf": "{otherCircumstancesExist} = 'y'"
+             }
+            
+          ],
+          "title": "Other circumstances"
+       }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+ }

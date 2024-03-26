@@ -1,0 +1,25 @@
+{
+    "title": "Other assets Information",
+    "pages": [
+        {
+            "name": "Other assets",
+            "elements": [
+                {
+                    "type": "comment",
+                    "name": "otherAssetsDescription",
+                    "title": "Description of asset",
+                    "isRequired": true
+                },               
+                {
+                    "type": "text",
+                    "name": "otherAssetsValue",
+                    "title": "Current value of asset",
+                    "inputType": "number",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

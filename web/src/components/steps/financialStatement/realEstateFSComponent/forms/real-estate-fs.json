@@ -1,0 +1,33 @@
+{
+    "title": "Real Estate Information",
+    "pages": [
+        {
+            "name": "Real Estate",
+            "elements": [
+                {
+                    "type": "comment",
+                    "name": "realEstateDescription",
+                    "title": "Description of asset",
+                    "description": "If possible, include the:<ul><li>property address</li><li>registered owner(s)</li><li>PID, and</li><li>legal description</li></ul>",
+                    "isRequired": true
+                },
+                {
+                    "type": "infotext",
+                    "name": "ExplanationRealEstate",                    
+                    "title": "For property in BC, you can find a description and assessed value on your most recent Assessment Notice for your real estate. You can also look it up at <a href='https://www.bcassessment.ca/' target='_blank'>www.bcassessment.ca</a>.",
+                    "titleLocation": "hidden"
+                },
+                {
+                    "type": "text",
+                    "name": "realEstateValue",
+                    "title": "Current value of asset",
+                    "description": "You may be the only owner of an asset, or you may be a joint owner. For assets that you jointly own, you must only put the value for the part that you own.<br><br>Remember, the mortgage is listed under your debts. Include only the market value of the asset.",
+                    "inputType": "number",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

@@ -259,6 +259,7 @@
     import { stepInfoType } from "@/types/Application";
     import { FLA_Types } from '@/filters/applicationTypes';
     import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+    import { disclosureInformationFSDataInfoType } from '@/types/Application/FinancialStatement';
 
     @Component({
         components:{
@@ -353,11 +354,13 @@
         apsIsExemptGuidedPathway = false;
         apspIsExemptGuidedPathway = false;
         csvIsExemptGuidedPathway = false;
+        fsIsExemptGuidedPathway = false;
         requiresEfsp = false;
         requiresGaEfsp = false;
         requiresApsEfsp = false;
         requiresApspEfsp = false;
         requiresCsvEfsp = false;
+        requiresFsEfsp = false;
 
         mounted(){
 
@@ -628,11 +631,13 @@
             this.apsIsExemptGuidedPathway = false;
             this.apspIsExemptGuidedPathway = false;
             this.csvIsExemptGuidedPathway = false;
+            this.fsIsExemptGuidedPathway = false;
             this.requiresEfsp = false;
             this.requiresGaEfsp = false;
             this.requiresApsEfsp = false;
             this.requiresApspEfsp = false;
             this.requiresCsvEfsp = false;
+            this.requiresFsEfsp = false;
 
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -715,7 +720,23 @@
                         if (this.requiresCsvEfsp){
                             this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Certificate of Service', type: 'EFSP'});
                         }
-                    }                 
+                    } else if (selectedForm.pathwayState && selectedForm.formName=="Financial Statement"){   
+                        this.determineFsGuidedPathway(selectedForm);
+                        
+                        if(this.rejectedPathway && !rejectedFormTypesList.includes('FS')) continue
+                         
+                        if (this.fsIsExemptGuidedPathway){
+                            this.requiredDocumentLists.push({description: 'Financial Statement', type: 'FS'}); 
+                            if(this.steps[this.stPgNo.FS._StepNo].result?.disclosureInformationFSSurvey?.data){
+                                const disclosureData = this.steps[this.stPgNo.FS._StepNo].result.disclosureInformationFSSurvey.data
+                                this.determineFsAttachments(disclosureData);
+                            }
+                        }                               
+                        
+                        if (this.requiresFsEfsp){
+                            this.requiredDocumentLists.push({description: 'Electronic Filing Statement - Financial Statement', type: 'EFSP'});
+                        }
+                    }                  
                 }
                 setTimeout(() => this.updateSubmittedPdf(),50)
             }           
@@ -874,6 +895,89 @@
                 this.requiresCsvEfsp = requiresEfsp;
             } 
         }
+
+        public determineFsAttachments(disclosureData: disclosureInformationFSDataInfoType){
+
+            if(disclosureData.incomeAcknowledgement){
+
+                this.requiredDocumentLists.push(
+                    {
+                        description: 'Your personal income tax return and related schedules for each of the 3 most recent taxation years', 
+                        type: 'FS'
+                    });
+                this.requiredDocumentLists.push(
+                    {
+                        description: 'Every Notice of Assessment and Reassessment issued by Canada Revenue Agency for each of the 3 most recent taxation years', 
+                        type: 'FS'
+                    });
+            }
+
+            if (disclosureData.incomeProofAcknowledgement && this.steps[this.stPgNo.FS._StepNo].result?.incomeInformationSurvey?.data?.incomeAmounts) {
+                const incomeData = this.steps[this.stPgNo.FS._StepNo].result?.incomeInformationSurvey.data.incomeAmounts;
+                for(const incomeType of incomeData) {
+                    if(incomeType.income){
+                        const incomeName = incomeType.incomeName;
+                        let docName = '';
+                        if(incomeName == "employee")
+                            docName = "Your most recent pay stub or statement of earnings, or a letter from my employer stating my salary and/or wages";
+                        else if(incomeName == "EI")
+                            docName = "Your most recent employment insurance benefit statement and record of employment";
+                        else if(incomeName == "WCB")
+                            docName = "Your most recent worker’s compensation benefit statement";
+                        else if(incomeName == "investment")
+                            docName = "Your most recent interest and investment statement";
+                        else if(incomeName == "pension")
+                            docName = "Your most recent pension income statement";
+                        else if(incomeName == "govAssist")
+                            docName = "Your most recent government assistance statement";
+                        else if(incomeName == "selfEmployed")
+                            docName = "My self-employment income for the three most recent taxation years";
+                        else if(incomeName == "trust")
+                            docName = "Your trust settlement agreement and the trust’s three most recent financial statements";
+                        else if(incomeName == "partnership")
+                            docName = "Confirmation of my income and draw from, and capital in, a partnership, for the three most recent taxation years";                            
+                        else if(incomeName == "other")
+                            docName = "Proof of other income: "+ (disclosureData.otherIncomeProofDocs?disclosureData.otherIncomeProofDocs:'');
+
+                        this.requiredDocumentLists.push(
+                            {
+                                description: docName, 
+                                type: 'FS'
+                            });                        
+
+                    }                        
+                }
+
+                if(disclosureData.corporation == "Yes"){
+                    const corpDocDescription = "My corporate income for the three most recent taxation years";
+                    this.requiredDocumentLists.push(
+                            {
+                                description: corpDocDescription, 
+                                type: 'FS'
+                            });
+                }
+                         
+            }
+        }
+
+        public determineFsGuidedPathway(selectedForm){
+
+            let requiresFs = false;
+            let requiresEfsp = false;
+
+            const existingOrdersInfo = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result?.existingOrders;
+            const index = existingOrdersInfo.findIndex(order=>{return(order.type == 'FS')})
+            if (index >=0 && this.eFiling){
+                const fsFilingInfo = this.$store.state.Application.steps[this.stPgNo.FS._StepNo].result?.filingFsSurvey?.data;              
+                requiresFs = fsFilingInfo?.sworn?true:false;
+                requiresEfsp = fsFilingInfo?.sworn == 'y';
+            } 
+                
+            if (selectedForm.pathwayExists){
+                this.fsIsExemptGuidedPathway = requiresFs;
+                this.requiresFsEfsp = requiresEfsp;
+            } 
+    }
 
         public navigateToGuide(){
             Vue.filter('scrollToLocation')("pdf-guide");

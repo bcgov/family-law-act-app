@@ -1,0 +1,38 @@
+{
+   "pages": [
+      {
+         "name": "Changes to income",
+         "description": "The income you recorded in the last step includes the monthly amount you are currently receiving. You are required to keep the court and the other party informed of changes to your income. This is to ensure that you are paying the right amount of support based on accurate income information.<br>You may be aware of changes that will affect your total income this year, such as a change in employment or benefits.",
+         "elements": [
+            {
+                "type": "yesno",
+                "name": "changesExist",
+                "title": "Do you expect any significant changes to your total annual income this year?",
+                "isRequired": true
+            },
+            {
+                "type": "text",
+                "inputType": "number",
+                "name": "expectedIncome",
+                "isRequired": true,   
+                "visible": false,
+                "visibleIf": "{changesExist} = 'y'",             
+                "title": "How much do you expect your total annual income to be this year?",
+                "description": "To calculate income, you must include the amounts related to the sources of income used to calculate your “Total income” of the T1 General Form issued by the <a target='_blank', href='https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/reporting-income.html'>Canada Revenue Agency</a>."
+            },
+            {
+                "type": "comment",
+                "name": "changeReason",
+                "title": "Why do you expect changes to your total annual income?",
+                "isRequired": true,
+                "visible": false,
+                "visibleIf": "{changesExist} = 'y'"
+            }
+           
+         ],
+         "title": "Changes to income"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

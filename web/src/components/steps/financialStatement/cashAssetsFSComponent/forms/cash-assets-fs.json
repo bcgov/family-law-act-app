@@ -1,0 +1,27 @@
+{
+    "title": "Cash assets Information",
+    "pages": [
+        {
+            "name": "Cash assets",
+            "elements": [
+                {
+                    "type": "comment",
+                    "name": "cashAssetsDescription",
+                    "title": "Description of asset",
+                    "description": "Include the type of cash asset, for example, cash, savings account, chequing account. For bank accounts, include the name of the banking institution.",
+                    "isRequired": true
+                },               
+                {
+                    "type": "text",
+                    "name": "cashAssetsValue",
+                    "title": "Current value of asset",
+                    "description": "You may be the only owner of an asset, or you may be a joint owner. For assets that you jointly own, you must only put the value for the percentage that you own.",
+                    "inputType": "number",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

@@ -1,0 +1,47 @@
+{
+   "pages": [
+        {
+         "name": "Assets",
+         "description": "An asset is something of value that you own or that belongs to you.<br>This service will help you to list your assets and their current value.<br><br><b>Note:</b> You may be required to provide the court with proof of an asset and its value.",
+         "elements": [
+            {
+                "type": "checkbox",
+                "name": "assetTypes",
+                "title": "What kind of assets do you have?",
+                "description": "Select all that apply.",
+                "isRequired": true,
+                "choices": [
+                  {
+                    "value": "realEstate",
+                    "text": "Real estate – property including land or buildings"
+                  },
+                  {
+                    "value": "cars",
+                    "text": "Cars, boats or vehicles"
+                  },
+                  {
+                    "value": "cash",
+                    "text": "Cash assets including cash and bank accounts (of any value)"
+                  },
+                  {
+                    "value": "investments",
+                    "text": "Investments – Tax Free Savings Accounts (TFSA), Registered Retirement Savings Plans (RRSP), stocks and bonds, pensions or other investments"
+                  },
+                  {
+                    "value": "loans",
+                    "text": "Loans and credit – money owing to me"
+                  },
+                  {
+                    "value": "otherAssets",
+                    "text": "Other including precious metals (gold etc.), art, jewellery, or other items of high value"
+                  }
+                ]
+            }           
+           
+         ],
+         "title": "Assets"
+        }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

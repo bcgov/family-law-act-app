@@ -16,7 +16,7 @@ Vue.filter('get-current-version', function(){
 	//___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    const CURRENT_VERSION = "1.2.25";
+    const CURRENT_VERSION = "1.2.26.1";
     //__________________________
     //___________________________
     //___________________________
@@ -143,6 +143,64 @@ Vue.filter('getAlphabetBasedOnIndex', function(index){
 	else
 		return '';
 })
+
+Vue.filter('beautify-amount-name', function(amountName){
+
+    if(amountName?.length>0){
+
+        return (amountName.charAt(0).toUpperCase() + amountName.slice(1)).replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+
+    }
+	else
+		return '';
+})
+
+Vue.filter('getFsRequiredParts', function(fsData){
+
+    const situationTypes = fsData.situationType?fsData.situationType:[];
+    const part1Options = [
+        "I am the person required to pay child support", 
+        "Parenting time is `split or shared` for one or more of the children", 
+        "There is a claim for section 7 special or extraordinary expenses",
+        "There is a child 19 years or older for whom support is being applied for",
+        "A party has been acting as a parent to a child of the other party",
+        "The payor earns more than $150,000 per year",
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+    const part2and3Options = [            
+        "Parenting time is `split or shared` for one or more of the children", 
+        "There is a claim for section 7 special or extraordinary expenses",
+        "There is a child 19 years or older for whom support is being applied for",
+        "A party has been acting as a parent to a child of the other party",
+        "The payor earns more than $150,000 per year",
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+
+    const part4Options = [
+        "I am claiming undue hardship",
+        "The other party is claiming undue hardship"
+    ];
+
+    const part5Options = [
+        "I am claiming undue hardship"
+    ];
+
+    const part1Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists == 'y' && part1Options.some(s=>situationTypes.indexOf(s) > -1));
+    const part2and3Required = fsData.spousalAppExists == 'y' || (fsData.childAppExists == 'y' && part2and3Options.some(s=>situationTypes.indexOf(s) > -1));
+    const part4Required = fsData.childAppExists == 'y' && part4Options.some(s=>situationTypes.indexOf(s) > -1);
+    const part5Required = fsData.childAppExists == 'y' && part5Options.some(s=>situationTypes.indexOf(s) > -1);
+
+    return {
+        part1Required: part1Required,
+        part2and3Required: part2and3Required,
+        part4Required: part4Required,
+        part5Required: part5Required
+    }
+
+})
+
 
 Vue.filter('scrollToLocation', function(locationName){
 	if(locationName){
@@ -833,6 +891,7 @@ Vue.filter('surveyChanged', function(type: string) {
         const stepAPS = store.state.Application.stPgNo.APS;
         const stepAPSP = store.state.Application.stPgNo.APSP;
         const stepCSV = store.state.Application.stPgNo.CSV;
+        const stepFS = store.state.Application.stPgNo.FS
 		
 		let step = stepPO._StepNo; 
 		let reviewPage = stepPO.ReviewYourAnswers; 
@@ -926,6 +985,10 @@ Vue.filter('surveyChanged', function(type: string) {
 			step = stepCSV._StepNo; 
 			reviewPage = stepCSV.ReviewYourAnswersCSV; 
 			previewPages = [stepCSV.PreviewFormsCSV, stepCSV.PreviewFormsCsvEFSP];
+		} else if(typeName == 'financialStatement'){
+			step = stepFS._StepNo; 
+			reviewPage = stepFS.ReviewYourAnswersFS; 
+			previewPages = [stepFS.PreviewFormsFS, stepFS.PreviewFormsFsEFSP];
 		}
  
 		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
@@ -948,7 +1011,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO', 'certificateOfService']
+	const noPOstepsTypes = ['replyFlm','writtenResponse','familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc', 'other', 'noticeOfAddressChange', 'noticeDiscontinuance', 'noticeIntentionProceed', 'requestScheduling', 'trialReadinessStatement', 'noticeLawyerChild', 'noticeRemoveLawyerChild', 'noticeLawyerParty', 'noticeRemoveLawyerParty', 'affidavit', 'guardianshipAffidavit', 'affidavitPersonalService', 'affidavitPersonalServicePO', 'certificateOfService', 'financialStatement']
 	
 	if(type == 'allExPO'){
         

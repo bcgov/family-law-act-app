@@ -1,0 +1,37 @@
+{
+    "title": "Adult Information",
+    "pages": [
+        {
+            "name": "Adult Information",
+            "elements": [                
+                {
+                    "type": "text",
+                    "name": "adultFullName",
+                    "title": "Full name of adult",
+                    "isRequired": true
+                },
+                {
+                    "type": "text",
+                    "name": "adultAnnualIncome",
+                    "title": "Annual income of adult",
+                    "description": "The annual income of the other person must include all sources of income just as you have in the income section. This includes employment, benefits, investment and business income.",
+                    "isRequired": true,
+                    "inputType": "number"
+                },
+                {
+                    "type": "html",
+                    "name": "adultInfoText",            
+                    "html": "<div style='margin-bottom:-0.75rem'><b style='margin-right:0.5rem'>Note:</b>The court may require additional details about a spouse, partner or other adult person living in your household to be able to apply the comparison of household standards of living test.</div>"
+                },
+                {
+                    "type": "yesno",
+                    "name": "married",
+                    "title": "Are you married or cohabitating in a marriage-like relationship with this adult?",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

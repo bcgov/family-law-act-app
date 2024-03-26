@@ -1,0 +1,27 @@
+{
+    "title": "Cars, boats or vehicles Information",
+    "pages": [
+        {
+            "name": "Cars, boats or vehicles",
+            "elements": [
+                {
+                    "type": "comment",
+                    "name": "carsBoatsVehiclesDescription",
+                    "title": "Description of asset",
+                    "description": "Include the make, model and year.",
+                    "isRequired": true
+                },               
+                {
+                    "type": "text",
+                    "name": "carsBoatsVehiclesValue",
+                    "title": "Current value of asset",
+                    "description": "You may be the only owner of an asset, or you may be a joint owner. For assets that you jointly own, you must only put the value for the percentage that you own.<br>Provide the estimated market value, not the cost of replacement.",
+                    "inputType": "number",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

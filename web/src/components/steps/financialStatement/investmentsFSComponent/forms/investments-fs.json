@@ -1,0 +1,27 @@
+{
+    "title": "Investments Information",
+    "pages": [
+        {
+            "name": "Investments",
+            "elements": [
+                {
+                    "type": "comment",
+                    "name": "investmentsDescription",
+                    "title": "Description of asset",
+                    "description": "Include the type of investment and any additional descriptor that may be helpful",
+                    "isRequired": true
+                },               
+                {
+                    "type": "text",
+                    "name": "investmentsValue",
+                    "title": "Current value of asset",
+                    "description": "You may be the only owner of an asset, or you may be a joint owner. For assets that you jointly own, you must only put the value for the percentage that you own.",
+                    "inputType": "number",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

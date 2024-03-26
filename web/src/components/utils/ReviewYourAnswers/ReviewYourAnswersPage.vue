@@ -175,8 +175,11 @@ export default class ReviewYourAnswersPage extends Vue {
             if(typeof value[0] === 'string' || value[0] instanceof String){
                 if(value[0].includes('Name:'))
                     return value.join(" \n ")
-                else
-                    return value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');                
+                else {
+                    value = value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+                    return value.replace(/`/g,'');
+                }
+                                    
             }
             if (dataItem.name == 'otherPartyInfoDis'){
                 return this.getOtherPartyInfo(value);

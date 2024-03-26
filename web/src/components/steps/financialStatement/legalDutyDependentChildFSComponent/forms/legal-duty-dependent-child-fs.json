@@ -1,0 +1,37 @@
+{
+    "title": "Child Expense Information",
+    "pages": [
+        {
+            "name": "Child Expense Information",
+            "elements": [                
+                {
+                    "type": "text",
+                    "name": "childFullName",
+                    "title": "What is the full name of the child?",
+                    "isRequired": true
+                },
+                {
+                    "type": "html",
+                    "name": "paymentHeading",
+                    "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>How much do you pay for support of the child?</div>Complete either the monthly or annual amount. This service will calculate the other amount for you.</div>"
+                },                
+                {
+                    "type": "text",
+                    "name": "monthlyPayment",
+                    "title": "Monthly: ",
+                    "isRequired": true,
+                    "inputType": "number"
+                },
+                {
+                    "type": "text",
+                    "name": "yearlyPayment",
+                    "title": "Annualy: ",
+                    "isRequired": true,
+                    "inputType": "number"
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}
