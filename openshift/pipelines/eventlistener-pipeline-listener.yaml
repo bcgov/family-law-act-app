@@ -1,0 +1,40 @@
+﻿apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: pipeline-listener
+  namespace: 09e0c5-tools
+spec:
+  namespaceSelector: {}
+  resources: {}
+  serviceAccountName: pipeline
+  triggers:
+    - bindings:
+        - kind: TriggerBinding
+          ref: pipeline-trigger-binding
+      interceptors:
+        - name: Cel filter only Main branch
+          params:
+            - name: filter
+              value: body.ref == 'refs/heads/master'
+            - name: overlays
+              value:
+                - expression: body.head_commit.modified.marshalJSON()
+                  key: git-commits
+          ref:
+            kind: ClusterInterceptor
+            name: cel
+        - name: validate GitHub payload and filter on eventType
+          params:
+            - name: secretRef
+              value:
+                secretKey: secretToken
+                secretName: github-tekton-secret
+            - name: eventTypes
+              value:
+                - push
+          ref:
+            kind: ClusterInterceptor
+            name: github
+      name: github-listener
+      template:
+        ref: pipeline-trigger-template

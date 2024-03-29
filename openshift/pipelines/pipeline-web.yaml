@@ -1,0 +1,74 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: web
+  namespace: 09e0c5-tools
+spec:
+  params:
+    - default: web/
+      name: git-commits
+      type: string
+  tasks:
+    - name: check-file-changes
+      params:
+        - name: folderName
+          value: web
+        - name: git-commits
+          value: $(params.git-commits)
+      taskRef:
+        kind: Task
+        name: git-file-changes
+    - name: clean-pipeline-runs
+      params:
+        - name: PIPELINE
+          value: $(context.pipeline.name)
+        - name: PIPELINERUN
+          value: $(context.pipelineRun.name)
+      taskRef:
+        kind: Task
+        name: clean-pipelines
+    - name: cancel-running-builds
+      params:
+        - name: BUILD-NAMES
+          value: web-artifacts web
+      runAfter:
+        - clean-pipeline-runs
+      taskRef:
+        kind: Task
+        name: cancel-builds
+    - name: start-builds
+      params:
+        - name: BUILD-NAMES
+          value: web-artifacts web
+      runAfter:
+        - cancel-running-builds
+        - check-file-changes
+      taskRef:
+        kind: Task
+        name: start-builds
+      timeout: 30m10s
+      when:
+        - input: $(tasks.check-file-changes.results.modified-files)
+          operator: notin
+          values:
+            - '0'
+    - name: deploy
+      params:
+        - name: APPS
+          value: web
+        - name: NAMESPACE
+          value: $(context.pipelineRun.namespace)
+        - name: SRC
+          value: latest
+        - name: DEST
+          value: dev
+      runAfter:
+        - start-builds
+      taskRef:
+        kind: Task
+        name: deploy
+      when:
+        - input: $(tasks.check-file-changes.results.modified-files)
+          operator: notin
+          values:
+            - '0'

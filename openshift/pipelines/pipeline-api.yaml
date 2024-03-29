@@ -1,0 +1,94 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: api
+  namespace: 09e0c5-tools
+spec:
+  params:
+    - default: api/
+      name: git-commits
+      type: string
+  tasks:
+    - name: check-file-changes
+      params:
+        - name: folderName
+          value: api
+        - name: git-commits
+          value: $(params.git-commits)
+      taskRef:
+        kind: Task
+        name: git-file-changes
+    - name: clean-pipeline-runs
+      params:
+        - name: PIPELINE
+          value: $(context.pipeline.name)
+        - name: PIPELINERUN
+          value: $(context.pipelineRun.name)
+      taskRef:
+        kind: Task
+        name: clean-pipelines
+    - name: cancel-running-builds
+      params:
+        - name: BUILD-NAMES
+          value: api
+      runAfter:
+        - clean-pipeline-runs
+      taskRef:
+        kind: Task
+        name: cancel-builds
+    - name: start-builds
+      params:
+        - name: BUILD-NAMES
+          value: api
+      runAfter:
+        - cancel-running-builds
+        - check-file-changes
+      taskRef:
+        kind: Task
+        name: start-builds
+      timeout: 25m10s
+      when:
+        - input: $(tasks.check-file-changes.results.modified-files)
+          operator: notin
+          values:
+            - '0'
+    - name: deploy
+      params:
+        - name: APPS
+          value: api
+        - name: NAMESPACE
+          value: $(context.pipelineRun.namespace)
+        - name: SRC
+          value: latest
+        - name: DEST
+          value: dev
+      runAfter:
+        - start-builds
+      taskRef:
+        kind: Task
+        name: deploy
+      when:
+        - input: $(tasks.check-file-changes.results.modified-files)
+          operator: notin
+          values:
+            - '0'
+    - name: recylce-pod
+      params:
+        - name: DEPLOYCONFIG-NAME
+          value: schema-spy
+        - name: REPLICAS-NUM
+          value: '1'
+        - name: NAMESPACE
+          value: $(context.pipelineRun.namespace)
+        - name: DEST
+          value: dev
+      runAfter:
+        - deploy
+      taskRef:
+        kind: Task
+        name: recycle-pod
+      when:
+        - input: $(tasks.check-file-changes.results.modified-files)
+          operator: notin
+          values:
+            - '0'
