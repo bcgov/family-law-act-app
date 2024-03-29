@@ -1,0 +1,31 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: test-pipeline
+  namespace: 09e0c5-tools
+spec:
+  tasks:
+    - name: clean-pipeline-runs
+      params:
+        - name: PIPELINE
+          value: $(context.pipeline.name)
+        - name: PIPELINERUN
+          value: $(context.pipelineRun.name)
+      taskRef:
+        kind: Task
+        name: clean-pipelines
+    - name: deploy
+      params:
+        - name: APPS
+          value: db api schema-spy web pdf backup
+        - name: NAMESPACE
+          value: $(context.pipelineRun.namespace)
+        - name: SRC
+          value: latest
+        - name: DEST
+          value: test
+      runAfter:
+        - clean-pipeline-runs
+      taskRef:
+        kind: Task
+        name: deploy

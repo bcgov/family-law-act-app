@@ -1,0 +1,39 @@
+﻿apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: pipeline-trigger-template
+  namespace: 09e0c5-tools
+spec:
+  params:
+    - description: The git repository url
+      name: git-repo-url
+    - default: test-update
+      description: The git revision
+      name: git-revision
+    - description: The name of the deployment to be created / patched
+      name: git-repo-name
+    - description: Path of the files commited to the git repository
+      name: git-repo-commit
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: api-$(tt.params.git-repo-name)-
+      spec:
+        params:
+          - name: git-commits
+            value: $(tt.params.git-repo-commit)
+        pipelineRef:
+          name: api
+        serviceAccountName: pipeline
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: web-$(tt.params.git-repo-name)-
+      spec:
+        params:
+          - name: git-commits
+            value: $(tt.params.git-repo-commit)
+        pipelineRef:
+          name: web
+        serviceAccountName: pipeline

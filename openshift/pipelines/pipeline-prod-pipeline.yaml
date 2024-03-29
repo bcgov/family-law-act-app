@@ -1,0 +1,50 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: prod-pipeline
+  namespace: 09e0c5-tools
+spec:
+  params:
+    - description: >-
+        You are about to deploy to PROD. Are you sure (Yes)? If NOT please
+        `Cancel` below.
+      name: confirm-deploy-to-PROD
+      type: string
+  tasks:
+    - name: clean-pipeline-runs
+      params:
+        - name: PIPELINE
+          value: $(context.pipeline.name)
+        - name: PIPELINERUN
+          value: $(context.pipelineRun.name)
+      taskRef:
+        kind: Task
+        name: clean-pipelines
+    - name: db-backup
+      params:
+        - name: NAMESPACE
+          value: $(context.pipelineRun.namespace)
+        - name: DEST
+          value: prod
+        - name: DB
+          value: FLA_Database
+      runAfter:
+        - clean-pipeline-runs
+      taskRef:
+        kind: Task
+        name: backup
+    - name: deploy
+      params:
+        - name: APPS
+          value: db api web pdf backup
+        - name: NAMESPACE
+          value: $(context.pipelineRun.namespace)
+        - name: SRC
+          value: test
+        - name: DEST
+          value: prod
+      runAfter:
+        - db-backup
+      taskRef:
+        kind: Task
+        name: deploy
