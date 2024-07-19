@@ -1,6 +1,7 @@
 <template>
     <step-base v-bind:step="step">        
         <address-change           v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.AddressChange" />
+        <other-party              v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.OtherParty" />
         <address-change-notice    v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.AddressChangeNotice" />
         <review-your-answers-ncd  v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.ReviewYourAnswersNCD"/>
         <preview-forms-ncd        v-bind:step="step"     v-if="step.currentPage == stPgNo.NCD.PreviewFormsNCD"/> 
@@ -19,6 +20,7 @@ import AddressChange from "./AddressChange.vue";
 import AddressChangeNotice from "./AddressChangeNotice.vue";
 import ReviewYourAnswersNcd from "./reviewNCD/ReviewYourAnswersNCD.vue";
 import PreviewFormsNcd from "./reviewNCD/PreviewFormsNCD.vue";
+import OtherParty from "./OtherParty.vue";
 
 import { stepInfoType } from "@/types/Application";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
@@ -26,7 +28,8 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 @Component({
     components:{
         StepBase,        
-        AddressChange,        
+        AddressChange,       
+        OtherParty,
         AddressChangeNotice,
         ReviewYourAnswersNcd,
         PreviewFormsNcd        
