@@ -91,21 +91,21 @@
                 
                     <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt;">
                         <tr style="border:1px solid #414142">
-                            <td colspan="3">Address: <div class="answer">{{ yourInfo.address.street }} </div>
+                            <td colspan="3">Address: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.street }} </div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>City: <div class="answer">{{ yourInfo.address.city }}</div>
+                            <td>City: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.city }}</div>
                             </td>
-                            <td style="padding-left:50px">Province: <div class="answer">{{ yourInfo.address.state }}</div>
+                            <td style="padding-left:50px">Province: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.state }}</div>
                             </td>
-                            <td >Postal Code: <div class="answer">{{ yourInfo.address.postcode }}</div>
+                            <td >Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{ yourInfo.contact.email }}</div>
+                            <td colspan="2">Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
                             </td>
-                            <td >Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
+                            <td >Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
                             </td>
                         </tr>
 
@@ -115,11 +115,12 @@
                 
                     <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt;">
                         <tr style="border:1px solid #414142; margin-top: 1rem;">
-                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer">
-                                {{ yourInfo.lawyerName |
-                                    getFullName}}</div>
+                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ yourInfo.lawyerName | getFullName}}
+                                </div>
                             </td>
-                            <td v-else colspan="3">Lawyer (if applicable): </td>
+                            <td v-else colspan="3" >Lawyer (if applicable): </td>
                         </tr>
                     </table>
                 </section>
