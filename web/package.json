@@ -22,7 +22,7 @@
     "@mdi/font": "^6.9.96",
     "@types/underscore": "^1.11.4",
     "ace-builds": "^1.9.6",
-    "axios": "^0.27.2",
+    "axios": "^0.28.0",
     "axios-auth-refresh": "^3.3.6",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.15.0",
