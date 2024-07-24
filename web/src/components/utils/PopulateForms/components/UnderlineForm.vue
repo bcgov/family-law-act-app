@@ -2,9 +2,9 @@
     <div style="display:inline-block;">
         <div v-if="beforetext" style="display:inline-block; margin-right:.25rem;" v-html="beforetext"> {{beforetext}} </div>
         <div style="display:inline-block">
-            <div :style="{position: 'absolute', marginTop:marginTop, fontSize: '11pt', background: '#d6d6d6', color:'#000000', minWidth: textwidth, textAlign: 'center'}">{{text}}</div> 
+            <div :style="{position: 'absolute', marginTop:marginTop, fontSize: '11pt', background: textBackgroundColor, color:'#000000', minWidth: textwidth, textAlign: 'center'}">{{text}}</div> 
             <div :style="{borderBottom: '0.7px solid #313132', minWidth: textwidth}"></div>            
-            <div :style="{position: 'absolute', marginTop:'-1px', marginLeft: '100px', fontSize: hintFontSize, color:'#313132'}">
+            <div :style="{position: 'absolute', marginTop:'-1px', marginLeft: hintMargin, fontSize: hintFontSize, color:'#313132'}">
                <i v-if="italicHint"> {{hint}} </i>
                <span v-else > {{hint}} </span> 
             </div>
@@ -30,8 +30,14 @@ export default class UnderlineForm extends Vue {
     @Prop({required: true})
     hint!: string;
 
+    @Prop({default: '0px'})
+    hintMargin!: string;
+
     @Prop({required: true})
     textwidth!: string;
+
+    @Prop({default: 'none'})
+    textBackgroundColor!: string;
 
     @Prop({required: false, default:'6pt'})
     hintFontSize!: string;
