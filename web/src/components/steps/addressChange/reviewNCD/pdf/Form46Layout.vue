@@ -13,18 +13,15 @@
             <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
                 <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
             </div>
-            <div style="width: 30%; float:right;">
-                <b-table
-                    :items="[{ name: 'REGISTRY LOCATION:', value: result.applicationLocation }, { name: 'COURT FILE NUMBER:', value: existingFileNumber }]"
-                    :fields="[{ key: 'name', tdClass: 'border-dark text-center align-middle' }, { key: 'value', tdClass: 'border-dark text-center align-middle' }]"
-                    small bordered thead-class="d-none">
-                    <template v-slot:cell(name)="data">
-                        <div style="font-size:6pt; margin:.1rem 0;">{{ data.value }}</div>
-                    </template>
-                    <template v-slot:cell(value)="data">
-                        <div style="font-size:7pt !important; color:#000;">{{ data.value }}</div>
-                    </template>
-                </b-table>
+            <div style="width: 35%; float:right; font-size: 8pt;">
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
+                </div>
             </div>
         </div>
 
@@ -45,22 +42,23 @@
                     <div style="display: inline-block; font-size: 11pt;">
                         <b>My full name</b> is
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="17rem"
-                        beforetext="" hint="Full name of party" :italicHint="false" :text="yourInfo.name | getFullName" />
+                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
+                        beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.name | getFullName" />
                 </section>
 
                 <div style="margin-top: 1rem;"></div>
                 
                 <!-- <2> -->
                 <section style="text-indent: 8px;">
-                    <div style="display: inline-block; font-size: 11pt;">
+                    <div style="display: inline-block;">
                         The <b>other party's full name</b> is
                     </div>
-                    <div style="margin-top: 1rem;"></div>
-                    <div v-for="otherParty in result.otherPartySurvey.otherPartyNamesDynamicPanel">
-                        <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt; margin-bottom: 1rem;" textwidth="17rem"
-                            beforetext="" hint="Full name of party/parties" :italicHint="false" :text="otherParty.name | getFullName" />
-                        
+                    <div style="display: inline-block" v-if="result.otherPartySurvey.otherPartyNamesDynamicPanel.length == 1">
+                        <underline-form style="text-indent:4px; display:inline-block; font-size: 9pt; margin-bottom: 1rem;" textwidth="285px" beforetext="" hint="Full name of party/parties" :italicHint="false" textBackgroundColor="#dedede" hintMargin="95px" :text="result.otherPartySurvey.otherPartyNamesDynamicPanel[0].name | getFullName" />
+                    </div>
+                    <div style="margin-top: 1rem;" v-if="result.otherPartySurvey.otherPartyNamesDynamicPanel.length > 1"></div>
+                    <div v-if="result.otherPartySurvey.otherPartyNamesDynamicPanel.length > 1" v-for="otherParty in result.otherPartySurvey.otherPartyNamesDynamicPanel">
+                        <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt; margin-bottom: 1rem;" textwidth="504px" beforetext="" hint="Full name of party/parties" :italicHint="false" textBackgroundColor="#dedede" hintMargin="200px" :text="otherParty.name | getFullName" />
                     </div>
                 </section>
 
@@ -68,9 +66,8 @@
 
                 <!-- 3 -->
                 <section style="text-indent: 8px;">
-                    <check-box inline="inline" boxMargin="0" style="margin-left: 16px;display: inline; text-indent: -16px;"
-                        :check="acknowledge ? 'yes' : ''"
-                        text="I understand <b>I need to serve each party</b> with a filed copy of this notice." />
+                    <check-box inline="inline" boxMargin="0" style="margin-left: 4px; display: inline; text-indent: -16px;" :check="acknowledge ? 'yes' : ''"
+                    text="I understand <b>I need to serve each party</b> with a filed copy of this notice." />
                 </section>
 
                 <div style="margin-top: 1rem;"></div>
@@ -84,43 +81,49 @@
                     
                 <!-- 4 -->
                 <section style="text-indent: 8px;">
-                    <p style="display: inline;">
+                    <div style="display: inline; font-size: 10pt;">
                         I am notifying the court and the other party/parties that <b>my contact information and
                     address for service of court documents are changed to:</b>
-                    </p>
+                    </div>
                 
-                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt;">
-                        <tr style="border:1px solid #414142">
-                            <td colspan="3">Address: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.street }} </div>
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ yourInfo.address.street }} 
+                                </div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #313132">
-                            <td>City: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.city }}</div>
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">City: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.city }}</div>
                             </td>
-                            <td style="padding-left:50px">Province: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.state }}</div>
+                            <td style="padding-left:50px; border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.state }}</div>
                             </td>
-                            <td >Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.postcode }}</div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
-                            </td>
-                            <td >Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
+                            <td style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
+                    </table>
 
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
+                            </td>
+                        </tr>
                     </table>
 
                     <div style="margin-top: 1rem;"></div>
                 
-                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt;">
-                        <tr style="border:1px solid #414142; margin-top: 1rem;">
-                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): 
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:1px solid #fff;">
+                            <td v-if="yourInfo.lawyer" colspan="3" style="border:2px solid #fff; padding: 4px;">Lawyer (if applicable): 
                                 <div class="answer" style="background-color: #d6d6d6;">
                                     {{ yourInfo.lawyerName | getFullName}}
                                 </div>
                             </td>
-                            <td v-else colspan="3" >Lawyer (if applicable): </td>
+                            <td v-else colspan="3" style="border:2px solid #fff; padding: 4px;" >Lawyer (if applicable): </td>
                         </tr>
                     </table>
                 </section>
@@ -129,8 +132,8 @@
                 
                 <!-- 5 -->
                 <section style="text-indent: 8px;">
-                    <underline-form style="display:inline-block; font-size: 11pt;" textwidth="17rem"
-                        beforetext="The change is current as of" hint="Date (mmm/dd/yyyy)" :italicHint="false"
+                    <underline-form style="display:inline-block; font-size: 11pt;" textwidth="290px"
+                        beforetext="The change is current as of" hint="Date (mmm/dd/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="102px"
                         :text="dateOfAddressChange | beautify-date" />
                 </section>
             </div>
