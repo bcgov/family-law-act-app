@@ -205,6 +205,8 @@ export default class ReviewYourAnswersPage extends Vue {
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'PartyInfoEfsp'){
                 return this.getOtherPartyInfo(value);
+            } else if (dataItem.name == 'otherPartyNamesDynamicPanel') {
+                return this.getOtherPartyInfo(value); 
             } else if (dataItem.name == 'currentCharges'){
                 return this.getChargesInfo(value);
             } else if (dataItem.name == 'documentListAps'){

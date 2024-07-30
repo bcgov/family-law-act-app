@@ -6,4 +6,4 @@ The Web implements the user interface for Family Law Act, calling the API to man
 
 ## Development
 
-To deploy Family Law Act on an instance of OpenShift, see [the instructions](../RunningLocal.md) in the file RunningLocal.md.
+To deploy Family Law Act on an instance of OpenShift, see [the instructions](../RunningOnOpenShift.md) in the file RunningLocal.md.

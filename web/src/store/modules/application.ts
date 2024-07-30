@@ -1961,10 +1961,18 @@ class Application extends VuexModule {
         p.label = "Address Change";
         p.active = true;
         p.progress = 0;    
-        s.pages.push(p);        
-
+        s.pages.push(p); 
+        
         p = {} as pageInfoType;
         p.key = "1";
+        p.name = "OtherParty";
+        p.label = "Other Party";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p); 
+
+        p = {} as pageInfoType;
+        p.key = "2";
         p.name = "AddressChangeNotice";
         p.label = "Notice";
         p.active = true;
@@ -1973,7 +1981,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "2";
+        p.key = "3";
         p.name = "ReviewYourAnswersNCD";
         p.label = "Review Your Answers";
         p.active = false;
@@ -1981,7 +1989,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "4";
         p.name = "PreviewFormsNCD";
         p.label = "Preview Forms";
         p.active = false;

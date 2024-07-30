@@ -308,6 +308,7 @@ export interface NCDstPgTypes{
     _StepNo: number;
     
     AddressChange: number;
+    OtherParty: number;
     AddressChangeNotice: number; 
     ReviewYourAnswersNCD: number;
     PreviewFormsNCD: number;

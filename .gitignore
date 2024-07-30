@@ -2,6 +2,10 @@
 *_DeploymentConfig.json
 *_BuildConfig.json
 
+.env
+env/
+.env.*
+
 /prototypes
 *.local.*
 
