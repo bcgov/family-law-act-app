@@ -5,9 +5,8 @@
             
             <div class="m-3">               
                 <p>
-                    I understand I must give notice of my Notice of Lawyer for Child to each party. 
-                    To give notice, they must be served or provided with a copy of the filed 
-                    document at as soon as possible. 
+                    I understand I must give notice of my Notice of Removal of Lawyer for Party to each party.  
+                    To give notice, each party <b>must be served</b> with a filed copy of the document as soon as possible. 
                 </p>
               
                 <b-form-checkbox 
