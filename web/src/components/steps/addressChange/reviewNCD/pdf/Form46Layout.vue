@@ -53,11 +53,11 @@
                     <div style="display: inline-block;">
                         The <b>other party's full name</b> is
                     </div>
-                    <div style="display: inline-block" v-if="result.otherPartySurvey.otherPartyNamesDynamicPanel.length == 1">
-                        <underline-form style="text-indent:4px; display:inline-block; font-size: 9pt; margin-bottom: 1rem;" textwidth="285px" beforetext="" hint="Full name of party/parties" :italicHint="false" textBackgroundColor="#dedede" hintMargin="95px" :text="result.otherPartySurvey.otherPartyNamesDynamicPanel[0].name | getFullName" />
+                    <div style="display: inline-block" v-if="result.addressChangeOtherPartySurvey.otherPartyNamesDynamicPanel.length == 1">
+                        <underline-form style="text-indent:4px; display:inline-block; font-size: 9pt; margin-bottom: 1rem;" textwidth="285px" beforetext="" hint="Full name of party/parties" :italicHint="false" textBackgroundColor="#dedede" hintMargin="95px" :text="result.addressChangeOtherPartySurvey.otherPartyNamesDynamicPanel[0].name | getFullName" />
                     </div>
-                    <div style="margin-top: 1rem;" v-if="result.otherPartySurvey.otherPartyNamesDynamicPanel.length > 1"></div>
-                    <div v-if="result.otherPartySurvey.otherPartyNamesDynamicPanel.length > 1" v-for="otherParty in result.otherPartySurvey.otherPartyNamesDynamicPanel">
+                    <div style="margin-top: 1rem;" v-if="result.addressChangeOtherPartySurvey.otherPartyNamesDynamicPanel.length > 1"></div>
+                    <div v-if="result.addressChangeOtherPartySurvey.otherPartyNamesDynamicPanel.length > 1" v-for="otherParty in result.addressChangeOtherPartySurvey.otherPartyNamesDynamicPanel">
                         <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt; margin-bottom: 1rem;" textwidth="504px" beforetext="" hint="Full name of party/parties" :italicHint="false" textBackgroundColor="#dedede" hintMargin="200px" :text="otherParty.name | getFullName" />
                     </div>
                 </section>
@@ -195,8 +195,8 @@ export default class Form46Layout extends Vue {
     public extractInfo() {
         this.yourInfo = this.getYourInfo();
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        if (this.result.otherPartySurvey.otherPartyNamesDynamicPanel?.length > 0) {
-            this.otherPartyNames = this.result.otherPartySurvey.otherPartyNamesDynamicPanel
+        if (this.result.addressChangeOtherPartySurvey.otherPartyNamesDynamicPanel?.length > 0) {
+            this.otherPartyNames = this.result.addressChangeOtherPartySurvey.otherPartyNamesDynamicPanel
                 ?.map((namePanel) => `${namePanel?.name?.first ?? ''} ${namePanel?.name?.last ?? ''}`);
         }
         this.acknowledge = this.result.addressChangeNoticeSurvey?.acknowledgement?.length > 0;

@@ -49,6 +49,19 @@ export interface otherFormsFilingLocationSurveyInfoType {
     currentPage?: number | string;
 }
 
+export interface otherFormsLastNamesOfThePartiesSurveyInfoType {
+    data: otherFormsLastNamesOfThePartiesSurveyDataInfoType;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number | string;
+    currentPage?: number | string;
+}
+
+export interface otherFormsLastNamesOfThePartiesSurveyDataInfoType {
+    party1?: string; 
+    party2?: string;
+}
+
 export interface completeOtherFormsSurveyDataInfoType {
     selectedFormInfoList: otherFormPathwayInfoType[];
     requiresEFSP: boolean;      

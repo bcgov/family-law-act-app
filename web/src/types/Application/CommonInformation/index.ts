@@ -43,6 +43,10 @@ export interface nameInfoType {
   last: string;
 }
 
+export interface otherPartyNameInfoType {
+  name: nameInfoType;
+}
+
 export interface fullNameInfoType {
     name: string;
 }

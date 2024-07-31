@@ -76,8 +76,8 @@ export default class OtherParty extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.otherPartySurvey){
-            this.survey.data = this.step.result.otherPartySurvey.data;
+        if (this.step.result?.addressChangeOtherPartySurvey){
+            this.survey.data = this.step.result.addressChangeOtherPartySurvey.data;
         }
 
         this.determineProgress();    
@@ -106,7 +106,7 @@ export default class OtherParty extends Vue {
     beforeDestroy() {      
         this.determineProgress();  
 
-        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {addressChangeOtherPartySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

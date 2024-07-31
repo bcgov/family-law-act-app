@@ -3,9 +3,8 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-reloc">
-            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
+        <div  style="display: flex; justify-content: space-between;">
+            <div style="display: flex; flex-direction: column">
                 <div style="font-size:13pt;"><b>Affidavit – General</b></div>               
                 <div style="font-size:10pt;"><b>FORM 45</b></div>
                 <div>Provincial Court Family Rules</div>
