@@ -30,7 +30,7 @@
             </div>         
         </div> 
         
-        <div style="display:flex; flex-direction:row gap:4px; font-size:8pt" >
+        <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
             <div style="width: 80%; float: left; margin-right: 10px;">
                 <p>This Application for Order Prohibiting the Relocation of a Child sets out the details of an order 
                 prohibiting the relocation of a child that a person is applying for under section 69 of the Family 
@@ -50,7 +50,7 @@
                 </ul>
                 </div>
             </div>
-            <div style="width: 20% ">
+        <div style="width: 20% ">
            <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:24px">
                 <p>
                 <b-icon-info-circle-fill />
@@ -58,24 +58,26 @@
                     An application prohibiting the relocation of a child under s. 69 of the Family Law Act must be filed within 30 days after receiving written notice that the guardian plans to relocate the child [s. 68 Family Law Act]. 
                 </p>
             </div>
-            </div>
-        
         </div>
+    </div>
         
+    <!-- Part 1 -->
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
         <div style="width: 80%; float: left; margin-right: 10px;">
-        <div style="margin-top: 1rem;"></div>
+            <div style="margin-top: 1rem;"></div>
             <div style="background: #626262; color: white; font-size: 11pt;">
                     <b>Part 1 | About the Parties</b>
             </div>
 
-             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
-                    <div style="display: inline-block; font-size: 11pt;">
+             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 1rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block; ">
                       <b>1. </b>My <b>full name</b> is:
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
                         beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.name | getFullName" />
-                     <div style="padding-top:12px; padding-left:12px;"> 
-                      <div style="display: inline-block; font-size: 11pt;"> 
+
+                     <div style="padding-top:15px; padding-left:12px;"> 
+                      <div style="display: inline-block; "> 
                         <b>My date of birth</b> is:
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
@@ -83,46 +85,109 @@
                      </div>  
              </div>
 
-               <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
-                    <div style="display: inline-block; font-size: 11pt;">
-                        <b>2. </b>The <b>other party’s full name is:</b>
-                    </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="270px"
+            <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
+                <div style="display: inline-block;">
+                    <b>2. </b>The <b>other party’s full name is:</b>
+                </div>
+                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
                         beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="firstOtherParty.name | getFullName" /> 
-                     <div style="padding-top:10px; padding-left:12px;">
-                            <div style="display: inline-block; font-size: 11pt;">
-                            Their <b>date of birth:</b>(dd/mmm/yyyy) is:
-                            </div>  
-                            <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="230px"
-                        beforetext=""  :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="firstOtherParty.dob | beautify-date" />  
-                      
 
+                <div style="padding-top:10px; padding-left:12px;">
+                    <div style="display: inline-block; ">
+                    Their <b>date of birth:</b>(dd/mmm/yyyy) is:
+                    </div>  
+                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
+                        beforetext=""  :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="firstOtherParty.dob | beautify-date" />   
                     <div>
-                    <check-box 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="There is an additional party."/> 
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"
+                    />
+                    <div style="margin-top: -22px;text-indent: 16px;">
+                        There is an additional party.
+                    </div>                      
+                </div>
+            <div>
                     
-                    </div>
-                    <div>
-                    
-                    </div>
-                    <div style="display: inline-block; font-size: 11pt;"> 
-                        The<b> additional party’s</b> full name is:
-                    </div>
-                  <!-- <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="230px"
-                        beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="otherParty.name | getFullName" /> -->
+        </div>
+            <div style="padding-top:5px">
+                <div style="display: inline-block;"> 
+                    The<b> additional party’s</b> full name is:
+                </div>
+                <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="270px"
+                    beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="firstOtherParty.name | getFullName" /> 
 
-                        <div style="display: inline-block; font-size: 11pt;"> 
-                        Their<b>  date of birth</b> h (dd/mmm/yyyy) is: 
-                    </div>
-                     </div>     
-               </div> 
+                <div style="display: inline-block; padding-top:10px"> 
+                    Their<b>  date of birth</b>(dd/mmm/yyyy) is: 
+                </div>
+                <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="260px"
+                    beforetext=""  :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="firstOtherParty.dob | beautify-date" />  
+             </div>
+        </div> 
+
+            </div>     
         </div>
 
+        <div style="width: 20% ">
+            <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:120px">
+            <p>
+            <b-icon-info-circle-fill />
+            <br />
+                The other party is any other parent or guardian of the child(ren).
+            </p>
+            </div>
+        </div>
 
+    </div>
+
+    <!-- Part 2-->
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 0.3rem;"></div>
+            <div style="background: #626262; color: white; font-size: 13pt;">
+                    <b>Part 2 |Information about children</b>
+            </div>
+
+             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block;">
+                        <b>3.</b> This application is about the following child(ren) that I am a guardian of:
+                    </div>
+                              
+                <b-table
+                    :items="childrenInfo"
+                    :fields="childrenFields"
+                    class="mt-2"
+                    small
+                    bordered>                    
+                        <template v-slot:cell()="data">
+                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                        </template>
+                        <template v-slot:head(dob)>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                        </template>
+                </b-table> 
+             </div>
+              <div style="padding-left:12px">
+                <b>4.</b> <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"
+                    />
+                    <div style="margin-top: -16px;text-indent: 28px;">
+                        This <b>application is about enforcement under Rule 135</b>. I understand <b>I must give notice</b> of this application to each other party. <b>To give notice, they must be served</b> with the application and supporting documents <b>at least 7 days
+                        before</b> the date of the court appearance <b>unless</b> the court allows the application 
+                        to be made without notice or with less than 7 days’ notice.
+                    </div>              
+              </div>   
+        </div>
+        <div style="width: 20% ">
+            <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:165px">
+            <p>
+            <b-icon-book />
+            <br />
+               For more information about best interests of the child, see the guidebook. 
+            </p>
+            </div>
+        </div>
+        
+    </div>
+
+     
 
 
          <!-- <1> -->
