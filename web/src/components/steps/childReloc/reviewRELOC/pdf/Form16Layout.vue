@@ -3,33 +3,129 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-reloc">
-            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
+        <div style="height: 160px;">
+            <div style="float:left; width: 33%;">
                 <div style="font-size:13pt;"><b>Application for Order</b></div>
                 <div style="font-size:13pt;"><b>Prohibiting the Relocation of a Child</b></div>
                 <div style="font-size:10pt;"><b>FORM 16</b></div>
                 <div>Provincial Court Family Rules</div>
                 <div>Rule 80</div>
             </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>                
+            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
+                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
             </div>
+            <div style="width: 35%; float:right; font-size: 8pt;">
+             <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                <div style="float: left; width: 50%; padding: 2px;"> Document number: <div style="font-size: 6pt; padding-left:16px;">For registry use only</div> </div>
+                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
+                </div>
+            </div>         
         </div> 
         
-<!-- <1> -->
+        <div style="display:flex; flex-direction:row gap:4px; font-size:8pt" >
+            <div style="width: 80%; float: left; margin-right: 10px;">
+                <p>This Application for Order Prohibiting the Relocation of a Child sets out the details of an order 
+                prohibiting the relocation of a child that a person is applying for under section 69 of the Family 
+                Law Act. </p>
+                <div style="border-style: dashed; border-color: black;float: left; padding:0.5rem; background: #909090;">
+                <b>Please read before completing the form:</b>
+                <ul>
+                    <li>
+                        This application is to be used only if a child’s guardian plans to relocate themselves, the child, or both, and there is a written agreement or order respecting parenting arrangements or contact with the child applies to the child [s. 65 Family Law Act].
+                    </li>
+                    <li>
+                        If there is no written agreement or court order, you may apply for an order under s. 46 of the Family Law Act [changes to child’s residence if no agreement or order] using an Application About a Priority Parenting Matter Form 15 or Application About a Family Law Matter Form 3 to determine the parenting arrangements for the child including the location of the child’s residence.
+                    </li>
+                    <li>
+                        For guidance filling in this form, please read the guidebook. The guide is available online at <a href="https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
+                    </li>
+                </ul>
+                </div>
+            </div>
+            <div style="width: 20% ">
+           <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:24px">
+                <p>
+                <b-icon-info-circle-fill />
+                <br />
+                    An application prohibiting the relocation of a child under s. 69 of the Family Law Act must be filed within 30 days after receiving written notice that the guardian plans to relocate the child [s. 68 Family Law Act]. 
+                </p>
+            </div>
+            </div>
+        
+        </div>
+        
+        <div style="width: 80%; float: left; margin-right: 10px;">
+        <div style="margin-top: 1rem;"></div>
+            <div style="background: #626262; color: white; font-size: 11pt;">
+                    <b>Part 1 | About the Parties</b>
+            </div>
+
+             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block; font-size: 11pt;">
+                      <b>1. </b>My <b>full name</b> is:
+                    </div>
+                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
+                        beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.name | getFullName" />
+                     <div style="padding-top:12px; padding-left:12px;"> 
+                      <div style="display: inline-block; font-size: 11pt;"> 
+                        <b>My date of birth</b> is:
+                    </div>
+                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
+                        beforetext="" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.dob | beautify-date" />
+                     </div>  
+             </div>
+
+               <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block; font-size: 11pt;">
+                        <b>2. </b>The <b>other party’s full name is:</b>
+                    </div>
+                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="270px"
+                        beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="firstOtherParty.name | getFullName" /> 
+                     <div style="padding-top:10px; padding-left:12px;">
+                            <div style="display: inline-block; font-size: 11pt;">
+                            Their <b>date of birth:</b>(dd/mmm/yyyy) is:
+                            </div>  
+                            <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="230px"
+                        beforetext=""  :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="firstOtherParty.dob | beautify-date" />  
+                      
+
+                    <div>
+                    <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="There is an additional party."/> 
+                    
+                    </div>
+                    <div>
+                    
+                    </div>
+                    <div style="display: inline-block; font-size: 11pt;"> 
+                        The<b> additional party’s</b> full name is:
+                    </div>
+                  <!-- <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="230px"
+                        beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="otherParty.name | getFullName" /> -->
+
+                        <div style="display: inline-block; font-size: 11pt;"> 
+                        Their<b>  date of birth</b> h (dd/mmm/yyyy) is: 
+                    </div>
+                     </div>     
+               </div> 
+        </div>
+
+
+
+
+         <!-- <1> -->
         <section>
             <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="17rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
             <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="8rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
@@ -382,11 +478,13 @@ import { relocationOfChildInformationDataInfoType, relocationOfChildOtherPartyDa
 import { relocChildrenInfoDataInfoType, relocQuestionnaireSurveyDataInfoType, relocChildBestInterestSurveyDataInfoType } from '@/types/Application/RelocationOfChild';
 import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
+
 @Component({
     components:{
         UnderlineForm,
         CheckBox,
-        OrderedCheckBox        
+        OrderedCheckBox,
+        
     }
 })
 
