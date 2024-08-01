@@ -43,7 +43,26 @@
               "isRequired": true,
               "title":"Please explain why you will not be attaching calculations:",
               "description": "You do not need to use any special wording. The key is to be clear about why you are not providing calculations with your application."              
-            }                    
+            },
+            {
+              "type": "yesno",
+              "name": "ableToProvideAmountOfChildSupportPerMonth",
+              "title":"Based on the information you know, are you able to provide amount of child support per month you are asking for?",
+              "description": " ",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{attachingCalculations} == 'y'"              
+            },
+            {
+              "type": "text",
+              "inputType": "number",
+              "name": "amountOfChildSupportPerMonth",
+              "title":"Please enter amount of child support per month?",
+              "description": " ",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{ableToProvideAmountOfChildSupportPerMonth} == 'y'"              
+            }   
           ]
         }
       ],

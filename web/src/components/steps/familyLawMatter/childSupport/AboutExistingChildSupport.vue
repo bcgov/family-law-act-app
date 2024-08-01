@@ -83,7 +83,7 @@ export default class AboutExistingChildSupport extends Vue {
             if(this.survey.data?.orderDifferenceType == 'changeOrder'){
                 togglePages([AboutCS], true, this.currentStep);
                 
-            } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
+            } else if(['cancelOrder', 'suspendedOrder'].includes(this.survey.data?.orderDifferenceType)) {
                 
                 togglePages([AboutCS], false, this.currentStep);
             }

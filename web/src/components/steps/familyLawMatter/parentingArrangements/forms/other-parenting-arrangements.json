@@ -25,6 +25,24 @@
               "isRequired": true,
               "visible": false,
               "visibleIf": "{parentalArrangements} = 'y'"
+            },
+            {
+              "type": "yesno",
+              "name": "seekingDirectionFromCourt",
+              "title": "Are you seeking directions from the court for an issue affecting the child?",
+              "description": "",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{parentalArrangements} = 'n'"
+            },
+            {
+              "type": "comment",
+              "name": "seekingDirectionFromCourtDescription",
+              "title": "Please describe the additional order terms you want.",
+              "description": "You do not need to use any special wording.  The key is to be clear about what you mean and what you are asking the court to order.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{seekingDirectionFromCourt} = 'y'"
             }
           ]
         }
