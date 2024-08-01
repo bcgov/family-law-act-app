@@ -187,7 +187,36 @@
         
     </div>
 
-     
+      <!-- Part 3  -->
+
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 0.3rem;"></div>
+            <div style="background: #626262; color: white; font-size: 13pt;">
+                    <b>Part 3 |Notice of the application</b>
+            </div>
+            <br>
+            <div>
+                <b>5.</b> <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"/>
+                <div style="margin-top: -16px;text-indent: 28px;">
+                    I understand <b>I must give notice</b> of this application to each other party, includingany other person who may be directly affected by the order. 
+                </div>   
+                <div>
+                <b> To give notice, they must be served</b> with the application and supporting documents <b> at least 7 days before</b> the date of the court appearance <b> unless </b>the court allows the application to be made without notice or with less than 7 days’ notice
+                </div>           
+            </div> 
+        </div>
+        <div style="width: 20% ">
+            <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:50px">
+            <p>
+            <b-icon-book />
+            <br />
+              For more information about serving court documents, see the guidebook. 
+            </p>
+            </div>
+        </div>
+          
+    </div>
 
 
          <!-- <1> -->
