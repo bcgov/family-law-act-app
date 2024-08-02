@@ -19,6 +19,13 @@
                      "choices": []
                   }, 
                   {
+                     "type": "text",
+                     "name": "applicationFiledOn",
+                     "title": "The application was filed on:", 
+                     "isRequired": true,
+                     "inputType": "date"
+                  },
+                  {
                      "type": "checkbox",
                      "name": "acknowledgement",
                      "title": "I understand to reply to the application I must attend court on the date and time for the court appearance referred to in the application and I may file and serve this written response on each other party before that date.",
@@ -36,7 +43,8 @@
                      "title": "How do I attend court?",
                      "titleLocation": "hidden",
                      "body": "A person may attend court in person, by telephone, video or other means of electronic communication. MS Teams is used by the court for telephone, audio or video conferencing. The method of attendance for your court appearance is set out on the application.</br></br>If you cannot attend the court appearance using that method of attendance, you can ask the court for permission to attend using a different method by filing an application about a case management order. You can complete and file the application using this service by selecting case management in Step 1. The application to attend by another method of attendance will be reviewed by a judge without you needing to appear in court or give the other party notice."
-                  }                               
+                  }
+                                                
                ]
             }            
          ],
