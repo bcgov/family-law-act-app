@@ -55,6 +55,13 @@ Vue.filter('beautify-date-full-no-weekday', function(date){
 		return ''
 })
 
+Vue.filter('beautify-date-full', function(date){
+	if(date)
+		return	moment(date).format('DD/MMMM/yyyy');
+	else
+		return ''
+})
+
 Vue.filter('beautify-date-', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
