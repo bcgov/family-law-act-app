@@ -5,7 +5,7 @@
 <!-- <HEADER> -->
         <div style="height: 160px;">
             <div style="float:left; width: 33%;">
-                <div style="font-size:13pt;"><b>Application for Order</b></div>
+                <div style="font-size:13pt;"><b>Application for Order </b></div>
                 <div style="font-size:13pt;"><b>Prohibiting the Relocation of a Child</b></div>
                 <div style="font-size:10pt;"><b>FORM 16</b></div>
                 <div>Provincial Court Family Rules</div>
@@ -108,21 +108,25 @@
                 </div>
             <div>
                     
-        </div>
-            <div style="padding-top:5px">
-                <div style="display: inline-block;"> 
-                    The<b> additional party’s</b> full name is:
-                </div>
-                <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="270px"
-                    beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="firstOtherParty.name | getFullName" /> 
+            </div>
+                <div style="padding-top:5px">
+                <div v-if="additionalOtherParties.length>0" style="font-size: 9pt;">
 
-                <div style="display: inline-block; padding-top:10px"> 
-                    Their<b>  date of birth</b>(dd/mmm/yyyy) is: 
+                <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
+                    <div style="display: inline-block;"> 
+                        The<b> additional party’s</b> full name is:
+                    </div>
+                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="270px"
+                        beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="otherParty.name | getFullName" /> 
+                    <div style="display: inline-block; padding-top:10px"> 
+                        Their<b>  date of birth</b>(dd/mmm/yyyy) is: 
+                    </div>
+                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="260px"
+                        beforetext=""  :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="otherParty.dob | beautify-date" />  
+                    </div>
+                    </div>
                 </div>
-                <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="260px"
-                    beforetext=""  :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="firstOtherParty.dob | beautify-date" />  
-             </div>
-        </div> 
+            </div> 
 
             </div>     
         </div>
@@ -242,7 +246,7 @@
                 </div>
                 <div style="margin:0.5rem 0 0 0.25rem;">
                   <div>
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                     />
                     <div style="margin-top: -18px;text-indent: 20px;">
                        In person at
@@ -252,7 +256,7 @@
                 </div>
                 <div style="margin:0.5rem 0 0 0.25rem; display:flex; flex-direction:row; gap:10px">
                   <div style="width:20%">
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                     />
                     <div style="margin-top: -18px;text-indent: 20px;">
                       by another method of attendance, as specified
@@ -358,7 +362,7 @@
                         <div style="margin-top: -18px;text-indent: 22px;">
                         <underline-form  style="margin-left:0rem; text-indent:0px; display:inline" textwidth="5.7rem" beforetext="I did not receive written notice of relocation but became aware of the planned relocation on" aftertext="." hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.foundOutDate | beautify-date-blank"/>
                         </div>
-                        <div style="margin:0.5rem 0 0 1.05rem;  font-size: 9pt;">                   
+                        <div style="margin:0.5rem 0 0 1rem;  font-size: 9pt;">                   
                             <underline-form  style="margin-left:0.35rem; display:inline" textwidth="6rem" beforetext="I understand the date of the relocation of the child(ren) to be" hint="Date(mmm/dd/yyyy)" :italicHint="false" :text="relocInfo.presumedRelocationDate | beautify-date-blank"/>
                             <underline-form  style="margin:0 0 0 0.35rem; text-indent:5px;display:inline" :textwidth="relocInfo.presumedLocation.length<22 ?'9rem':'22rem'" beforetext="to" aftertext="." hint="proposed location" :italicHint="false" :text="relocInfo.presumedLocation"/> 
                         </div>                    
@@ -517,119 +521,6 @@
             </div>
         </div>  
     </div> 
-
-
-<!-- <3> -->
-        <div class="print-block">
-            <section> 
-                <div style="display:inline; font-size: 9pt;">
-                    <underline-form 
-                        style="text-indent:2px;display:inline-block;" 
-                        textwidth="16.5rem" 
-                        beforetext="The other party is" 
-                        hint="full name of the other party" 
-                        :italicHint="false" 
-                        :text="firstOtherParty.name | getFullName"/>
-                    <underline-form 
-                        style="display:inline;text-indent:2px;" 
-                        textwidth="7.5rem" 
-                        beforetext=". Their date of birth is" 
-                        hint="date of birth (mmm/dd/yyyy)" 
-                        :italicHint="false" 
-                        :text="firstOtherParty.dob | beautify-date"/>
-                    <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
-                    <table class="compactfullsize">
-                        <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">
-                                Lawyer (if applicable): 
-                                <div class="answer">
-                                    {{firstOtherParty.lawyer}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">          
-                            <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td  >City: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.city:''}}</div> </td>
-                        <td style="padding-left:50px">Province: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.state:''}}</div> </td>
-                            <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.email:''}}</div> </td>
-                            <td>Telephone: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.phone:''}}</div> </td>
-                        </tr>
-                    </table>
-                </div>
-                <div style="text-indent:5px;"><i>Additional party (Complete only if applicable.)</i></div>
-                        
-                <div v-if="additionalOtherParties.length>0" style="font-size: 9pt;">
-
-                    <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
-                    
-                        <table class="compactfullsize">
-                            <tr style="border:1px solid #313132">
-                                <td colspan="2">Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>                                
-                                <td>Date of birth: <div class="answer">{{otherParty.dob | beautify-date}}</div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Contact information</td>
-                            </tr>
-                            <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">
-                                    Lawyer (if applicable): 
-                                    <div class="answer">
-                                        {{otherParty.lawyer}}
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">          
-                                <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">
-                                <td  >City: <div class="answer">{{otherParty.address?otherParty.address.city:''}}</div> </td>
-                            <td style="padding-left:50px">Province: <div class="answer">{{otherParty.address?otherParty.address.state:''}}</div> </td>
-                                <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">
-                                <td colspan="2">Email: <div class="answer">{{otherParty.contactInfo?otherParty.contactInfo.email:''}}</div> </td>
-                                <td>Telephone: <div class="answer">{{otherParty.contactInfo?otherParty.contactInfo.phone:''}}</div> </td>
-                            </tr>
-                        </table>                    
-                    </div>
-                </div>
-                <div v-else>
-
-                    <div style="display:inline; font-size: 9pt;">
-                    
-                        <table class="compactfullsize">
-                            <tr style="border:1px solid #313132">
-                                <td colspan="2">Full name: <div class="answer"></div> </td>                                
-                                <td>Date of birth: <div class="answer"></div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Contact information</td>
-                            </tr>
-                            <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Lawyer (if applicable): </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">          
-                                <td colspan="3">Address: <div class="answer"> </div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">
-                                <td  >City: <div class="answer"></div> </td>
-                            <td style="padding-left:50px">Province: <div class="answer"></div> </td>
-                                <td>Postal Code: <div class="answer"></div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">
-                                <td colspan="2">Email: <div class="answer"></div> </td>
-                                <td>Telephone: <div class="answer"></div> </td>
-                            </tr>
-                        </table>                    
-                    </div>
-                </div>
-            </section>
-        </div> 
     </div>
 </template>
 
