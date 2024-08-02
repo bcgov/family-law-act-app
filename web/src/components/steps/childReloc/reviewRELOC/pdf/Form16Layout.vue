@@ -305,50 +305,219 @@
         </div>
     </div>    
 
+   <!-- Part 5 -->
 
-         <!-- <1> -->
-        <section>
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="17rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
-            <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="8rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> . My contact information and address for service of court documents are:</div>
-            <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
-                <tr style="border:1px solid #414142" >
-                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
-                    <td v-else  colspan="3">Lawyer (if applicable): </td>
-                </tr>
-                <tr style="border:1px solid #414142">          
-                    <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
-                </tr>
-                <tr style="border:1px solid #313132">
-                    <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
-                <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
-                    <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
-                </tr>
-                <tr style="border:1px solid #313132">
-                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
-                </tr>
-            </table>
-        </section>
+   <div style="margin-top: 1rem;"></div>  
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
+        <div style="flex:1; float: left; margin-right: 10px;">
+                <div style="margin-top: 0.3rem;"></div>
+                <div style="background: #626262; color: white; font-size: 13pt;">
+                        <b>Part 5 |About the order</b>
+                </div>
+                <div>
+                    <b style="padding-right:3px">6.</b>
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"/>
+                    <div style="margin-top: -18px;text-indent: 30px;">
+                    I am applying for an order to prohibit the relocation of a child or children.
+                    </div> 
+                </div> 
+                <div style="padding-top:12px">
+                    <b style="padding-right:3px">7.</b>
+                    <check-box 
+                        inline="inline" 
+                        boxMargin="0"                 
+                        style="display:inline; font-size: 9pt; text-indent: -16px; " 
+                        :check="relocInfo.existingOrder?'yes':''" 
+                        />
+                        <div style="margin-top: -18px;text-indent: 30px;">
+                            There is a written agreement or order respecting parenting arrangements referred to in section 65 of the Family Law Act made on
+                            <underline-form 
+                            style="text-indent:2px;display:inline" 
+                            textwidth="8rem" 
+                            beforetext="" 
+                            hint="mmm/dd/yyyy" 
+                            :italicHint="false" 
+                            :text="relocInfo.existingOrderDate | beautify-date-blank"/>
+                            that applies to the child(ren) that are the child(ren) that are the subject of this application (see attached copy of agreement or order).
+                        </div>
+                </div> 
 
-        <div style="margin-top: 1rem;"></div>       
+                <div>
+                <div class="print-block">            
+                    <b>8.</b>
+                    <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt;"><i>Select only one of the options below and complete the required information</i></div>
+                    <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
+                        <check-box inline="inline" boxMargin="0" style="display:inline; font-size: 9pt; text-indent: -16px;" :check="relocInfo.receivedNotice?'yes':''"/>
+                        <div style="margin-top: -18px;text-indent: 22px;">
+                        Notice of relocation was given to me on
+                        <underline-form  style="margin:0 0 0.5rem 0rem;text-indent:2px;display:inline-block" textwidth="8rem" beforetext="" aftertext="(see attached) copy" hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.noticeDate | beautify-date-blank"/>
+                        </div>
+                    </div>
+                    <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
+                        <check-box inline="inline" boxMargin="0" style="display:inline; font-size: 9pt; text-indent: -16px;" :check="!relocInfo.receivedNotice?'yes':''" text="" />
+                        <div style="margin-top: -18px;text-indent: 22px;">
+                        <underline-form  style="margin-left:0rem; text-indent:0px; display:inline" textwidth="5.7rem" beforetext="I did not receive written notice of relocation but became aware of the planned relocation on" aftertext="." hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.foundOutDate | beautify-date-blank"/>
+                        </div>
+                        <div style="margin:0.5rem 0 0 1.05rem;  font-size: 9pt;">                   
+                            <underline-form  style="margin-left:0.35rem; display:inline" textwidth="6rem" beforetext="I understand the date of the relocation of the child(ren) to be" hint="Date(mmm/dd/yyyy)" :italicHint="false" :text="relocInfo.presumedRelocationDate | beautify-date-blank"/>
+                            <underline-form  style="margin:0 0 0 0.35rem; text-indent:5px;display:inline" :textwidth="relocInfo.presumedLocation.length<22 ?'9rem':'22rem'" beforetext="to" aftertext="." hint="proposed location" :italicHint="false" :text="relocInfo.presumedLocation"/> 
+                        </div>                    
+                        <div style="text-indent:10px; margin:1rem 0 0 0.65rem; font-size: 9pt;"> 
+                            I learned about the planned relocation:
+                        </div>
+                        <i style="text-indent:5px;margin:0.25rem 0 0 0.65rem; display: block; font-size: 9pt;">Briefly explain how you found out about the planned relocation if you did not receive written notice</i>
+                        <div v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription" 
+                            class="answerbox">{{relocInfo.foundOutDescription}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                    </div>       
+                </div>       
+            </div>                                    
+        </div>
 
-<!-- <2> -->
-        <section>
-            <check-box 
-                inline="inline" 
-                boxMargin="0" 
-                style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
-                :check="true?'yes':''" 
-                text="I understand I must give notice of this application to the relocating guardian(s). The relocating guardian is the"/>
-            <div style="text-indent:0; margin:0 0 0 1.85rem;display:block; font-size: 9pt;" >
-                other party. To give notice, they must be served with the application and supporting documents at
-                least 7 days before the date set for the court appearance unless the court allows the application to be
-                made without notice or with less than 7 days’ notice.
-            </div>                              
-        </section>
+        <div style="width: 20% ">
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:-30px">
+                <p>
+                <b-icon-info-circle-fill/>
+                <br />
+                You can make an application under s. 69 of the Family Law Act only if there is an existing written agreement or court order about parenting arrangements [s. 65 Family Law Act].
+                </p>
+                </div>
 
-        <div style="margin-top: 1rem;"></div>        
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:20px">
+                <p>
+                <b-icon-paperclip/>
+                <br />
+                You must attach a copy of the agreement or order to this application for filing. 
+                </p>
+                </div>
+
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:20px">
+                <p>
+                <b-icon-paperclip/>
+                <br />
+                ou must attach a copy of the notice of relocation, if applicable, to this application for filing. 
+                </p>
+                </div>
+        </div>     
+    </div>        
+
+    <!-- Part 6 -->
+    <div style="margin-top: 1rem;"></div>  
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
+        <div style="flex:1; float: left; margin-right: 10px;">
+            <div style="margin-top: 0.3rem;"></div>
+            <div style="background: #626262; color: white; font-size: 13pt;">
+                    <b>Part 6 | Best interests of the child</b>
+            </div>
+            <div class="print-block">            
+                <b style="padding-right:3px">9.</b>
+                <div style="margin:0 0 0 0.4rem; display: inline; font-size: 9pt;">
+                    I believe it is in the child(ren)’s best interests to prohibit the proposed relocation because:                 
+                </div>
+                <div v-if="relocInfo.childBestInterestReason" 
+                    class="answerbox">{{relocInfo.childBestInterestReason}}</div>
+                <div v-else style="margin-bottom:3rem;"></div>             
+            </div>
+        </div>
+        <div style="width: 20% ">
+            <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:50px">
+            <p>
+            <b-icon-info-circle-fill  />
+            <br />
+             To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. 37 of the Family Law Act. The parties and the court must consider the best interests of a child when making a decision about contact with a child. For more information, see the guidebook. 
+            </p>
+            </div>
+        </div>   
+    </div>        
+
+     <!-- Part 7 -->
+
+    <div style="margin-top: 1rem;"></div>  
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
+        <div style="width:80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 0.3rem;"></div>
+            <div style="background: #626262; color: white; font-size: 13pt;">
+                    <b>Part 7 | Filling location</b>
+            </div>
+            
+        <div class="print-block mt-0">            
+                <b style="padding-right:3px">10.</b>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this application <b>in the court registry:</b></div>
+                <div style="margin-left:1rem;">
+                    <i>Select only one of the options below</i>
+                    <div style="padding-left:20px;">
+                    <check-box  
+                        style="text-indent:-16px"
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text=""/>
+                        <div style="margin-top: -18px;text-indent: 3px;">
+                          Where my <b>existing case</b> with the same party/parties is located. I already havea court file number.
+                        </div> 
+                        
+                    <check-box  
+                       style="text-indent:-16px"
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" />  
+                        <div style="margin-top: -18px;text-indent: 3px;">
+                          Closest to <b> where the child lives</b> most of the time, because my case involves a child-related issue
+                        </div>         
+                    <check-box  
+                         style="text-indent:-16px"
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" />  
+                         <div style="margin-top: -18px;text-indent: px;">
+                         Permitted by <b>court order</b>
+                        </div>  
+                    </div>                      
+                </div>  
+            </div>
+        </div>
+    </div>   
+
+      <!-- Part 8 -->
+    <div style="margin-top: 1rem;"></div>  
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
+        <div style="flex:1; float: left; margin-right: 10px;">
+            <div style="margin-top: 0.3rem;"></div>
+                <div style="background: #626262; color: white; font-size: 13pt;">
+                        <b>Part 8 | Address for service</b>
+                </div>
+                <b style="padding-right:3px">11.</b>
+                <div style="margin:0 0 0 0.4rem; display: inline; font-size: 9pt;">
+                    My address for service of court documents and contact information is:             
+                </div>
+                <div style="margin-left:2rem;">
+                    <i>You must provide an address for service and contact number, but it does not have to be your own if you don’t want to</i>
+                    <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
+                    
+                        <tr style="border:1px solid #414142">          
+                            <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
+                        </tr>
+                        <tr style="border:1px solid #313132">
+                            <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
+                        <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
+                            <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
+                        </tr>
+                        <tr style="border:1px solid #313132">
+                            <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
+                            <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
+                        </tr>
+                        <tr style="border:1px solid #414142" >
+                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
+                            <td v-else  colspan="3">Lawyer (if applicable): </td>
+                        </tr>
+                    </table>
+                </div>       
+        </div>
+        <div style="width: 20% ">
+            <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:50px">
+            <p>
+            <b-icon-book />
+            <br />
+            For more information about how this information will be used and who will have access to it, see the guidebook. 
+            </p>
+            </div>
+        </div>  
+    </div> 
+
 
 <!-- <3> -->
         <div class="print-block">
@@ -461,185 +630,6 @@
                 </div>
             </section>
         </div> 
-
-        <div style="margin-top: 1rem;"></div>
-
-<!-- <For registery> -->
-        <div class="print-block">
-            <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
-                <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only</i></div>
-                
-                <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
-                <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
-                <div style="margin:0.5rem 0 0 0.25rem;">
-                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
-                    <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
-                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
-                </div>
-            </div>
-            <div style="margin:0.5rem 0 0 1rem; font-size:9pt;">
-                <b>
-                    NOTE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court
-                    appearance, the court may make an order in your absence. You may also choose to file a written response in
-                    reply to the application in Form 19 Written Response to Application.
-                </b>
-            </div>
-            <div style="margin:0.2rem 0 0 1rem; font-size: 9pt;"> The court must be satisfied that:
-                <ol class='resetcounteralpha'>
-                    <li class='bracketalpha'>the proposed relocation is being made in good faith,</li>
-                    <li class='bracketalpha'>the relocating guardian has proposed reasonable and workable arrangements to preserve the
-                                            relationship between the child and the child’s other guardians, persons who are entitled to contact with
-                                            the child, and other persons who have a significant role in the child’s life, and</li>
-                    <li class='bracketalpha'>the relocation is in the best interests of the child.</li>
-                </ol>
-            </div>
-        </div>
-
-        <div class="print-block mt-5"></div>
-
-        <div class="print-block mt-0">            
-<!-- <4> -->
-            <section>
-                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
-                <div style="margin-left:1rem;">
-                    <i>Select only one of the options below</i>
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
-                        text="where my existing case with the same party/parties is located"/> 
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
-                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
-                        text="closest to where I live because my case does not involve a child-related issue"/>
-                    <check-box  
-                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
-                        text="permitted by court order"/>                    
-                </div>
-            </section>
-        </div>
-
-        <div style="text-align:left; margin-top: 1rem;"><b>ABOUT THE ORDER</b></div>
-
-
-<!-- <5> -->
-        <section>
-            <check-box 
-                inline="inline" 
-                boxMargin="0" 
-                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                :check="true?'yes':''" 
-                text="I am applying for an order to prohibit the relocation of a child or children."/>                                 
-        </section>
-
-
-<!-- <6> -->
-        <div class="print-block">
-            <section>
-                <div style="display:inline; margin-left:0.25rem; font-size: 9pt;">This application is about the following child(ren) that I am a guardian of:</div>          
-                
-                <b-table
-                    :items="childrenInfo"
-                    :fields="childrenFields"
-                    class="mt-2"
-                    small
-                    bordered>                    
-                        <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                        </template>
-                </b-table> 
-            </section>
-        </div>   
-
-
-<!-- <7> -->
-        <section>
-            <check-box 
-                inline="inline" 
-                boxMargin="0" 
-                style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
-                :check="relocInfo.childBestInterestAcknowledgement?'yes':''" 
-                text="I understand that I must consider the child(ren)’s best interests with respect to each order I am asking the 
-                "/>
-            <div style="text-indent:0; margin:0 0 0 1.75rem; font-size: 9pt;">court to make.</div>                                 
-        </section> 
-
-
-<!-- <8> --> 
-        <section>
-            <check-box 
-                inline="inline" 
-                boxMargin="0"                 
-                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                :check="relocInfo.existingOrder?'yes':''" 
-                :text="'I am attaching a copy of the written agreement or order respecting parenting arrangements referred to in'"/>
-                <div style="text-indent:0; margin:0 0.25rem 0 1.75rem; font-size: 9pt;display:inline-block;">
-                    section 65 of the Family Law Act made on
-                </div>
-                <underline-form 
-                    style="text-indent:2px;display:inline" 
-                    textwidth="8rem" 
-                    beforetext="" 
-                    hint="mmm/dd/yyyy" 
-                    :italicHint="false" 
-                    :text="relocInfo.existingOrderDate | beautify-date-blank"/>
-                <div style="text-indent:0; margin:0 0 0 0.25rem; font-size: 9pt;display:inline">
-                    that applies to the child(ren) that are the
-                </div>
-                <div style="text-indent:0; margin:0 0 0 1.75rem; font-size: 9pt;">
-                    the subject of this application.
-                </div>                                 
-        </section>
-
-
-<!-- <9> -->
-        <div class="print-block">            
-            <section>
-               
-                <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt;"><i>Select only one of the options below and complete the required information</i></div>
-
-                <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
-                    <check-box  style="display:inline;" boxMargin="0" inline="inline" :check="relocInfo.receivedNotice?'yes':''" text="I am attaching a copy of the notice of relocation given to me on"/>
-                    <underline-form  style="margin:0 0 0.5rem 0rem;text-indent:2px;display:inline-block" textwidth="8rem" beforetext="" aftertext="." hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.noticeDate | beautify-date-blank"/>
-                </div>
-
-                <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
-                    <check-box style="display:inline;margin:0;" boxMargin="0" inline="inline" :check="!relocInfo.receivedNotice?'yes':''" text="" />
-                    <underline-form  style="margin-left:0rem; text-indent:0px; display:inline" textwidth="5.7rem" beforetext="I did not receive written notice of relocation but became aware of the planned relocation on" aftertext="." hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.foundOutDate | beautify-date-blank"/>
-                    <div style="margin:0.5rem 0 0 1.05rem;  font-size: 9pt;">                   
-                        <underline-form  style="margin-left:0.35rem; text-indent:5px;display:inline" textwidth="6rem" beforetext="I understand the date of the relocation of the child(ren) to be" hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.presumedRelocationDate | beautify-date-blank"/>
-                        <underline-form  style="margin:0 0 0 0.35rem; text-indent:5px;display:inline" :textwidth="relocInfo.presumedLocation.length<22 ?'9rem':'22rem'" beforetext="to" aftertext="." hint="proposed location" :italicHint="false" :text="relocInfo.presumedLocation"/> 
-                    </div>                    
-                    <div style="text-indent:0; margin:0.25rem 0 0 0.65rem; font-size: 9pt;"> 
-                        I learned about the planned relocation:
-                    </div>
-                    <i style="text-indent:0;margin:0.25rem 0 0 0.65rem; display: block; font-size: 9pt;">Briefly explain how you found out about the planned relocation if you did not receive written notice</i>
-                
-                    <div v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription" 
-                        class="answerbox">{{relocInfo.foundOutDescription}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                </div> 
-            </section>
-        </div>   
-
-
-<!-- <10> -->
-        <div class="print-block">            
-            <section> 
-                <div style="margin:0 0 0 0.4rem; display: inline; font-size: 9pt;">
-                    I believe it is in the child(ren)’s best interests to prohibit the proposed relocation because:                 
-                </div>
-                <div v-if="relocInfo.childBestInterestReason" 
-                    class="answerbox">{{relocInfo.childBestInterestReason}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>             
-            </section>
-        </div>
-
     </div>
 </template>
 
