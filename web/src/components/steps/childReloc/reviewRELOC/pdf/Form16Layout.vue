@@ -30,12 +30,12 @@
             </div>         
         </div> 
         
-        <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
-            <div style="width: 80%; float: left; margin-right: 10px;">
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
+        <div style="flex:1; float: left; margin-right: 10px;">
                 <p>This Application for Order Prohibiting the Relocation of a Child sets out the details of an order 
                 prohibiting the relocation of a child that a person is applying for under section 69 of the Family 
                 Law Act. </p>
-                <div style="border-style: dashed; border-color: black;float: left; padding:0.5rem; background: #909090;">
+                <div style="border-style: dashed; border-color: black;float: left; padding:0.5rem; background: #909090; width:80%">
                 <b>Please read before completing the form:</b>
                 <ul>
                     <li>
@@ -50,8 +50,8 @@
                 </ul>
                 </div>
             </div>
-        <div style="width: 20% ">
-           <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:24px">
+            <div style="width: 20% ">
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:24px">
                 <p>
                 <b-icon-info-circle-fill />
                 <br />
@@ -62,8 +62,9 @@
     </div>
         
     <!-- Part 1 -->
+    
     <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
-        <div style="width: 80%; float: left; margin-right: 10px;">
+        <div style="flex:1; float: left; margin-right: 10px;">
             <div style="margin-top: 1rem;"></div>
             <div style="background: #626262; color: white; font-size: 11pt;">
                     <b>Part 1 | About the Parties</b>
@@ -101,7 +102,7 @@
                     <div>
                     <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"
                     />
-                    <div style="margin-top: -22px;text-indent: 16px;">
+                    <div style="margin-top: -18px;text-indent: 20px;">
                         There is an additional party.
                     </div>                      
                 </div>
@@ -139,8 +140,9 @@
     </div>
 
     <!-- Part 2-->
+     <div style="margin-top: 1rem;"></div>    
     <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
-        <div style="width: 80%; float: left; margin-right: 10px;">
+        <div style="flex:1; float: left; margin-right: 10px;">
             <div style="margin-top: 0.3rem;"></div>
             <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 2 |Information about children</b>
@@ -187,8 +189,8 @@
         
     </div>
 
-      <!-- Part 3  -->
-
+  <!-- Part 3  -->
+       <div style="margin-top: 1rem;"></div>    
     <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
         <div style="width: 80%; float: left; margin-right: 10px;">
             <div style="margin-top: 0.3rem;"></div>
@@ -217,6 +219,91 @@
         </div>
           
     </div>
+
+    <!-- Part 4 -->
+    <div style="margin-top: 1rem;"></div>    
+    <div style="display:flex; flex-direction:row gap:4px; font-size:9pt" >
+        <div style="flex:1; float: left; margin-right: 10px;">
+            <div style="margin-top: 0.3rem;"></div>
+            <div style="background: #626262; color: white; font-size: 13pt;">
+                    <b>Part 4 |About your court appearance</b>
+            </div>
+            <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:9pt;"><i>For registry or judicial case manager use only</i></div>
+             <div style="border:1px solid; font-size: 9pt; padding:1rem;font-family:BCSans">
+                <b>This application, which requires a court apprearance, will be heard by the court</b>
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
+                <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+
+                <div style="margin:0.5rem 0 0 0.25rem;">
+                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
+                    <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
+                </div>
+                <div style="margin:0.5rem 0 0 0.25rem;">
+                  <div>
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"
+                    />
+                    <div style="margin-top: -18px;text-indent: 20px;">
+                       In person at
+                       <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="" hint="court location" text=""/>
+                    </div> 
+                  </div>
+                </div>
+                <div style="margin:0.5rem 0 0 0.25rem; display:flex; flex-direction:row; gap:10px">
+                  <div style="width:20%">
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" :check="true?'yes':''"
+                    />
+                    <div style="margin-top: -18px;text-indent: 20px;">
+                      by another method of attendance, as specified
+                    </div> 
+                  </div>
+                  <div style="flex:1; padding-top:8px">
+                    <div style="border:1px solid; font-size: 9pt; padding:0.5rem;">
+                        Do not attend the courthouse in person. The registry will send within 24 hours before the 
+                        hearing date noted above the link to connect by MS Teams, including a dial-in conferencing 
+                        number to be used by any party that is unable to use MS Teams or has problems with their 
+                        video connection. If you have not provided your email address or telephone number to the 
+                        registry on your Notice of Address Change (<a href="#">Form 46</a>), you must contact the registry to 
+                        obtain the MS Teams conference information
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div style="border-style: dashed; border-color: black; width: 80%;float: left; margin-top: 10px;width: 80%;padding:0.5rem; background: #d6d6d6; ">
+             <b>NOTE TO THE OTHER PARTY:</b>
+             <div style="margin:0.5rem; font-size:9pt;">
+                <p>
+                    <b> If you do not attend court</b> on the date and time scheduled for the court appearance, the court 
+                    may make an order in your absence. 
+                    You may also choose to <b> file a written response </b> in reply to the application in Form 19 Written 
+                    Response to Application
+                </p>
+            </div>
+            <div style="margin:0.2rem 0 0 1rem; font-size: 9pt;"> The court must be satisfied that:
+                <ol class='resetcounteralpha'>
+                    <li class='bracketalpha'>the proposed relocation is being made in good faith,</li>
+                    <li class='bracketalpha'>the relocating guardian has proposed reasonable and workable arrangements to
+                        preserve the relationship between the child and the child’s other guardians,
+                        persons who are entitled to contact with the child, and other persons who have a
+                        significant role in the child’s life, and</li>
+                    <li class='bracketalpha'>the relocation is in the best interests of the child.</li>
+                </ol>
+            </div>
+            </div>
+        </div>
+
+        <div style="width: 20% ">
+            <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:50px">
+            <p>
+            <b-icon-info-circle-fill  />
+            <br />
+              The registry or judicial case manager will work with you to schedule a date for the court appearance and will fill in the actual date and method of attendance on the form. Be prepared to talk about your availability if there are options for dates. 
+            </p>
+            </div>
+        </div>
+    </div>    
 
 
          <!-- <1> -->
