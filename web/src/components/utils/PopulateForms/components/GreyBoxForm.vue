@@ -17,7 +17,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class UnderlineForm extends Vue {
+export default class GreyBoxForm extends Vue {
     @Prop({required: true})
     beforetext!: string;
 

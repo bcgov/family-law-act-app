@@ -3,19 +3,111 @@
 <!-- <Header> -->
         <div v-if="dataReady">
             <div class="new-page" />
-            <div style="text-align:center;"><b> SCHEDULE 1 – PARENTING ARRANGEMENTS – NEW</b></div>
-            <div style="text-align:center;"><b> This is Schedule 1 to the Application About a Family Law Matter</b></div>
 
-            <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are a guardian of a child or, are applying to be appointed as a guardian of a child, and you are making a new application about parenting arrangements for a child or children identified in section 12 of this application. 
-                Parenting arrangements include how each guardian of a child will parent their child(ren) together, including each guardian’s responsibilities for decision making about a child, and the time each guardian spends with a child.</i>
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <ScheduleHeader scheduleNumber="Schedule 1" scheduleTitle="Parenting Arrangements" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
+                </div>
+                <div style="width: 20%;"></div>
             </div>
+
+            <div style="margin-bottom: 1rem;"></div>
+
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap;">
+                <div style="flex: 1">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>Complete this schedule only if you need a court order about parenting arrangements, including parental responsibilities and parenting time, and you do not have an existing final court order or written agreement about parenting arrangements.</p>
+                    </NoteBox>
+                </div>
+                <div style="width: 20%;"></div>
+            </div>
+
+            <div style="margin-bottom: 1rem;"></div>
+            
 <!-- <1> -->
-            <section class="resetquestion"> 
-                I am:
-                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren) <br/> <i>A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with their child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of a child, or under a will if the other parent dies. A person who is not a parent can become a guardian of a child by a court order or under a will.</i>"/>
-                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
-            </section>
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <FormPart :part="1" title="Guardian of the child"></FormPart>
+                    
+                    <section class="resetquestion"> 
+                        Select the option that applies to your situation
+                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="I am the <b>child’s guardian</b>"/>
+                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="I am <b>applying to be appointed</b> as the child’s guardian <i>(I am also completing Schedule 7)</i>"/>
+                    </section>
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <p>
+                            Only a guardian may have parental responsibilities and parenting time with respect to a child [s. 39 Family Law Act].For information about who is a guardian of a child, see the guidebook.
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+
+            <div style="margin-bottom: 1rem;"></div>
+
+
+            <!-- 2 -->
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <FormPart :part="2" title="Order about parenting arrangements"></FormPart>
+
+                    <NoteBox>
+                        <p>
+                            Parenting arrangements include how each guardian of a child will parent their child(ren), including each guardian’s responsibilities for decision making about a child (parental responsibilities), and the time each guardian spends with a child (parenting time).
+                        </p>
+                        <p>
+                            Guardians can arrange parental responsibilities and parenting time in any way that is in the best interests of the child.
+                        </p>
+                        <p> 
+                            The court can make orders under Division 2 [Parenting Arrangements] of Part 4 [Care of and Time with Children] of the Family Law Act.
+                        </p>
+                    </NoteBox>
+
+                    <section class="resetquestion"> 
+                        Select the option that applies to your situation
+                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="I am the <b>child’s guardian</b>"/>
+                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="I am <b>applying to be appointed</b> as the child’s guardian <i>(I am also completing Schedule 7)</i>"/>
+                    </section>
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <p>
+                            Only a guardian may have parental responsibilities and parenting time with respect to a child [s. 39 Family Law Act].For information about who is a guardian of a child, see the guidebook.
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+
+            <div style="margin-bottom: 1rem;"></div>
+
+            <!-- 3 -->
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap:4px;">
+                <div style="flex: 1">
+                    <FormPart :part="3" title="Best interests of the child"></FormPart>
+                    
+                    <section class="resetquestion"> 
+                        <p>I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the best interests of the child(ren)because:</p>
+                        <p><i>List your reasons</i></p>
+
+                        <div v-if="parentArrInfo.childBestInterest" 
+                        class="answerbox">{{parentArrInfo.childBestInterest}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>  
+
+                    </section>
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-book></b-icon-book>
+                        <p>
+                            To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. 37 of the Family Law Act.The parties and the court must consider the best interests of a child when making a decision about parenting arrangements.For more information, see the guidebook.
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+
+
 
             <div class="print-block">
                 <div style="margin-top:1rem;"><b>Parental responsibilities</b></div>
@@ -125,11 +217,17 @@ import UnderlineForm from "@/components/utils/PopulateForms/components/Underline
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 import { childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox
+        CheckBox,
+        ScheduleHeader,
+        NoteBox,
+        FormPart
     }
 })
 
