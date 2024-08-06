@@ -1,5 +1,5 @@
 <template>
-    <!-- <div style="
+    <div style="
         display: flex; 
         flex-direction: row; 
         flex-wrap: no-wrap; 
@@ -10,7 +10,7 @@
         <div style="flex-basis: 220px; border-right: 4px solid #fff; font-size: 22pt; font-weight: bold;"> {{ scheduleNumber }} </div>
         <div style="border-right: 4px solid #fff; font-size: 14pt; font-weight: bold;"> {{ scheduleTitle }} </div>
         <div> {{ scheduleDescription }} </div>
-    </div> -->
+    </div>
 </template>
 
 <script lang="ts">

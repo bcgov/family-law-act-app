@@ -65,11 +65,93 @@
                         </p>
                     </NoteBox>
 
-                    <section class="resetquestion"> 
-                        Select the option that applies to your situation
-                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="I am the <b>child’s guardian</b>"/>
-                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="I am <b>applying to be appointed</b> as the child’s guardian <i>(I am also completing Schedule 7)</i>"/>
-                    </section>
+                    <div class="print-block">
+                        <div style="margin-top:1rem;"><b>Parental responsibilities</b></div>
+                        <div><i>Parental responsibilities can be set up so that they can be exercised by <div class="uline">one or more guardians</div> only, or by <div class="uline">each guardian</div> acting separately, or by <div class="uline">all guardians</div> acting together.</i></div>
+        <!-- <2> -->
+                        <section>
+                            <i style="display:inline; margin-left:0.25rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
+                            <div style="margin-left:1rem">
+                                <check-box  :check="(parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp)?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>
+                                <div class="answer">
+                                    <ul v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp">
+                                        <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx"><span class="mx-3">{{child}}</span></li>
+                                    </ul>
+                                </div>                    
+                                <check-box style="margin-top:1rem;" :check="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
+                                    || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)?'yes':''" text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
+                                <div v-if="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
+                                    || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)" class="answerbox">{{parentArrInfo.parentResp.expl}}</div>
+                                <div v-else style="margin-bottom:3rem;"></div>
+                            </div>            
+                        </section>
+                    </div>
+        
+                    <div class="print-block">
+                        <div style="margin-top:3rem;"><b>Parenting time</b></div>
+                        <div><i>During parenting time, a guardian has the parental responsibility of making day-to-day decisions affecting the child and having day-to-day care, control, and supervision of the child. Complete section 3 below only if you are applying for an order about parenting time. You may leave this section blank.</i></div>
+        <!-- <3> -->
+                        <section>
+                            I am applying for an order about the allocation of parenting time as follows:
+                            <i style="display:block; margin-left:1rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
+                            <check-box style="margin:0 0 0 1rem;" 
+                                    :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired?'yes':''" 
+                                    text="I am asking for the child(ren) to spend time with me as follows:"/> 
+                            <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired)" 
+                                class="answerbox">{{parentArrInfo.parentTime.desired}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>
+        
+        
+                            <check-box 
+                                style="margin:1rem 0 0 1rem;" 
+                                :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe?'yes':''" 
+                                text="I am willing to have the following conditions placed on my time with the child(ren):"/>
+                            
+                            <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe)" 
+                                class="answerbox">{{parentArrInfo.parentTime.myConditions}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>                    
+                            
+                            
+                            <check-box 
+                                style="margin:1rem 0 0rem 1rem;" 
+                                :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired?'yes':''" 
+                                text="I am asking for the child(ren) to spend time with the other guardian(s) as follows:"/>
+                            <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired)" 
+                                class="answerbox">{{parentArrInfo.parentTime.opDesired}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>
+                            
+                            
+                            <check-box 
+                                style="margin:1rem 0 0rem 1rem;" 
+                                :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp?'yes':''" 
+                                text="I am asking to have the following conditions placed on the other guardian’s time with the child(ren):"/>
+                            <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp)" 
+                                class="answerbox">{{parentArrInfo.parentTime.opConditions}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>       
+                       
+                        </section>
+                    </div>
+        
+                    <div class="print-block">
+                        <div style="margin-top:3rem;"><b>Parenting arrangements</b></div>
+        <!-- <4> -->
+                        <section>
+                            <i style="display:inline; margin-left:0.25rem">Complete only if there are additional order terms you want. You may leave this section blank.</i>
+                            <div>
+                                <check-box  
+                                    inline="inline" 
+                                    boxMargin="0" 
+                                    style="display:inline; margin:0 0 0 1rem;" 
+                                    :check="parentArrInfo.parentalArr.applying?'yes':''" text=""/>
+                                <div style="display:inline;">I am applying for the following other order term(s) about parenting arrangements:</div>
+                                <div v-if="(parentArrInfo.parentalArr.applying && parentArrInfo.parentalArr.desc)" 
+                                class="answerbox">{{parentArrInfo.parentalArr.desc}}</div>
+                                <div v-else style="margin-bottom:3rem;"></div>  
+                            
+                            
+                            </div>                
+                        </section> 
+                    </div>
                 </div>
                 <div style="width: 20%;">
                     <NoteBox>
@@ -107,106 +189,6 @@
                 </div>        
             </div>
 
-
-
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>Parental responsibilities</b></div>
-                <div><i>Parental responsibilities can be set up so that they can be exercised by <div class="uline">one or more guardians</div> only, or by <div class="uline">each guardian</div> acting separately, or by <div class="uline">all guardians</div> acting together.</i></div>
-<!-- <2> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
-                    <div style="margin-left:1rem">
-                        <check-box  :check="(parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp)?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>
-                        <div class="answer">
-                            <ul v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp">
-                                <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx"><span class="mx-3">{{child}}</span></li>
-                            </ul>
-                        </div>                    
-                        <check-box style="margin-top:1rem;" :check="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
-                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)?'yes':''" text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
-                        <div v-if="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
-                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)" class="answerbox">{{parentArrInfo.parentResp.expl}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
-                    </div>            
-                </section>
-            </div>
-
-            <div class="print-block">
-                <div style="margin-top:3rem;"><b>Parenting time</b></div>
-                <div><i>During parenting time, a guardian has the parental responsibility of making day-to-day decisions affecting the child and having day-to-day care, control, and supervision of the child. Complete section 3 below only if you are applying for an order about parenting time. You may leave this section blank.</i></div>
-<!-- <3> -->
-                <section>
-                    I am applying for an order about the allocation of parenting time as follows:
-                    <i style="display:block; margin-left:1rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
-                    <check-box style="margin:0 0 0 1rem;" 
-                            :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired?'yes':''" 
-                            text="I am asking for the child(ren) to spend time with me as follows:"/> 
-                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired)" 
-                        class="answerbox">{{parentArrInfo.parentTime.desired}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-
-
-                    <check-box 
-                        style="margin:1rem 0 0 1rem;" 
-                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe?'yes':''" 
-                        text="I am willing to have the following conditions placed on my time with the child(ren):"/>
-                    
-                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe)" 
-                        class="answerbox">{{parentArrInfo.parentTime.myConditions}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>                    
-                    
-                    
-                    <check-box 
-                        style="margin:1rem 0 0rem 1rem;" 
-                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired?'yes':''" 
-                        text="I am asking for the child(ren) to spend time with the other guardian(s) as follows:"/>
-                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired)" 
-                        class="answerbox">{{parentArrInfo.parentTime.opDesired}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                    
-                    
-                    <check-box 
-                        style="margin:1rem 0 0rem 1rem;" 
-                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp?'yes':''" 
-                        text="I am asking to have the following conditions placed on the other guardian’s time with the child(ren):"/>
-                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp)" 
-                        class="answerbox">{{parentArrInfo.parentTime.opConditions}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>       
-               
-                </section>
-            </div>
-
-            <div class="print-block">
-                <div style="margin-top:3rem;"><b>Parenting arrangements</b></div>
-<!-- <4> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Complete only if there are additional order terms you want. You may leave this section blank.</i>
-                    <div>
-                        <check-box  
-                            inline="inline" 
-                            boxMargin="0" 
-                            style="display:inline; margin:0 0 0 1rem;" 
-                            :check="parentArrInfo.parentalArr.applying?'yes':''" text=""/>
-                        <div style="display:inline;">I am applying for the following other order term(s) about parenting arrangements:</div>
-                        <div v-if="(parentArrInfo.parentalArr.applying && parentArrInfo.parentalArr.desc)" 
-                        class="answerbox">{{parentArrInfo.parentalArr.desc}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>  
-                    
-                    
-                    </div>                
-                </section> 
-            </div>
-
-            <div class="print-block">
-                <div style="margin-top:3rem; display:block;"><b>Best interests of child</b></div>
-<!-- <5> -->
-                <section>
-                    I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the child(ren)’s best interests because:
-                    <div v-if="parentArrInfo.childBestInterest" 
-                        class="answerbox">{{parentArrInfo.childBestInterest}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>  
-                </section>
-            </div>
         </div>
 </template>
 
