@@ -203,7 +203,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
     <div style="width: 100%;">
         <br/>
         <div style="text-align: center;font-size:13pt;">
-            <div style="margin-top: 1rem;"></div>
+            <div style="margin-top: 0.2rem;"></div>
             <b>IMPORTANT INFORMATION ABOUT YOUR APPEARANCE</b>
         </div>         
     </div>
