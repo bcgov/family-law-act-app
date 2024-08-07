@@ -24,8 +24,12 @@ table.compactfullsize :deep(td) {padding:0 0 0 .5rem; color: #313132;}
 .margintop-1vue{margin-top:-1rem !important;}
 .margintop-5vue{margin-top:5rem !important;}
 
+.fla-col-left-80{width: 80%;}
+.fla-medium-grey{padding:0.5rem; background: #909090;}
+.fla-light-grey{padding:0.5rem; background: #d7d7d7;}
+
 .answer{color: #000; background-color: #d6d6d6; display:inline; font-size:11pt;}
-.answerbox{color: #000; font-size:11pt; display:block;text-indent:0px; margin:0.5rem 0 0.5rem 0.1rem;}
+.answerbox{color: #000; font-size:11pt; background-color: #d6d6d6; display:block;text-indent:0px; margin:0.5rem 0 0.5rem 0.1rem;}
 .uline{text-decoration: underline; display: inline;}
 .form-header{display:block; margin:0 0 4rem 0;}
 .form-header-po{display:block; margin:0 0 6.25rem 0;}

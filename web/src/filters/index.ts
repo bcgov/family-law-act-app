@@ -63,10 +63,12 @@ Vue.filter('beautify-date-full', function(date){
 })
 
 Vue.filter('beautify-date-text', function(date){
-	if(date)
+	if(date) {
 		var _text = date.split(' ');
 		return _text[1] + '/' +_text[0] + '/' + _text[2];
-	return ''
+	}
+	else
+		return date
 })
 
 Vue.filter('beautify-date-', function(date){

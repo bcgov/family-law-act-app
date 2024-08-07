@@ -203,7 +203,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
     <div style="width: 100%;">
         <br/>
         <div style="text-align: center;font-size:13pt;">
-            <div style="margin-top: 0.2rem;"></div>
+            <div style="margin-top: 1rem;"></div>
             <b>IMPORTANT INFORMATION ABOUT YOUR APPEARANCE</b>
         </div>         
     </div>
@@ -344,7 +344,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
         <div style="margin-top:-20px;text-indent:47px;margin-left:22px">
         enforce, change or set aside the filed determination of a parenting </div> 
         <div style="text-indent:47px;margin-left:22px">coordinator dated &nbsp;        
-        <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;margin-top:-200px;" textBackgroundColor="#dedede"  textwidth="9rem" beforetext="" hintMargin="40px" hint="(dd/mmm/yyyy)" :text="form29Info.determinationDate | beautify-date-text"/>
+         <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;margin-top:-200px;" textBackgroundColor="#dedede"  textwidth="9rem" beforetext="" hintMargin="40px" hint="(dd/mmm/yyyy)" :text="form29Info.determinationDate | beautify-date-text"/> 
         </div>       
         </div>
     
