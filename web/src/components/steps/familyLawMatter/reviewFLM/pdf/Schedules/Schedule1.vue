@@ -32,12 +32,13 @@
                     
                     <section class="resetquestion"> 
                         Select the option that applies to your situation
-                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="I am the <b>child’s guardian</b>"/>
+                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="I am the child’s guardian"/>
                         <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="I am <b>applying to be appointed</b> as the child’s guardian <i>(I am also completing Schedule 7)</i>"/>
                     </section>
                 </div>
                 <div style="width: 20%;">
                     <NoteBox>
+                        <b-icon-info-circle-fill />
                         <p>
                             Only a guardian may have parental responsibilities and parenting time with respect to a child [s. 39 Family Law Act].For information about who is a guardian of a child, see the guidebook.
                         </p>
@@ -64,6 +65,31 @@
                             The court can make orders under Division 2 [Parenting Arrangements] of Part 4 [Care of and Time with Children] of the Family Law Act.
                         </p>
                     </NoteBox>
+
+                    <section>
+                        <p><b>I am applying for an order aboutparental responsibilitiesas follows:</b></p>
+                        <i>List the details of the order you are asking for. You may leave this question blank.</i>
+                        <!-- TODO: answer -->
+                    </section>
+                    <section>
+                        <p><b>I am applying for an order about parenting timeas follows:</b></p>
+                        <i>List the details of the order you are asking for. You may leave this question blank.</i>
+                        <!-- TODO: Answer -->
+                    </section>
+                    <section>
+                        <p><b>I am applying for an order about</b></p>
+                        <ul>
+                            <li>the <b>implementation of an order</b> about parenting arrangements made under theFamily Law Act, or</li>
+                            <li>the <b>means for resolving disputes</b> about an order about parenting arrangementsmade under the Family Law Act,</li>
+                        </ul>
+                        <p>as follows: </p>
+                        <i>List the details of the order you are asking for. You may leave this question blank.</i>
+                        <!-- TODO: answer -->
+                    </section>
+                    <section>
+                        <p>I am applying for directions from the court under s. 49 of the Family Law Actrespecting the following issue affecting a child:</p>
+                        <!-- TODO: answer -->
+                    </section>
 
                     <div class="print-block">
                         <div style="margin-top:1rem;"><b>Parental responsibilities</b></div>
@@ -155,8 +181,24 @@
                 </div>
                 <div style="width: 20%;">
                     <NoteBox>
+                        <b-icon-info-circle-fill />
                         <p>
-                            Only a guardian may have parental responsibilities and parenting time with respect to a child [s. 39 Family Law Act].For information about who is a guardian of a child, see the guidebook.
+                            Parental responsibilities can be set up so they can be exercised by:
+                        </p>
+                        <ul>
+                            <li>One or more guardians only,</li>
+                            <li>Each guardian actingseparately, or</li>
+                            <li>All guardians actingtogether.</li>
+                        </ul>
+                        <i>[s. 40 Family Law Act]</i>
+                    </NoteBox>
+
+                    <div style="margin-top: 20px;"></div>
+
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            S. 49 of the Family Law Act allows a child’s guardian to apply to court for directions respecting an issue affecting the child, and the court may make an order giving the directions it considers appropriate.
                         </p>
                     </NoteBox>
                 </div>        

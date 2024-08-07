@@ -130,8 +130,9 @@
         <GreyBoxForm style="text-indent:0px;display:inline-block;" textwidth="15rem" beforetext="I am applying for an order for ongoing support to be paid by" hint="name of paying party" :text="chSupInfo.desiredSup.payor"/>
         <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in themonthlyamount set out in the child support guidelines for child(ren). </div>
         <div style="margin-left:3rem;">
-                <check-box style="margin:0 0 0 1rem;"  text="Based on the information I know about the other party’s income and myapplication for child supportI expect the amount payable for monthly childsupport to be approximately"/>
-                <check-box style="margin:0 0 0 1rem;"  text="I am not able to estimate the amount payable for monthly child support at this time."/>   
+            <!-- TODO: check -->
+                <check-box style="margin:0 0 0 1rem;" :check="false"  text="Based on the information I know about the other party’s income and myapplication for child supportI expect the amount payable for monthly childsupport to be approximately"/>
+                <check-box style="margin:0 0 0 1rem;" :check="false" text="I am not able to estimate the amount payable for monthly child support at this time."/>   
         </div>
     </div>
     <div class="print-block">
@@ -236,7 +237,7 @@
         <FormPart :part="4" title="Income information"></FormPart>
         <div>
             One or more of the following applies to my applicationfor child support:
-            <ui>
+            <ul>
                 <li>
                     I am the payor 
                 </li>
@@ -248,10 +249,11 @@
                 <li>the payor earns more than $150,000 per year</li>
                 <li>there is an application for section 7 special or extraordinary expenses</li>
                 <li>I am claiming undue hardship</li>
-            </ui>
+            </ul>
             <div>        
-                <check-box style="margin:0 0 0 1rem;" text="Yes --> You are required to file a Financial Statement Form 4. Complete Question 8."/>
-                <check-box style="margin:0 0 0 1rem;" text="No --> You are not requiredto file a Financial Statement Form 4 at this time.Skip to Question 9."/>
+                <!-- TODO: check -->
+                <check-box style="margin:0 0 0 1rem;" :check="false"  text="Yes --> You are required to file a Financial Statement Form 4. Complete Question 8."/>
+                <check-box style="margin:0 0 0 1rem;" :check="false" text="No --> You are not requiredto file a Financial Statement Form 4 at this time.Skip to Question 9."/>
                 
             </div>
         </div>
@@ -262,9 +264,10 @@
 
         <div style="padding-top: 12px;">  
             <p><b>8. I am required to file </b>a Financial Statement Form 4 to provide my income informationto the court.</p>   
-            <i>Select only one of the options below</i>   
-            <check-box style="margin:0 0 0 1rem;" text="I am filing a Financial Statement in Form 4 with this application."/>
-            <check-box style="margin:0 0 0 1rem;" text="I am not able to filea Financial Statement in Form 4 with this application."/>
+            <i>Select only one of the options below</i> 
+              <!-- TODO: check -->
+            <check-box style="margin:0 0 0 1rem;" :check="false" text="I am filing a Financial Statement in Form 4 with this application."/>
+            <check-box style="margin:0 0 0 1rem;" :check="false" text="I am not able to filea Financial Statement in Form 4 with this application."/>
             <div style="padding-left:24px">
                 <p>I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that myincome information in Form 4 be provided with this application. I understand Iwill still be required to file a Financial Statement in Form 4 at a later date</p>
             </div>
