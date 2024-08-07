@@ -2,14 +2,11 @@
     <div style="display:inline-block;">
         <div v-if="beforetext" style="display:inline-block; margin-right:.25rem;" v-html="beforetext"> {{beforetext}} </div>
         <div style="display:inline-block">
-            <div
-                :style="{ position: 'absolute', marginTop: marginTop, fontSize: entryFontSize, background: '#d6d6d6', color: '#000000', minWidth: textwidth, textAlign: 'center' }">
-                {{ text ? text : '&nbsp;' }}</div>
-            <div :style="{ borderBottom: '0.7px solid #d6d6d6', minWidth: textwidth, background: '#d6d6d6' }"></div>
-            <div
-                :style="{ position: 'absolute', marginTop: '-1px', marginLeft: hintindent, fontSize: hintFontSize, color: '#8a8a8a' }">
-                <i v-if="italicHint"> {{ hint }} </i>
-                <span v-else> {{ hint }} </span>
+            <div :style="{position: 'absolute', marginTop:marginTop, fontSize: entryFontSize, background: '#d6d6d6', color:'#000000', minWidth: textwidth, textAlign: 'center'}">{{text ? text : '&nbsp;'}}</div> 
+            <div :style="{borderBottom: '0.7px solid #d6d6d6', minWidth: textwidth, background: '#d6d6d6', marginTop: '1px'}"></div>            
+            <div :style="{position: 'absolute', marginTop:'-1px', marginLeft: hintindent, fontSize: hintFontSize, color:'#8a8a8a'}">
+               <i v-if="italicHint"> {{hint}} </i>
+               <span v-else > {{hint}} </span> 
             </div>
         </div>
         <div v-if="aftertext" style="display:inline-block; margin-left:.1rem;" v-html="aftertext"> {{aftertext}} </div>
