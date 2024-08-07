@@ -29,8 +29,7 @@
                     <div style="float: left; width: 50%; padding: 2px;"> Document number: <div
                             style="font-size: 6pt; padding-left:16px;">For registry use only</div>
                     </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ?
-                        fmepNumber : '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
                 </div>
             </div>
         </div>
@@ -197,7 +196,7 @@
         <!-- Part 3  -->
         <div style="margin-top: 1rem;" />
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px; width:80%">
+            <div style="flex:1; margin-right: 10px; width:75%">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 3 | Notice of the application</b>
                 </div>
@@ -221,7 +220,7 @@
                         <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt;"><i>Select only one of the options below</i></div>
 
                         <div style="margin:0 0 0 3rem;font-size: 9pt;" >
-                            <check-box inline="inline"  :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am giving <b>at least 7 days’ notice</b> to the other party" style="text-indent: -16px;"/>
+                            <check-box inline="inline" margin-left="0.75rem" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am applying with <b>at least 7 days’ notice</b> to the other party" style="text-indent: -16px; margin-left:1rem;"/>
                             <check-box  :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text=" I would like to apply <b>without notice</b> to the other party. I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application." style="text-indent: -16px;"/>
                             <check-box  :check="ppmInfo.noticeType == 'askingForUnder 7 DaysNotice'?'yes':''" text="I would like to apply <b>with less than 7 days notice</b> to the other party. I am also filing an Application for Case Management Order Without Notice or
                                 Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party." style="text-indent: -16px;"/>
@@ -331,8 +330,7 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        style="border-style: dashed; border-color: black; margin-top: 10px;padding:0.5rem; background: #d6d6d6; ">
+                    <div style="border-style: dashed; border-color: black; margin-top: 10px;padding:0.5rem; background: #d6d6d6; ">
                         <b>NOTE TO THE OTHER PARTY:</b>
                         <div style="margin:0.5rem; font-size:9pt;">
                             <p>
@@ -367,7 +365,7 @@
         <!-- Part 5  -->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px; width:80%">
+            <div style="flex:1; margin-right: 10px; width:75%">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 5 | About the priority parenting matter</b>
                 </div>
@@ -525,7 +523,7 @@
         <!-- Part 8  -->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="flex:1; margin-right: 10px; width: 75%">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 8 | Existing orders and agreements</b>
                 </div>
@@ -537,7 +535,7 @@
                     <check-box boxMargin="0" style="display:inline-block; width:200px" :check="ppmInfo.ExistingCase?'yes':''"  text="Yes (see attached copy)"/>                        
                     <check-box boxMargin="0" style="display:inline-block;" :check="!ppmInfo.ExistingCase?'yes':''" text="No"/> 
                 </div>
-                <div style="text-indent: 0px; display:inline-block; margin: 1rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
+                <div style="text-indent: 0px; display:inline-block; margin: 1rem 0.5rem 0.5rem 1rem; font-size: 9pt; width: 90%">
                     10. I know the following <b>information about any court proceeding</b> that is pending or that
                     has been initiated about parenting arrangements, contact with a child, guardianship of
                     a child, or protection of a child who is the subject of this application:
@@ -577,7 +575,7 @@
         <!-- Part 9  -->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="flex:1; margin-right: 10px; width:75%">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 9 | Filing location</b>
                 </div>
