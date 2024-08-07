@@ -24,8 +24,11 @@ export interface agreeDisagreeSurveyInfoType {
 
 export interface agreeDisagreeSurveyDataInfoType {
     agreeDisagree: string[];
+    agreeAdditionalDetailsYesNo: string[];
     agreeDetails?: string;
     disAgreeDetails?: string;
+    agreeAdditionalDetails?:string;
+    disAgreeDetailsOtherParty?:string;
 }
 
 export interface wrReplyingToApplicationSurveyInfoType {
@@ -40,5 +43,6 @@ export interface wrReplyingToApplicationSurveyDataInfoType {
     acknowledgement: string[];
     partiesMakingApplication: string[];
     partiesMakingApplicationComment?: string;
+    applicationFiledOn: string;
 }
 
