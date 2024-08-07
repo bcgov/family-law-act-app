@@ -73,7 +73,7 @@
                         <span style="margin-left:25px;">My <b>date of birth</b> is:</span>
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="350px"
-                        beforetext="" hint="Full name of party/person" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.dob | beautify-date" />
+                        beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="145px" :text="yourInfo.dob | beautify-date-full" />
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
@@ -152,7 +152,7 @@
                             <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;"><br/>(dd/mmm/yyyy)</i>
                         </template>
                 </b-table>
             </div>            
@@ -800,7 +800,7 @@ export default class Form10Layout extends Vue {
             for (const child of childData){            
                 childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
                 childInfo.fullName = Vue.filter('getFullName')(child.name);
-                childInfo.dob = Vue.filter('beautify-date')(child.dob);            
+                childInfo.dob = Vue.filter('beautify-date-full')(child.dob);            
                 childrenInfo.push(childInfo)
             }        
         }
