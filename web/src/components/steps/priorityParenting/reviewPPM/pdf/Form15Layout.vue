@@ -3,18 +3,18 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-    <div style="height: 160px;">
+        <div style="height: 160px;">
             <div style="float:left; width: 33%;">
                 <div style="font-size:13pt;"><b>Application About </b></div>
                 <div style="font-size:13pt;"><b>Priority Parenting Matter</b></div>
-                <div style="font-size:10pt;"><b>Form 15</b></div>
+                <div style="font-size:12pt;"><b>Form 15</b></div>
                 <div>Provincial Court Family Rules</div>
                 <div>Rule 2, 76, 77 and 78</div>
             </div>
             <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
                 <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
             </div>
-            <div style="width: 35%; float:right; font-size: 8pt;">
+            <div style="width: 35%; float:right; text-align: right; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px;">
                 <p>This Application About Priority Parenting Matter sets out the details of an order about a priority 
                     parenting matter that a person is applying for. </p>
@@ -66,7 +66,7 @@
         </div>
         
         <!-- Part 1 -->
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px;">
                 <div style="margin-top: 1rem;"></div>
                 <div style="background: #626262; color: white; font-size: 11pt;">
@@ -110,30 +110,27 @@
                             :text="firstOtherParty.dob | beautify - date" />
                         <div>
                             <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
-                                :check="true ? 'yes' : ''" />
+                                :check="additionalOtherParties.length > 0 ? 'yes' : ''" />
                             <div style="margin-top: -18px;text-indent: 20px;">
                                 There is an additional party.
                             </div>
                         </div>
-                        <div>
-
-                        </div>
+                        <div/>
                         <div style="padding-top:5px">
                             <div v-if="additionalOtherParties.length > 0" style="font-size: 9pt;">
-
                                 <div v-for="(otherParty, inx) in additionalOtherParties" :key="inx"
                                     :style="inx == 0 ? 'display:inline;' : 'text-indent:-5px;margin-top:1rem;'">
-                                    <div style="display: inline-block;">
+                                    <div style="display: inline-block; margin-left:2rem;">
                                         The<b> additional party’s</b> full name is:
                                     </div>
                                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
-                                        textwidth="270px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
+                                        textwidth="235px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="80px" :text="otherParty.name | getFullName" />
-                                    <div style="display: inline-block; padding-top:10px">
+                                    <div style="display: inline-block; padding-top:10px; margin-left:2rem;">
                                         Their<b> date of birth</b>(dd/mmm/yyyy) is:
                                     </div>
                                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
-                                        textwidth="260px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
+                                        textwidth="225px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="152px" :text="otherParty.dob | beautify - date" />
                                 </div>
                             </div>
@@ -164,38 +161,37 @@
                 </div>
             </div>
             <br />
-
         </div>
 
-    <!-- Part 2-->
-    <div style="margin-top: 1rem;" />
-    <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-        <div style="flex:1; margin-right: 10px;">
-            <div style="margin-top: 0.3rem;" />
-            <div style="background: #626262; color: white; font-size: 13pt;">
-                <b>Part 2 | Information about children</b>
-            </div>
-            <div style="text-indent: -0px; text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
-                <div style="display: inline-block;">
-                    <b>3.</b> This application is about the following child(ren):
+        <!-- Part 2-->
+        <div style="margin-top: 1rem;" />
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
+            <div style="flex:1; margin-right: 10px;">
+                <div style="margin-top: 0.3rem;" />
+                <div style="background: #626262; color: white; font-size: 13pt;">
+                    <b>Part 2 | Information about children</b>
                 </div>
+                <div style="text-indent: -0px; text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block;">
+                        <b>3.</b> This application is about the following child(ren):
+                    </div>
 
-                <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small bordered>
-                    <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{ data.value }}</div>
-                    </template>
-                    <template v-slot:head(dob)>
-                        Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                    </template>
-                </b-table>
+                    <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small bordered>
+                        <template v-slot:cell()="data">
+                            <div style="height:1rem; font-size:8pt;color:#000">{{ data.value }}</div>
+                        </template>
+                        <template v-slot:head(dob)>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mm/yyyy)</i>
+                        </template>
+                    </b-table>
+                </div>
             </div>
+            <div style="width: 20% "/>
         </div>
-        <div style="width: 20% "/>
-    </div>
 
         <!-- Part 3  -->
         <div style="margin-top: 1rem;" />
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px; width:75%">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 3 | Notice of the application</b>
@@ -220,7 +216,7 @@
                         <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt;"><i>Select only one of the options below</i></div>
 
                         <div style="margin:0 0 0 3rem;font-size: 9pt;" >
-                            <check-box inline="inline" margin-left="0.75rem" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am applying with <b>at least 7 days’ notice</b> to the other party" style="text-indent: -16px; margin-left:1rem;"/>
+                            <check-box inline="inline" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am applying with <b>at least 7 days’ notice</b> to the other party" style="text-indent: -16px;"/>
                             <check-box  :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text=" I would like to apply <b>without notice</b> to the other party. I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application." style="text-indent: -16px;"/>
                             <check-box  :check="ppmInfo.noticeType == 'askingForUnder 7 DaysNotice'?'yes':''" text="I would like to apply <b>with less than 7 days notice</b> to the other party. I am also filing an Application for Case Management Order Without Notice or
                                 Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party." style="text-indent: -16px;"/>
@@ -270,7 +266,7 @@
 
         <!-- Part 4  -->
         <div style="margin-top: 1rem;"></div>
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px;">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 4 | About your court appearance</b>
@@ -283,27 +279,17 @@
                 <div style="border:1px solid; font-size: 9pt; padding:1rem;font-family:BCSans">
                         <b>This application, which requires a court apprearance, will be heard by the court</b>
                         <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text="" />
+                            hintMargin="65px" beforetext="<b>on</b>" hint="date" text="" />
                         <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            beforetext="<b>at</b>" hint="time" text="" />
+                            hintMargin="65px" beforetext="<b>at</b>" hint="time" text="" />
                         <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
-
-                        <div style="margin:0.5rem 0 0 0.25rem;">
-                            <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;"
-                                textwidth="10rem" beforetext="<b>You must attend the court appearance</b>"
-                                hint="(method of attendance)" text="" />
-                            <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b>
-                            </div>
-                            <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10"
-                                :check="''" text="See attached for details" />
-                        </div>
                         <div style="margin:0.5rem 0 0 0.25rem;">
                             <div>
                                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" />
                                 <div style="margin-top: -18px;text-indent: 20px;">
                                     in person at
-                                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                                        beforetext="" hint="court location" text="" />
+                                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="22rem"
+                                        hintMargin="165px" beforetext="" hint="court location" text="" />
                                 </div>
                             </div>
                         </div>
@@ -315,8 +301,8 @@
                                 </div>
                             </div>
                             <div style="flex:1; padding-top:8px">
-                                <div style="border:1px solid; font-size: 9pt; padding:0.5rem;">
-                                    Do not attend the courthouse in person. The registry will send within 24 hours before
+                                <div style="border:1px solid; font-size: 8pt; padding:0.5rem;">
+                                    <b>Do not attend the courthouse in person</b>. The registry will send within 24 hours before
                                     the
                                     hearing date noted above the link to connect by MS Teams, including a dial-in
                                     conferencing
@@ -353,8 +339,7 @@
                         schedule a date for the court 
                         appearance and will fill in the 
                         actual date and method of 
-                        attendance on the form. Be 
-                        prepared to talk about your 
+                        attendance on the form. Be prepared to talk about your 
                         availability if there are options 
                         for dates. 
                     </p>
@@ -364,7 +349,7 @@
 
         <!-- Part 5  -->
         <div style="margin-top: 1rem;"></div>
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px; width:75%">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 5 | About the priority parenting matter</b>
@@ -412,7 +397,8 @@
                         not the same as a family law 
                         matter that needs to go to 
                         court on an urgent basis [Rule 
-                        2]. 
+                        2].
+                        <br/>
                         For more information about 
                         priority parenting matters and 
                         how to apply for a family law 
@@ -427,7 +413,7 @@
                         If you are applying for a 
                         priority parenting matter order 
                         about: 
-                        <ul style="padding-inline-start: 20px;">
+                        <ul style="padding-inline-start: 10px;">
                             <li>
                                 parenting arrangements or
                                 guardianship of a child
@@ -450,15 +436,15 @@
 
         <!-- Part 6  -->
         <div style="margin-top: 1rem;"></div>
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px;">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 6 | Details of the order</b>
                 </div>
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
-                    7. <b>The details of the order</b> I am applying for are as follows:
-                    <i style="margin:0 0 0 1rem; display: block;font-size: 9pt;">List the specific details of the order(s) you are asking for</i>
-                    <div v-if="ppmInfo.orderdesc" style="margin: 0rem 0.5rem 0.5rem 1rem;" class="answerbox">{{ppmInfo.orderdesc}}</div>
+                    7. <b> The details of the order</b> I am applying for are as follows:
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">List the specific details of the order(s) you are asking for</i>
+                    <div v-if="ppmInfo.orderdesc" style="margin: 0rem 0.5rem 0.5rem 2rem;" class="answerbox">{{ppmInfo.orderdesc}}</div>
                     <div v-else style="margin-bottom:3rem;"/>
                 </div>
             </div>
@@ -468,7 +454,7 @@
 
         <!-- Part 7  -->
         <div style="margin-top: 1rem;"></div>
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px;">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 7 | The facts</b>
@@ -476,19 +462,19 @@
 
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     8. The <b>facts</b> on which this application is based <b>are as follows:</b>
-                    <i style="margin:0 0 0 1rem; display: block;font-size: 9pt;">
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">
                         Provide a summary of the facts you want the court to consider. Include why you are
                         making the application and why the order you are requesting should be made.
                     </i>             
                     
-                    <div v-if="ppmInfo.facts" style="margin: 0rem 0.5rem 0.5rem 1rem;"
+                    <div v-if="ppmInfo.facts" style="margin: 0rem 0.5rem 0.5rem 2rem;"
                         class="answerbox">{{ppmInfo.facts}}</div>
                     <div v-else style="margin-bottom:3rem;"></div> 
-                    <i style="margin: 0rem 0.5rem 0.5rem 1rem;">To add more, select the box below and attach a page with the additional information</i>
+                    <i style="margin: 0rem 0.5rem 0.5rem 2rem;">To add more, select the box below and attach a page with the additional information</i>
                     
-                    <i style="margin: 0rem 0.5rem 0.5rem 1rem; display:inline-block">
+                    <i style="margin: 0rem 0.5rem 0.5rem 2rem; display:inline-block">
                         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;" :check="''" text=""/> 
-                        <b>Additional page(s) (see attached)</b>
+                        <b>Additional page(s)</b> (see attached)
                     </i>
                 </div>
             </div>
@@ -522,24 +508,32 @@
 
         <!-- Part 8  -->
         <div style="margin-top: 1rem;"></div>
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px; width: 75%">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 8 | Existing orders and agreements</b>
                 </div>
-                <div style="text-indent: 0px; display:inline-block; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
-                    9.  There is an existing written agreement or court order about the child(ren) concerning
+                <div style="display:flex; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
+                    9.
+                    <div style="padding-left: 0.5rem; display: inline;">
+                        There is an existing written agreement or court order about the child(ren) concerning
                         parenting arrangements, child support, contact with a child, or guardianship
+                    </div>
                 </div>
                 <div style="margin:0.25rem 0 0 3rem;font-size: 9pt; text-indent: -16px;" >
-                    <check-box boxMargin="0" style="display:inline-block; width:200px" :check="ppmInfo.ExistingCase?'yes':''"  text="Yes (see attached copy)"/>                        
-                    <check-box boxMargin="0" style="display:inline-block;" :check="!ppmInfo.ExistingCase?'yes':''" text="No"/> 
+                    <check-box boxMargin="0" style="display:inline-block; width:200px" :check="ppmInfo.ExistingCase?'yes':''"  text="<b>Yes</b> (see attached copy)"/>                        
+                    <check-box boxMargin="0" style="display:inline-block;" :check="!ppmInfo.ExistingCase?'yes':''" text="<b>No</b>"/> 
                 </div>
-                <div style="text-indent: 0px; display:inline-block; margin: 1rem 0.5rem 0.5rem 1rem; font-size: 9pt; width: 90%">
-                    10. I know the following <b>information about any court proceeding</b> that is pending or that
-                    has been initiated about parenting arrangements, contact with a child, guardianship of
-                    a child, or protection of a child who is the subject of this application:
-                    <i style="display:inline-block;">
+                <div style="display:flex; margin: 1rem 0.5rem 0.5rem 0.75rem; font-size: 9pt;">
+                    10.
+                    <div style="padding-left: 0.5rem; display: inline;">
+                        I know the following <b>information about any court proceeding</b> that is pending or that
+                        has been initiated about parenting arrangements, contact with a child, guardianship of
+                        a child, or protection of a child who is the subject of this application:
+                    </div>
+                </div>
+                <div style="padding-left: 2.25rem;">
+                    <i style="display:inline-block; ">
                         If there is no pending or ongoing court proceeding, that you know of, in this court or
                         another court or jurisdiction, you may leave this section blank
                     </i>
@@ -574,7 +568,7 @@
 
         <!-- Part 9  -->
         <div style="margin-top: 1rem;"></div>
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px; width:75%">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 9 | Filing location</b>
@@ -618,7 +612,7 @@
 
         <!-- Part 10  -->
         <div style="margin-top: 1rem;"></div>
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px;">
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 10 | Address for service</b>
@@ -713,6 +707,7 @@ export default class Form15Layout extends Vue {
     
     existingFileNumber = '';
     filingLocationReason = '';
+    fmepNumber = '';
     
     childrenInfo: childrenInfoSurveyInfoType[] = [];
 
@@ -744,14 +739,19 @@ export default class Form15Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.ppmInfo = this.getPpmInfo();
-        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);        
+        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);
+        this.fmepNumber = this.getFmepInfo(this.result.filingLocationSurvey);      
 
         if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'y') {
             this.filingLocationReason = 'It is the court location where my existing case with the same party/parties is filed';
         } else if (this.result.filingLocationSurvey?.ExistingFamilyCase == 'n' && this.result.filingLocationSurvey?.filingLocationReason){
             this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
         }
-    }       
+    }     
+    
+    public getFmepInfo(locationData){
+        return locationData?.ExistingFMEPCase  && locationData?.ExistingFMEPCase =='y' && locationData.ExistingFMEPNumber? locationData.ExistingFMEPNumber:'';        
+    }
     
     public getChildrenInfo() {
 
@@ -894,7 +894,7 @@ export default class Form15Layout extends Vue {
     padding: 0px;
     margin: 0px;
 }
-/* Create a custom checkbox */
+
 .container .checkmark {
     display: inline;
     position: absolute;

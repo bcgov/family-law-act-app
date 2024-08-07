@@ -4,7 +4,7 @@
     <div v-if="dataReady">
         <div class="new-page" />
         <div style="margin-top: 1rem;" />
-        <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px; width:75%;">
                 <div style="margin-top: 0.3rem;" />
                 <div style="background: #626262; color: white; font-size: 13pt; height:65px">
@@ -12,7 +12,7 @@
                     <b style="position: relative; top:-10px">Application for Order Respecting</b> <br/>
                     <b style="margin-left:210px; position: relative; top:-25px">Guardianship of a Child</b>
                 </div>
-                <div style="text-indent: -0px; text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
+                <div style="text-indent: -0px; text-align: justify;text-justify: inter-word; margin: 1rem 0.5rem 0.5rem 1rem; background: #d6d6d6">
                     <div style="display: inline-block;">
                         Complete this schedule only if you are applying for a priority parenting matter order for
                         guardianship of a child under section 51 [order respecting guardianship] of the Family Law Act
@@ -43,7 +43,7 @@
 
     <!-- Part 1-->
     <div style="margin-top: 1rem;" />
-    <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
         <div style="flex:1; margin-right: 10px; width:75%;">
             <div style="margin-top: 0.3rem;" />
             <div style="background: #626262; color: white; font-size: 13pt;">
@@ -57,10 +57,10 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-left:3.75rem; text-indent: -16px;">
-                <check-box :check="(scheduleInfo.isFirstNations == 'yes')?'yes':''" text="<b>Yes</b> &#10132; go to next question"/> 
-                <check-box :check="(scheduleInfo.isFirstNations == 'no')?'yes':''" text="<b>No</b> &#10132; skip ahead to <b>Part 4</b>"/> 
-                <check-box :check="(scheduleInfo.isFirstNations == 'unknown')?'yes':''" text="<b>Unknown</b> &#10132; skip ahead to <b>Part 4</b>"/> 
+            <div style="margin-left:3.75rem;">
+                <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'yes')?'yes':''" text="<b>Yes</b> &#10132; go to next question"/> 
+                <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'no')?'yes':''" text="<b>No</b> &#10132; skip ahead to <b>Part 4</b>"/> 
+                <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'unknown')?'yes':''" text="<b>Unknown</b> &#10132; skip ahead to <b>Part 4</b>"/> 
             </div>
             <div style="text-indent: -0px; text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
                 <div style="display: flex;">
@@ -71,9 +71,9 @@
                         Please select the option below that best describes the <b>child(ren)’s Indigenous ancestry:</b>
                     </div>
                 </div>
-                <check-box style="margin:0 0 0 2.75rem; display: block;" margin-left="1.0rem" :check="scheduleInfo.ancestryType.includes('First Nation')?'yes':''" text="First Nation"/>
-                <check-box style="margin:0 0 0 2.75rem; display: block;" margin-left="1.0rem" :check="scheduleInfo.ancestryType.includes('Nisg̲a’a')?'yes':''" text="Nisga'a"/>
-                <check-box style="margin:0 0 0 2.75rem; display: block;" margin-left="1.0rem" :check="scheduleInfo.ancestryType.includes('Treaty First Nation')?'yes':''" 
+                <check-box style="margin:0 0 0 2.75rem; display: block; text-indent: -16px;"  :check="scheduleInfo.ancestryType.includes('First Nation')?'yes':''" text="First Nation"/>
+                <check-box style="margin:0 0 0 2.75rem; display: block; text-indent: -16px;"  :check="scheduleInfo.ancestryType.includes('Nisg̲a’a')?'yes':''" text="Nisga'a"/>
+                <check-box style="margin:0 0 0 2.75rem; display: block; text-indent: -16px;"  :check="scheduleInfo.ancestryType.includes('Treaty First Nation')?'yes':''" 
                     text="Treaty First Nation 
                     <ul>
                         <li>Tsawwassen First Nation</li>
@@ -87,12 +87,12 @@
                         </ul>
                         <li>Tla’amin Nation</li>
                     </ul> "/>
-                <check-box style="margin:0 0 0 2.75rem; display: block;" margin-left="1.0rem" :check="scheduleInfo.ancestryType.includes('the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous')?'yes':''" 
+                <check-box style="margin:0 0 0 2.75rem; display: block; text-indent: -16px;" :check="scheduleInfo.ancestryType.includes('the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous')?'yes':''" 
                     text=" the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
-                <check-box style="margin:0 0 0 2.75rem; display: block;" margin-left="1.0rem" :check="scheduleInfo.ancestryType.includes('the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous')?'yes':''" 
+                <check-box style="margin:0 0 0 2.75rem; display: block; text-indent: -16px;" :check="scheduleInfo.ancestryType.includes('the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous')?'yes':''" 
                     text=" the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/> 
                 
-                    <div style="border-style: dashed; border-color: black; margin-top: 10px;padding:0.5rem; background: #d6d6d6; ">
+                    <div style="border-style: dashed; border-color: black; margin-top: 10px;padding:0.5rem; background: #d6d6d6;">
                         <b>IMPORTANT NOTE ABOUT A NISGA’A OR TREATY FIRST NATION CHILD:</b>
                         <div style="margin:0.5rem; font-size:9pt;">
                             <p>
@@ -137,13 +137,13 @@
 
     <!-- Part 2-->
     <div style="margin-top: 1rem;" />
-    <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
         <div style="flex:1; margin-right: 10px;">
             <div style="margin-top: 0.3rem;" />
             <div style="background: #626262; color: white; font-size: 13pt;">
                 <b>Part 2 | Guardianship affidavit and supporting documents</b>
             </div>
-            <div style="text-indent: -0px; text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
+            <div style="text-indent: -0px; text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem; background: #d6d6d6;">
                 A party applying to be appointed as a guardian of a child must provide the court with evidence 
                 using the Guardianship Affidavit in Form 5 respecting the best interests of the child [s. 51 <i>Family Law Act</i> and Rule 26].
                 <br/>
@@ -187,7 +187,7 @@
             <div style="text-indent: 0px; margin: 0rem 0.5rem 0.5rem 2rem;">
                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                     :check="!scheduleInfo.filingRequiredDocs?'yes':''" />
-                <div style="margin-top: -16px; padding-left:35px">
+                <div style="margin-top: -16px; padding-left: 25px">
                     I am <b>not able to file the required documents</b> with this application.
                     I am filing an Application for Case Management Order Without Notice or Attendance
                     in Form 11 requesting to waive or modify the requirement that the documents be
@@ -233,105 +233,6 @@
             </div>
         </div>
     </div>
-        <!-- <div style="text-align:center;"><b> SCHEDULE 2 – APPLICATION FOR ORDER RESPECTING GUARDIANSHIP OF A CHILD</b></div>
-        <div style="text-align:center;"><b> This is Schedule 2 to the Application About a Priority Parenting Matter</b></div>
-
-        <div style="margin:1rem 0; text-align:justify">            
-            This schedule must be completed only if you are applying for a priority parenting matter order respecting
-            guardianship under section 51 [order respecting guardianship] of the Family Law Act because the order is
-            needed to transfer a child from the care of the Director or to prevent the removal of a child under the Child,
-            Family and Community Service Act.
-        </div> -->
-
-<!-- <1> --> 
-        
-        <!-- <div style="text-align:justify; font-weight: bold;">
-            Indigenous ancestry of child(ren)
-        </div> 
-        <div style="text-align:justify;">                
-            <i>These questions will help the court make a decision about guardianship of a child.</i>
-        </div>         
-        <section>               
-            <div style="display:inline; margin-left:0.25rem;">Is the child or children Indigenous?
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="(scheduleInfo.isFirstNations == 'yes')?'yes':''"  text="Yes"/>                        
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="(scheduleInfo.isFirstNations == 'no')?'yes':''" text="No"/> 
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="(scheduleInfo.isFirstNations == 'unknown')?'yes':''" text="Unknown"/> 
-            </div>               
-            <div style="margin:0 0 0 1rem; display: block;"><i>If yes,</i> please select the option(s) below that best describe(s) the child(ren)’s Indigenous ancestry</div>            
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('First Nation')?'yes':''" text="First Nation"/>
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('Nisg̲a’a')?'yes':''" text="Nisga'a"/>
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('Treaty First Nation')?'yes':''" text="Treaty First Nation"/>
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous')?'yes':''" 
-                text="the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
-            <check-box style="margin:0 0 0 1rem; display: block;"  :check="scheduleInfo.ancestryType.includes('the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous')?'yes':''" 
-                text="the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/> 
-        </section>
-
-        <div style="margin-top: 1rem;"></div>  -->
-
-<!-- <2> -->
-        <!-- <div class="print-block">
-            <section>
-                <i style="display:inline; margin:0 0 0 0.5rem;">Complete the following statement only if the child is a Nisg̲a’a child or a Treaty First Nation child</i>
-                <div style="margin:0 0 0 1.35rem;">
-                    <check-box 
-                        :check="scheduleInfo.understandFirstNationsService?'yes':''" 
-                        text="I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
-                </div>
-            </section>
-        </div>
-
-        <div style="margin-top: 1rem;"></div> -->
-
-<!-- <3> -->
-        <!-- <div class="print-block">
-            <section>
-                <check-box 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline;" 
-                    :check="scheduleInfo.understandFileForm5?'yes':''" 
-                    text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
-                <div style="margin:0 0 0 2rem; display:inline;">before the court can make a final order about guardianship</div>
-            </section>
-        </div>
-
-        <div style="margin-top: 1rem;"></div> -->
-
-<!-- <4> -->
-
-        <!-- <div class="print-block">           
-
-            <section>
-                <check-box 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline;" 
-                    :check="scheduleInfo.initiatedCriminalCheck?'yes':''" 
-                    text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
-                <div style="margin:0 0 0 2rem; display:inline;">Form 5</div>
-            </section>
-        </div>        
-
-        <div style="margin-top: 1rem;"></div> -->
-
-<!-- <5> -->
-        <!-- <div class="print-block"> 
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
-                <div style="margin:0 0 0 1rem;">                     
-                    <check-box  :check="scheduleInfo.filingRequiredDocs?'yes':''" text="I am filing the following required documents along with this application"/>
-                </div>
-                <div style="margin:0 0 0 3rem;">
-                   <check-box  :check="scheduleInfo.fileConsent?'yes':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
-                   <check-box  :check="scheduleInfo.fileRequest?'yes':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
-                </div>
-                <div style="margin:0.5rem 0 0 1rem;">                     
-                    <check-box  :check="!scheduleInfo.filingRequiredDocs?'yes':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
-                </div>
-            </section>
-        </div> -->
-  
     </div>
 </template>
 
