@@ -50,6 +50,10 @@
                   "text": "Change"
                 },
                 {
+                  "value": "suspendedOrder",
+                  "text": "Suspended"
+                },
+                {
                   "value": "cancelOrder",
                   "text": "Cancel"
                 }

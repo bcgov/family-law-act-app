@@ -72,6 +72,9 @@ section:after{
 
 section.resetquestion{counter-reset: question-counter;}
 
+section.no-counter:before {
+    content: '';
+}
 
 ol.resetcounter{
     list-style: none;

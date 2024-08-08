@@ -3,133 +3,209 @@
 <!-- <Header> -->
         <div v-if="dataReady">
             <div class="new-page" />
-            <div style="text-align:center;"><b> SCHEDULE 2 – PARENTING ORDER/ AGREEMENT – EXISTING</b></div>
-            <div style="text-align:center;"><b> This is Schedule 2 to the Application About a Family Law Matter</b></div>
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                    <ScheduleHeader scheduleNumber="Schedule 2" scheduleTitle="Parenting Arrangements" scheduleDescription="Existing final order or written agreement"></ScheduleHeader>
 
-            <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about parenting arrangements, or to set aside or replace all or part of an agreement about parenting arrangements, of the child or children identified in section 12 of this application.</i>
-            </div>
-<!-- <1> -->
-            <section class="resetquestion"> 
-                I am:
-                <div style="margin-left:1rem;">
-                    <check-box  :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
-                    <check-box style="width:120%;" :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                    <div style="margin-bottom: 1rem;"></div>
+
+                    <NoteBox>
+                        <p>
+                            Complete this schedule only if you have an existing final order or written agreement about parenting arrangements, including parental responsibilities and parenting time, and you need a new court order made to change, suspend or cancel the final order, or to set aside or replace the written agreement.
+                        </p>
+                    </NoteBox>
                 </div>
-            </section>
+                <div style="width: 20%;"></div>
+            </div>
 
-            <div style="margin-top:1rem;"></div>
-<!-- <2> -->
-            <section>
-                <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or agreement about parenting arrangements"/>
-                <underline-form v-if="exParentArrInfo.type == 'ExistingOrder'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" :text="exParentArrInfo.existingDate | beautify-date"/>
-                <underline-form v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" :text="exParentArrInfo.existingDate | beautify-date"/>
+            <div style="margin-bottom: 1rem;"></div>
+
+            <!-- <1> -->
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                    <FormPart :part="1" title="Final order or written agreement "></FormPart>
+
+                    <section>
+                        Select only one of the options below and complete the requested information
+                        <div>
+                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingOrder'" text="I have a final court order about parenting arrangements, including parentalresponsibilities or parenting time,"/>
+                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingOrder'" style="display: inline;" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (see attached copy of order). Complete Part 2" hint="" :text="exParentArrInfo.existingDate | beautify-date"/>
+                            <GreyBoxForm v-else style="display: inline;" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (see attached copy of order). Complete Part 2" hint="" text=""/>
+                        </div>
+                        <div>
+                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingAgreement'" text="I have a written agreementabout parenting arrangements, including parentalresponsibilities or parenting time,"/>
+                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace(see attached copy of order). Complete Part 3" hint="" :text="exParentArrInfo.existingDate | beautify-date"/>
+                            <GreyBoxForm v-else style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace(see attached copy of order). Complete Part 3" hint="" text=""/>
+                        </div>
+                    
+                    </section>
+
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-paperclip />
+                        <p>
+                            You must attach a copy of the order or agreement to this application for filing.
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+
+            <!-- <2> -->
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                    <FormPart :part="2" title="Final order" subtitle="Complete this part only if you have a final order"></FormPart>
+                    
+                    <div class="print-block">
+                        
+                        <section>
+                            Since the final order was made, <b>needs or circumstances have changed</b> as follows:
+
+                            <div v-if="exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.changesSince" 
+                            class="answerbox">{{exParentArrInfo.changesSince}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div> 
+
+                        </section>
+                        <section>
+                            I am applying for the final order to be:
+                            <br>
+                            <i>Select only one option</i>
+                            <div>
+                                <div style="margin:0 0 0 3rem;">
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="changed"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'suspendedOrder')?'yes':''" text="suspended"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="cancelled"/>
+                                </div>
+                            </div>                
+                        </section>
+                    </div>
+
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            The court can only change, suspend or cancel a final order if there has been a change in the needs or circumstances of the child since the original order was made, including a change in the circumstances of another person such as a parent [s. 47 Family Law Act].
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+
+            <!-- <3> -->
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                    <FormPart :part="3" title="Agreement" subtitle="Complete this part only if you have a written agreement"></FormPart>
+                    
+                    <div class="print-block">
+                        
+                        <section>
+                            I believe the written agreement is <b>not in the best interests</b> of the child(ren) because:
+                            <div v-if="exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.changesSince" 
+                                class="answerbox">{{exParentArrInfo.changesSince}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>
+                        </section>
+
+                        <section>
+                            I am applying for the final order to be:
+                            <br>
+                            <i>Select only one option</i>
+                            <div>
+                                <div style="margin:0 0 0 3rem;">
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="set aside <b-icon-right-long /> Complete Part 5"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="replaced with an order <b-icon-right-long /> Complete Part 4and 5"/>
+                                </div>  
+                            </div>                
+                        </section>
+                    </div>
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            The court must set aside or replace with an order, all or part of an agreement about parenting arrangements, if the court is satisfied that the agreement is not in the best interests of the child [s. 44 Family Law Act].
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+
+            <!-- <4> -->
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                    <FormPart :part="4" title="About the new order" subtitle="Complete this part only if you are asking to change orreplace the existing order or agreement"></FormPart>
+                    
+                    
+                    <div class="print-block">        
+                        <section>
+                            I am applying for an order for the parenting arrangements, including parental responsibilities and parenting time, to be <b>changed or replaced as follows</b>:
+                            <br>
+                            <i>List the details of the order you are asking for</i>
+
+                           
+                            <div v-if="exParentArrInfo.parentResp.applying && exParentArrInfo.parentResp.desc" 
+                                class="answerbox">{{exParentArrInfo.parentResp.desc}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div> 
+
+                            
+                            <div v-if="exParentArrInfo.parentTime.applying && exParentArrInfo.parentTime.desc" 
+                                class="answerbox">{{exParentArrInfo.parentTime.desc}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>
+
+                            <div v-if="exParentArrInfo.parentCond.applying && exParentArrInfo.parentCond.desc" 
+                                class="answerbox">{{exParentArrInfo.parentCond.desc}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div> 
+
+                            
+                            <div v-if="exParentArrInfo.parentalArr.applying && exParentArrInfo.parentalArr.desc" 
+                            class="answerbox">{{exParentArrInfo.parentalArr.desc}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>
+                        </section>
+                    </div>   
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            Guardians can arrange parental responsibilities and parenting time in any way that is in the best interests of the child..
+                        </p>
+                        <p>
+                            The court can make orders under Division 2 [Parenting Arrangements] of Part 4 [Care of and Time with Children] of the Family Law Act.
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+
+            <!-- <5> -->
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                    <FormPart :part="5" title="Best interests of the child"></FormPart>
+                      
+                    <div class="print-block">
+                        <section>
+                            <div style="display:inline; margin-left:0.25rem">
+                                I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the best interests of the child(ren) because:
+                                <br>
+                                <i>List your reasons</i>
+                            </div>
+                            <div v-if="exParentArrInfo.childBestInterest" 
+                                class="answerbox">{{exParentArrInfo.childBestInterest}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>
+                        </section>
+                    </div>
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-book />
+                        <p>
+                            To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. 37 of the Family Law Act.
+                        </p>
+                        <p>
+                            For more information, see the guidebook. 
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
             
-            </section>
-
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>Existing final order</b></div>
-<!-- <3> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing order. You may leave this section blank.</i>
-                    <div>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exParentArrInfo.type == 'ExistingOrder'?'yes':''" text="I am applying for the existing final order to be:"/>
-                        <div style="margin:0 0 0 3rem;">
-                            <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="changed"/>
-                            <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="cancelled"/>
-                        </div>
-                        <div style="margin:0 0 0 1rem;">Since the final order was made, needs or circumstances have changed as follows:</div>
-                    
-                        <div v-if="exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.changesSince" 
-                        class="answerbox">{{exParentArrInfo.changesSince}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div> 
-                    
-                    
-                    </div>                
-                </section>
-            </div>
-
-            <div class="print-block">
-                <div style="margin-top:3rem;"><b>Existing agreement</b></div>
-<!-- <4> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
-                    <div>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exParentArrInfo.type == 'ExistingAgreement'?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
-                        <div style="margin:0 0 0 3rem;">
-                            <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="set aside"/>
-                            <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="replaced"/>
-                        </div>
-                        <div style="margin:0 0 0 1rem;">I believe the agreement is not in the best interests of the child(ren) because:</div>
-                        <div v-if="exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.changesSince" 
-                        class="answerbox">{{exParentArrInfo.changesSince}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div> 
-                    </div>                
-                </section>
-            </div>
         
-            <div class="print-block">        
-                <div style="margin-top:3rem;"><b>About the order</b></div>
-<!-- <5> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to parental responsibilities. You may leave this section blank.</i>
-                    <div style="margin:0 0 0 1rem;">
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="exParentArrInfo.parentResp.applying?'yes':''" text="I am applying for the parental responsibilities (who makes certain decisions about a child) to be changed or replaced as follows:"/>
-                    </div>
-                    <div v-if="exParentArrInfo.parentResp.applying && exParentArrInfo.parentResp.desc" 
-                        class="answerbox">{{exParentArrInfo.parentResp.desc}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div> 
-                </section>
-            </div>
-
-            <div style="margin-top:3rem;"></div>
-<!-- <6> -->
-            <section>
-                <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to parenting time. You may leave this section blank.</i>
-                <div style="margin:0 0 0 1rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="exParentArrInfo.parentTime.applying?'yes':''" text="I am applying for the parenting time schedule to be changed or replaced as follows:"/>
-                </div>
-                <div v-if="exParentArrInfo.parentTime.applying && exParentArrInfo.parentTime.desc" 
-                        class="answerbox">{{exParentArrInfo.parentTime.desc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
-            </section>
-
-            <div style="margin-top:3rem;"></div>
-<!-- <7> -->
-            <section>
-                <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to conditions on parenting time. You may leave this section blank.</i>
-                <div style="margin:0 0 0 1rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="exParentArrInfo.parentCond.applying?'yes':''" text="I am applying for the conditions on my parenting time or the other guardian’s parenting time to be changed or replaced as follows:"/>
-                </div>
-                <div v-if="exParentArrInfo.parentCond.applying && exParentArrInfo.parentCond.desc" 
-                        class="answerbox">{{exParentArrInfo.parentCond.desc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
-            </section>
-
-            <div style="margin-top:3rem;"></div>
-<!-- <8> -->
-            <section>
-                <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to other parenting arrangements. You may leave this section blank.</i>
-                <div style="margin:0 0 0 1rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="exParentArrInfo.parentalArr.applying?'yes':''" text="I am applying for the other order term(s) about parenting arrangements to be changed or replaced as follows:"/>
-                </div>
-                <div v-if="exParentArrInfo.parentalArr.applying && exParentArrInfo.parentalArr.desc" 
-                        class="answerbox">{{exParentArrInfo.parentalArr.desc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-            </section>
-
-            <div class="print-block">
-                <div style="margin-top:3rem;"><b>Best interests of child</b></div>
-<!-- <9> -->
-                <section>
-                    <div style="display:inline; margin-left:0.25rem">
-                        I believe the order I am applying for is in the child(ren)’s best interests because:
-                    </div>
-                    <div v-if="exParentArrInfo.childBestInterest" 
-                        class="answerbox">{{exParentArrInfo.childBestInterest}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                </section>
-            </div>
 
         </div>
 </template>
@@ -140,11 +216,19 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule2DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox
+        CheckBox,
+        ScheduleHeader,
+        NoteBox,
+        FormPart,
+        GreyBoxForm
     }
 })
 
