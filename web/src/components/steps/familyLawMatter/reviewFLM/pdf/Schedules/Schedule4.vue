@@ -23,8 +23,8 @@
 
 
             <!-- <1> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+                <div style="display: flex; flex-direction: row;">
+                    <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Final order or agreement"></FormPart>
                     <div style="margin-left:1rem;">
                         <p><b>1. </b><i>Select only one of the options below and complete the requested information</i></p>
@@ -69,8 +69,8 @@
             <div style="margin-top:1rem;"></div>
 
             <!-- <Part 2> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+                <div style="display: flex; flex-direction: row;">
+                    <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="2" title="Final order – Complete this part only if you have a final order">
                     </FormPart>
                     <div class="print-block">
@@ -178,8 +178,8 @@
 
         <div style="margin-top:1rem;"></div>
         <!-- Part 3 -->
-        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-            <div style="flex: 1">
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="3" title="Agreement – Complete this part only if you have an existing agreement">
                 </FormPart>
                 <div class="print-block">
@@ -229,8 +229,8 @@
         </div>
 
         <!-- <Part 4> -->
-        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-            <div style="flex: 1">
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="4"
                     title="About the new order - Complete this part only if you are asking to change or replace the existing order or agreement">
                 </FormPart>
@@ -310,8 +310,8 @@
         </div>
 
         <!-- <Part 5> -->
-        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-            <div style="flex: 1">
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="5" title=" Unpaid child support">
                 </FormPart>
 
@@ -428,8 +428,8 @@
 
         <!-- <Part 6> -->
 
-        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-            <div style="flex: 1">
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="6" title=" Income Information">
                 </FormPart>
                 <!-- <12> -->

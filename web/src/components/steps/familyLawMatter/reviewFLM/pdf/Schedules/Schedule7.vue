@@ -5,8 +5,8 @@
 <!-- <Header> -->
         <div>
             <div class="new-page" />
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <ScheduleHeader scheduleNumber="Schedule 7" scheduleTitle="Guardianship of a child" scheduleDescription="Appointing a guardian or terminating guardianship"></ScheduleHeader>
 
                     <div style="margin-bottom: 1rem;"></div>
@@ -48,8 +48,8 @@
             <div style="margin-bottom: 1rem;"></div>
 
             <!-- <1> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Order about guardianship"></FormPart>
 
                     <section>
@@ -92,8 +92,8 @@
             <div style="margin-top: 1rem;"></div>
 
             <!-- <2> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="2" title="Best interests of the child"></FormPart>
 
                     <div>
@@ -125,8 +125,8 @@
             <div style="margin-top: 1rem;"></div>
 
             <!-- <3> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="3" title="Indigenous ancestry of child(ren)"></FormPart>
 
                     <div class="print-block">
@@ -210,8 +210,8 @@
             <div style="margin-top: 1rem;"></div>
 
             <!-- <4> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="4" title="Guardianship affidavit and supporting documents" subtitle="Complete this part only if you are applying to be appointed as a guardian"></FormPart>
 
                     <NoteBox>

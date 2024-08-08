@@ -6,8 +6,8 @@
         <div>
             <div class="new-page" />
 
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <ScheduleHeader scheduleNumber="Schedule 8" scheduleTitle="Spousal Support" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
 
                     <div style="margin-bottom: 1rem;"></div>
@@ -26,8 +26,8 @@
             <div style="margin-bottom: 1rem;"></div>
 
             <!-- <1> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Entitlement to spousal support"></FormPart>
 
                    
@@ -55,8 +55,8 @@
             <div style="margin-top: 1rem;"></div>
 
             <!-- <2> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="2" title="Current support"></FormPart>
 
                     
@@ -85,8 +85,8 @@
             <div style="margin-top: 1rem;"></div>
 
             <!-- <3> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="3" title="Order about spousal support"></FormPart>
 
                     <div class="print-block">
@@ -138,8 +138,8 @@
             <div style="margin-top: 1rem;"></div>
 
             <!-- <4> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+             <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="4" title="Income and earning potential information"></FormPart>
 
                     

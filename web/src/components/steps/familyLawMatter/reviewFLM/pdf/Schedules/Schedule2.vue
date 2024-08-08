@@ -3,8 +3,8 @@
 <!-- <Header> -->
         <div v-if="dataReady">
             <div class="new-page" />
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <ScheduleHeader scheduleNumber="Schedule 2" scheduleTitle="Parenting Arrangements" scheduleDescription="Existing final order or written agreement"></ScheduleHeader>
 
                     <div style="margin-bottom: 1rem;"></div>
@@ -21,8 +21,8 @@
             <div style="margin-bottom: 1rem;"></div>
 
             <!-- <1> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Final order or written agreement "></FormPart>
 
                     <section>
@@ -52,8 +52,8 @@
             </div>
 
             <!-- <2> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="2" title="Final order" subtitle="Complete this part only if you have a final order"></FormPart>
                     
                     <div class="print-block">
@@ -92,8 +92,8 @@
             </div>
 
             <!-- <3> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="3" title="Agreement" subtitle="Complete this part only if you have a written agreement"></FormPart>
                     
                     <div class="print-block">
@@ -129,8 +129,8 @@
             </div>
 
             <!-- <4> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="4" title="About the new order" subtitle="Complete this part only if you are asking to change orreplace the existing order or agreement"></FormPart>
                     
                     
@@ -175,8 +175,8 @@
             </div>
 
             <!-- <5> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="5" title="Best interests of the child"></FormPart>
                       
                     <div class="print-block">

@@ -5,8 +5,8 @@
         <div>
             <div class="new-page" />
 
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <ScheduleHeader scheduleNumber="Schedule 5" scheduleTitle="Contact with a child" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
 
                     <div style="margin-bottom: 1rem;"></div>
@@ -23,8 +23,8 @@
             <div style="margin-bottom: 1rem;"></div>
 
             <!-- <1> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Relationship to the child"></FormPart>
 
                     <NoteBox>
@@ -55,8 +55,8 @@
             <div style="margin-top: 1rem;"></div>
 
             <!-- <2> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="2" title="Order about contact with a child"></FormPart>
 
                     <div class="print-block">
@@ -115,8 +115,8 @@
 
 
             <!-- <3> -->
-            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-                <div style="flex: 1">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="3" title="Best interests of the child"></FormPart>
 
                     <div class="print-block">

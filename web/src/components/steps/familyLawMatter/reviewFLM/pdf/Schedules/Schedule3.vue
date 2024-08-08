@@ -23,96 +23,96 @@
             </div>
 
             <div style="margin-bottom: 1rem;"></div>
-<!-- <Part - 1> -->
-    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-        <div style="flex: 1">
-            <FormPart :part="1" title="About the payor"></FormPart>
-            <div> 
-                
-                <b>1.</b>The <b>payor</b> is:
-                <div style="margin-left:1rem;">
-                    <check-box  :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
-                    <check-box style="width:120%;" :check="chSupInfo.opType.standing?'yes':''" text="a person standing in the place of a parent to the child(ren) <i>(for example, a step-parent)</i>"/>
-                    <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.opType.other?'yes':''" text="other <i>(specify):</i>"/>
-                    <GreyBoxForm style="text-indent:1px;" textwidth="33rem" beforetext="" hint="" :text="chSupInfo.opType.otherCom"/>            
+        <!-- <Part - 1> -->
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                    <FormPart :part="1" title="About the payor"></FormPart>
+                    <div> 
+                        
+                        <b>1.</b>The <b>payor</b> is:
+                        <div style="margin-left:1rem;">
+                            <check-box  :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
+                            <check-box style="width:120%;" :check="chSupInfo.opType.standing?'yes':''" text="a person standing in the place of a parent to the child(ren) <i>(for example, a step-parent)</i>"/>
+                            <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.opType.other?'yes':''" text="other <i>(specify):</i>"/>
+                            <GreyBoxForm style="text-indent:1px;" textwidth="33rem" beforetext="" hint="" :text="chSupInfo.opType.otherCom"/>            
+                        </div>
+                    </div>
                 </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>                
+                            A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.Other guardians and stepparents may also be responsible for paying child support [s. 147 Family Law Act]
+                        </p>
+                    </NoteBox>
+                </div> 
             </div>
-        </div>
-        <div style="width: 20%;">
-            <NoteBox>
-                <b-icon-info-circle-fill />
-                <p>                
-                    A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.Other guardians and stepparents may also be responsible for paying child support [s. 147 Family Law Act]
-                </p>
-            </NoteBox>
-        </div> 
-    </div>
           
             <div style="margin-top:1rem;"></div>
-<!-- Part - 2 -->
-           
-    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-        <div style="flex:1">
-            <FormPart :part="2" title="Current circumstances"></FormPart>
-               <!-- <2> -->
-                <div style="display:inline; margin-left:0.25rem">
-                  <b>2.</b>  The <b>current support arrangements</b> are as follows:
-                </div>
-                <div v-if="chSupInfo.currCond.supArr" 
-                    class="answerbox">{{chSupInfo.currCond.supArr}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-
-               <!-- <3> -->
-           
-                <div style="display:inline; margin-left:0.25rem">
-                  <b>3.</b>The child or children <b>currently spend time</b> with each party as follows
-                </div>
-                <div v-if="chSupInfo.currCond.timeDesc" 
-                    class="answerbox">{{chSupInfo.currCond.timeDesc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
+        <!-- Part - 2 -->
                 
-                <div>
-                    <i style="display:inline; margin-left:0.35rem"><b>4. </b>Select only one of the options below</i>
-                    <div style="margin:0 0 0 1rem;">
-                        <check-box style="margin:0 0 0 1rem;" :check="!chSupInfo.desiredSup.over19?'yes':''" text="Each child I am applying for an order for child support for is under 19 years of age"/>
-                        <check-box style="margin:0 0 0 1rem;" :check="chSupInfo.desiredSup.over19?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                    <FormPart :part="2" title="Current circumstances"></FormPart>
+                <!-- <2> -->
+                    <div style="display:inline; margin-left:0.25rem">
+                    <b>2.</b>  The <b>current support arrangements</b> are as follows:
                     </div>
+                    <div v-if="chSupInfo.currCond.supArr" 
+                        class="answerbox">{{chSupInfo.currCond.supArr}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
+
+                <!-- <3> -->
+            
+                    <div style="display:inline; margin-left:0.25rem">
+                    <b>3.</b>The child or children <b>currently spend time</b> with each party as follows
+                    </div>
+                    <div v-if="chSupInfo.currCond.timeDesc" 
+                        class="answerbox">{{chSupInfo.currCond.timeDesc}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div> 
                     
-                    <b-table
-                        :items="over19ChildSupportDetails"
-                        :fields="childrenSupportFields"
-                        class="mt-2"
-                        small
-                        bordered>                    
-                            <template v-slot:cell()="data">
-                                <div style="font-size:11pt;color:#000">{{data.value}}</div>                                           
-                            </template>
-                            <template v-slot:head(reasonForSupport)>
-                                Reason for child support <i style="font-size:6pt; font-weight:normal;">Select the applicable option</i>                            
-                            </template>
-                            <template v-slot:cell(reasonForSupport)="data">      
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0rem;" :check="data.value.illness?'yes':''" text="illness"/>
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0.25rem;" :check="data.value.disability?'yes':''" text="disability"/>
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0.25rem;" :check="data.value.student?'yes':''" text="student"/>
-                            </template>
-                    </b-table>
+                    <div>
+                        <i style="display:inline; margin-left:0.35rem"><b>4. </b>Select only one of the options below</i>
+                        <div style="margin:0 0 0 1rem;">
+                            <check-box style="margin:0 0 0 1rem;" :check="!chSupInfo.desiredSup.over19?'yes':''" text="Each child I am applying for an order for child support for is under 19 years of age"/>
+                            <check-box style="margin:0 0 0 1rem;" :check="chSupInfo.desiredSup.over19?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
+                        </div>
+                        
+                        <b-table
+                            :items="over19ChildSupportDetails"
+                            :fields="childrenSupportFields"
+                            class="mt-2"
+                            small
+                            bordered>                    
+                                <template v-slot:cell()="data">
+                                    <div style="font-size:11pt;color:#000">{{data.value}}</div>                                           
+                                </template>
+                                <template v-slot:head(reasonForSupport)>
+                                    Reason for child support <i style="font-size:6pt; font-weight:normal;">Select the applicable option</i>                            
+                                </template>
+                                <template v-slot:cell(reasonForSupport)="data">      
+                                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0rem;" :check="data.value.illness?'yes':''" text="illness"/>
+                                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0.25rem;" :check="data.value.disability?'yes':''" text="disability"/>
+                                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0.25rem;" :check="data.value.student?'yes':''" text="student"/>
+                                </template>
+                        </b-table>
+                    </div>
                 </div>
+                <div style="width: 20%; padding-top:180px">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                        
+                            A child, for the purposes of child support, includes a person who is over 19 years of age, and is unable because of illness, disability or another reason to obtain the necessities of life or withdraw from the charge of their parents [s. 146 Family Law Act]
+                        </p>
+                    </NoteBox>
+                </div>    
             </div>
-            <div style="width: 20%; padding-top:180px">
-                <NoteBox>
-                    <b-icon-info-circle-fill />
-                    <p>
-                       
-                        A child, for the purposes of child support, includes a person who is over 19 years of age, and is unable because of illness, disability or another reason to obtain the necessities of life or withdraw from the charge of their parents [s. 146 Family Law Act]
-                    </p>
-                </NoteBox>
-            </div>    
-    </div>
 
 <!-- Part - 3 -->
            
-<div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-    <div style="flex:1">
+<div style="display: flex; flex-direction: row;">
+    <div style="width: 80%; padding-right: 4px;">
         <FormPart :part="3" title="Order about child support"></FormPart>   
     <div style="    background-color: rgb(214, 214, 214);
     padding: 8px;
@@ -232,8 +232,8 @@
 </div>
            
  <!-- <Part 4> -->           
-<div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-    <div style="flex:1">
+    <div style="display: flex; flex-direction: row;">
+        <div style="width: 80%; padding-right: 4px;">
         <FormPart :part="4" title="Income information"></FormPart>
         <div>
             One or more of the following applies to my applicationfor child support:
