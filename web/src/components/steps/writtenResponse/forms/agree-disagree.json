@@ -18,7 +18,7 @@
               "choices": [
                 {
                   "value": "agree",
-                  "text": "I agree to all or part of the orders requested in the application."
+                  "text": "I agree to all the orders requested in the application."
                 },
                 {
                   "value": "partialagree",
@@ -26,7 +26,7 @@
                 },
                 {
                   "value": "disagree",
-                  "text": "I do not agree to all or part of the orders requested in the application."
+                  "text": "I do not agree with the order as requested by the other party."
                 },                
                 {
                   "value": "partialdisagree",
