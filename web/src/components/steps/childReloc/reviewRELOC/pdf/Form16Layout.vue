@@ -92,7 +92,7 @@
                     <div style="display: inline-block; ">
                         <b>1. </b>My <b>full name</b> is:
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
+                    <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
                         beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede"
                         hintMargin="152px" :text="yourInfo.name | getFullName" />
 
@@ -100,7 +100,7 @@
                         <div style="display: inline-block; ">
                             My <b> date of birth</b> is:
                         </div>
-                        <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
+                        <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
                             beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede"
                             hintMargin="152px" :text="yourInfo.dob | beautify-date-mid" />
                     </div>
@@ -111,7 +111,7 @@
                     <div style="display: inline-block;">
                         <b>2. </b>The <b>other party’s full name is:</b>
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
+                    <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
                         beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px"
                         :text="firstOtherParty.name | getFullName" />
 
@@ -119,18 +119,19 @@
                         <div style="display: inline-block; ">
                             Their <b>date of birth</b>(dd/mmm/yyyy) is:
                         </div>
-                        <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
+                        <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
                             beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px"
                             :text="firstOtherParty.dob | beautify-date-mid" />
+                       
+                        <div>
+
+                        </div>
                         <div>
                             <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                                 :check="true ? 'yes' : ''" />
                             <div style="margin-top: -18px;text-indent: 20px;">
                                 There is an additional party.
                             </div>
-                        </div>
-                        <div>
-
                         </div>
                         <div style="padding-top:5px">
                             <div v-if="additionalOtherParties.length > 0" style="font-size: 9pt;">
@@ -140,17 +141,36 @@
                                     <div style="display: inline-block;">
                                         The<b> additional party’s</b> full name is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <GreyBoxForm  style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="270px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="80px" :text="otherParty.name | getFullName" />
                                     <div style="display: inline-block; padding-top:10px">
                                         Their<b> date of birth</b>(dd/mmm/yyyy) is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <GreyBoxForm  style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="260px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
-                                        hintMargin="152px" :text="otherParty.dob | beautify - date" />
+                                        hintMargin="152px" :text="otherParty.dob | beautify-date-mid" />
                                 </div>
                             </div>
+
+                            <div v-else style="font-size: 9pt;">
+
+                            <div>
+                                <div style="display: inline-block;">
+                                    The<b> additional party’s</b> full name is:
+                                </div>
+                                <GreyBoxForm  style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                        textwidth="270px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
+                                        hintMargin="80px" text="" />
+                                <div style="display: inline-block; padding-top:10px">
+                                    Their<b> date of birth</b>(dd/mmm/yyyy) is:
+                                </div>
+                                <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    textwidth="260px" beforetext="" :italicHint="false" 
+                                    hintMargin="152px" text="" />
+                            </div>
+                       </div>
+
                         </div>
                     </div>
 
