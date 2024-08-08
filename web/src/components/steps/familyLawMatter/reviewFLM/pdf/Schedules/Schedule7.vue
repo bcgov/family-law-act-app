@@ -99,10 +99,12 @@
                     <div>
                         <b>2. </b> I believe the order about guardianship of a child that I am applying for is in the best interests of the child(ren) because:
                         <br>
-                        <i>List your reasonsThe</i>
+                        <i>List your reasons</i>
                     </div>
-                    <!-- @TODO:  -->
-
+                    
+                    <div style="background-color: #eee;">
+                        {{guardInfo.abtCancel.bestInterest}}
+                    </div>
                 </div>
                 <div style="width: 20%;">
                     <NoteBox>

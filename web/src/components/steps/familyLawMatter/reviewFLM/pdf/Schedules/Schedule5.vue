@@ -62,7 +62,7 @@
                     <div class="print-block">
                         
                         <section class="no-counter">
-                            <div style="display:inline; margin-left:0.35rem"><b>3.</b> I am applying for an order for the child(ren) to have <b>contact with a person who is nottheir guardian</b> as follows:</div>                   
+                            <div style="display:inline; margin-left:0.35rem"><b>3.</b> I am applying for an order for the child(ren) to have <b>contact with a person who is not their guardian</b> as follows:</div>                   
                             <div style="margin:0 3rem 1rem 1rem;">
                                 <i>Select all options that apply and complete the required information</i>
                                 <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="In person: <i>(specify)</i>"/>
@@ -137,11 +137,9 @@
                     <NoteBox>
                         <b-icon-book />
                         <p>To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. <i>37 of the Family Law Act.</i>
-                        </p>
-                        <p>
+                            <br>
                             The parties and the court must consider the best interests of a child when making a decision about contact with a child.
-                        </p>
-                        <p>
+                            <br>
                             For more information, see the guidebook.
                         </p>
                     </NoteBox>
