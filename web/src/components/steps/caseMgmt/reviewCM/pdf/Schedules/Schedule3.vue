@@ -2,98 +2,152 @@
     <div v-if="dataReady"> 
         
 <!-- <Page 4> --> 
-<!-- <Header> -->
-        <div>
-            <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 3 – WAIVING OR MODIFYING ANY OTHER REQUIREMENT UNDER THE RULES</b></div>
-            <div style="text-align:center;"><b>This is Schedule 3 to the Application for Case Management Order Without Notice or Attendance</b></div>
-
-            <div style="margin:1rem 0; text-align:justify">
-                <i>This schedule must be completed if you are applying to waive or modify any other requirement under the rules, including a time limit set by an order or direction, even after the time limit has expired.</i>
+<!--Header: Begin-->
+<div >
+    <div class="new-page"></div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 1rem;"></div>
+            <div style="background: #626262; color: white; font-size: 12pt;">
+                    <b>Schedule 3 | Waiving or modifying any other requirement</b>
             </div>
-<!-- <1> -->
-            <section class="resetquestion"> 
-                <div style="display:inline; margin-left:0.15rem">
-                    I am applying for an order to waive or modify the following requirement(s) under the rules:
-                </div>
-                    
-                <div>
-                    <i style="margin-left:1.0rem">Select all options that apply</i>
-                </div>
-
-                <div style="margin-left:1.0rem;">
-                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Filing at a court registry other than the court registry required by Rule 7')?'yes':''" text="filing at a court registry other than the court registry required by Rule 7"/>
-                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Attending a needs assessment')?'yes':''" text="attending a needs assessment"/>
-                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Completing a parenting education program')?'yes':''" text="completing a parenting education program"/>
-                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Participating in consensual dispute resolution')?'yes':''" text="participating in consensual dispute resolution"/>
-                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Filing a completed financial statement with my application or reply')?'yes':''" text="filing a completed financial statement with my application, counter application or reply"/>
-                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Filing the required documents for an application about guardianship of a child')?'yes':''" text="filing the required documents for an application about guardianship of a child"/>
-                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Time to file a reply, including permission to file a reply after the time to reply has passed')?'yes':''" text="time to file a reply, including permission to file a reply after the time to reply has passed"/>
-                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Time to provide/exchange document(s)')?'yes':''" text="time to provide/exchange document(s)"/>
-
-                    <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="modReqInfo.appliedRequirementsList.includes('Time limit set by an order or direction of a judge')?'yes':''" text="time limit set by an order or direction made on"/>
-                    <underline-form style="text-indent:3px;display:inline-block;" textwidth="6rem" beforetext="" hint="mmm/dd/yyyy" :text="modReqInfo.dateOfOrder"/>                     
-                    <underline-form style="text-indent:3px;display:inline-block;" textwidth="13rem" beforetext="by" hint="name of judge or family justice manager" :text="modReqInfo.judgeName"/>                     
-                    <div style="margin-top:0.7rem"></div>
-                    <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="modReqInfo.appliedRequirementsList.includes('other')?'yes':''" text="other <i>(specify):</i>"/>
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="33.3rem" beforetext="" hint="" :text="modReqInfo.appliedRequirementsListComment"/>                     
-                </div>
-            </section>
-
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b></b></div>
-<!-- <2> -->
-                <section>
-                    <div style="display:inline; margin-left:0.15rem">
-                        The details of the order I am applying for are as follows:
-                    </div>
-                        
-                    <div style="text-indent:0; margin-left:0rem">
-                        <i>
-                            Tell the court the specifics of the order you are applying for. Include if you are applying for the court to waive
-                            (cancel) the requirement or to modify (change) the requirement. If you are applying to modify the
-                            requirement, specify how you want the requirement changed, for example, additional time to meet the
-                            requirement or completing the requirement after taking some other step.
-                        </i>
-                    </div>
-                    
-                    <div v-if="modReqInfo.orderDetail" 
-                    class="answerbox">{{modReqInfo.orderDetail}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div> 
-                             
-                </section>
+            <div style="background: #626262; color: white; font-size: 12pt;margin-top:-10px;">
+                    <span style="margin-left:105px;margin-top:-40px;"><b>under the rules</b></span>
             </div>
-
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b></b></div>
-<!-- <3> -->
-                <section>
-                    <div style="display:inline; margin-left:0.15rem">
-                        The facts on which this application is based are as follows:
-                    </div>
-                        
-                    <div style="text-indent:0; margin-left:0rem">
-                        <i>
-                            Provide the facts you want the court to consider, including:
-                        </i>
-                    </div>
-                    <ul style="text-indent:0;font-style:italic">
-                        <li>why you are making the application to waive or modify a requirement</li>
-                        <li>why you need the court to make the order</li>
-                        <li>whether you are able to complete the requirement at a later date and when you expect to be able to complete the requirement</li>
-                        <li>if you are applying to waive or modify any early resolution requirements, what your family law
-                            matter is about and who is involved (names of any other party and children the application would be about)</li>
-                        <li>how waiving or modifying the requirement will benefit the case proceeding</li>
-                    </ul>
-                    
-                    <div v-if="modReqInfo.applicationFacts" 
-                    class="answerbox">{{modReqInfo.applicationFacts}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div> 
-                             
-                </section>
-            </div>
-            
+            <div style="text-align:justify;width:100%; margin-top: 10px;background: #d6d6d6;line-height: 14px;font-size:9pt;">
+                <p>
+                    Complete this schedule only if you are applying to waive or modify any other requirement under 
+the rules, including a time limit set by an order or direction, even after the time limit has expired.
+                </p>
         </div>
+        </div>  
+    </div> 
+<!--Header: End-->
+<!-- <1> : BEGIN-->
+    <div >
+        <div style="width: 80%; float: left; margin-right: 10px;">
+    <div style="margin-top: 1rem;"></div>
+            <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;width: 80%; float: left; margin-right: 10px;">
+                    <b>Part 1 |  Requirement I need to waive or modify </b>
+            </div>
+            <div style="margin-top: 1rem;"></div>
+            <div style="display: inline-block; font-size: 11pt;width: 80%; margin-right: 10px;margin-top:10px;margin-left:20px;">
+                <b>1.</b><span style="margin-left:22px;">I am applying for an order to <b> waive or modify the following </b></span>
+                <span style="margin-left:35px;"><b> requirement</b>(s) under the rules:</span>
+            </div>  
+            <div style="font-size: 10pt;margin-left:50px;" >                    
+                    
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Filing at a court registry other than the court registry required by Rule 7')?'yes':''" text="Filing at a court registry other than the court registry required by Rule 7"/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Attending a needs assessment')?'yes':''" text="Attending a needs assessment"/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Completing a parenting education program')?'yes':''" text="Completing a parenting education program"/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Participating in consensual dispute resolution')?'yes':''" text="Participating in consensual dispute resolution"/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Filing a completed financial statement with my application or reply')?'yes':''" text="Filing a completed financial statement Form 4 with my application, reply or counter application"/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Filing the required documents for an application about guardianship of a child')?'yes':''" text="filing the required documents for an application about guardianship of a child"/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time to file a reply, including permission to file a reply after the time to reply has passed')?'yes':''" text="Time to file a reply, including permission to file a reply after the time to reply has passed"/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time to provide/exchange document(s)')?'yes':''" text="Time to provide/exchange document(s)"/>
+
+                    <check-box marginLeft="1.65rem" checkbox="" inline="inline" boxMargin="0" style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time limit set by an order or direction of a judge')?'yes':''" text="Time limit set by an order or direction made"/>
+                    <span style="margin-left:30px;">on</span><underline-form style="text-indent:3px;display:inline-block;" textwidth="6rem" hintMargin="7px" beforetext="" hint="Date(dd/mmm/yyyy)" :text="modReqInfo.dateOfOrder"/>                     
+                    <underline-form style="text-indent:3px;display:inline-block;" textwidth="13rem" beforetext="by" hintMargin="20px" hint="Name of judge or family justice manager" :text="modReqInfo.judgeName"/>                     
+                    <div style="margin-top:0.7rem"></div>
+                    <span>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" checkbox="" inline="inline" boxMargin="0" :check="modReqInfo.appliedRequirementsList.includes('other')?'yes':''" text=""/>
+                    <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="24rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.appliedRequirementsListComment"/>                     
+                    </span>
+            </div>
+        </div>
+        <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
+                <p>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    A requirement under the rules is any time the rules say you “must” do something.
+                </p>
+        </div>
+        <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
+                <p>
+                    <b-icon-book />
+                    <br />
+                    For more information about the requirements under the rules you may need to waive or modify, including if you need an urgent court order, see the guidebook.
+                </p>
+        </div>
+    </div>  
+<!-- <1> : END-->
+<!--<2> : BEGIN-->
+    <div >
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 1rem;"></div>
+            <div style="background: #626262; color: white; font-size: 11pt;">
+                    <b>Part 2 | About the order</b>
+            </div>
+            <div style="text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;font-size: 11pt;">
+                <span style="font-size: 11pt;"><b>2. </b></span><span style="margin-left:12px;">The <b>details of the order</b> I am applying for are as follows:</span>
+                <br/>
+                <span style="margin-left:28px;font-size: 11pt;text-indent:47px;">
+                    <i>Include if you are asking to waive or modify the requirement. If you are </i>
+                </span>
+                <span style="margin-left:28px;font-size: 11pt;text-indent:47px;">
+                    <i>applying to modify the requirement, you need to include how you want the </i>
+                </span>
+                <span style="margin-left:28px;font-size: 11pt;text-indent:47px;">
+                    <i>requirement changed. </i>
+                </span>
+                <div v-if="modReqInfo.orderDetail" style="min-height:150px;text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;">{{modReqInfo.orderDetail}}</div>
+                    <div v-else style="margin-bottom:3rem;min-height:150px;"></div> 
+            </div>
+        </div>  
+        <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
+                <p>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    If a requirement is waived, it means it no longer applies. You don’t need to complete it at any time.
+                    <br/>
+                    If a requirement is modified, you still need to meet the requirement, but it has been changed. A modified requirement could include changing when a document can be filed or when a step under the rules must be taken.
+                </p>
+        </div>      
+    </div>
+<!--<2> : END-->
+<!--<3> : BEGIN-->
+    <div >
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 1rem;"></div>
+            <div style="background: #626262; color: white; font-size: 11pt;">
+                    <b>Part 3 | The facts</b>
+            </div>
+            <div style="text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;font-size: 11pt;">
+                <span style="font-size: 11pt;"><b>3. </b></span><span style="margin-left:12px;">The <b>facts</b> on which this application is based <b>are as follows:</b></span>
+                <br/>
+                <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
+                    <i>Explain why you are making the application and why the order you</i>
+                </div>
+                <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
+                    <i>are requesting should be made</i>
+                </div>
+                
+                <div v-if="modReqInfo.applicationFacts" style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:230px;">
+                    {{modReqInfo.applicationFacts}}
+                </div>
+                <div v-else style="margin-bottom:3rem;"></div> 
+                
+            </div>
+        </div>
+        <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
+                <p>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    You may wish to include:
+                    <div style="margin-left:-25px;margin-top:-15px;">
+                    <ul>
+                    <li>if you can complete the requirement later, and when;</li>
+                    <li>if this application is being made because you need an urgent order, what the urgent application is about and who is involved; and</li>
+                    <li>how the order being made will benefit the case proceeding.</li>
+                    </ul>
+                    </div>                    
+                </p>
+        </div>
+        
+    </div>
+<!--<3> : END-->
+
+   
     </div>
 </template>
 

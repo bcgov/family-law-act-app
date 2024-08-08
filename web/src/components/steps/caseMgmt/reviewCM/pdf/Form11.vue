@@ -71,8 +71,8 @@ export default class Form11 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA 718 02/2024    `+moment().format("MMMM D, YYYY")+` \\a           Form 11";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 718 02/2024    `+moment().format("DD/YYYY")+` \\a           Form 11";`;
+        const bottomRightText = `"Case Management Without Notice or Attendance |"`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
