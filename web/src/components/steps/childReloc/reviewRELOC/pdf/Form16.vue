@@ -50,7 +50,7 @@ export default class Form16 extends Vue {
 
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA724    `+moment().format("MMMM D, YYYY")+` \\a           Form 16";`;
-        const bottomRightText = `" "`
+        const bottomRightText = `"Application to Prohibit Relocation | "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
