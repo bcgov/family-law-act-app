@@ -84,7 +84,7 @@
                         style="text-indent:4px;display:inline-block; font-size: 9pt;"
                         textwidth="270px" 
                         :beforetext="inx>0? ',' : '' " 
-                        hint="full name of the other party/parties" 
+                        hint="Full name of party/parties" 
                         :italicHint="false" 
                         textBackgroundColor="#dedede"
                         hintMargin="80px"
