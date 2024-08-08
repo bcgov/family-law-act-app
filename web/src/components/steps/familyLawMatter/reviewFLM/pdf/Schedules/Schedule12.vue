@@ -34,9 +34,9 @@
                 I believe the agreement about property division in respect of a companion animal should be set aside or replaced because:
                 <div>
             <GreyBoxForm v-if="exCompInfo.reason" style="margin-top:10px; text-indent:0rem"
-                textwidth="35rem" :text="exCompInfo.reason">
+                textwidth="35rem" :text="exCompInfo.reason" hint="" beforetext="">
             </GreyBoxForm>
-            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>     
+            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem" hint="" beforetext=""></GreyBoxForm>     
                 </div>
                               
             </section>

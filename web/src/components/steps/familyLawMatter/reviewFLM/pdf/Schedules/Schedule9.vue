@@ -92,27 +92,44 @@
                     <div class="print-block">
                         <div>
                             <b>3. </b>
-                            <div style="display:inline; margin:0 0 0 0.25rem;"> I am applying for an order for spousal support to be paid by</div>                   
+                            <div style="display:inline; margin:0 0 0 0.25rem;"> I am applying for an order for spousal support to be paid by <i>(name of paying party)</i></div>                   
                             <underline-form v-for="payor,inx in spsSupInfo.current.payors" :key="inx" style="text-indent:0px;display:inline; margin:0 0 0 0.5rem;" textwidth="11.5rem" :beforetext="inx>0?', ':''" hint="name of paying party" :text="payor"/>          
                             <div style="display:inline; margin:0 0 0 0.5rem;">as follows:</div>
-                            <div>
-                                <i style="margin:0 0 0 1.5rem;" >Select all options that apply and complete the required information</i>
+                            
+                            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.monthly?'yes':''" text=""/>
+                                            
+                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="Monthly paymentsto commence on (date)" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.start"/>            
+                                <br>
+                                <GreyBoxForm style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="5rem" beforetext="(number)" hint="" :text="spsSupInfo.payDetails.rate"/>
+
+                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="until" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.end"/>            
                             </div>
                             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.monthly?'yes':''" text="in the amount of "/>
-                                <underline-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="5rem" beforetext="$" hint="" :text="spsSupInfo.payDetails.rate"/>            
-                                <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="per month to commence on" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.start"/>            
-                                <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="until" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.end"/>            
-                            </div>
-                            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.lumpSum?'yes':''" text="in a lump sum of"/>
-                                <underline-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="8rem" beforetext="$" hint="" :text="spsSupInfo.payDetails.lumpSumAmount"/>            
+                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.lumpSum?'yes':''" text="Lump sum payment"/>
+                                <GreyBoxForm style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="8rem" beforetext="$" hint="" :text="spsSupInfo.payDetails.lumpSumAmount"/>            
                             </div>
                             <div class="marginleft2p5vue" style="margin:0.25rem 0 0rem 1.5rem;">
                                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="other <i>(specify):</i>"/>
-                                <underline-form style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="" hint="" :text="spsSupInfo.payDetails.otherComm"/>            
+                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="" hint="" :text="spsSupInfo.payDetails.otherComm"/>            
                             
                             </div>
+                        </div>
+                    </div>
+                    <div>
+                        <b>4. </b> Based on the information I know about eachparty’s means, needs, and othercircumstances:
+                        <div>
+                            <i>Select only one of the options below</i>
+                        </div>
+                        <div>
+                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect the range for the monthly amount payable for spousal support to be approximately $"/>
+                            <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="" hint="" text=""/>  
+                            <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="to $" hint="" text=""/>  
+                                <br>
+                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect a lump sum amount payable for spousal support to be approximately $"/>
+                                <br>
+                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I am not able to estimatethe amount payable for spousal support at this time"/>
+
                         </div>
                     </div>
                 </div>
@@ -142,7 +159,43 @@
              <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="4" title="Income and earning potential information"></FormPart>
 
-                    
+                    <div>
+                        <b>5. </b>
+                        <div style="display:inline; margin:0 0 0rem 0.35rem;">My current employment situation, training, health and ability to work are as follows:</div>
+                        <div v-if="spsSupInfo.incomeInfo.myIncome.length > 0" 
+                                class="answerbox">{{spsSupInfo.incomeInfo.myIncome}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                    </div>
+
+                    <div class="print-block">
+                        <div>
+                            <b>6. </b> I am required to file a Financial Statement Form 4 to provide my income information to the court.
+
+                            <br>
+
+                            <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
+                            <div style="margin:0 0 1rem 1.25rem;">
+                                <check-box  :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="I am filinga Financial Statement in Form 4 with this application."/>
+                                <check-box  :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to filea Financial Statement in Form 4 with this application. <br> I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that myincome information in Form 4 be provided with this application. I understand Iwill still be required to file a Financial Statement in Form 4 at a later date."/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <b>7. </b> <i>Select only one of the options below and provide the requested information</i>
+                        <div>
+                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I believe the payor’s annual incomeis $"/>
+                            <GreyBoxForm style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="" hint="" :text="spsSupInfo.incomeInfo.opIncome"/>
+                            <GreyBoxForm style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="because:" hint="" text=""/> 
+                        </div>
+                        <div>
+                            <check-box  :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the payor.I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>
+                            <br>
+                            <div v-if="spsSupInfo.incomeInfo.knowFacts" 
+                                class="answerbox">{{spsSupInfo.incomeInfo.facts}}</div>
+                            <div v-else style="margin-bottom:3rem;"></div>
+                        </div>
+                    </div>
                 </div>
                 <div style="width: 20%;">
                     <NoteBox>
@@ -163,73 +216,7 @@
 
             <div style="margin-top: 1rem;"></div>
 
-
-
-        
-            <div class="print-block">
-                <div style="margin-top:2rem;"><b>Income and earning potential</b></div>
-<!-- <3> -->
-                <section>
-                    <div style="display:inline; margin:0 0 0rem 0.35rem;">My current employment situation, training, health and ability to work are as follows:</div>
-                    <div v-if="spsSupInfo.incomeInfo.myIncome.length > 0" 
-                            class="answerbox">{{spsSupInfo.incomeInfo.myIncome}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                </section>
-            </div>
-
-            <div style="margin-top:1.5rem;"></div>
-<!-- <4> -->
-            <section>               
-                <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
-                <div style="margin:0 0 0 1.25rem;">
-                    <check-box  :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the other party"/>
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I believe the other party’s annual income is $"/>
-                    <underline-form style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="" hint="" :text="spsSupInfo.incomeInfo.opIncome"/>
-                </div>
-            </section>
-
-            <div style="margin-top:1rem;"></div>
-<!-- <5> -->
-            <section>
-                <div style="display:inline; margin:0 0 0 0.5rem;">I know the following facts about the other party’s employment, training, health and ability to work:</div>
-                <div style="margin:0 0 0rem 1.5rem;">
-                    <i style="margin:0 0 0 0rem;" >If you do not have any information, please leave this section blank</i>
-                </div>
-                <div v-if="spsSupInfo.incomeInfo.knowFacts" 
-                     class="answerbox">{{spsSupInfo.incomeInfo.facts}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-            </section>
-
-           
-
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>Calculations</b></div>
-<!-- <7> -->
-                <section>               
-                    <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
-                    <div style="margin:0 0 0rem 1.25rem;">
-                        <check-box  :check="spsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
-                        <check-box  :check="!spsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
-                    </div>
-                    <div v-if="!spsSupInfo.calc.attaching" 
-                        class="answerbox">{{spsSupInfo.calc.reason}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                </section>
-            </div>
-
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>Financial statement</b></div>
-<!-- <8> -->
-                <section>               
-                    <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
-                    <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box  :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box  :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
-                    </div>
-                </section>
-            </div>
-
-            <div class="print-block">
+            <div class="print-block" style="border: 2px dashed #333; background-color: #ccc; padding: 8px;">
                 <div style="margin-top:1rem;"><b>IMPORTANT NOTE TO THE PARTIES:</b></div>
                 <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>This family law case includes an application about spousal support. You must provide your financial information with your application or reply to this application by completing and filing a Financial Statement in Form 4.</b></div>
                 <div style="margin-top:1rem;text-align:justify;">
