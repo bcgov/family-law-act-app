@@ -232,7 +232,7 @@
         <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
             <div style="flex: 1">
                 <FormPart :part="4"
-                    title="About the new order - Complete this part only if you are asking to change orre                 place the existing order or agreemen">
+                    title="About the new order - Complete this part only if you are asking to change or replace the existing order or agreement">
                 </FormPart>
                 <div class="print-block">
                     <div>
@@ -271,9 +271,7 @@
                                 hintindent="30px" />
                             <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="because"
                                 :text="exChSupInfo.unpdChSup.crntDate" />
-
                         </div>
-
                     </div>
 
                 </div>

@@ -5,88 +5,292 @@
 <!-- <Header> -->
         <div>
             <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 7 – APPOINTING A GUARDIAN OF A CHILD OR CHILDREN</b></div>
-            <div style="text-align:center;"><b>This is Schedule 7 to the Application About a Family Law Matter</b></div>
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <ScheduleHeader scheduleNumber="Schedule 7" scheduleTitle="Guardianship of a child" scheduleDescription="Appointing a guardian or terminating guardianship"></ScheduleHeader>
 
-            <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to be appointed as a guardian of a child or children identified in section 12 of this application. </i>
+                    <div style="margin-bottom: 1rem;"></div>
+
+                    <NoteBox>
+                        <p>
+                            Complete this schedule only if you need a court order to appoint a new guardian for a child or to cancel an existing guardian’s guardianship of a child.
+                        </p>
+                    </NoteBox>
+
+                    <div style="margin-bottom: 1rem;"></div>
+
+                    <NoteBox style="border: 2px dashed #333;">
+                        <p><b>Pleas e read befor  e completing this schedule:</b></p>
+                        <p>
+                            Anyone who wants to become a guardian can apply, including a parent who is not a guardian or anyone else (even if they are not related to the child) [s. 51 Family Law Act]. Only a guardian may have parental responsibilities and parenting time with respect to a child [s. 40].
+                        </p>
+                        <p>
+                            The Family Law Act provides that while a child’s parents are living together and after the child’s parents separate, each parent will continue to be   the child’s guardian and will have parental responsibilities with respect to the chil   d [ss. 39 and 40]. This does not mean that parents must have equal responsibility for a child. 
+                        </p>
+                        <p>
+                            An agreement or order abo   ut parenting arrangements can give parental responsibilities to one or more guardians only,  each guardian acting separately, or all guardians acting  together [s.40]. You  can use Schedule 1 or Schedule 2 to apply for an order about parenting arrangements.
+                        </p>
+                        <p>
+                            In some    cases, it may   not be appropriate for a parent or guardian to remain a guardian. An agreement or order can provide   that a parent is  not the child’s   guardian [s.39]
+                        </p>
+                    </NoteBox>
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-book />
+                        <p>
+                            Usually, a child’s parent is also the child’s guardian, but not always. For more information about who is a guardian, see the guidebook.
+                        </p>
+                    </NoteBox>
+                </div>
             </div>
 
-<!-- <1> -->
-            <section class="resetquestion"> 
-                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I am applying to be appointed as a guardian of the following child(ren) identified in section 12 of"/>
-                <div style="margin:0 0 0 2.5rem; display:inline;">this application:</div>
-                <div style="margin: 0 0 1rem 3.5rem;">
-                    <i>List the name of each child you want to be appointed as a guardian of</i>
-                    <ul v-if="guardInfo.becomeGuardian && guardInfo.abtGuardian && guardInfo.abtGuardian.children">
-                        <li v-for="(child,inx) of guardInfo.abtGuardian.children" :key="inx"><span class="mx-3">{{child}}</span></li>
-                    </ul>                     
-                </div>                
-            </section>
+            <div style="margin-bottom: 1rem;"></div>
 
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>Indigenous ancestry of child(ren)</b></div>
-                <i>These questions will help the court make a decision about guardianship of a child.</i>
-<!-- <2> -->
-                <section>
-                    <div style="display:inline; margin-left:0.35rem">Is the child or children Indigenous? </div>
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.indigenous?'yes':''" text="Yes"/>
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.nonIndigenous?'yes':''" text="No"/>
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown"/>
-                    <div style="margin:0 0 0 1.35rem;">
-                        <i style="margin:0 0 0 -0.25rem;" >If yes, please select the option(s) below that best describe(s) the child(ren)’s Indigenous ancestry</i>
-                        <check-box  :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
-                        <check-box  :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
-                        <check-box  :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation"/>
-                        <check-box  :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
-                        <check-box  :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
+            <!-- <1> -->
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <FormPart :part="1" title="Order about guardianship"></FormPart>
+
+                    <section>
+                        Select each option that applies 
+                        <div>
+                            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I am applying to be appointed as a guardian of the child(ren)"/>
+                        </div>
+                        <div>
+                            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="!guardInfo.becomeGuardian?'yes':''" text="I am applying for the following person(s) to no longer be the guardianof the child(ren):"/>
+                        </div>
+                        <i>Complete the information requested below. Specify the child only if the information does not apply to each child this application is about.</i>
+                        <div style="margin: 0 0 1rem 3.5rem;">
+                            <i>List the name of each child you want to be appointed as a guardian of</i>
+                            <ul v-if="guardInfo.becomeGuardian && guardInfo.abtGuardian && guardInfo.abtGuardian.children">
+                                <li v-for="(child,inx) of guardInfo.abtGuardian.children" :key="inx"><span class="mx-3">{{child}}</span></li>
+                            </ul>                     
+                        </div>                
+                    </section>
+
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            The court may appoint a person as a child’s guardian or terminate a person’s guardianship of a child [s. 51 Family Law Act].
+                        </p>
+                    </NoteBox>
+
+                    <div style="margin-bottom: 1rem;"></div>
+
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            You may state “since birth” in the middle column instead of putting the specific date, if applicable [s. 51 Family Law Act].
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+
+            <div style="margin-top: 1rem;"></div>
+
+            <!-- <2> -->
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <FormPart :part="2" title="Best interests of the child"></FormPart>
+
+                    <div>
+                        <b>2. </b> I believe the order about guardianship of a child that I am applying for is in the best interests of the child(ren) because:
+                        <br>
+                        <i>List your reasonsThe</i>
                     </div>
-                </section>
+                    <!-- @TODO:  -->
+
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            If a child is 12 or older, the court must not appoint a person other than a parent as the child’s guardian without the child’s written approval, unless satisfied it is in the child’s best interests [s. 51 Family Law Act].
+                        </p>
+                    </NoteBox>
+
+                    <div style="margin-bottom: 1rem;"></div>
+
+                    <NoteBox>
+                        <b-icon-book />
+                        <p>To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. 37 of the Family Law Act.</p>
+                        <p>The parties and the court must consider the best interests of a child when making a decision about guardianship of a child.For more information, see the guidebook.</p>
+                    </NoteBox>
+                </div>        
             </div>
-    
-            <div style="margin-top:1rem;"></div>
-<!-- <3> -->
-            <section>
-                <i style="display:inline; margin:0 0 0 0.5rem;">Complete the following statement only if the child is a Nisg̲a’a child or a Treaty First Nation child</i>
-                <div style="margin:0 0 0 1.35rem;">
-                    <check-box  :check="guardInfo.ancestry.acknowledge?'yes':''" text="I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
-                </div>
-            </section>
 
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>Guardianship affidavit and supporting documents</b></div>
-<!-- <4> -->
-                <section>
-                    <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
-                    <div style="margin:0 0 0 2rem; display:inline;">before the court can make a final order about guardianship</div>
-                </section>
+            <div style="margin-top: 1rem;"></div>
+
+            <!-- <3> -->
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <FormPart :part="3" title="Indigenous ancestry of child(ren)"></FormPart>
+
+                    <div class="print-block">
+                       <div>
+                            <div>
+                                <b>3. </b> Is the child or children Indigenous?
+                            </div>
+                            <div>
+                                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.indigenous?'yes':''" text="Yes - go to next question"/>
+                            </div>
+                            <div>
+                                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.nonIndigenous?'yes':''" text="No - Skip ahead to Part 4"/>
+                            </div>
+                            <div>
+                                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown - Skip ahead to Part 4"/>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <b>4. </b> Complete this question only if a child is Indigenous.
+                                <br>
+                                <i>If not, you may leave this question blank</i>
+                                <br>
+                                <b>Please select the option below that best describes the child(ren)’s Indigenous ancestry:</b>
+                            </div>
+                            <div style="margin:0 0 0 1.35rem;">
+                                <check-box  :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
+                                <check-box  :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
+                                <check-box  :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation, including"/>
+                                <ul>
+                                    <li>Tsawwassen First Nation</li>
+                                    <li>Maa-nulth First Nations:
+                                        <ul>
+                                            <li>Huu-ay-aht First Nations</li>
+                                            <li>Ka:’yu:’k’t’h’/Che:k’tles7et’h’ First Nations</li>
+                                            <li>Toquaht Nation</li>
+                                            <li>Uchucklesaht Tribe</li>
+                                            <li>YuułuʔiłʔatḥGovernment</li>
+                                        </ul>
+                                    </li>
+                                    <li>Tla’amin Nation</li>
+                                </ul>
+                                <check-box  :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is ofIndigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
+                                <check-box  :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis andInuit, and self-identifies as Indigenous"/>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div style="margin-top:1rem;"></div>
+        
+                    <NoteBox style="border: 2px dashed #333;">
+                        <p>
+                            <b>IMPORTAN  T NOTE ABOUT A NISGA’A OR TREATY FIRST NATION CHILD:</b>
+                            <br>
+                            If the child is  a Nis  ga’a or Treaty First Nation chil d, you must servethe Nisga'a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.
+                            <br>
+                            To serve them notic e, they must receive a copy   of this applicatio
+                        </p>
+                    </NoteBox>
+
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            A guardian’s parental responsibilities include making decisions respecting the child’s cultural, linguistic, religious and spiritual upbringing and heritage, including, if the child is an Indigenous child, the child’s Indigenous identity [s. 41 Family Law Act].
+                        </p>
+                    </NoteBox>
+
+                    <div style="margin-bottom: 1rem;"></div>
+
+                    <NoteBox>
+                        <b-icon-book />
+                        <p>
+                            For more information about serving Nisga'a Lisims Government or the Treaty First Nation to which the child belongs, see the guidebook.
+                        </p>
+                    </NoteBox>
+                </div>        
             </div>
 
-            <div style="margin-top:1rem;"></div>
-<!-- <5> -->
-            <section>
-                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
-                <div style="margin:0 0 0 2rem; display:inline;">Form 5</div>
-            </section>
+            <div style="margin-top: 1rem;"></div>
 
-            <div style="margin-top:1rem;"></div>
-<!-- <6> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
-                <div style="margin:0 0 0 1rem;">                     
-                    <check-box  :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
+            <!-- <4> -->
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <FormPart :part="4" title="Guardianship affidavit and supporting documents" subtitle="Complete this part only if you are applying to be appointed as a guardian"></FormPart>
+
+                    <NoteBox>
+                        <p>
+                            A party applying to be appointed as a guardian of a child must provide the court with evidence using the Guardianship Affidavit in Form 5 respecting the best interests of the child [s. 51 FamilyLaw Act and Rule 26]. 
+                        </p>
+                    </NoteBox>
+                    
+                    <div class="print-block">
+                        
+                        <div>
+                            <b>5. </b>
+                            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
+                            <div style="margin:0 0 0 2rem; display:inline;">before the court can make a final order about guardianship</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:1rem;"></div>
+                    <div>
+                        <b>6. </b>
+                        <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
+                        <div style="margin:0 0 0 2rem; display:inline;">Form 5</div>
+                    </div>
+
+                    <div style="margin-top:1rem;"></div>
+                    <div>
+                        <b>7. </b>
+                        <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
+                        <div style="margin:0 0 0 1rem;">                     
+                            <check-box  :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
+                        </div>
+                        <div style="margin:0 0 0 3rem;">
+                            <ul>
+                                <li>
+                                    a Consent for Child Protection Record Check in Form 5 under the FamilyLaw Act Regulation
+                                </li>
+                                <li>
+                                    a request, in the form provided by the registry, to search the protection orderregistry
+                                </li>
+                            </ul>
+                        
+                        </div>
+                        <div style="margin:0.5rem 0 0 1rem;">                     
+                            <check-box  :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to file the required documentswith this application.I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that thedocuments be filedwith this application. I understand I will still be required to filethe documentsat a later date."/>
+                        </div>
+                    </div>
+
                 </div>
-                <div style="margin:0 0 0 3rem;">
-                   <check-box  :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
-                   <check-box  :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
-                </div>
-                <div style="margin:0.5rem 0 0 1rem;">                     
-                    <check-box  :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
-                </div>
-            </section>
+                <div style="width: 20%;">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            To complete Form 5, you are required to attach the results from various record checks as exhibits. 
+                            <br>
+                            The record checks must be initiated at the time of filing this application.
+                        </p>
+                    </NoteBox>
+
+                    <div style="margin-bottom: 1rem;"></div>
+
+                    <NoteBox>
+                        <b-icon-book />
+                        <p>
+                            For more information about how to complete a record check, including where to find the forms, see the guidebook.
+                        </p>
+                    </NoteBox>
+
+                    <div style="margin-bottom: 1rem;"></div>
+
+                    <NoteBox>
+                        <b-icon-book />
+                        <p>
+                            You must file a consent and request for record check or an Application for Case Management Order Without Notice or Attendance Form 11
+                        </p>
+                    </NoteBox>
+
+                </div>        
+            </div>
         </div>
-
-
     </div>
 </template>
 
@@ -97,11 +301,19 @@ import UnderlineForm from "@/components/utils/PopulateForms/components/Underline
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 
 import { schedule7DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
+import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox
+        CheckBox,
+         GreyBoxForm,
+         ScheduleHeader,
+         NoteBox,
+         FormPart
     }
 })
 
