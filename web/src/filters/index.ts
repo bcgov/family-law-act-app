@@ -63,6 +63,13 @@ Vue.filter('beautify-date-full', function(date){
 		return ''
 })
 
+Vue.filter('beautify-date-mid', function(date){
+	if(date)
+		return	moment(date).format('DD/MMM/yyyy');
+	else
+		return ''
+})
+
 Vue.filter('beautify-date-text', function(date){
 	if(date) {
 		var _text = date.split(' ');		
