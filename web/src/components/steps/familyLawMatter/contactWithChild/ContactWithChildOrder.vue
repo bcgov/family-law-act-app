@@ -91,7 +91,7 @@ export default class ContactWithChildOrder extends Vue {
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
                 togglePages(pgPages, true, this.currentStep);
 
-            } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+            } else if(['cancelOrder', 'suspendedOrder'].includes(this.survey.data.orderDifferenceType)) {
                 togglePages([p.ContactWithChildBestInterestsOfChild], true, this.currentStep);
                 togglePages([p.AboutContactWithChildOrder], false, this.currentStep);
             }

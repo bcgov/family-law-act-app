@@ -4,189 +4,393 @@
 <!-- <Header> -->
         <div>
              <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 10 – SPOUSAL SUPPORT – EXISTING</b></div>
-            <div style="text-align:center;"><b>This is Schedule 10 to the Application About a Family Law Matter</b></div>
-
-            <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to change or cancel an existing final order about spousal support or to set aside or replace all or part of an existing written agreement about spousal support.</i>
-            </div>
-
+             <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <ScheduleHeader scheduleNumber="Schedule 9" scheduleTitle="Spousal Support" scheduleDescription="Existing final order or written agreement"></ScheduleHeader>
+                    <div style="margin-bottom: 1rem;"></div>
+                    <NoteBox>
+                        <p>
+                            Complete this schedule only if you have an existing final order or written agreement about spousal support and you need a new court order made to change, suspend or cancel the final order, or to set aside or replace the written agreement.
+                        </p>
+                    </NoteBox>
+                    </div>    
+                </div>
 
             <div style="margin-top:1rem;"></div>
-<!-- <1> -->
-            <section class="resetquestion">
-                <check-box inline="inline" boxMargin="0" shift="5" style="display:inline; margin-left:0.0rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or written agreement about spousal support made"/>
-                <underline-form style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="on" hint="mmm/dd/yyyy" :text="exSpsSupInfo.current.date"/>
-            </section>
+<!-- < Part 1> -->
+<div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+    <div style="flex: 1">
+        <FormPart :part="1" title="Final order or agreement"></FormPart>
+        <div style="margin:0 0 0 1.5rem;">
+            <i>Select only one of the options below.</i>
 
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>Existing final order</b></div>
-<!-- <2> -->
-                <section>
-                    <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing order. You may leave this section blank.</i>
-                    <div style="margin:0 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="exSpsSupInfo.current.order?'yes':''" text="I am applying for the existing final order about spousal support to be:"/>                    
-                    </div>
-                    <div style="margin:0 0 0 3.25rem;">
-                        <check-box  :check="exSpsSupInfo.orderInfo.change?'yes':''" text="changed"/>
-                        <check-box  :check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="cancelled"/>
-                        <div>Since the final order about spousal support was made, circumstances have changed as follows:</div>
-                        <i class='marginleft-1vue' style="margin-left:0rem;">Select all options that apply and complete the required information</i>
-                        <check-box  :check="exSpsSupInfo.orderInfo.changes.myfin?'yes':''" text="my financial situation has changed"/>
-                        <check-box  :check="exSpsSupInfo.orderInfo.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
-                        
-                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.myEmp?'yes':''" text="my employment, training, health and/or ability to work has changed as follows:"/>
-                        <div v-if="exSpsSupInfo.orderInfo.changes.myEmp" 
-                                class="answerbox">{{exSpsSupInfo.orderInfo.myEmp}}</div>
-                        <div v-else style="margin-bottom:2rem;"></div>
-                        
-                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.opEmp?'yes':''" text="I believe the other party’s employment, training, health and/or ability to work has changed as follows:"/>
-                        <div v-if="exSpsSupInfo.orderInfo.changes.opEmp" 
-                                class="answerbox">{{exSpsSupInfo.orderInfo.opEmp}}</div>
-                        <div v-else style="margin-bottom:2rem;"></div>
-                        
-                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.houseHold?'yes':''" text="my household expenses have changed as follows:"/>
-                        <div v-if="exSpsSupInfo.orderInfo.changes.houseHold" 
-                                class="answerbox">{{exSpsSupInfo.orderInfo.houseHold}}</div>
-                        <div v-else style="margin-bottom:2rem;"></div>
-                        
-                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.newInfo?'yes':''" text="information has become available that was not available when the order was made <i>(specify):</i>"/>
-                        <div v-if="exSpsSupInfo.orderInfo.changes.newInfo" 
-                                class="answerbox">{{exSpsSupInfo.orderInfo.newInfo}}</div>
-                        <div v-else style="margin-bottom:2rem;"></div>
-                        
-                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.other?'yes':''" text="other changes or circumstances <i>(specify)</i>:"/>
-                        <div v-if="exSpsSupInfo.orderInfo.changes.other" 
-                                class="answerbox">{{exSpsSupInfo.orderInfo.otherChange}}</div>
-                        <div v-else style="margin-bottom:2rem;"></div>
-                    </div>
-                </section>
+            <div style="display:block;">
+                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                :check="true?'yes':''" text="I have <b>a final court</b> orderabout spousal support made on (date)"/>
+                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="" aftertext="that I want to change or cancel (seeattached copyof order). --> Part 2" hint="mmm/dd/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
             </div>
+            <div style="display:block;">
+                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                :check="true?'yes':''" text="I have a <b>written agreementabout</b> spousal support made on(date)"/>
+                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext=" " aftertext="that I want to repeal or replace (see attached copy of agreement). --> Complete Part 3" hint="mmm/dd/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
+            </div>
+        </div>
+        </div>
+        <div style="width: 20%;">
+            <div style="padding-top:30px">
+                <NoteBox>
+                    <b-icon-paperclip />
+                    <p>
+                        You must attach a copy of the order or agreement to this application for filing.
+                    </p>
+                </NoteBox>
+            </div>      
+        </div>
+    </div>
+    <div style="margin-top:1rem;"></div>
 
+    <!-- <Part 2> -->
+    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+        <div style="flex: 1">
+            <FormPart :part="2" title="Final order –Complete this part only if you have a final order"></FormPart>
             <div class="print-block">
-                <div style="margin-top:2rem;"><b>Existing agreement</b></div>
-<!-- <3> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
-                    <div>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exSpsSupInfo.current.agreement?'yes':''" text="I am applying for the existing written agreement about spousal support to be:"/>
-                        <div style="margin:0 0 0 3rem;">
-                            <check-box  :check="exSpsSupInfo.agreementInfo.setAside?'yes':''" text="set aside"/>
-                            <check-box  :check="exSpsSupInfo.agreementInfo.replace?'yes':''" text="replaced"/>
+                <div>
+                <div><b>2. Since the final order was made, the following circumstances occurred:</b><br>
+                <i>Select all options that apply and complete the required
+                    information</i>
+                </div>
+                       <div style="padding-left: 24px;">
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.myfin?'yes':''"
+                                text="My financial situation has changed" />
                         </div>
-                        <div style="margin:0 0 0 3rem;">I believe the agreement should be set aside or replaced because:</div>
-                        <div style="margin:0 0 0 2rem;" v-if="exSpsSupInfo.agreementInfo.reason" 
-                                class="answerbox">{{exSpsSupInfo.agreementInfo.reason}}</div>
-                        <div v-else style="margin-bottom:2rem;"></div>
-                    </div>                
-                </section> 
-            </div>       
-        
+                         <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;"  :check="exSpsSupInfo.orderInfo.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed" />
+                          </div>
+                          <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                    style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.myEmp?'yes':''" text="My employment, training, health and/or ability to work has changed as follows:" />
+                           </div>
+                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.myEmp" style="margin-top:10px; text-indent:0rem"
+                                textwidth="35rem" :text="exSpsSupInfo.orderInfo.myEmp">
+
+                            </GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                        
+                            <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                    style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.houseHold?'yes':''" text="My household expenses have changed as follows:"/>
+                            </div>
+                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.houseHold" style="margin-top:10px; text-indent:0rem"
+                                textwidth="35rem" :text="exSpsSupInfo.orderInfo.houseHold">
+
+                            </GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                            <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                    style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.newInfo?'yes':''" text="Information has become available that was not available when the order was made <i>(specify):</i>"/>
+                            </div>
+                            <GreyBoxForm  v-if="exSpsSupInfo.orderInfo.changes.newInfo" style="margin-top:10px; text-indent:0rem"
+                                textwidth="35rem" :text="exSpsSupInfo.orderInfo.newInfo">
+
+                            </GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                        
+                            <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                    style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.other?'yes':''" text="Other changes or circumstances <i>(specify)</i>:"/>
+                            </div>
+                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.other" style="margin-top:10px; text-indent:0rem"
+                                textwidth="35rem" :text="exSpsSupInfo.orderInfo.otherChange">
+
+                            </GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>  
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <p><b>3.</b> I am applying for the final order to be:</p>
+                    </div>
+                    <div style="margin:0 0 0 1rem;">
+
+                        <i>Select only one option</i>
+
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.change ? 'yes' : ''"
+                                text="changed -> <i>Complete Part 4and 5</i>" />
+                        </div>
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="suspended -> <i>Complete Part 5</i>"/>
+                        </div>
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="cancelled -> <i>Complete Part 5</i>"  />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div style="width: 20%;">
+            <div style="padding-top:30px">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        The court can only change, suspend or cancel a final order if certain circumstances exist <i>[s. 16  7 Family Law Act].</i>
+                    </p>
+                </NoteBox>
+            </div>      
+        </div>
+    </div>
+
+    <div style="margin-top:1rem;"></div>
+    <!-- Part 3 -->
+    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+        <div style="flex: 1">
+            <FormPart :part="3" title="Agreement –Complete this part only if you have an existing agreement">
+            </FormPart>
             <div class="print-block">
-                <div style="margin-top:2rem;"><b>About the order</b></div>
-<!-- <4> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Complete only if you are applying to change or replace an existing final order or written agreement about spousal support. You may leave this section blank.</i>
-                    <div style="margin:0 0 0 0rem; text-indent:0rem;">
-                        I am applying for the final order or agreement about spousal support to be changed or replaced as follows:
-                    </div>                    
-                    <div style="margin:0 0 0 0rem;" v-if="exSpsSupInfo.about.chSinceOrder" 
-                        class="answerbox">{{exSpsSupInfo.about.chSinceOrder}}</div>
-                    <div v-else style="margin-bottom:2rem;"></div>
-                </section>
+                
+<!-- <3> --><div>
+    <div style="margin:0 0 -0.25rem 0;"><b>4.</b>I believe the agreement about spousalsupport <b></b> should be set aside or replaced </b> because:
+    </div>
+    <GreyBoxForm v-if="exSpsSupInfo.agreementInfo.reason" style="margin-top:10px; text-indent:0rem"
+        textwidth="35rem" :text="exSpsSupInfo.agreementInfo.reason">
+    </GreyBoxForm>
+    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+    </div>
+    <div>
+        <div>
+            <p><b>5.</b> I am applying for the existing agreement to be</p>
+        </div>
+
+        <div style="margin:0 0 0 1rem;">
+            <i>Select only one option</i>
+            <div style="display:block;">
+                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                    style="text-indent: 5px;" :check="exSpsSupInfo.agreementInfo.setAside?'yes':''" 
+                    text="<b>set aside </b>--> Skip ahead to Part 5" />
+            </div>
+            <div style="display:block;">
+                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                    style="text-indent: 5px;" :check="exSpsSupInfo.agreementInfo.replace?'yes':''"
+                    text="<b> replaced with an order</b> --> Complete Part 4" />
             </div>
 
+        </div>
+    </div>
+                
+    </div> 
+    </div>
+    <div style="width: 20%;">
+        <div style="padding-top:30px; padding-bottom:20px">
+            <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>
+                    The court must set aside or replace with an order, all or part of an agreement about spousal support if the court is satisfied one or more circumstances set out in s. 164 (3) of the Family Law Actexisted when the parties entered into the agreement, or the agreement is significantly unfair.
+                </p>
+            </NoteBox>
+        </div>      
+    </div>
+</div>
+
+<div style="margin-top:1rem;"></div>
+<div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+    <div style="flex: 1">
+        <FormPart :part="4"
+            title="About the new order - Complete this part only if you are asking to change or replace the existing order or agreement">
+        </FormPart>
+        <div class="print-block">
+            <div style="margin-top:2rem;"><b>About the order</b></div>
+
+            <div>
+                <div style="margin:0 0 -.25rem 0;"><b>6.</b> I am applying for the final order or agreement about spousal supportto be <b></b>changed or replaced </b> as follows:
+                </div>   
+                <GreyBoxForm v-if="exSpsSupInfo.about.chSinceOrder" style="margin-top:10px; text-indent:0rem"
+                            textwidth="35rem" :text="exSpsSupInfo.about.chSinceOrder">
+                        </GreyBoxForm>
+
+                        <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="35rem"></GreyBoxForm>                 
+                
+            </div>
+            <div>
+                <div style="margin:0 0 -.25rem 0;"><b>7.</b>Based on the information I know about each party’s means, needs, and othercircumstances <br>
+                    <i> Select only one of the options below</i>
+                </div>
+                <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                        text="<b>I expect the range for the monthly amount payable</b>"  />
+                       
+                </div>
+                <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="for spousal support to be approximately $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                        text="I expect a lump sum amount payablefor spousal support to be approximately" />
+                </div>
+                <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                        text="I am <b>not able to estimate </b>the amount payable for spousal support at this time" />
+                </div>
+            </div>
+        </div>
+        </div>
+        <div style="width: 20%;">
+            <div style="padding-top:30px; padding-bottom:20px">
+                <NoteBox>
+                    <b-icon-book />
+                    <p>
+                        For more information about how to calculate the amount for spousal support, see the guidebook.
+                    </p>
+                </NoteBox>
+            </div>      
+        </div>
+    </div>
+    <div style="margin-top:1rem;"></div>
+             <!-- <Part %> -->  
+    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+        <div style="width:80%">
+            <FormPart :part="5"
+                title="Unpaid spousal support">
+            </FormPart>
             <div class="print-block">
-                <div style="margin-top:1.5rem;"><b>Unpaid spousal support</b></div>
-<!-- <5> -->
-                <section>
-                    <underline-form style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="As of " hint="mmm/dd/yyyy" :text="exSpsSupInfo.payDetails.currentDate"/>
-                    <underline-form style="margin-left:0.1rem; text-indent:0px;" textwidth="7rem" beforetext=", the amount of unpaid spousal support (arrears) was $" hint="" :text="exSpsSupInfo.payDetails.unPaidAmount"/>          
-                </section>
+                <div>
+                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="As of " hint="mmm/dd/yyyy" hintindent="30px" :text="exSpsSupInfo.payDetails.currentDate"/>
+                    <GreyBoxForm style="margin-left:0.1rem; text-indent:0px;" textwidth="7rem" beforetext=", the amount of unpaid spousal support (arrears) was $" hint="" hintindent="30px" :text="exSpsSupInfo.payDetails.unPaidAmount"/>          
+                </div>
             </div>
 
             <div style="margin-top:1rem;"></div>
-<!-- <6> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Complete only if there is unpaid spousal support. You may leave this section blank.</i>
-                <div style="margin:0 0 0 1.5rem;">
-                    <i>Select only one of the options below.</i>
-                    <check-box style="margin:0 0 0 0rem;" :check="exSpsSupInfo.payDetails.unpaid && !exSpsSupInfo.payDetails.reduce?'yes':''" text="I am not applying to reduce the amount of unpaid spousal support (arrears)"/>                    
-                </div>
-                <div style="margin:0 0 0 1.5rem;">    
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0.07rem;" :check="exSpsSupInfo.payDetails.reduce?'yes':''" text="I am applying to reduce the amount of unpaid spousal support (arrears) to"/>                    
-                    <underline-form style="display:inline; text-indent:0px;" textwidth="8rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.reduceAmount"/>
-                    <div style="margin:0 0 0rem 0;">because:</div>
-                    <div style="margin:0 0 0 1rem;" v-if="exSpsSupInfo.payDetails.reduce" 
-                        class="answerbox">{{exSpsSupInfo.payDetails.reduceReason}}</div>
-                    <div v-else style="margin-bottom:2rem;"></div>
-                </div>
-            </section>
+                <div>
+                    <i style="display:inline; margin-left:0.35rem"><b>9.</b> Complete only if there is unpaid spousal support. You may leave this section blank.</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <i>Select only one of the options below.</i>
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                            check="exSpsSupInfo.payDetails.unpaid && !exSpsSupInfo.payDetails.reduce?'yes':''" text="I am not applying to reduce the amount of unpaid spousal support (arrears)" />
+                        </div>
+                    </div>
+                    <div style="margin:0 0 0 1.5rem;"> 
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                            :check="exSpsSupInfo.payDetails.reduce?'yes':''" text="I am applying to reduce the amount of unpaid spousal support (arrears) to" />
+                        </div>   
+                       
+                        <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="8rem" beforetext=" $" aftertext="because:" hint="" :text="exSpsSupInfo.payDetails.reduceAmount"/>
+   
+                        <GreyBoxForm v-if="exSpsSupInfo.payDetails.reduce" style="margin-top:10px; text-indent:0rem"
+                                textwidth="35rem" :text="exSpsSupInfo.payDetails.reduceReason">
 
-            <div style="margin-top:1rem;"></div>
-<!-- <7> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Complete only if there is unpaid spousal support. You may leave this section blank.</i>
-                <div style="margin:0 0 0 1.5rem;">I am applying for an order that the remaining unpaid spousal support (arrears) be paid as follows:</div>
-                <div style="margin:0 0 0 1.5rem;">
-                    <i>Select all options that apply and complete the required information</i>
-                </div>
-                <div style="margin:0.25rem 0 0 1.5rem;">                        
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0rem;" :check="exSpsSupInfo.payDetails.monthly?'yes':''" text="at a rate of "/>                    
-                    <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
-                    <div style="display:inline;margin:0 0 0 0.25rem;">per month</div>
-                </div>
-                <div style="margin:0.25rem 0 0 1.45rem;">
-                    <check-box style="margin:0 0.25rem 0 0rem;" :check="exSpsSupInfo.payDetails.lumpSum?'yes':''" text="in a lump sum"/>
-                </div>
-                <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.45rem;">
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="exSpsSupInfo.payDetails.other?'yes':''" text="other <i>(specify):</i>"/>
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" :text="exSpsSupInfo.payDetails.otherComm"/>
-                 </div>
-            </section>
-
-            <div class="print-block">
-                <div style="margin-top:2rem;"><b>Calculations</b></div>
-<!-- <8> -->
-                <section>
-                    <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
-                    <div style="margin:0 0 0 1.25rem;">
-                        <check-box style="margin:0 0.25rem 0 0rem;" :check="exSpsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
-                        <check-box style="margin:0 0rem 0rem 0rem;" :check="!exSpsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
-                        <div style="margin:0 0 0 1rem;" v-if="!exSpsSupInfo.calc.attaching" 
-                            class="answerbox">{{exSpsSupInfo.calc.reason}}</div>
+                            </GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="35rem"></GreyBoxForm>
+                       
+                        <div style="margin:0 0 0 1rem;" v-if="exSpsSupInfo.payDetails.reduce" 
+                            class="answerbox">{{exSpsSupInfo.payDetails.reduceReason}}</div>
                         <div v-else style="margin-bottom:2rem;"></div>
                     </div>
-                </section>
-            </div>
+                </div>
 
-            <div class="print-block">
-                <div style="margin-top:1.5rem;"><b>Financial statement</b></div>
+                <div>
+                    <i style="display:inline; margin-left:0.35rem"><b>10.</b> Complete only if there is unpaid spousal support. You may leave this section blank.</i>
+                    <div style="margin:0 0 0 1.5rem;">I am applying for an <b>order that the remaining unpaid spousal support</b> be paid as follows:</div>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <i>Select all options that apply and complete the required information</i>
+                    </div>
+                    <div style="margin:0.25rem 0 0 1.5rem;"> 
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                            :check="exSpsSupInfo.payDetails.monthly?'yes':''" text="At a rate of " />
+                            
+                        </div> 
+                        <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                        <div style="display:inline;margin:0 0 0 0.25rem;">per month</div>                      
+                                 
+                        
+                    </div>
+                    
+                    <div style="margin:0.25rem 0 0 1.45rem;">
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                            :check="exSpsSupInfo.payDetails.lumpSum?'yes':''" text="In a <b>lump sum</b> payment" />     
+                        </div> 
+                       
+                    </div>
+                    <div style="margin:0.25rem 0 0 1.45rem;">
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                            :check="exSpsSupInfo.payDetails.other?'yes':''" text="other <i>(specify):</i>" />     
+                        </div>
+                        <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" :text="exSpsSupInfo.payDetails.otherComm"/>
+                     </div>
+                    </div>
+        </div>
+     </div>
+        
+     
 <!-- <9> -->
-                <section>               
+    <div style="margin-top:1rem;"></div>
+     <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+        <div style="flex:1">
+            <FormPart :part="6"
+                title="Income Information">
+            </FormPart>
+            <div class="print-block">
+                <div style="margin:0 0 -.25rem 0;"><b>11. I am required to file </b>a Financial Statement Form 4 to provide my income information to the court <br>      
+                </div>
+                <div>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box  :check="!exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box  :check="exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
-                    </div>
-                </section>
-            </div>
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;"  :check="!exSpsSupInfo.applyForCaseManagement?'yes':''" text="<b>I am filing a </b>Financial Statement in Form 4 with this application" />
 
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>IMPORTANT NOTE TO THE PARTIES:</b></div>
-                <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>This family law case includes an application about spousal support. You must provide your financial information with your application or reply to this application by completing and filing a Financial Statement in Form 4.</b></div>
-                <div style="margin-top:1rem;text-align:justify;">
-                    If you do not give your complete, true, and up-to-date financial information when needed, the court can:
-                    <ul>
-                        <li>order that the income information be provided</li>
-                        <li>assume a party’s income is a certain amount for support purposes and make an order based on it</li>
-                        <li>require a party to give security</li>
-                        <li>require a party to pay the other party’s expenses, an amount to the other party up to $5,000, or a fine up to $5,000</li>
-                        <li>make any other order the court considers appropriate</li>
-                    </ul>
+                        </div>
+                        <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" :check="exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am <b>not able</b> to file a Financial Statement in Form 4 with this application" />
+                                <span >I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that myincome information in Form 4 be provided with this application. I understand Iwill still be required to file a Financial Statement in Form 4 at a later date</span>
+
+                        </div>
+                       
+                    </div>
+                </div>
+                <div style="background: #eee; border: 2px dashed #333; padding: 4px;">
+                    
+                        <div class="print-block">
+                            <p><b>IMPORTANT NOTE TO THE OTHER PARTIES:</b></p>
+                            <p><b>This family law case includes an application about spousal support. You must provide your financial information with your application or reply to this application by completing and filing a Financial Statement in Form 4.
+                                </b></p>
+                            <div style="margin-top:1rem;text-align:justify;">
+                                f you do not give your complete, true, and up-to-date financial information when needed, the court can:
+                                <ul>
+                                    <li>order that the income information be provided</li>
+                                    <li>assume a party’s income is a certain amount for support purposes and make an order based on it</li>
+                                    <li>require a party to give security</li>
+                                    <li>require a party to pay the other party’s expenses, an amount to the other party up to $5,000, or a fine up to $5,000</li>
+                                    <li>make any other order the court considers appropriate</li>
+                                </ul>
+                            </div>
+                        </div>
                 </div>
             </div>
-        </div>    
+        </div>
+        <div style="width: 20%;">
+            <div style="padding-top:30px; padding-bottom:20px">
+                <NoteBox>
+                    <b-icon-book />
+                    <p>
+                        You must file a Financial Statement Form 4 or an Application for Case Management Order Without Notice or Attendance Form 11.
+                    </p>
+                </NoteBox>
+            </div>      
+        </div>
+        
+     </div>    
+    </div>    
 </div>
 </template>
 
@@ -196,11 +400,19 @@ import UnderlineForm from "@/components/utils/PopulateForms/components/Underline
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import moment from 'moment';
 import { schedule10DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
+import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox
+        CheckBox,
+        GreyBoxForm,
+        ScheduleHeader,
+        FormPart,
+        NoteBox
     }
 })
 export default class Schedule10 extends Vue {

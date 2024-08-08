@@ -90,7 +90,7 @@ export default class AboutParentingArrangements extends Vue {
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
                 togglePages(paPages, true, this.currentStep);
 
-            } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+            } else if(['cancelOrder', 'suspendedOrder'].includes(this.survey.data.orderDifferenceType)) {
                 togglePages([p.BestInterestsOfChild], true, this.currentStep);
                 togglePages([p.ParentingArrangementChanges], false, this.currentStep);
             }
