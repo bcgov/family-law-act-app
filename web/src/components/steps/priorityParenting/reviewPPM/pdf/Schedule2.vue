@@ -59,8 +59,8 @@
                 </div>
                 <div style="margin-left:3.75rem;">
                     <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'yes')?'yes':''" text="<b>Yes</b> &#10132; go to next question"/> 
-                    <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'no')?'yes':''" text="<b>No</b> &#10132; skip ahead to <b>Part 4</b>"/> 
-                    <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'unknown')?'yes':''" text="<b>Unknown</b> &#10132; skip ahead to <b>Part 4</b>"/> 
+                    <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'no')?'yes':''" text="<b>No</b> &#10132; skip ahead to <b>Part 2</b>"/> 
+                    <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'unknown')?'yes':''" text="<b>Unknown</b> &#10132; skip ahead to <b>Part 2</b>"/> 
                 </div>
                 <div style="text-indent: -0px; text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
                     <div style="display: flex;">
