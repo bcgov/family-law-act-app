@@ -4,7 +4,7 @@
         <div style="display:inline-block">
             <div :style="{position: 'absolute', marginTop:marginTop, fontSize: entryFontSize, background: '#d6d6d6', color:'#000000', minWidth: textwidth, textAlign: 'center'}">{{text ? text : '&nbsp;'}}</div> 
             <div :style="{borderBottom: '0.7px solid #d6d6d6', minWidth: textwidth, background: '#d6d6d6', marginTop: '1px'}"></div>            
-            <div :style="{position: 'absolute', marginTop:'-1px', marginLeft: hintindent, fontSize: hintFontSize, color:'#8a8a8a'}">
+            <div :style="{position: 'absolute', marginTop:hintmargintop, marginLeft: hintindent, fontSize: hintFontSize, color:'#8a8a8a'}">
                <i v-if="italicHint"> {{hint}} </i>
                <span v-else > {{hint}} </span> 
             </div>
@@ -48,6 +48,9 @@ export default class UnderlineForm extends Vue {
 
     @Prop({ default: '-20px' })
     marginTop!: string;
+
+    @Prop({ default: '-1px' })
+    hintmargintop!: string;
  
 }
 </script>

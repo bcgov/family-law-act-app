@@ -35,7 +35,7 @@
         </div>
 
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <p>This Application for Order Prohibiting the Relocation of a Child sets out the details of an order
                     prohibiting the relocation of a child that a person is applying for under section 69 of the <i>Family
                         Law Act.</i> </p>
@@ -81,7 +81,7 @@
         <!-- Part 1 -->
 
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 1rem;"></div>
                 <div style="background: #626262; color: white; font-size: 11pt;">
                     <b>Part 1 | About the Parties</b>
@@ -101,8 +101,8 @@
                             My <b> date of birth</b> is:
                         </div>
                         <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
-                            beforetext="" hint="date of birth (mmm/dd/yyyy)" :italicHint="false"
-                            textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.dob | beautify - date" />
+                            beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede"
+                            hintMargin="152px" :text="yourInfo.dob | beautify-date-mid" />
                     </div>
                 </div>
 
@@ -121,7 +121,7 @@
                         </div>
                         <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
                             beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px"
-                            :text="firstOtherParty.dob | beautify - date" />
+                            :text="firstOtherParty.dob | beautify-date-mid" />
                         <div>
                             <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                                 :check="true ? 'yes' : ''" />
@@ -172,7 +172,7 @@
         <!-- Part 2-->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 2 |Information about children</b>
@@ -188,7 +188,7 @@
                             <div style="height:1rem; font-size:8pt;color:#000">{{ data.value }}</div>
                         </template>
                         <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
                         </template>
                     </b-table>
                 </div>
@@ -218,7 +218,7 @@
         <!-- Part 3  -->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 3 |Notice of the application</b>
@@ -251,42 +251,43 @@
         </div>
 
         <!-- Part 4 -->
+        <div style="page-break-after:always;">&nbsp;</div>
         <div class="print-block">
             <div style="margin-top: 1rem;"></div>
             <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-                <div style="flex:1; margin-right: 10px;">
+                <div style="width:80%; margin-right: 10px;">
                     <div style="margin-top: 0.3rem;"></div>
                     <div style="background: #626262; color: white; font-size: 13pt;">
-                        <b>Part 4 fgsg|About your court appearance</b>
+                        <b>Part 4 |About your court appearance</b>
                     </div>
                     <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:9pt;"><i>For registry or
                             judicial case manager use only</i></div>
                     <div style="border:1px solid; font-size: 9pt; padding:1rem;font-family:BCSans">
                         <b>This application, which requires a court apprearance, will be heard by the court</b>
-                        <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" hintMargin="25px" text="" marginTop:-10px />
-                        <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            beforetext="<b>at</b>" hint="time" hintMargin="60px" text="" />
+                        <GreyBoxForm style="text-indent:2px;" textwidth="10rem"
+                            beforetext="<b>on</b>" textafter="<b>at</b>" hint="date" hintMargin="25px" hintindent="50px" hintmargintop="12px" text="" marginTop="-8px" />
+                        <GreyBoxForm style="text-indent:2px;" textwidth="10rem"
+                            beforetext="<b>at</b>" hint="time" hintMargin="60px" hintindent="50px" hintmargintop="12px" text="" marginTop="-8px"/>
                         <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
 
-                        <div style="margin:0.5rem 0 0 0.25rem;">
+                        <div style="margin:2rem 0 0 0.25rem;">
                             <div>
                                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" />
                                 <div style="margin-top: -18px;text-indent: 20px;">
                                     In person at
-                                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                                        beforetext="" hint="court location" hintMargin="60px" text="" />
+                                    <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="20rem"
+                                        beforetext="" hint="court location"  hintMargin="60px" hintmargintop="12px" text="" marginTop="-8px"/>
                                 </div>
                             </div>
                         </div>
-                        <div style="margin:0.5rem 0 0 0.25rem; display:flex; flex-direction:row; gap:10px">
+                        <div style="margin:1rem 0 0 0.25rem; display:flex; flex-direction:row; gap:10px">
                             <div style="width:20%">
                                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" />
                                 <div style="margin-top: -18px;text-indent: 20px;">
                                     by another method of attendance, as specified
                                 </div>
                             </div>
-                            <div style="flex:1; padding-top:8px">
+                            <div style="width:80%; padding-top:8px">
                                 <div style="border:1px solid; font-size: 9pt; padding:0.5rem;">
                                     <b>Do not attend the courthouse in person.</b> The registry will send within 24 hours
                                     before
@@ -350,7 +351,7 @@
 
             <div style="margin-top: 1rem;"></div>
             <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-                <div style="flex:1; margin-right: 10px;">
+                <div style="width:80%; margin-right: 10px;">
                     <div style="margin-top: 0.3rem;"></div>
                     <div style="background: #626262; color: white; font-size: 13pt;">
                         <b>Part 5 |About the order</b>
@@ -372,9 +373,9 @@
                             There is a written agreement or order respecting parenting arrangements referred to in section
                             65 of
                             the <i>Family Law Act</i> made on
-                            <underline-form style="text-indent:2px;display:inline" textwidth="8rem" beforetext=""
-                                hint="mmm/dd/yyyy" :italicHint="false"
-                                :text="relocInfo.existingOrderDate | beautify - date - blank" />
+                            <GreyBoxForm style="text-indent:2px;display:inline" textwidth="8rem" beforetext=""
+                                hint="Date (dd/mmm/yyyy)" hintindent="30px" :italicHint="false" 
+                                :text="relocInfo.existingOrderDate | beautify-date-mid " />
                             that applies to the child(ren) that are the subject of this application
                             <b>(see attached copy of agreement or order)</b>.
                         </div>
@@ -392,9 +393,9 @@
                                     :check="relocInfo.receivedNotice ? 'yes' : ''" />
                                 <div style="margin-top: -18px;text-indent: 22px;">
                                     Notice of relocation was given to me on
-                                    <underline-form style="margin:0 0 0.5rem 0rem;text-indent:2px;display:inline-block"
-                                        textwidth="8rem" beforetext="" aftertext="(see attached copy)" hint="mmm/dd/yyyy"
-                                        :italicHint="false" :text="relocInfo.noticeDate | beautify - date - blank" />
+                                    <GreyBoxForm style="margin:0 0 0.5rem 0rem;text-indent:2px;display:inline-block"
+                                        textwidth="8rem" beforetext="" aftertext="(see attached copy)" hint="Date (dd/mmm/yyyy)" hintindent="30px"
+                                        :italicHint="false" :text="relocInfo.noticeDate | beautify-date-mid" />
                                 </div>
                             </div>
                             <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
@@ -402,34 +403,34 @@
                                     style="display:inline; font-size: 9pt; text-indent: -16px;"
                                     :check="!relocInfo.receivedNotice ? 'yes' : ''" text="" />
                                 <div style="margin-top: -18px;text-indent: 22px;">
-                                    <underline-form style="margin-left:0rem; text-indent:0px; display:inline"
+                                    <GreyBoxForm style="margin-left:0rem; text-indent:0px; display:inline"
                                         textwidth="5.7rem"
                                         beforetext="I did not receive written notice of relocation but became aware of the planned relocation on"
-                                        aftertext="." hint="mmm/dd/yyyy" :italicHint="false"
-                                        :text="relocInfo.foundOutDate | beautify - date - blank" />
+                                        aftertext="." hint="Date (dd/mmm/yyyy)" hintindent="10px"  :italicHint="false" hintmargintop="12px" marginTop="-8px"
+                                        :text="relocInfo.foundOutDate | beautify-date-mid" />
                                 </div>
-                                <div style="margin:0.5rem 0 0 1rem;  font-size: 9pt;">
-                                    <underline-form style="margin-left:0.35rem; display:inline" textwidth="6rem"
+                                <div style="margin:1.5rem 0 0 1rem;  font-size: 9pt;">
+                                    <GreyBoxForm style="margin-left:0.35rem; display:inline" textwidth="6rem"
                                         beforetext="I understand the date of the relocation of the child(ren) to be"
-                                        hint="Date(mmm/dd/yyyy)" :italicHint="false"
-                                        :text="relocInfo.presumedRelocationDate | beautify - date - blank" />
-                                    <underline-form style="margin:0 0 0 0.35rem; text-indent:5px;display:inline"
+                                        hint="Date (dd/mmm/yyyy)" hintindent="10px" :italicHint="false" hintmargintop="12px"  marginTop="-8px"
+                                        :text="relocInfo.presumedRelocationDate | beautify-date-mid" />
+                                    <GreyBoxForm style="margin:0 0 0 0.35rem; text-indent:5px;display:inline"
                                         :textwidth="relocInfo.presumedLocation.length < 22 ? '9rem' : '22rem'"
-                                        beforetext="to" aftertext="." hint="proposed location" :italicHint="false"
+                                        beforetext="to" aftertext="." hint="proposed location" hintindent="10px" :italicHint="false" hintmargintop="12px" marginTop="-8px"
                                         :text="relocInfo.presumedLocation" />
                                 </div>
                                 <div style="text-indent:10px; margin:1rem 0 0 0.65rem; font-size: 9pt;">
                                     I learned about the planned relocation:
                                 </div>
-                                <i style="text-indent:5px;margin:0.25rem 0 0 0.65rem; display: block; font-size: 9pt;">Briefly
+                                <i style="text-indent:5px; padding-left:12px; display: block; font-size: 9pt;">Briefly
                                     explain how you found out about the planned relocation if you did not receive written
                                     notice</i>
                                 <GreyBoxForm v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription"
-                                    style="margin-top:10px; text-indent:0rem" textwidth="35rem"
+                                    style="margin-top:10px; padding-left:12px; text-indent:0rem" textwidth="35rem"
                                     :text="relocInfo.foundOutDescription">
 
                                 </GreyBoxForm>
-                                <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem">
+                                <GreyBoxForm v-else style="margin-top:10px; padding-left:12px; text-indent:0rem" textwidth="30rem">
                                 </GreyBoxForm>
 
                             </div>
@@ -470,6 +471,7 @@
         </div>
 
         <!-- INFORMATION ABOUT YOUR APPEARANCE -->
+        <div style="page-break-after:always;">&nbsp;</div>
         <div class="print-block">
             <div style="margin-top: 1rem;"></div>
             <div style="text-align: justify; font-size:11px;">
@@ -618,9 +620,10 @@
         </div>
 
         <!-- Part 6 -->
+        <div style="page-break-after:always;">&nbsp;</div>
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 6 | Best interests of the child</b>
@@ -700,7 +703,7 @@
         <!-- Part 8 -->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 8 | Address for service</b>
@@ -802,7 +805,7 @@ export default class Form16Layout extends Vue {
 
     childrenFields = [
         { key: "fullName", label: "Child's full name", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:30%;" },
-        { key: "dob", label: "Child's date of birth (mmm/dd/yyyy)", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:18%;" },
+        { key: "dob", label: "Child's date of birth (dd/mmm/yyyy)", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:18%;" },
         { key: "currentSituation", label: "Child is currently living with", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:16%;" },
     ]
 
@@ -845,7 +848,7 @@ export default class Form16Layout extends Vue {
         for (const child of childData) {
             childInfo = {} as childrenInfoSurveyInfoType;
             childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);
+            childInfo.dob = Vue.filter('beautify-date-mid')(child.dob);
             childInfo.currentSituation = child.currentLiving;
             childrenInfo.push(childInfo)
         }
