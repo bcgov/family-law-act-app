@@ -35,18 +35,18 @@
 <!-- <NOTICE SECTION> -->
         <div style="font-size: 10pt; width: 80%;">
             This Application About a Protection Order sets out the details of an order about a protection
-            order that a person is applying for.
+            order that a person is applying for.<br/>
             A protection order made under the <i>Family Law Act</i> is a court order to protect a family
             member from another family member if there is a risk of family violence.
         </div>
 
-        <div class="fla-col-left-80 fla-medium-grey" style="border-style: dashed; border-color: black; width: 80%">
+        <div class="fla-col-left-80 fla-medium-grey" style="border: 1px dashed black; width: 80%">
             <b>Please read before completing this form:</b>
             <ul>
                 <li>You must complete the main application and any applicable schedule for your
                     application identified in Part 2 of the main application.</li>
                 <li>For guidance filling in this form, please read the guidebook. The guide is available
-                    online at www.gov.bc.ca/court-forms or from your local court registry.</li>
+                    online at <a href="https://www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.</li>
             </ul>
         </div>
 
@@ -102,7 +102,7 @@
         <check-box  :check="orderType == 'terminatePO'?'yes':''" text="<b>Order to terminate and existing protection order</b> ➜ <i>Complete <b>Schedule 3</b></i>"/>
     </section>
 
-<!-- <3> -->
+<!-- <PART 3> -->
     <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
         <b>Part 3 | Notice of the application</b>
     </div>
@@ -132,7 +132,7 @@
         <check-box v-else  :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply <b>without notice</b> to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>'"/>
     </section>
 
-    <div class="fla-col-left-80 fla-light-grey" style="border-style: dashed border-color: black; width: 80%">
+    <div class="fla-col-left-80 fla-light-grey" style="border: 1px dashed black; width: 80%">
         <b>NOTE TO PARTY:</b><br/>
         You may make your application without notice to the other party, but the judge will decide if it
         will be heard without notice, if notice must be given, or if the notice period should be shortened.
@@ -155,7 +155,7 @@
 
     <div style="margin-top: 1rem;"></div>
 
-    <!-- <4> -->
+    <!-- <PART 4> -->
     <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
         <b>Part 4 | About your court appearance</b>
     </div>
@@ -165,18 +165,41 @@
     </div>
 
     <div class="fla-col-left-80" style="border-style: solid border-color: black; width: 80%; line-height: 28px;">
-        <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="20.5rem" beforetext="<b>The application, which requires a court appearance, will be heard by the court on</b>" hint="(court registry, street address, city)" text=""/>
-        <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" hintindent="3rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
-        <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
-        <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
-        <div style="margin:0.5rem 0 0 0.25rem;">
-            <grey-box-form marginTop="-22px" style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hintindent="3rem" hint="(method of attendance)" text=""/>
-            <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
-            <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
-        </div>
+        <table style="border: 1px solid black;"><tr><td style="padding: 18px">
+            <b>The application, which requires a court appearance, will be heard by the court on</b><grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" hintindent="3rem" beforetext="" hint="date (mmm/dd/yyyy)" text=""/>
+            <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
+            <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+
+            <div style="margin-top: 1rem;"></div>
+
+            <table border="0" style="line-height: 16px;">
+                <tr>
+                    <td>
+                        <check-box :check="''" text="In person at "/>            
+                    </td>
+                    <td>
+                        <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0; line-height: 28px;" textwidth="20.5rem" beforetext="" hint="court location" text=""/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <check-box :check="''" text="by another method of attendance, as specified"/>
+                    </td>
+                    <td style="border: 1px solid black;">
+                        <div style="line-height: 14px;"><b>Do not attend the courthouse in person</b>. The registry will send within 24 hours before the hearing
+                        date noted above the link to connect by MS Teams, including a dial-in conferencing number to be used by
+                        any party that is unable to use MS Teams or has problems with their video connection. If you have not
+                        provided your email address or telephone number to the registry on your Notice of Address Change
+                        (Form 46), you must contact the registry to obtain the MS Teams conference information.</div>
+                    </td>
+                </tr>
+            </table>
+        </td></tr></table>
     </div>
 
-    <div class="fla-col-left-80 fla-light-grey" style="border-style: dashed border-color: black; width: 80%">
+    <div style="margin-top: 1rem;"></div>
+
+    <div class="fla-col-left-80 fla-light-grey" style="border: 1px dashed black; width: 80%">
         <b>NOTE TO THE OTHER PARTY:</b><br/>
         <b>If you do not attend</b> court on the date and time scheduled for the court appearance, the court
         may make an order in your absence.<br/>
@@ -202,10 +225,10 @@
 
     <section style="width: 80%">
         My <b>address for service</b> of court documents and contact information is:<br/>
-        <i>You must provide an address for service and contact number, but it does not have to be
+        <i>You must provide an address for service and contact number, but it does not have to be<br/>
         your own if you don’t want</i>
         <br/>
-        <table class="fullsize" style="margin:1rem 0 1rem 0;">
+        <table style="margin:1rem 0 1rem 0; width: 96%">
             <tr style="border:1px solid #414142" >          
                 <td colspan="3">Address: <div class="answer"> {{serviceAddress.street}} </div> </td>
             </tr>
@@ -226,7 +249,7 @@
         </table>
     </section>
 
-    <div style="float: right;width: 18%; margin-top: -270px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+    <div style="float: right;width: 18%; margin-top: -250px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
         <p>
             <b-icon-info-circle-fill />
             <div style="font-size: 9px">For more information about how this information will be used and who will have
