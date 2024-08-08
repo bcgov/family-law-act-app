@@ -1,61 +1,96 @@
 <template>
 <!----------------------------------------------------------------  <TERMINATE PO>   -------------------------------------------------------->
 <!-- <Page 2> --> 
+    
 <!-- <Header> -->
     <div v-if="dataReady">
         <div class="new-page" />
 
-
-        <div style="text-align:center;font-family:BCSans"><b> Schedule 3 – Terminate an Existing Protection Order</b></div>
-        <div style="text-align:center;font-family:BCSans"><b> This is Schedule 3 to the Application about a Protection Order</b></div>
-
-        <div style="margin:1rem 0; text-align:justify">
-            <i>This schedule must be completed if you are applying to terminate an existing protection order.</i>
+        <div style="background: #626262; color: white; font-size: 17pt; width: 80%;">
+            <b><span style="font-size: 34pt;">Schedule 3</span> | Terminate Existing Protection Order</b>
         </div>
 
-        <div style="margin-top:2rem;"></div>
+        <div style="margin-top: 1rem;"></div>
+
+        <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%">
+            Complete this schedule only if you have an existing protection order that you are applying to terminate.<br/>
+            An application to cancel an existing protection order must be made before the expiry of the order
+            that is the subject of the application [s. 187 <i>Family Law Act</i>].
+        </div>
+
+        <div style="margin-top: 1rem;"></div>
+
+        <div style="float: right;width: 18%; margin-top: -130px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+            <p>
+                <b-icon-info-circle-fill />
+                <div style="font-size: 9px">A person can make a subsequent application for a protection order after an
+                existing order has expired [s. 187 <i>Family Law Act</i>].</div>
+            </p>
+        </div>
+
+<!-- <PART 1> -->
+        <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
+            <b>Part 1 | Existing protection order</b>
+        </div>
+
+        <div style="margin-top: 1rem;"></div>
+
 <!-- <1> -->
-        <section class="resetquestion">
+        <section class="resetquestion" style="width: 80%">
             <check-box inline="inline" boxMargin="0" checkbox="" style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
-            <underline-form marginTop="-22px" style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="aboutOrder.dateOfPO | beautify-date"/>
-            <div style="display:inline; margin-left:0.5rem;">that I am applying to have terminated.</div>
+            <grey-box-form marginTop="-22px" style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="There is a <b>protection order made on</b>" hintindent="2rem" hint="(dd/mmm/yyyy)" :text="aboutOrder.dateOfPO | beautify-date"/>
+            <div style="display:inline; margin-left:0.5rem;">that I am applying to terminate <b>(see attached copy of order)</b>.</div>
         </section>
 
         <div style="margin-top:1rem;"></div>
 <!-- <2> -->
         <section>  
-            <i style="margin-left:.25rem;">Select only one of the options below</i>
-            <div style="margin:0rem 0 0 1rem;" >                
-                <check-box  :check="aboutOrder.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
-                <check-box  :check="aboutOrder.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
+            <b>I am</b> the:
+            <div style="margin:0.25rem 0 0 1rem;" >
+                <i>Select all options that apply</i>                
+                <check-box  :check="aboutOrder.kindOfParty.includes('protectedParty')?'yes':''" text="Protected party"/>
+                <check-box  :check="aboutOrder.kindOfParty.includes('parentGuardian')?'yes':''" text="Parent or guardian of a protected party"/>
+                <check-box  :check="aboutOrder.kindOfParty.includes('restrainedParty')?'yes':''" text="Person who the protection order is against"/>
             </div>
-            <div style="margin-left:1rem;">
-                <i>Explain why you were not in court when the protection order was made</i>
-            </div>
-            <div v-if="aboutOrder.whyNotInCourt" class="answerbox"> {{aboutOrder.whyNotInCourt}}</div>
-            <div v-else style="margin-bottom:2rem;"></div>
         </section>
 
         <div style="margin-top:1rem;"></div>
 <!-- <3> -->
-        <section>  
-            I am the:
-            <div style="margin:0.25rem 0 0 1rem;" >
-                <i>Select all options that apply</i>                
-                <check-box  :check="aboutOrder.kindOfParty.includes('protectedParty')?'yes':''" text="protected party"/>
-                <check-box  :check="aboutOrder.kindOfParty.includes('parentGuardian')?'yes':''" text="parent or guardian of a protected party"/>
-                <check-box  :check="aboutOrder.kindOfParty.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
+        <section style="width: 80%">  
+            <i style="margin-left:.25rem;">Select only one of the options below</i>
+            <div style="margin:0rem 0 0 1rem;" >                
+                <check-box  :check="aboutOrder.inCourtForPO == 'y' ?'yes':''" text="I was <b>in court</b> when the protection order was made"/>
+                <check-box  :check="aboutOrder.inCourtForPO == 'n' ?'yes':''" text="I was <b>not in court</b> when the protection order was made because:"/>                
             </div>
+            <div style="margin-left:1rem;">
+                <i>Explain why you were not in court when the protection order was made</i>
+            </div>
+            <div class="answerbox" style="width:98%"> {{aboutOrder.whyNotInCourt ? aboutOrder.whyNotInCourt : '&nbsp;'}}</div>
         </section>
 
         <div style="margin-top:1rem;"></div>
+
+        <div style="float: right;width: 18%; margin-top: -330px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+            <p>
+                <b-icon-paperclip />
+                <div style="font-size: 9px">You must attach a copy of the existing protection order to this application for filing.</div>
+            </p>
+        </div>
+
+<!-- <PART 2> -->
+    <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
+            <b>Part 2 | The facts</b>
+        </div>
+
+        <div style="margin-top: 1rem;"></div>
+
 <!-- <4> -->
-        <section>  
-            The facts on which this application is based are as follows:
-            <i style="display:block; margin:0.25rem 0 0 1rem;">Describe why the order should be terminated and the facts you want the court to consider</i>
-            <div v-if="aboutOrder.whyTerminatePO" class="answerbox"> {{aboutOrder.whyTerminatePO}}</div>
-            <div v-else style="margin-bottom:2rem;"></div>
+        <section style="width: 80%">  
+            The <b>facts</b> on which this application is based <b>are as follows</b>:
+            <i style="display:block; margin:0.25rem 0 0 1rem;">Explain why the order should be terminated and the facts you want the court to consider</i>
+            <div class="answerbox" style="width:98%"> {{aboutOrder.whyTerminatePO ? aboutOrder.whyTerminatePO : '&nbsp;'}}</div>
         </section>
+
     </div>
 </template>
 
@@ -63,6 +98,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import GreyBoxForm  from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule3AboutOrderInfoType } from '@/types/Application/ProtectionOrder/PDF';
@@ -70,6 +106,7 @@ import { schedule3AboutOrderInfoType } from '@/types/Application/ProtectionOrder
 @Component({
     components:{
         UnderlineForm,
+        GreyBoxForm,
         CheckBox
     }
 })

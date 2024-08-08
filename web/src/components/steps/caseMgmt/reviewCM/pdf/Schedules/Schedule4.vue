@@ -1,53 +1,78 @@
 <template>
     <div v-if="dataReady">
 
-<!-- <Page 5> --> 
-<!-- <Header> -->
+        <!-- <Page 5> -->
+        <!-- <Header> -->
         <div>
-            <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 4 – ACCESS TO INFORMATION SECTION 242</b></div>
-            <div style="text-align:center;"><b>This is Schedule 4 to the Application for Case Management Order Without Notice or Attendance</b></div>
+            <div class="new-page"></div>
+            <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
+                <div style="flex:1;  margin-right: 10px;">
+                    <div style="margin-top: 1rem;"></div>
+                    <div style="background: #626262; color: white; font-size: 12pt;">
+                        <b>Schedule 4 | Access to Information
+                            Section 242 <i>Family Law Act</i></b>
+                    </div>
+                    <div style="background: #626262; color: white; font-size: 12pt;margin-top:-10px;">
+                        <span style="margin-left:105px;margin-top:-40px;"><b>under the rules</b></span>
+                    </div>
+                    <div
+                        style="text-align:justify;width:100%; margin-top: 10px;background: #d6d6d6;line-height: 14px;font-size:9pt;">
+                        <p>
+                            Complete this schedule only if you are a search officer applying for access to information in
+                            accordance with section 242 <i>[orders respecting searchable information]</i> of the <i>Family
+                                Law
+                                Act.</i>
 
-            <div style="margin:1rem 0; text-align:justify">
-                <i>This schedule must be completed only if you are applying for access to information in accordance with section 242 [orders respecting searchable information] of the Family Law Act.</i>
+                        </p>
+                    </div>
+                    <div>
+                        <!-- <Part 1> -->
+                        <div style="margin-top: 1rem;"></div>
+                        <div style="background: #626262; color: white; font-size: 11pt;">
+                            <b>Part 1 | About the order</b>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <div style="display:inline; margin-left:0.15rem">
+                                <b>1.</b> The <b>details of the order</b> I am applying for are as follows:
+                            </div>
+                            <GreyBoxForm v-if="accessInfo.orderDetail" style="margin-top:10px; text-indent:0rem"
+                                textwidth="35rem" :text="accessInfo.orderDetail">
+
+                            </GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                        </div>
+                    </div>
+
+                    <!-- <Part 2> -->
+                    <div>
+                        <div style="margin-top: 1rem;"></div>
+                        <div style="background: #626262; color: white; font-size: 11pt;">
+                            <b>Part 2 The Facts</b>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <div style=" display:inline; margin-left:0.15rem">
+                                The facts <b>>on which</b> this application is based <b>are as follows:</b>
+                            </div>
+                            <GreyBoxForm v-if="accessInfo.applicationFacts" style="margin-top:10px; text-indent:0rem"
+                                textwidth="35rem" :text="accessInfo.applicationFacts">
+
+                            </GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width: 20% ">
+                    <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:24px">
+                        <p>
+                            <b-icon-info-circle-fill />
+                            <br />
+                            A search officer is a person appointed under section 236 of the <i>Family Law Act.</i> A search officer can make an application under section 242 of the <i>Family Law Act</i> if a person has refused or not adequately complied with a request under section 239 of the Act.
+                        </p>
+                    </div>
+                </div>
             </div>
 
-<!-- <1> -->
-            <section class="resetquestion"> 
-                <div style="display:inline; margin-left:0.15rem">
-                    The details of the order I am applying for are as follows:
-                </div>
-                    
-                <div style="text-indent:0; margin-left:0rem">
-                    <i>
-                        Tell the court the specifics of the order you are applying for                        
-                    </i>
-                </div>
-                
-                <div v-if="accessInfo.orderDetail" 
-                class="answerbox">{{accessInfo.orderDetail}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
-                            
-            </section>
-
-<!-- <2> -->
-            <section> 
-                <div style="display:inline; margin-left:0.15rem">
-                    The facts on which this application is based are as follows:
-                </div>
-                    
-                <div style="text-indent:0; margin-left:0rem">
-                    <i>
-                        Provide the facts you want the court to consider
-                    </i>
-                </div>
-                
-                <div v-if="accessInfo.applicationFacts" 
-                class="answerbox">{{accessInfo.applicationFacts}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
-                            
-            </section>
-      
         </div>
 
     </div>
@@ -59,47 +84,47 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule4DataInfoType } from '@/types/Application/CaseManagement/PDF';
+import GreyBoxForm from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 
 @Component({
-    components:{
+    components: {
         UnderlineForm,
-        CheckBox
+        CheckBox,
+        GreyBoxForm
     }
 })
 
 export default class Schedule4 extends Vue {
 
-    @Prop({required:true})
+    @Prop({ required: true })
     result!: any;
 
-    dataReady = false;   
+    dataReady = false;
     accessInfo = {} as schedule4DataInfoType;
-   
-    mounted(){
-        this.dataReady = false;      
-        this.extractInfo();       
-        this.dataReady = true;       
+
+    mounted() {
+        this.dataReady = false;
+        this.extractInfo();
+        this.dataReady = true;
     }
 
-    public extractInfo(){         
+    public extractInfo() {
         this.accessInfo = this.getAccessToInformation();
     }
 
-    public getAccessToInformation(){
+    public getAccessToInformation() {
         let accessToInformation = {} as schedule4DataInfoType;
-              
-        if(this.result?.requiringAccessToInformationSurvey){
+
+        if (this.result?.requiringAccessToInformationSurvey) {
             const chgSurvey = this.result.requiringAccessToInformationSurvey;
             accessToInformation.officerSearch = chgSurvey.officerSearch
-            accessToInformation.orderDetail = chgSurvey.officerSearch == 'y'? chgSurvey.orderDetail : ''
-            accessToInformation.applicationFacts = chgSurvey.officerSearch == 'y'? chgSurvey.applicationFacts : ''
+            accessToInformation.orderDetail = chgSurvey.officerSearch == 'y' ? chgSurvey.orderDetail : ''
+            accessToInformation.applicationFacts = chgSurvey.officerSearch == 'y' ? chgSurvey.applicationFacts : ''
         }
-    
+
 
         return accessToInformation;
-    } 
+    }
 }
 </script>
-<style scoped lang="scss" src="@/styles/_pdf.scss">
-
-</style>
+<style scoped lang="scss" src="@/styles/_pdf.scss"></style>

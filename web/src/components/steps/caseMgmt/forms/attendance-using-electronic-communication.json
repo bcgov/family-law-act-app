@@ -25,6 +25,11 @@
                   "value": "lawyer",
                   "comment": true,
                   "text": "My lawyer <i>(full name of lawyer)</i>:"
+                },
+                {
+                  "value": "other",
+                  "comment": true,
+                  "text": "Other<i>(specify name and role)</i>:"
                 }
               ]
             },

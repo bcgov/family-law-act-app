@@ -7,6 +7,7 @@ export interface urgencyInfoType {
 export interface schedule1ChildInfoType {
     name?: string;
     dob?: string;
+    myrelation?: string;
     relation?: string;    
     living?: string;    
 }
