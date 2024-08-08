@@ -185,7 +185,7 @@
 
                     <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small bordered>
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{ data.value }}</div>
+                            <div style="height:1rem; font-size:8pt;color:#000; background-color:#dedede " >{{ data.value }}</div>
                         </template>
                         <template v-slot:head(dob)>
                             Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
@@ -717,25 +717,25 @@
                         you don’t want to</i>
                     <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
                         <tr style="border:1px solid #414142">
-                            <td colspan="3">Address: <div class="answer">{{ yourInfo.address.street }} </div>
+                            <td colspan="3">Address: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.street }} </div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>City: <div class="answer">{{ yourInfo.address.city }}</div>
+                            <td >City: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.city }}</div>
                             </td>
-                            <td style="padding-left:50px">Province: <div class="answer">{{ yourInfo.address.state }}</div>
+                            <td style="padding-left:50px">Province: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.state }}</div>
                             </td>
-                            <td>Postal Code: <div class="answer">{{ yourInfo.address.postcode }}</div>
+                            <td>Postal Code: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{ yourInfo.contact.email }}</div>
+                            <td colspan="2">Email: <div class="answer" style="background-color:#dedede">{{ yourInfo.contact.email }}</div>
                             </td>
-                            <td>Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
+                            <td>Telephone: <div class="answer" style="background-color:#dedede">{{ yourInfo.contact.phone }}</div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #414142">
-                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer">
+                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer" style="background-color:#dedede">
                                     {{ yourInfo.lawyerName | getFullName }}</div>
                             </td>
                             <td v-else colspan="3">Lawyer (if applicable): </td>
