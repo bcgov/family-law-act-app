@@ -42,14 +42,14 @@
                 </div>
                 
                 <!-- gray box -->
-                <div style="width: 100%; margin-left:0px; margin-right: 0px; border-style: dashed; border-color: black; float: left; padding:0rem; background: #909090;">
+                <div style="width: 100%; margin-left:0px; margin-right: 0px; border-style: dashed; border-color: black; float: left; padding:0rem; background: #b5b5b5;">
                     <b>Please read before completing the form:</b>
                     <ul>
                         <li>This form is only to be used in an early resolution registry and is only required if you
                             have a family law matter to resolve.
                         </li>
                         <li>For guidance filling in this form, please read the guidebook. The guide is available
-                            online at <a href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
+                            online at <a style="color: blue;" href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
                         </li>
                     </ul>
                 </div>
@@ -163,28 +163,50 @@
                         </div>
                     </div>
 
-                    <div style="margin-left:-5px;width: 100%; float: right; margin-right: 0px; margin-top: 0px;">
+                    <div style="margin-left:-5px;width: 100%; float: left; margin-right: 0px; margin-top: 0px;">
                         <div style="text-align: right; margin-right: 6%; margin-top: 7px;">
-
-                            <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx">
-                                <div style="font-size: 11pt; display: block; width: 100%; float:left; margin-bottom: 5px;">
-                                    <check-box inline="inline" boxMargin="0" style="display: inline;" :check="true?'yes':''" text="There is an additional party."/>
+                            <!-- if additional parties -->
+                            <div v-if="additionalOtherParties.length>0">
+                                <div style="margin-left: -250px; font-size: 11pt; display: block; width: 100%; float:left; margin-bottom: 5px;">
+                                    <check-box inline="inline" style="display: inline; margin: -20px" :check="true?'yes':''" text="There is an additional party."/>
                                 </div>
+                                <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx">
+                                    <div style="display: inline-block; font-size: 11pt; ">
+                                        The <b>additional party’s</b> full name is:
+                                    </div>
+                                    <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
+                                        beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
+                                        hintMargin="100px" :text="otherParty.name | getFullName" />
 
-                                <div style="display: inline-block; font-size: 11pt; ">
-                                    The <b>additional party’s</b> full name is:
+                                    <div style="display: inline-block; font-size: 11pt; margin-top: 2px;">
+                                        Their <b>date of birth</b> (dd/mmm/yyyy) is:
+                                    </div>
+                                    <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
+                                        beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
+                                        hintMargin="100px" :text="otherParty.dob | beautify-date-mid" />
                                 </div>
-                                <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
-                                    beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
-                                    hintMargin="100px" :text="otherParty.name | getFullName" />
-
-                                <div style="display: inline-block; font-size: 11pt; margin-top: 2px;">
-                                    Their <b>date of birth</b> (dd/mmm/yyyy) is:
-                                </div>
-                                <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
-                                    beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
-                                    hintMargin="100px" :text="otherParty.dob | beautify-date-mid" />
                             </div>
+                            <!-- if NO additional parties -->
+                            <div v-else>
+                                <div style="margin-left: -250px; font-size: 11pt; display: block; width: 100%; float:left; margin-bottom: 5px;">
+                                    <check-box inline="inline" style="display: inline; margin: -20px" :check="false?'yes':''" text="There is an additional party."/>
+                                </div>
+                                    <div style="display: inline-block; font-size: 11pt; ">
+                                        The <b>additional party’s</b> full name is:
+                                    </div>
+                                    <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
+                                        beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
+                                        hintMargin="100px" :text="'.'" />
+
+                                    <div style="display: inline-block; font-size: 11pt; margin-top: 2px;">
+                                        Their <b>date of birth</b> (dd/mmm/yyyy) is:
+                                    </div>
+                                    <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
+                                        beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
+                                        hintMargin="100px" :text="'.'" />
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -265,7 +287,7 @@
                             small
                             bordered>                    
                                 <template v-slot:cell()="data">
-                                    <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                                    <div style="height:1rem; font-size:8pt;color:#000;background-color: #dedede; padding: 0rem;">{{data.value}}</div>                                           
                                 </template>
                                 <template v-slot:head(dob)>
                                     Child's date of birth <br/><i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
@@ -395,7 +417,7 @@
                     <div>
                         More information about the services provided by Family Justice Services Division, including 
                         contact information for the Justice Access Centres, can be found at 
-                        <a href="www.gov.bc.ca/family-justice-services-division">www.gov.bc.ca/family-justice-services-division</a>.
+                        <a style="color: blue;" href="www.gov.bc.ca/family-justice-services-division">www.gov.bc.ca/family-justice-services-division</a>.
                     </div>
                     <div style="margin-top: 0.5rem;"></div>
                     <div>
@@ -518,7 +540,7 @@
                         resolution</b>, unless your needs assessor determines that the parties cannot access 
                         consensual dispute resolution services or that it is not appropriate."/> 
                 </div>
-                <div style="text-indent: -0px; padding-left: 20px; margin-bottom: 1rem;">
+                <div style="text-indent: -0px; padding-left: 8px; margin-bottom: 1rem;">
                     Your needs assessor will provide you with more information about what consensual 
                     dispute resolution is, whether it is right for you, and the process for participating in it.
                 </div>
