@@ -16,7 +16,7 @@
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 80%; padding-right: 4px;">
                         <NoteBox>
-                            <p style="margin-bottom: 0rem;">
+                            <p style="margin-bottom: 0rem; font-size: 8pt;">
                                 Complete this schedule only if you disagree with all or part of the order about guardianship of a 
                                 child applied for by the other party on Schedule 7 of their Application About a Family Law Matter.
                             </p>
