@@ -267,7 +267,7 @@
             <i>Select only one of the options below</i> 
               <!-- TODO: check -->
             <check-box style="margin:0 0 0 1rem;" :check="false" text="I am filing a Financial Statement in Form 4 with this application."/>
-            <check-box style="margin:0 0 0 1rem;" :check="false" text="I am not able to file a Financial Statement in Form 4 with this application."/>
+  3          <check-box style="margin:0 0 0 1rem;" :check="false" text="I am not able to file a Financial Statement in Form 4 with this application."/>
             <div style="padding-left:24px">
                 <p>I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that myincome information in Form 4 be provided with this application. I understand Iwill still be required to file a Financial Statement in Form 4 at a later date</p>
             </div>

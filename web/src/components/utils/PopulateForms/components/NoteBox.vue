@@ -11,7 +11,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class NoteBox extends Vue {
-    @Prop({required: false, default: '7pt'})
+    @Prop({required: false, default: '8pt'})
     fontSize?: string;
 
     @Prop({required: false, default: '0px'})

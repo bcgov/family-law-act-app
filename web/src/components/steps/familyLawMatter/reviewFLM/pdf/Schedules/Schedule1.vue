@@ -14,9 +14,8 @@
             <div style="margin-bottom: 1rem;"></div>
 
             <div style="display: flex; flex-direction: row;">
-            <div style="width: 80%; padding-right: 4px;">
+                <div style="width: 80%; padding-right: 4px;">
                     <NoteBox>
-                        <b-icon-info-circle-fill />
                         <p>Complete this schedule only if you need a court order about parenting arrangements, including parental responsibilities and parenting time, and you do not have an existing final court order or written agreement about parenting arrangements.</p>
                     </NoteBox>
                 </div>
@@ -40,7 +39,7 @@
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            Only a guardian may have parental responsibilities and parenting time with respect to a child [s. 39 Family Law Act].For information about who is a guardian of a child, see the guidebook.
+                            Only a guardian may have parental responsibilities and parenting time with respect to a child [s. 39 Family Law Act]. For information about who is a guardian of a child, see the guidebook.
                         </p>
                     </NoteBox>
                 </div>        
@@ -64,6 +63,8 @@
                         </p>
                     </NoteBox>
 
+                    <br>
+
                     <div>
                         <b>2. </b>
                         <p style="display: inline;"><b>I am applying for an order about parental responsibilities as follows:</b></p>
@@ -74,9 +75,10 @@
                             {{parentArrInfo.parentResp.expl}}
                         </div>
                     </div>
+                    <br>
                     <div>
                         <b>3. </b>
-                        <p  style="display: inline;"><b>I am applying for an order about parenting timeas follows:</b></p>
+                        <p  style="display: inline;"><b>I am applying for an order about parenting time as follows:</b></p>
                         <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         
@@ -105,6 +107,7 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div>
                         <b>4. </b>
                         <p  style="display: inline"><b>I am applying for an order about</b></p>
@@ -119,6 +122,7 @@
                             {{parentArrInfo.parentalArr.desc}}
                         </div>   
                     </div>
+                    <br>
                     <div>
                         <b>5. </b>
                         <p  style="display: inline">I am applying for directions from the court under s. 49 of the Family Law Act respecting the following issue affecting a child:</p>
@@ -134,8 +138,8 @@
                         </p>
                         <ul>
                             <li>One or more guardians only,</li>
-                            <li>Each guardian actingseparately, or</li>
-                            <li>All guardians actingtogether.</li>
+                            <li>Each guardian acting separately, or</li>
+                            <li>All guardians acting together.</li>
                         </ul>
                         <i>[s. 40 Family Law Act]</i>
                     </NoteBox>
