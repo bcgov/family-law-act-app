@@ -88,7 +88,7 @@
                         </div>
                         <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
                             beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false"
-                            textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.dob | beautify - date" />
+                            textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.dob | beautify-date-mid" />
                     </div>
                 </div>
 
@@ -133,6 +133,20 @@
                                         textwidth="225px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="152px" :text="otherParty.dob | beautify - date" />
                                 </div>
+                            </div>
+                            <div v-else style="display:inline;">
+                                <div style="display: inline-block; margin-left:2rem;">
+                                        The<b> additional party’s</b> full name is:
+                                    </div>
+                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                        textwidth="235px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
+                                        hintMargin="80px" text="" />
+                                    <div style="display: inline-block; padding-top:10px; margin-left:2rem;">
+                                        Their<b> date of birth</b>(dd/mmm/yyyy) is:
+                                    </div>
+                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                        textwidth="225px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
+                                        hintMargin="152px" text="" />
                             </div>
                         </div>
                     </div>
@@ -204,7 +218,8 @@
                         :check="true ? 'yes' : ''" />
                     <div style="margin-top: -16px; padding-left:35px">
                         I understand <b>I must give notice</b> of this application to all parents and guardians of
-                        the child(ren) this application is about. They are the other party/parties. 
+                        the child(ren) this application is about. They are the other party/parties.
+                        <br/>
                         <b>To give notice, the other party must be served</b> with the application at least 7 
                         days before the date set for the court appearance <b>unless</b> the court allows the 
                         application to be made without notice or with less than 7 days’ notice
@@ -278,25 +293,25 @@
 
                 <div style="border:1px solid; font-size: 9pt; padding:1rem;font-family:BCSans">
                         <b>This application, which requires a court apprearance, will be heard by the court</b>
-                        <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            hintMargin="65px" beforetext="<b>on</b>" hint="date" text="" />
-                        <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            hintMargin="65px" beforetext="<b>at</b>" hint="time" text="" />
+                        <grey-box-form entryFontSize="9pt" marginTop="-16px" style="text-indent:2px;display:inline-block;" textwidth="10rem"
+                            hintindent="65px" beforetext="<b>on</b>" hint="date" text="" textBackgroundColor="#dedede" />
+                        <grey-box-form entryFontSize="9pt" marginTop="-16px" style="text-indent:2px;display:inline-block;" textwidth="10rem"
+                            hintindent="75px" beforetext="<b>at</b>" hint="time" text="" />
                         <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
                         <div style="margin:0.5rem 0 0 0.25rem;">
                             <div>
-                                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" />
+                                <check-box inline="inline" boxMargin="0" style="text-indent: 4px; background-color: #dedede; width:20px" />
                                 <div style="margin-top: -18px;text-indent: 20px;">
-                                    in person at
-                                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="22rem"
-                                        hintMargin="165px" beforetext="" hint="court location" text="" />
+                                    &nbsp; in person at
+                                    <grey-box-form entryFontSize="9pt" marginTop="-16px" style="text-indent:2px;display:inline-block;" textwidth="22rem"
+                                        hintindent="165px" beforetext="" hint="court location" text="" />
                                 </div>
                             </div>
                         </div>
-                        <div style="margin:0.5rem 0 0 0.25rem; display:flex; flex-direction:row; gap:10px">
+                        <div style="margin:0.5rem 0 0 0.25rem; display:flex; flex-direction:row;">
                             <div style="width:20%">
-                                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" />
-                                <div style="margin-top: -18px;text-indent: 20px;">
+                                <check-box inline="inline" boxMargin="0" style="text-indent: 4px; background-color: #dedede; width:20px" />
+                                <div style="margin-top: -18px; padding-left:25px">
                                     by another method of attendance, as specified
                                 </div>
                             </div>
@@ -362,7 +377,7 @@
                     boxMargin="0" 
                     style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt; text-indent: -16px;" 
                     :check="true?'yes':''" 
-                    text="I am applying for an order about the following priority parenting matter(s):"/>
+                    text="I am <b>applying for an order about</b> the following priority parenting matter(s):"/>
 
                 <div style="margin:0.25rem 0 0 3rem;font-size: 9pt; text-indent: -16px;" >
                     <i>Select all options that apply</i>
@@ -434,7 +449,151 @@
             </div>
         </div>
 
+        <!--Appearance Notice: Begin -->
+        <div class="print-block">
+            <div style="margin-top: 1rem;"></div>
+            <div style="text-align: justify; font-size:11px;">
+                <p style="text-align: center; font-size: 14px;"> <b>IMPORTANT INFORMATION ABOUT YOUR APPEARANCE</b></p>
+                <div style="padding-top: 12px;">
+                    <b>What do parties need to know about attending by another method other than in person? </b>
+                    <p>
+                        If your notice indicates that you are to attend by another method of attendance, parties, including
+                        the
+                        judge, will attend
+                        using the Microsoft Teams audio- and video-conferencing (video) platform. Do not attend the
+                        courthouse
+                        in person.
+                        Parties will receive remote MS Teams appearance details within 24 hours prior to the appearance,
+                        this
+                        notification is
+                        sent to you by email
+                    </p>
+                    <p>
+                        Microsoft Teams allows participants to join the conference using video or audio from a desktop,
+                        laptop,
+                        tablet, or
+                        smartphone, or to dial-in to a proceeding from a telephone. If you are appearing by video, please
+                        ensure
+                        that you
+                        have downloaded Microsoft Teams or have the latest version of Google Chrome or Microsoft Edge.
+                    </p>
+                    <p>
+                        <b>If you received this Notice by mail</b> and intend to appear using video or audio from a desktop,
+                        laptop,
+                        tablet, or
+                        smartphone, and you did not provide an email address for service, please file an Notice of Address
+                        Change (PCFR
+                        Form 46), with the court registry that includes your email address and the court registry will send
+                        you
+                        the MS Teams
+                        meeting invite within 24 hours prior to your appearance.
+                    </p>
+                    <p>
+                        The link and dial up information may be shared with your lawyer if you have retained counsel; and
+                        with
+                        your client if you are counsel.
+                    </p>
+                    <p>
+                        <b> Please do not forward or share</b> the MS Teams link or dial up information to any unauthorized
+                        parties
+                    </p>
+                    <div>
+                        <p style=" font-size: 13px;"> <b>Preparing for your Family Management Conference</b></p>
+                        <p><b>Legal Aid BC - Family Law Legal Advice</b> </p>
+                        <p>
+                            If you do not have a lawyer for your family law matter, visit <a
+                                href="https://family.legalaid.bc.ca/court-notices"
+                                target="_blank">legalaid.bc.ca/family-court-notices</a> to
+                            find out about <b>free in person and remote legal advice services </b> that you may be eligible
+                            for
+                            that can help you prepare for your court date.Contact the advice services at least three weeks
+                            before your court date
+                            or as soon as you receive
+                            this notice.If you are unable to access the internet, contact the Family LawLINE at 604-408-2172
+                            in
+                            Greater Vancouver or 1-866-577-2525 elsewhere in BC.
+                        </p>
+                    </div>
+                    <div>
+                        <p><b>Family Justice Services</b></p>
+                        <p>Family justice counsellors provide services to British Columbians going through separation and
+                            divorce and are specially trained to help families resolve their issues about guardianship,
+                            parenting arrangements,contact and support. There is no charge for their services.
+                        </p>
+                        <p>
+                            At this time all services are available in-person as well as virtually (through telephone and
+                            videoconference) across
+                            the province. For more information, parties can call [1-844-747-3963] or contact their closest
+                            <a href="https://www.clicklaw.bc.ca/services/family-justice-centres" target="_blank"> Family
+                                Justice Centre.</a>
+                        </p>
+                    </div>
+                    <div>
+                        <p><b> Society for Children and Youth of BC Child and Youth Legal Centre </b></p>
+                        <p>
+                            Free legal assistance directly for children and youth. Services may include legal advice and
+                            information, referral, or full representation, depending on circumstances. Availability and wait
+                            times may vary. Services are for children and youth who want legal assistance, are able to
+                            express
+                            their views and preferences,and who caninstruct a lawyer.
+                        </p>
+                        <p>For more information: <a href="https://www.scyofbc.org/child-youth-legal-centre/"
+                                target="_blank">https://www.scyofbc.org/child-youth-legal-centre/</a> </p>
+                        <p> Contact the Child and Youth Legal Centre <a href="" target="_blank">cylc@scyofbc.org</a>-
+                            (778)-657-5544</p>
+                    </div>
+                    <div>
+                        <p><b>Interpreter</b></p>
+                        <p>The court provides interpreters for family proceedings in provincial court. If you require an
+                            interpreter, please advise the registry as soon as possible. This link includes all court
+                            locations
+                            (address and phone numbers):
+                            <a href="https://www2.gov.bc.ca/gov/content/justice/courthouse-services/courthouse-locations"
+                                target="_blank"> www.gov.bc.ca/courthouselocations
+                            </a>
+                        </p>
+                        <p>
+                            <b>Before the scheduled hearing date,</b>please visit the Provincial Court website at
+                            https://www.provincialcourt.bc.ca and review:
+                        <ul>
+                            <li>
+                                Policy on Use of Electronic Devices in Courtrooms and Access to Court Proceedings Policy
+                                (there
+                                is a general prohibition on the recording or broadcasting of court proceedings unless
+                                authorized
+                                by the Court and there are penalties for breach)
+                            </li>
+                            <li>NP 21 Remote Attendance in the Provincial Court (for etiquette and directions on connecting
+                                by
+                                another method of attendance) (counsel attendance requirements when attending Family matters
+                                remotely)
+                            </li>
+                            <li>
+                                NP 24 Form of Address for Parties and Lawyers (provide the judge or justice with each
+                                person’s
+                                name, title (e.g.
+                                “Mr./ Ms./Mx./Counsel Jones”) and pronouns to be used in the proceeding)
+                            </li>
+                            <li>
+                                Guide for Appearing in the Provincial Court using MS Teams
+                            </li>
+                            <li>
+                                eNews - What to expect at a family management conference?
+                            </li>
+                        </ul>
+                        </p>
+                        <p>
+                            <b>If you are unable to dial-in or are dropped from the appearance</b>immediately call the court
+                            registry.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Appearance Notice: End -->
+
         <!-- Part 6  -->
+        <div class="new-page" />
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px;">
@@ -474,7 +633,7 @@
                     
                     <i style="margin: 0rem 0.5rem 0.5rem 2rem; display:inline-block">
                         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;" :check="''" text=""/> 
-                        <b>Additional page(s)</b> (see attached)
+                        <b>Additional page(s) (see attached)</b>
                     </i>
                 </div>
             </div>
@@ -636,9 +795,9 @@
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{ yourInfo.contact.email }}</div>
+                            <td>Email: <div class="answer">{{ yourInfo.contact.email }}</div>
                             </td>
-                            <td>Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
+                            <td colspan="2" style="padding-left:50px">Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #414142">
@@ -675,6 +834,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import GreyBoxForm  from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
@@ -685,6 +845,7 @@ import { getYourInformationResults, getLocationInfo } from '@/components/utils/P
 @Component({
     components:{
         UnderlineForm,
+        GreyBoxForm,
         CheckBox        
     }
 })
@@ -762,7 +923,7 @@ export default class Form15Layout extends Vue {
         for (const child of childData) {            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
             childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);
+            childInfo.dob = Vue.filter('beautify-date-mid')(child.dob);
             childInfo.myRelationship = child.relation;
             childInfo.otherPartyRelationship = child.opRelation;
             childrenInfo.push(childInfo)
