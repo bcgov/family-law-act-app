@@ -52,7 +52,7 @@
                 <p>
                     <b-icon-book />
                     <br />
-                    You can apply to modify the service or notice requirements if you have an urgent application.
+                    For more information about case management orders, see the guidebook. 
                 </p>
         </div>   
     </div>
@@ -268,16 +268,16 @@
             <div style="margin-top: 0.5rem;"></div>
             <div style="text-align: justify;text-justify: inter-word;font-size: 11pt;">
                 <span style="font-size: 11pt;margin-left:15px"><b>7. </b></span><span style="margin-left:12px">My <b>address for service</b> of court documents and contact </span>
-                <div style="margin-left:12px;margin-left:38px;">information is:</div>
-                <div style="margin-left:29px;font-size: 11pt;text-indent:5px;">
+                <div style="margin-left:12px;margin-left:45px;">information is:</div>
+                <div style="margin-left:40px;font-size: 11pt;text-indent:5px;">
                     <i>You must provide an address for service and contact number, but it does </i>
                 </div>
-                <div style="margin-left:29px;font-size: 11pt;text-indent:5px;">
+                <div style="margin-left:40px;font-size: 11pt;text-indent:5px;">
                     <i>not have to be your own if you don’t want to</i>
                 </div>
                 
                 
-                <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
                         <tr style="border:2px solid #fff">
                             <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
                                 Address: 
@@ -296,7 +296,7 @@
                         </tr>
                     </table>
 
-                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
                         <tr style="border:2px solid #fff">
                             <td style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
                             </td>
@@ -307,7 +307,7 @@
 
                     <div style="margin-top: 1rem;"></div>
                 
-                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
                         <tr style="border:1px solid #fff;">
                             <td v-if="yourInfo.lawyer" colspan="3" style="border:2px solid #fff; padding: 4px;">Lawyer’s name and firm name (if applicable): 
                                 <div class="answer" style="background-color: #d6d6d6;">
@@ -332,7 +332,7 @@
         
     </div>
     <div class="print-block">
-        <div style="border-style: dashed; border-color: black; width: 80%;float: left; margin-top: 10px;width: 80%;padding:0.5rem; background: #d6d6d6; ">
+        <div style="margin-left:42px;border-style: dashed; border-color: black; float: left; margin-top: 10px;width: 72%;padding:0.5rem; background: #d6d6d6; ">
         <b>IMPORTANT NOTE:</b>
         <p>
             A judge reviewing an application for a case management order without notice or attendance 
@@ -356,134 +356,8 @@
         </ul>
     </div>
     </div>
-<!-- <6> : END--> 
-    
-<!-- <1> -->
-        <!-- <section>
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
-            <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
-            <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents are:</div>
-            <table class="fullsize">
-                <tr style="border:1px solid #414142" >
-                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
-                    <td v-else  colspan="3">Lawyer (if applicable): </td>
-                </tr>
-                <tr style="border:1px solid #414142">          
-                    <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
-                </tr>
-                <tr style="border:1px solid #313132">
-                    <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
-                <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
-                    <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
-                </tr>
-                <tr style="border:1px solid #313132">
-                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
-                </tr>
-            </table>
-        </section> -->
+<!-- <6> : END-->    
 
-<!-- <2> -->
-        <!-- <div class="print-block">
-            <section>  
-                <div v-if="otherPartyInfo.length>1" style="margin-left:0.2rem; display:inline">The other parties are</div>
-                <div v-else style="margin-left:0.2rem; display:inline">The other party is</div>
-                <div v-for="otherparty,inx in otherPartyInfo" :key="inx" style="display:inline;">
-                    <underline-form 
-                        style="margin-top:0.5rem; text-indent:2px;display:inline-block;" 
-                        textwidth="15.9rem" 
-                        :beforetext="inx>0? ',' : '' " 
-                        hint="full name of the other party/parties" 
-                        :italicHint="false" 
-                        :text="otherparty.name | getFullName"/> 
-                </div>                
-            </section>
-        </div>  -->
-
-        <!-- <div style="margin-top:1rem;"></div> -->
-<!-- <3> -->        
-        <!-- <section>
-            <check-box 
-                inline="inline" 
-                boxMargin="0" 
-                style="margin:0 0 0 0.5rem; display:inline;" 
-                :check="understandWithoutNotice?'yes':''" 
-                marginLeft="1.5rem"
-                text="I am applying for a case management order without notice to any other party and I understand that"/>
-            <div style=" text-indent:0; margin:0 0 -0.25rem 1.65rem;"> 
-                I will be required to serve a copy of any order I receive on each other party along with a copy of this
-                application and any supporting document(s).
-            </div>
-        </section> -->
-
-<!-- <4> -->
-        <!-- <div class="print-block">
-            <section>
-                <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
-                 <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
-                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'Not a party to the case'?'yes':''" text="I am not a party to the case"/>
-                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'A party to the case and the case does not involve a child-related issue'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
-                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'A party to the case and the case involves a child-related issue'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
-                 </div>
-                <b-table
-                    :items="childrenInfo"
-                    :fields="childrenFields"
-                    class="mt-2"
-                    small
-                    bordered>                    
-                        <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                        </template>
-                </b-table> 
-            </section>
-        </div> -->
-
-        <!-- <div class="print-block mt-0">
-            <div style="margin-top:1rem;"><b>Filing location</b></div>  
-
-
-            <section>
-                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
-                <div style="margin-left:1rem;">
-                    <i>Select only one of the options below</i>
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
-                        text="where my existing case with the same party/parties is located"/> 
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
-                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
-                        text="closest to where I live because my case does not involve a child-related issue"/>
-                    <check-box  
-                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
-                        text="permitted by court order"/>                    
-                </div>
-            </section>
-        </div> -->
-
-<!-- <6> -->
-        <!-- <div class="print-block"> 
-            <div style="margin-top:1rem;"><b>ABOUT THE ORDER</b></div>
-            <section>
-                <div style="display:inline; margin-left:0.15rem;"> I am applying for the following case management order(s): </div>
-                <div style="margin-left:1.1rem;"><i>Select all that apply and complete the required schedule(s)</i></div>
-                <div style="margin:0.25rem 0 0 1.7rem;font-size: 10pt;" >                    
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="allowing a person to attend a court appearance using another method of attendance <i>[complete and attach Schedule 1]</i>"/>
-                    <check-box  :check="selectedSchedules.includes('schedule2')?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for the service of a document <i>[complete and attach Schedule 2]</i>"/>
-                    <check-box  :check="selectedSchedules.includes('schedule3')?'yes':''" text="waiving or modifying any other requirement under the rules <i>[complete and attach Schedule 3]</i>"/>
-                    <check-box  :check="selectedSchedules.includes('schedule4')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the <i> Family Law Act [complete and attach Schedule 4]</i>"/>
-                    
-                    <check-box  :check="(caseList.includes('section12') && understandWithoutNotice)?'yes':''" 
-                                text="authorizing an official of the court, in accordance with section 10 of the <i>Family Orders and Agreements Enforcement Assistance Act (Canada)</i>, to make an application under section 12 of that Act for the release of information <i>[file a criminal
-                                record check and completed affidavit that meets the requirements of sections 8 and 9 of the Family Orders and Agreements Enforcement Assistance Act (Canada)]</i>"/>
-                    <check-box  :check="selectedSchedules.includes('schedule5')?'yes':''" text="recognizing an extraprovincial order other than a support order <i>[complete and attach Schedule 5]</i>"/> 
-                </div>                  
-            </section>
-        </div>    -->
         <div style="page-break-after:always;">&nbsp;</div> 
     </div>
 </template>

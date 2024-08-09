@@ -79,8 +79,8 @@
                 <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'byTelephone'?'yes':''" text="telephone"/>
                 <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'byVideo'?'yes':''" text="video conference"/>
                 <span>
-                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" checkbox="" inline="inline" boxMargin="0" :check="scheduleInfo.attendanceType == 'other'?'yes':''" text=""/>
-                    <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="8.5rem" beforetext="other means of electronic communication <i>(specify):</i>" hintMargin="60px" hint="" :text="(scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:''"/>                     
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:21px;" checkbox="" inline="inline" boxMargin="0" :check="scheduleInfo.attendanceType == 'other'?'yes':''" text=""/>
+                    <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:28px;" textwidth="8.5rem" beforetext="other means of electronic communication <i>(specify):</i>" hintMargin="60px" hint="" :text="(scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:''"/>                     
                 </span>  
             </div>
         </div>        
