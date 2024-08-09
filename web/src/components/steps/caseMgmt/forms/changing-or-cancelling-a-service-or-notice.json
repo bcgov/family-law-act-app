@@ -37,6 +37,25 @@
               "isRequired": true,
               "title": "Do you want to apply for an order to change or cancel a requirement for service or giving notice to a person under the rules?",
               "description": "This includes an order that allows your application to proceed to court without the other party being served or allows your application to proceed to court with less than the required amount of notice."
+            },
+            {
+              "type": "radiogroup",
+              "name": "changetype",
+              "title": "I am applying for an order to",
+              "description": "Select each applicable option",
+              "visible": false,
+              "visibleIf": "{changeOrCancelRequirementForService} = 'y'",
+              "choices": [
+                {
+                  "value": "changemodify",
+                  "text": "Change a requirement related to service or giving notice"
+                },
+                {
+                  "value": "changewaive",
+                  "text": "Cancel a requirement related to service or giving notice"
+                }
+              ],
+              "isRequired": true
             },            
             {
               "type": "checkbox",
@@ -125,15 +144,179 @@
               "isRequired": true,
               "visible": false,
               "visibleIf": "{anotherMethodOfService} = 'y'"
+            },  
+            {
+              "type": "radiogroup",
+              "name": "alternativeServiceReason",
+              "title": "What is the reason why you are applying for an alternative method of service?",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf":  "{anotherMethodOfService} = 'y'",
+              "choices": [
+                {
+                  "value": "unknown",
+                  "text": "I don’t know where to find the person to be served"
+                },
+                {
+                  "value": "outofreach",
+                  "text": "I believe the person to be service is avoiding service of the document or is temporarily outside of British Columbia"
+                }
+              ]
             },
             {
               "type": "comment",
-              "title": "Explain the alternative method of service you want to use.",
-              "name":"altMethodServingDetails",
-              "description": "Be specific. You need to tell the court how you believe the documents should be served so that they will come to the attention of the person who must be served. Try to include as much detail as possible about how you want the documents served including the name of any other person who might deliver the document, the mailing address, email or other information that would be required to serve the documents. You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.<br><br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Court%20Orders%20-%20January%202022.docx' target='_blank'> Family Law Act Picklist </a> includes commonly used order terms that might be helpful. ",
+              "title": " ",
+              "name":"alternativeServiceReasonDetails",
+              "description": " ",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "{anotherMethodOfService} = 'y'"
+              "visibleIf": "{alternativeServiceReason} = 'unknown' || {alternativeServiceReason} = 'outofreach'"
+            },         
+            {
+              "type": "radiogroup",
+              "title": "Explain the alternative method of service you want to use.",
+              "name":"alternativeorderservice",
+              "description": "Select only one option and provide the requested information",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{anotherMethodOfService} = 'y'",
+              "choices": [
+                {
+                  "value": "post",
+                  "text": "Posting the documents on the door of the person’s residence"
+                },               
+                {
+                  "value": "relative",
+                  "text": "Leaving the documents with a relative or other adult person to give to the person to be served"
+                },
+                {
+                  "value": "mail",
+                  "text": "Mailing the documents by mail"
+                },
+                {
+                  "value": "email",
+                  "text": "Sending the documents to the person’s email"
+                },
+                {
+                  "value": "text",
+                  "text": "Sending the documents by text message to the person’s cell"
+                },
+                {
+                  "value": "instant",
+                  "text": "Sending the documents by instant messaging to the person to be served through"
+                },
+                {
+                  "value": "knownaddress",
+                  "text": "Leaving the documents at the person’s last known address"
+                },
+                {
+                  "value": "other",
+                  "text": "Other method (specify)"
+                }
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "alternativemailType",
+              "title": "What is the mail type?",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf":  "{alternativeorderservice} = 'mail'",
+              "choices": [
+                {
+                  "value": "registeredmail",
+                  "text": "Registered mail"
+                },
+                {
+                  "value": "regularmail",
+                  "text": "Regular mail"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "alternativemailAddress",
+              "title": "Please provide the address",
+              "placeholder":"Street address, for example: 800 Hornby St.",
+              "description": "",
+              "isRequired": true,
+              "visible": false,              
+              "visibleIf": "{alternativeorderservice} = 'post' || {alternativeorderservice} = 'mail' || {alternativeorderservice} = 'knownaddress'"
+            }, 
+            {
+              "type": "text",
+              "name": "alternativemailCity",
+              "title": "City",
+              "description": "",
+              "isRequired": true,
+              "startWithNewLine": false,
+              "visible": false,
+              "visibleIf": "{alternativeorderservice} = 'post' || {alternativeorderservice} = 'mail' || {alternativeorderservice} = 'knownaddress'"
+            }, 
+            {
+              "type": "text",
+              "name": "alternativeEmail",
+              "title": "Please provide the email:",
+              "description": "",
+              "isRequired": true,
+              "labelEmail": "Email",
+              "visible": false,
+              "visibleIf": "{alternativeorderservice} = 'email'"
+            },            
+            {
+              "type": "text",
+              "name": "alternativeText",
+              "title": "Please provide the Cell number:",
+              "description": "",
+              "isRequired": true,
+              "labelEmail": "Email",
+              "visible": false,
+              "visibleIf": "{alternativeorderservice} = 'text'"
+            },
+            {
+              "type": "comment",              
+              "name":"alternativeOther",
+              "title": "Please specify the details",              
+              "description": "",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{alternativeorderservice} = 'other'"
+            },
+            {
+              "type": "text",
+              "name": "alternativeRelativeName",
+              "title": "Full name of relative/adult person:",
+              "isRequired": true,
+              "inputType": "string",
+              "visible": false,
+              "visibleIf": "{alternativeorderservice} = 'relative'"            
+            },
+            {
+              "type": "text",
+              "name": "alternativeRelatveRelationship",
+              "title": "Relationship to person to be served:",
+              "isRequired": true,
+              "inputType": "string",
+              "visible": false,
+              "visibleIf": "{alternativeorderservice} = 'relative'"            
+            },
+            {
+              "type": "text",
+              "name": "alternativeSocialPlatform",
+              "title": "Please provide the social platform details:",
+              "isRequired": true,
+              "inputType": "string",
+              "visible": false,
+              "visibleIf": "{alternativeorderservice} = 'instant'"            
+            },
+            {
+              "type": "text",
+              "name": "alternativeSocialPlatformId",
+              "title": "Social platform Account identifier (handle, number, etc.):",
+              "isRequired": true,
+              "inputType": "string",
+              "visible": false,
+              "visibleIf": "{alternativeorderservice} = 'instant'"            
             },
             {
               "type": "helptext",
@@ -158,6 +341,15 @@
               "name":"applicationFactsAltMethod",
               "title": "The `facts` on which this application is based are as follows:",              
               "description": "Give a short summary of the facts. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order.<br><br>Try to include: <ul><li>What has already been done to try to serve the person (for example, who tried to serve them, when did they try, how many times, where did they try). Be specific.</li><li>If you don’t know where the person is, what has been done to try to find them (for example, you talked to family and friends or searched online)</li><li>If the court gives you your order, why do think the person will get the documents if they are given in the way you asked – what did you learn when you tried to find the person that makes you believe the method you are asking for would get the documents to their attention.</li></ul>",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{anotherMethodOfService} = 'y'"
+            },
+            {
+              "type": "comment",              
+              "name":"personwhereabouts",
+              "title": "What information do you know about (name of person)’s address, location, contact information or who might be able to get in touch with them?",              
+              "description": "Include the information you know, you know the information and when it was last confirmed or became known to you.",
               "isRequired": true,
               "visible": false,
               "visibleIf": "{anotherMethodOfService} = 'y'"
