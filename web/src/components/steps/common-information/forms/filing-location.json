@@ -104,9 +104,9 @@
                      "visible": false,
                      "visibleIf": "{RequiresReasonInfo} and {ExistingFamilyCase} = 'n' and {selectedExistingCourt}",
                      "choices": [
-                        "It is the court location closest to where the child lives, because my case involves a child-related issue",
-                        "It is the court location closest to where I live because my case does not involve a child-related issue",
-                        "The court made an order that allows me to"
+                        "Where my existing case with the same party/parties is located. I already have a court file number",
+                        "Closest to where the child lives most of the time, because my case involves a child-related issue",
+                        "Permitted by court order"
                      ]
                   },
                   {
