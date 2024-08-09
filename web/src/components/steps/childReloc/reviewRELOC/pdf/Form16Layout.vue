@@ -26,8 +26,7 @@
                         existingFileNumber : '&nbsp;' }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number: <div
-                            style="font-size: 6pt; padding-left:16px;">For registry use only</div>
+                    <div style="float: left; width: 50%; padding: 2px;"> Document number:<br /><i>For registry use only </i>
                     </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ?
                         fmepNumber : '&nbsp;' }} </div>
@@ -36,21 +35,22 @@
         </div>
 
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <p>This Application for Order Prohibiting the Relocation of a Child sets out the details of an order
-                    prohibiting the relocation of a child that a person is applying for under section 69 of the Family
-                    Law Act. </p>
+                    prohibiting the relocation of a child that a person is applying for under section 69 of the <i>Family
+                        Law Act.</i> </p>
                 <div style="border-style: dashed; border-color: black; padding:0.5rem; background: #909090;">
                     <b>Please read before completing the form:</b>
                     <ul>
                         <li>
                             This application is to be used only if a child’s guardian plans to relocate themselves, the
                             child, or both, and there is a written agreement or order respecting parenting arrangements or
-                            contact with the child applies to the child [s. 65 Family Law Act].
+                            contact with the child applies to the child [s. 65 <i>Family Law Act</i>].
                         </li>
                         <li>
                             If there is no written agreement or court order, you may apply for an order under s. 46 of the
-                            Family Law Act [changes to child’s residence if no agreement or order] using an Application
+                            <i>Family Law Act[changes to child’s residence if no agreement or order]</i> using an
+                            Application
                             About a Priority Parenting Matter Form 15 or Application About a Family Law Matter Form 3 to
                             determine the parenting arrangements for the child including the location of the child’s
                             residence.
@@ -69,9 +69,10 @@
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
-                        An application prohibiting the relocation of a child under s. 69 of the Family Law Act must be filed
+                        An application prohibiting the relocation of a child under s. 69 of the <i>Family Law Act</i> must
+                        be filed
                         within 30 days after receiving written notice that the guardian plans to relocate the child [s. 68
-                        Family Law Act].
+                        <i>Family Law Act</i>].
                     </p>
                 </div>
             </div>
@@ -80,7 +81,7 @@
         <!-- Part 1 -->
 
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 1rem;"></div>
                 <div style="background: #626262; color: white; font-size: 11pt;">
                     <b>Part 1 | About the Parties</b>
@@ -91,17 +92,17 @@
                     <div style="display: inline-block; ">
                         <b>1. </b>My <b>full name</b> is:
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
+                    <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
                         beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede"
                         hintMargin="152px" :text="yourInfo.name | getFullName" />
 
                     <div style="padding-top:15px; padding-left:12px;">
                         <div style="display: inline-block; ">
-                            <b>My date of birth</b> is:
+                            My <b> date of birth</b> is:
                         </div>
-                        <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
-                            beforetext="" hint="date of birth (mmm/dd/yyyy)" :italicHint="false"
-                            textBackgroundColor="#dedede" hintMargin="152px" :text="yourInfo.dob | beautify - date" />
+                        <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
+                            beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede"
+                            hintMargin="152px" :text="yourInfo.dob | beautify-date-mid" />
                     </div>
                 </div>
 
@@ -110,26 +111,27 @@
                     <div style="display: inline-block;">
                         <b>2. </b>The <b>other party’s full name is:</b>
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
+                    <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
                         beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px"
                         :text="firstOtherParty.name | getFullName" />
 
                     <div style="padding-top:10px; padding-left:12px;">
                         <div style="display: inline-block; ">
-                            Their <b>date of birth:</b>(dd/mmm/yyyy) is:
+                            Their <b>date of birth</b>(dd/mmm/yyyy) is:
                         </div>
-                        <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
+                        <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
                             beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px"
-                            :text="firstOtherParty.dob | beautify - date" />
+                            :text="firstOtherParty.dob | beautify-date-mid" />
+                       
+                        <div>
+
+                        </div>
                         <div>
                             <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                                 :check="true ? 'yes' : ''" />
                             <div style="margin-top: -18px;text-indent: 20px;">
                                 There is an additional party.
                             </div>
-                        </div>
-                        <div>
-
                         </div>
                         <div style="padding-top:5px">
                             <div v-if="additionalOtherParties.length > 0" style="font-size: 9pt;">
@@ -139,17 +141,36 @@
                                     <div style="display: inline-block;">
                                         The<b> additional party’s</b> full name is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <GreyBoxForm  style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="270px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="80px" :text="otherParty.name | getFullName" />
                                     <div style="display: inline-block; padding-top:10px">
                                         Their<b> date of birth</b>(dd/mmm/yyyy) is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <GreyBoxForm  style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="260px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
-                                        hintMargin="152px" :text="otherParty.dob | beautify - date" />
+                                        hintMargin="152px" :text="otherParty.dob | beautify-date-mid" />
                                 </div>
                             </div>
+
+                            <div v-else style="font-size: 9pt;">
+
+                            <div>
+                                <div style="display: inline-block;">
+                                    The<b> additional party’s</b> full name is:
+                                </div>
+                                <GreyBoxForm  style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                        textwidth="270px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
+                                        hintMargin="80px" text="" />
+                                <div style="display: inline-block; padding-top:10px">
+                                    Their<b> date of birth</b>(dd/mmm/yyyy) is:
+                                </div>
+                                <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    textwidth="260px" beforetext="" :italicHint="false" 
+                                    hintMargin="152px" text="" />
+                            </div>
+                       </div>
+
                         </div>
                     </div>
 
@@ -171,7 +192,7 @@
         <!-- Part 2-->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 2 |Information about children</b>
@@ -184,10 +205,10 @@
 
                     <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small bordered>
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{ data.value }}</div>
+                            <div style="height:1rem; font-size:8pt;color:#000; background-color:#dedede " >{{ data.value }}</div>
                         </template>
                         <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
                         </template>
                     </b-table>
                 </div>
@@ -195,11 +216,10 @@
                     <b>4.</b> <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                         :check="true ? 'yes' : ''" />
                     <div style="margin-top: -16px;text-indent: 28px;">
-                        This <b>application is about enforcement under Rule 135</b>. I understand <b>I must give notice</b>
-                        of this application to each other party. <b>To give notice, they must be served</b> with the
-                        application and supporting documents <b>at least 7 days
-                            before</b> the date of the court appearance <b>unless</b> the court allows the application
-                        to be made without notice or with less than 7 days’ notice.
+                        I understand that I must consider the <b>best interests of the child</b> with respect to
+                        each order I am asking the court to make about the child. The “best interests of the
+                        child” is a legal test used to decide what would best protect the child’s physical,
+                        psychological, and emotional safety, security and well-being <i>[Family Law Act s. 37]</i>.
                     </div>
                 </div>
             </div>
@@ -218,7 +238,7 @@
         <!-- Part 3  -->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 3 |Notice of the application</b>
@@ -228,7 +248,7 @@
                     <b>5.</b> <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                         :check="true ? 'yes' : ''" />
                     <div style="margin-top: -16px;text-indent: 28px;">
-                        I understand <b>I must give notice</b> of this application to each other party, includingany other
+                        I understand <b>I must give notice</b> of this application to each other party, including any other
                         person who may be directly affected by the order.
                     </div>
                     <div>
@@ -251,10 +271,11 @@
         </div>
 
         <!-- Part 4 -->
+        <div style="page-break-after:always;">&nbsp;</div>
         <div class="print-block">
             <div style="margin-top: 1rem;"></div>
             <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-                <div style="flex:1; margin-right: 10px;">
+                <div style="width:80%; margin-right: 10px;">
                     <div style="margin-top: 0.3rem;"></div>
                     <div style="background: #626262; color: white; font-size: 13pt;">
                         <b>Part 4 |About your court appearance</b>
@@ -263,47 +284,41 @@
                             judicial case manager use only</i></div>
                     <div style="border:1px solid; font-size: 9pt; padding:1rem;font-family:BCSans">
                         <b>This application, which requires a court apprearance, will be heard by the court</b>
-                        <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text="" />
-                        <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            beforetext="<b>at</b>" hint="time" text="" />
+                        <GreyBoxForm style="text-indent:2px;" textwidth="10rem"
+                            beforetext="<b>on</b>" textafter="<b>at</b>" hint="date" hintMargin="25px" hintindent="50px" hintmargintop="12px" text="" marginTop="-8px" />
+                        <GreyBoxForm style="text-indent:2px;" textwidth="10rem"
+                            beforetext="<b>at</b>" hint="time" hintMargin="60px" hintindent="50px" hintmargintop="12px" text="" marginTop="-8px"/>
                         <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
 
-                        <div style="margin:0.5rem 0 0 0.25rem;">
-                            <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;"
-                                textwidth="10rem" beforetext="<b>You must attend the court appearance</b>"
-                                hint="(method of attendance)" text="" />
-                            <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b>
-                            </div>
-                            <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10"
-                                :check="''" text="See attached for details" />
-                        </div>
-                        <div style="margin:0.5rem 0 0 0.25rem;">
+                        <div style="margin:2rem 0 0 0.25rem;">
                             <div>
                                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" />
                                 <div style="margin-top: -18px;text-indent: 20px;">
                                     In person at
-                                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                                        beforetext="" hint="court location" text="" />
+                                    <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="20rem"
+                                        beforetext="" hint="court location"  hintMargin="60px" hintmargintop="12px" text="" marginTop="-8px"/>
                                 </div>
                             </div>
                         </div>
-                        <div style="margin:0.5rem 0 0 0.25rem; display:flex; flex-direction:row; gap:10px">
+                        <div style="margin:1rem 0 0 0.25rem; display:flex; flex-direction:row; gap:10px">
                             <div style="width:20%">
                                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" />
                                 <div style="margin-top: -18px;text-indent: 20px;">
                                     by another method of attendance, as specified
                                 </div>
                             </div>
-                            <div style="flex:1; padding-top:8px">
+                            <div style="width:80%; padding-top:8px">
                                 <div style="border:1px solid; font-size: 9pt; padding:0.5rem;">
-                                    Do not attend the courthouse in person. The registry will send within 24 hours before
+                                    <b>Do not attend the courthouse in person.</b> The registry will send within 24 hours
+                                    before
                                     the
                                     hearing date noted above the link to connect by MS Teams, including a dial-in
                                     conferencing
                                     number to be used by any party that is unable to use MS Teams or has problems with their
                                     video connection. If you have not provided your email address or telephone number to the
-                                    registry on your Notice of Address Change (<a href="#" target="_blank">Form 46</a>), you
+                                    registry on your Notice of Address Change (<a
+                                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa763.pdf?forcedownload=true"
+                                        target="_blank">Form 46</a>), you
                                     must contact the
                                     registry to
                                     obtain the MS Teams conference information
@@ -318,9 +333,10 @@
                         <div style="margin:0.5rem; font-size:9pt;">
                             <p>
                                 <b> If you do not attend court</b> on the date and time scheduled for the court
-                                appearance,the court may make an order in your absence.You may also choose to <b> file a
+                                appearance,the court may make an order in your absence.<br>
+                                You may also choose to <b> file a
                                     written response </b> in reply to the application in Form19 Written Response to
-                                Application
+                                Application.
                             </p>
                         </div>
                         <div style="margin:0.2rem 0 0 1rem; font-size: 9pt;"> The court must be satisfied that:
@@ -355,7 +371,7 @@
 
             <div style="margin-top: 1rem;"></div>
             <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-                <div style="flex:1; margin-right: 10px;">
+                <div style="width:80%; margin-right: 10px;">
                     <div style="margin-top: 0.3rem;"></div>
                     <div style="background: #626262; color: white; font-size: 13pt;">
                         <b>Part 5 |About the order</b>
@@ -376,13 +392,12 @@
                         <div style="margin-top: -18px;text-indent: 30px;">
                             There is a written agreement or order respecting parenting arrangements referred to in section
                             65 of
-                            the Family Law Act made on
-                            <underline-form style="text-indent:2px;display:inline" textwidth="8rem" beforetext=""
-                                hint="mmm/dd/yyyy" :italicHint="false"
-                                :text="relocInfo.existingOrderDate | beautify - date - blank" />
-                            that applies to the child(ren) that are the child(ren) that are the subject of this application
-                            (see
-                            attached copy of agreement or order).
+                            the <i>Family Law Act</i> made on
+                            <GreyBoxForm style="text-indent:2px;display:inline" textwidth="8rem" beforetext=""
+                                hint="Date (dd/mmm/yyyy)" hintindent="30px" :italicHint="false" 
+                                :text="relocInfo.existingOrderDate | beautify-date-mid " />
+                            that applies to the child(ren) that are the subject of this application
+                            <b>(see attached copy of agreement or order)</b>.
                         </div>
                     </div>
 
@@ -398,9 +413,9 @@
                                     :check="relocInfo.receivedNotice ? 'yes' : ''" />
                                 <div style="margin-top: -18px;text-indent: 22px;">
                                     Notice of relocation was given to me on
-                                    <underline-form style="margin:0 0 0.5rem 0rem;text-indent:2px;display:inline-block"
-                                        textwidth="8rem" beforetext="" aftertext="(see attached) copy" hint="mmm/dd/yyyy"
-                                        :italicHint="false" :text="relocInfo.noticeDate | beautify - date - blank" />
+                                    <GreyBoxForm style="margin:0 0 0.5rem 0rem;text-indent:2px;display:inline-block"
+                                        textwidth="8rem" beforetext="" aftertext="(see attached copy)" hint="Date (dd/mmm/yyyy)" hintindent="30px"
+                                        :italicHint="false" :text="relocInfo.noticeDate | beautify-date-mid" />
                                 </div>
                             </div>
                             <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
@@ -408,31 +423,36 @@
                                     style="display:inline; font-size: 9pt; text-indent: -16px;"
                                     :check="!relocInfo.receivedNotice ? 'yes' : ''" text="" />
                                 <div style="margin-top: -18px;text-indent: 22px;">
-                                    <underline-form style="margin-left:0rem; text-indent:0px; display:inline"
+                                    <GreyBoxForm style="margin-left:0rem; text-indent:0px; display:inline"
                                         textwidth="5.7rem"
                                         beforetext="I did not receive written notice of relocation but became aware of the planned relocation on"
-                                        aftertext="." hint="mmm/dd/yyyy" :italicHint="false"
-                                        :text="relocInfo.foundOutDate | beautify - date - blank" />
+                                        aftertext="." hint="Date (dd/mmm/yyyy)" hintindent="10px"  :italicHint="false" hintmargintop="12px" marginTop="-8px"
+                                        :text="relocInfo.foundOutDate | beautify-date-mid" />
                                 </div>
-                                <div style="margin:0.5rem 0 0 1rem;  font-size: 9pt;">
-                                    <underline-form style="margin-left:0.35rem; display:inline" textwidth="6rem"
+                                <div style="margin:1.5rem 0 0 1rem;  font-size: 9pt;">
+                                    <GreyBoxForm style="margin-left:0.35rem; display:inline" textwidth="6rem"
                                         beforetext="I understand the date of the relocation of the child(ren) to be"
-                                        hint="Date(mmm/dd/yyyy)" :italicHint="false"
-                                        :text="relocInfo.presumedRelocationDate | beautify - date - blank" />
-                                    <underline-form style="margin:0 0 0 0.35rem; text-indent:5px;display:inline"
+                                        hint="Date (dd/mmm/yyyy)" hintindent="10px" :italicHint="false" hintmargintop="12px"  marginTop="-8px"
+                                        :text="relocInfo.presumedRelocationDate | beautify-date-mid" />
+                                    <GreyBoxForm style="margin:0 0 0 0.35rem; text-indent:5px;display:inline"
                                         :textwidth="relocInfo.presumedLocation.length < 22 ? '9rem' : '22rem'"
-                                        beforetext="to" aftertext="." hint="proposed location" :italicHint="false"
+                                        beforetext="to" aftertext="." hint="proposed location" hintindent="10px" :italicHint="false" hintmargintop="12px" marginTop="-8px"
                                         :text="relocInfo.presumedLocation" />
                                 </div>
                                 <div style="text-indent:10px; margin:1rem 0 0 0.65rem; font-size: 9pt;">
                                     I learned about the planned relocation:
                                 </div>
-                                <i style="text-indent:5px;margin:0.25rem 0 0 0.65rem; display: block; font-size: 9pt;">Briefly
+                                <i style="text-indent:5px; padding-left:12px; display: block; font-size: 9pt;">Briefly
                                     explain how you found out about the planned relocation if you did not receive written
                                     notice</i>
-                                <div v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription" class="answerbox">
-                                    {{ relocInfo.foundOutDescription }}</div>
-                                <div v-else style="margin-bottom:3rem;"></div>
+                                <GreyBoxForm v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription"
+                                    style="margin-top:10px; padding-left:12px; text-indent:0rem" textwidth="35rem"
+                                    :text="relocInfo.foundOutDescription">
+
+                                </GreyBoxForm>
+                                <GreyBoxForm v-else style="margin-top:10px; padding-left:12px; text-indent:0rem" textwidth="30rem">
+                                </GreyBoxForm>
+
                             </div>
                         </div>
                     </div>
@@ -443,9 +463,10 @@
                         <p>
                             <b-icon-info-circle-fill />
                             <br />
-                            You can make an application under s. 69 of the Family Law Act only if there is an existing
+                            You can make an application under s. 69 of the F<i>Family Law Act</i> only if there is an
+                            existing
                             written
-                            agreement or court order about parenting arrangements [s. 65 Family Law Act].
+                            agreement or court order about parenting arrangements [s. 65 <i>Family Law Act</i>].
                         </p>
                     </div>
 
@@ -470,6 +491,7 @@
         </div>
 
         <!-- INFORMATION ABOUT YOUR APPEARANCE -->
+        <div style="page-break-after:always;">&nbsp;</div>
         <div class="print-block">
             <div style="margin-top: 1rem;"></div>
             <div style="text-align: justify; font-size:11px;">
@@ -480,9 +502,8 @@
                         If your notice indicates that you are to attend by another method of attendance, parties, including
                         the
                         judge, will attend
-                        using the Microsoft Teams audio- and video-conferencing (video) platform. Do not attend the
-                        courthouse
-                        in person.
+                        using the Microsoft Teams audio- and video-conferencing (video) platform. <b>Do not attend the
+                            courthouse in person.</b>
                         Parties will receive remote MS Teams appearance details within 24 hours prior to the appearance,
                         this
                         notification is
@@ -492,7 +513,8 @@
                         Microsoft Teams allows participants to join the conference using video or audio from a desktop,
                         laptop,
                         tablet, or
-                        smartphone, or to dial-in to a proceeding from a telephone. If you are appearing by video, please
+                        smartphone, or to dial-in to a proceeding from a telephone. <b>If you are appearing by video,</b>
+                        please
                         ensure
                         that you
                         have downloaded Microsoft Teams or have the latest version of Google Chrome or Microsoft Edge.
@@ -515,7 +537,7 @@
                     </p>
                     <p>
                         <b> Please do not forward or share</b> the MS Teams link or dial up information to any unauthorized
-                        parties
+                        parties.
                     </p>
                     <div>
                         <p style=" font-size: 13px;"> <b>Preparing for your Family Management Conference</b></p>
@@ -529,7 +551,8 @@
                             that can help you prepare for your court date.Contact the advice services at least three weeks
                             before your court date
                             or as soon as you receive
-                            this notice.If you are unable to access the internet, contact the Family LawLINE at 604-408-2172
+                            this notice.If you are unable to access the internet, contact the Family Law LINE at
+                            604-408-2172
                             in
                             Greater Vancouver or 1-866-577-2525 elsewhere in BC.
                         </p>
@@ -538,7 +561,7 @@
                         <p><b>Family Justice Services</b></p>
                         <p>Family justice counsellors provide services to British Columbians going through separation and
                             divorce and are specially trained to help families resolve their issues about guardianship,
-                            parenting arrangements,contact and support. There is no charge for their services.
+                            parenting arrangements, contact and support. There is no charge for their services.
                         </p>
                         <p>
                             At this time all services are available in-person as well as virtually (through telephone and
@@ -554,8 +577,7 @@
                             Free legal assistance directly for children and youth. Services may include legal advice and
                             information, referral, or full representation, depending on circumstances. Availability and wait
                             times may vary. Services are for children and youth who want legal assistance, are able to
-                            express
-                            their views and preferences,and who caninstruct a lawyer.
+                            express their views and preferences, and who can instruct a lawyer.
                         </p>
                         <p>For more information: <a href="https://www.scyofbc.org/child-youth-legal-centre/"
                                 target="_blank">https://www.scyofbc.org/child-youth-legal-centre/</a> </p>
@@ -573,37 +595,43 @@
                             </a>
                         </p>
                         <p>
-                            <b>Before the scheduled hearing date,</b>please visit the Provincial Court website at
-                            https://www.provincialcourt.bc.ca and review:
+                            <b>Before the scheduled hearing date, </b>please visit the Provincial Court website at
+                            <a href="https://www.provincialcourt.bc.ca/"
+                                target="_blank">https://www.provincialcourt.bc.ca</a>
+                            and review:
                         <ul>
                             <li>
-                                Policy on Use of Electronic Devices in Courtrooms and Access to Court Proceedings Policy
+                                <i>Policy on Use of Electronic Devices in Courtrooms and Access to Court Proceedings
+                                    Policy</i>
                                 (there
                                 is a general prohibition on the recording or broadcasting of court proceedings unless
                                 authorized
                                 by the Court and there are penalties for breach)
                             </li>
-                            <li>NP 21 Remote Attendance in the Provincial Court (for etiquette and directions on connecting
+                            <li><i>NP 21 Remote Attendance in the Provincial Court</i> (for etiquette and directions on
+                                connecting
                                 by
                                 another method of attendance) (counsel attendance requirements when attending Family matters
                                 remotely)
                             </li>
                             <li>
-                                NP 24 Form of Address for Parties and Lawyers (provide the judge or justice with each
+                                <i> NP 24 Form of Address for Parties and Lawyers </i>(provide the judge or justice with
+                                each
                                 person’s
                                 name, title (e.g.
                                 “Mr./ Ms./Mx./Counsel Jones”) and pronouns to be used in the proceeding)
                             </li>
                             <li>
-                                Guide for Appearing in the Provincial Court using MS Teams
+                                <i>Guide for Appearing in the Provincial Court using MS Teams</i>
                             </li>
                             <li>
-                                eNews - What to expect at a family management conference?
+                                <i>eNews</i> - What to expect at a family management conference?
                             </li>
                         </ul>
                         </p>
                         <p>
-                            <b>If you are unable to dial-in or are dropped from the appearance</b>immediately call the court
+                            <b>If you are unable to dial-in or are dropped from the appearance</b> immediately call the
+                            court
                             registry.
                         </p>
                     </div>
@@ -612,9 +640,10 @@
         </div>
 
         <!-- Part 6 -->
+        <div style="page-break-after:always;">&nbsp;</div>
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 6 | Best interests of the child</b>
@@ -624,9 +653,14 @@
                     <div style="margin:0 0 0 0.4rem; display: inline; font-size: 9pt;">
                         I believe it is in the child(ren)’s best interests to prohibit the proposed relocation because:
                     </div>
-                    <div v-if="relocInfo.childBestInterestReason" class="answerbox">{{ relocInfo.childBestInterestReason }}
-                    </div>
-                    <div v-else style="margin-bottom:3rem;"></div>
+
+                    <GreyBoxForm v-if="relocInfo.childBestInterestReason" style="margin-top:10px; text-indent:0rem"
+                        textwidth="35rem" :text="relocInfo.childBestInterestReason">
+
+                    </GreyBoxForm>
+                    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+
+
                 </div>
             </div>
             <div style="width: 20% ">
@@ -635,7 +669,8 @@
                         <b-icon-info-circle-fill />
                         <br />
                         To determine what is in the best interests of a child, all of the child’s needs and circumstances
-                        must be considered including the factors set out in s. 37 of the Family Law Act. The parties and the
+                        must be considered including the factors set out in s. 37 of the <i>Family Law Act</i>. The parties
+                        and the
                         court must consider the best interests of a child when making a decision about contact with a child.
                         For more information, see the guidebook.
                     </p>
@@ -664,7 +699,7 @@
                                 :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed') ? 'yes' : ''"
                                 text="" />
                             <div style="margin-top: -18px;text-indent: 3px;">
-                                Where my <b>existing case</b> with the same party/parties is located. I already havea court
+                                Where my <b>existing case</b> with the same party/parties is located. I already have a court
                                 file number.
                             </div>
 
@@ -688,39 +723,39 @@
         <!-- Part 8 -->
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
+            <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 8 | Address for service</b>
                 </div>
                 <b style="padding-right:3px">11.</b>
                 <div style="margin:0 0 0 0.4rem; display: inline; font-size: 9pt;">
-                    My address for service of court documents and contact information is:
+                    My <b>address for service </b>of court documents and contact information is:
                 </div>
                 <div style="margin-left:2rem;">
                     <i>You must provide an address for service and contact number, but it does not have to be your own if
                         you don’t want to</i>
                     <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
                         <tr style="border:1px solid #414142">
-                            <td colspan="3">Address: <div class="answer">{{ yourInfo.address.street }} </div>
+                            <td colspan="3">Address: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.street }} </div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>City: <div class="answer">{{ yourInfo.address.city }}</div>
+                            <td >City: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.city }}</div>
                             </td>
-                            <td style="padding-left:50px">Province: <div class="answer">{{ yourInfo.address.state }}</div>
+                            <td style="padding-left:50px">Province: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.state }}</div>
                             </td>
-                            <td>Postal Code: <div class="answer">{{ yourInfo.address.postcode }}</div>
+                            <td>Postal Code: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{ yourInfo.contact.email }}</div>
+                            <td colspan="2">Email: <div class="answer" style="background-color:#dedede">{{ yourInfo.contact.email }}</div>
                             </td>
-                            <td>Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
+                            <td>Telephone: <div class="answer" style="background-color:#dedede">{{ yourInfo.contact.phone }}</div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #414142">
-                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer">
+                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer" style="background-color:#dedede">
                                     {{ yourInfo.lawyerName | getFullName }}</div>
                             </td>
                             <td v-else colspan="3">Lawyer (if applicable): </td>
@@ -757,6 +792,7 @@ import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/t
 import { relocationOfChildInformationDataInfoType, relocationOfChildOtherPartyDataInfoType } from '@/types/Application/RelocationOfChild/PDF';
 import { relocChildrenInfoDataInfoType, relocQuestionnaireSurveyDataInfoType, relocChildBestInterestSurveyDataInfoType } from '@/types/Application/RelocationOfChild';
 import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
+import GreyBoxForm from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 
 
 @Component({
@@ -764,6 +800,7 @@ import { getYourInformationResults, getLocationInfo } from '@/components/utils/P
         UnderlineForm,
         CheckBox,
         OrderedCheckBox,
+        GreyBoxForm
 
     }
 })
@@ -788,7 +825,7 @@ export default class Form16Layout extends Vue {
 
     childrenFields = [
         { key: "fullName", label: "Child's full name", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:30%;" },
-        { key: "dob", label: "Child's date of birth (mmm/dd/yyyy)", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:18%;" },
+        { key: "dob", label: "Child's date of birth (dd/mmm/yyyy)", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:18%;" },
         { key: "currentSituation", label: "Child is currently living with", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:16%;" },
     ]
 
@@ -831,7 +868,7 @@ export default class Form16Layout extends Vue {
         for (const child of childData) {
             childInfo = {} as childrenInfoSurveyInfoType;
             childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);
+            childInfo.dob = Vue.filter('beautify-date-mid')(child.dob);
             childInfo.currentSituation = child.currentLiving;
             childrenInfo.push(childInfo)
         }

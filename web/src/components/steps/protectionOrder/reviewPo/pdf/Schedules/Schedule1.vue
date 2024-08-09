@@ -65,7 +65,7 @@
         <div style="margin-top: 1rem;"></div>
 
 <!-- <2> -->
-    <section style="width: 80%;">  
+    <section style="width: 78%;">  
             I am applying for a protection order for <b>the following person(s) to be protected:</b>
             <div style="margin:0.25rem 0 0 2rem; width: 80%;" >
                 <i>Select and complete only those options that apply to your situation. You may select more than one.</i>
@@ -177,7 +177,7 @@
 
 <!-- <3> -->
         <section style="width: 80%">  
-            <div style="margin-left:1rem;">I <b>do not want</b> the other party to be able to <b>attend at, enter or be found near</b> the following places:</div>
+            I <b>do not want</b> the other party to be able to <b>attend at, enter or be found near</b><br/> the following places:
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>
                 <check-box  :check="noGo.places.includes('Home')?'yes':''" text="Residence"/>
@@ -197,9 +197,10 @@
 
 <!-- <4> -->
         <section style="width: 80%">  
-            <div style="margin-left:1rem;"> The protected party may <b>need to communicate</b> with the other party for the following reason(s):</div>
+            The protected party may <b>need to communicate</b> with the other party for the following reason(s):
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
+                <check-box  :check="noContact.reasonForComm.includes('Not applicable')?'yes':''" text="Not applicable"/>
                 <check-box  :check="noContact.reasonForComm.includes('Consensual dispute resolution')?'yes':''" text="Consensual dispute resolution"/>
                 <check-box  :check="noContact.reasonForComm.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
                 <check-box  :check="noContact.reasonForComm.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
@@ -216,32 +217,27 @@
 
 <!-- <5> -->
     <section style="width: 80%">
-            I have concerns the other party would <b>cause harm with or threaten to use guns, explosives or another kind of firearm</b>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.firearms == 'y'?'yes':''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.firearms == 'n'?'yes':''" text="No"/>
-            <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your concerns</i>
+            I am concerned the other party would <b>cause harm with or threaten to use <br/>guns, explosives or another kind of firearm</b><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.firearms == 'n'?'yes':''" text="<b>No</b>"/><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.firearms == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your concerns:"/>
             <div class="answerbox" style="width:98%">{{weaponsFirearms.firearmsReason ? weaponsFirearms.firearmsReason : '&nbsp;'}}</div>
         </section>
 
         <div style="margin-top:1rem;"></div>
 <!-- <6> -->
         <section style="width: 80%">
-            I believe the other party <b>owns or has access to guns, explosives or another kind of firearm</b>
-            <div style="display:block; margin-left:0.5rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.firearmsYes == 'y'?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.firearmsYes == 'n'?'yes':''" text="No"/>
-            </div>
-            <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your belief</i>
+            I believe the other party <b>owns or has access to guns, explosives or another kind<br/> of firearm</b><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.firearmsYes == 'n'?'yes':''" text="<b>No</b>"/><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.firearmsYes == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your belief:"/>
             <div class="answerbox" style="width:98%">{{weaponsFirearms.firearmsYesReason ? weaponsFirearms.firearmsYesReason : '&nbsp;'}}</div>
         </section>
 
         <div style="margin-top:1rem;"></div>
 <!-- <7> -->
         <section style="width: 80%">
-            I have concerns the other party would <b>cause harm with or threaten to use a weapon that is not a gun or explosive</b>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.weapons == 'y'? 'yes' : ''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.weapons == 'n'? 'yes' : ''" text="No"/>        
-            <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your concerns</i>
+            I am concerned the other party would <b>cause harm with or threaten to use a <br/>weapon that is not a gun or explosive</b><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.weapons == 'n'? 'yes' : ''" text="<b>No</b>"/><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.weapons == 'y'? 'yes' : ''" text="<b>Yes</b> ➜ explain the reason(s) for your concerns:"/>
             <div class="answerbox" style="width:98%">{{weaponsFirearms.weaponsReasons ? weaponsFirearms.weaponsReasons : '&nbsp;'}}</div>
         </section>       
        
@@ -249,10 +245,8 @@
 <!-- <8> -->
         <section style="width: 80%">
             I believe the other party <b>owns a weapon that is not a gun or explosive</b><br/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.weaponsYes == 'y'?'yes':''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.weaponsYes == 'n'?'yes':''" text="No"/>            
-            <i style="display:block; margin-left:1rem;">Examples of weapons someone may own include swords, hunting knives, and nunchucks.</i>
-            <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your belief</i>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.weaponsYes == 'n'?'yes':''" text="<b>No</b>"/><br/>            
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="weaponsFirearms.weaponsYes == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your belief:"/>
             <div class="answerbox" style="width:98%">{{weaponsFirearms.weaponsYesReason ? weaponsFirearms.weaponsYesReason : '&nbsp;'}}</div>
         </section>
 
@@ -264,7 +258,7 @@
 
 <!-- <9> -->
         <section style="width: 80%">  
-            <div style="margin-left:1rem;"> I believe <b>police assistance may be required</b> for the following purpose(s):</div>
+            I believe <b>police assistance may be required</b> for the following purpose(s):
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
                 <check-box  :check="removePerson.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
@@ -272,8 +266,8 @@
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
                 
-                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="removePerson.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <grey-box-form marginTop="-12px" style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="removePerson.needPoliceComment"/>
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="removePerson.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/><br/>
+                <div class="answerbox" style="width:98%">{{removePerson.needPoliceComment ? removePerson.needPoliceComment : '&nbsp;'}}</div>
                 
             </div>
         </section>
@@ -345,7 +339,7 @@
                     <table>
                         <tr>
                             <td style="text-align: right;">
-                                Date on which the parties began to live together in a marriage-like relationship (dd/mmm/yyyy):    
+                                Date on which the parties began to live together in<br/> a marriage-like relationship (dd/mmm/yyyy):    
                             </td>
                             <td>
                                 <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.liveTogetherDate" />
@@ -421,7 +415,7 @@
         </div>
 
 <!-- <12> -->
-    <section style="width: 80%">
+    <section style="width: 78%">
             <i style="display:inline;margin-left:0.5rem;">Select whichever option is correct and complete the required information</i>
             <div style="margin:0 0 0 1rem;" >                    
                 <check-box  :check="backgroundSurvey.hasOtherChilderen=='n'?'yes':''" text="The protected party and the other party are a <b>parent, step-parent or guardian only to the child(ren)</b>, if any, identified <b>in Part 2</b> of this schedule."/>
@@ -460,7 +454,7 @@
 
 <!-- <13> -->
         <section style="width: 80%">
-            <div style="margin-left:0.27rem;text-indent:0rem;" >I would like to share the following information with the court about the <b>cultural, linguistic, religious and spiritual upbringing and heritage of my family</b>, including, if the child is an Indigenous child, the child’s Indigenous identity:</div>
+            I would like to share the following information with the court about the <b>cultural, linguistic, religious and spiritual upbringing and heritage of my family</b>, including, if the child is an Indigenous child, the child’s Indigenous identity:
             <i>You may choose to leave this question blank</i>            
             <div class="answerbox" style="width:98%"> {{backgroundSurvey.culturalExplain ? backgroundSurvey.culturalExplain : '&nbsp;'}}</div>
         </section>
@@ -471,23 +465,19 @@
 
 <!-- <14> -->
         <section style="width: 80%">
-            <div style="margin:0 0 0 0.75rem; display:block">
-                <div style="display:block;margin:0 0 0 0;text-indent:0px;"> 
-                    There is an <b>existing court order or written agreement</b> about parenting
-                    arrangements, child support, contact with a child, guardianship of a child, spousal
-                    support, and/or property division in respect of a companion animal.
-                </div>
-                <div  style="margin:0 0 0 0.5rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline" :shift="10" :check="backgroundSurvey.existingOrders=='y'?'yes':''" text="Yes (see attached copy)"/>
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.5rem" :shift="10" :check="backgroundSurvey.existingOrders=='n'?'yes':''" text="No"/>
-                </div>
-            </div>  
+            There is an <b>existing court order or written agreement</b> about parenting<br/>
+            arrangements, child support, contact with a child, guardianship of a child,<br/> spousal
+            support, and/or property division in respect of a companion animal.
+            <div  style="margin:0 0 0 0.5rem;">
+                <check-box inline="inline" boxMargin="0" style="display:inline" :shift="10" :check="backgroundSurvey.existingOrders=='y'?'yes':''" text="Yes (see attached copy)"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.5rem" :shift="10" :check="backgroundSurvey.existingOrders=='n'?'yes':''" text="No"/>
+            </div>
         </section> 
 
 <!-- <15> -->
         <section style="width: 80%">
             <div style="display:inline;margin-left:.5rem;">
-                There is an <b>existing court order, agreement or plan protecting</b> one of the parties or the 
+                There is an <b>existing court order, agreement or plan protecting</b> one of the<br/> parties or the 
                 child(ren), or restraining contact between the parties, including:
                 <ul>
                     <li style="text-indent: 20px;">a protection order,</li>
@@ -512,13 +502,13 @@
 
 <!-- <17> -->
         <section style="width: 80%">
-            <div style="display:inline;margin-left:.5rem;">I have concerns the other party <b>may not obey a court order</b></div><br/>
+            <div style="display:inline;margin-left:.5rem;">I am concerned the other party <b>may not obey a court order</b></div><br/>
             <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.concernForNotObeying == 'n'?'yes':''" text="No"/><br/>
             <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.concernForNotObeying == 'y'?'yes':''" text="Yes 🠆 explain the reason(s) for your concerns:"/>
             <div class="answerbox" style="width:98%"> {{backgroundSurvey.explainNotObeyingConcern ? backgroundSurvey.explainNotObeyingConcern : '&nbsp;'}}</div>
         </section>
 
-        <div style="float: right;width: 18%; margin-top: -275px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+        <div style="float: right;width: 18%; margin-top: -515px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
             <p>
                 <b-icon-info-circle-fill />
                 <div style="font-size: 9px">Include any order (interim or final), agreement or plan from any level of court and any
@@ -526,7 +516,7 @@
             </p>
         </div>
 
-        <div style="float: right;width: 18%; margin-top: -125px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+        <div style="float: right;width: 18%; margin-top: -385px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
             <p>
                 <b-icon-paperclip />
                 <div style="font-size: 9px">If yes, you must attach a copy of any order, agreement or plan to this application for
@@ -548,11 +538,9 @@
 
 <!-- <19> -->
         <section style="width: 80%">
-            <div style="display:inline;margin-left:.5rem;">I have <b>reported</b> my safety concerns <b>to a social worker</b> (Ministry of Children and Family Development)</div>
-            <div style="display:block;margin-left:.75rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.reportedToSW == 'n'?'yes':''" text="No"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.reportedToSW == 'y'?'yes':''" text="Yes 🠆 describe what actions they have taken:"/>
-            </div>
+            <div style="display:inline;margin-left:.5rem;">I have <b>reported</b> my safety concerns <b>to a social worker</b> (Ministry of Children and<br/> Family Development)</div><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.reportedToSW == 'n'?'yes':''" text="No"/><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.reportedToSW == 'y'?'yes':''" text="Yes 🠆 describe what actions they have taken:"/>
             <div class="answerbox" style="width:98%"> {{backgroundSurvey.swAction ? backgroundSurvey.swAction : '&nbsp;'}}</div>
         </section>
 
@@ -579,15 +567,15 @@
 
 <!-- <20> -->
         <section style="width: 80%">
-            <div style="display:inline;margin-left:.5rem;">Describe any <b>recent incidents of family violence against the protected
+            <div style="display:inline;margin-left:.5rem;">Describe any <b>recent incidents of family violence against the protected<br/>
                 party/parties and any child(ren).</b></div>
-            <i style="text-indent:0rem;display:block;margin-left:.2rem;">Start with the most recent incident continuing backwards. Go back as far as you think is
-                important for the court to know.
-                If there is a police report, medical report or doctor’s note, or any photographs related to an
-                incident, you must talk about them in this section. Refer to the document, state it is
+            <i style="text-indent:0rem;display:block;margin-left:.2rem;">Start with the most recent incident continuing backwards. Go back as far as you think is<br/>
+                important for the court to know.<br/>
+                If there is a police report, medical report or doctor’s note, or any photographs related to<br/> an
+                incident, you must talk about them in this section. Refer to the document, state it<br/> is
                 attached as an exhibit and attach them as exhibits.</i>
             <div class="answerbox" style="width:98%"> {{yourStory.recentIncidents ? yourStory.recentIncidents : '&nbsp;'}}</div>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="Additional page(s) (see attached)"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="<b>Additional page(s) (see attached)</b>"/>
         </section>
 
         <div style="float: right;width: 18%; margin-top: -275px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
@@ -628,29 +616,27 @@
 
 <!-- <21> -->
        <section style="width: 80%">
-            <div style="display:inline;margin-left:.5rem;">I have concerns about the <b>mental health</b> of the protected party and/or the other party</div>
-            <div style="margin-left:1.0rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.mentalHealthConcern == 'n'?'yes':''" text="No"/>                       
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.mentalHealthConcern == 'y'?'yes':''" text="Yes 🠆 explain the reason(s) for your concerns:"/>
-            </div>
+            <div style="display:inline;margin-left:.5rem;">I am concerned about the <b>mental health</b> of the protected party and/or the other<br/> party</div><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.mentalHealthConcern == 'n'?'yes':''" text="<b>No</b>"/><br/>                      
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.mentalHealthConcern == 'y'?'yes':''" text="<b>Yes</b> 🠆 explain the reason(s) for your concerns:"/>
             <div class="answerbox" style="width:98%"> {{backgroundSurvey.mentalHealthConcernReasons ? backgroundSurvey.mentalHealthConcernReasons : '&nbsp;'}}</div>
         </section>
 
-        <!-- <22> -->
+<!-- <22> -->
         <section style="width: 80%">
-            <div style="display:inline;margin-left:.5rem; width:98%;">Are there <b>circumstances</b> you want to share about a party or the relationship <b>that may increase the risk of family violence</b>?</div>
+            <div style="display:inline;margin-left:.5rem; width:98%;">Are there <b>circumstances</b> you want to share about a party or the relationship <b>that<br/> may increase the risk of family violence</b>?</div>
             <i style="text-indent:0rem;display:block;margin-left:.2rem; width:98%">Circumstances may include risk factors such as substance misuse, employment or
                 financial stress, history of violence, and vulnerabilities including pregnancy, age, family
                 circumstances, health or economic dependence</i>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.riskOfViolence == 'n'?'yes':''" text="No"/><br/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="Yes 🠆 please describe the circumstances:"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.riskOfViolence == 'n'?'yes':''" text="<b>No</b>"/><br/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="<b>Yes</b> 🠆 please describe the circumstances:"/>
             <div class="answerbox" style="width:98%"> {{backgroundSurvey.violenceCirumstances ? backgroundSurvey.violenceCirumstances : '&nbsp;'}}</div>
         </section>
 
 <!-- <23> -->
         <section style="width: 80%">            
             <div style="display:inline; margin-left:.5rem;">
-                <div style="display:inline; width:98%;">Is there any family violence <b>you fear is likely</b> to happen or <b>concerns for the safety</b> of the protected party/parties that you have <b>not already described</b> in this affidavit?</div><br/>
+                <div style="display:inline; width:98%;">Is there any family violence <b>you fear is likely</b> to happen or <b>concerns for the safety</b><br/> of the protected party/parties that you have <b>not already described</b> in this affidavit?</div><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="yourStory.isViolence == 'n'?'yes':''" text="No"/><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="yourStory.isViolence == 'y'?'yes':''" text="Yes 🠆 please describe the circumstances:"/>
             </div>

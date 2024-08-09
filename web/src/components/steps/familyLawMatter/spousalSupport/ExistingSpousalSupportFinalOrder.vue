@@ -76,7 +76,7 @@ export default class ExistingSpousalSupportFinalOrder extends Vue {
         if(this.survey.data?.orderDifferenceType == 'changeOrder'){
             togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], true, this.currentStep);
             
-        } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
+        } else if(['cancelOrder', 'suspendedOrder'].includes(this.survey.data?.orderDifferenceType)) {
             
             togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false, this.currentStep);
         }
