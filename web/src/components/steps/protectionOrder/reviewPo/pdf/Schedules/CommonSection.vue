@@ -107,6 +107,13 @@
         <b>Part 3 | Notice of the application</b>
     </div>
 
+    <div style="float: right;width: 18%; margin-top: -25px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+        <p>
+            <b-icon-book />
+            <div style="font-size: 9px">For more information about serving court documents, see the guidebook.</div>
+        </p>
+    </div>
+
     <div style="margin-top: 1rem;"></div>
 
     <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%">
@@ -115,13 +122,6 @@
         the court appearance.<br/>
         An application about a protection order can also be made without notice to the other party [s. 186
         <i>Family Law Act</i>].
-    </div>
-
-    <div style="float: right;width: 18%; margin-top: -140px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-        <p>
-            <b-icon-book />
-            <div style="font-size: 9px">For more information about serving court documents, see the guidebook.</div>
-        </p>
     </div>
 
     <section style="width: 80%">
@@ -146,13 +146,6 @@
         </p>
     </div>
 
-    <div style="float: right;width: 18%; margin-top: -90px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-        <p>
-            <b-icon-book />
-            <div style="font-size: 9px">For more information about applying with or without notice, see the guidebook.</div>
-        </p>
-    </div>
-
     <div style="margin-top: 1rem;"></div>
 
     <!-- <PART 4> -->
@@ -160,41 +153,38 @@
         <b>Part 4 | About your court appearance</b>
     </div>
 
+    <div style="float: right;width: 18%; margin-top: -140px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+        <p>
+            <b-icon-book />
+            <div style="font-size: 9px">For more information about applying with or without notice, see the guidebook.</div>
+        </p>
+    </div>
+
     <div>
         <i>For registry or judicial case manager use only</i>
     </div>
 
-    <div class="fla-col-left-80" style="border-style: solid border-color: black; width: 80%; line-height: 28px;">
-        <table style="border: 1px solid black;"><tr><td style="padding: 18px">
+    <div class="fla-col-left-80" style="border: 1px solid black; line-height: 28px; width: 80%;">
             <b>The application, which requires a court appearance, will be heard by the court on</b><grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" hintindent="3rem" beforetext="" hint="date (mmm/dd/yyyy)" text=""/>
             <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
             <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
 
             <div style="margin-top: 1rem;"></div>
 
-            <table border="0" style="line-height: 16px;">
-                <tr>
-                    <td>
-                        <check-box :check="''" text="In person at "/>            
-                    </td>
-                    <td>
-                        <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0; line-height: 28px;" textwidth="20.5rem" beforetext="" hint="court location" text=""/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <check-box :check="''" text="by another method of attendance, as specified"/>
-                    </td>
-                    <td style="border: 1px solid black;">
-                        <div style="line-height: 14px;"><b>Do not attend the courthouse in person</b>. The registry will send within 24 hours before the hearing
+            <div style="line-height: 16px; display: inline-block; width:38%; vertical-align: top; padding-left: 18px;">
+                <check-box :check="''" text="In person at "/><br/>
+                <check-box :check="''" text="by another method of attendance, as specified"/>
+            </div>
+            <div style="display: inline-block; width:58%">
+                <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0; line-height: 28px;" textwidth="19.5rem" beforetext="" hint="court location" text=""/>
+                <div style="line-height: 14px; border: 1px solid black;">
+                    <b>Do not attend the courthouse in person</b>. The registry will send within 24 hours before the hearing
                         date noted above the link to connect by MS Teams, including a dial-in conferencing number to be used by
                         any party that is unable to use MS Teams or has problems with their video connection. If you have not
                         provided your email address or telephone number to the registry on your Notice of Address Change
-                        (Form 46), you must contact the registry to obtain the MS Teams conference information.</div>
-                    </td>
-                </tr>
-            </table>
-        </td></tr></table>
+                        (Form 46), you must contact the registry to obtain the MS Teams conference information.
+                </div>
+            </div>
     </div>
 
     <div style="margin-top: 1rem;"></div>
