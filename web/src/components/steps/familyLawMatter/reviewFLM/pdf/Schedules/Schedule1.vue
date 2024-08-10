@@ -30,9 +30,9 @@
                     <FormPart :part="1" title="Guardian of the child"></FormPart>
                     
                     <section> 
-                        Select the option that applies to your situation
-                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="I am the child’s guardian"/>
-                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="I am <b>applying to be appointed</b> as the child’s guardian <i>(I am also completing Schedule 7)</i>"/>
+                        <i>Select the option that applies to your situation</i>
+                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="I am the <b>child’s guardian</b>"/>
+                        <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="I am <b>applying to be appointed</b> as the child’s guardian <i>(I am also completing <b>Schedule 7</b>)</i>"/>
                     </section>
                 </div>
                 <div style="width: 20%;">
@@ -67,45 +67,56 @@
 
                     <div>
                         <b>2. </b>
-                        <p style="display: inline;"><b>I am applying for an order about parental responsibilities as follows:</b></p>
+                        <p style="display: inline;">I am applying for an <b>order about parental responsibilities</b>> as follows:</p>
                         <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         
-                        <div style="background-color: #eee;">
+                        <div class="answerbox" style="height: 100px;">
                             {{parentArrInfo.parentResp.expl}}
                         </div>
                     </div>
                     <br>
                     <div>
                         <b>3. </b>
-                        <p  style="display: inline;"><b>I am applying for an order about parenting time as follows:</b></p>
+                        <p  style="display: inline;">I am applying for an <b>order about parenting time</b> as follows:</p>
                         <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         
-                        <div style="background-color: #eee;">
-                            <div><b>I am asking for the child(ren) to spend time with me as follows:</b></div>
+                        <div class="answerbox" style="min-height: 100px; padding: 8px">
+                            <div v-if="parentArrInfo.parentTime.desired" style="font-size: 10px;">
+                                <b>I am asking for the child(ren) to spend time with me as follows:</b>
+                            </div>
                             <div>
                                 {{parentArrInfo.parentTime.desired}}
                             </div>
-                        </div>
-                        <div style="background-color: #eee;">
-                            <div><b>I am willing to have the following conditions placed on my time with the child(ren):</b></div>
+                            
+                            <br>
+
+                            <div v-if="parentArrInfo.parentTime.myConditions" style="font-size: 10px;">
+                                <b>I am willing to have the following conditions placed on my time with the child(ren):</b>
+                            </div>
                             <div>
                                 {{parentArrInfo.parentTime.myConditions}}
                             </div>
-                        </div>
-                        <div style="background-color: #eee;">
-                            <div><b>I am asking for the child(ren) to spend time with the other guardian(s) as follows:</b></div>
+                            
+                            <br>
+
+                            <div v-if="parentArrInfo.parentTime.opDesired" style="font-size: 10px;">
+                                <b>I am asking for the child(ren) to spend time with the other guardian(s) as follows:</b>
+                            </div>
                             <div>
                                 {{parentArrInfo.parentTime.opDesired}}
                             </div>
-                        </div>
-                        <div style="background-color: #eee;">
-                            <div><b>I am asking to have the following conditions placed on the other guardian’s time with the child(ren):</b></div>
+                            
+                            <br>
+
+                            <div v-if="parentArrInfo.parentTime.opConditions" style="font-size: 10px;">
+                                <b>I am asking to have the following conditions placed on the other guardian’s time with the child(ren):</b>
+                            </div>
                             <div>
                                 {{parentArrInfo.parentTime.opConditions}}
                             </div>
-                        </div>
+                        </div>  
                     </div>
                     <br>
                     <div>
@@ -118,15 +129,17 @@
                         <p>as follows: <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         </p> 
-                        <div style="background-color: #eee;">
+                        <div class="answerbox" style="min-height: 80px; padding: 8px;">
                             {{parentArrInfo.parentalArr.desc}}
                         </div>   
                     </div>
                     <br>
                     <div>
                         <b>5. </b>
-                        <p  style="display: inline">I am applying for directions from the court under s. 49 of the Family Law Act respecting the following issue affecting a child:</p>
-                        
+                        <p  style="display: inline">I am applying for <b>directions</b> from the court under s. 49 of the Family Law Act respecting the following <b>issue affecting a child</b>:</p>
+                        <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                            {{result.otherParentingArrangementsSurvey.seekingDirectionFromCourtDescription}}
+                        </div> 
                     </div>
         
                 </div>
@@ -164,12 +177,11 @@
                     
                     <div>
                         <b>6. </b> 
-                        <p style="display: inline">I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the best interests of the child(ren) because:</p>
+                        <p style="display: inline">I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the <b>best interests of the child(ren)</b> because:</p>
                         <p><i>List your reasons</i></p>
 
-                        <div v-if="parentArrInfo.childBestInterest" 
-                        class="answerbox">{{parentArrInfo.childBestInterest}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>  
+                        <div class="answerbox" style="min-height: 80px; padding: 8px;">{{parentArrInfo.childBestInterest}}</div>
+                          
 
                     </div>
                 </div>
