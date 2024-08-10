@@ -2,166 +2,140 @@
 <!-- <Page 2> --> 
 <!-- <Header> -->
     <div v-if="dataReady">
-        <div class="new-page" />
-        <div style="text-align:center;"><b> SCHEDULE 1 – REPLY TO AN APPLICATION ABOUT PARENTING ARRANGEMENTS – NEW</b></div>
-        <div style="text-align:center;"><b> This is Schedule 1 to the Reply to an Application About a Family Law Matter</b></div>
+        <div class="new-page" ></div>
+        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <ScheduleHeader scheduleNumber="Schedule 1" scheduleTitle="Parenting Arrangements"
+                        scheduleDescription="Disagree with order requested by other party"></ScheduleHeader>
+                        <div style="margin-bottom: 1rem;"></div>
+                    <NoteBox>
+                        <p>
+                            Complete this schedule only if you disagree with all or part of the order about parenting arrangements, including parental responsibilities and parenting time, applied for by the other party on Schedule 1 or Schedule 2 of their Application About a Family Law Matter
+                        </p>
+                    </NoteBox>
+                </div>
 
-        <div style="margin:1rem 0; text-align:justify">
-            <i>
-                This schedule must be completed only if you are disagreeing with a new application by the other party about
-                parenting arrangements for the child or children. The order they applied for about parenting arrangements can
-                be found in Schedule 1 of their Application About a Family Law Matter.
-            </i>
-        </div>
+                <div style="width: 20%;"></div>
+            </div>
+            <div style="margin-bottom: 1rem;"></div>
 <!-- <1> -->
-        <section class="resetquestion"> 
-            I do not agree to all or part of the following order(s) about parenting arrangements applied for by the other party:
-            <i style="margin:0 0 0 1rem; display: block;">Select all options that apply and complete the required part(s)</i>
-            <check-box 
-                style="margin:0 0 0 1rem;" 
-                :check="parentArrInfo.parentResp.applying?'yes':''" 
-                text="parental responsibilities <i>(complete Part 1 of this Schedule)</i>"/>
-            <check-box 
-                style="margin:0 0 0 1rem;" 
-                :check="parentArrInfo.parentTime.applying?'yes':''" 
-                text="parenting time schedule <i>(complete Part 2 of this Schedule)</i>"/>
-            <check-box 
-                style="margin:0 0 0 1rem;" 
-                :check="parentArrInfo.parentTimeConditions.applying?'yes':''" 
-                text="conditions on parenting time <i>(complete Part 3 of this Schedule)</i>"/>                
-        </section>
+    <div style="display: flex; flex-direction: row;">
+        <div style="width: 80%; padding-right: 4px;">
+            <FormPart :part="1" title="Reason you disagree"></FormPart>
+            <div class="print-block">
+               
+            <div style="display:inline; margin-left:0.35rem"><b>1.</b> I <b>do not agree with the order </b>requested by the other party about parenting arrangements, including parental responsibilities and parenting time, because:</div> 
+            <GreyBoxForm v-if="exParentArrInfo.disagreeExpl" style="margin-top:10px; text-indent:0rem"
+            textwidth="35rem" :text="exParentArrInfo.disagreeExpl">
 
-<!-- <Part 1> -->
-        <div>
-            <div style="margin-top:1rem;"><b>PART 1 – REPLY TO AN APPLICATION – PARENTAL RESPONSIBILITIES</b></div>
-            <div><i>
-                Complete this part only if you are disagreeing with an order about parental responsibilities requested by the
-                other party. You may leave this part blank.
-            </i></div>
-<!-- <1> -->
-            <section class="resetquestion">
-                I do not agree with the requested allocation of parental responsibilities because:                    
-                <div 
-                    v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.disagreeExpl" 
-                    class="answerbox">{{parentArrInfo.parentResp.disagreeExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>
+             </GreyBoxForm>
+             <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+            </div> 
         </div>
-
-        <div class="print-block">
-<!-- <2> -->
-            <section>
-                I am asking for the parental responsibilities to be exercised by the guardians as follows:                    
-                <div 
-                    v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.askExpl" 
-                    class="answerbox">{{parentArrInfo.parentResp.askExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>
-            
-        </div>        
-
-        <div class="print-block">
-<!-- <3> -->
-            <section>
-                I believe the parental responsibilities I am asking for are in the child(ren)’s best interests because:                    
-                <div 
-                    v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.bestInterestExpl" 
-                    class="answerbox">{{parentArrInfo.parentResp.bestInterestExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>
-            
+        <div style="width: 20%;">
+            <div style="padding-top:30px">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        Parenting arrangements include how each guardian of a child will parent their child(ren), including each guardian’s responsibilities for decision making about a child (parental responsibilities), and the time each guardian spends with a child (parenting time).
+                    </p>
+                </NoteBox>
+            </div>      
         </div>
-
+    </div>
+      
+    <div style="margin-bottom: 1rem;"></div>
 <!-- <Part 2> -->
-
-        <div>
-            <div style="margin-top:1rem;"><b>PART 2 – REPLY TO AN APPLICATION – PARENTING TIME SCHEDULE</b></div>
-            <div><i>
-                Complete this part only if you are disagreeing with an order about the parenting time schedule requested by the
-                other party. You may leave this part blank.
-            </i></div>
-<!-- <1> -->
-            <section class="resetquestion">
-                I do not agree with the requested parenting time schedule because:                    
-                <div 
-                    v-if="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.disagreeExpl" 
-                    class="answerbox">{{parentArrInfo.parentTime.disagreeExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>
+    <div style="display: flex; flex-direction: row;">
+        <div style="width: 80%; padding-right: 4px;">
+            <FormPart :part="2" title="Existing final order or agreement– Complete this part only if there is an existing final order or agreement about parenting arrangements, including parental responsibilities and parenting time"></FormPart>
+            <div class="print-block">
+                <div>
+                        <div style="margin:0 0 0 3rem;">
+                            <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" :check="exParentArrInfo.noChange?'yes':''" text="I would like the final order or agreement to <b>continue to be in place</b> ➜ If you selected this option, no further information is required on this schedule"  />
+                          </div>
+                          <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;"  :check="exParentArrInfo.change?'yes':''"  text="cancelled -> <i>Complete Part 5</i>"  />
+                        </div>                            
+                        </div>                        
+                    </div>
+            </div>
         </div>
+        
+    </div>
 
-        <div class="print-block">
-<!-- <2> -->
-            <section>
-                I am asking for the parenting time schedule to be as follows:                   
-                <div 
-                   v-if="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.askExpl" 
-                    class="answerbox">{{parentArrInfo.parentTime.askExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>
-            
-        </div>        
+    <div style="margin-bottom: 1rem;"></div>
+<!-- <Part 3> -->
+    <div style="display: flex; flex-direction: row;">
+        <div style="width: 80%; padding-right: 4px;">
+            <FormPart :part="3" title="Order about parenting arrangements, including parental responsibilities and parenting time - You do not need to complete this part if have indicated you would like the existing order or agreement to continue to be in place. "></FormPart>
+            <div class="print-block">
+                <div style="margin-bottom: 1rem;"></div>
+                <NoteBox>
+                    <p>
+                        Guardians can arrange parental responsibilities and parenting time in any way that is in the best interests of the child. <br>
+                        The court can make orders under Division 2 [Parenting Arrangements] of Part 4 [Care of and Time with Children] of the <i>Family Law Act. </i>
+                    </p>
+                </NoteBox>
+                <div style="display:inline; margin-left:0.35rem"><b>3.</b> I am applying for an <b>order about parenting arrangements, including parental
+                  responsibilities or parenting time, </b>as follows: <br> <i>List the details of teh order you are asking for</i></div> 
+                <GreyBoxForm v-if="exParentArrInfo.change && exParentArrInfo.changeExpl" style="margin-top:10px; text-indent:0rem"
+                textwidth="35rem" :text="exParentArrInfo.changeExpl">
 
-        <div class="print-block">
-<!-- <3> -->
-            <section>
-                I believe my requested parenting time schedule is in the child(ren)’s best interests because:                    
-                <div 
-                    v-if="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.bestInterestExpl" 
-                    class="answerbox">{{parentArrInfo.parentTime.bestInterestExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>
-            
+             </GreyBoxForm>
+             <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+            </div>
         </div>
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>PART 3 – REPLY TO AN APPLICATION – CONDITIONS ON PARENTING TIME</b></div>
-            <div><i>
-                Complete this part only if you are disagreeing with an order about the conditions on parenting time requested by
-                the other party. You may leave this part blank.
-            </i></div>
-<!-- <1> -->
-            <section class="resetquestion">
-                I do not agree with the requested conditions on my parenting time or the other guardian’s parenting time
-                because:                    
-                <div 
-                    v-if="parentArrInfo.parentTimeConditions.applying && parentArrInfo.parentTimeConditions.disagreeExpl" 
-                    class="answerbox">{{parentArrInfo.parentTimeConditions.disagreeExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>
+        <div style="width: 20%;">
+            <div style="padding-top:30px">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        Parental responsibilities can 
+                        be set up so they can be 
+                        exercised by: <br>
+                        • One or more guardians only, <br>
+                        • Each guardian acting
+                        separately, or<br>
+                        • All guardians acting
+                        together.<br>
+                        <i>[s. 40 Family Law Act]</i>
+                    </p>
+                </NoteBox>
+            </div>      
         </div>
+    </div>
 
-        <div class="print-block">
-<!-- <2> -->
-            <section>
-                I am asking for the conditions on my parenting time or the other guardian’s parenting time to be as follows:                   
-                <div 
-                    v-if="parentArrInfo.parentTimeConditions.applying && parentArrInfo.parentTimeConditions.askExpl" 
-                    class="answerbox">{{parentArrInfo.parentTimeConditions.askExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>
-            
-        </div>        
+    <!-- <Part 4> -->
+    <div style="margin-bottom: 1rem;"></div>
+    <div style="display: flex; flex-direction: row;">
+        <div style="width: 80%; padding-right: 4px;">
+            <FormPart :part="4" title="Best interests of the child - You do not need to complete this part if have indicated
+             you would like the existing order or agreement to continue to be in place."></FormPart>
+             <div class="print-block">
+                <div style="margin-bottom: 1rem;"></div>
+                <div style="display:inline; margin-left:0.35rem"><b>4.</b> I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the best interests of the child(ren) because: <br> <i>List your reasons</i></div> 
+                <GreyBoxForm v-if="exParentArrInfo.bestInterestExpl" style="margin-top:10px; text-indent:0rem"
+                textwidth="35rem" :text="exParentArrInfo.changeExpl">
 
-        <div class="print-block">
-<!-- <3> -->
-            <section>
-                I believe the conditions I have asked for on parenting time are in the child(ren)’s best interests because:                    
-                <div 
-                    v-if="parentArrInfo.parentTimeConditions.applying && parentArrInfo.parentTimeConditions.bestInterestExpl" 
-                    class="answerbox">{{parentArrInfo.parentTimeConditions.bestInterestExpl}}
-                </div>
-                <div v-else style="margin-bottom:3rem;"></div>                     
-            </section>            
-        </div>   
+             </GreyBoxForm>
+             <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+            </div>
+        </div>
+        <div style="width: 20%;">
+            <div style="padding-top:30px">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. 37 of the <i>Family Law Act. </i>The parties and the court must consider the best interests of a child when making a decision about parenting arrangements. For more information, see the guidebook. 
+                    </p>
+                </NoteBox>
+            </div>      
+        </div>
+    </div>    
 
     </div>
 </template>
@@ -171,13 +145,22 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { agreeDisagreeInfoType, schedule1DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { agreeDisagreeInfoType, schedule1DataInfoType,schedule2DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { replyExistingParentingArrangementsDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ParentingArrangements';
 import { replyNewConditionsParentingTimeDataInfoType, replyNewParentalResponsibilitiesDataInfoType, replyNewParentingTimeDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ParentingArrangements';
+import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox
+        CheckBox,
+        ScheduleHeader,
+        NoteBox,
+        FormPart,
+        GreyBoxForm
     }
 })
 
@@ -190,7 +173,8 @@ export default class Schedule1 extends Vue {
     agreeDisagreeResults!: agreeDisagreeInfoType;
 
     dataReady = false;
-    parentArrInfo = {} as schedule1DataInfoType;   
+    parentArrInfo = {} as schedule1DataInfoType;  
+    exParentArrInfo = {} as schedule2DataInfoType;  
    
     mounted(){
         this.dataReady = false;
@@ -200,6 +184,7 @@ export default class Schedule1 extends Vue {
 
     public extractInfo(){ 
         this.parentArrInfo = this.getParentingArrangementsInfo();
+        this.exParentArrInfo = this.getExistingParentingArrangementsInfo();
     } 
 
     public getParentingArrangementsInfo(){
@@ -259,6 +244,51 @@ export default class Schedule1 extends Vue {
         }       
         
         return parentingArrangements;
+    }
+
+    public getExistingParentingArrangementsInfo(){
+        let existingParentingArrangements = {} as schedule2DataInfoType; 
+
+        if(this.result.replyExistingParentingArrangementsSurvey){
+
+            const existingInfo: replyExistingParentingArrangementsDataInfoType = this.result.replyExistingParentingArrangementsSurvey;
+
+            const disagreeItem = (this.agreeDisagreeResults.existingParentResp.opApplied && !this.agreeDisagreeResults.existingParentResp.agree)
+                || (this.agreeDisagreeResults.existingParentTime.opApplied && !this.agreeDisagreeResults.existingParentTime.agree)
+                || (this.agreeDisagreeResults.existingParentTimeConditions.opApplied && !this.agreeDisagreeResults.existingParentTimeConditions.agree);
+
+                console.log(this.agreeDisagreeResults)
+
+            if (disagreeItem){
+                if (existingInfo.existingType == 'finalOrder'){
+                    existingParentingArrangements.existingType = 'finalOrder';
+                    existingParentingArrangements.agreeNeedsChanges = existingInfo.agreeFinalOrder == 'y';
+                    existingParentingArrangements.agreeBestInterest = false;                
+                } else if (existingInfo.existingType == 'agreement'){
+                    existingParentingArrangements.existingType = 'agreement';
+                    existingParentingArrangements.agreeBestInterest = existingInfo.agreeAgreement == 'y';
+                    existingParentingArrangements.agreeNeedsChanges = false;
+                }                
+                existingParentingArrangements.disagreeExpl = existingInfo.disagreeReason?existingInfo.disagreeReason:''
+                existingParentingArrangements.noChange = existingInfo.desiredOrderChoice == 'noChange';
+                existingParentingArrangements.change = existingInfo.desiredOrderChoice == 'differentChange';
+                const changeExplanationRequired = (existingInfo.desiredOrderChoice == 'differentChange') && existingInfo.requestedParentingArrangements
+                existingParentingArrangements.changeExpl = changeExplanationRequired?existingInfo.requestedParentingArrangements:'';
+                existingParentingArrangements.bestInterestExpl = existingInfo.childBestInterestReason?existingInfo.childBestInterestReason:'';
+
+            } else {
+                existingInfo.existingType = '';
+                existingParentingArrangements.agreeBestInterest = false;
+                existingParentingArrangements.agreeNeedsChanges = false;
+                existingParentingArrangements.disagreeExpl = '';
+                existingParentingArrangements.noChange = false;
+                existingParentingArrangements.change = false;
+                existingParentingArrangements.changeExpl = ''
+                existingParentingArrangements.bestInterestExpl = '';
+            }              
+        } 
+        
+        return existingParentingArrangements;
     }
 }
 </script>
