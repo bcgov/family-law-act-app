@@ -31,8 +31,8 @@ the rules, including a time limit set by an order or direction, even after the t
             </div>
             <div style="margin-top: 1rem;"></div>
             <div style="display: inline-block; font-size: 11pt;width: 80%; margin-right: 10px;margin-top:10px;margin-left:20px;">
-                <b>1.</b><span style="margin-left:22px;">I am applying for an order to <b> waive or modify the following </b></span>
-                <span style="margin-left:35px;"><b> requirement</b>(s) under the rules:</span>
+                <b>1.</b><span style="margin-left:22px;">I am applying for an order to <b> waive or modify the  </b></span>
+                <span style="margin-left:35px;"><b>following requirement</b>(s) under the rules:</span>
             </div>  
             <div style="font-size: 10pt;margin-left:50px;" >                    
                     
@@ -46,12 +46,38 @@ the rules, including a time limit set by an order or direction, even after the t
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time to provide/exchange document(s)')?'yes':''" text="Time to provide/exchange document(s)"/>
 
                     <check-box marginLeft="1.65rem" style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time limit set by an order or direction of a judge')?'yes':''" text="Time limit set by an order or direction made"/>
-                    <span style="margin-left:30px;">on</span><underline-form style="text-indent:3px;display:inline-block;" textwidth="6rem" hintMargin="7px" beforetext="" hint="Date(dd/mmm/yyyy)" :text="modReqInfo.dateOfOrder"/>                     
+                    
+                    <!-- <span style="margin-left:30px;">on</span>
+                    <underline-form style="text-indent:3px;display:inline-block;" textwidth="6rem" hintMargin="7px" beforetext="" hint="Date(dd/mmm/yyyy)" :text="modReqInfo.dateOfOrder"/>                     
                     <underline-form style="text-indent:3px;display:inline-block;" textwidth="13rem" beforetext="by" hintMargin="20px" hint="Name of judge or family justice manager" :text="modReqInfo.judgeName"/>                     
-                    <div style="margin-top:0.7rem"></div>
+                     -->
+                     <div style="margin-left:35px;margin-top:0px;">                
+                <!-- <underline-form style="text-indent:1px;display:inline-block;background-color:#dedede;" textwidth="6rem" hintMargin="8px" beforetext="" hint="Date(dd/mmm/yyyy)" :text="scheduleInfo.eventDate | beautify-date-text"/>                 -->
+                
+                <!-- <underline-form style="text-indent:3px;display:inline-block;background-color:#dedede;" textwidth="4.5rem" hintMargin="20px" beforetext="" hint="Time" :text="scheduleInfo.eventTime"/>  -->
+                <!-- <underline-form style="text-indent:3px;display:inline-block;background-color:#dedede;" textwidth="10rem" hintMargin="40px" beforetext="" hint="Method of attendance" :text="scheduleInfo.attendanceMethod"/>  -->
+                <span>on</span>
+                <span style="margin-left:5px;min-width: 90px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.dateOfOrder }}</span>
+                <span style="padding-right:5px;padding-left:5px;">by</span> 
+                <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{ modReqInfo.judgeName |truncate-word-after(30)}}</span> 
+                <div style="margin-top:-2px;font-size:6pt;">                
+                <span style="margin-left:25px;min-width:90px;text-align: center;display: inline-block;">Date (dd/mmm/yyyy)</span>
+                <span style="margin-left:130px;text-align:center;">Method of attendance</span> 
+                </div> 
+                <div v-if="modReqInfo.judgeName.length >= 30" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{modReqInfo.judgeName|truncate-word-before(30)}}</div>    
+
+                </div> 
+                
+                    <div style="margin-top:0.2rem"></div>
                     <span>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('other')?'yes':''" text=""/>
-                    <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="24rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.appliedRequirementsListComment"/>                     
+                    <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="24rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.appliedRequirementsListComment"/>                      -->
+                    <div style="margin-top:-20px;margin-left:20px;">
+                        <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
+                        <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.appliedRequirementsListComment |truncate-word-after(70)}}</span>
+                        <div v-if="modReqInfo.appliedRequirementsListComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.appliedRequirementsListComment|truncate-word-before(70)}}</div>    
+                        
+                    </div>  
                     </span>
             </div>
         </div>
