@@ -16,11 +16,11 @@
         <div style="width:80%; float: left; margin-right: 10px;">
             <div style="margin-top: 1rem;"></div>
             <div style="background: #626262; color: white; font-size: 12pt;">
-                    <b>Schedule 2 | Waiving or modifying requirement</b>
+                    <b> Schedule 2 | Waiving or modifying requirement</b>
             </div>
             <div style="background: #626262; color: white; font-size: 12pt;margin-top:-10px;">
                     <span style="margin-left:105px;margin-top:-40px;"><b>related to service or giving notice</b></span>
-            </div>
+            </div> 
             
             <div style="text-align:justify;width:100%; margin-top: 10px;background: #d6d6d6;line-height: 14px;font-size:9pt;">
                 <p>
@@ -104,9 +104,14 @@
                         <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:25px;" :check="modReqInfo.waiveChangeRequirementList.includes('Order')?'yes':''" text="Order"/>
                         <span>
                         <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:25px;"  :check="modReqInfo.waiveChangeRequirementList.includes('other')?'yes':''" text=""/>
-                        <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:34px;" textwidth="23rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.waiveChangeRequirementComment|truncate-word-after(70)"/>                     
-                        <div class="answer">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div>
-                    </span>
+                        <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:34px;" textwidth="23rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.waiveChangeRequirementComment|truncate-word-after(70)"/>                      -->
+                        <!-- <div class="answer">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div> -->
+                        <div style="margin-top:-20px;margin-left:27px;">
+                        <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
+                        <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.waiveChangeRequirementComment |truncate-word-after(70)}}</span>
+                        <div v-if="modReqInfo.waiveChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div>    
+                        </div> 
+                        </span>
                     </div>   
                                                
             </div>            
@@ -184,9 +189,14 @@
                         <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:25px;" :check="modReqInfo.modifyChangeRequirementList.includes('Order')?'yes':''" text="Order"/>
                         <span>
                         <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:25px;"  :check="modReqInfo.modifyChangeRequirementList.includes('other')?'yes':''" text=""/>
-                        <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:34px;" textwidth="23rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.modifyChangeRequirementComment|truncate-word-after(70)"/>                     
-                        <div class="answer">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div>
-                        </span>
+                        <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:34px;" textwidth="23rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.modifyChangeRequirementComment|truncate-word-after(70)"/>                      -->
+                        <!-- <div class="answer">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div> -->
+                        <div style="margin-top:-20px;margin-left:27px;">
+                        <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
+                        <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.modifyChangeRequirementComment |truncate-word-after(70)}}</span>
+                        <div v-if="modReqInfo.modifyChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div>    
+                        </div> 
+                    </span>
                     </div>   
                                                
             </div>            
@@ -256,6 +266,7 @@
 <!-- <4A : BEGIN-->
     <div >
         <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 1rem;"></div>
             <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
                     <b>Part 4 |  Allow service of a document using an alternative method </b>
             </div>
@@ -277,8 +288,10 @@
                         <b>7.</b><span style="margin-left:12px;">I need <b>to serve</b></span>
                     </div>
                     <div v-for="name,inx in modReqInfo.nameOfPersonToBeServed" :key="inx" style="display:inline;">
-                        <underline-form v-if="name"  style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="372px" :beforetext="inx==0?'':',' " hint="Full name of person" hintMargin="135px" :italicHint="false" :text="name"/>
+                        <!-- <underline-form v-if="name"  style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="372px" :beforetext="inx==0?'':',' " hint="Full name of person" hintMargin="135px" :italicHint="false" :text="name"/> -->
+                        <span  v-if="name" style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ name }}</span>
                     </div>
+                    <br/>
                     <div style="display:inline; margin-left:10px">
                          <b>with the following document(s):</b>
                     </div>
@@ -502,9 +515,9 @@
                 </div>
                 
                 <div>
-                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('mail')?'yes':''" text='Mailing the documents by '/>             
+                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice == 'mail' ?'yes':''" text='Mailing the documents by '/>             
                 </div> 
-                <div v-if="modReqInfo.alternativeorderservice.includes('mail')" style="text-indent:15px;font-size: 11pt;margin-left:20px;">
+                <div v-if="modReqInfo.alternativeorderservice == 'mail'" style="text-indent:15px;font-size: 11pt;margin-left:20px;">
                     <div style="display:inline-block;">
                     <check-box inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="10"  marginLeft="1.75rem" :check="modReqInfo.alternativemailType.includes('registeredmail')?'yes':''"  text="Registered mail"/>                                  
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="-8" marginLeft="0.5rem" :check="modReqInfo.alternativemailType.includes('regularmail')?'yes':''" text="Regular mail"/>

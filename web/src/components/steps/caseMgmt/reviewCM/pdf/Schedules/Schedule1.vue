@@ -72,8 +72,8 @@
                     <span>Other <i>(specify)</i>:</span>
                     <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.eventTypeComment |truncate-word-after(70)}}</span>
                     <div v-if="scheduleInfo.eventTypeComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{scheduleInfo.eventTypeComment|truncate-word-before(70)}}</div>    
-    
-                </div> 
+
+                    </div> 
                     </span> 
             </div>   
             <div style="margin-left:5px;margin-top:5px;">                
@@ -86,15 +86,16 @@
                 <span style="padding-right:5px;padding-left:5px;"><b>at</b></span>  
                 <span style="margin-left:5px;min-width: 80px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.eventTime }}</span>
                 <span style="padding-right:5px;padding-left:5px;"><b>by</b></span> 
-                <span style="margin-left:5px;min-width: 80px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.attendanceMethod |truncate-word-after(20)}}</span> 
-                <div v-if="scheduleInfo.attendanceMethod.length >= 20" style="margin-top:10px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{scheduleInfo.attendanceMethod|truncate-word-before(20)}}</div>        
-            </div> 
-            <div style="margin-top:-34px;font-size:6pt;">                
+                <span style="margin-left:5px;min-width: 80px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{ scheduleInfo.attendanceMethod |truncate-word-after(20)}}</span> 
+                <div style="margin-top:-1px;font-size:6pt;">                
                 <span style="margin-left:100px;min-width:90px;text-align: center;display: inline-block;">Date (dd/mmm/yyyy)</span>
                 <span style="margin-left:60px;min-width:90px;text-align:center;">Time</span>  
                 <span style="margin-left:90px;min-width:90px;text-align:center;">Method of attendance</span> 
             </div> 
-            <div style="margin-left:5px;margin-top:25px;display:inline-block;"><b>by another method of attendance as follows:</b></div>  
+                <div v-if="scheduleInfo.attendanceMethod.length >= 20" style="margin-top:1px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{scheduleInfo.attendanceMethod|truncate-word-before(20)}}</div>        
+            </div> 
+            
+            <div style="margin-left:5px;margin-top:5px;display:inline-block;"><b>by another method of attendance as follows:</b></div>  
                 <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'inPerson'?'yes':''" text="in person"/>
                 <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'byTelephone'?'yes':''" text="telephone"/>
                 <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'byVideo'?'yes':''" text="video conference"/>
