@@ -738,14 +738,14 @@
 
                     <div style="margin-left:3rem; text-indent: -16px;">
                     <check-box  
-                        :check="(filingLocationReason == 'Where my existing case with the same party/parties is located. I already have a court file number')?'yes':''" 
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
                         text="Where my <b>existing case</b> with the same party/parties is located. I already have a court file number."/> 
                     <check-box  
-                        :check="(filingLocationReason == 'Closest to where the child lives most of the time, because my case involves a child-related issue')?'yes':''" 
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
                         text="Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue"/>          
                     <check-box  
-                        :check="(filingLocationReason == 'Permitted by court order')?'yes':''" 
-                        text="Permitted by <b>court order</b>"/>                    
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="Permitted by <b>court order</b>"/>                
                 </div>
                 </div>
             </div>
