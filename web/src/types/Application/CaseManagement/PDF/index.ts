@@ -13,6 +13,7 @@ export interface cmLocationInfoDataInfoType {
 export interface schedule1DataInfoType {
     attendees: string[];
     lawyerName?: string;
+    otherName?: string;
     eventType: string;
     eventTypeComment?:string;
     eventDate: string; 
