@@ -457,7 +457,7 @@
                                     Date on which the parties began to live together in<br/> a marriage-like relationship (dd/mmm/yyyy):    
                                 </td>
                                 <td>
-                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.liveTogetherDate" />
+                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.liveTogetherDate | beautify-date-mid" />
                                 </td>
                             </tr>
                             <tr>
@@ -465,7 +465,7 @@
                                     Date of marriage (dd/mmm/yyyy):
                                 </td>
                                 <td>
-                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.marriageDate" />
+                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.marriageDate | beautify-date-mid" />
                                 </td>
                             </tr>
                             <tr>
@@ -473,7 +473,7 @@
                                     Date of separation (dd/mmm/yyyy)
                                 </td>
                                 <td>
-                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.marriageDate" />
+                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.separationDate | beautify-date-mid" />
                                 </td>
                             </tr>
                         </table>
