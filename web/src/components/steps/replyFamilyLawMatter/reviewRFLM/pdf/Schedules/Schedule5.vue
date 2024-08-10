@@ -1,61 +1,113 @@
 <template>
     <div v-if="dataReady">
-<!-- <Page 6> --> 
-<!-- <Header> -->
-        <div>
-            <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 5 – REPLY TO AN APPLICATION ABOUT CONTACT WITH A CHILD – NEW</b></div>
-            <div style="text-align:center;"><b>This is Schedule 5 to the Reply to an Application About a Family Law Matter</b></div>
 
-            <div style="margin:1rem 0; text-align:justify">
-                <i style="display:block">
-                    This schedule must be completed only if you are disagreeing with a new application by the other party about
-                    contact with a child or children. The order they applied for about contact can be found in Schedule 5 of their
-                    Application About a Family Law Matter.
-                </i>
-            </div>           
- 
-                        
-<!-- <1> -->
-            <section class="resetquestion"> 
-                <div style="display:inline; margin-left:0.35rem">
-                    I do not agree that the other party should have contact with the child(ren) as requested.
-                    Instead, I ask that the other party’s contact with the child(ren) be as follows:
-                </div>                   
-                <div style="margin:0 3rem 1rem 1rem;">
+        <div class="new-page" />
+        <div style="display: flex; flex-direction: row; margin-bottom: 0.5rem;">
+            <div style="width: 80%; padding-right: 4px;">
+                <ScheduleHeader scheduleNumber="Schedule 3" scheduleTitle="Contact with a child" scheduleDescription="Disagree with order requested by other party"></ScheduleHeader>
+                <div style="margin-bottom: 0.5rem;"></div>
+                <NoteBox>
+                        Complete this schedule only if you disagree with all or part of the order about contact with a child applied for by the other party on Schedule 5 or Schedule 6 of their Application About a Family Law Matter.
+                </NoteBox>
+            </div>
+            <div style="width: 20%;"></div>
+        </div>
+
+        <!-- <Part 1> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="1" title="Reason you disagree" style="margin-bottom: 0rem;"></FormPart>
+                <div style="margin-left: 1rem;;">
+                    <b>1. I do not agree with the order requested</b> by the other party about contact with a child, because:
+                </div>
+                <div style="margin-left: 1.5rem;" class="answerbox">
+                        {{chContInfo.abt.otherComm}}
+                </div>
+            </div>
+            <div style="width: 20%;"></div>
+        </div>
+
+        <!-- <Part 2> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="2" title="Existing final order or agreement" subtitle="Complete this part only if there is an existing order or agreement about contact with a child"></FormPart>
+                <div style="margin-left: 1rem;">
+                    <b>2. </b><i>Select only one of the options below</i>
+                    <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="false?'yes':''" text="I would like the final order or agreement to <b>continue to be in place</b> ➜ <i>If you selected this option, no further information is required on this schedule<i>"/>
+                    <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="false?'yes':''" text="I am applying for the final order or agreement to be <b>changed, suspended or replaced</b> as set out in Part 3"/>
+                </div>
+            </div>
+            <div style="width: 20%;"></div>
+        </div>
+
+        <!-- <Part 3> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="3" title="Order about contact with a child" subtitle="You do not need to complete this part if have indicated you would like the existing order or agreement to continue to be in place."></FormPart>
+                <div style="margin-left: 1rem;">
+                    <b>3. </b> I am applying for an order for the child(ren) to have <b>contact with a person <u>who is not their guardian</u></b> as follows:
+                </div>
+                <div style="margin:0 0 1rem 1rem;">
                     <i>Select all options that apply and complete the required information</i>
-                    <check-box  :check="chContInfo.abt.conType.noContact?'yes':''" text="no contact of any type"/>
-                    <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="in person:"/>
-                    <i class='marginleft1vue' style="margin:0 0 -0.25rem 1.75rem;">Provide specific dates or events requested, or dates and times that would be most suitable</i>
-                    <div v-if="chContInfo.abt.conType.inPerson" 
-                        class="answerbox">{{chContInfo.abt.inPrsn}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                    <check-box style="margin:0rem 0 0 0" :check="chContInfo.abt.conType.tel?'yes':''" text="telephone communication"/>
-                    <check-box  :check="chContInfo.abt.conType.video?'yes':''" text="video communication"/>
-                    <check-box  :check="chContInfo.abt.conType.written?'yes':''" text="written communication"/>
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chContInfo.abt.conType.other?'yes':''" text="other method of communication <i>(specify):</i>"/>
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
+                    <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.inPerson?'yes':''" text="In person <i>(specify)</i>:"/>
+                    <i class='marginleft1vue' style="margin:0 0 -0.25rem -2rem;">Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
+                    <div style="margin-left: 1.5rem;" class="answerbox">
+                        {{chContInfo.abt.inPrsn}}
+                    </div>
+                    <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.tel?'yes':''" text="Telephone communication"/>
+                    <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.video?'yes':''" text="Video communication"/>
+                    <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.written?'yes':''" text="Written communication"/>
+                    <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.other?'yes':''" text="Other method of communication <i>(specify):</i>"/>
+                    <div style="margin-left: 1.5rem;" class="answerbox">
+                        {{chContInfo.abt.otherComm}}
+                    </div>
                 </div>
-                <div style="margin:0 3rem 1rem 1rem;">
-                    <i>Complete only if applicable. You may leave this section blank.</i>
-                    <div>I am asking to have the following conditions placed on the contact with the child(ren):</div>
-                    <div v-if="chContInfo.abt.cond" 
-                        class="answerbox">{{chContInfo.abt.cond}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
+                <div style="margin-left: 1rem;">
+                    <b>4. </b> <i>Complete if applicable. You may leave this question blank</i>.
+                    <div style="margin-left: 1rem;">I am applying for <b>additional terms about contact</b> with a child as follows:</div>
+                    <div style="margin-left: 1rem;"><i>List the details of the terms you are asking for</i></div>
+                    <div style="margin-left: 1rem;" class="answerbox">
+                        {{chContInfo.abt.otherComm}}
+                    </div>
                 </div>
-            </section> 
-            
-            <div class="print-block">
-                <div style="margin-top:2rem;"><b>Best interests of child</b></div>
-<!-- <2> -->
-                <section>
-                    <div style="display:inline; margin:0 0 3rem 0.35rem;">I believe the order about contact I am applying for is in the child(ren)’s best interests because:</div>
-                    <div v-if="chContInfo.bstIntrst.length > 0" 
-                        class="answerbox">{{chContInfo.bstIntrst}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                </section>
+
+            </div>
+            <div style="width: 20%;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        The court may make an order about contact with a child, including describing the terms and form of contact [s. 59 <i>Family Law Act</i>]. 
+                    </p>
+                </NoteBox>
             </div>
         </div>
+
+        <!-- <Part 4> -->
+            <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="4" title="Best interests of the child" subtitle="You do not need to complete this part if have indicated you would like the existing order or agreement to continue to be in place."></FormPart>
+                <div style="margin-left: 1rem;">
+                    <b>5. </b> I believe the order about contact with a child that I am applying for is in the <b>best interests of the child(ren)</b> because:
+                </div>
+                <div style="margin:0 0 1rem 2rem;">
+                    <i>List your reasons</i>
+                    <div style="margin-left: 0rem;" class="answerbox">
+                        {{chContInfo.abt.inPrsn}}
+                    </div>
+                </div>
+            </div>
+            <div style="width: 20%;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. 37 of the <i>Family Law Act.</i><br />
+                        The parties and the court must consider the best interests of a child when making a decision about contact with a child. For more information, see the guidebook. 
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+
+        <div style="margin-top: 1rem;"></div>
     </div>
 </template>
 
@@ -64,11 +116,17 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule5DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox
+        CheckBox,
+        NoteBox,
+        FormPart,
+        ScheduleHeader
     }
 })
 export default class Schedule5 extends Vue {
