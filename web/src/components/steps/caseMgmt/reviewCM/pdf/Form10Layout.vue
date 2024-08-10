@@ -45,7 +45,7 @@
                 </div>
             </li>
             <li><div style="margin-left:9px;">For guidance filling in this form, please read the guidebook. The guide is available
-                online at <a href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
+                online at <a style="color:#1C35F4;" href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
             </div>
             </li>
             
@@ -79,9 +79,9 @@
                     <div style="display: inline-block; font-size: 11pt;">
                         <b>2.</b><span style="margin-left:12px;">The <b>other party’s full name is:</b></span>
                     </div>
-                    <div v-for="otherparty,inx in otherPartyInfo" :key="inx" style="display:inline;">
+                    <div v-for="otherparty,inx in otherPartyInfo" :key="inx" style="display:inline;background-color:#dedede;">
                     <underline-form 
-                        style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                        style="text-indent:4px;display:inline-block; font-size: 9pt;background-color:#dedede;"
                         textwidth="270px" 
                         :beforetext="inx>0? ',' : '' " 
                         hint="Full name of party/parties" 
@@ -147,9 +147,9 @@
                     class="mt-2"
                     small
                     bordered
-                    style="width:480px;margin-left:50px">                    
+                    style="width:480px;margin-left:50px;background-color:#dedede;">                    
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="background-color:#dedede;height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
                             Child's date of birth <i style="font-size:6pt; font-weight:normal;"><br/>(dd/mmm/yyyy)</i>
@@ -170,8 +170,8 @@
         <span style="font-size: 11pt;margin-left:20px"><b>5. </b></span>
                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="form10Info.understandNotice?'yes':''" text=""/> 
                 <div style="margin-top:-25px;text-indent:47px;margin-left:20px">I understand <b>I must give notice</b> of this application to each other party, and </div> 
-                <div style="text-indent:47px;margin-left:22px">any other person who may be directly affected by the order.><b>To give</b></div> 
-                <div style="text-indent:47px;margin-left:22px"><b>notice, they must be served</b> with the application and supporting</div> 
+                <div style="text-indent:47px;margin-left:22px">any other person who may be directly affected by the order.</div> 
+                <div style="text-indent:47px;margin-left:22px"><b>To give notice, they must be served</b> with the application and supporting</div> 
                 <div style="text-indent:47px;margin-left:22px">documents at least 7 days before the date of the court appearance unless </div> 
                 <div style="text-indent:47px;margin-left:22px">the court allows the application to be made without notice or with less </div> 
                     <div style="text-indent:47px;margin-left:22px">than 7 days’ notice.</div> 
@@ -286,7 +286,7 @@
         </div>
         <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
                 <p>
-                    <b-icon-book />
+                    <b-icon-info-circle-fill />
                     <br />
                     If you are applying to change, suspend, or cancel an order made in your absence, you must explain: 
                     <div style="margin-left:-25px;margin-top:-15px;">
@@ -317,10 +317,10 @@
                     </div>     
                     <div>
                     <div style="text-indent: 20px;">
-                        <check-box inline="inline" boxMargin="0" style="display: block; text-indent: -17px;margin-left:40px"  :check="!form10Info.givenConsent?'yes':''" text="I do not have the consent of each party, and any other person directly affected by the order"/>               
+                        <check-box   style="display: block; text-indent: -17px;margin-left:40px"  :check="!form10Info.givenConsent?'yes':''" text="<b>I do not have the consent</b> of each party, and any other person directly affected by the order"/>               
                     </div>
                     <div style="text-indent: 20px;">
-                        <check-box inline="inline" boxMargin="0" style="display: block; text-indent: -17px;margin-left:40px"  :check="form10Info.givenConsent?'yes':''" text="Each party, and any person directly affected by the order, has consented to the case management order and:"/>               
+                        <check-box  style="display: block; text-indent: -17px;margin-left:40px"  :check="form10Info.givenConsent?'yes':''" text="Each party, and any person directly affected by the order, has consented to the case management order and:"/>               
                     </div>
                     <div style="margin-left:2.75rem;">
                     <check-box  style="display: block; text-indent: -17px;margin-left:20px" 
@@ -336,7 +336,7 @@
         </div>  
         <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
                 <p>
-                    <b-icon-book />
+                    <b-icon-info-circle-fill />
                     <br />
                     Before filing your application, it is good practice to contact the other party to see if they will consent to the order. If 
                     they do agree, you can choose to: 
@@ -365,20 +365,20 @@
                     </div>     
                     <div>
                     <div style="text-indent: 20px;">
-                        <check-box  style="display: block; text-indent: -17px;margin-left:40px"  :check="form10Info.contactedOP && form10Info.oPAgreed?'yes':''" text="I <b>contacted</b> the other party, and each other person affected, and <b>they have agreed</b> to a date and time for the court appearance"/>               
+                        <check-box  style="display: block; text-indent: -17px;margin-left:40px"  :check="form10Info.contactedOP && form10Info.oPAgreed?'yes':''" text="<b>I contacted</b> the other party, and each other person affected, and <b>they have agreed</b> to a date and time for the court appearance"/>               
                     </div>
                     <div style="text-indent: 20px;">
-                        <check-box style="display: block; text-indent: -17px;margin-left:40px"  :check="form10Info.contactedOP && !form10Info.oPAgreed?'yes':''" text="I <b>contacted</b> the other party, and each other person affected, but <b>we have not agreed</b>  to a date and time for the court appearance"/>               
+                        <check-box style="display: block; text-indent: -17px;margin-left:40px"  :check="form10Info.contactedOP && !form10Info.oPAgreed?'yes':''" text="<b>I contacted</b> the other party, and each other person affected, but <b>we have not agreed</b>  to a date and time for the court appearance"/>               
                     </div>
                     <div style="text-indent: 20px;">
-                        <check-box style="display: block; text-indent: -17px;margin-left:40px"  :check="!form10Info.contactedOP?'yes':''" text="I <b>have not contacted</b> the other party, and each other person affected, to discuss available dates and times for the court appearance"/>               
+                        <check-box style="display: block; text-indent: -17px;margin-left:40px"  :check="!form10Info.contactedOP?'yes':''" text="<b>I have not contacted</b> the other party, and each other person affected, to discuss available dates and times for the court appearance"/>               
                     </div>                 
                 </div>                                 
             </div>            
         </div>  
         <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
                 <p>
-                    <b-icon-book />
+                    <b-icon-info-circle-fill />
                     <br />
                     The court prefers to schedule a court appearance for a date that works for everyone to help reduce delays. Try to pick a few dates that may work for you. The registry or judicial case manager will work with you to schedule a date based on the court’s availability too. 
                 </p>
@@ -401,14 +401,23 @@
         <div style="margin-top:10px;margin-left:-35px;">
             <ul>
             <b>The application, which requires a court appearance, will be heard by the court</b>
-            <underline-form style="text-indent:4px;display:inline-block; " textwidth="150px" beforetext="<b>on </b>"  hintMargin="55px"  hint="date" text=""/>
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hintMargin="70px" hint="time" text=""/>
+            <!-- <underline-form style="text-indent:4px;display:inline-block; " textwidth="150px" beforetext="<b>on </b>"  hintMargin="55px"  hint="date" text=""/> -->
+            <!-- <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hintMargin="70px" hint="time" text=""/> -->
+            <span style="margin-left:0px;"><b> on</b></span><span style="margin-left:20px;background-color:#dedede;width:100px;min-width:100px;">________________</span>
+            <span style="margin-left:20px;"><b> at</b></span><span style="margin-left:20px;background-color:#dedede;width:100px;min-width:100px;">________________</span>
             <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>  
-            <div style="margin-top: 1rem;"></div>
+            <div style="margin-top:-3px;width:80%">                
+            <div style="margin-left:70px !important;font-size:6pt;"><i> date</i></div>
+            <div style="margin-left:230px !important;font-size:6pt;margin-top:-12px;"><i> time</i></div>
+            </div>
             <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
                     />
                     <ul style="margin-top: -20px;margin-left:-25px;">
-                        <underline-form style="text-indent:4px;display:inline-block;margin-left:10px; " textwidth="350px" beforetext="in person at" hintMargin="120px"  hint="court location" text=""/> 
+                        <!-- <underline-form style="text-indent:4px;display:inline-block;margin-left:10px; " textwidth="350px" beforetext="in person at" hintMargin="120px"  hint="court location" text=""/>  -->
+                        <span style="margin-left:20px;">in person at</span><span style="margin-left:20px;background-color:#dedede;width:100px;min-width:100px;">______________________________________________</span>
+            <div style="margin-top:-3px;">
+            <div style="margin-left:220px;font-size:6pt;"><i> court location</i></div>
+            </div>
                     </ul>
                     <div style="margin-top: 1rem;"></div>
                     <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
@@ -575,7 +584,7 @@
             </div>
             <div style="height:220px;text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>10.</b><span style="margin-left:12px;">I am filing this application <b>in the court registry</b>:</span>
+                        <b>11.</b><span style="margin-left:12px;">I am filing this application <b>in the court registry</b>:</span>
                         <div style="font-size: 11pt;margin-left:30px;"><i>Select only one of the options below</i></div>
                     </div>     
                     <div>
@@ -594,13 +603,7 @@
                 </div>                                 
             </div>            
         </div>  
-        <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
-                <p>
-                    <b-icon-book />
-                    <br />
-                    The court prefers to schedule a court appearance for a date that works for everyone to help reduce delays. Try to pick a few dates that may work for you. The registry or judicial case manager will work with you to schedule a date based on the court’s availability too. 
-                </p>
-        </div>        
+               
     </div>
 <!-- <10> : END--> 
 <!-- <11> : BEGIN--> 
