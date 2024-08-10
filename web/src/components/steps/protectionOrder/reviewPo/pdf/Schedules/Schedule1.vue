@@ -28,7 +28,7 @@
         <div style="margin-top: 1rem;"></div>
 <!-- <PART 1> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
+            <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
                 <b>Part 1 | Affidavit</b>
             </div>
             <div style="width: 20%;">
@@ -75,7 +75,7 @@
 
 <!-- <PART 2> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
+            <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
                 <b>Part 2 | Protected party/parties</b>
             </div>
             <div style="width: 20%;">
@@ -121,11 +121,28 @@
                             Child is currently living with <i style="font-size:6pt; font-weight:normal;">(name of person)</i>
                         </template>
                 </b-table> 
-
+            </div>
+            <div style="width: 20%; padding: 6px;">
+                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                    <p>
+                        <b-icon-info-circle-fill />
+                        <div style="font-size: 9px">As set out in s. 183 of the <i>Family Law Act</i>, a protection order can protect:<br/>
+                            <ul>
+                                <li>you (the applying party)</li>
+                                <li>your children</li>
+                                <li>an adult family member that lives with the protected party (you and/or your children)</li>
+                                <li>an at-risk person you are applying on behalf of for protection from their family member</li>
+                            </ul>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-left: 8px;">  
                 <div style="margin:0.25rem 0 0 2rem;" >
                     <check-box shift="10" shiftmark="0" :check="hasSharingAdult?'yes':''" text="The following <b>adult family member(s)</b> sharing the residence with the other protected person:"/>               
                 </div>
-
                 <b-table
                     :items="sharingAdultItem"
                     :fields="sharingAdultFields"
@@ -158,25 +175,7 @@
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -122px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
-                        <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">As set out in s. 183 of the <i>Family Law Act</i>, a protection order can protect:<br/>
-                            <ul>
-                                <li>you (the applying party)</li>
-                                <li>your children</li>
-                                <li>an adult family member that lives with the protected party (you and/or your children)</li>
-                                <li>an at-risk person you are applying on behalf of for protection from their family member</li>
-                            </ul>
-                        </div>
-                    </p>
-                </div>
-
-                <div style="background: #FFFFFF; line-height: 8px;">
-                    &nbsp;<br/>
-                </div>
-
-                <div style="float: right; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -5px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">You cannot apply for the protection of another person’s child. If you believe a child
@@ -189,7 +188,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="float: right;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-book />
                         <div style="font-size: 9px">A family member is a defined term under s. 1 of the <i>Family Law Act</i>. For more
@@ -199,14 +198,18 @@
             </div>
         </div>
 
+        <div style="margin-top: 1rem;"></div>
+
 <!-- <PART 3> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
+            <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
                 <b>Part 3 | About the protection order</b>
             </div>
             <div style="width: 20%;">
             </div>
         </div>
+
+        <div style="margin-top: 1rem;"></div>
 
         <div style="display: flex; flex-direction: row;">
             <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%">
@@ -224,7 +227,7 @@
                 <b>No go</b>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -90px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -90px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">A protection order may include any of the terms set out in s.183(3) of the
@@ -234,6 +237,7 @@
             </div>
         </div>
 
+        <div style="margin-top: 1rem;"></div>
 <!-- <3> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
@@ -249,6 +253,13 @@
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
+                <div style="margin-top: 0px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                    <p>
+                        <b-icon-info-circle-fill />
+                        <div style="font-size: 9px">You might be asked by the judge at your court appearance to provide the
+                        specific address and name of the place. Be sure to have them ready.</div>
+                    </p>
+                </div>
             </div>
         </div>
         
@@ -259,17 +270,10 @@
                 <b>No contact except</b>
             </div>
             <div style="width: 20%; padding: 6px;">
-
-                <div style="float: right; margin-top: -180px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
-                        <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">You might be asked by the judge at your court appearance to provide the
-                        specific address and name of the place. Be sure to have them ready.</div>
-                    </p>
-                </div>
             </div>
         </div>
 
+        <div style="margin-top: 1rem;"></div>
 <!-- <4> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
@@ -298,6 +302,7 @@
             </div>
         </div>
 
+        <div style="margin-top: 1rem;"></div>
 <!-- <5> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
@@ -346,7 +351,7 @@
                 <div class="answerbox" style="width:98%">{{weaponsFirearms.weaponsYesReason ? weaponsFirearms.weaponsYesReason : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -30px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -30px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">Examples of weapons someone might own include swords, hunting knives, nun
@@ -366,6 +371,7 @@
             </div>
         </div>
 
+        <div style="margin-top: 1rem;"></div>
 <!-- <9> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
@@ -378,11 +384,10 @@
                     <check-box style="margin-top:0rem;" shift="10" shiftmark="0" :check="removePerson.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
                     <check-box style="margin-top:0rem;" shift="10" shiftmark="0" :check="removePerson.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
                     <div class="answerbox" style="width:98%">{{removePerson.needPoliceComment ? removePerson.needPoliceComment : '&nbsp;'}}</div>
-                    
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">The court can order that the police help to remove the other party from a shared
@@ -396,7 +401,7 @@
 
 <!-- <PART 4> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
+            <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
                 <b>Part 4 | Your story</b>
             </div>
             <div style="width: 20%;">
@@ -412,7 +417,7 @@
                 apply for a protection order.
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">Section 184 of the Family Law Act sets out what a court must consider in determining
@@ -432,6 +437,7 @@
             </div>
         </div>
 
+        <div style="margin-top: 1rem;"></div>
 
 <!-- <10> -->
         <div style="display: flex; flex-direction: row;">
@@ -481,7 +487,7 @@
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">If the protection order is only for the protection of a child or
@@ -493,7 +499,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="float: right; margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">Spouses may be separated even if they continue to live in the same residence
@@ -505,7 +511,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="float: right; margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-book />
                         <div style="font-size: 9px">A family member is a defined term under s. 1 of the <i>Family Law Act</i>. For more
@@ -561,7 +567,7 @@
                 </b-table> 
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -5px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -5px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">A child may split their time between two residences. If a child spends at least 40% of
@@ -610,7 +616,7 @@
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -10px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -10px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">Include any order (interim or final), agreement or plan from any level of court and any
@@ -636,7 +642,7 @@
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: 10px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 10px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-paperclip />
                         <div style="font-size: 9px">If yes, you must attach a copy of any order, agreement or plan to this application for
@@ -688,7 +694,7 @@
                 <div class="answerbox" style="width:98%"> {{backgroundSurvey.policeActions ? backgroundSurvey.policeActions : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">You will be asked to describe specific incidents that police
@@ -707,7 +713,7 @@
                 <div class="answerbox" style="width:98%"> {{backgroundSurvey.swAction ? backgroundSurvey.swAction : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right;margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">If there is reason to believe a child (under 19) is being abused, neglected, sexually
@@ -740,14 +746,14 @@
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="<b>Additional page(s) (see attached)</b>"/>
                     </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-book />
                         <div style="font-size: 9px">For more information about what information you should include, see the guidebook.</div>
                     </p>
                 </div>
 
-                <div style="float: right; margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-paperclip />
                         <div style="font-size: 9px">Remember to attach a copy of any exhibit(s) when you file your application.
@@ -760,7 +766,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="float: right; margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-paperclip />
                         <div style="font-size: 9px">If you need more space, select the box, and remember to include your additional
@@ -799,7 +805,7 @@
                 <div class="answerbox" style="width:98%"> {{backgroundSurvey.mentalHealthConcernReasons ? backgroundSurvey.mentalHealthConcernReasons : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -40px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -40px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">A person whose safety and security is, or is likely, at risk from family violence carried
@@ -821,7 +827,7 @@
                 <div class="answerbox" style="width:98%"> {{backgroundSurvey.violenceCirumstances ? backgroundSurvey.violenceCirumstances : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right;margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-book />
                         <div style="font-size: 9px">For more information about risk factors for family violence, see the guidebook or s.184 of
@@ -833,7 +839,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="float: right; margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">The court may make a protection order if the court determines that family
@@ -879,7 +885,7 @@
                 <div style="width:15rem; display:inline-block; font-size:9pt" >[print name or affix stamp of commissioner]</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="float: right; margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <div style="font-size: 9px">This document must be signed only with a commissioner for taking
