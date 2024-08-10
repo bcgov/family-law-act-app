@@ -699,15 +699,13 @@
                                 :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue') ? 'yes' : ''"
                                 text="" />
                             <div style="margin-top: -18px;text-indent: 3px;">
-                                Where my <b>existing case</b> with the same party/parties is located. I already have a court
-                                file number.
+                                Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue
                             </div>
 
                             <check-box style="text-indent:-16px"
                                 :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue') ? 'yes' : ''" />
                             <div style="margin-top: -18px;text-indent: 3px;">
-                                Closest to <b> where the child lives</b> most of the time, because my case involves a
-                                child-related issue
+                                Closest to <b>where I live</b> because my case does not involve a child-related issue
                             </div>
                             <check-box style="text-indent:-16px"
                                 :check="(filingLocationReason == 'The court made an order that allows me to') ? 'yes' : ''" />
@@ -833,7 +831,6 @@ export default class Form16Layout extends Vue {
         this.dataReady = false;
         this.extractInfo();
         this.dataReady = true;
-        console.log("Filing DAta", this.filingLocationReason);
     }
 
     public extractInfo() {
