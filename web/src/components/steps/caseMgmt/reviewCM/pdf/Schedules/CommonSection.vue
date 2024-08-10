@@ -42,7 +42,7 @@
                 </div>
             </li>
             <li><div style="margin-left:9px;">For guidance filling in this form, please read the guidebook. The guide is available
-                online at <a href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
+                online at <a style="color:#1C35F4;" href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
             </div>
             </li>
             
@@ -217,9 +217,9 @@
                     class="mt-2"
                     small
                     bordered
-                    style="width:480px;margin-left:50px">                    
+                    style="width:480px;margin-left:50px;background-color:#dedede;">                    
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="height:1rem; font-size:8pt;color:#000;background-color:#dedede;">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
                             Child's date of birth <i style="font-size:6pt; font-weight:normal;"><br/>(dd/mmm/yyyy)</i>

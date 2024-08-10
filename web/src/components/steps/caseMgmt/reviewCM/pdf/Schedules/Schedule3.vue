@@ -45,12 +45,12 @@ the rules, including a time limit set by an order or direction, even after the t
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time to file a reply, including permission to file a reply after the time to reply has passed')?'yes':''" text="Time to file a reply, including permission to file a reply after the time to reply has passed"/>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time to provide/exchange document(s)')?'yes':''" text="Time to provide/exchange document(s)"/>
 
-                    <check-box marginLeft="1.65rem" checkbox="" inline="inline" boxMargin="0" style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time limit set by an order or direction of a judge')?'yes':''" text="Time limit set by an order or direction made"/>
+                    <check-box marginLeft="1.65rem" style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time limit set by an order or direction of a judge')?'yes':''" text="Time limit set by an order or direction made"/>
                     <span style="margin-left:30px;">on</span><underline-form style="text-indent:3px;display:inline-block;" textwidth="6rem" hintMargin="7px" beforetext="" hint="Date(dd/mmm/yyyy)" :text="modReqInfo.dateOfOrder"/>                     
                     <underline-form style="text-indent:3px;display:inline-block;" textwidth="13rem" beforetext="by" hintMargin="20px" hint="Name of judge or family justice manager" :text="modReqInfo.judgeName"/>                     
                     <div style="margin-top:0.7rem"></div>
                     <span>
-                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" checkbox="" inline="inline" boxMargin="0" :check="modReqInfo.appliedRequirementsList.includes('other')?'yes':''" text=""/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('other')?'yes':''" text=""/>
                     <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="24rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.appliedRequirementsListComment"/>                     
                     </span>
             </div>
