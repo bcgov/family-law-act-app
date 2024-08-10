@@ -52,7 +52,7 @@
 
             </li>
             <li>For guidance filling in this form, please read the guidebook. The guide is available
-                online at <a href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
+                online at <a style="color:#1C35F4;" href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
 
             </li>
             
