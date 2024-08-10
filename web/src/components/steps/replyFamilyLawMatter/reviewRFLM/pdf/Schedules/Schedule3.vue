@@ -212,48 +212,215 @@
           </div>    
       </div>  
       
+      <div style="margin-top:1rem;"></div>
        <!-- <Part 3> -->
       <div style="display: flex; flex-direction: row;">
         <div style="width: 80%; padding-right: 4px;">
             <FormPart :part="3" title="Existing final order or agreement – Complete this part only if there is an existing order or agreement about child support"></FormPart> 
+            <div style="display:inline; margin-left:0.25rem"><b>3.</b><i> Select only one of the options below</i></div>
+            <div style="margin-left: 1rem;"> 
+                   <div style="display:block;">
+                        <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                        :check="exChSupInfo.continue?'yes':''" 
+                            text="I would like the final order or agreement to <b>continue to be in place</b>" />
+                    </div>
+                    <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                                :check="exChSupInfo.change?'yes':''" 
+                                text="I am applying for the final order or agreement to be <b>changed, suspended or replaced </b> as set out in Part 4" />
+                    </div>
+            </div>
+            
+            <div style="display:inline; margin-left:0.25rem"><b>4.</b><i> Select only one of the options below</i></div>
+            <div style="margin-left: 1rem;"> 
+                   <div style="display:block;">
+                        <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                        :check="exChSupInfo.unpaidDetails.agreeAmount?'yes':''" 
+                        text="I agree that the <b>amount of unpaid child support</b> (arrears) in the application <b>is correct</b>" />
+                    </div>
+                    <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                                :check="!exChSupInfo.unpaidDetails.agreeAmount?'yes':''" 
+                            text="The amount of unpaid child support (arrears) in the application is <b>not correct.</b>"/>
+        
+                    </div>
+                    <GreyBoxForm
+                            style="margin-left:2rem; text-indent:0px; margin-top: 0.5rem;" 
+                            textwidth="9rem" 
+                            beforetext="As of " 
+                            aftertext=", the amount of unpaid child support(apprears)"
+                            hint="date" hintindent = "40px"   :text="exChSupInfo.unpaidDetails.crntDate"/>
+                        <GreyBoxForm
+                            style="margin-left:2rem; text-indent:0px;" 
+                            textwidth="8rem" 
+                            beforetext="was $" 
+                            hint="" 
+                            marginTop="-12px"
+                            :text="exChSupInfo.unpaidDetails.unpaidAmnt"/>
+            </div>
+
+
         </div>
         <div style="width: 20%;">
-
         </div>
         </div>
 
+        <div style="margin-top:1rem;"></div>
      <!-- <Part 4> -->
       <div style="display: flex; flex-direction: row;">
         <div style="width: 80%; padding-right: 4px;">
-            <FormPart :part="4" title=" Order about child support – You do not need to complete this part if have indicated you would like the existing order or agreement to continue to be in place"></FormPart> 
+            <FormPart :part="4" title=" Order about child support – You do not need to complete this part if have indicated you would like the existing order or agreement to continue to be in place"></FormPart>
+            <NoteBox>
+                <p>
+                    The amount of a child support order is usually the amount set out in the Federal Child Support Guidelines table according to the number of children under 19 years of age and the income of the spouse against whom the order is sought, and the amount, if any, determined for section 7 special or extraordinary expenses [s. 3 Federal Child Support Guidelines]. 
+                </p>
+            </NoteBox>
+            <div class="resetquestion">
+                <div style="display:inline; margin-left:0.25rem"><b>5.</b><i> Select each applicable option and complete the requested information. If you are only
+                disagreeing with when support payments start, you may leave this question blank.</i></div> 
+                <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="I am applying for an order for ongoing support to be paid by " />
+                    <GreyBoxForm
+                            style="margin-left:2rem; text-indent:0px; margin-top: 0.5rem;" 
+                            textwidth="12rem" 
+                            beforetext="<i>(name of paying party)</i>" 
+                            aftertext="in the monthly "
+                            hint="" text=""/>
+                        <GreyBoxForm
+                            style="margin-left:2rem; text-indent:0px; margin-top: 0.5rem;" 
+                            textwidth="5rem" 
+                            beforetext="set out in the child support guidelines for <i>(number)</i> " 
+                            aftertext="child(ren)."
+                            hint="date" hintindent = "40px" text=""/>
+                </div>
+
+                <div style="padding-left:2rem">
+                    <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="Based on the information I know about the other party’s income and my application for child support I expect the amount payable for monthly child"/>
+                    </div>
+                    <GreyBoxForm
+                            style="margin-left:2rem; text-indent:0px; margin-top: 0.5rem;" 
+                            textwidth="5rem" 
+                            beforetext="support to be approximately $" 
+                            aftertext="."
+                            hint="" hintindent = "40px" text=""/>
+                    <div style="display:block;">
+                        <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1" 
+                    text="I am not able to estimate the amount payable for monthly child support at this time."/>
+        
+                    </div>
+
+                </div>
+                <div>
+                    <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="I am applying for an order for <b>special or extraordinary expenses </b> under section
+                    7 of the child support guidelines as follows:"/>
+                    </div>
+                    <div style="padding-left: 2rem;">
+                    <i>
+                        List the expenses you are claiming for each child. <br> You must file a Financial Statement Form 4 to itemize the specific amount
+                    </i>
+                    <GreyBoxForm
+                            style="text-indent:0px; margin-top: 0.5rem;" 
+                            textwidth="30rem" 
+                            beforetext=" " 
+                            aftertext=""
+                            hint="" hintindent = "40px" text=""/>
+                    </div>
+                    
+                </div>
+
+                <div>
+                    <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="I am applying for an order to <b>change the guideline amount payable</b> because the guideline amount would cause me <b>undue hardship</b> because I have:"/>
+                    </div>
+                    <div style="padding-left:2rem">
+                    <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="unusually high expenses to exercise parenting time or contact with the child(ren)"/>
+                    </div> 
+                    <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
+                    </div> 
+                    <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="a legal duty to support a dependent child from another relationship"/>
+                    </div> 
+                    <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>
+                    </div> 
+                    <div style="display:block;">
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-1"
+                    text="other undue hardship circumstances (specify):"/>
+                    </div> 
+                    <GreyBoxForm
+                            style="text-indent:0px; margin-top: 0.5rem;" 
+                            textwidth="30rem" 
+                            beforetext=" " 
+                            aftertext=""
+                            hint="" hintindent = "40px" text=""/>
+                    </div>
+
+                </div>
+
+                <div>
+                    <div style="display:inline; margin-left:0.25rem"><b>6.</b>Child support payments should </div>
+                    <GreyBoxForm
+                            style="text-indent:0px; margin-top: 0.5rem;" 
+                            textwidth="10rem" 
+                            beforetext="<b>start on</b>" 
+                            aftertext=" because:"
+                            hint="" hintindent = "40px" text=""/>
+                    <GreyBoxForm
+                            style="text-indent:0px; margin-top: 0.5rem;" 
+                            textwidth="30rem" 
+                            beforetext=" " 
+                            aftertext=""
+                            hint="" hintindent = "40px" text=""/>
+                    
+                </div>
+                
+
+            </div>
+
         </div>
         <div style="width: 20%;">
-                    <NoteBox>
+            <div style="padding-top:220px">
+                <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
                             For more information about how to calculate the amount payable for child support, see the guidebook.
                         </p>
-                    </NoteBox>
-                    <div style="margin-bottom: 1rem;"></div>
-                    <NoteBox>
-                        <b-icon-info-circle-fill />
-                        <p>For more information about what can be included as special or extraordinary expenses, see the guidebook.</p>
-                    </NoteBox>
-                    <div style="padding-top: 10px;">
-                        <NoteBox>
-                        <b-icon-info-circle-fill />
-                        <p>The court may order child support in an amount different from the guidelines if appropriate [s. 10 Child Support Guidelines].</p>
-                    </NoteBox>
-                    </div>
-                    <div style="padding-top: 10px; padding-bottom: 12px;">
-                        <NoteBox>
-                        <b-icon-info-circle-fill />
-                        <p>In making an order about child support, the court may provide that support be paid respecting any period of time before the application is made [s. 170 Family Law Act]</p>
-                    </NoteBox>
-                    </div>
-                </div> 
+                </NoteBox>
+            </div>
+                    
+            <div style="margin-bottom: 1rem;"></div>
+            <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>For more information about what can be included as special or extraordinary expenses, see the guidebook.</p>
+            </NoteBox>
+            <div style="padding-top: 20px;">
+                <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>The court may order child support in an amount different from the guidelines if appropriate [s. 10 Child Support Guidelines].</p>
+            </NoteBox>
+            </div>
+            <div style="padding-top: 100px; padding-bottom: 12px;">
+                <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>In making an order about child support, the court may provide that support be paid respecting any period of time before the application is made [s. 170 Family Law Act]</p>
+            </NoteBox>
+            </div>
+        </div> 
         </div>
-      
+
+      <div style="margin-top:1rem;"></div>
       <!-- <Part 5> -->
     <div style="display: flex; flex-direction: row;">
         <div style="width: 80%; padding-right: 4px;">
@@ -318,32 +485,10 @@
                     </div>
                 </div>
     </div>
+          
 
-    
-            <div class="print-block">
-                <div style="margin-top:3rem;"><b>Calculations</b></div>
-<!-- <4> -->
-                <section>
-                    <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
-                    <div style="margin:0 0 0 1.5rem;">
-                        <check-box 
-                            style="margin:0 0 0 0rem;" 
-                            :check="chSupInfo.calculate.attaching?'yes':''" 
-                            text="I am attaching calculations showing how much I believe should be paid for child support according to the 
-                                child support guidelines"/>
-                        <check-box 
-                            style="margin:0 0 0 0rem;" 
-                            :check="!chSupInfo.calculate.attaching?'yes':''" 
-                            text="I am not attaching calculations because:"/>
-                    </div>
-                    <div v-if="!chSupInfo.calculate.attaching && chSupInfo.calculate.reason" 
-                        class="answerbox">{{chSupInfo.calculate.reason}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                </section>
-            </div>          
-
-        </div>
-      </div>
+    </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -351,8 +496,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { schedule3DataInfoType, undueHardshipDetailsInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
-import { disagreeChildSupportDataInfoType, relationshipToChildDataInfoType, rflmCalculatingChildSupportDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ChildSupport';
+import { schedule3DataInfoType, undueHardshipDetailsInfoType, schedule4DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { disagreeChildSupportDataInfoType, relationshipToChildDataInfoType, rflmCalculatingChildSupportDataInfoType, replyExistingChildSupportDataInfoType,rflmUnpaidChildSupportDataInfoType,disagreeExistingChildSupportDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/ChildSupport';
 import { undueHardshipDataInfoType } from '@/types/Application/FamilyLawMatter/ChildSupport';
 import { rflmAdditionalDocsDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
@@ -377,6 +522,8 @@ export default class Schedule3 extends Vue {
    
     dataReady = false;   
     chSupInfo = {} as schedule3DataInfoType;
+    exChSupInfo = {} as schedule4DataInfoType;
+    
    
     mounted(){
         this.dataReady = false;
@@ -386,6 +533,8 @@ export default class Schedule3 extends Vue {
 
     public extractInfo(){
         this.chSupInfo = this.getNewChildSupportInfo();
+        this.exChSupInfo = this.getExistingChildSupportInfo();
+        
     }
 
     public getNewChildSupportInfo(){       
@@ -508,6 +657,83 @@ export default class Schedule3 extends Vue {
         
         return newChildSupportInfo;
     } 
+
+
+public getExistingChildSupportInfo(){
+
+let existingChildSupportInfo = {} as schedule4DataInfoType;       
+
+
+if (this.result.replyExistingChildSupportSurvey && this.result.rflmUnpaidChildSupportSurvey 
+        && this.result.rflmCalculatingChildSupportSurvey && this.result.disagreeExistingChildSupportSurvey){
+
+    const replyExistingChildSupportInfo: replyExistingChildSupportDataInfoType = this.result.replyExistingChildSupportSurvey;
+    if (replyExistingChildSupportInfo.existingType == 'finalOrder'){
+        existingChildSupportInfo.agreeCircumstanceChanges = replyExistingChildSupportInfo.agreeFinalOrder == 'y';
+        existingChildSupportInfo.disAgreeCircumstanceChanges = replyExistingChildSupportInfo.agreeFinalOrder == 'n';
+        existingChildSupportInfo.section150 = false;
+        existingChildSupportInfo.agreeSetAside = false;
+
+    } else if (replyExistingChildSupportInfo.existingType == 'agreement'){
+        existingChildSupportInfo.section150 = replyExistingChildSupportInfo.agreeAgreement == 'y';
+        existingChildSupportInfo.agreeSetAside = replyExistingChildSupportInfo.agreeAgreement == 'n';
+        existingChildSupportInfo.agreeCircumstanceChanges = false;
+        existingChildSupportInfo.disAgreeCircumstanceChanges = false;
+    }
+
+    const rflmUnpaidChildSupportInfo: rflmUnpaidChildSupportDataInfoType = this.result.rflmUnpaidChildSupportSurvey;
+
+    existingChildSupportInfo.unpaidDetails = {
+        agreeAmount: rflmUnpaidChildSupportInfo.agreeChildSupportAmount == 'y',
+        crntDate: rflmUnpaidChildSupportInfo.agreeChildSupportAmount == 'n'? Vue.filter('beautify-date')(rflmUnpaidChildSupportInfo.calculationDate):'',
+        unpaidAmnt: rflmUnpaidChildSupportInfo.agreeChildSupportAmount == 'n'?rflmUnpaidChildSupportInfo.unPaidAmount:''
+
+    }           
+    const calculationInfo: rflmCalculatingChildSupportDataInfoType = this.result.rflmCalculatingChildSupportSurvey;
+            
+    existingChildSupportInfo.calc = {                
+        attaching: calculationInfo.attachingCalculations == 'y',
+        reason: calculationInfo.attachingCalculations == 'n'?calculationInfo.notAttachingCalculationsReason:''
+    } 
+
+    const disagreeExistingChildSupportInfo: disagreeExistingChildSupportDataInfoType = this.result.disagreeExistingChildSupportSurvey;
+
+    existingChildSupportInfo.disagreeReason = disagreeExistingChildSupportInfo.disagreeReason;
+    existingChildSupportInfo.continue = disagreeExistingChildSupportInfo.requestedOrder == 'noChange';
+    existingChildSupportInfo.change = disagreeExistingChildSupportInfo.requestedOrder == 'diffChange';
+    existingChildSupportInfo.changeExpl = disagreeExistingChildSupportInfo.requestedOrder == 'diffChange'?disagreeExistingChildSupportInfo.requestedChangeDescription:'';  
+    
+  
+} else {
+    const calculationsInfo = {
+        attaching: false,
+        reason: ''
+    }
+    const childSupportUnpaid = {
+        agreeAmount: false,
+        crntDate: '',
+        unpaidAmnt: ''
+    }
+    existingChildSupportInfo = {
+    
+        agreeCircumstanceChanges: false,
+        disAgreeCircumstanceChanges: false,
+        agreeSetAside: false,
+        section150: false,
+        disagreeReason: '',
+        continue: false,  
+        change: false,
+        changeExpl: '',     
+        calc: calculationsInfo,
+        unpaidDetails: childSupportUnpaid
+    }    
+
+}
+
+        
+
+return existingChildSupportInfo;
+} 
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
