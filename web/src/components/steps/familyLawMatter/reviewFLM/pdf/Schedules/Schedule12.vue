@@ -81,7 +81,7 @@
 
         <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
             <div style="flex: 1">
-                <FormPart :part="2" title="Order about property division in respect of a companion animal - Complete this part only if you are asking to replace the existing agreement"></FormPart>
+                <FormPart :part="2" title="Order about property division in respect of a companion animal-" subtitle="- Complete this part only if you are asking to replace the existing agreement"></FormPart>
                 <div style="margin-bottom: 1rem;"></div>
                     <div class="print-block">
                         <div>                         

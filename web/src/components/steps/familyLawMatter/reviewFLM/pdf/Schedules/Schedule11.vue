@@ -7,7 +7,7 @@
             <div class="new-page" />
             <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
                 <div style="flex: 1">
-                    <ScheduleHeader scheduleNumber="Schedule 10" scheduleTitle="Property division in respect of a companion anima" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
+                    <ScheduleHeader scheduleNumber="Schedule 10" scheduleTitle="Property division in respect of a companion animal" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
                     <div style="margin-bottom: 1rem;"></div>
                     <NoteBox>
                         <p>
@@ -37,10 +37,10 @@
                     small
                     bordered>                    
                         <template v-slot:cell()="data">
-                            <div style="font-size:11pt;color:#000">{{data.value}}</div>                                           
+                            <div style="font-size:11pt;color:#000; background-color:#dedede">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(animalOwnership)>
-                            To [party] <i style="font-size:6pt; font-weight:normal;">Select only one option for each animal</i>                            
+                            To [party] <i style="font-size:6pt; font-weight:normal;"> <br>Select only one option for each animal</i>                            
                         </template>
                         <template v-slot:cell(animalOwnership)="data">      
                             <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
@@ -78,7 +78,7 @@
                     </div>
                    
                     <div> 
-                        <GreyBoxForm  v-if="compInfo.compAnimalFacts"  style="margin-top:10px; text-indent:0rem"
+                    <GreyBoxForm  v-if="compInfo.compAnimalFacts"  style="margin-top:10px; text-indent:0rem;"
                         textwidth="35rem" :text="compInfo.compAnimalFacts">
                     </GreyBoxForm>
                     <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
@@ -90,21 +90,18 @@
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            In determining whether to make an order respecting a companion animal, the court must consider the following factors set out in section 97 (4.1) of the Family Law Act:
-                            
+                            In determining whether to make an order respecting a companion animal, the court must consider the following factors set out in section 97 (4.1) of the <i>Family Law Act</i>:<br>
+                            • the circumstances in which the companion animal was acquired <br>
+                            • the extent to which each spouse cared for the companion animal <br>
+                            • any history of family violence <br>
+                            • the risk of family violence <br>
+                            • a spouse’s cruelty, or threat of cruelty, toward an animal <br>
+                            • the relationship that a child has with the companion animal <br>
+                            • the willingness and ability of each spouse to care for the basic needs of the companion animal <br>
+                            • any other circumstances the court considers relevant
+
                         </p>
-                        <div >
-                            <ul>
-                                <li>the circumstances in whichthe companion animal wasacquired</li>
-                                <li>the extent to which eachspouse cared for thecompanion animal</li>
-                                <li>any history of familyviolence</li>
-                                <li>the risk of family violence</li>
-                                <li>a spouse’s cruelty, or threatof cruelty, toward an animal</li>
-                                <li>the relationship that a childhas with the companion animal</li>
-                                <li>the willingness and ability ofeach spouse to care for thebasic needs of thecompanion animal</li>
-                                <li>any other circumstances thecourt considers relevant</li>
-                            </ul>
-                        </div>
+                       
                         
                     </NoteBox>
                 </div>      
