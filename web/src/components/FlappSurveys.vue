@@ -33,7 +33,6 @@
             <affidavit-personal-service-po-step v-if="getCurrentStepIndex() == 25" v-bind:step="getStep(25)"></affidavit-personal-service-po-step>
             <certificate-of-service-step v-if="getCurrentStepIndex() == 26" v-bind:step="getStep(26)"></certificate-of-service-step>
             <financial-statement-step v-if="getCurrentStepIndex() == 27" v-bind:step="getStep(27)"></financial-statement-step>
-            <financial-statement-step v-if="getCurrentStepIndex() == 27" v-bind:step="getStep(27)"></financial-statement-step>
             <step-submit v-if="getCurrentStepIndex() == 28" v-bind:step="getStep(28)"></step-submit>    
             <family-law-manual-step v-if="getCurrentStepIndex() == 29" v-bind:step="getStep(29)"></family-law-manual-step>
 
