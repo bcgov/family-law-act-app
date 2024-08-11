@@ -173,6 +173,7 @@ export interface childSupportAboutExistingInfoType {
     exstngOrdr: boolean;
     fldDrctr: boolean;
     cancelOrdr: boolean;
+    suspendOrdr: boolean;
     changeOrdr: boolean;
     changeList: string[];
     changes: changesinfoType;
