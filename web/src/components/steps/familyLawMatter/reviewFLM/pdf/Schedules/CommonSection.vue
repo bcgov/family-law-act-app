@@ -57,7 +57,7 @@
                     <p>As set out in Rule 28, to reply, a party must:</p>
                     <ul>
                         <li>file a reply in Form 6</li>
-                        <li>if the application is about child support or spousal support, file a financialstatement</li>
+                        <li>if the application is about child support or spousal support, file a financial statement</li>
                         <li>if the application is in a nearly resolution registry,have already met the early resolution requirements</li>
                     </ul>
                     
