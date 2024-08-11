@@ -95,25 +95,21 @@
                         <div class="checkbox-choices-header text-primary">Contact with a child</div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('contact', 'newContact', $event)" 
-                            value="newContact">
+                            v-on:change="changeSelection('contact', 'agreeContact', $event)" 
+                            value="agreeContact">
                             <div class="checkbox-choices">I agree with the request of the other party</div>
                        </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('contact', 'existingContact', $event)" 
-                            value="existingContact">
-                            <div class="checkbox-choices">Contact order/agreement – existing </div>
+                            v-on:change="changeSelection('contact', 'disagreeContact', $event)" 
+                            value="disagreeContact">
+                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about contact with a  child should be made. 🠆 Complete Schedule 3 </div>
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('contact', 'existingContact', $event)" 
-                            value="existingContact">
-                            <div class="checkbox-choices">Contact order/agreement – existing </div>
+                            v-on:change="changeSelection('contact', 'counterContact', $event)" 
+                            value="counterContact">
+                            <div class="checkbox-choices"> I am making a counter application for an order about contact with a child. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
-                        <b-form-checkbox 
-                            v-on:change="changeSelection('contact', 'existingContact', $event)" 
-                            value="existingContact">
-                            <div class="checkbox-choices">Contact order/agreement – existing </div>
-                        </b-form-checkbox>
+                        
                     </div>
                     
                 </b-form-checkbox-group>
@@ -130,20 +126,11 @@
                             v-on:change="changeSelection('guardianship', 'appointing', $event)" 
                             value="appointing">
                             <div class="checkbox-choices">Appointing a guardian of a child</div>
-                            <p>
-                                Schedule 7 of the application was completed by the other party. 
-                                They are asking for an order to appoint a new guardian for a child.
-                            </p>                    
                         </b-form-checkbox>
                         <b-form-checkbox 
                             v-on:change="changeSelection('guardianship', 'cancelling', $event)" 
                             value="cancelling">
                             <div class="checkbox-choices">Cancelling guardianship of a child </div>
-                            <p>
-                                Schedule 8 of the application was completed by the other party. 
-                                They are asking for an order to cancel someone’s guardianship 
-                                of a child. 
-                            </p>                    
                         </b-form-checkbox>
                     </div>
                     
