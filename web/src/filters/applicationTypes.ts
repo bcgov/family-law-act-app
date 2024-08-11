@@ -20,7 +20,7 @@ export const FLA_Types = [
     {pathway:"agreementEnfrc28",                            pdfType:"RORD", appType:"RORD",          familyType:"ENFRC", otherForms:false, fullName:"File an Order"},
 
     {pathway:"replyFlm",                                    pdfType:"RPL",  appType:"RFLM",          familyType:"RFLM",  otherForms:false, fullName:"Reply to Application About a Family Law Matter"},
-    {pathway:"replyFamilyLawManual",                        pdfType:"RPL",  appType:"RTFLM",         familyType:"RTFLM",  otherForms:false, fullName:"Reply to Application About a Family Law Matter Form 3"},
+    {pathway:"replyFamilyLawManual",                        pdfType:"RPL",  appType:"RTFLM",         familyType:"RTFLM",  otherForms:false, fullName:"Reply to Application About a Family Law Matter"},
 
     {pathway:"writtenResponse",                             pdfType:"WRA",   appType:"WRA",          familyType:"WR",    otherForms:false, fullName:"Written Response to Application"},    
     {pathway:"replyCaseMgmt",                               pdfType:"WRA",   appType:"RCM",          familyType:"WR",    otherForms:false, fullName:"Reply to Application for Case Management Order"},
