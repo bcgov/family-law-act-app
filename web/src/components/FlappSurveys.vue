@@ -33,8 +33,9 @@
             <affidavit-personal-service-po-step v-if="getCurrentStepIndex() == 25" v-bind:step="getStep(25)"></affidavit-personal-service-po-step>
             <certificate-of-service-step v-if="getCurrentStepIndex() == 26" v-bind:step="getStep(26)"></certificate-of-service-step>
             <financial-statement-step v-if="getCurrentStepIndex() == 27" v-bind:step="getStep(27)"></financial-statement-step>
-
             <step-submit v-if="getCurrentStepIndex() == 28" v-bind:step="getStep(28)"></step-submit>    
+            <family-law-manual-step v-if="getCurrentStepIndex() == 29" v-bind:step="getStep(29)"></family-law-manual-step>
+
         </main>
     </div>
 </template>
@@ -47,6 +48,7 @@ import GetStartedStep from "./steps/get-started/GetStartedStep.vue";
 import ReplyFamilyLawStep from "./steps/replyFamilyLawMatter/ReplyFamilyLawStep.vue";
 import WrittenResponseStep from "./steps/writtenResponse/WrittenResponseStep.vue";
 import CounterApplicationStep from "./steps/counterApplication/CounterApplicationStep.vue";
+import FamilyLawManualStep from "./steps/familyLawManual/FamilyLawManualStep.vue";
 import CommonInformationStep from "./steps/common-information/CommonInformationStep.vue";
 import StepProtectionOrder from "./steps/protectionOrder/StepProtectionOrder.vue";
 import FamilyLawStep from "./steps/familyLawMatter/FamilyLawStep.vue";
@@ -106,7 +108,8 @@ import * as surveyEnv from "@/components/survey/survey-glossary";
         AffidavitPersonalServiceStep,
         AffidavitPersonalServicePoStep,
         CertificateOfServiceStep,
-        FinancialStatementStep
+        FinancialStatementStep,
+        FamilyLawManualStep
     }
 })
 

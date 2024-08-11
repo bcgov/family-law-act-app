@@ -48,6 +48,7 @@ class Application extends VuexModule {
     public pathwayCompleted = { 
         protectionOrder:false, 
         replyFlm: false, 
+        replyFamilyLawManual: false,
         writtenResponse: false, 
         replyCounterApplication: false, 
         familyLawMatter:false, 
@@ -329,6 +330,8 @@ class Application extends VuexModule {
         this.steps.push(s);
 
         // Common Information STOP
+        
+       
 
         // Reply Family Law Matter START
         s = {} as stepInfoType;
@@ -346,8 +349,8 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "0";
         p.name = "RflmQuestionnaire";
-        p.label = "Questionnaire";
-        p.active = true;
+        p.label = "Reply to Family Law Matter";
+        p.active = true; 
         p.progress = 0;    
         s.pages.push(p);
 
@@ -1000,6 +1003,8 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
+
+        
 
         this.steps.push(s);
 
@@ -3224,6 +3229,31 @@ class Application extends VuexModule {
         this.steps.push(s);
     
         //Submit STOP
+
+        // Reply to Famil Law Matter Manual START
+        s = {} as stepInfoType;
+
+        s.active = false;
+        s.id = "29";
+        s.name = "RTFLM";
+        s.label = "Reply to Family Law Matter";
+        s.icon = "fa fa-reply";
+        s.lastUpdate = null;    
+        s.type = "stepRTFLM";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+     
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "FamilyLawManual";
+        p.label = "Reply to Family Law Matter";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+  
+        this.steps.push(s);
+  
+         // Reply to Famil Law Matter Manual STOP
         
     }
     @Action
@@ -3665,7 +3695,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, APS: {}, APSP: {}, CSV: {}, FS:{}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, CONNECT:{}, OTHER:{}, NCD:{}, NDT:{}, NPR: {}, RQS: {}, TRIS: {}, NLC: {}, NLCR: {}, NLP:{}, NLPR: {}, AFF: {}, GA: {}, APS: {}, APSP: {}, CSV: {}, FS:{}, SUBMIT: {}, RTFLM: {}} as stepsAndPagesNumberInfoType
          const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           

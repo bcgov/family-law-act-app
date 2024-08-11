@@ -19,7 +19,7 @@
               "type": "yesno",
               "name": "otherPartyParentalResponsibilitiesOrder",
               "title": "Did the other party apply for an order about parental responsibilities?",   
-              "description": "To ask for an order about parental responsibilities, the other party would have completed Question 2 or Question 4 on Schedule 1 – Parenting Arrangements – New.",           
+              "description": "To ask for an order about parental responsibilities, the other party would have completed Part 2, Question 2 on Schedule 1 – Parenting Arrangements.",           
               "isRequired": true
             }
           ]

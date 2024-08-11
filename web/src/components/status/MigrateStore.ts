@@ -206,6 +206,7 @@ export class MigrateStore{
         
         pathwayCompleted.protectionOrder = false;
         pathwayCompleted.replyFlm = false;
+        pathwayCompleted.replyFamilyLawManual = false;        
         pathwayCompleted.writtenResponse = false;
         pathwayCompleted.replyCounterApplication = false;        
         pathwayCompleted.familyLawMatter = false;        
