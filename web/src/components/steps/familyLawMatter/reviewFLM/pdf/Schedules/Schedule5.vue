@@ -7,11 +7,11 @@
 
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 80%; padding-right: 4px;">
-                    <ScheduleHeader scheduleNumber="Schedule 5" scheduleTitle="Contact with a child" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
+                    <ScheduleHeader scheduleNumber="Schedule 5" scheduleTitle="Contact with a child" scheduleDescription="No existing final order or written agreement" style="text-align: center"></ScheduleHeader>
 
                     <div style="margin-bottom: 1rem;"></div>
 
-                    <NoteBox>
+                    <NoteBox style="font-size:10pt">
                         <p>
                             Complete this schedule only if you need a court order about contact with a child and you do not have an existing final court order or written agreement about contact with a child.
                         </p>
@@ -27,7 +27,7 @@
                 <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Relationship to the child"></FormPart>
 
-                    <NoteBox>
+                    <NoteBox style="font-size:10pt">
                         <p>Children often have important relationships with people other than their parents/guardians. These include grandparents, elders, relatives, and others close to the child. Usually,these relationships are supported by the parents or guardians</p>
                         <p>If an agreement is not possible, the person who believes they should have contact with the child can apply for a court order. </p>
                     </NoteBox>
@@ -35,11 +35,11 @@
                     <section>
                         <i>Please confirm the following statement if true</i>
                         <br>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.5rem" :check="true?'yes':''" text="I am not a guardian of the child(ren)"/> 
+                        <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.5rem" :check="true?'yes':''" text="I am <b>not a guardian</b> of the child(ren)"/> 
                     </section>
                     
                     <section>
-                        <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="The last contact with the child(ren) was on or around" hint="Date(mmm/dd/yyyy)" :text="chContInfo.abt.lastCont"/>
+                        <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="The last contact with the child(ren) was on or around" hint="Date(mmm/dd/yyyy)" hintindent="30px" :text="chContInfo.abt.lastCont"/>
                     </section>
                 </div>
                 <div style="width: 20%;">
@@ -62,10 +62,10 @@
                     <div class="print-block">
                         
                         <section class="no-counter">
-                            <div style="display:inline; margin-left:0.35rem"><b>3.</b> I am applying for an order for the child(ren) to have <b>contact with a person who is not their guardian</b> as follows:</div>                   
+                            <div style="display:inline; margin-left:0.35rem"><b>3.</b> I am applying for an order for the child(ren) to have <b>contact with a person <u>who is not their guardian</u></b> as follows:</div>                   
                             <div style="margin:0 3rem 1rem 1rem;">
                                 <i>Select all options that apply and complete the required information</i>
-                                <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="In person: <i>(specify)</i>"/>
+                                <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="<b>In person</b>: <i>(specify)</i>"/>
                                 <i class='marginleft1vue' style="margin:0 0 -0.25rem 1.75rem;">Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
                                 <div v-if="chContInfo.abt.conType.inPerson" 
                                     class="answerbox">{{chContInfo.abt.inPrsn}}</div>
@@ -80,7 +80,7 @@
                                 <b>4.</b> <i>Complete if applicable. You may leave this question blank.</i>
                                 <div>
                                     <p>
-                                        I am applying for additional terms about contactwith a child as follows:
+                                        I am applying for <b>additional terms about contact</b> with a child as follows:
                                         <br>
                                         <i>List the details of the terms you are asking for</i></p>
                                 </div>
@@ -93,7 +93,7 @@
         
                 </div>
                 <div style="width: 20%;">
-                     <NoteBox>
+                     <NoteBox style="margin-top:100px">
                         <b-icon-info-circle-fill />
                         <p>
                             The court may make an order about contact with a child, including describing the terms and form of contact [s. 59 <i>Family Law Act</i>].
@@ -120,8 +120,9 @@
                     <FormPart :part="3" title="Best interests of the child"></FormPart>
 
                     <div class="print-block">
-                        <section>
-                            <div style="display:inline; margin:0 0 3rem 0.35rem;">I believe the order about contact with a child that I am applying for is in the best interests of the child(ren) because:
+                        <div style="margin:0 3rem 1rem 1rem;">
+                            <b>5.</b>
+                            <div style="display:inline; margin:0 0 3rem 0.35rem;">I believe the order about contact with a child that I am applying for is in the <b>best interests of the child(ren)</b> because:
                                 <br>
                                 <i>
                                     List your reasons
@@ -130,7 +131,7 @@
                             <div v-if="chContInfo.bstIntrst.length > 0" 
                                 class="answerbox">{{chContInfo.bstIntrst}}</div>
                             <div v-else style="margin-bottom:3rem;"></div>
-                        </section>
+                        </div>
                     </div>
                 </div>
                 <div style="width: 20%;">

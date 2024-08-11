@@ -7,9 +7,9 @@
             <div class="new-page" />
             <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
                 <div style="flex: 1">
-                    <ScheduleHeader scheduleNumber="Schedule 10" scheduleTitle="Property division in respect of a companion anima" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
+                    <ScheduleHeader scheduleNumber="Schedule 10" scheduleTitle="Property division in respect of a companion animal" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
                     <div style="margin-bottom: 1rem;"></div>
-                    <NoteBox>
+                    <NoteBox fontSize="10pt">
                         <p>
                             Complete this schedule only if you need a court order about property division in respect of a companion animal and you do not have an existing final court order or written agreement about property division in respect of the companion animal.
                         </p>
@@ -20,8 +20,8 @@
            
                 <div style="margin-top:1rem;"></div>
 <!-- <1> -->
-    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-        <div style="flex: 1">
+    <div style="display: flex; flex-direction: row;">
+        <div style="width:80%; padding-right:4px;">
             <FormPart :part="1" title="Order about property division in respect of a companion animal"></FormPart>
            
             <section class="resetquestion"> 
@@ -37,14 +37,14 @@
                     small
                     bordered>                    
                         <template v-slot:cell()="data">
-                            <div style="font-size:11pt;color:#000">{{data.value}}</div>                                           
+                            <div style="font-size:11pt;color:#000; background-color:#dedede">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(animalOwnership)>
-                            To [party] <i style="font-size:6pt; font-weight:normal;">Select only one option for each animal</i>                            
+                            To [party] <i style="font-size:6pt; font-weight:normal;"> <br>Select only one option for each animal</i>                            
                         </template>
-                        <template v-slot:cell(animalOwnership)="data">      
-                            <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
-                            <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value != 'Myself'?'yes':''" text="Other party"/>
+                        <template v-slot:cell(animalOwnership)="data">     
+                            <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
+                            <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value != 'Myself'?'yes':''" text="Other party"/>
                         </template>
                 </b-table>
             </section>
@@ -66,23 +66,19 @@
                 
 <!-- <2> -->
  
-        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-            <div style="flex: 1">
+        <div style="display: flex; flex-direction: row;">
+            <div style="width:80%; padding-right:4px;">
                 <FormPart :part="2" title="The facts"></FormPart>
-               
-                
+
                 <section>
                     The <b>facts</b> on which this application is based are as follows:                    
                     <div style="font-style: italic;margin-left:1rem;">
                         Provide the facts you want the court to consider and why the court should make the order you are applying for. 
                     </div>
-                   
-                    <div> 
-                        <GreyBoxForm  v-if="compInfo.compAnimalFacts"  style="margin-top:10px; text-indent:0rem"
-                        textwidth="35rem" :text="compInfo.compAnimalFacts">
-                    </GreyBoxForm>
-                    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
-                    </div>
+                    <div v-if="compInfo.compAnimalFacts" 
+                        class="answerbox" style="min-height: 120px; padding: 8px;">{{compInfo.compAnimalFacts}}</div>
+                    <div v-else class="answerbox" style="min-height: 120px; padding: 8px;"></div>   
+                    
                 </section>
             </div>
             <div style="width: 20%;">
@@ -90,21 +86,18 @@
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            In determining whether to make an order respecting a companion animal, the court must consider the following factors set out in section 97 (4.1) of the Family Law Act:
-                            
+                            In determining whether to make an order respecting a companion animal, the court must consider the following factors set out in section 97 (4.1) of the <i>Family Law Act</i>:<br>
+                            • the circumstances in which the companion animal was acquired <br>
+                            • the extent to which each spouse cared for the companion animal <br>
+                            • any history of family violence <br>
+                            • the risk of family violence <br>
+                            • a spouse’s cruelty, or threat of cruelty, toward an animal <br>
+                            • the relationship that a child has with the companion animal <br>
+                            • the willingness and ability of each spouse to care for the basic needs of the companion animal <br>
+                            • any other circumstances the court considers relevant
+
                         </p>
-                        <div >
-                            <ul>
-                                <li>the circumstances in whichthe companion animal wasacquired</li>
-                                <li>the extent to which eachspouse cared for thecompanion animal</li>
-                                <li>any history of familyviolence</li>
-                                <li>the risk of family violence</li>
-                                <li>a spouse’s cruelty, or threatof cruelty, toward an animal</li>
-                                <li>the relationship that a childhas with the companion animal</li>
-                                <li>the willingness and ability ofeach spouse to care for thebasic needs of thecompanion animal</li>
-                                <li>any other circumstances thecourt considers relevant</li>
-                            </ul>
-                        </div>
+                       
                         
                     </NoteBox>
                 </div>      

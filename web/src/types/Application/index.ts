@@ -425,6 +425,7 @@ export interface stepInfoType {
   export interface pathwayCompletedInfoType { 
     protectionOrder?: boolean;
     replyFlm?: boolean;
+    replyFamilyLawManual?: boolean;
     writtenResponse?: boolean;
     replyCounterApplication?: boolean;    
     familyLawMatter?: boolean;
