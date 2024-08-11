@@ -87,10 +87,10 @@
                         <div>                         
                              <b>4.</b> I am applying for the agreement about a companion animal to be <b>replaced with an order</b> as follows: <br>
                              <i>List the details of the order you want the court to make</i>
-                             <GreyBoxForm  v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails"  style="margin-top:10px; text-indent:0rem"
+                             <GreyBoxForm  v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails"  style="margin-top:10px; text-indent:0rem; min-height:80px; background-color:#dedede;"
                              textwidth="35rem" :text="exCompInfo.agreementReplacementDetails">
                          </GreyBoxForm>
-                         <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm> 
+                         <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem; min-height:80px; background-color:#dedede;" textwidth="30rem"></GreyBoxForm> 
                            
                         </div> 
                     </div>
@@ -106,12 +106,6 @@
                     </div> 
                 </div>
             </div>
-
-           
-
-
-           
-
         </div>           
 
     </div>

@@ -76,8 +76,8 @@
                         Provide the facts you want the court to consider and why the court should make the order you are applying for. 
                     </div>
                     <div v-if="compInfo.compAnimalFacts" 
-                        class="answerbox" style="min-height: 120px; padding: 8px;">{{compInfo.compAnimalFacts}}</div>
-                    <div v-else class="answerbox" style="min-height: 120px; padding: 8px;"></div>   
+                        class="answerbox" style="min-height: 120px; padding: 8px; background-color:#dedede">{{compInfo.compAnimalFacts}}</div>
+                    <div v-else class="answerbox" style="min-height: 120px; padding: 8px; background-color:#dedede"></div>   
                     
                 </section>
             </div>
