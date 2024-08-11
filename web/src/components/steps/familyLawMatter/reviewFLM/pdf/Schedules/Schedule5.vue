@@ -39,7 +39,7 @@
                     </section>
                     
                     <section>
-                        <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="The last contact with the child(ren) was on or around" hint="Date(mmm/dd/yyyy)" hintindent="30px" :text="chContInfo.abt.lastCont"/>
+                        <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="The <b>last contact</b> with the child(ren) was on or around" hint="Date(mmm/dd/yyyy)" hintindent="30px" :text="chContInfo.abt.lastCont"/>
                     </section>
                 </div>
                 <div style="width: 20%;">
@@ -91,7 +91,7 @@
                                 <check-box  :check="chContInfo.abt.conType.video?'yes':''" text="Video communication"/>
                                 <check-box  :check="chContInfo.abt.conType.written?'yes':''" text="Written communication"/>
                                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chContInfo.abt.conType.other?'yes':''" text="Other method of communication <i>(specify):</i>"/>
-                                <GreyBoxForm style="text-indent:1px;display:inline-block; margin-top:0.5rem;" textwidth="19rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
+                                <GreyBoxForm style="text-indent:1px;display:inline-block; margin-top:0.5rem;" textwidth="25.5rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
                             </div>
                             <div style="margin:0 3rem 1rem 1rem;">
                                 <b>4.</b> <i>Complete if applicable. You may leave this question blank.</i>
@@ -103,7 +103,7 @@
                                 </div>
                                 <div v-if="result.aboutContactWithChildOrderSurvey && result.aboutContactWithChildOrderSurvey.placeConditions == 'y'" 
                                     class="answerbox" style="background-color:#dedede">{{chContInfo.abt.cond}}</div>
-                                <div v-else style="margin-bottom:3rem;"></div>
+                                <div v-else style="margin-bottom:3rem; height: 75px; background-color:#dedede">&nbsp;</div>
                             </div>
                         </div>
                     </div>
