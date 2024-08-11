@@ -33,7 +33,7 @@
                             <check-box boxMargin="0" shiftmark="0" :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
                             <check-box boxMargin="0" shiftmark="0" :check="chSupInfo.opType.standing?'yes':''" text="a person standing in the place of a parent to the child(ren) <br> <i>(for example, a step-parent)</i>"/>
                             <check-box boxMargin="0" shiftmark="0"  inline="inline" :check="chSupInfo.opType.other?'yes':''" text="other <i>(specify):</i>"/>
-                            <div class="answerbox" style="min-height: 12px; padding: 8px;"> {{chSupInfo.opType.otherCom}} </div>            
+                            <div class="answerbox" style="min-height: 12px; padding: 8px; background: #dedede;"> {{chSupInfo.opType.otherCom}} </div>            
                         </div>
                     </div>
                 </div>
@@ -57,8 +57,8 @@
                     <b>2.</b>  The <b>current support arrangements</b> are as follows:
                     </div>
                     <div v-if="chSupInfo.currCond.supArr" 
-                        class="answerbox" style="min-width: 80px; padding: 8px;">{{chSupInfo.currCond.supArr}}</div>
-                    <div v-else class="answerbox" style="min-width: 80px; padding: 8px;"></div>
+                        class="answerbox" style="min-width: 80px; padding: 8px;  background: #dedede;">{{chSupInfo.currCond.supArr}}</div>
+                    <div v-else class="answerbox" style="min-width: 80px; padding: 8px;  background: #dedede;"></div>
 
                 <!-- <3> -->
             
@@ -66,8 +66,8 @@
                     <b>3.</b>The child or children <b>currently spend time</b> with each party as follows
                     </div>
                     <div v-if="chSupInfo.currCond.timeDesc" 
-                    class="answerbox" style="min-width: 80px; padding: 8px;">{{chSupInfo.currCond.timeDesc}}</div>
-                    <div v-else class="answerbox" style="min-width: 80px; padding: 8px;"></div> 
+                    class="answerbox" style="min-width: 80px; padding: 8px; background: #dedede;">{{chSupInfo.currCond.timeDesc}}</div>
+                    <div v-else class="answerbox" style="min-width: 80px; padding: 8px; background: #dedede;"></div> 
                     
                     <div>
                         <i style="display:inline; margin-left:0.35rem"><b>4. </b>Select only one of the options below</i>
@@ -124,13 +124,13 @@
             <div style="width: 80%; padding-right: 4px;">    
                 <p><b>5.</b><i> Select each applicable option and complete the requested information</i></p>
                 <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="display: inline;" :check="chSupInfo.desiredSup.payor?'yes':''" text="I am applying for an order for ongoing support to be paid by (<i>name of paying party</i>)"/>
-                <div class="answerbox" style="display:inline; padding: 2px 16px;">{{chSupInfo.desiredSup.payor}}</div>
+                <div class="answerbox" style="display:inline; padding: 2px 16px; background: #dedede;">{{chSupInfo.desiredSup.payor}}</div>
                 <div style="display:inline;text-indent:0px;"> in the monthly amount set out in the child support guidelines for <i>(number)</i> 
-                    <p class="answerbox" style="display: inline; padding: 2px 16px;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p> child(ren). 
+                    <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p> child(ren). 
                 </div>
                 <div style="margin-left:3rem;">
                         <check-box style="display: inline;" textDisplay="inline" boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child supportI expect the amount payable for monthly child support to be approximately $"/> 
-                        <p class="answerbox" style="display: inline; padding: 2px 16px;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p>
+                        <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p>
                     
                         <br>
                     
@@ -156,7 +156,7 @@
                     <div style="padding-left:24px">
                         <p><i>List the expenses you are claiming for each child.</i><br>
                         <i>You must file a Financial Statement Form 4 to itemize the specific amounts</i></p>
-                        <div class="answerbox" style="min-height: 40px;"></div>
+                        <div class="answerbox" style="min-height: 40px; background: #dedede;"></div>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,7 @@
                             <check-box boxShift="0" shiftmark="0" :check="chSupInfo.ndHard.reasons.another?'yes':''" text="a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
                             <check-box boxShift="0" shiftmark="0" :check="chSupInfo.ndHard.reasons.dependent?'yes':''" text="a legal duty to support a dependent child from another relationship"/>
                             <check-box boxShift="0" shiftmark="0" :check="chSupInfo.ndHard.reasons.other?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
-                            <div class="answerbox" style="min-height: 40px; padding: 8px;">
+                            <div class="answerbox" style="min-height: 40px; padding: 8px; background: #dedede;">
                                 <span v-if="chSupInfo.ndHard.reasons.other">
                                     {{ chSupInfo.ndHard.otherCom }}
                                 </span>
@@ -211,8 +211,8 @@
                     <GreyBoxForm textwidth="10rem" hintindent="20px" beforetext="<b>6.</b> Child support payments should <b>start on</b>" hint="Date (dd/mmm/yyyy) or event" :text="chSupInfo.desiredSup.startDate"/>
                     <div style="margin:0 0 0 0.5rem; display:inline;">because:</div>
                     <div v-if="chSupInfo.desiredSup.reason" 
-                        class="answerbox" style="padding: 8px; min-height: 40px;">{{chSupInfo.desiredSup.reason}}</div>
-                    <div v-else class="answerbox" style="padding: 8px; min-height: 40px;"></div>
+                        class="answerbox" style="padding: 8px; min-height: 40px; background: #dedede;">{{chSupInfo.desiredSup.reason}}</div>
+                    <div v-else class="answerbox" style="padding: 8px; min-height: 40px; background: #dedede;"></div>
                 </div>
             </div>
             <div style="width: 20%;">   
@@ -299,11 +299,11 @@
         
                         <check-box boxMargin="0" shiftmark="0" textDisplay="inline" style="display:inline;" :check="chSupInfo.opInfo.income?'yes':''" text="I believe the <b>payor’s annual income</b> is "/>
                         <GreyBoxForm style="display:inline;" textwidth="10rem" beforetext=" $" hint="" :text="chSupInfo.opInfo.incomeAmt"/>  because: 
-                        <div class="answerbox" style="min-height: 80px; padding: 8px;"></div> 
+                        <div class="answerbox" style="min-height: 80px; padding: 8px; background: #dedede;"></div> 
                         <check-box boxMargin="0" shiftmark="0" :check="!chSupInfo.opInfo.income?'yes':''" text="I <b>do not know the income</b> of the payor. I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>   
                         <div v-if="chSupInfo.opInfo.facts" 
-                            class="answerbox" style="min-height: 80px; padding: 8px;">{{chSupInfo.opInfo.factsDesc}}</div>
-                        <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                            class="answerbox" style="min-height: 80px; padding: 8px; background: #dedede;">{{chSupInfo.opInfo.factsDesc}}</div>
+                        <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background: #dedede;"></div>
                     </div>
                 </div>
 
