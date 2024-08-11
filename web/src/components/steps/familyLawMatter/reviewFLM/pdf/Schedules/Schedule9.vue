@@ -12,7 +12,7 @@
 
                     <div style="margin-bottom: 1rem;"></div>
 
-                    <NoteBox>
+                    <NoteBox fontSize="10pt">
                         <p>
                             Complete this schedule only if you need a court order about spousal support and you do not have an existing final court order or written agreement about spousal support.
                         </p>
