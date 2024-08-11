@@ -83,38 +83,38 @@
                         <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         
-                        <div class="answerbox" style="min-height: 100px; padding: 8px ">
-                            <div v-if="parentArrInfo.parentTime.desired" style="font-size: 10px; background-color:#dedede;">
+                        <div class="answerbox" style="min-height: 100px; padding: 8px background-color:#dedede">
+                            <div v-if="parentArrInfo.parentTime.desired" style="font-size: 10px;">
                                 <b>I am asking for the child(ren) to spend time with me as follows:</b>
                             </div>
-                            <div>
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">
                                 {{parentArrInfo.parentTime.desired}}
                             </div>
                             
                             <br>
 
-                            <div v-if="parentArrInfo.parentTime.myConditions" style="font-size: 10px; background-color:#dedede; ">
+                            <div v-if="parentArrInfo.parentTime.myConditions" style="font-size: 10px; ">
                                 <b>I am willing to have the following conditions placed on my time with the child(ren):</b>
                             </div>
-                            <div>
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">
                                 {{parentArrInfo.parentTime.myConditions}}
                             </div>
                             
                             <br>
 
-                            <div v-if="parentArrInfo.parentTime.opDesired" style="font-size: 10px; background-color:#dedede;">
+                            <div v-if="parentArrInfo.parentTime.opDesired" style="font-size: 10px;">
                                 <b>I am asking for the child(ren) to spend time with the other guardian(s) as follows:</b>
                             </div>
-                            <div>
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">
                                 {{parentArrInfo.parentTime.opDesired}}
                             </div>
                             
                             <br>
 
-                            <div v-if="parentArrInfo.parentTime.opConditions" style="font-size: 10px; background-color:#dedede;">
+                            <div v-if="parentArrInfo.parentTime.opConditions" style="font-size: 10px;">
                                 <b>I am asking to have the following conditions placed on the other guardian’s time with the child(ren):</b>
                             </div>
-                            <div>
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">
                                 {{parentArrInfo.parentTime.opConditions}}
                             </div>
                         </div>  
