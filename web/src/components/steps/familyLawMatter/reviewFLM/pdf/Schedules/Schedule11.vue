@@ -42,9 +42,9 @@
                         <template v-slot:head(animalOwnership)>
                             To [party] <i style="font-size:6pt; font-weight:normal;"> <br>Select only one option for each animal</i>                            
                         </template>
-                        <template v-slot:cell(animalOwnership)="data">      
-                            <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
-                            <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value != 'Myself'?'yes':''" text="Other party"/>
+                        <template v-slot:cell(animalOwnership)="data">     
+                            <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
+                            <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value != 'Myself'?'yes':''" text="Other party"/>
                         </template>
                 </b-table>
             </section>
@@ -66,23 +66,19 @@
                 
 <!-- <2> -->
  
-        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-            <div style="flex: 1">
+        <div style="display: flex; flex-direction: row;">
+            <div style="width:80%; padding-right:4px;">
                 <FormPart :part="2" title="The facts"></FormPart>
-               
-                
+
                 <section>
                     The <b>facts</b> on which this application is based are as follows:                    
                     <div style="font-style: italic;margin-left:1rem;">
                         Provide the facts you want the court to consider and why the court should make the order you are applying for. 
                     </div>
-                   
-                    <div> 
-                    <GreyBoxForm  v-if="compInfo.compAnimalFacts"  style="margin-top:10px; text-indent:0rem;"
-                        textwidth="35rem" :text="compInfo.compAnimalFacts">
-                    </GreyBoxForm>
-                    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
-                    </div>
+                    <div v-if="compInfo.compAnimalFacts" 
+                        class="answerbox" style="min-height: 120px; padding: 8px;">{{compInfo.compAnimalFacts}}</div>
+                    <div v-else class="answerbox" style="min-height: 120px; padding: 8px;"></div>   
+                    
                 </section>
             </div>
             <div style="width: 20%;">
