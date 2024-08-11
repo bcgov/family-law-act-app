@@ -72,7 +72,7 @@
                         <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         
-                        <div class="answerbox" style="height: 100px;">
+                        <div class="answerbox" style="height: 100px; background-color:#dedede;">
                             {{parentArrInfo.parentResp.expl}}
                         </div>
                     </div>
@@ -83,8 +83,8 @@
                         <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         
-                        <div class="answerbox" style="min-height: 100px; padding: 8px">
-                            <div v-if="parentArrInfo.parentTime.desired" style="font-size: 10px;">
+                        <div class="answerbox" style="min-height: 100px; padding: 8px ">
+                            <div v-if="parentArrInfo.parentTime.desired" style="font-size: 10px; background-color:#dedede;">
                                 <b>I am asking for the child(ren) to spend time with me as follows:</b>
                             </div>
                             <div>
@@ -93,7 +93,7 @@
                             
                             <br>
 
-                            <div v-if="parentArrInfo.parentTime.myConditions" style="font-size: 10px;">
+                            <div v-if="parentArrInfo.parentTime.myConditions" style="font-size: 10px; background-color:#dedede; ">
                                 <b>I am willing to have the following conditions placed on my time with the child(ren):</b>
                             </div>
                             <div>
@@ -102,7 +102,7 @@
                             
                             <br>
 
-                            <div v-if="parentArrInfo.parentTime.opDesired" style="font-size: 10px;">
+                            <div v-if="parentArrInfo.parentTime.opDesired" style="font-size: 10px; background-color:#dedede;">
                                 <b>I am asking for the child(ren) to spend time with the other guardian(s) as follows:</b>
                             </div>
                             <div>
@@ -111,7 +111,7 @@
                             
                             <br>
 
-                            <div v-if="parentArrInfo.parentTime.opConditions" style="font-size: 10px;">
+                            <div v-if="parentArrInfo.parentTime.opConditions" style="font-size: 10px; background-color:#dedede;">
                                 <b>I am asking to have the following conditions placed on the other guardian’s time with the child(ren):</b>
                             </div>
                             <div>
@@ -130,7 +130,7 @@
                         <p>as follows: <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         </p> 
-                        <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                        <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">
                             {{parentArrInfo.parentalArr.desc}}
                         </div>   
                     </div>
@@ -138,14 +138,14 @@
                     <div>
                         <b>5. </b>
                         <p  style="display: inline">I am applying for <b>directions</b> from the court under s. 49 of the <i>Family Law Act</i> respecting the following <b>issue affecting a child</b>:</p>
-                        <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                        <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">
                             {{result.otherParentingArrangementsSurvey.seekingDirectionFromCourtDescription}}
                         </div> 
                     </div>
         
                 </div>
                 <div style="width: 20%;">
-                    <div style="padding-top:20rem">
+                    <div style="padding-top:10px">
                         <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
@@ -161,7 +161,7 @@
                     </div>
                    
 
-                    <div style="padding-top:20rem">
+                    <div style="padding-top:10px">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
@@ -184,7 +184,7 @@
                         <p style="display: inline">I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the <b>best interests of the child(ren)</b> because:</p>
                         <p><i>List your reasons</i></p>
 
-                        <div class="answerbox" style="min-height: 80px; padding: 8px;">{{parentArrInfo.childBestInterest}}</div>
+                        <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{parentArrInfo.childBestInterest}}</div>
                           
 
                     </div>
