@@ -147,7 +147,7 @@
                                 </i>
                             </div>
                             <div v-if="chContInfo.bstIntrst.length > 0" 
-                                class="answerbox">{{chContInfo.bstIntrst}}</div>
+                                class="answerbox" style="background-color:#dedede">{{chContInfo.bstIntrst}}</div>
                             <div v-else style="margin-bottom:3rem;"></div>
                         </div>
                     </div>
