@@ -22,11 +22,11 @@
             </p>
             <h2>The other party has applied for an order about the following family law matter:</h2>
             <p>
-                Look at the other party’s application. On page 2, Question 7, they will have 
+                Look at the other party’s application. On page 3, Question 10, they will have 
                 selected each family law matter they applied for. They will also have completed 
                 an additional schedule with the details of the order.
             </p>
-            <p>Select each option that applies.</p>
+            <p>In reply to the other party’s application about a family law matter: Select only one option for each family law matter and complete the required schedule(s), as applicable. If you are making a counter application, select the appropriate answer to the question below to identify which schedule you must complete. </p>
         </div>     
 
 
@@ -41,24 +41,19 @@
                         <div><span class="checkbox-choices-header text-primary">Parenting Arrangements </span> including parental responsibilities and parenting time</div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('parentingArrangements', 'newParentingArrangements', $event)" 
-                            value="newParentingArrangements">
-                            <div class="checkbox-choices">Parenting Arrangements - new</div>
-                            <p>
-                                Schedule 1 of the application was completed by the other party. 
-                                They are asking for an order about parenting arrangements because 
-                                there wasn’t already one in place.
-                            </p>                    
+                            v-on:change="changeSelection('parentingArrangements', 'agreeParentingArrangements', $event)" 
+                            value="agreeParentingArrangements">
+                            <div class="checkbox-choices">I agree with the request of the other party</div>
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('parentingArrangements', 'existingParentingArrangements', $event)" 
-                            value="existingParentingArrangements">
-                            <div class="checkbox-choices">Parenting Arrangements order/agreement – existing </div>
-                            <p>
-                                Schedule 2 of the application was completed by the other party. 
-                                They are asking for an order about a parenting order or agreement 
-                                that already exists.
-                            </p>                    
+                            v-on:change="changeSelection('parentingArrangements', 'disagreeParentingArrangements', $event)" 
+                            value="disagreeParentingArrangements">
+                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about parenting arrangements should be made. 🠆 Complete Schedule 1</div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('parentingArrangements', 'counterParentingArrangements', $event)" 
+                            value="counterParentingArrangements">
+                            <div class="checkbox-choices">I am making a counter application for an order. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
                     </div>
                     
@@ -73,24 +68,19 @@
                         <div class="checkbox-choices-header text-primary">Child Support</div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('childSupport', 'newChildSupport', $event)" 
-                            value="newChildSupport">
-                            <div class="checkbox-choices">Child Support - new</div>
-                            <p>
-                                Schedule 3 of the application was completed by the other party. 
-                                They are asking for an order about child support because there 
-                                wasn’t already one in place.
-                            </p>                    
+                            v-on:change="changeSelection('childSupport', 'agreeChildSupport', $event)" 
+                            value="agreeChildSupport">
+                            <div class="checkbox-choices">I agree with the request of the other party </div>
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('childSupport', 'existingChildSupport', $event)" 
-                            value="existingChildSupport">
-                            <div class="checkbox-choices">Child Support order/agreement – existing </div>
-                            <p>
-                                Schedule 4 of the application was completed by the other party. 
-                                They are asking for an order about a child support order or 
-                                agreement that already exists.
-                            </p>                    
+                            v-on:change="changeSelection('childSupport', 'disagreeChildSupport', $event)" 
+                            value="disagreeChildSupport">
+                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about child support should be made. 🠆 Complete Schedule 2 </div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('childSupport', 'counterChildSupport', $event)" 
+                            value="counterChildSupport">
+                            <div class="checkbox-choices">I am making a counter application for an order about child support. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
                     </div>
                     
@@ -107,22 +97,22 @@
                             class="mt-3"
                             v-on:change="changeSelection('contact', 'newContact', $event)" 
                             value="newContact">
-                            <div class="checkbox-choices">Contact with a child - new</div>
-                            <p>
-                                Schedule 5 of the application was completed by the other party. 
-                                They are asking for an order about contact with a child because 
-                                there wasn’t already one in place.
-                            </p>                    
+                            <div class="checkbox-choices">I agree with the request of the other party</div>
+                       </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('contact', 'existingContact', $event)" 
+                            value="existingContact">
+                            <div class="checkbox-choices">Contact order/agreement – existing </div>
                         </b-form-checkbox>
                         <b-form-checkbox 
                             v-on:change="changeSelection('contact', 'existingContact', $event)" 
                             value="existingContact">
                             <div class="checkbox-choices">Contact order/agreement – existing </div>
-                            <p>
-                                Schedule 6 of the application was completed by the other party. 
-                                They are asking for an order about a contact order or agreement 
-                                that already exists.
-                            </p>                    
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('contact', 'existingContact', $event)" 
+                            value="existingContact">
+                            <div class="checkbox-choices">Contact order/agreement – existing </div>
                         </b-form-checkbox>
                     </div>
                     
