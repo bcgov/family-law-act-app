@@ -17,7 +17,7 @@
                         </p>
                     </NoteBox>
                 </div>
-                <div style="width: 20%;"></div>
+                <div style="width: 20%;"/>
             </div>
 
             <div style="margin-bottom: 1rem;"></div>
@@ -44,9 +44,27 @@
                 </div>
                 <div style="width: 20%;">
                     <NoteBox>
-                        <b-icon-paperclip />
+                        <b-icon-info-circle-fill />
                         <p>
-                            You must attach a copy of the order or agreement to this application for filing.
+                            The court may grant contact 
+                            to a person who is not a 
+                            guardian, including to a 
+                            parent or grandparent [s. 59 
+                            <i>Family Law Act</i>].
+                            <br/>
+                            The person seeking contact 
+                            with a child must make their own application.
+
+                        </p>
+                    </NoteBox>
+                    <NoteBox style="margin-top:10px">
+                        <b-icon-book />
+                        <p>
+                            Usually, a child’s parent is 
+                            also the child’s guardian, but 
+                            not always. For more 
+                            information about who is a 
+                            guardian, see the guidebook.
                         </p>
                     </NoteBox>
                 </div>        
@@ -60,21 +78,20 @@
                     <FormPart :part="2" title="Order about contact with a child"></FormPart>
 
                     <div class="print-block">
-                        
-                        <section class="no-counter">
+                        <div style="margin:0 3rem 1rem 1rem; text-indent:-16px">
                             <div style="display:inline; margin-left:0.35rem"><b>3.</b> I am applying for an order for the child(ren) to have <b>contact with a person <u>who is not their guardian</u></b> as follows:</div>                   
                             <div style="margin:0 3rem 1rem 1rem;">
                                 <i>Select all options that apply and complete the required information</i>
                                 <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="<b>In person</b>: <i>(specify)</i>"/>
                                 <i class='marginleft1vue' style="margin:0 0 -0.25rem 1.75rem;">Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
                                 <div v-if="chContInfo.abt.conType.inPerson" 
-                                    class="answerbox">{{chContInfo.abt.inPrsn}}</div>
+                                    class="answerbox" style="background-color:#dedede">{{chContInfo.abt.inPrsn}}</div>
                                 <div v-else style="margin-bottom:3rem;"></div>
                                 <check-box style="margin:0rem 0 0 0" :check="chContInfo.abt.conType.tel?'yes':''" text="Telephone communication"/>
                                 <check-box  :check="chContInfo.abt.conType.video?'yes':''" text="Video communication"/>
                                 <check-box  :check="chContInfo.abt.conType.written?'yes':''" text="Written communication"/>
                                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chContInfo.abt.conType.other?'yes':''" text="Other method of communication <i>(specify):</i>"/>
-                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
+                                <GreyBoxForm style="text-indent:1px;display:inline-block; margin-top:0.5rem;" textwidth="19rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
                             </div>
                             <div style="margin:0 3rem 1rem 1rem;">
                                 <b>4.</b> <i>Complete if applicable. You may leave this question blank.</i>
@@ -85,10 +102,10 @@
                                         <i>List the details of the terms you are asking for</i></p>
                                 </div>
                                 <div v-if="result.aboutContactWithChildOrderSurvey && result.aboutContactWithChildOrderSurvey.placeConditions == 'y'" 
-                                    class="answerbox">{{chContInfo.abt.cond}}</div>
+                                    class="answerbox" style="background-color:#dedede">{{chContInfo.abt.cond}}</div>
                                 <div v-else style="margin-bottom:3rem;"></div>
                             </div>
-                        </section> 
+                        </div>
                     </div>
         
                 </div>
@@ -100,7 +117,7 @@
                         </p>
                      </NoteBox>
 
-                     <div style="margin-top: 4px;"></div>
+                     <div style="margin-top: 75px;"></div>
 
                      <NoteBox>
                         <b-icon-info-circle-fill />
@@ -129,7 +146,7 @@
                                 </i>
                             </div>
                             <div v-if="chContInfo.bstIntrst.length > 0" 
-                                class="answerbox">{{chContInfo.bstIntrst}}</div>
+                                class="answerbox" style="background-color:#dedede">{{chContInfo.bstIntrst}}</div>
                             <div v-else style="margin-bottom:3rem;"></div>
                         </div>
                     </div>
