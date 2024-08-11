@@ -9,7 +9,7 @@
 
                     <div style="margin-bottom: 1rem;"></div>
 
-                    <NoteBox>
+                    <NoteBox fontSize="9pt">
                         <p>
                             Complete this schedule only if you have an existing final order or written agreement about parenting arrangements, including parental responsibilities and parenting time, and you need a new court order made to change, suspend or cancel the final order, or to set aside or replace the written agreement.
                         </p>
@@ -28,16 +28,16 @@
                     <section>
                         Select only one of the options below and complete the requested information
                         <div>
-                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingOrder'" text="I have a <b>final court order</b> about parenting arrangements, including parental responsibilities or parenting time,"/>
+                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingOrder'" text="I have a <b>final court order</b> about parenting arrangements, including"/>
                             <br>
-                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingOrder'" style="display: inline; margin-left:1.75rem;" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). - Complete <b><i>Part 2</i></b>" hint="" :text="exParentArrInfo.existingDate | beautify-date"/>
-                            <GreyBoxForm v-else style="display: inline; margin-left:1.75rem;" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). Complete Part 2" hint="" text=""/>
+                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingOrder'" style="display: inline; margin-left:2rem;" textwidth="6rem" marginTop="-15px" beforetext="parenting time, <b> including parental responsibilities or parenting time, made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). -->  Complete <b><i>Part 2</i></b>" hint="" :text="exParentArrInfo.existingDate | beautify-date-mid"/>
+                            <GreyBoxForm v-else style="display: inline; margin-left:2rem;" textwidth="6rem"  marginTop="-15px" beforetext="parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). --> Complete Part 2" hint="" text=""/>
                         </div>
                         <div>
-                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingAgreement'" text="I have a <b>written agreement</b> about parenting arrangements, including parental responsibilities or parenting time,"/>
+                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingAgreement'" text="I have a <b>written agreement</b> about parenting arrangements, including"/>
                                 <br>
-                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). Complete <b><i>Part 3</i><b>" hint="" :text="exParentArrInfo.existingDate | beautify-date"/>
-                            <GreyBoxForm v-else style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). Complete <b><i>Part 3</i><b>" hint="" text=""/>
+                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext=" parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>).--> Complete <b><i>Part 3</i><b>" hint="" :text="exParentArrInfo.existingDate | beautify-date-mid"/>
+                            <GreyBoxForm v-else style="margin-left:1rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext=" parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). --> Complete <b><i>Part 3</i><b>" hint="" text=""/>
                         </div>
                     
                     </section>
@@ -64,8 +64,8 @@
                             <b>2. </b> Since the final order was made, <b>needs or circumstances have changed</b> as follows:
 
                             <div v-if="exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.changesSince" 
-                            class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.changesSince}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div> 
+                            class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">{{exParentArrInfo.changesSince}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede"></div> 
                         </div>
                         <div>
                             <b>3. </b> I am applying for the final order to be:
@@ -73,9 +73,9 @@
                             <i>Select only one option</i>
                             <div>
                                 <div style="margin:0 0 0 3rem;">
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="<b>changed</b> - <i>Complete <b>Part 4 and 5</b></i>"/>
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'suspendedOrder')?'yes':''" text="<b>suspended</b> - <i>Complete <b>Part 5</b></i>"/>
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="<b>cancelled</b> - <i>Complete <b>Part 5</b></i>"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="<b>changed --> </b>  <i>Complete <b>Part 4 and 5</b></i>"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'suspendedOrder')?'yes':''" text="<b>suspended --> </b> <i>Complete <b>Part 5</b></i>"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="<b>cancelled --> </b>  <i>Complete <b>Part 5</b></i>"/>
                                 </div>
                             </div>                
                         </div>
@@ -102,8 +102,8 @@
                         <div>
                             <b>4. </b> I believe the written agreement is <b>not in the best interests</b> of the child(ren) because:
                             <div v-if="exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.changesSince" 
-                                class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.changesSince}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                                class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.changesSince}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div>
                         </div>
 
                         <div>
@@ -111,24 +111,34 @@
                             <br>
                             <i>Select only one option</i>
                             <div>
-                                <div style="margin:0 0 0 3rem;">
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="<b>set aside</b> - <i>Complete <b>Part 5</b</i>"/>
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="<b>replaced with an order</b> - <i>Complete <b>Part 4 and 5</b></i>"/>
-                                </div>  
+                            <div style="margin:0 0 0 1rem;">
+                            <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="<b>set aside</b> --> <i>Complete <b>Part 5</b</i>" />
+                            </div>
+                            <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="<b>replaced with an order</b> --> <i>Complete <b>Part 4 and 5</b></i>" />
+                            </div>
+                            </div>  
                             </div>                
                         </div>
                     </div>
                 </div>
                 <div style="width: 20%;">
-                    <NoteBox>
+                    <div style="padding-top:10px">
+                        <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
                             The court must set aside or replace with an order, all or part of an agreement about parenting arrangements, if the court is satisfied that the agreement is not in the best interests of the child [s. 44 Family Law Act].
                         </p>
                     </NoteBox>
+                    </div>
+                    
                 </div>        
             </div>
 
+            <div style="margin-bottom: 1rem;"></div>
             <!-- <4> -->
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 80%; padding-right: 4px;">
@@ -142,22 +152,22 @@
 
                            
                             <div v-if="exParentArrInfo.parentResp.applying && exParentArrInfo.parentResp.desc" 
-                            class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.parentResp.desc}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div> 
+                            class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.parentResp.desc}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div> 
 
                             
                             <div v-if="exParentArrInfo.parentTime.applying && exParentArrInfo.parentTime.desc" 
-                                class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.parentTime.desc}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                                class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.parentTime.desc}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div>
 
                             <div v-if="exParentArrInfo.parentCond.applying && exParentArrInfo.parentCond.desc" 
-                                class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.parentCond.desc}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div> 
+                                class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.parentCond.desc}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div> 
 
                             
                             <div v-if="exParentArrInfo.parentalArr.applying && exParentArrInfo.parentalArr.desc" 
-                            class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.parentalArr.desc}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                            class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.parentalArr.desc}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div>
                         </div>
                     </div>   
                 </div>
@@ -187,8 +197,8 @@
                                 <i>List your reasons</i>
                             </div>
                             <div v-if="exParentArrInfo.childBestInterest" 
-                                class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.childBestInterest}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                                class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.childBestInterest}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div>
                         </div>
                     </div>
                 </div>

@@ -7,9 +7,9 @@
              <div class="new-page" />
              <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
                 <div style="flex: 1">
-                    <ScheduleHeader scheduleNumber="Schedule 11" scheduleTitle="Existing written agreement"></ScheduleHeader>
+                    <ScheduleHeader scheduleNumber="Schedule 11" scheduleTitle="Property division in respect of a companion animal" scheduleDescription="Disagree with order requested by other party"></ScheduleHeader>
                     <div style="margin-bottom: 1rem;"></div>
-                    <NoteBox>
+                    <NoteBox fontSize="10pt">
                         <p>
                             Complete this schedule only if you have an existing written agreement about the companion animal and you need a new court order made to set aside or replace the written agreement.
                         </p>
@@ -18,46 +18,45 @@
                 </div>
                 <div style="margin-top:1rem;"></div>
 <!-- <1> -->
-    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-        <div style="flex: 1">
+    <div style="display: flex; flex-direction: row;">
+        <div style="width:80%; padding-right:4px;">
             <FormPart :part="1" title="Written agreement"></FormPart>
-            <section class="resetquestion">
-                <div style="display:block;">
-                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                        style="text-indent: 5px;" :check="true?'yes':''" text="I have a written agreementabout property division in respect of a companion animal made on (date)" />
-                        <GreyBoxForm style="margin-left:2rem; text-indent:0px;" textwidth="10rem" beforetext="" aftertext=" that I want to repeal or replace (see attached copy ofagreement)."  hint="(mmm/dd/yyyy)" hintindent="30px" :text="exCompInfo.agreementDate"/>
+            <div class="resetquestion">
+                <div style="display:inline; margin-left:0.25rem"><b>1.</b></div>
+                <div style="display:block; margin-left: 1rem; margin-top: -1.25rem;">
+                   <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                        style="text-indent: 5px;" :check="true?'yes':''" text="I have a <b>written agreement</b> about property division in respect of a" />
+                        <GreyBoxForm style="margin-left:2rem; text-indent:0px;" textwidth="10rem" beforetext=" companion animal made on <i>(date)</i>" aftertext=" that I want to repeal or replace <i><b>(see attached copy of agreement).</b></i>"  hint="" marginTop="-15px" :text="exCompInfo.agreementDate | beautify-date-mid"/>
                 </div>
                
                
-            </section>
-            <section>
-                I believe the agreement about property division in respect of a companion animal should be set aside or replaced because:
+            </div>
+            <div>
+               <b>2.</b> I believe the agreement about property division in respect of a companion animal should be set aside or replaced because:
                 <div>
-            <GreyBoxForm v-if="exCompInfo.reason" style="margin-top:10px; text-indent:0rem"
+            <GreyBoxForm v-if="exCompInfo.reason" style="margin-top:10px; text-indent:0rem height:80px"
                 textwidth="35rem" :text="exCompInfo.reason" hint="" beforetext="">
             </GreyBoxForm>
             <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem" hint="" beforetext=""></GreyBoxForm>     
                 </div>
                               
-            </section>
+            </div>
             <div class="print-block">
-                <section>
-                        I am applying for the existing agreement to be:
-                                       
-                    
+                <div>
+                      <b>3.</b>  I am applying for the existing agreement to be: 
                     <div style="margin:0 0 2rem 1.5rem;">
                         <i>Select only one option</i>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" :check="exCompInfo.setAside?'yes':''" text="set aside" />
+                                style="text-indent: 5px;" :check="exCompInfo.setAside?'yes':''" text="<b>set aside</b>" />
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" :check="exCompInfo.replace?'yes':''" text="replaced with an order --> <i>Complete Part 4</i>" />
+                                style="text-indent: 5px;" :check="exCompInfo.replace?'yes':''" text="<b>replaced with an order</b> --> <i>Complete <b>Part 4</b></i>" />
                         </div>
      
                     </div>
-                </section>
+                </div>
             </div>
             </div>
             <div style="width: 20%;">
@@ -80,23 +79,18 @@
             </div>
         </div>
 
-        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-            <div style="flex: 1">
-                <FormPart :part="1" title="Orderabout property division in respect of a companion animal "></FormPart>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width:80%; padding-right:4px;">
+                <FormPart :part="2" title="Order about property division in respect of a companion animal-" subtitle="- Complete this part only if you are asking to replace the existing agreement"></FormPart>
                 <div style="margin-bottom: 1rem;"></div>
-                    <NoteBox>
-                        <p>
-                            Complete this part only if you are asking to replace the existing agreement.
-                        </p>
-                    </NoteBox>
                     <div class="print-block">
                         <div>                         
                              <b>4.</b> I am applying for the agreement about a companion animal to be <b>replaced with an order</b> as follows: <br>
                              <i>List the details of the order you want the court to make</i>
-                             <GreyBoxForm  v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails"  style="margin-top:10px; text-indent:0rem"
+                             <GreyBoxForm  v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails"  style="margin-top:10px; text-indent:0rem; min-height:80px; background-color:#dedede;"
                              textwidth="35rem" :text="exCompInfo.agreementReplacementDetails">
                          </GreyBoxForm>
-                         <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm> 
+                         <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem; min-height:80px; background-color:#dedede;" textwidth="30rem"></GreyBoxForm> 
                            
                         </div> 
                     </div>
@@ -106,18 +100,12 @@
                         <NoteBox>
                             <b-icon-info-circle-fill />
                             <p>
-                                Under section 97 of the Family Law Act, the court may only make an order for ownership and possession of a comp
+                                Under section 97 of the Family Law Act, the court may only make an order for ownership and possession of a companion animal <b>by one spouse.</b> 
                             </p>
                         </NoteBox>
                     </div> 
                 </div>
             </div>
-
-           
-
-
-           
-
         </div>           
 
     </div>

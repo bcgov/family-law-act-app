@@ -52,7 +52,7 @@
 
             </li>
             <li>For guidance filling in this form, please read the guidebook. The guide is available
-                online at <a href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
+                online at <a style="color:#1C35F4;" href="www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.
 
             </li>
             
@@ -227,8 +227,8 @@
         </div>  
         <!-- <div  style="margin-left:47px;"> -->
         <div v-if="wrInfo.disagree && wrInfo.disagreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:100px;">{{wrInfo.disagreeDetails}}</div>
-        <div v-else style="margin-bottom:3rem;"></div> 
-        </div>        
+        <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:100px;"></div>                
+    </div>        
         
           
         </div>
@@ -249,8 +249,9 @@
                 <div style="font-size: 11pt;"><b>8. I do not agree with the order requested</b> by the other party because:</div>
             </div>
             <!-- <div  style="margin-left:57px;"> -->
-            <div v-if="wrInfo.partialdisagree && wrInfo.disAgreeDetailsOtherParty" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:120px;">{{wrInfo.disAgreeDetailsOtherParty}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
+            <div v-if="wrInfo.partialdisagree && wrInfo.disAgreeDetailsOtherParty" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:150px;">{{wrInfo.disAgreeDetailsOtherParty}}</div>
+            <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:150px;"></div>                
+
         </div>  
         <div>
             <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
@@ -259,8 +260,10 @@
                 <div style="text-indent:22px;font-size:9.5pt;"><i>instead of what the other party has asked for </i>&nbsp;</div>     
             </div>
             <!-- <div  style="margin-left:57px;"> -->
-                <div v-if="wrInfo.orderDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.orderDetails}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
+                <div v-if="wrInfo.orderDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;" v-html="wrInfo.orderDetails">{{wrInfo.orderDetails}}</div>
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
+
+            
         </div> 
         <div>
             <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
@@ -271,21 +274,21 @@
             </div>
             <!-- <div  style="margin-left:57px;"> -->
                 <div v-if="wrInfo.orderFacts" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.orderFacts}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
         </div> 
           
         </div>
         
         
         </div> 
-        <div style="float: right;width: 18%; margin-top:270px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
+        <div style="float: right;width: 18%; margin-top:220px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
                 <p>
                     <b-icon-info-circle-fill/>
                     <br />
                     If you want an order about a different matter, including a family law matter, you must file your own application.
                 </p>
         </div>
-        <div style="float: right;width: 18%; margin-top:70px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
+        <div style="float: right;width: 18%; margin-top:120px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
                 <p>
                     <b-icon-info-circle-fill/>
                     <br />
@@ -306,7 +309,7 @@
         </div>
         </div> 
         
-        <div style="float: right;width: 18%;margin-top:-80px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
+        <div style="float: right;width: 18%;margin-top:-90px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
                 <p>
                     <b-icon-paperclip/>
                     <br />

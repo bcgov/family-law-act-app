@@ -27,12 +27,12 @@
             <div style="display:block;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                 :check="true?'yes':''" text="I have <b>a final court</b> orderabout spousal support made on (date)"/>
-                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="" aftertext="that I want to change or cancel (seeattached copyof order). --> Part 2" hint="mmm/dd/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
+                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="" aftertext="that I want to change or cancel (seeattached copy of order). --> <i>Complete Part 2</i>" hint="dd/mmm/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
             </div>
             <div style="display:block;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                 :check="true?'yes':''" text="I have a <b>written agreementabout</b> spousal support made on(date)"/>
-                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext=" " aftertext="that I want to repeal or replace (see attached copy of agreement). --> Complete Part 3" hint="mmm/dd/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
+                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext=" " aftertext="that I want to repeal or replace (see attached copy of agreement). --> <i>Complete Part 3</i>" hint="dd/mmm/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
             </div>
         </div>
         </div>
@@ -156,7 +156,7 @@
             <div class="print-block">
                 
 <!-- <3> --><div>
-    <div style="margin:0 0 -0.25rem 0;"><b>4.</b>I believe the agreement about spousalsupport <b></b> should be set aside or replaced </b> because:
+    <div style="margin:0 0 -0.25rem 0;"><b>4. </b>I believe the agreement about spousal support <b></b> should be set aside or replaced </b> because:
     </div>
     <GreyBoxForm v-if="exSpsSupInfo.agreementInfo.reason" style="margin-top:10px; text-indent:0rem"
         textwidth="35rem" :text="exSpsSupInfo.agreementInfo.reason">
@@ -208,7 +208,7 @@
             <div style="margin-top:2rem;"><b>About the order</b></div>
 
             <div>
-                <div style="margin:0 0 -.25rem 0;"><b>6.</b> I am applying for the final order or agreement about spousal supportto be <b></b>changed or replaced </b> as follows:
+                <div style="margin:0 0 -.25rem 0;"><b>6.</b> I am applying for the final order or agreement about spousal support to be <b></b>changed or replaced </b> as follows:
                 </div>   
                 <GreyBoxForm v-if="exSpsSupInfo.about.chSinceOrder" style="margin-top:10px; text-indent:0rem"
                             textwidth="35rem" :text="exSpsSupInfo.about.chSinceOrder">
@@ -218,20 +218,21 @@
                 
             </div>
             <div>
-                <div style="margin:0 0 -.25rem 0;"><b>7.</b>Based on the information I know about each party’s means, needs, and othercircumstances <br>
-                    <i> Select only one of the options below</i>
+                <div style="margin:0 0 -.25rem 0; line-height: 25px;"><b>7.</b>Based on the information I know about each party’s means, needs, and other circumstances <br>
+                    <i> Select only one of the options below </i>
                 </div>
-                <div style="display:block;">
+                <div style="display:block; line-height: 25px;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                         text="<b>I expect the range for the monthly amount payable</b>"  />
                        
                 </div>
                 <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="for spousal support to be approximately $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                 <div style="display:block;">
-                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                        text="I expect a lump sum amount payablefor spousal support to be approximately" />
+                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
+                        text="I expect a lump sum amount payable for spousal support to be approximately" />
                 </div>
-                <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px;" textwidth="9rem" beforetext="to $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                 <div style="display:block;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                         text="I am <b>not able to estimate </b>the amount payable for spousal support at this time" />
@@ -251,7 +252,7 @@
         </div>
     </div>
     <div style="margin-top:1rem;"></div>
-             <!-- <Part %> -->  
+             <!-- <Part 5> -->  
     <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
         <div style="width:80%">
             <FormPart :part="5"
@@ -260,7 +261,7 @@
             <div class="print-block">
                 <div>
                     <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="As of " hint="mmm/dd/yyyy" hintindent="30px" :text="exSpsSupInfo.payDetails.currentDate"/>
-                    <GreyBoxForm style="margin-left:0.1rem; text-indent:0px;" textwidth="7rem" beforetext=", the amount of unpaid spousal support (arrears) was $" hint="" hintindent="30px" :text="exSpsSupInfo.payDetails.unPaidAmount"/>          
+                    <GreyBoxForm style="margin-left:0.1rem; text-indent:0px;" textwidth="7rem" beforetext=", the amount of <b>unpaid spousal support</b> (arrears) was $" hint="" hintindent="30px" :text="exSpsSupInfo.payDetails.unPaidAmount"/>          
                 </div>
             </div>
 
@@ -271,13 +272,13 @@
                         <i>Select only one of the options below.</i>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                            check="exSpsSupInfo.payDetails.unpaid && !exSpsSupInfo.payDetails.reduce?'yes':''" text="I am not applying to reduce the amount of unpaid spousal support (arrears)" />
+                            check="exSpsSupInfo.payDetails.unpaid && !exSpsSupInfo.payDetails.reduce?'yes':''" text="I am <b>not applying</b> to reduce the amount of unpaid spousal support (arrears)" />
                         </div>
                     </div>
                     <div style="margin:0 0 0 1.5rem;"> 
                         <div style="display:block;">
-                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                            :check="exSpsSupInfo.payDetails.reduce?'yes':''" text="I am applying to reduce the amount of unpaid spousal support (arrears) to" />
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
+                            :check="exSpsSupInfo.payDetails.reduce?'yes':''" text="I am <b>applying to reduce</b> the amount of unpaid spousal support (arrears) to" />
                         </div>   
                        
                         <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="8rem" beforetext=" $" aftertext="because:" hint="" :text="exSpsSupInfo.payDetails.reduceAmount"/>
@@ -301,15 +302,11 @@
                         <i>Select all options that apply and complete the required information</i>
                     </div>
                     <div style="margin:0.25rem 0 0 1.5rem;"> 
-                        <div style="display:block;">
+                        <div style="display:flex;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                            :check="exSpsSupInfo.payDetails.monthly?'yes':''" text="At a rate of " />
-                            
+                            :check="exSpsSupInfo.payDetails.monthly?'yes':''" text="At a rate of &nbsp; " /><underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                            <div style="display:inline;margin:0 0 0 0.25rem;"><b>per month</b></div>                      
                         </div> 
-                        <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
-                        <div style="display:inline;margin:0 0 0 0.25rem;">per month</div>                      
-                                 
-                        
                     </div>
                     
                     <div style="margin:0.25rem 0 0 1.45rem;">
@@ -321,8 +318,8 @@
                     </div>
                     <div style="margin:0.25rem 0 0 1.45rem;">
                         <div style="display:block;">
-                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                            :check="exSpsSupInfo.payDetails.other?'yes':''" text="other <i>(specify):</i>" />     
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
+                            :check="exSpsSupInfo.payDetails.other?'yes':''" text="<b>other</b> <i>(specify):</i>" />     
                         </div>
                         <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" :text="exSpsSupInfo.payDetails.otherComm"/>
                      </div>
@@ -352,7 +349,7 @@
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                 style="text-indent: 5px;" :check="exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am <b>not able</b> to file a Financial Statement in Form 4 with this application" />
-                                <span >I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that myincome information in Form 4 be provided with this application. I understand Iwill still be required to file a Financial Statement in Form 4 at a later date</span>
+                                <span >I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date</span>
 
                         </div>
                        

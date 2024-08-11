@@ -300,7 +300,7 @@
                         <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
                         <div style="margin:0.5rem 0 0 0.25rem;">
                             <div>
-                                <check-box inline="inline" boxMargin="0" style="text-indent: 4px; background-color: #dedede; width:20px" />
+                                <check-box inline="inline" boxMargin="0" style="text-indent: 4px; width:20px" />
                                 <div style="margin-top: -18px;text-indent: 20px;">
                                     &nbsp; in person at
                                     <grey-box-form entryFontSize="9pt" marginTop="-16px" style="text-indent:2px;display:inline-block;" textwidth="22rem"
@@ -310,7 +310,7 @@
                         </div>
                         <div style="margin:0.5rem 0 0 0.25rem; display:flex; flex-direction:row;">
                             <div style="width:20%">
-                                <check-box inline="inline" boxMargin="0" style="text-indent: 4px; background-color: #dedede; width:20px" />
+                                <check-box inline="inline" boxMargin="0" style="text-indent: 4px; width:20px" />
                                 <div style="margin-top: -18px; padding-left:25px">
                                     by another method of attendance, as specified
                                 </div>
@@ -745,7 +745,7 @@
                         text="Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue"/>          
                     <check-box  
                         :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
-                        text="Permitted by <b>court order</b>"/>                    
+                        text="Permitted by <b>court order</b>"/>                
                 </div>
                 </div>
             </div>

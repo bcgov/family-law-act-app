@@ -57,8 +57,8 @@
                     <b>2.</b>  The <b>current support arrangements</b> are as follows:
                     </div>
                     <div v-if="chSupInfo.currCond.supArr" 
-                        class="answerbox" style="min-width: 80px; padding: 8px;  background: #dedede;">{{chSupInfo.currCond.supArr}}</div>
-                    <div v-else class="answerbox" style="min-width: 80px; padding: 8px;  background: #dedede;"></div>
+                        class="answerbox" style="min-height: 80px; padding: 8px;  background: #dedede;">{{chSupInfo.currCond.supArr}}</div>
+                    <div v-else class="answerbox" style="min-height: 80px; padding: 8px;  background: #dedede;"></div>
 
                 <!-- <3> -->
             
