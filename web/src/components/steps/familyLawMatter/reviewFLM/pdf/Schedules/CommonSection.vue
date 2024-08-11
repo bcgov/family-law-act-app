@@ -575,11 +575,11 @@
                     <div>
                         <b>13. </b>
                         <div style="display:inline; margin-left:0.25rem"><i>If you are not a lawyer, you may leave this question blank</i></div>
-                        <div>
+                        <div style="padding-top:1rem">
                             <check-box  inline="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 1rem;display:inline" :check="yourInfo.lawyerFiling?'yes':''" text=""/>
-                            <GreyBoxForm style="text-indent:0px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" :text="yourInfo.lawyerStatement.lawyerName"/>
-                            <GreyBoxForm style="text-indent:2px;display:inline;" textwidth="16.25rem" beforetext=", the lawyer for" hint="full name of party" :text="yourInfo.lawyerStatement.clientName"/>
-                            <div style="display:inline;">, acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act.</i></div>
+                            <GreyBoxForm style="text-indent:0px;display:inline;" textwidth="12rem" beforetext="I, " aftertext=", the"  hint="Full name of lawyer" hintindent="30px" :text="yourInfo.lawyerStatement.lawyerName"/>
+                            <GreyBoxForm style="text-indent:2px;display:inline;" textwidth="12rem" beforetext="lawyer for" hintindent="30px" hint="Full name of party" hintmargintop="2px" :text="yourInfo.lawyerStatement.clientName"/>
+                            <div style="display:inline; padding-left:3rem">acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act.</i></div>
                         </div>           
                     </div>
                 </div>
