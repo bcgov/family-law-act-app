@@ -17,11 +17,14 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="1" title="Reason you disagree" style="margin-bottom: 0rem;"></FormPart>
-                <div style="margin-left: 1rem;;">
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                     <b>1. I do not agree with the order requested</b> by the other party about contact with a child, because:
                 </div>
-                <div style="margin-left: 1.5rem;" class="answerbox">
-                        {{chContInfo.abt.otherComm}}
+                <div v-if="chContInfo.abt.otherComm" style="margin-left: 1rem; margin-top: 0; background-color: #dedede;padding:10px;font-size: 11pt;margin-left:30px;min-height:190px;">
+                    {{chContInfo.abt.otherComm}}
+                </div>
+                <div style="margin-left: 1.5rem; margin-top: 0; margin-bottom: 1rem;">
+                    <GreyBoxForm v-if="!chContInfo.abt.otherComm" style="margin-top:5px; text-indent:0rem;" textwidth="32rem" :text="chContInfo.abt.otherComm"></GreyBoxForm>
                 </div>
             </div>
             <div style="width: 20%;"></div>
@@ -44,31 +47,40 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="3" title="Order about contact with a child" subtitle="You do not need to complete this part if have indicated you would like the existing order or agreement to continue to be in place."></FormPart>
-                <div style="margin-left: 1rem;">
-                    <b>3. </b> I am applying for an order for the child(ren) to have <b>contact with a person <u>who is not their guardian</u></b> as follows:
-                </div>
-                <div style="margin:0 0 1rem 1rem;">
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>3. </b> I am applying for an order for the child(ren) to have <b>contact with a person <u>who is not their guardian</u></b> as follows:<br />
                     <i>Select all options that apply and complete the required information</i>
+                </div>
+
+                <div style="margin:0 0 1rem 1rem;">
                     <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.inPerson?'yes':''" text="In person <i>(specify)</i>:"/>
-                    <i class='marginleft1vue' style="margin:0 0 -0.25rem -2rem;">Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
-                    <div style="margin-left: 1.5rem;" class="answerbox">
+                    <div style="margin-left: 1.5rem; text-indent: -5px; padding-left: 5px;">
+                        <i>Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
+                    </div>
+                    <div v-if="chContInfo.abt.inPrsn" style="margin-left: 1.5rem; margin-top: 0; background-color: #dedede;padding:10px;font-size: 11pt;margin-left:30px;min-height:190px;">
                         {{chContInfo.abt.inPrsn}}
                     </div>
+                    <GreyBoxForm v-if="!chContInfo.abt.inPrsn" style="margin-top:5px; margin-left:1.5rem; text-indent:0rem" textwidth="31rem" :text="chContInfo.abt.inPrsn"></GreyBoxForm>
                     <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.tel?'yes':''" text="Telephone communication"/>
                     <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.video?'yes':''" text="Video communication"/>
                     <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.written?'yes':''" text="Written communication"/>
                     <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="chContInfo.abt.conType.other?'yes':''" text="Other method of communication <i>(specify):</i>"/>
-                    <div style="margin-left: 1.5rem;" class="answerbox">
+                    
+                    <div v-if="chContInfo.abt.otherComm" style="margin-left: 1rem; margin-top: 0; background-color: #dedede;padding:10px;font-size: 11pt;margin-left:30px;min-height:100px;">
                         {{chContInfo.abt.otherComm}}
                     </div>
+                    <GreyBoxForm v-if="!chContInfo.abt.otherComm" style="margin-top:5px; margin-left:1.5rem; text-indent:0rem" textwidth="31rem" :text="chContInfo.abt.otherComm"></GreyBoxForm>
                 </div>
+
                 <div style="margin-left: 1rem;">
                     <b>4. </b> <i>Complete if applicable. You may leave this question blank</i>.
                     <div style="margin-left: 1rem;">I am applying for <b>additional terms about contact</b> with a child as follows:</div>
                     <div style="margin-left: 1rem;"><i>List the details of the terms you are asking for</i></div>
-                    <div style="margin-left: 1rem;" class="answerbox">
+                    <div v-if="chContInfo.abt.otherComm" style="margin-left: 1rem; margin-top: 0; background-color: #dedede;padding:10px;font-size: 11pt;margin-left:30px;min-height:100px;">
                         {{chContInfo.abt.otherComm}}
                     </div>
+                    <GreyBoxForm v-if="!chContInfo.abt.otherComm" style="margin-top:5px; margin-left:1rem; text-indent:0rem" textwidth="31.5rem" :text="chContInfo.abt.otherComm"></GreyBoxForm>
+                    
                 </div>
 
             </div>
@@ -83,17 +95,19 @@
         </div>
 
         <!-- <Part 4> -->
-            <div style="display: flex; flex-direction: row;">
+        <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="4" title="Best interests of the child" subtitle="You do not need to complete this part if have indicated you would like the existing order or agreement to continue to be in place."></FormPart>
-                <div style="margin-left: 1rem;">
-                    <b>5. </b> I believe the order about contact with a child that I am applying for is in the <b>best interests of the child(ren)</b> because:
-                </div>
-                <div style="margin:0 0 1rem 2rem;">
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>5. </b> I believe the order about contact with a child that I am applying for is in the <b>best interests of the child(ren)</b> because:<br />
                     <i>List your reasons</i>
-                    <div style="margin-left: 0rem;" class="answerbox">
-                        {{chContInfo.abt.inPrsn}}
-                    </div>
+                </div>
+
+                <div v-if="chContInfo.abt.otherComm" style="margin-left: 1rem; margin-top: 0; background-color: #dedede;padding:10px;font-size: 11pt;margin-left:30px;min-height:400px;">
+                    {{chContInfo.abt.otherComm}}
+                </div>
+                <div style="margin-left: 1.5rem; margin-top: 0; margin-bottom: 1rem;">
+                    <GreyBoxForm v-if="!chContInfo.abt.otherComm" style="margin-top:5px; text-indent:0rem;" textwidth="32rem" :text="chContInfo.abt.otherComm"></GreyBoxForm>
                 </div>
             </div>
             <div style="width: 20%;">
@@ -119,6 +133,7 @@ import { schedule5DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/
 import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
 import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 
 @Component({
     components:{
@@ -126,7 +141,8 @@ import ScheduleHeader from '@/components/utils/PopulateForms/components/Schedule
         CheckBox,
         NoteBox,
         FormPart,
-        ScheduleHeader
+        ScheduleHeader,
+        GreyBoxForm
     }
 })
 export default class Schedule5 extends Vue {
