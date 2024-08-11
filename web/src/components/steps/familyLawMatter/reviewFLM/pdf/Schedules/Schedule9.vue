@@ -32,13 +32,13 @@
 
                    
                     <section class="resetquestion">
-                        <div style="display:inline; margin:0 0 0 0.5rem;">I believe that I am, or the other party is, entitled to spousal support for the following reason(s):</div>
+                        <div style="display:inline; margin:0 0 0 0.5rem;">I believe that I am, or the other party is, <b>entitled to spousal support</b> for the following reason(s):</div>
                         <div style="margin:0 0 0 1.5rem;">
                             <i style="margin:0 0 0 0rem;" >Select all options that apply</i>
-                            <check-box  :check="spsSupInfo.current.adv?'yes':''" text="To recognize economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship"/>
-                            <check-box  :check="spsSupInfo.current.share?'yes':''" text="To share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child"/>
-                            <check-box  :check="spsSupInfo.current.hardship?'yes':''" text="To relieve economic hardshipof the spouses arising from the breakdown of the relationship"/>
-                            <check-box  :check="spsSupInfo.current.bcmIndpndnt?'yes':''" text="To help each spouse become financially independent within a reasonable period"/>                    
+                            <check-box  :check="spsSupInfo.current.adv?'yes':''" text="To recognize <b>economic advantages or disadvantages</b> to the spouses arising from the relationship or breakdown of the relationship"/>
+                            <check-box  :check="spsSupInfo.current.share?'yes':''" text="To share the <b>financial consequences</b> arising from caring for the children during the relationship, beyond the duty to provide support for the child"/>
+                            <check-box  :check="spsSupInfo.current.hardship?'yes':''" text="To <b>relieve economic hardship</b> of the spouses arising from the breakdown of the relationship"/>
+                            <check-box  :check="spsSupInfo.current.bcmIndpndnt?'yes':''" text="To help each spouse <b>become financially independent</b> within a reasonable period"/>                    
                         </div>            
                     </section>
                 </div>
@@ -46,7 +46,7 @@
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            If after considering the objectives set out in section 161 of the Family Law Act, a spouse is entitled to support, the other spouse has a duty to provide support [s. 160 Family Law Act].
+                            If after considering the objectives set out in section 161 of the <i>Family Law Act</i>, a spouse is entitled to support, the other spouse has a duty to provide support [s. 160 <i>Family Law Act</i>].
                         </p>
                     </NoteBox>
                 </div>        
@@ -63,11 +63,9 @@
                     <div class="print-block">
                         <div>
                             <b>2. </b> 
-                            The current support arrangements are as follows:
+                            The <b>current support</b> arrangements are as follows:
                             
-                            <div v-if="spsSupInfo.current.crntArrngmnt.length > 0" 
-                                    class="answerbox">{{spsSupInfo.current.crntArrngmnt}}</div>
-                            <div v-else style="margin-bottom:3rem;"></div>
+                            <div class="answerbox">{{spsSupInfo.current.crntArrngmnt ? spsSupInfo.current.crntArrngmnt : '&nbsp;'}}</div>
                         </div>
 
                     </div>
@@ -76,7 +74,7 @@
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            The court must take into consideration the conditions, means, needs and other circumstances of each spouse when determining spousal support [s. 162 Family Law Act].
+                            The court must take into consideration the conditions, means, needs and other circumstances of each spouse when determining spousal support [s. 162 <i>Family Law Act</i>].
                         </p>
                     </NoteBox>
                 </div>        
@@ -92,43 +90,43 @@
                     <div class="print-block">
                         <div>
                             <b>3. </b>
-                            <div style="display:inline; margin:0 0 0 0.25rem;"> I am applying for an order for spousal support to be paid by <i>(name of paying party)</i></div>                   
-                            <underline-form v-for="payor,inx in spsSupInfo.current.payors" :key="inx" style="text-indent:0px;display:inline; margin:0 0 0 0.5rem;" textwidth="11.5rem" :beforetext="inx>0?', ':''" hint="name of paying party" :text="payor"/>          
+                            <div style="display:inline; margin:0 0 0 0.25rem;"> I am applying for an <b>order for spousal support</b> to be paid by <i>(name of paying party)</i></div>                   
+                            <grey-box-form v-for="payor,inx in spsSupInfo.current.payors" :key="inx" style="text-indent:0px;display:inline; margin:0 0 0 0.5rem;" textwidth="11.5rem" :beforetext="inx>0?', ':''" hint="name of paying party" :text="payor"/>          
                             <div style="display:inline; margin:0 0 0 0.5rem;">as follows:</div>
                             
                             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.monthly?'yes':''" text=""/>
+                                <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.monthly?'yes':''" text=""/>
                                             
-                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="Monthly paymentsto commence on (date)" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.start"/>            
+                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="Monthly payments to commence on (date)" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.start"/>            
                                 <br>
                                 <GreyBoxForm style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="5rem" beforetext="(number)" hint="" :text="spsSupInfo.payDetails.rate"/>
 
                                 <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="until" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.end"/>            
                             </div>
                             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.lumpSum?'yes':''" text="Lump sum payment"/>
+                                <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.lumpSum?'yes':''" text="Lump sum payment"/>
                                 <GreyBoxForm style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="8rem" beforetext="$" hint="" :text="spsSupInfo.payDetails.lumpSumAmount"/>            
                             </div>
                             <div class="marginleft2p5vue" style="margin:0.25rem 0 0rem 1.5rem;">
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="other <i>(specify):</i>"/>
-                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="" hint="" :text="spsSupInfo.payDetails.otherComm"/>            
+                                <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="other <i>(specify):</i>"/>
+                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="29rem" beforetext="" hint="" :text="spsSupInfo.payDetails.otherComm"/>            
                             
                             </div>
                         </div>
                     </div>
                     <div>
-                        <b>4. </b> Based on the information I know about eachparty’s means, needs, and othercircumstances:
+                        <b>4. </b> Based on the information I know about each party’s means, needs, and other circumstances:
                         <div>
                             <i>Select only one of the options below</i>
                         </div>
                         <div>
-                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect the range for the monthly amount payable for spousal support to be approximately $"/>
-                            <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="" hint="" text=""/>  
-                            <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="to $" hint="" text=""/>  
+                            <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect the range for the monthly amount payable for spousal support to be approximately $"/>
+                            <GreyBoxForm style="text-indent:1px;display:inline;" textwidth="10rem" beforetext="" hint="" text=""/>  
+                            <GreyBoxForm style="text-indent:1px;display:inline;" textwidth="10rem" beforetext="to $" hint="" text=""/>  
                                 <br>
-                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect a lump sum amount payable for spousal support to be approximately $"/>
+                            <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect a lump sum amount payable for spousal support to be approximately $"/>
                                 <br>
-                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I am not able to estimatethe amount payable for spousal support at this time"/>
+                            <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I am not able to estimate the amount payable for spousal support at this time"/>
 
                         </div>
                     </div>
@@ -137,9 +135,9 @@
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            The court may order a spouse to pay an amount the court considers appropriate as spousal support after taking into consideration section 160 [duty to provide support for entitled spouse] [s. 165 Family Law Act].
+                            The court may order a spouse to pay an amount the court considers appropriate as spousal support after taking into consideration section 160 [duty to provide support for entitled spouse] [s. 165 <i>Family Law Act</i>].
                             <br>
-                            The  order  may  include  when and how payments are to be made [s. 170 Family Law Act].
+                            The order may include when and how payments are to be made [s. 170 <i>Family Law Act</i>].
                         </p>
                     </NoteBox>
 
@@ -160,23 +158,20 @@
                     <FormPart :part="4" title="Income and earning potential information"></FormPart>
 
                     <div>
-                        <b>5. </b>
-                        <div style="display:inline; margin:0 0 0rem 0.35rem;">My current employment situation, training, health and ability to work are as follows:</div>
-                        <div v-if="spsSupInfo.incomeInfo.myIncome.length > 0" 
-                                class="answerbox">{{spsSupInfo.incomeInfo.myIncome}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
+                        <b>5. </b>My current employment situation, training, health and ability to work are as follows:
+                        <div class="answerbox">{{spsSupInfo.incomeInfo.myIncome ? spsSupInfo.incomeInfo.myIncome : '&nbsp;'}}</div>
                     </div>
 
                     <div class="print-block">
                         <div>
-                            <b>6. </b> I am required to file a Financial Statement Form 4 to provide my income information to the court.
+                            <b>6. </b>I am required to file a Financial Statement Form 4 to provide my income information to the court.
 
                             <br>
 
                             <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                             <div style="margin:0 0 1rem 1.25rem;">
-                                <check-box  :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="I am filinga Financial Statement in Form 4 with this application."/>
-                                <check-box  :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to filea Financial Statement in Form 4 with this application. <br> I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that myincome information in Form 4 be provided with this application. I understand Iwill still be required to file a Financial Statement in Form 4 at a later date."/>
+                                <check-box shift="10" shiftmark="0" :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application."/>
+                                <check-box shift="10" shiftmark="0" :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to file a Financial Statement in Form 4 with this application. <br> I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date."/>
                             </div>
                         </div>
                     </div>
@@ -184,12 +179,12 @@
                     <div>
                         <b>7. </b> <i>Select only one of the options below and provide the requested information</i>
                         <div>
-                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I believe the payor’s annual incomeis $"/>
+                            <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I believe the payor’s annual incomeis $"/>
                             <GreyBoxForm style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="" hint="" :text="spsSupInfo.incomeInfo.opIncome"/>
                             <GreyBoxForm style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="because:" hint="" text=""/> 
                         </div>
                         <div>
-                            <check-box  :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the payor.I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>
+                            <check-box shift="10" shiftmark="0" :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the payor.I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>
                             <br>
                             <div v-if="spsSupInfo.incomeInfo.knowFacts" 
                                 class="answerbox">{{spsSupInfo.incomeInfo.facts}}</div>
@@ -201,7 +196,7 @@
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            Spousal support is based in part on income. If a party’s income information is necessary, they have an obligation to provide information to the court, or the court may attribute income in an amount the court considers appropriate [ss.   212 and 213 Family Law Act].
+                            Spousal support is based in part on income. If a party’s income information is necessary, they have an obligation to provide information to the court, or the court may attribute income in an amount the court considers appropriate [ss.   212 and 213 <i>Family Law Act</i>].
                         </p>
                     </NoteBox>
 
