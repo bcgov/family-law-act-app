@@ -72,16 +72,16 @@
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="1" title="Notice of the application"></FormPart>
                 <section class="resetquestion">
-                    <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="true?'yes':''" text="I understand the following people must be given noticeof my application:"/>
+                    <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="true?'yes':''" text="I understand the following people <b>must be given notice</b> of my application:"/>
                     <ul style="margin:0 0 0 1.5rem;">
                         <li style="text-indent:0.25rem;">all parents and current guardians of each child who is the subject of the family law matter</li>
                         <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support or property division in respect of a companion animal</li>
                         <li style="text-indent:0.25rem;">each other adult who the family law matter is about</li>
                     </ul>
-                    <p style="margin:0.5rem 0 0 2.35rem; text-indent:0;">They are the other party/parties in this case. To give notice, they must each be served with a copy of this document and any supporting documents.</p>                
+                    <p style="margin:0.5rem 0 0 2.35rem; text-indent:0;">They are the other party/parties in this case. To give notice, <b>they must each be served</b> with a copy of this document and any supporting documents.</p>                
                 </section>
                 <div style="background-color: #d6d6d6;">
-                    <p>Additional notice requirements, as applicable:</p> 
+                    <p><b>Additional notice requirements, as applicable:</b></p> 
                     
                     <p>If your application is about a support order or agreement that is <b>filed with the Director of Maintenance Enforcement</b>, you must give notice to the director.</p>
                     
@@ -96,7 +96,7 @@
                         For more information about serving the other party, see the guidebook
                     </p>
                 </NoteBox>
-                <NoteBox>
+                <NoteBox style="margin-top:112px;">
                     <b-icon-book />
                     <br />
                     <p>
@@ -104,6 +104,7 @@
                     </p>
                 </NoteBox>
             </div>
+            
         </div>
 
         <div style="margin-top:1rem;"></div>
@@ -112,13 +113,12 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="2" title="About the parties"></FormPart>
-                
                 <div>
                     <b>2. </b> 
-                    <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="20rem" beforetext="My full name is:" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+                    <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="25rem" beforetext="My <b>full name</b> is:" hint="full name of party" hintindent="10rem" :italicHint="false" :text="yourInfo.name | getFullName"/>
                     <br>
                     <br>
-                    <GreyBoxForm style="display:inline;text-indent:2px;" textwidth="20rem" beforetext="My date of birth is:" hint="(dd/mmm/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date-mid"/>
+                    <GreyBoxForm style="display:inline;text-indent:2px;" textwidth="24.7rem" beforetext="My <b>date of birth</b> is:" hint="(dd/mmm/yyyy)" hintindent="10rem" :italicHint="false" :text="yourInfo.dob | beautify-date-mid"/>
                     
                 </div>
 
@@ -128,35 +128,33 @@
                 <div> 
                     <b>3. </b>
                     <div style="display:inline;">
-                        <GreyBoxForm v-if="otherPartyInfo.length > 0 && otherPartyInfo[0].name" style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party’s full name is:" hint="full name of the other party" :italicHint="false" :text="otherPartyInfo[0].name | getFullName" />
-                        <GreyBoxForm v-else style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party’s full name is:" hint="full name of the other party" :italicHint="false" text="" />
+                        <GreyBoxForm  style="text-indent:2px;display:inline-block;" textwidth="19rem" beforetext="The <b>other party’s full name</b> is:" hint="" :italicHint="false" :text="otherPartyInfo[0].name | getFullName" />
+                        <!-- <GreyBoxForm v-else style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The <b>other party’s full name</b> is:" hint="full name of the other party" :italicHint="false" text="" /> -->
                         <br>
                         <br>
-                        <GreyBoxForm v-if="otherPartyInfo.length > 0 && otherPartyInfo[0].dob" style="display:inline;text-indent:2px;" textwidth="16rem" beforetext="Their date of birth(dd/mmm/yyyy) is:" hint="date of birth (dd/mmm/yyyy)" :italicHint="false" :text="otherPartyInfo[0].dob | beautify-date-mid" />
-                        <GreyBoxForm v-else style="display:inline;text-indent:2px;" textwidth="16rem" beforetext="Their date of birth(dd/mmm/yyyy) is:" hint="date of birth (dd/mmm/yyyy)" :italicHint="false" text=" " />
+                        <GreyBoxForm style="display:inline;text-indent:2px;margin-left:45px;" textwidth="14.7rem" hintMargin="10px" hintindent="4rem" beforetext="Their <b>date of birth</b>(dd/mmm/yyyy) is:" hint="" :italicHint="false" :text="otherPartyInfo[0].dob | beautify-date-mid" />
+                        <!-- <GreyBoxForm v-else style="display:inline;text-indent:2px;" textwidth="16rem" beforetext="Their <b>date of birth</b>(dd/mmm/yyyy) is:" hint="date of birth (dd/mmm/yyyy)" :italicHint="false" text=" " /> -->
                     </div>
                     <div style="padding: 20px">
                         <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;" :check="otherPartyInfo.length > 1?'yes':''" text="There is an additional party"/>
                         <div>
-                            <GreyBoxForm v-if="otherPartyInfo.length > 1 && otherPartyInfo[1].name" style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party’s full name is:" hint="full name of the other party" :italicHint="false" :text="otherPartyInfo[1].name | getFullName"/>
-                            <div v-else style="text-indent:2px;display:inline-block;"> 
-                                <p style="display: inline">The other party’s full name is:</p>
-                                <div class="answerbox" style="height: 22px; width: 150px; display: inline-block; margin-left: 12px;"></div>
+                            <GreyBoxForm v-if="otherPartyInfo.length > 1 && otherPartyInfo[1].name" style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The <b>additional party’s</b> full name is:" hint="full name of the other party" :italicHint="false" :text="otherPartyInfo[1].name | getFullName"/>
+                            <div v-else style="text-indent:2px;display:inline-block;margin-top:10px;"> 
+                                <span style="display: inline">The <b>additional party’s</b> full name is:</span>
+                                <div style="background-color:#d6d6d6;height: 22px; width: 250px; margin-top:-25px; margin-left: 252px;"></div>
                             </div>
-                            <br>
-                            <br>
-                            <GreyBoxForm v-if="otherPartyInfo.length > 1 && otherPartyInfo[1].dob" style="display:inline;text-indent:2px;" textwidth="16rem" beforetext="Their date of birth(dd/mmm/yyyy) is:" hint="date of birth (dd/mmm/yyyy)" :italicHint="false" :text="otherPartyInfo[1].dob | beautify-date-mid"/>
-                            
-                            <div v-else style="text-indent:2px;display:inline-block;"> 
-                                <p style="display: inline">Their date of birth(dd/mmm/yyyy) is:</p>
-                                <div class="answerbox" style="height: 22px; width: 150px; display: inline-block; margin-left: 12px;"></div>
+                            <br/>
+                            <GreyBoxForm v-if="otherPartyInfo.length > 1 && otherPartyInfo[1].dob" style="display:inline;text-indent:2px;" textwidth="6rem" beforetext="Their <b>date of birth</b>(dd/mmm/yyyy) is:" hint="date of birth (dd/mmm/yyyy)" :italicHint="false" :text="otherPartyInfo[1].dob | beautify-date-mid"/>
+                            <div v-else style="text-indent:2px;display:inline-block;margin-top:10px;"> 
+                                <p style="display: inline">Their <b>date of birth</b>(dd/mmm/yyyy) is:</p>
+                                <div style="background-color:#d6d6d6; min-height: 22px; width: 250px;  margin-top:-25px; margin-left: 252px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div style="width: 20%">
-                <NoteBox>
+                <NoteBox style="margin-top:30px;">
                     <b-icon-info-circle-fill />
                     <p>If you need to add another party or need more space for any field on this form, you can attach a separate piece of paper to this application that includes the information.</p>
                 </NoteBox>
@@ -177,16 +175,27 @@
 
                         <div>
                             <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text=""/>
-                            I am (or was) the other party’s <b>spouse</b>. We are (or were) <b>married</b> or have lived together in a marriage-like relationship.
-
+                            
+                            <div style="margin-top:-20px;">
+                            <div style="margin-left:30px;">I am (or was) the other party’s <b>spouse</b>. We are (or were) <b>married</b> or <b>have lived</b></div>
+                            <div style="margin-left:30px;"><b>together</b> in a marriage-like relationship.</div>
+                            </div>
                             <p>
-                                Complete the information below about your relationship, as applicable. You may leave a field blank if it does not apply
+                                <i><span style="color:#626262; margin-left:30px;">Complete the information below about your relationship, as applicable.</span></i>
+                                <i><div style="color:#626262; margin-left:30px;">You may leave a field blank if it does not apply</div></i>
+
                             </p>
 
+                            <span style="margin-left:78px;">Date on which the parties began to live together in a </span>
+                            <span style="margin-left:140px;margin-top:-10px;">marriage-like relationship (dd/mmm/yyyy):</span>
+
+                            <div style="margin-left:412px;margin-top:-43px;">
+                                <div style="background-color: #dedede;padding:10px;font-size: 11pt;min-height:40px;width:8rem;display:block">{{ relationshipBetweenParties.startDate }}</div> 
+                            </div>
+
+                            <br>
                             <div style="text-align: right; ">
-                                <GreyBoxForm style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="8rem" beforetext="Date on which the parties began to live together in a marriage-like relationship (dd/mmm/yyyy):" hint="" :text="relationshipBetweenParties.startDate"/>
-                                <br>
-                                <GreyBoxForm style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of marriage(dd/mmm/yyyy):" hint="" :text="relationshipBetweenParties.marriageDate"/>
+                               <GreyBoxForm style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of marriage(dd/mmm/yyyy):" hint="" :text="relationshipBetweenParties.marriageDate"/>
                                 <br>
                                 <GreyBoxForm style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of separation(dd/mmm/yyyy):" hint="" :text="relationshipBetweenParties.separationDate"/>    
                                 
@@ -194,12 +203,16 @@
                         </div>
                         <br>
                         <div>
+                            
                             <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;" :check="!relationshipBetweenParties.spouses?'yes':''" text=""/>
-                            I have never been the other party’s spouse.
+                            <div style="margin-top:-20px;">
+                            <div style="margin-left:30px;">I have never been the other party’s spouse.</div>
+                            </div>
+                            <i><div style="color:#626262; margin-left:30px;">Please <b>describe your relationship</b> to the other party</div></i>
 
-                            <p>Please <b>describe your relationship</b> to the other party</p>
+                           
                         </div> 
-                        <div class="answerbox">         
+                        <div style="margin-left:30px;background-color: #dedede;padding:10px;font-size: 11pt;min-height:100px;display:block">         
                             <span style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</span>
                         </div>
                         <!-- <div>
@@ -210,9 +223,9 @@
                 </div>
             </div>
             <div style="width: 20%;">
-                <NoteBox>
+                <NoteBox style="margin-top:165px;">
                     <b-icon-info-circle-fill />
-                    <p>Spouses may be separated even if they continue to live in the same residence [s. 3(4) Family Law Act].</p>
+                    <p>Spouses may be separated even if they continue to live in the same residence [s. 3(4) <i>Family Law Act</i>].</p>
                 </NoteBox>
             </div>
         </div>
