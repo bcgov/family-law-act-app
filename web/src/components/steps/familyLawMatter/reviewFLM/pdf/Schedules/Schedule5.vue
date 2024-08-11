@@ -39,7 +39,7 @@
                     </section>
                     
                     <section>
-                        <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="The last contact with the child(ren) was on or around" hint="Date(mmm/dd/yyyy)" :text="chContInfo.abt.lastCont"/>
+                        <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="The last contact with the child(ren) was on or around" hint="Date(mmm/dd/yyyy)" hintindent="30px" :text="chContInfo.abt.lastCont"/>
                     </section>
                 </div>
                 <div style="width: 20%;">
