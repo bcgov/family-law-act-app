@@ -35,7 +35,7 @@
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.payor ? 'yes' : ''"
                                     text="I have a <b>final court order</b> about child support made on <i>(date)</i>" />
-                                <GreyBoxForm style="margin-top:10px; text-indent:0rem" textwidth="10rem">
+                                <GreyBoxForm style="margin-top:10px; text-indent:0rem" textwidth="10rem" beforetext="" text="" hint="">
                                 </GreyBoxForm>
                                 <span> that I want to change or cancel <b>(see attached copy of order)</b>.🠆 <i>Complete <b>Part 2</b></i></span>
                             </div>
@@ -43,7 +43,7 @@
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="true ? 'yes' : ''"
                                     text="I have a <b>written agreement</b> about child support made on <i>(date)</i>" />
-                                <GreyBoxForm style="margin-top:10px; text-indent:0rem" textwidth="10rem">
+                                <GreyBoxForm style="margin-top:10px; text-indent:0rem" textwidth="10rem" beforetext="" text="" hint="">
                                 </GreyBoxForm>
                                 <span> that I want to repeal or replace <b>(see attached copy of agreement)</b>. 🠆 <i>Complete <b>Part 3</b></i></span>
                             </div>
@@ -395,11 +395,11 @@
                             </div>
 
                             <GreyBoxForm v-if="exChSupInfo.unpdChSup.paySchd == 'other' && exChSupInfo.unpdChSup.otherComm"
-                                style="margin-top:10px; text-indent:0rem" textwidth="35rem"
+                                style="margin-top:10px; text-indent:0rem" textwidth="35rem" beforetext="" hint=""
                                 :text="exChSupInfo.unpdChSup.otherComm">
 
                             </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="35rem"></GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="35rem" beforetext="" text="" hint=""></GreyBoxForm>
 
                         </div>
                     </div>
@@ -556,7 +556,8 @@
             </div>
         </div>
     </div>
-</div></template>
+</div>
+</template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';

@@ -13,7 +13,7 @@
         }">
             <div :style="{ transform: 'translate(' + shiftmark + 'px,-4px)' }" v-html="getCheck()" />
         </div>
-        <div :style="{ display: 'inline-block', marginLeft: marginLeft, textIndent: 0 }" v-html="text">{{text}}</div>
+        <div :style="{ display: textDisplay, marginLeft: marginLeft, textIndent: 0 }" v-html="text">{{text}}</div>
     </div>
 </template>
 
@@ -47,6 +47,8 @@ export default class CheckBox extends Vue {
     @Prop({ default: 'checkbox' })
     checkbox!: string;
 
+    @Prop({ default: 'inline-block'})
+    textDisplay!: string;
 
     public getCheck() {
         if (this.check == '?') return "&#63"
