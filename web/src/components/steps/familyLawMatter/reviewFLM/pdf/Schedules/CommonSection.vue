@@ -10,16 +10,16 @@
                 <div>
                     <p>This Application About a Family Law Matter provides notice to each party, and the court, of the family law matters to be resolved with the help of the court and may include:</p>
                     <ul>
-                        <li>an application for a court order about a family law matter when no order or agreementabout the issue has been made before,</li>
-                        <li>an application to change or cancel all or part of an existing final order about a familylaw matter, or</li>
-                        <li>an application to set aside or replace all or part of an existing agreement about afamily law matter</li>
+                        <li>an application for a court order about a family law matter when no order or agreement about the issue has been made before,</li>
+                        <li>an application to change or cancel all or part of an existing final order about a family law matter, or</li>
+                        <li>an application to set aside or replace all or part of an existing agreement about a family law matter</li>
                     </ul>
                 </div>
                 <div style="border: 2px dotted #000; background: #bbb;">
                     <p><b>Please read before completing the form:</b></p>
                     <ul>
                         <li>You  must complete the main application and any applicable schedule(s) for your family law matter(s) identified in Part 7 of the main application.</li>
-                        <li></li>For guidance filling in this form, please read the guidebook. The guide is availableonline at  <a href="http://www.gov.bc.ca/court-forms" target="_blank">www.gov.bc.ca/court-forms</a> or from your local court registry.</li>
+                        <li></li>For guidance filling in this form, please read the guidebook. The guide is available online at  <a href="http://www.gov.bc.ca/court-forms" target="_blank">www.gov.bc.ca/court-forms</a> or from your local court registry.</li>
                     </ul>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                         <li>Contact with a child</li>
                         <li>Guardianship of a child</li>
                         <li>Spousal Support</li>
-                        <li>Property division in respectof a companion animal</li>
+                        <li>Property division in respect of a companion animal</li>
                     </ul>
                 </NoteBox>
             </div>
@@ -57,8 +57,8 @@
                     <p>As set out in Rule 28, to reply, a party must:</p>
                     <ul>
                         <li>file a reply in Form 6</li>
-                        <li>if the application is aboutchild support or spousalsupport, file a financialstatement</li>
-                        <li>if the application is in anearly resolution registry,have already met the earlyresolution requirements</li>
+                        <li>if the application is about child support or spousal support, file a financialstatement</li>
+                        <li>if the application is in a nearly resolution registry,have already met the early resolution requirements</li>
                     </ul>
                     
                 </NoteBox>
@@ -74,14 +74,14 @@
                 <section class="resetquestion">
                     <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="true?'yes':''" text="I understand the following people must be given noticeof my application:"/>
                     <ul style="margin:0 0 0 1.5rem;">
-                        <li style="text-indent:0.25rem;">all parents and current guardians of each child who is the subject of the familylaw matter</li>
-                        <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support or property division in respectof a companion animal</li>
+                        <li style="text-indent:0.25rem;">all parents and current guardians of each child who is the subject of the family law matter</li>
+                        <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support or property division in respect of a companion animal</li>
                         <li style="text-indent:0.25rem;">each other adult who the family law matter is about</li>
                     </ul>
-                    <p style="margin:0.5rem 0 0 2.35rem; text-indent:0;">They are the other party/parties in this case. To give notice, they must each beservedwith a copy of this document and any supporting documents.</p>                
+                    <p style="margin:0.5rem 0 0 2.35rem; text-indent:0;">They are the other party/parties in this case. To give notice, they must each be served with a copy of this document and any supporting documents.</p>                
                 </section>
                 <div style="background-color: #d6d6d6;">
-                    <p><b>Additional notice requirements, as applicable:</b></p> 
+                    <p>Additional notice requirements, as applicable:</p> 
                     
                     <p>If your application is about a support order or agreement that is <b>filed with the Director of Maintenance Enforcement</b>, you must give notice to the director.</p>
                     
@@ -115,20 +115,43 @@
                 
                 <div>
                     <b>2. </b> 
-                    <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My full name is:" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+                    <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="20rem" beforetext="My full name is:" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
                     <br>
-                    <GreyBoxForm style="display:inline;text-indent:2px;" textwidth="7rem" beforetext="My date of birth is:" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+                    <br>
+                    <GreyBoxForm style="display:inline;text-indent:2px;" textwidth="20rem" beforetext="My date of birth is:" hint="(dd/mmm/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date-mid"/>
                     
                 </div>
+
+                <br>
                 
                 <!-- <3> -->
                 <div> 
                     <b>3. </b>
-                    <div v-for="(otherParty,inx) in otherPartyInfo" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
-                        <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party’s full name is:" hint="full name of the other party" :italicHint="false" :text="otherParty.name | getFullName"/>
+                    <div style="display:inline;">
+                        <GreyBoxForm v-if="otherPartyInfo.length > 0 && otherPartyInfo[0].name" style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party’s full name is:" hint="full name of the other party" :italicHint="false" :text="otherPartyInfo[0].name | getFullName" />
+                        <GreyBoxForm v-else style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party’s full name is:" hint="full name of the other party" :italicHint="false" text="" />
                         <br>
-                        <GreyBoxForm style="display:inline;text-indent:2px;" textwidth="7rem" beforetext="Their date of birth(dd/mmm/yyyy) is:" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
-                        
+                        <br>
+                        <GreyBoxForm v-if="otherPartyInfo.length > 0 && otherPartyInfo[0].dob" style="display:inline;text-indent:2px;" textwidth="16rem" beforetext="Their date of birth(dd/mmm/yyyy) is:" hint="date of birth (dd/mmm/yyyy)" :italicHint="false" :text="otherPartyInfo[0].dob | beautify-date-mid" />
+                        <GreyBoxForm v-else style="display:inline;text-indent:2px;" textwidth="16rem" beforetext="Their date of birth(dd/mmm/yyyy) is:" hint="date of birth (dd/mmm/yyyy)" :italicHint="false" text=" " />
+                    </div>
+                    <div style="padding: 20px">
+                        <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;" :check="otherPartyInfo.length > 1?'yes':''" text="There is an additional party"/>
+                        <div>
+                            <GreyBoxForm v-if="otherPartyInfo.length > 1 && otherPartyInfo[1].name" style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party’s full name is:" hint="full name of the other party" :italicHint="false" :text="otherPartyInfo[1].name | getFullName"/>
+                            <div v-else style="text-indent:2px;display:inline-block;"> 
+                                <p style="display: inline">The other party’s full name is:</p>
+                                <div class="answerbox" style="height: 22px; width: 150px; display: inline-block; margin-left: 12px;"></div>
+                            </div>
+                            <br>
+                            <br>
+                            <GreyBoxForm v-if="otherPartyInfo.length > 1 && otherPartyInfo[1].dob" style="display:inline;text-indent:2px;" textwidth="16rem" beforetext="Their date of birth(dd/mmm/yyyy) is:" hint="date of birth (dd/mmm/yyyy)" :italicHint="false" :text="otherPartyInfo[1].dob | beautify-date-mid"/>
+                            
+                            <div v-else style="text-indent:2px;display:inline-block;"> 
+                                <p style="display: inline">Their date of birth(dd/mmm/yyyy) is:</p>
+                                <div class="answerbox" style="height: 22px; width: 150px; display: inline-block; margin-left: 12px;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -154,29 +177,29 @@
 
                         <div>
                             <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text=""/>
-                            I am (or was) the other party’s <b>spouse</b>.We are (or were) <b>married</b> or have lived together in a marriage-like relationship.
+                            I am (or was) the other party’s <b>spouse</b>. We are (or were) <b>married</b> or have lived together in a marriage-like relationship.
 
                             <p>
-                                Complete the information below about your relationship, as applicable. You mayleave a field blank if it does not apply
+                                Complete the information below about your relationship, as applicable. You may leave a field blank if it does not apply
                             </p>
 
-                            <div>
-                                <GreyBoxForm style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="8rem" beforetext="Date on which the parties began to live together in a marriage-like relationship(dd/mmm/yyyy):" hint="" :text="relationshipBetweenParties.startDate"/>
-                                
+                            <div style="text-align: right; ">
+                                <GreyBoxForm style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="8rem" beforetext="Date on which the parties began to live together in a marriage-like relationship (dd/mmm/yyyy):" hint="" :text="relationshipBetweenParties.startDate"/>
+                                <br>
                                 <GreyBoxForm style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of marriage(dd/mmm/yyyy):" hint="" :text="relationshipBetweenParties.marriageDate"/>
-                                
+                                <br>
                                 <GreyBoxForm style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of separation(dd/mmm/yyyy):" hint="" :text="relationshipBetweenParties.separationDate"/>    
                                 
                             </div>
                         </div>
-
+                        <br>
                         <div>
                             <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;" :check="!relationshipBetweenParties.spouses?'yes':''" text=""/>
                             I have never been the other party’s spouse.
 
                             <p>Please <b>describe your relationship</b> to the other party</p>
                         </div> 
-                        <div class="answer">         
+                        <div class="answerbox">         
                             <span style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</span>
                         </div>
                         <!-- <div>
@@ -205,8 +228,8 @@
                         <b>5. </b>
                         <i style="display:inline; margin-left:0.25rem">Select the correct option below and provide the additional information if applicable</i>          
                         <div>
-                            <check-box  :check="!aboutChildren?'yes':''" shiftmark="0" text="My family law matter is not about a childor children(skip to Question 8)</i>"/>
-                            <check-box  :check="aboutChildren?'yes':''" shiftmark="0" text="My family law matter is about the following childor children:"/>
+                            <check-box  :check="!aboutChildren?'yes':''" boxMargin="0" shiftmark="0" text="My family law matter is not about a child or children (skip to Question 8)</i>"/>
+                            <check-box  :check="aboutChildren?'yes':''" boxMargin="0" shiftmark="0" text="My family law matter is about the following child or children:"/>
                             <i>Provide the requested information below for each child</i>
                         </div>
                         <b-table
@@ -215,21 +238,18 @@
                             class="mt-2"
                             small
                             bordered>                    
-                                <template v-slot:cell()="data">
-                                    <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                                <template class="answerbox"  v-slot:cell()="data">
+                                    <div  style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                                 </template>
                                 <template v-slot:head(dob)>
-                                    Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                                    Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
                                 </template>
                         </b-table> 
                     </div>
 
                     <div>
                         <b>6. </b>
-                        <div>
-                            <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;" :check="childBestInterestAcknowledmentCheck?'yes':''" text=""/>
-                            <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the <b>best interestsof the child</b> with respect to each order I am asking the court to make about the child. The “best interests of the child” is a legal test used to decide what would best protect the child’s physical, psychological, and emotional safety, security and well-being [s. 37 Family Law Act].</div>
-                        </div>
+                        <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;" :check="childBestInterestAcknowledmentCheck?'yes':''" text="I understand that I must consider the <b>best interests of the child</b> with respect to each order I am asking the court to make about the child. The “best interests of the child” is a legal test used to decide what would best protect the child’s physical, psychological, and emotional safety, security and well-being [s. 37 Family Law Act]."/>
                     </div>
                 </div>
             </div>
@@ -256,14 +276,14 @@
                 <div class="print-block">    
                     <div>
                         <b>7.</b>
-                        <div style="margin-left:.5rem; text-indent:0rem;">I would like to share the following information with the court about the <b>cultural,linguistic, religious and spiritual upbringing and heritage of my family</b>, including,if the child is an Indigenous child, the child’s Indigenous identity:</div>
-                        
+                        <p style=" display: inline; margin-left:.5rem; text-indent:0rem;">I would like to share the following information with the court about the <b>cultural,linguistic, religious and spiritual upbringing and heritage of my family</b>, including, if the child is an Indigenous child, the child’s Indigenous identity:</p>
+                        <br>
                         <i style="display:inline; margin-left:0.25rem">You may choose to leave this question blank</i>
 
                         <div style="margin-left:.5rem; text-indent:0rem;"></div>
                         
                         <div v-if="result.flmBackgroundSurvey.likeToAddCulturalExplanation == 'y'" class="answerbox">{{culturalInfo}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
+                        <div v-else class="answerbox" style="margin-bottom:3rem; height: 80px;"></div>
                     </div>  
                 </div> 
             </div>
@@ -282,8 +302,8 @@
                         <b>8. </b>
                         <div style="display:inline; margin-left:0.25rem">There is an <b>existing court order or written agreement</b> about parenting arrangements, child support, contact with a child, guardianship of a child, spousal support, and/or property division in respect of a companion animal.</div>          
                         <div style="margin-left:1rem">
-                            <check-box inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes (see attachedcopy)"/>
-                            <check-box inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
+                            <check-box inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="<b>Yes</b> - (see attached copy)"/>
+                            <check-box inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="<b>No</b>"/>
                         </div>
                     </div>
                 </div>
@@ -291,7 +311,7 @@
                 <div> 
                     <b>9. </b>
                     <div style="display:inline; margin-left:0.25rem">
-                        There is an <b>existing court order, agreement or plan protecting</b> one of the parties orthe child(ren), or restraining contact between the parties, including:
+                        There is an <b>existing court order, agreement or plan protecting</b> one of the parties or the child(ren), or restraining contact between the parties, including:
                         <ul>
                             <li>a protection order,</li>
                             <li>an order, agreement or plan involving child protection services, or</li>
@@ -299,8 +319,8 @@
                         </ul>
                     </div>            
                     <div style="margin-left:1rem">
-                        <check-box inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes (see attachedcopy)"/>
-                        <check-box inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>
+                        <check-box inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="<b>Yes</b> - (see attached copy)"/>
+                        <check-box inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="<b>No</b>"/>
                     </div>
                 </div>  
         
@@ -327,7 +347,7 @@
                 <NoteBox fontSize="9pt">
                     <p>You may apply for a court order about one or more family law matters. If you have an existing final order or written agreement about the family law matter, the information you must provide the court is a little different than if you have never had a final order or agreement.</p>
                     
-                    <p><b>Select each family law matter you want an order aboutand select the appropriate answer to the question below to identify which schedule you must complete.</b></p>
+                    <p><b>Select each family law matter you want an order about and select the appropriate answer to the question below to identify which schedule you must complete.</b></p>
                 </NoteBox>
             </div>
             <div style="width: 20%">
@@ -344,76 +364,108 @@
                 <div class="print-block">
                     <div>
                         <b>10. </b>
-                        <b style="margin-left:0.25rem">I am applying for a court orderabout the following family law matter(s):</b>
+                        <b style="margin-left:0.25rem">I am applying for a court order about the following family law matter(s):</b>
                         <div style="margin-left:1rem;">
                             <i>Select all options that apply, complete and attach the required schedule(s)</i>
                             
                             <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;">
-                                <div style="margin-top:0.25rem;"><b>Parenting arrangements</b>, including parental responsibilities and parenting time</div>
+                                <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule1') || selectedSchedules.includes('schedule2')?'yes':''" text="<b>Parenting arrangements</b>, including parental responsibilities and parenting time"/>
+                                    
                                 <NoteBox borderRadius="8px" border="1px solid #333" style="padding: 20px;">
-                                    <b>Parenting arrangements</b> include how each guardian will parent their child(ren), including each guardian’s responsibilities fordecision making about a child and the time each guardian spends with a child. Parental responsibilities can be shared by one or more guardians exclusively, separately, or jointly
+                                    <b>Parenting arrangements</b> include how each guardian will parent their child(ren), including each guardian’s responsibilities for decision making about a child and the time each guardian spends with a child. Parental responsibilities can be shared by one or more guardians exclusively, separately, or jointly
                                 </NoteBox>
                                 <p>Do you have a final order or written agreement about parenting arrangements, including parental responsibilities and parenting time?</p>
-                                <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="No - Complete Schedule 1"/>
-                                <check-box  :check="selectedSchedules.includes('schedule2')?'yes':''" text="Yes - Complete Schedule 2"/>
+                                <div>
+                                    <div style="display: inline-block; margin-right: 32px;">
+                                        <check-box inline="inline" boxMargin="0" shiftmark="0"  :check="selectedSchedules.includes('schedule1')?'yes':''" text="<b>No</b> - <i>Complete <b>Schedule 1</b></i>"/>
+                                    </div>
+                                    <div style="display: inline-block;">
+                                        <check-box inline="inline" boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule2')?'yes':''" text="<b>Yes</b> - <i>Complete <b>Schedule 2</b></i>"/>
+                                    </div>
+                                </div>
                             </div>
                         
                             <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;"> 
-                                <div style="margin-top:0.25rem;"><b>Child support</b></div>
+                                <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule3') || selectedSchedules.includes('schedule4')?'yes':''" text="<b>Child support</b>"/>
+                                
                                 <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 20px;">
                                     <b>Child support</b> is the amount of money a parent or guardian pays to another parent or guardian to help care for the child.
                                 </NoteBox>
                                 <p>Do you have a final order or written agreement about child support?</p>
-                                <check-box  :check="selectedSchedules.includes('schedule3')?'yes':''" text="No Complete Schedule 3"/>
-                                <check-box  :check="selectedSchedules.includes('schedule4')?'yes':''" text="Yes Complete Schedule 4"/>
+                                <div>
+                                    <div style="display: inline-block; margin-right: 32px;">
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule3')?'yes':''" text="<b>No</b> - <i>Complete <b>Schedule 3</b></i>"/>
+                                    </div>
+                                    <div style="display: inline-block;">
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule4')?'yes':''" text="<b>Yes</b> - <i>Complete <b>Schedule 4</b></i>"/>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;">
-                                <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
-
+                                <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule5') || selectedSchedules.includes('schedule6')?'yes':''" text="<b>Contact with a child</b>"/>
+                                    
                                 <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 20px;">
                                     <b>Contact with a child</b> is the time a child spends with someone who is not their guardian.
                                 </NoteBox>
                                 <p>Do you have a final order or written agreement about contact with the child?</p>
 
-                                <check-box  :check="selectedSchedules.includes('schedule5')?'yes':''" text="No - Complete Schedule 5"/>
-                                <check-box  :check="selectedSchedules.includes('schedule6')?'yes':''" text="Yes - Complete Schedule 6"/>
+                                <div>
+                                    <div style="display: inline-block; margin-right: 32px;">
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule5')?'yes':''" text="<b>No</b> - <i>Complete <b>Schedule 5</b></i>"/>
+                                    </div>
+                                    <div style="display: inline-block;">
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule6')?'yes':''" text="<b>Yes</b> - <i>Complete <b>Schedule 6</b></i>"/>
+                                    </div>
+                                </div>
                             </div>
         
                             <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;">
-                                <div style="margin-top:0.25rem;"><b>Guardianship of a child</b> - Appointing a new guardianor cancelling guardianship of a child</div>
-
+                                <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule7')?'yes':''" text="<b>Guardianship of a child</b> - Appointing a new guardian or cancelling guardianship of a child"/>
+                                
                                 <NoteBox borderRadius="8px" border="1px solid #333" style="padding: 20px;">
                                     <b>Guardianship</b> is who is responsible for a child. Only guardians have parental responsibilities and parenting time with a child.
                                 </NoteBox>
-                                <p>Complete Schedule 7</p>
-
-                                
+                                <p>- Complete Schedule 7</p>
                             </div>
         
                             <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;">
-                                <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
-
+                                <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule9') || selectedSchedules.includes('schedule10')?'yes':''" text="<b>Spousal support</b>"/>
+                                    
                                 <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 20px;">
                                     <b>Spousal support</b> is money that one spouse pays to another spouse for their financial support after separation.
                                 </NoteBox>
                                 <p>Do you have a final order or written agreement about spousal support?</p>
 
-                                <check-box  :check="selectedSchedules.includes('schedule9')?'yes':''" text="No - Complete Schedule 8"/>
-                                <check-box  :check="selectedSchedules.includes('schedule10')?'yes':''" text="Yes - Complete Schedule 9"/>
+                                <div>
+                                    <div style="display: inline-block; margin-right: 32px;">
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule9')?'yes':''" text="No - Complete Schedule 8"/>
+                                    </div>
+                                    <div style="display: inline-block;">
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule10')?'yes':''" text="Yes - Complete Schedule 9"/>
+                                    </div>
+                                </div>
+
                             </div>
         
                             <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;">
-                                <div style="margin-top:0.25rem;"><b>Property division in respect of a companion anima</b></div>
+                                <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule11') || selectedSchedules.includes('schedule12')?'yes':''" text="<b>Property division in respect of a companion animal</b>"/>
+                                    
+                                <div style="margin-top:0.25rem;"></div>
 
                                 <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 20px;">
                                     <b>Property division in respect of a companion animal</b> is who will have ownership and possession of a companion animalwhen spouses separate.The court may only make an order for ownership and possession by one spouse.
                                 </NoteBox>
                                 <p>Do you have a written agreement about property division in respect of the companion animal?</p>
 
-                                <check-box  :check="selectedSchedules.includes('schedule11')?'yes':''" text="No - Complete Schedule 10"/>
-                                <check-box  :check="selectedSchedules.includes('schedule12')?'yes':''" text="Yes - Complete Schedule 11"/>
-            
+                                <div>
+                                    <div style="display: inline-block; margin-right: 32px;">
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule11')?'yes':''" text="No - Complete Schedule 10"/>
+                                        </div>
+                                        <div style="display: inline-block;">
+                                            <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule12')?'yes':''" text="Yes - Complete Schedule 11"/>
+                                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -458,25 +510,23 @@
                         <div style="margin-left:1rem;">
                             <i>Select only one of the options below</i>
                             <check-box  
-                                inline="inline"
+                            
+                                boxMargin="0"
                                 shiftmark="0"
                                 :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
                                 text="Where my <b>existing case</b> with the same party/parties is located. I already have a court file number."/> 
-                            <br>
                             <check-box  
-                                inline="inline"
+                                boxMargin="0"
                                 shiftmark="0"
                                 :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
-                                text="Closest to <b>where the child lives</b> most of the time, because my case involves achild-related issue"/>          
-                            <br>
+                                text="Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue"/>          
                             <check-box
-                                inline="inline"
+                                boxMargin="0"
                                 shiftmark="0"  
                                 :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
                                 text="Closest to <b>where I live</b> because my case does not involve a child-related issue"/>
-                            <br>
                             <check-box
-                                inline="inline"  
+                                boxMargin="0"
                                 shiftmark="0"
                                 :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
                                 text="Permitted by <b>court order</b>"/>                    
@@ -487,12 +537,12 @@
                 <div class="print-block">       
                     <div> 
                         <b>12. </b>
-                        <check-box  :check="locationInfo.earlyResolutionRegistry || locationInfo.familyJusticeRegistry?'yes':''" text="I understand that I may be required to complete additional requirementsbeforefilingmy application or scheduling a family management conference depending on the court registry where my case is filed, including one or more of the following:"/>
+                        <check-box inline="inline"  boxMargin="0" shiftmark="0" :check="locationInfo.earlyResolutionRegistry || locationInfo.familyJusticeRegistry?'yes':''" text="I understand that I may be required to complete additional requirements before filing my application or scheduling a family management conference depending on the court registry where my case is filed, including one or more of the following:"/>
                         <div>
                             <ul>
                                 <li>an online parenting education program (Parenting After Separation)</li>
                                 <li>an individual needs assessment with a family justice counsellor</li>
-                                <li>at least one consensual dispute resolution session, if applicablePart</li>
+                                <li>at least one consensual dispute resolution session, if applicable Part</li>
                             </ul>
                         </div>
                     </div>
@@ -501,7 +551,7 @@
             <div style="width: 20%">
                 <NoteBox>
                     <b-icon-info-circle-fill />
-                    <p>Rule 7 sets out these requirements for which registry to use.Talk to the court registry to see if there is already an existing case at a court location</p>
+                    <p>Rule 7 sets out these requirements for which registry to use. Talk to the court registry to see if there is already an existing case at a court location</p>
                 </NoteBox>
 
                 <div style="margin-top: 1rem;"></div>
@@ -524,12 +574,12 @@
                 
                     <div>
                         <b>13. </b>
-                        <div style="display:inline; margin-left:0.25rem">Complete this section only if you are a lawyer for the party. You may leave this section blank.</div>
+                        <div style="display:inline; margin-left:0.25rem"><i>If you are not a lawyer, you may leave this question blank</i></div>
                         <div>
-                            <check-box  inline="inline" boxMargin="0" style="margin:0 0 0 1rem;display:inline" :check="yourInfo.lawyerFiling?'yes':''" text=""/>
-                            <underline-form style="text-indent:0px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" :text="yourInfo.lawyerStatement.lawyerName"/>
-                            <underline-form style="text-indent:2px;display:inline;" textwidth="16.25rem" beforetext=", the lawyer for" hint="full name of party" :text="yourInfo.lawyerStatement.clientName"/>
-                            <div style="display:inline;">, acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act</i>. </div>
+                            <check-box  inline="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 1rem;display:inline" :check="yourInfo.lawyerFiling?'yes':''" text=""/>
+                            <GreyBoxForm style="text-indent:0px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" :text="yourInfo.lawyerStatement.lawyerName"/>
+                            <GreyBoxForm style="text-indent:2px;display:inline;" textwidth="16.25rem" beforetext=", the lawyer for" hint="full name of party" :text="yourInfo.lawyerStatement.clientName"/>
+                            <div style="display:inline;">, acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act.</i></div>
                         </div>           
                     </div>
                 </div>
@@ -547,26 +597,48 @@
                 
                 <div>
                     <b>14. </b>
-                    <p style="display: inline;">My address for service of court documents and contact information is:You must provide an address for service and contact number, but it does not have to beyour own if you don’t want to</p>
+                    <p style="display: inline;">My address for service of court documents and contact information is:</p> 
+                    <p><i>You must provide an address for service and contact number, but it does not have to be our own if you don’t want to</i></p>
                 </div>
 
-                <!-- address -->
-                <table class="fullsize">
-                    <tr style="border:1px solid #414142" >
-                        <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{ yourInfo.lawyerName | getFullName }}</div></td>
-                        <td v-else  colspan="3">Lawyer (if applicable): </td>
+                <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                    <tr style="border:2px solid #fff">
+                        <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
+                            Address: 
+                            <div class="answer" style="background-color: #d6d6d6;">
+                                {{ yourInfo.address.street }} 
+                            </div>
+                        </td>
                     </tr>
-                    <tr style="border:1px solid #414142">          
-                        <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
+                    <tr style="border:2px solid #fff">
+                        <td style="border:2px solid #fff; padding: 4px;">City: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.city }}</div>
+                        </td>
+                        <td style="padding-left:50px; border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.state }}</div>
+                        </td>
+                        <td style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.postcode }}</div>
+                        </td>
                     </tr>
-                    <tr style="border:1px solid #313132">
-                        <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
-                    <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
-                        <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
+                </table>
+
+                <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                    <tr style="border:2px solid #fff">
+                        <td style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
+                        </td>
+                        <td style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
+                        </td>
                     </tr>
-                    <tr style="border:1px solid #313132">
-                        <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                        <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
+                </table>
+
+                <div style="margin-top: 1rem;"></div>
+            
+                <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                    <tr style="border:1px solid #fff;">
+                        <td v-if="yourInfo.lawyer" colspan="3" style="border:2px solid #fff; padding: 4px;">Lawyer (if applicable): 
+                            <div class="answer" style="background-color: #d6d6d6;">
+                                {{ yourInfo.lawyerName | getFullName}}
+                            </div>
+                        </td>
+                        <td v-else colspan="3" style="border:2px solid #fff; padding: 4px;" >Lawyer’s name and firm name (if applicable):</td>
                     </tr>
                 </table>
             </div>
@@ -673,14 +745,15 @@ export default class CommonSection extends Vue {
         ];
 
         this.dataReady = true;
+        console.log("ready:", this.result);
     }
    
     childrenFields=[
-        {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"Other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
-        {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
+        {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle table-answerbox", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle table-answerbox", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle table-answerbox", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
+        {key:"otherPartyRelationship", label:"Other party's relationship to the child",tdClass:"border-dark text-center align-middle table-answerbox", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
+        {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle table-answerbox", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]   
 
     public extractInfo(){ 
