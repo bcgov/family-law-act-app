@@ -36,8 +36,8 @@
                         <div>
                             <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingAgreement'" text="I have a <b>written agreement</b> about parenting arrangements, including"/>
                                 <br>
-                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext=" parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). Complete <b><i>Part 3</i><b>" hint="" :text="exParentArrInfo.existingDate | beautify-date-mid"/>
-                            <GreyBoxForm v-else style="margin-left:1rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext=" parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). Complete <b><i>Part 3</i><b>" hint="" text=""/>
+                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext=" parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>).--> Complete <b><i>Part 3</i><b>" hint="" :text="exParentArrInfo.existingDate | beautify-date-mid"/>
+                            <GreyBoxForm v-else style="margin-left:1rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext=" parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). --> Complete <b><i>Part 3</i><b>" hint="" text=""/>
                         </div>
                     
                     </section>
@@ -126,12 +126,15 @@
                     </div>
                 </div>
                 <div style="width: 20%;">
-                    <NoteBox>
+                    <div style="padding-top:10px">
+                        <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
                             The court must set aside or replace with an order, all or part of an agreement about parenting arrangements, if the court is satisfied that the agreement is not in the best interests of the child [s. 44 Family Law Act].
                         </p>
                     </NoteBox>
+                    </div>
+                    
                 </div>        
             </div>
 
