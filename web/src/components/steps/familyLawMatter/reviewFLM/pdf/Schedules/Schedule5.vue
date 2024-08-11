@@ -92,7 +92,7 @@
                                 <check-box  :check="chContInfo.abt.conType.video?'yes':''" text="Video communication"/>
                                 <check-box  :check="chContInfo.abt.conType.written?'yes':''" text="Written communication"/>
                                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chContInfo.abt.conType.other?'yes':''" text="Other method of communication <i>(specify):</i>"/>
-                                <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
+                                <GreyBoxForm style="text-indent:1px;display:inline-block; margin-top:0.5rem;" textwidth="19rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
                             </div>
                             <div style="margin:0 3rem 1rem 1rem;">
                                 <b>4.</b> <i>Complete if applicable. You may leave this question blank.</i>
