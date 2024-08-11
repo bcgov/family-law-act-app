@@ -64,8 +64,8 @@
                             <b>2. </b> Since the final order was made, <b>needs or circumstances have changed</b> as follows:
 
                             <div v-if="exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.changesSince" 
-                            class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.changesSince}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div> 
+                            class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">{{exParentArrInfo.changesSince}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede"></div> 
                         </div>
                         <div>
                             <b>3. </b> I am applying for the final order to be:
@@ -102,8 +102,8 @@
                         <div>
                             <b>4. </b> I believe the written agreement is <b>not in the best interests</b> of the child(ren) because:
                             <div v-if="exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.changesSince" 
-                                class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.changesSince}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                                class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.changesSince}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div>
                         </div>
 
                         <div>
@@ -152,22 +152,22 @@
 
                            
                             <div v-if="exParentArrInfo.parentResp.applying && exParentArrInfo.parentResp.desc" 
-                            class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.parentResp.desc}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div> 
+                            class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.parentResp.desc}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div> 
 
                             
                             <div v-if="exParentArrInfo.parentTime.applying && exParentArrInfo.parentTime.desc" 
-                                class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.parentTime.desc}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                                class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.parentTime.desc}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div>
 
                             <div v-if="exParentArrInfo.parentCond.applying && exParentArrInfo.parentCond.desc" 
-                                class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.parentCond.desc}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div> 
+                                class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.parentCond.desc}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div> 
 
                             
                             <div v-if="exParentArrInfo.parentalArr.applying && exParentArrInfo.parentalArr.desc" 
-                            class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.parentalArr.desc}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                            class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.parentalArr.desc}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div>
                         </div>
                     </div>   
                 </div>
@@ -197,8 +197,8 @@
                                 <i>List your reasons</i>
                             </div>
                             <div v-if="exParentArrInfo.childBestInterest" 
-                                class="answerbox" style="min-height: 80px; padding: 8px;">{{exParentArrInfo.childBestInterest}}</div>
-                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                                class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;">{{exParentArrInfo.childBestInterest}}</div>
+                            <div v-else class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede;"></div>
                         </div>
                     </div>
                 </div>
