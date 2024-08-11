@@ -78,8 +78,7 @@
                     <FormPart :part="2" title="Order about contact with a child"></FormPart>
 
                     <div class="print-block">
-                        
-                        <section class="no-counter">
+                        <div style="margin:0 3rem 1rem 1rem; text-indent:-16px">
                             <div style="display:inline; margin-left:0.35rem"><b>3.</b> I am applying for an order for the child(ren) to have <b>contact with a person <u>who is not their guardian</u></b> as follows:</div>                   
                             <div style="margin:0 3rem 1rem 1rem;">
                                 <i>Select all options that apply and complete the required information</i>
@@ -106,7 +105,7 @@
                                     class="answerbox" style="background-color:#dedede">{{chContInfo.abt.cond}}</div>
                                 <div v-else style="margin-bottom:3rem;"></div>
                             </div>
-                        </section> 
+                        </div>
                     </div>
         
                 </div>
