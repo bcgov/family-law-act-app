@@ -11,7 +11,7 @@
 
                     <div style="margin-bottom: 1rem;"></div>
 
-                    <NoteBox style="font-size:9pt">
+                    <NoteBox style="font-size:10pt">
                         <p>
                             Complete this schedule only if you need a court order about contact with a child and you do not have an existing final court order or written agreement about contact with a child.
                         </p>
@@ -27,7 +27,7 @@
                 <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Relationship to the child"></FormPart>
 
-                    <NoteBox style="font-size:9pt">
+                    <NoteBox style="font-size:10pt">
                         <p>Children often have important relationships with people other than their parents/guardians. These include grandparents, elders, relatives, and others close to the child. Usually,these relationships are supported by the parents or guardians</p>
                         <p>If an agreement is not possible, the person who believes they should have contact with the child can apply for a court order. </p>
                     </NoteBox>
