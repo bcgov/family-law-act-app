@@ -9,7 +9,7 @@
 
                     <div style="margin-bottom: 1rem;"></div>
 
-                    <NoteBox>
+                    <NoteBox fontSize="9pt">
                         <p>
                             Complete this schedule only if you have an existing final order or written agreement about parenting arrangements, including parental responsibilities and parenting time, and you need a new court order made to change, suspend or cancel the final order, or to set aside or replace the written agreement.
                         </p>
@@ -28,16 +28,16 @@
                     <section>
                         Select only one of the options below and complete the requested information
                         <div>
-                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingOrder'" text="I have a <b>final court order</b> about parenting arrangements, including parental responsibilities or parenting time,"/>
+                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingOrder'" text="I have a <b>final court order</b> about parenting arrangements, including"/>
                             <br>
-                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingOrder'" style="display: inline; margin-left:1.75rem;" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). - Complete <b><i>Part 2</i></b>" hint="" :text="exParentArrInfo.existingDate | beautify-date"/>
-                            <GreyBoxForm v-else style="display: inline; margin-left:1.75rem;" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). Complete Part 2" hint="" text=""/>
+                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingOrder'" style="display: inline; margin-left:2rem;" textwidth="6rem" marginTop="-15px" beforetext="parenting time, <b> including parental responsibilities or parenting time, made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). -->  Complete <b><i>Part 2</i></b>" hint="" :text="exParentArrInfo.existingDate | beautify-date-mid"/>
+                            <GreyBoxForm v-else style="display: inline; margin-left:2rem;" textwidth="6rem"  marginTop="-15px" beforetext="parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). --> Complete Part 2" hint="" text=""/>
                         </div>
                         <div>
-                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingAgreement'" text="I have a <b>written agreement</b> about parenting arrangements, including parental responsibilities or parenting time,"/>
+                            <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingAgreement'" text="I have a <b>written agreement</b> about parenting arrangements, including"/>
                                 <br>
-                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). Complete <b><i>Part 3</i><b>" hint="" :text="exParentArrInfo.existingDate | beautify-date"/>
-                            <GreyBoxForm v-else style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="<b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). Complete <b><i>Part 3</i><b>" hint="" text=""/>
+                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext=" parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). Complete <b><i>Part 3</i><b>" hint="" :text="exParentArrInfo.existingDate | beautify-date-mid"/>
+                            <GreyBoxForm v-else style="margin-left:1rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext=" parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to repeal or replace (<i>see attached copy of order</i>). Complete <b><i>Part 3</i><b>" hint="" text=""/>
                         </div>
                     
                     </section>
@@ -73,9 +73,9 @@
                             <i>Select only one option</i>
                             <div>
                                 <div style="margin:0 0 0 3rem;">
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="<b>changed</b> - <i>Complete <b>Part 4 and 5</b></i>"/>
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'suspendedOrder')?'yes':''" text="<b>suspended</b> - <i>Complete <b>Part 5</b></i>"/>
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="<b>cancelled</b> - <i>Complete <b>Part 5</b></i>"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="<b>changed --> </b>  <i>Complete <b>Part 4 and 5</b></i>"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'suspendedOrder')?'yes':''" text="<b>suspended --> </b> <i>Complete <b>Part 5</b></i>"/>
+                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="<b>cancelled --> </b>  <i>Complete <b>Part 5</b></i>"/>
                                 </div>
                             </div>                
                         </div>
@@ -111,10 +111,16 @@
                             <br>
                             <i>Select only one option</i>
                             <div>
-                                <div style="margin:0 0 0 3rem;">
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="<b>set aside</b> - <i>Complete <b>Part 5</b</i>"/>
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="<b>replaced with an order</b> - <i>Complete <b>Part 4 and 5</b></i>"/>
-                                </div>  
+                            <div style="margin:0 0 0 1rem;">
+                            <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="<b>set aside</b> --> <i>Complete <b>Part 5</b</i>" />
+                            </div>
+                            <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                style="text-indent: 5px;" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="<b>replaced with an order</b> --> <i>Complete <b>Part 4 and 5</b></i>" />
+                            </div>
+                            </div>  
                             </div>                
                         </div>
                     </div>
@@ -129,6 +135,7 @@
                 </div>        
             </div>
 
+            <div style="margin-bottom: 1rem;"></div>
             <!-- <4> -->
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 80%; padding-right: 4px;">

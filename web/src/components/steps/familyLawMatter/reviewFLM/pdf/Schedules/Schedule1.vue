@@ -15,7 +15,7 @@
 
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 80%; padding-right: 4px;">
-                    <NoteBox fontSize="9pt">
+                    <NoteBox fontSize="10pt">
                         <p>Complete this schedule only if you need a court order about parenting arrangements, including parental responsibilities and parenting time, and you do not have an existing final court order or written agreement about parenting arrangements.</p>
                     </NoteBox>
                 </div>
@@ -54,7 +54,7 @@
                 <div style="flex: 1; margin-right: 8px;">
                     <FormPart :part="2" title="Order about parenting arrangements"></FormPart>
 
-                    <NoteBox fontSize="9pt">
+                    <NoteBox fontSize="10pt">
                         <p>
                             Parenting arrangements include how each guardian of a child will parent their child(ren), including each guardian’s responsibilities for decision making about a child (parental responsibilities), and the time each guardian spends with a child (parenting time).
                             <br>
