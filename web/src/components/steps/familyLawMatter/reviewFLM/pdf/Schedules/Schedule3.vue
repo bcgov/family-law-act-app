@@ -28,13 +28,12 @@
                 <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="About the payor"></FormPart>
                     <div> 
-                        
                         <b>1.</b>The <b>payor</b> is:
                         <div style="margin-left:1rem;">
-                            <check-box  :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
-                            <check-box style="width:120%;" :check="chSupInfo.opType.standing?'yes':''" text="a person standing in the place of a parent to the child(ren) <i>(for example, a step-parent)</i>"/>
-                            <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.opType.other?'yes':''" text="other <i>(specify):</i>"/>
-                            <GreyBoxForm style="text-indent:1px;" textwidth="33rem" beforetext="" hint="" :text="chSupInfo.opType.otherCom"/>            
+                            <check-box boxMargin="0" shiftmark="0" :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
+                            <check-box boxMargin="0" shiftmark="0" :check="chSupInfo.opType.standing?'yes':''" text="a person standing in the place of a parent to the child(ren) <br> <i>(for example, a step-parent)</i>"/>
+                            <check-box boxMargin="0" shiftmark="0"  inline="inline" :check="chSupInfo.opType.other?'yes':''" text="other <i>(specify):</i>"/>
+                            <div class="answerbox" style="min-height: 12px; padding: 8px;"> {{chSupInfo.opType.otherCom}} </div>            
                         </div>
                     </div>
                 </div>
@@ -42,14 +41,11 @@
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>                
-                            A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.Other guardians and stepparents may also be responsible for paying child support [s. 147 Family Law Act]
+                            A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child. Other guardians and step parents may also be responsible for paying child support [s. 147 Family Law Act]
                         </p>
                     </NoteBox>
                 </div> 
             </div>
-          
-            <div style="margin-top:1rem;"></div>
-        <!-- Part - 2 -->
                 
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 80%; padding-right: 4px;">
@@ -59,8 +55,8 @@
                     <b>2.</b>  The <b>current support arrangements</b> are as follows:
                     </div>
                     <div v-if="chSupInfo.currCond.supArr" 
-                        class="answerbox">{{chSupInfo.currCond.supArr}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
+                        class="answerbox" style="min-width: 80px; padding: 8px;">{{chSupInfo.currCond.supArr}}</div>
+                    <div v-else class="answerbox" style="min-width: 80px; padding: 8px;"></div>
 
                 <!-- <3> -->
             
@@ -68,14 +64,14 @@
                     <b>3.</b>The child or children <b>currently spend time</b> with each party as follows
                     </div>
                     <div v-if="chSupInfo.currCond.timeDesc" 
-                        class="answerbox">{{chSupInfo.currCond.timeDesc}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div> 
+                    class="answerbox" style="min-width: 80px; padding: 8px;">{{chSupInfo.currCond.timeDesc}}</div>
+                    <div v-else class="answerbox" style="min-width: 80px; padding: 8px;"></div> 
                     
                     <div>
                         <i style="display:inline; margin-left:0.35rem"><b>4. </b>Select only one of the options below</i>
                         <div style="margin:0 0 0 1rem;">
-                            <check-box style="margin:0 0 0 1rem;" :check="!chSupInfo.desiredSup.over19?'yes':''" text="Each child I am applying for an order for child support for is under 19 years of age"/>
-                            <check-box style="margin:0 0 0 1rem;" :check="chSupInfo.desiredSup.over19?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
+                            <check-box boxMargin="0" shiftmark="0" :check="!chSupInfo.desiredSup.over19?'yes':''" text="Each child I am applying for an order for child support for is <b>under 19 years of age</b>"/>
+                            <check-box boxMargin="0" shiftmark="0" :check="chSupInfo.desiredSup.over19?'yes':''" text="The following child(ren) is/are <b>19 years of age or older</b> and need(s) child support because of illness, disability or because they are full-time students:"/>                    
                         </div>
                         
                         <b-table
@@ -91,9 +87,9 @@
                                     Reason for child support <i style="font-size:6pt; font-weight:normal;">Select the applicable option</i>                            
                                 </template>
                                 <template v-slot:cell(reasonForSupport)="data">      
-                                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0rem;" :check="data.value.illness?'yes':''" text="illness"/>
-                                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0.25rem;" :check="data.value.disability?'yes':''" text="disability"/>
-                                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0.25rem;" :check="data.value.student?'yes':''" text="student"/>
+                                    <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value.illness?'yes':''" text="illness"/>
+                                    <check-box inline="inline" style="display: inline; margin-left: 2px;  font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value.disability?'yes':''" text="disability"/>
+                                    <check-box inline="inline" style="display: inline; margin-left: 2px;  font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value.student?'yes':''" text="student"/>
                                 </template>
                         </b-table>
                     </div>
@@ -109,215 +105,215 @@
                 </div>    
             </div>
 
-<!-- Part - 3 -->
-           
-<div style="display: flex; flex-direction: row;">
-    <div style="width: 80%; padding-right: 4px;">
-        <FormPart :part="3" title="Order about child support"></FormPart>   
-    <div style="    background-color: rgb(214, 214, 214);
-    padding: 8px;
-    font-size: 7pt;
-    border-radius: 0px;
-    border: 0px;">
-        <p>
-            The amount of a child support order is usually the amount set out in the Federal Child Support Guidelines table according to the number of eligible children and the income of the spouse against whom the order is sought, and the amount, if any, determined for section 7 special or extraordinary expenses [s. 3 Federal Child Support Guidelines]  
-        </p>
-    </div>
-    <div style="margin-top:1rem;"></div>
-    <div>
-        <p><b>5.</b><i> Select each applicable option and complete the requested information</i></p>
-        <check-box class="marginleft1p5vue" inline="inline" boxMargin="0" style="display:inline-block;margin-left:0.5rem" :check="chSupInfo.desiredSup.payor?'yes':''" text=""/>
-        <GreyBoxForm style="text-indent:0px;display:inline-block;" textwidth="15rem" beforetext="I am applying for an order for ongoing support to be paid by" hint="name of paying party" :text="chSupInfo.desiredSup.payor"/>
-        <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in the monthly amount set out in the child support guidelines for child(ren). </div>
-        <div style="margin-left:3rem;">
-            <!-- TODO: check -->
-                <check-box style="margin:0 0 0 1rem;" :check="false"  text="Based on the information I know about the other party’s income and my application for child support I expect the amount payable for monthly child support to be approximately"/>
-                <check-box style="margin:0 0 0 1rem;" :check="false" text="I am not able to estimate the amount payable for monthly child support at this time."/>   
-        </div>
-    </div>
-    <div class="print-block">
-            <div style="margin:0 0 0 2.5rem;">
-                <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.specExp.applying?'yes':''" text="I am applying for an order for <b>special or extraordinary expenses </b>under section7 of the child support guidelines as follows:"/>
-            </div>
-            <div style="padding-left:24px">
-            <p><i>List the expenses you are claiming for each child.</i><br>
-            <i>You must file a Financial Statement Form 4 to itemize the specific amounts</i></p>
-            <b-table
-                :items="childrenSupportExpenseItem"
-                :fields="childrenSupportExpenseFields"
-                class="mt-2"
-                small                    
-                bordered>
-                    <template v-slot:cell()="data">                            
-                        <div v-if="data.index==0" style="text-align:center;font-size:7.43pt" ><b>{{data.value}}</b></div>
-                        <div v-else style="font-size:8pt;color:#000">{{data.value}}</div>                                           
-                    </template>
-                    <template v-slot:cell(name)="data">                            
-                        <div v-if="data.index==0" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>
-                        <div v-else-if="data.index==7" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>                            
-                        <div v-else style="text-align:left;font-size:8pt;">{{data.value}}</div>                                           
-                    </template>
-            </b-table>
-        </div>
-    </div>
-
-    <div class="print-block">
-       
-        <div>
-            <div style="margin:0 0 0 1.5rem;">
-                <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.ndHard.change?'yes':''" text="I am applying for an order to <b>change the guideline amount payable</b> because the guideline amount would cause me <b>undue hardship</b> because i have:"/>                    
-            </div>
-            <div style="margin:0 0 3rem 3.25rem;">
-                <check-box  :check="chSupInfo.ndHard.reasons.excessive?'yes':''" text="an unusual or excessive amount of debt I incurred to support the familyprior to separation or to earn a living"/>                    
-                <check-box  :check="chSupInfo.ndHard.reasons.high?'yes':''" text="unusually high expenses to exercise parenting time or contact with thechild(ren"/>
-                <check-box  :check="chSupInfo.ndHard.reasons.another?'yes':''" text="a legal duty to support another person, such as an ill or disabled person ora former spouse"/>
-                <check-box  :check="chSupInfo.ndHard.reasons.dependent?'yes':''" text="a legal duty to support a dependent child from another relationship"/>
-                <check-box  :check="chSupInfo.ndHard.reasons.other?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
-                <div v-if="chSupInfo.ndHard.reasons.other" 
-                    class="answerbox">{{chSupInfo.ndHard.otherCom}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="print-block">
-        <div>
-           
-            <div>
-                <GreyBoxForm style="margin:0 0 0 1rem;text-indent:0px;display:inline-block" textwidth="20rem" beforetext="<b>6.</b> Child support payments should <b>start on</b>" hint="mmm/dd/yyyy or event" :text="chSupInfo.desiredSup.startDate"/>
-                <div style="margin:0 0 0 0.5rem; display:inline;">because:</div>
-                <div v-if="chSupInfo.desiredSup.reason" 
-                    class="answerbox">{{chSupInfo.desiredSup.reason}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-            </div>
-        </div>
-    </div>
-   
-
-</div>
-<div style="width: 20%; padding-top:180px">
-    <NoteBox>
-        <b-icon-book></b-icon-book>
-        <p>
-            For more information about how to calculate the amount payable for child support, see the guidebook. 
-        </p>
-    </NoteBox>
-    <div style="padding-top:10px">
-        <NoteBox  >
-            <b-icon-book></b-icon-book>
-            <p>
-                For more information about what can be included as special or extraordinary expenses, see the guidebook.
-            </p>
-        </NoteBox>
-    </div>
-    <div style="padding-top:320px">
-        <NoteBox  >
-            <b-icon-info-circle-fill />
-            <p>
-                The court may order child support in an amount different from the guidelines if appropriate [s. 10 Child Support Guidelines]
-            </p>
-        </NoteBox>
-    </div>
-    <div style="padding-top:10px">
-        <NoteBox  >
-            <b-icon-info-circle-fill />
-            <p>
-                In making an order about child support, the court may provide that support be paid respecting any period of time before the application is made [s. 170 Family Law Act]. 
-            </p>
-        </NoteBox>
-    </div>
-   
-</div>
-
-</div>
-           
- <!-- <Part 4> -->           
-    <div style="display: flex; flex-direction: row;">
-        <div style="width: 80%; padding-right: 4px;">
-        <FormPart :part="4" title="Income information"></FormPart>
-        <div>
-            One or more of the following applies to my applicationfor child support:
-            <ul>
-                <li>
-                    I am the payor 
-                </li>
-                <li>
-                    there is split or shared parenting time for one or more of the children
-                </li>
-                <li>there is child 19 years or older for whom support is being applied for</li>
-                <li>a party has been acting as a parent to a child of the other party</li>
-                <li>the payor earns more than $150,000 per year</li>
-                <li>there is an application for section 7 special or extraordinary expenses</li>
-                <li>I am claiming undue hardship</li>
-            </ul>
-            <div>        
-                <!-- TODO: check -->
-                <check-box style="margin:0 0 0 1rem;" :check="false"  text="Yes --> You are required to file a Financial Statement Form 4. Complete Question 8."/>
-                <check-box style="margin:0 0 0 1rem;" :check="false" text="No --> You are not requiredto file a Financial Statement Form 4 at this time.Skip to Question 9."/>
+        <!-- Part - 3 -->
                 
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="3" title="Order about child support"></FormPart>   
+            <NoteBox>
+                <p>
+                    The amount of a child support order is usually the amount set out in the Federal Child Support Guidelines table according to the number of eligible children and the income of the spouse against whom the order is sought, and the amount, if any, determined for section 7 special or extraordinary expenses [s. 3 Federal Child Support Guidelines]  
+                </p>
+            </NoteBox>
+            <div style="margin-top:1rem;"></div>
+            <div>
+                <p><b>5.</b><i> Select each applicable option and complete the requested information</i></p>
+                <check-box inline="inline" boxMargin="0" shiftmark="0" :check="chSupInfo.desiredSup.payor?'yes':''" text="I am applying for an order for ongoing support to be paid by (<i>name of paying party</i>)"/>
+                <div class="answerbox" style="display:inline;">{{chSupInfo.desiredSup.payor}}</div>
+                <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in the monthly amount set out in the child support guidelines for <i>(number)</i> 
+                    <p class="answerbox" style="display: inline;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p> child(ren). 
+                </div>
+                <div style="margin-left:3rem;">
+                    <!-- TODO: check -->
+                        <check-box style="margin:0 0 0 1rem;" boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child supportI expect the amount payable for monthly child support to be approximately $"/> 
+                        <p class="answerbox" style="display: inline;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p>
+                        <check-box style="margin:0 0 0 1rem;" boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''" text="I am not able to estimate the amount payable for monthly child support at this time."/>   
+                </div>
             </div>
+            <div class="print-block">
+                    <div>
+                        <check-box style="margin:0 0 0 0rem;" boxMargin="0" shiftmark="0" :check="chSupInfo.specExp.applying?'yes':''" text="I am applying for an order for <b>special or extraordinary expenses </b>under section 7 of the child support guidelines as follows:"/>
+                    </div>
+                    <div style="padding-left:24px">
+                    <p><i>List the expenses you are claiming for each child.</i><br>
+                    <i>You must file a Financial Statement Form 4 to itemize the specific amounts</i></p>
+                    <div class="answerbox" style="min-height: 80px;"></div>
+                    <!-- <b-table
+                        :items="childrenSupportExpenseItem"
+                        :fields="childrenSupportExpenseFields"
+                        class="mt-2"
+                        small                    
+                        bordered>
+                            <template v-slot:cell()="data">                            
+                                <div v-if="data.index==0" style="text-align:center;font-size:7.43pt" ><b>{{data.value}}</b></div>
+                                <div v-else style="font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            </template>
+                            <template v-slot:cell(name)="data">                            
+                                <div v-if="data.index==0" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>
+                                <div v-else-if="data.index==7" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>                            
+                                <div v-else style="text-align:left;font-size:8pt;">{{data.value}}</div>                                           
+                            </template>
+                    </b-table> -->
+                </div>
+            </div>
+
+            <div class="print-block">
+            
+                <div>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.ndHard.change?'yes':''" text="I am applying for an order to <b>change the guideline amount payable</b> because the guideline amount would cause me <b>undue hardship</b> because i have:"/>                    
+                    </div>
+                    <div style="margin:0 0 3rem 3.25rem;">
+                        <check-box  :check="chSupInfo.ndHard.reasons.excessive?'yes':''" text="an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>                    
+                        <check-box  :check="chSupInfo.ndHard.reasons.high?'yes':''" text="unusually high expenses to exercise parenting time or contact with the child(ren"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.another?'yes':''" text="a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.dependent?'yes':''" text="a legal duty to support a dependent child from another relationship"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.other?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
+                        <div v-if="chSupInfo.ndHard.reasons.other" 
+                            class="answerbox">{{chSupInfo.ndHard.otherCom}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="print-block">
+                <div> 
+                    <div>
+                        <GreyBoxForm style="margin:0 0 0 1rem;text-indent:0px;display:inline-block" textwidth="20rem" beforetext="<b>6.</b> Child support payments should <b>start on</b>" hint="Date(dd/mmm/yyyy) or event" :text="chSupInfo.desiredSup.startDate"/>
+                        <div style="margin:0 0 0 0.5rem; display:inline;">because:</div>
+                        <div v-if="chSupInfo.desiredSup.reason" 
+                            class="answerbox" style="padding: 8px; min-height: 80px;">{{chSupInfo.desiredSup.reason}}</div>
+                        <div v-else class="answerbox" style="padding: 8px; min-height: 80px;"></div>
+                    </div>
+                </div>
+            </div>
+        
+
         </div>
-        <div style="background: #eee; border: 2px dashed #333; padding: 4px;">
-            <p><b>IMPORTANT NOTE:</b></p>
-            <p>You may also provide this financial information before receiving the other party’s replyto avoid delay, if you believe that the income of the other party is over $150,000 per year or that they will claim undue hardship, special or extraordinary expenses,or child support from you.</p>
+        <div style="width: 20%; padding-top:180px">
+            <NoteBox>
+                <b-icon-book></b-icon-book>
+                <p>
+                    For more information about how to calculate the amount payable for child support, see the guidebook. 
+                </p>
+            </NoteBox>
+            <div style="padding-top:10px">
+                <NoteBox  >
+                    <b-icon-book></b-icon-book>
+                    <p>
+                        For more information about what can be included as special or extraordinary expenses, see the guidebook.
+                    </p>
+                </NoteBox>
+            </div>
+            <div style="padding-top:320px">
+                <NoteBox  >
+                    <b-icon-info-circle-fill />
+                    <p>
+                        The court may order child support in an amount different from the guidelines if appropriate [s. 10 Child Support Guidelines]
+                    </p>
+                </NoteBox>
+            </div>
+            <div style="padding-top:10px">
+                <NoteBox  >
+                    <b-icon-info-circle-fill />
+                    <p>
+                        In making an order about child support, the court may provide that support be paid respecting any period of time before the application is made [s. 170 Family Law Act]. 
+                    </p>
+                </NoteBox>
+            </div>
+        
         </div>
 
-        <div style="padding-top: 12px;">  
-            <p><b>8. I am required to file </b>a Financial Statement Form 4 to provide my income information to the court.</p>   
-            <i>Select only one of the options below</i> 
-              <!-- TODO: check -->
-            <check-box style="margin:0 0 0 1rem;" :check="false" text="I am filing a Financial Statement in Form 4 with this application."/>
-            <check-box style="margin:0 0 0 1rem;" :check="false" text="I am not able to file a Financial Statement in Form 4 with this application."/>
-            <div style="padding-left:24px">
-                <p>I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that myincome information in Form 4 be provided with this application. I understand Iwill still be required to file a Financial Statement in Form 4 at a later date</p>
-            </div>
         </div>
-        <div>
-            <i style="display:inline; margin-left:0.35rem"><b>9. </b>Select only one of the options below and provide the requested information</i>
-            <div style="margin:0 0 0 1rem;">
- 
-                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.opInfo.income?'yes':''" text="I believe the <b>payor’s annual income</b> is "/>
-                <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext=" $" hint="" :text="chSupInfo.opInfo.incomeAmt"/>   
-                <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.opInfo.income?'yes':''" text="I <b>do not know the income</b> of the payor.I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>   
-                 <div v-if="chSupInfo.opInfo.facts" 
-                    class="answerbox">{{chSupInfo.opInfo.factsDesc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-            </div>
-        </div>
+                
+        <!-- <Part 4> -->           
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="4" title="Income information"></FormPart>
+                <div>
+                    <b>7. </b> One or more of the following applies to my application for child support:
+                    <ul>
+                        <li>
+                            I am the payor 
+                        </li>
+                        <li>
+                            there is split or shared parenting time for one or more of the children
+                        </li>
+                        <li>there is child 19 years or older for whom support is being applied for</li>
+                        <li>a party has been acting as a parent to a child of the other party</li>
+                        <li>the payor earns more than $150,000 per year</li>
+                        <li>there is an application for section 7 special or extraordinary expenses</li>
+                        <li>I am claiming undue hardship</li>
+                    </ul>
+                    <div>        
+                        <!-- TODO: check -->
+                        <check-box boxMargin="0" shiftmark="0" :check="false"  text="<b>Yes</b> - <i>You are required to file a Financial Statement Form 4. Complete <b>Question 8</b>.</i>"/>
+                        <check-box boxMargin="0" shiftmark="0" :check="false" text="<b>No</b> - <i>You are not required to file a Financial Statement Form 4 at this time. Skip to <b>Question 9</b>.</i>"/>
+                        
+                    </div>
+                </div>
+                <div style="background: #eee; border: 2px dashed #333; padding: 4px;">
+                    <p><b>IMPORTANT NOTE:</b></p>
+                    <p>You may also provide this financial information before receiving the other party’s reply to avoid delay, if you believe that the income of the other party is over $150,000 per year or that they will claim undue hardship, special or extraordinary expenses,or child support from you.</p>
+                </div>
 
-        <div style="background: #eee; border: 2px dashed #333; padding: 4px;">
-            <p><b>IMPORTANT NOTE TO THE OTHER PARTY:</b></p>
-            <p>You may also provide this financial information before receiving the other party’s replyto avoid delay, if you believe that the income of the other party is over $150,000 per year or that they will claim undue hardship, special or extraordinary expenses,or child support from you.</p>
-            <div style="margin-top:1rem;text-align:justify;">
-                If you do not give your complete, true, and up-to-date financial information when needed, the court can:
-                <ul>
-                    <li>order that the income information be provided</li>
-                    <li>assume a party’s income is a certain amount for support purposes and make an order based on it</li>
-                    <li>require a party to give security</li>
-                    <li>require a party to pay the other party’s expenses, an amount to the other party up to $5,000, or a fine up to $5,000</li>
-                    <li>make any other order the court considers appropriate</li>
-                </ul>
+                <div style="padding-top: 12px;">  
+                    <p><b>8. I am required to file </b>a Financial Statement Form 4 to provide my income information to the court.</p>   
+                    <i>Select only one of the options below</i> 
+                    <!-- TODO: check -->
+                    <check-box boxMargin="0" shiftmark="0" :check="false" text="I am filing a Financial Statement in Form 4 with this application."/>
+                    <check-box boxMargin="0" shiftmark="0" :check="false" text="I am not able to file a Financial Statement in Form 4 with this application."/>
+                    <div style="padding-left:24px">
+                        <p>I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date.</p>
+                    </div>
+                </div>
+                <div>
+                    <i style="display:inline; margin-left:0.35rem"><b>9. </b>Select only one of the options below and provide the requested information</i>
+                    <div style="margin:0 0 0 1rem;">
+        
+                        <check-box boxMargin="0" shiftmark="0" :check="chSupInfo.opInfo.income?'yes':''" text="I believe the <b>payor’s annual income</b> is "/>
+                        <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext=" $" hint="" :text="chSupInfo.opInfo.incomeAmt"/>  because: 
+                        <div class="answerbox"></div> 
+                        <check-box boxMargin="0" shiftmark="0" :check="!chSupInfo.opInfo.income?'yes':''" text="I <b>do not know the income</b> of the payor. I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>   
+                        <div v-if="chSupInfo.opInfo.facts" 
+                            class="answerbox" style="min-height: 80px; padding: 8px;">{{chSupInfo.opInfo.factsDesc}}</div>
+                        <div v-else class="answerbox" style="min-height: 80px; padding: 8px;"></div>
+                    </div>
+                </div>
+
+                <div style="background: #eee; border: 2px dashed #333; padding: 4px;">
+                    <p><b>IMPORTANT NOTE TO THE OTHER PARTY:</b></p>
+                    <p>You may also provide this financial information before receiving the other party’s replyto avoid delay, if you believe that the income of the other party is over $150,000 per year or that they will claim undue hardship, special or extraordinary expenses,or child support from you.</p>
+                    <div style="margin-top:1rem;text-align:justify;">
+                        If you do not give your complete, true, and up-to-date financial information when needed, the court can:
+                        <ul>
+                            <li>order that the income information be provided</li>
+                            <li>assume a party’s income is a certain amount for support purposes and make an order based on it</li>
+                            <li>require a party to give security</li>
+                            <li>require a party to pay the other party’s expenses, an amount to the other party up to $5,000, or a fine up to $5,000</li>
+                            <li>make any other order the court considers appropriate</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <div style="width: 20%; padding-top:60px">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        Child support is based in part on income. If a party’s income information is necessary, they have an obligation to provide information to the court, or the court may impute income [ss. 15to 25 Child Support Guidelines]
+                    </p>
+                </NoteBox>
+                <div style="padding-top:120px">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        You must file a Financial Statement Form 4 or an Application for Case Management Order Without Notice or Attendance Form 11.
+                    </p>
+                </NoteBox>
+                </div>
+            </div>    
         </div>
     </div>
-    <div style="width: 20%; padding-top:60px">
-        <NoteBox>
-            <b-icon-info-circle-fill />
-            <p>
-                Child support is based in part on income. If a party’s income information is necessary, they have an obligation to provide information to the court, or the court may impute income [ss. 15to 25 Child Support Guidelines]
-            </p>
-        </NoteBox>
-        <div style="padding-top:120px">
-        <NoteBox>
-            <b-icon-info-circle-fill />
-            <p>
-                You must file a Financial Statement Form 4 or an Application for Case Management Order Without Notice or Attendance Form 11.
-            </p>
-        </NoteBox>
-        </div>
-    </div>    
-</div>
-</div>
 </div>
 </template>
 
@@ -361,12 +357,13 @@ export default class Schedule3 extends Vue {
         this.dataReady = false;
         this.extractInfo();       
         this.dataReady = true;
+        console.log(this.result, this.chSupInfo)
     } 
 
     over19ChildSupportDetails =[{name:'', reasonForSupport:{illness:false, disability:false, student:false}}]
     childrenSupportFields = [
-        {key:"name",             label:"Full name of child",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
-        {key:"reasonForSupport", label:"Reason for child support", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
+        {key:"name",             label:"Full name of child",       tdClass:"border-dark text-center align-middle table-answerbox", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
+        {key:"reasonForSupport", label:"Reason for child support", tdClass:"border-dark ", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
     ]
 
     childrenSupportExpenseItem =[
