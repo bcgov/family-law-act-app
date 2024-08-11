@@ -42,15 +42,12 @@
             </div>
 
             <p>
-                This service is currently being updated to support the new Application about Enforcement. 
+                This service is currently being updated to support the new Reply to an application about a Family Law Matter. 
                 Please click on the link above to access a fillable PDF document which can be then be printed 
                 and filed at the court registry.
             </p>
 
-            <p>
-                The page will be temporary until we can complete the Form 6 and will need to be removed.
-            </p>
-
+            
         </b-card>     
     <!-- </b-container> -->
     </page-base>
