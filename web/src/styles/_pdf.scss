@@ -1,6 +1,7 @@
 .table :deep(th) {border:1px solid #000;}
 .table :deep(td) {border:1px solid #000;}
 .table :deep(tr) {height:1.5rem;}
+.table :deep(td).table-answerbox{color: #000; font-size:11pt; background-color: #d6d6d6;text-indent:0px; margin:0.5rem 0 0.5rem 0.1rem;}
 
 table.fullsize {table-layout: fixed; width: 100%; margin-top:1rem;}
 table.fullsize :deep(tr) {border:1px solid #313132;}
