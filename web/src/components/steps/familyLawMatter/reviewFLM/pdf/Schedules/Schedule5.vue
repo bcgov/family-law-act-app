@@ -17,7 +17,7 @@
                         </p>
                     </NoteBox>
                 </div>
-                <div style="width: 20%;"></div>
+                <div style="width: 20%;"/>
             </div>
 
             <div style="margin-bottom: 1rem;"></div>
@@ -44,9 +44,27 @@
                 </div>
                 <div style="width: 20%;">
                     <NoteBox>
-                        <b-icon-paperclip />
+                        <b-icon-info-circle-fill />
                         <p>
-                            You must attach a copy of the order or agreement to this application for filing.
+                            The court may grant contact 
+                            to a person who is not a 
+                            guardian, including to a 
+                            parent or grandparent [s. 59 
+                            <i>Family Law Act</i>].
+                            <br/>
+                            The person seeking contact 
+                            with a child must make their own application.
+
+                        </p>
+                    </NoteBox>
+                    <NoteBox style="margin-top:10px">
+                        <b-icon-book />
+                        <p>
+                            Usually, a child’s parent is 
+                            also the child’s guardian, but 
+                            not always. For more 
+                            information about who is a 
+                            guardian, see the guidebook.
                         </p>
                     </NoteBox>
                 </div>        
@@ -100,7 +118,7 @@
                         </p>
                      </NoteBox>
 
-                     <div style="margin-top: 4px;"></div>
+                     <div style="margin-top: 75px;"></div>
 
                      <NoteBox>
                         <b-icon-info-circle-fill />
