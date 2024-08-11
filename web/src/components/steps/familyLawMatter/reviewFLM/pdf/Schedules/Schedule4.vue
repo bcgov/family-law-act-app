@@ -255,8 +255,8 @@
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                                text="Based on the information I know about the other party’s income and my application for child support I expect <b>the amount payable</b> for monthly child support to be approximately" /> 
-                            <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="$"
+                                text="Based on the information I know about the other party’s income and my application for child support I expect <b>the amount payable</b> for monthly child " /> 
+                            <GreyBoxForm style="text-indent:17px;" textwidth="9rem" beforetext="support to be approximately $"
                                 hint="" text=""
                                 hintindent="30px" />
                         </div>
