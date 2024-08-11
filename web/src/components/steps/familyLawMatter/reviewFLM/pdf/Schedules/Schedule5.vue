@@ -86,7 +86,7 @@
                                 <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="<b>In person</b>: <i>(specify)</i>"/>
                                 <i class='marginleft1vue' style="margin:0 0 -0.25rem 1.75rem;">Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
                                 <div v-if="chContInfo.abt.conType.inPerson" 
-                                    class="answerbox">{{chContInfo.abt.inPrsn}}</div>
+                                    class="answerbox" style="background-color:#dedede">{{chContInfo.abt.inPrsn}}</div>
                                 <div v-else style="margin-bottom:3rem;"></div>
                                 <check-box style="margin:0rem 0 0 0" :check="chContInfo.abt.conType.tel?'yes':''" text="Telephone communication"/>
                                 <check-box  :check="chContInfo.abt.conType.video?'yes':''" text="Video communication"/>
@@ -103,7 +103,7 @@
                                         <i>List the details of the terms you are asking for</i></p>
                                 </div>
                                 <div v-if="result.aboutContactWithChildOrderSurvey && result.aboutContactWithChildOrderSurvey.placeConditions == 'y'" 
-                                    class="answerbox">{{chContInfo.abt.cond}}</div>
+                                    class="answerbox" style="background-color:#dedede">{{chContInfo.abt.cond}}</div>
                                 <div v-else style="margin-bottom:3rem;"></div>
                             </div>
                         </section> 
