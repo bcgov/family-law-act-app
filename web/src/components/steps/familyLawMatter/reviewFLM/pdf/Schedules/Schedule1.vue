@@ -15,7 +15,7 @@
 
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 80%; padding-right: 4px;">
-                    <NoteBox>
+                    <NoteBox fontSize="9pt">
                         <p>Complete this schedule only if you need a court order about parenting arrangements, including parental responsibilities and parenting time, and you do not have an existing final court order or written agreement about parenting arrangements.</p>
                     </NoteBox>
                 </div>
@@ -36,10 +36,11 @@
                     </section>
                 </div>
                 <div style="width: 20%;">
+                    
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            Only a guardian may have parental responsibilities and parenting time with respect to a child [s. 39 Family Law Act]. For information about who is a guardian of a child, see the guidebook.
+                            Only a guardian may have parental responsibilities and parenting time with respect to a child <i>[s. 39 Family Law Act]</i>. For information about who is a guardian of a child, see the guidebook.
                         </p>
                     </NoteBox>
                 </div>        
@@ -53,13 +54,13 @@
                 <div style="flex: 1; margin-right: 8px;">
                     <FormPart :part="2" title="Order about parenting arrangements"></FormPart>
 
-                    <NoteBox>
+                    <NoteBox fontSize="9pt">
                         <p>
                             Parenting arrangements include how each guardian of a child will parent their child(ren), including each guardian’s responsibilities for decision making about a child (parental responsibilities), and the time each guardian spends with a child (parenting time).
                             <br>
                             Guardians can arrange parental responsibilities and parenting time in any way that is in the best interests of the child.
                             <br>
-                            The court can make orders under Division 2 [Parenting Arrangements] of Part 4 [Care of and Time with Children] of the Family Law Act.
+                            The court can make orders under Division 2 [Parenting Arrangements] of Part 4 [Care of and Time with Children] of the <i>Family Law Act.</i>
                         </p>
                     </NoteBox>
 
@@ -67,7 +68,7 @@
 
                     <div>
                         <b>2. </b>
-                        <p style="display: inline;">I am applying for an <b>order about parental responsibilities</b>> as follows:</p>
+                        <p style="display: inline;">I am applying for an <b>order about parental responsibilities</b> as follows:</p>
                         <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         
@@ -136,7 +137,7 @@
                     <br>
                     <div>
                         <b>5. </b>
-                        <p  style="display: inline">I am applying for <b>directions</b> from the court under s. 49 of the Family Law Act respecting the following <b>issue affecting a child</b>:</p>
+                        <p  style="display: inline">I am applying for <b>directions</b> from the court under s. 49 of the <i>Family Law Act</i> respecting the following <b>issue affecting a child</b>:</p>
                         <div class="answerbox" style="min-height: 80px; padding: 8px;">
                             {{result.otherParentingArrangementsSurvey.seekingDirectionFromCourtDescription}}
                         </div> 
@@ -144,27 +145,30 @@
         
                 </div>
                 <div style="width: 20%;">
-                    <NoteBox>
+                    <div style="padding-top:20rem">
+                        <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
                             Parental responsibilities can be set up so they can be exercised by:
                         </p>
-                        <ul>
+                        <ul style="margin-left: -30px;">
                             <li>One or more guardians only,</li>
                             <li>Each guardian acting separately, or</li>
                             <li>All guardians acting together.</li>
                         </ul>
                         <i>[s. 40 Family Law Act]</i>
                     </NoteBox>
+                    </div>
+                   
 
-                    <div style="margin-top: 20px;"></div>
-
+                    <div style="padding-top:20rem">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <p>
-                            S. 49 of the Family Law Act allows a child’s guardian to apply to court for directions respecting an issue affecting the child, and the court may make an order giving the directions it considers appropriate.
+                            S. 49 of the <i>Family Law Act</i> allows a child’s guardian to apply to court for directions respecting an issue affecting the child, and the court may make an order giving the directions it considers appropriate.
                         </p>
                     </NoteBox>
+                </div>
                 </div>        
             </div>
 
@@ -189,7 +193,7 @@
                     <NoteBox>
                         <b-icon-book></b-icon-book>
                         <p>
-                            To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. 37 of the Family Law Act.The parties and the court must consider the best interests of a child when making a decision about parenting arrangements.For more information, see the guidebook.
+                            To determine what is in the best interests of a child, all of the child’s needs and circumstances must be considered including the factors set out in s. 37 of the <i>Family Law Act</i>.The parties and the court must consider the best interests of a child when making a decision about parenting arrangements.For more information, see the guidebook.
                         </p>
                     </NoteBox>
                 </div>        
