@@ -1,6 +1,10 @@
 <template>
     <div v-if="dataReady">
 
+        <!-- ******** IMPORTANT NOTE: ********
+         Originally this was "Schedule 5 - Contact with a child". The new changes are now referring as "Schedule 3 - Contact with a child";
+         however, this is included in "Schedule5.vue" file. The form and structure needs to be reviewed and clarified.
+         ********************************* -->
         <div class="new-page" />
         <div style="display: flex; flex-direction: row; margin-bottom: 0.5rem;">
             <div style="width: 80%; padding-right: 4px;">
