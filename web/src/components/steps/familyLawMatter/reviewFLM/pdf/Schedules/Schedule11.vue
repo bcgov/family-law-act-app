@@ -20,8 +20,8 @@
            
                 <div style="margin-top:1rem;"></div>
 <!-- <1> -->
-    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-        <div style="flex: 1">
+    <div style="display: flex; flex-direction: row;">
+        <div style="width:80%; padding-right:4px;">
             <FormPart :part="1" title="Order about property division in respect of a companion animal"></FormPart>
            
             <section class="resetquestion"> 

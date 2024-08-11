@@ -18,8 +18,8 @@
                 </div>
                 <div style="margin-top:1rem;"></div>
 <!-- <1> -->
-    <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-        <div style="flex: 1">
+    <div style="display: flex; flex-direction: row;">
+        <div style="width:80%; padding-right:4px;">
             <FormPart :part="1" title="Written agreement"></FormPart>
             <div class="resetquestion">
                 <div style="display:inline; margin-left:0.25rem"><b>1.</b></div>
@@ -79,8 +79,8 @@
             </div>
         </div>
 
-        <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
-            <div style="flex: 1">
+        <div style="display: flex; flex-direction: row;">
+            <div style="width:80%; padding-right:4px;">
                 <FormPart :part="2" title="Order about property division in respect of a companion animal-" subtitle="- Complete this part only if you are asking to replace the existing agreement"></FormPart>
                 <div style="margin-bottom: 1rem;"></div>
                     <div class="print-block">
