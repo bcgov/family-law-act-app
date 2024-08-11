@@ -9,7 +9,7 @@
                 <div style="flex: 1">
                     <ScheduleHeader scheduleNumber="Schedule 10" scheduleTitle="Property division in respect of a companion animal" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
                     <div style="margin-bottom: 1rem;"></div>
-                    <NoteBox>
+                    <NoteBox fontSize="10pt">
                         <p>
                             Complete this schedule only if you need a court order about property division in respect of a companion animal and you do not have an existing final court order or written agreement about property division in respect of the companion animal.
                         </p>

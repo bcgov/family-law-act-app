@@ -9,7 +9,7 @@
                 <div style="flex: 1">
                     <ScheduleHeader scheduleNumber="Schedule 11" scheduleTitle="Property division in respect of a companion animal" scheduleDescription="Disagree with order requested by other party"></ScheduleHeader>
                     <div style="margin-bottom: 1rem;"></div>
-                    <NoteBox>
+                    <NoteBox fontSize="10pt">
                         <p>
                             Complete this schedule only if you have an existing written agreement about the companion animal and you need a new court order made to set aside or replace the written agreement.
                         </p>
