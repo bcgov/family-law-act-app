@@ -83,7 +83,7 @@
                             small
                             bordered>                    
                                 <template v-slot:cell()="data">
-                                    <div style="font-size:11pt;color:#000">{{data.value}}</div>                                           
+                                    <div style="font-size:11pt;color:#000; background: #d6d6d6; height: 22px">{{data.value}}</div>                                           
                                 </template>
                                 <template v-slot:head(reasonForSupport)>
                                     Reason for child support <i style="font-size:6pt; font-weight:normal;">Select the applicable option</i>                            
@@ -283,7 +283,7 @@
             </div>
             <div style="width: 20%;">
                 <NoteBox>
-                    <b-icon-file-lines />
+                    <b-icon-info-circle />
                     <p>
                         You must file a Financial Statement Form 4 or an Application for Case Management Order Without Notice or Attendance Form 11.
                     </p>
@@ -297,8 +297,8 @@
                     <i style="display:inline; margin-left:0.35rem"><b>9. </b>Select only one of the options below and provide the requested information</i>
                     <div style="margin:0 0 0 1rem;">
         
-                        <check-box boxMargin="0" shiftmark="0" textDisplay="inline" style="display:inline;" :check="chSupInfo.opInfo.income?'yes':''" text="I believe the <b>payor’s annual income</b> is "/>
-                        <GreyBoxForm style="display:inline;" textwidth="10rem" beforetext=" $" hint="" :text="chSupInfo.opInfo.incomeAmt"/>  because: 
+                        <check-box boxMargin="0" shiftmark="0" textDisplay="inline-block" style="display:inline-block;" :check="chSupInfo.opInfo.income?'yes':''" text="I believe the <b>payor’s annual income</b> is "/>
+                        <GreyBoxForm style="display:inline; margin-left:2px;" textwidth="10rem" beforetext=" $" hint="" :text="chSupInfo.opInfo.incomeAmt"/>  because: 
                         <div class="answerbox" style="min-height: 80px; padding: 8px; background: #dedede;"></div> 
                         <check-box boxMargin="0" shiftmark="0" :check="!chSupInfo.opInfo.income?'yes':''" text="I <b>do not know the income</b> of the payor. I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>   
                         <div v-if="chSupInfo.opInfo.facts" 
