@@ -57,9 +57,7 @@
                     <div class="print-block">
                         <div>
                             <div><b>2.</b> Since the final order was made, the needs or circumstances have changed as follows: </div>                    
-                            <div v-if="exChContInfo.order && exChContInfo.abtExOrdr.change" 
-                                class="answerbox">{{exChContInfo.abtExOrdr.change}}</div>
-                            <div v-else style="margin-bottom:3rem;"></div>
+                            <div class="answerbox" style="background-color:#dedede">{{exChContInfo.abtExOrdr.change ? exChContInfo.abtExOrdr.change : '&nbsp;'}}</div>
                         </div>
                         
                         <div>
@@ -96,12 +94,7 @@
                         <div>
                             <div>
                                 <b>4.</b> I believe the agreement about contact with a child is <b>not in the best interests of the child(ren)</b> because:
-                                <div v-if="exChContInfo.bstIntrst" class="answerbox">
-                                    {{exChContInfo.bstIntrst}}
-                                </div>
-                                <div v-else style="margin-bottom:1rem;">
-                                    <GreyBoxForm style="margin-top:5px; margin-left:1rem; text-indent:0rem" textwidth="32.5rem" :text="exChContInfo.bstIntrst"></GreyBoxForm>
-                                </div>
+                                <div class="answerbox" style="background-color:#dedede">{{exChContInfo.bstIntrst ? exChContInfo.bstIntrst : '&nbsp;'}}</div>
                             </div>
                             <div>
                                 <div>

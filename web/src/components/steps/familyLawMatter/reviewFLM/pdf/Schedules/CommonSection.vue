@@ -28,7 +28,7 @@
                     <b-icon-info-circle-fill />
                     <br />
                     <p>A family law matter is a defined term under Rule 2 that means a case about one or more of the following:</p>
-                    <ul>
+                    <ul style="margin-left:-25px;margin-top:-15px;">
                         <li>Parenting arrangements</li>
                         <li>Child Support</li>
                         <li>Contact with a child</li>
@@ -46,16 +46,16 @@
             <div style="flex: 1; border: 2px dotted #000; background: #ededed; margin-right: 4px">
                 <b>IMPORTANT NOTE TO THE OTHER PARTY:</b>
                 
-                <p>A party who is served with this application may file a reply. To file a reply, the party or their lawyer, must file a Reply to an Application About a Family Law Matter Form 6 and, if applicable, a Financial Statement Form 4, within 30 daysafter the date the party was served with the application.</p>
+                <p>A party who is served with this application may file a reply. To file a reply, the party or their lawyer, must file a Reply to an Application About a Family Law Matter Form 6 and, if applicable, a Financial Statement Form 4, within 30 days after the date the party was served with the application.</p>
                 
                 <p>If you do not file a reply within the 30-day period, you will not be entitled to receive notice of any part of the case, including any conference, hearing or trial, and orders may be made in your absence.</p>
             </div>
             <div style="width: 20%;">
-                <NoteBox>
+                <NoteBox style="margin-top:-85px;">
                     <b-icon-info-circle-fill />
                     <br />
-                    <p>As set out in Rule 28, to reply, a party must:</p>
-                    <ul>
+                    <p >As set out in Rule 28, to reply, a party must:</p>
+                    <ul style="margin-left:-25px;margin-top:-15px;">
                         <li>file a reply in Form 6</li>
                         <li>if the application is about child support or spousal support, file a financial statement</li>
                         <li>if the application is in a nearly resolution registry,have already met the early resolution requirements</li>
@@ -88,7 +88,7 @@
                     <p>If your application is about guardianship of a <b>Nisga’a</b> or <b>Treaty First Nation child</b>, you must give notice to the Nisga'a Lisims Government or the Treaty First Nation to which the child belongs.</p>
                 </div>
             </div>
-            <div style="width: 20%;">
+            <div style="width: 20%;margin-top:30px;">
                 <NoteBox>
                     <b-icon-book />
                     <br />
@@ -96,7 +96,7 @@
                         For more information about serving the other party, see the guidebook
                     </p>
                 </NoteBox>
-                <NoteBox style="margin-top:112px;">
+                <NoteBox style="margin-top:80px;">
                     <b-icon-book />
                     <br />
                     <p>
@@ -250,9 +250,10 @@
                             :fields="childrenFields"
                             class="mt-2"
                             small
-                            bordered>                    
-                                <template class="answerbox"  v-slot:cell()="data">
-                                    <div  style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            bordered
+                            style="width:525px;margin-left:10px;">                    
+                                <template  v-slot:cell()="data" style="background-color:#dedede;">
+                                    <div style="height:1rem; font-size:8pt;color:#000;background-color:#dedede;">{{data.value}}</div>                                           
                                 </template>
                                 <template v-slot:head(dob)>
                                     Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
@@ -319,7 +320,7 @@
 
                         <div style="margin-left:.5rem; text-indent:0rem;"></div>
                         
-                       <div v-if="culturalInfo" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:100px;">
+                       <div v-if="culturalInfo" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:150px;">
                             {{culturalInfo}}
                         </div>
                         <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:100px;margin-bottom:1rem;"></div> 
@@ -428,6 +429,7 @@
         </div>
 
         <!-- Part 7 -->
+        <div style="page-break-after:always;">&nbsp;</div> 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 100%;">
                 <div class="print-block">
@@ -455,10 +457,10 @@
                                 <p style="margin-left:30px;">Do you have a final order or written agreement about parenting arrangements, including parental responsibilities and parenting time?</p>
                                 <div>
                                     <div style="display: inline-block; margin-right: 32px;margin-left:30px;">
-                                        <check-box inline="inline" boxMargin="0" shiftmark="0"  :check="selectedSchedules.includes('schedule1')?'yes':''" text='<b>No</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 1</b></span> '/>
+                                        <check-box inline="inline" boxMargin="0" shiftmark="0"  :check="selectedSchedules.includes('schedule1')?'yes':''" text='<b>No</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 1</b></span> '/>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <check-box inline="inline" boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule2')?'yes':''" text='<b>Yes</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 2</b></span> '/>
+                                        <check-box inline="inline" boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule2')?'yes':''" text='<b>Yes</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 2</b></span> '/>
                                     </div>
                                 </div>
                             </div>
@@ -473,10 +475,10 @@
                                 <p style="margin-left:30px;">Do you have a final order or written agreement about child support?</p>
                                 <div>
                                     <div style="display: inline-block; margin-right: 32px;margin-left:30px;">
-                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule3')?'yes':''" text='<b>No</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 3</b></span> '/>
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule3')?'yes':''" text='<b>No</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 3</b></span> '/>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule4')?'yes':''" text='<b>Yes</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 4</b></span> '/>
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule4')?'yes':''" text='<b>Yes</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 4</b></span> '/>
                                     </div>
                                 </div>
                             </div>
@@ -491,10 +493,10 @@
 
                                 <div>
                                     <div style="display: inline-block; margin-right: 32px;margin-left:30px;">
-                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule5')?'yes':''" text='<b>No</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 5</b></span> '/>
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule5')?'yes':''" text='<b>No</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 5</b></span> '/>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule6')?'yes':''" text='<b>Yes</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 6</b></span>'/>
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule6')?'yes':''" text='<b>Yes</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 6</b></span>'/>
                                     </div>
                                 </div>
                             </div>
@@ -505,9 +507,10 @@
                                 <NoteBox borderRadius="8px" border="1px solid #333" style="padding: 20px;margin-left:30px;">
                                     <b>Guardianship</b> is who is responsible for a child. Only guardians have parental responsibilities and parenting time with a child.
                                 </NoteBox>
-                                <p style="margin-left:30px;"> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 7</b></span></p>
+                                <p style="margin-left:30px;"> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 7</b></span></p>
                             </div>
         <!-- Part 7E -->
+        <div style="page-break-after:always;">&nbsp;</div> 
         <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;">
                                 <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule9') || selectedSchedules.includes('schedule10')?'yes':''" text="<b>Spousal support</b>"/>
                                     
@@ -518,10 +521,10 @@
 
                                 <div>
                                     <div style="display: inline-block; margin-right: 32px;margin-left:30px;">
-                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule9')?'yes':''" text='<b>No</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 8</b></span> '/>
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule9')?'yes':''" text='<b>No</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 8</b></span> '/>
                                     </div>
                                     <div style="display: inline-block;">
-                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule10')?'yes':''" text='<b>Yes</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 9</b></span>'/>
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule10')?'yes':''" text='<b>Yes</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 9</b></span>'/>
                                     </div>
                                 </div>
 
@@ -539,10 +542,10 @@
 
                                 <div>
                                     <div style="display: inline-block; margin-right: 32px;margin-left:30px;">
-                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule11')?'yes':''" text='<b>No</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 10</b></span> '/>
+                                        <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule11')?'yes':''" text='<b>No</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 10</b></span> '/>
                                         </div>
                                         <div style="display: inline-block;">
-                                            <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule12')?'yes':''" text='<b>Yes</b> 🠆 <span style="color:#626262;font-style:italic">Complete <b>Schedule 11</b></span>'/>
+                                            <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule12')?'yes':''" text='<b>Yes</b> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 11</b></span>'/>
                                         </div>
                                 </div>
                             </div>
@@ -569,7 +572,7 @@
 
         <div style="margin-top:1rem;"></div>
 
-        <!-- Part 8 -->
+        <!-- Part 8A -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="8" title="Filing location and initial requirements"></FormPart>
@@ -605,6 +608,21 @@
                     </div>
                 </div>
 
+            </div>
+            <div style="width: 20%">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>Rule 7 sets out these requirements for which registry to use. Talk to the court registry to see if there is already an existing case at a court location</p>
+                </NoteBox>
+
+                <div style="margin-top: 1rem;"></div>
+
+                
+            </div>
+        </div>
+        <!-- Part 8B -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
                 <div class="print-block">       
                     <div> 
                         <b>12. </b>
@@ -629,22 +647,15 @@
                 </div>
             </div>
             <div style="width: 20%">
-                <NoteBox>
-                    <b-icon-info-circle-fill />
-                    <p>Rule 7 sets out these requirements for which registry to use. Talk to the court registry to see if there is already an existing case at a court location</p>
-                </NoteBox>
-
-                <div style="margin-top: 1rem;"></div>
-
+               
                 <NoteBox>
                     <b-icon-book />
                     <p>For more information about the different registry types and how to meet the requirements, see the guidebook.</p>
                 </NoteBox>
             </div>
         </div>
-
         <div style="margin-top:1rem;"></div>
-  
+        
         <!-- Part 9 -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">

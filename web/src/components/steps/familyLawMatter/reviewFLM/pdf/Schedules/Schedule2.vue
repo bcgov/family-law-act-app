@@ -30,8 +30,8 @@
                         <div>
                             <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingOrder'" text="I have a <b>final court order</b> about parenting arrangements, including"/>
                             <br>
-                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingOrder'" style="display: inline; margin-left:2rem;" textwidth="6rem" marginTop="-15px" beforetext="parenting time, <b> including parental responsibilities or parenting time, made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). -->  Complete <b><i>Part 2</i></b>" hint="" :text="exParentArrInfo.existingDate | beautify-date-mid"/>
-                            <GreyBoxForm v-else style="display: inline; margin-left:2rem;" textwidth="6rem"  marginTop="-15px" beforetext="parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). --> Complete Part 2" hint="" text=""/>
+                            <GreyBoxForm v-if="exParentArrInfo.type == 'ExistingOrder'" style="margin-left:1.25rem; text-indent:0rem" textwidth="6rem" marginTop="-15px" beforetext="parental responsibilities or parenting time <b>  made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). -->  Complete <b><i>Part 2</i></b>" hint="" :text="exParentArrInfo.existingDate | beautify-date-mid"/>
+                            <GreyBoxForm v-else style="margin-left:1.25rem; text-indent:0rem" textwidth="6rem"  marginTop="-15px" beforetext="parental responsibilities or parenting time, <b>made on</b> <i>(date)</i>" aftertext="that I want to change or cancel (<i>see attached copy of order</i>). --> Complete <b><i>Part 2</i></b>" hint="" text=""/>
                         </div>
                         <div>
                             <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="exParentArrInfo.type == 'ExistingAgreement'" text="I have a <b>written agreement</b> about parenting arrangements, including"/>
@@ -72,10 +72,20 @@
                             <br>
                             <i>Select only one option</i>
                             <div>
-                                <div style="margin:0 0 0 3rem;">
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="<b>changed --> </b>  <i>Complete <b>Part 4 and 5</b></i>"/>
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'suspendedOrder')?'yes':''" text="<b>suspended --> </b> <i>Complete <b>Part 5</b></i>"/>
-                                    <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="<b>cancelled --> </b>  <i>Complete <b>Part 5</b></i>"/>
+                                <div style="margin:0 0 0 1rem;">
+                                    <div style="display:block;">
+                                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                    style="text-indent: 5px;" :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="<b>changed --> </b>  <i>Complete <b>Part 4 and 5</b></i>" />
+                                    </div>
+                                    <div style="display:block;">
+                                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                    style="text-indent: 5px;" :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'suspendedOrder')?'yes':''" text="<b>suspended --> </b> <i>Complete <b>Part 5</b></i>" />
+                                    </div>
+                                    <div style="display:block;">
+                                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
+                                    style="text-indent: 5px;"  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="<b>cancelled --> </b>  <i>Complete <b>Part 5</b></i>" />
+                                    </div>
+                                   
                                 </div>
                             </div>                
                         </div>
