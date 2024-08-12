@@ -13,6 +13,7 @@ export interface cmLocationInfoDataInfoType {
 export interface schedule1DataInfoType {
     attendees: string[];
     lawyerName?: string;
+    otherName?: string;
     eventType: string;
     eventTypeComment?:string;
     eventDate: string; 
@@ -35,6 +36,25 @@ export interface schedule2DataInfoType {
     altMethodDocList: string;
     altMethodApplicationFacts: string;
     altMethodServingDetails: string;    
+    isalternativeServiceReasonUnknown: boolean;
+    isalternativeServiceReasonNotReachable: boolean;
+    alternativeServiceReasonDetails: string;
+    personwhereabouts: string;
+    alternativeorderservice: string;
+    alternativemailType: string;
+    alternativemailAddress:string;
+    alternativemailCity: string;
+    alternativeEmail: string;
+    alternativeText: string;
+    alternativeOther: string;
+    alternativeRelativeName: string;
+    alternativeRelatveRelationship: string;
+    alternativeSocialPlatform: string;
+    alternativeSocialPlatformId: string;
+    changetype:string;
+    modifyMethodApplicationFacts: string;
+    modifyChangeRequirementList: string;
+    modifyChangeRequirementComment: string;
 }
 
 export interface schedule3DataInfoType {

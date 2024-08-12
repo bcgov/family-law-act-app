@@ -35,6 +35,7 @@ export interface stepsAndPagesNumberInfoType{
     CSV: CSVstPgTypes;
     FS: FSstPgTypes;
     SUBMIT: SUBMITstPgTypes;
+    RTFLM: RTFLMstPgTypes;
 }
  
 export interface GETSTARTstPgTypes{
@@ -159,6 +160,12 @@ export interface RFLMstPgTypes{
     FlmAdditionalDocuments: number;
     ReviewYourAnswersRFLM: number;
     PreviewFormsRFLM: number; 
+}
+
+export interface RTFLMstPgTypes{
+    _StepNo: number;  
+
+    FamilyLawManual: number;   
 }
 
 export interface WRstPgTypes{

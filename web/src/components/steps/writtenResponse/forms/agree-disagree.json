@@ -18,11 +18,19 @@
               "choices": [
                 {
                   "value": "agree",
-                  "text": "I agree to all or part of the orders requested in the application."
+                  "text": "I agree to all the orders requested in the application."
+                },
+                {
+                  "value": "partialagree",
+                  "text": "I agree only to part of the order term(s) requested by the other party."
                 },
                 {
                   "value": "disagree",
-                  "text": "I do not agree to all or part of the orders requested in the application."
+                  "text": "I do not agree with the order as requested by the other party."
+                },                
+                {
+                  "value": "partialdisagree",
+                  "text": "I do not agree with the following order term(s) as requested by the other party: (use presented with text box to provide details of the order they do not agree with"
                 }
               ]
             },
@@ -37,19 +45,42 @@
               "type": "comment",
               "name": "agreeDetails",
               "visible": false,
-              "visibleIf": "{agreeDisagree} contains 'agree'",
+              "visibleIf": "{agreeDisagree} contains 'agree' or {agreeDisagree} contains 'partialagree'",
               "description": "You do not need to use any special wording. Try to be clear about what order or part of the order you agree to.",
               "isRequired": true,
               "title": "Please provide the details of the order or part of the order that you agree to."
             },
             {
+              "type": "yesno",
+              "name": "agreeAdditionalDetailsYesNo",
+              "title": "Is there any additional information about the application that you want to provide to the court even though you agree?",
+              "isRequired": true,
+              "visibleIf": "{agreeDisagree} contains 'agree' or {agreeDisagree} contains 'partialagree'"
+            },
+            {
+              "type": "comment",
+              "name": "agreeAdditionalDetails",
+              "visible": false,
+              "visibleIf": "{agreeAdditionalDetailsYesNo} = 'y' && {agreeDisagree} contains 'agree'",
+              "isRequired": true,
+              "title": " "
+            },
+            {
               "type": "comment",
               "name": "disAgreeDetails",
               "visible": false,
-              "visibleIf": "{agreeDisagree} contains 'disagree'",
+              "visibleIf": "{agreeDisagree} contains 'disagree' or {agreeDisagree} contains 'partialdisagree'",
               "description": "You do not need to use any special wording. The key is to be clear about what order or part of the order you do not agree to and your reason why you do not agree.",
               "isRequired": true,
               "title": "Please provide the details of the order or part of the order that you do not agree to and explain why you do not agree."
+            },
+            {
+              "type": "comment",
+              "name": "disAgreeDetailsOtherParty",
+              "visible": false,
+              "visibleIf": "{agreeDisagree} contains 'disagree' or {agreeDisagree} contains 'partialdisagree'",
+              "isRequired": true,
+              "title": "I do not agree with the order requested by the other party because:"
             }
             
           ]

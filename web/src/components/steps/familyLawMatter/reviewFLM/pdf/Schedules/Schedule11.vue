@@ -5,30 +5,29 @@
 <!-- <Header> -->
         <div>
             <div class="new-page" />
-            <div style="text-align:center;"><b>
-                SCHEDULE 11 – PROPERTY DIVISION IN RESPECT OF A COMPANION ANIMAL – NEW
-            </b></div>
-            <div style="text-align:center;"><b>
-                This is Schedule 11 to the Application About a Family Law Matter
-            </b></div>
+            <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
+                <div style="flex: 1">
+                    <ScheduleHeader scheduleNumber="Schedule 10" scheduleTitle="Property division in respect of a companion animal" scheduleDescription="No existing final order or written agreement"></ScheduleHeader>
+                    <div style="margin-bottom: 1rem;"></div>
+                    <NoteBox fontSize="10pt">
+                        <p>
+                            Complete this schedule only if you need a court order about property division in respect of a companion animal and you do not have an existing final court order or written agreement about property division in respect of the companion animal.
+                        </p>
+                    </NoteBox>
+                    </div>    
+                </div>
 
-            <div style="margin:1rem 0; text-align:justify">
-                <i>
-                    Complete this schedule only if you are or were a spouse of the other party 
-                    and you are making an application for a new property division order about 
-                    a companion animal.
-                </i>
-            </div>
-            <div style="margin-top:1rem;"><b>About the order</b></div>
+           
+                <div style="margin-top:1rem;"></div>
 <!-- <1> -->
+    <div style="display: flex; flex-direction: row;">
+        <div style="width:80%; padding-right:4px;">
+            <FormPart :part="1" title="Order about property division in respect of a companion animal"></FormPart>
+           
             <section class="resetquestion"> 
                 <div style="display:inline; margin-left:0.25rem">
-                    I am applying for a property division order for sole ownership and 
-                    possession of the companion animal(s) as follows:<br>
-                    <i>
-                        Note: Under section 97 of the Family Law Act, the court may only make an order for 
-                        ownership and possession of a companion animal <b>by one spouse.</b>
-                    </i>
+                    I am applying for a <b>property division order for sole ownership and 
+                    possession of the companion animal(s)</b> as follows:<br>
                 </div>
              
                 <b-table
@@ -38,50 +37,75 @@
                     small
                     bordered>                    
                         <template v-slot:cell()="data">
-                            <div style="font-size:11pt;color:#000">{{data.value}}</div>                                           
+                            <div style="font-size:11pt;color:#000; background-color:#dedede">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(animalOwnership)>
-                            To [party] <i style="font-size:6pt; font-weight:normal;">Select only one option for each animal</i>                            
+                            To [party] <i style="font-size:6pt; font-weight:normal;"> <br>Select only one option for each animal</i>                            
                         </template>
-                        <template v-slot:cell(animalOwnership)="data">      
-                            <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
-                            <check-box checkbox="" inline="block" boxMargin="0" shift="5" shiftmark="0" style="display:block;margin-left:0rem;" :check="data.value != 'Myself'?'yes':''" text="Other party"/>
+                        <template v-slot:cell(animalOwnership)="data">     
+                            <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
+                            <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value != 'Myself'?'yes':''" text="Other party"/>
                         </template>
                 </b-table>
             </section>
+        </div>
+        <div style="width: 20%;">
+            <div style="padding-top:30px">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        Under section 97 of the Family Law Act, the court may only make an order for ownership and possession of a companion animal by one spouse.
+                    </p>
+                </NoteBox>
+            </div>      
+        </div>
+        </div>
+          
 
-            <div class="print-block">
+            
                 
 <!-- <2> -->
+ 
+        <div style="display: flex; flex-direction: row;">
+            <div style="width:80%; padding-right:4px;">
+                <FormPart :part="2" title="The facts"></FormPart>
+
                 <section>
-                    The facts on which this application is based are as follows:                    
-                    <div style="display:block;margin-left:1rem;font-style: italic;">
-                        In determining whether to make an order respecting a companion animal, the court 
-                        must consider the following factors set out in section 97 (4.1) of the Family Law Act:
-                    </div>
-                    <ul style="display:block;font-style: italic;">
-                        <li><span class="mx-3">the circumstances in which the companion animal was acquired</span></li>
-                        <li><span class="mx-3">the extent to which each spouse cared for the companion animal</span></li>
-                        <li><span class="mx-3">any history of family violence</span></li>
-                        <li><span class="mx-3">the risk of family violence</span></li>
-                        <li><span class="mx-3">a spouse’s cruelty, or threat of cruelty, toward an animal</span></li>
-                        <li><span class="mx-3">the relationship that a child has with the companion animal</span></li>
-                        <li><span class="mx-3">the willingness and ability of each spouse to care for the basic needs of the companion animal</span></li>
-                        <li><span class="mx-3">any other circumstances the court considers relevant</span></li>
-                    </ul>
+                    The <b>facts</b> on which this application is based are as follows:                    
                     <div style="font-style: italic;margin-left:1rem;">
                         Provide the facts you want the court to consider and why the court should make the order you are applying for. 
                     </div>
-                   
-                    <div>                        
-                        <div v-if="compInfo.compAnimalFacts" 
-                            class="answerbox">{{compInfo.compAnimalFacts}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
-                    </div>
+                    <div v-if="compInfo.compAnimalFacts" 
+                        class="answerbox" style="min-height: 120px; padding: 8px; background-color:#dedede">{{compInfo.compAnimalFacts}}</div>
+                    <div v-else class="answerbox" style="min-height: 120px; padding: 8px; background-color:#dedede"></div>   
+                    
                 </section>
             </div>
+            <div style="width: 20%;">
+                <div style="padding-top:30px">
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <p>
+                            In determining whether to make an order respecting a companion animal, the court must consider the following factors set out in section 97 (4.1) of the <i>Family Law Act</i>:<br>
+                            • the circumstances in which the companion animal was acquired <br>
+                            • the extent to which each spouse cared for the companion animal <br>
+                            • any history of family violence <br>
+                            • the risk of family violence <br>
+                            • a spouse’s cruelty, or threat of cruelty, toward an animal <br>
+                            • the relationship that a child has with the companion animal <br>
+                            • the willingness and ability of each spouse to care for the basic needs of the companion animal <br>
+                            • any other circumstances the court considers relevant
 
+                        </p>
+                       
+                        
+                    </NoteBox>
+                </div>      
+            </div>
         </div>
+             
+        </div>
+        
     </div>
 </template>
 
@@ -91,11 +115,19 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule11DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
+import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox
+        CheckBox,
+        GreyBoxForm,
+        ScheduleHeader,
+        FormPart,
+        NoteBox
     }
 })
 export default class Schedule11 extends Vue {
