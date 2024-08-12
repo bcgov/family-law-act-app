@@ -8,7 +8,7 @@
                 <div style="flex: 1">
                     <ScheduleHeader scheduleNumber="Schedule 9" scheduleTitle="Spousal Support" scheduleDescription="Existing final order or written agreement"></ScheduleHeader>
                     <div style="margin-bottom: 1rem;"></div>
-                    <NoteBox>
+                    <NoteBox fontSize="10pt">
                         <p>
                             Complete this schedule only if you have an existing final order or written agreement about spousal support and you need a new court order made to change, suspend or cancel the final order, or to set aside or replace the written agreement.
                         </p>
@@ -24,12 +24,12 @@
         <div style="margin:0 0 0 1.5rem;">
             <i>Select only one of the options below.</i>
 
-            <div style="display:block;">
+            <div style="display:block; width: 98%;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                 :check="true?'yes':''" text="I have <b>a final court</b> orderabout spousal support made on (date)"/>
-                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="" aftertext="that I want to change or cancel (seeattached copy of order). --> <i>Complete Part 2</i>" hint="dd/mmm/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
+                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="" aftertext="that I want to change or cancel (see attached copy of order). --> <i>Complete Part 2</i>" hint="dd/mmm/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
             </div>
-            <div style="display:block;">
+            <div style="display:block; width: 98%;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                 :check="true?'yes':''" text="I have a <b>written agreementabout</b> spousal support made on(date)"/>
                 <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext=" " aftertext="that I want to repeal or replace (see attached copy of agreement). --> <i>Complete Part 3</i>" hint="dd/mmm/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
@@ -88,7 +88,7 @@
 
                             </GreyBoxForm>
                             <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
-                            <div style="display:block;">
+                            <div style="display:block; width: 98%;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.newInfo?'yes':''" text="Information has become available that was not available when the order was made <i>(specify):</i>"/>
                             </div>
@@ -120,15 +120,15 @@
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                 style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.change ? 'yes' : ''"
-                                text="changed -> <i>Complete Part 4and 5</i>" />
+                                text="<b>changed</b> -> <i>Complete Part 4 and 5</i>" />
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="suspended -> <i>Complete Part 5</i>"/>
+                                style="text-indent: 5px;" check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="<b>suspended</b> -> <i>Complete Part 5</i>"/>
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="cancelled -> <i>Complete Part 5</i>"  />
+                                style="text-indent: 5px;" check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="<b>cancelled</b> -> <i>Complete Part 5</i>"  />
                         </div>
                     </div>
                 </div>
@@ -229,7 +229,7 @@
                 <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="for spousal support to be approximately $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                 <div style="display:block;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
-                        text="I expect a lump sum amount payable for spousal support to be approximately" />
+                        text="I expect a <b>lump sum amount payable</b> for spousal support to be approximately" />
                 </div>
                 <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                 <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px;" textwidth="9rem" beforetext="to $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
