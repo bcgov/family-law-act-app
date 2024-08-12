@@ -160,20 +160,19 @@
                         <b>5. </b>My current employment situation, training, health and ability to work are as follows:
                         <div class="answerbox" style="min-height: 80px; padding: 4px; background: #d6d6d6;">{{spsSupInfo.incomeInfo.myIncome ? spsSupInfo.incomeInfo.myIncome : '&nbsp;'}}</div>
                     </div>
+                    
+                    <div>
+                        <b>6.</b> <b>I am required to file</b> a Financial Statement Form 4 to provide my income information to the court.
 
-                    <div class="print-block">
-                        <div>
-                            <b>6.</b> <b>I am required to file</b> a Financial Statement Form 4 to provide my income information to the court.
+                        <br>
 
-                            <br>
-
-                            <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
-                            <div style="margin:0 0 1rem 1.25rem;">
-                                <check-box shift="10" shiftmark="0" :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="<b>I am filing</b> a Financial Statement in Form 4 with this application."/>
-                                <check-box shift="10" shiftmark="0" :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am <b>not able to file</b> a Financial Statement in Form 4 with this application. <br> I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date."/>
-                            </div>
+                        <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
+                        <div style="margin:0 0 1rem 1.25rem;">
+                            <check-box shift="10" shiftmark="0" :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="<b>I am filing</b> a Financial Statement in Form 4 with this application."/>
+                            <check-box shift="10" shiftmark="0" :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am <b>not able to file</b> a Financial Statement in Form 4 with this application. <br> I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date."/>
                         </div>
                     </div>
+                
 
                     <div>
                         <b>7. </b> <i>Select only one of the options below and provide the requested information</i>
