@@ -180,9 +180,9 @@
         <div style="text-indent:47px;">Provide details of the order term(s) you agree to &nbsp;        
         </div>  
         <!-- <div  style="margin-left:47px;"> -->
-        <div v-if="wrInfo.agreed && wrInfo.agreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:100px;">{{wrInfo.agreeDetails}}</div>
-        <div v-else style="margin-bottom:3rem;"></div> 
-        </div>
+        <div v-if="wrInfo.agreed && wrInfo.agreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.agreeDetails}}</div>
+        <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
+    </div>
         
         <div>
             <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
@@ -190,9 +190,9 @@
                 <div style="font-size: 11pt;margin-left:20px;">application even though I agree:</div>
             </div>
             <!-- <div  style="margin-left:57px;"> -->
-                <div v-if="wrInfo.agreeAdditionalDetailsYesNo && wrInfo.agreeAdditionalDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:100px;">{{wrInfo.agreeAdditionalDetails}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
-        </div>
+                <div v-if="wrInfo.agreeAdditionalDetailsYesNo && wrInfo.agreeAdditionalDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.agreeAdditionalDetails}}</div>
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
+            </div>
            
         </div>  
             
@@ -218,7 +218,16 @@
         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;"  :check="wrInfo.disagree?'yes':''" text="<b>I disagree with the order</b> as requested by the other party"/>               
         </div>
 
-        <div  style="text-indent: 20px;margin-left:10px;">
+       
+        </div>
+        </div> 
+        
+    </div>   
+    <div>
+        <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;">
+         <div>    
+        
+      <div  style="text-indent: 20px;margin-left:10px;">
         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;"  :check="wrInfo.partialdisagree?'yes':''" text=""/>
         <div style="margin-top:-20px;text-indent:47px;">
         <b>I disagree only with the following order term(s) </b>as requested by the</div> 
@@ -226,34 +235,37 @@
         <div style="text-indent:47px;font-size:9.5pt;"><i>Provide details of the order term(s) you disagree to </i>&nbsp;        
         </div>  
         <!-- <div  style="margin-left:47px;"> -->
-        <div v-if="wrInfo.disagree && wrInfo.disagreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:100px;">{{wrInfo.disagreeDetails}}</div>
-        <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:100px;"></div>                
+        <div v-if="wrInfo.disagree && wrInfo.disagreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:250px;">{{wrInfo.disagreeDetails}}</div>
+        <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:250px;"></div>                
     </div>        
-        
           
         </div>
-        
-        
         </div> 
         
     </div>   
-    <!-- <4B> -->
+    <!-- <4B-1> -->
         <div>
         <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;">
-            
-               
-        <div>    
-        
-        <div>
+            <div style="margin-top: 1rem;"></div>
+
+       <div>
             <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
                 <div style="font-size: 11pt;"><b>8. I do not agree with the order requested</b> by the other party because:</div>
             </div>
             <!-- <div  style="margin-left:57px;"> -->
-            <div v-if="wrInfo.partialdisagree && wrInfo.disAgreeDetailsOtherParty" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:150px;">{{wrInfo.disAgreeDetailsOtherParty}}</div>
-            <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:150px;"></div>                
+            <div v-if="wrInfo.partialdisagree && wrInfo.disAgreeDetailsOtherParty" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:250px;">{{wrInfo.disAgreeDetailsOtherParty}}</div>
+            <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:250px;"></div>                
 
         </div>  
-        <div>
+       
+        </div> 
+        
+        
+    </div> 
+    
+<!-- <4B-1> -->
+    <div>
+        <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;">
             <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
                 <div style="font-size: 11pt;"><b>9. </b>I am <b>applying for the order to be made as follows:</b></div>
                 <div style="text-indent:22px;font-size:9.5pt;"><i>Provide the details of the order(s) about this issue that you want the court to make</i></div>  
@@ -262,12 +274,23 @@
             <!-- <div  style="margin-left:57px;"> -->
                 <div v-if="wrInfo.orderDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;" v-html="wrInfo.orderDetails">{{wrInfo.orderDetails}}</div>
                 <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
-
-            
+    
         </div> 
-        <div>
-            <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
-                <div style="font-size: 11pt;"><b>10.</b> The <b>facts</b> on which this written response is based are as follows:</div>
+        <div style="float: right;width: 18%; margin-top:20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
+                <p>
+                    <b-icon-info-circle-fill/>
+                    <br />
+                    If you want an order about a different matter, including a family law matter, you must file your own application.
+                </p>
+        </div>
+       
+        
+    </div> 
+<!-- <4B-2> -->
+    <div>
+        <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;">
+           <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
+                <div style="font-size: 11pt;"><b>10.</b>The <b>facts</b> on which this written response is based are as follows:</div>
                 <div style="margin-left:30px;font-size: 9pt;"><i>Provide the facts you want the court to consider when they are making a decision about
                     the application, including why the order you are requesting should be made instead of the
                     order the other party has asked for</i></div>
@@ -275,20 +298,10 @@
             <!-- <div  style="margin-left:57px;"> -->
                 <div v-if="wrInfo.orderFacts" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.orderFacts}}</div>
                 <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
+       
         </div> 
-          
-        </div>
-        
-        
-        </div> 
-        <div style="float: right;width: 18%; margin-top:220px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
-                <p>
-                    <b-icon-info-circle-fill/>
-                    <br />
-                    If you want an order about a different matter, including a family law matter, you must file your own application.
-                </p>
-        </div>
-        <div style="float: right;width: 18%; margin-top:120px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
+       
+        <div style="float: right;width: 18%; margin-top:20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
                 <p>
                     <b-icon-info-circle-fill/>
                     <br />
@@ -298,6 +311,7 @@
         
     </div> 
 <!-- <4C> -->
+
         <div>
         <div style="margin-left:-20px;width: 85%; float: left; margin-right: 10px;margin-top:50px;">
         <div style="margin-left:30px;font-size: 9.5pt;text-indent:5px;width: 85%;">
@@ -305,11 +319,11 @@
         </div>
         <div style="text-indent: 20px;margin-left:20px;">
                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;" :check="''" text=""/> 
-                <span style="margin-top:-22px;text-indent:37px;font-size: 11pt;"><b>Additional Pages</b>&nbsp;</span><span style="color:#414142;"><b>(see attached)</b></span>  
+                <span style="margin-top:-22px;text-indent:37px;font-size: 11pt;"><b>Additional Page(s)</b>&nbsp;</span><span style="color:#414142;"><b>(see attached)</b></span>  
         </div>
         </div> 
         
-        <div style="float: right;width: 18%;margin-top:-90px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
+        <div style="float: right;width: 18%;margin-top:-50px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
                 <p>
                     <b-icon-paperclip/>
                     <br />
