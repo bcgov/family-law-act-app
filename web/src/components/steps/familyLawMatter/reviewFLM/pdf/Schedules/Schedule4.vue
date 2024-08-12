@@ -354,6 +354,7 @@
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                                 :check="exChSupInfo.unpdChSup.reduce ? 'yes' : ''"
                                 text="I am <b>applying to reduce</b> the amount of unpaid child support (arrears) to" />
+                            <div style="margin-top:0.25rem;"/>
                             <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint=""
                                 :text="exChSupInfo.unpdChSup.reduceAmount" />
                             <div style="margin:0 0 -0.25rem 0;">because:</div>
@@ -382,7 +383,7 @@
                             <i>Select all options that apply and complete the required information</i>
                         </div>
                         <div style="margin:0.25rem 0 0 1.5rem;">
-                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; display:inline;"
                                 :check="exChSupInfo.unpdChSup.paySchd == 'monthly' ? 'yes' : ''" text="at a rate of " />
                             <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint=""
                                 aftertext="per month" :text="exChSupInfo.unpdChSup.monthlyAmount" />
