@@ -67,9 +67,8 @@
             </div>
 
             <div style="margin-top:1rem;"></div>
-
-            <!-- <Part 2> -->
-                <div style="display: flex; flex-direction: row;">
+            <!-- <Part 2 top half> -->
+            <div style="display: flex; flex-direction: row;">
                     <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="2" title="Final order" subtitle="Complete this part only if you have a final order">
                     </FormPart>
@@ -94,7 +93,7 @@
                                     text="The special or extraordinary expenses for the child(ren) have changed as follows:" />
                             </div>
                             
-                            <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                                 <span v-if="exChSupInfo.abtEx.changes.lvng">
                                     {{exChSupInfo.abtEx.lvngChangeInfo}}
                                 </span>
@@ -105,19 +104,41 @@
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.changes.lvng ? 'yes' : ''"
                                     text="The child(ren)’s living arrangements have changed as follows:" />
                             </div>
-                            <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                                 <span v-if="exChSupInfo.abtEx.changes.lvng">
                                     {{exChSupInfo.abtEx.lvngChangeInfo}}
                                 </span>
                             </div>
-                            
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 20%;">
+                    <div style="padding-top: 20px;">
+                        <NoteBox>
+                            <b-icon-info-circle-fill />
+                            <p>
+                                The court can only change, suspend or cancel a final order if certain circumstances exist
+                                [s. 152 Family Law Act and s. 14 Child Support Guidelines].
+                            </p>
+                        </NoteBox>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <Part 2 bottom half> -->
+                <div style="display: flex; flex-direction: row;">
+                    <div style="width: 80%; padding-right: 4px;">
+                    <div class="print-block">
+                        
+                        <div style="padding-left: 24px;">
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.changes.newInfo ? 'yes' : ''"
                                     text="Information has become available that was not available when the order was made <i>(specify)</i>:" />
                             </div>
                             
-                            <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                                 <span v-if="exChSupInfo.abtEx.changes.newInfo">
                                     {{exChSupInfo.abtEx.newInfo}}
                                 </span>
@@ -128,7 +149,7 @@
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.changes.other ? 'yes' : ''"
                                     text="Other changes or circumstances <i>(specify)</i>:" />
                             </div>
-                            <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                                 <span v-if="exChSupInfo.abtEx.changes.other">
                                     {{ exChSupInfo.abtEx.otherInfo }}
                                 </span>
@@ -160,19 +181,6 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <div style="width: 20%;">
-                    <div style="padding-top: 20px;">
-                        <NoteBox>
-                            <b-icon-info-circle-fill />
-                            <p>
-                                The court can only change, suspend or cancel a final order if certain circumstances exist
-                                [s. 152 Family Law Act and s. 14 Child Support Guidelines].
-                            </p>
-                        </NoteBox>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -187,7 +195,7 @@
                     <div>
                         <div style="margin:0 0 -0.25rem 0;"><b>4.</b> I believe the agreement about child support <b>should be set aside or replaced</b> because:
                         </div>
-                        <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                        <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                             <span v-if="exChSupInfo.abtEx.exstngAgrmnt">
                                 {{ exChSupInfo.abtEx.changesSinceAgrmnt }}
                             </span>
@@ -242,7 +250,7 @@
                             <i>List the details of the order you are asking for</i>
                         </div>
 
-                        <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                        <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                             <span v-if="exChSupInfo.abtOrg.newOrderDesc">
                                 {{ exChSupInfo.abtOrg.newOrderDesc }}
                             </span>
@@ -272,7 +280,7 @@
                                 hint="Date (dd/mmm/yyyy) or event" :text="exChSupInfo.unpdChSup.crntDate | beautify-date-mid"
                                 hintindent="30px" />
                             because: 
-                            <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
 
                             </div>
                         </div>
@@ -346,10 +354,11 @@
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                                 :check="exChSupInfo.unpdChSup.reduce ? 'yes' : ''"
                                 text="I am <b>applying to reduce</b> the amount of unpaid child support (arrears) to" />
+                            <div style="margin-top:0.25rem;"/>
                             <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint=""
                                 :text="exChSupInfo.unpdChSup.reduceAmount" />
                             <div style="margin:0 0 -0.25rem 0;">because:</div>
-                            <div class="answerbox" style="min-height: 80px; padding: 8px;">
+                            <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                                 <span v-if="exChSupInfo.unpdChSup.reduce">
                                     {{ exChSupInfo.unpdChSup.whyReduceAmount }}
                                 </span>
@@ -374,10 +383,10 @@
                             <i>Select all options that apply and complete the required information</i>
                         </div>
                         <div style="margin:0.25rem 0 0 1.5rem;">
-                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; display:inline;"
                                 :check="exChSupInfo.unpdChSup.paySchd == 'monthly' ? 'yes' : ''" text="at a rate of " />
                             <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint=""
-                                afterText="per month" :text="exChSupInfo.unpdChSup.monthlyAmount" />
+                                aftertext="per month" :text="exChSupInfo.unpdChSup.monthlyAmount" />
                         </div>
                         <div style="margin:0 0 0 1.5rem;">
 
