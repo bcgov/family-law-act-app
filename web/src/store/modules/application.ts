@@ -48,7 +48,6 @@ class Application extends VuexModule {
     public pathwayCompleted = { 
         protectionOrder:false, 
         replyFlm: false, 
-        replyFamilyLawManual: false,
         writtenResponse: false, 
         replyCounterApplication: false, 
         familyLawMatter:false, 
