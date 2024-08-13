@@ -1,6 +1,6 @@
 <template>
     <div style="border:1px solid #414142; height: 100pt; opacity: 0.3;">
-        <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
+        <p style="display: block;margin-top: 80pt;margin-left: 40pt;">COURT STAMP</p>
     </div>
 </template>
 

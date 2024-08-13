@@ -1,45 +1,53 @@
 <template>
-    <div v-if="dataReady">
+    <div v-if="dataReady" style="font-size: 12pt;">
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  style="display: flex; justify-content: space-between;">
-            <div style="display: flex; flex-direction: column">
-                <div style="font-size:13pt;"><b>Affidavit – General</b></div>               
-                <div style="font-size:10pt;"><b>FORM 45</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rules 171 and 172</div>
-            </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>                
-            </div>
-        </div> 
-        
+        <FormHeader :headerTableData="[
+            {value: result.applicationLocation}, 
+            {value: existingFileNumber}, 
+            {value: ''}, 
+            {value: ''}]"
+            formName="Affidavit – General"
+            formNumber="FORM 45"
+            formRuleNumer="Rules 171 and 172"
+        ></FormHeader>
 
-        <underline-form 
+        <div style="margin-bottom: 1rem;"></div>
+
+        <div style="display: block;">
+            <p>This Affidavit provides evidence to the court of the facts and events it sets out. </p>
+        </div>
+
+        <div style="display: block; border: 2px dashed #333; background: #d6d6d6; padding: 8px;">
+            <p><b>Please read before completing the form:</b></p>
+            <ul>
+                <li>An affidavit is used to present written evidence that is relevant to the case to the court.</li>
+                <li>The affidavit must be signed with a commissioner for taking affidavits. Lawyers and notaries are allcommissioners for taking affidavits. The court registry also has staff who are commissioners for takingaffidavits who can swear or affirm your affidavit for free.</li>
+                <li>
+                    For guidance completing this form, please read the guidebook. The guide is available online at <a href="http://www.gov.bc.ca/court-forms" target="_blank">www.gov.bc.ca/court-forms</a> or from your local court registry.
+                </li>
+            </ul>
+        </div>
+        
+        <div style="margin-bottom: 1rem;"></div>
+
+        <grey-box-form 
             style="text-indent:2px;display:inline-block; font-size: 9pt;" 
             textwidth="22rem" 
-            beforetext="I" 
-            hint="(full name)" 
+            beforetext="<b>I</b>" 
+            hint="Full name" 
+            hintFontSize="hintFontSize"
+            hintTextColor="hintTextColor"
             :italicHint="false" :text="yourInfo.name | getFullName"/>
 
-        <underline-form 
+        <grey-box-form 
             style="text-indent:2px;display:inline-block; font-size: 9pt;" 
             textwidth="15rem" 
             beforetext="," 
-            hint="(occupation)" 
+            hint="Occupation" 
+            hintFontSize="hintFontSize"
+            hintTextColor="hintTextColor"
             :italicHint="false" :text="yourInfo.occupation"/>
 
         <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
@@ -48,11 +56,13 @@
 
         <div style="margin-top: 1rem;">  
 
-            <underline-form 
+            <grey-box-form 
                 style="text-indent:2px;font-size: 9pt;" 
                 textwidth="30rem" 
                 beforetext="" 
-                hint="(address of party, city, province)" 
+                hint="Address of person, City, Province" 
+                hintFontSize="hintFontSize"
+                hintTextColor="hintTextColor"
                 :italicHint="false" :text="address"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 ,
@@ -60,21 +70,22 @@
 
         </div>        
         
-        <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
-            Swear or affirm that:
+        <div style="text-indent:5px;display:block; margin-top: 2rem; font-weight: bold;"> 
+            SWEAR OR AFFIRM THAT:
         </div> 
-        <div style="display:block; font-size: 9pt; margin: 1rem 0 0 5px; font-weight: 700;"> 
-            I know or believe the following facts to be true. If these facts are based on information 
-            from others, I believe that information to be true.
+        <div style="display:block; margin: 1rem 0 0 5px; font-weight: bold;"> 
+            I know or believe the following facts to be true. If these facts are based on information from others, I believe that information to be true.
         </div>
            
         <div style="margin-top: 1rem;"></div>  
 
     <!-- <1> -->
         <section>
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+            <div style="text-indent:5px;display:inline;"> 
                 I am making this affidavit
             </div>
+            
+            <br>
            
             <check-box 
                 checkbox="" 
@@ -83,17 +94,20 @@
                 style="display:inline; margin-left: 1rem;" 
                 :check="supportApplication?'yes':''" 
                 text="in support of an application"/>
-            <underline-form 
-                style="text-indent:1px;display:inline-block;" 
-                textwidth="17.5rem" 
+            <grey-box-form 
+                style="text-indent:4px;display:inline-block; font-size: 9pt;" 
+                textwidth="24rem" 
                 beforetext="" 
-                hint="(briefly describe the type of application)" 
+                hint="Briefly describe the type of application"
+                hintFontSize="hintFontSize"
+                hintTextColor="hintTextColor" 
                 :text="supportApplication?appType:''"/>
-            <div v-if="supportApplication" style="margin:0.5rem 0 0 9rem;">
+            
+            <div v-if="supportApplication" style="margin:1rem 0 0 9rem;">
 
-                <div  v-for="app, inx in additionalAppType" :key="inx" style="margin:0.5rem 0 0 1rem;"> 
+                <div  v-for="app, inx in additionalAppType" :key="inx" style="margin:1rem 0 0 1rem;"> 
                     
-                    <underline-form
+                    <grey-box-form
                         style="text-indent:0;margin-left:1rem;display:inline;" 
                         textwidth="30rem"
                         beforetext=""
@@ -103,7 +117,7 @@
 
                 <div v-if="otherType.length>0" style="margin:0.5rem 0 0 1rem;"> 
                     
-                    <underline-form
+                    <grey-box-form
                         style="text-indent:0;margin-left:1rem;display:inline;" 
                         textwidth="30rem"
                         beforetext=""
@@ -112,7 +126,7 @@
                 </div>
             </div>            
             
-            <div style="margin:0.5rem 0 0 11rem;">
+            <div style="margin:1rem 0 0 2rem;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
@@ -120,18 +134,20 @@
                     style="display:inline;" 
                     :check="!supportApplication?'yes':''" 
                     text="in response to an application"/>
-                <underline-form 
-                    style="text-indent:1px;display:inline-block;" 
-                    textwidth="17rem" 
+                <grey-box-form 
+                    style="text-indent:4px;display:inline-block; font-size: 9pt;" 
+                    textwidth="24rem" 
                     beforetext="" 
-                    hint="(briefly describe the type of application)" 
+                    hint="Briefly describe the type of application" 
+                    hintFontSize="hintFontSize"
+                    hintTextColor="hintTextColor" 
                     :text="!supportApplication?appType:''"/>            
             </div>
             <div v-if="!supportApplication" style="margin:0.5rem 0 0 9rem;">
 
-                <div  v-for="app, inx in additionalAppType" :key="inx" style="margin:0.5rem 0 0 1rem;"> 
+                <div  v-for="app, inx in additionalAppType" :key="inx" style="margin:1rem 0 0 1rem;"> 
                     
-                    <underline-form
+                    <grey-box-form
                         style="text-indent:0;margin-left:1rem;display:inline;" 
                         textwidth="30rem"
                         beforetext=""
@@ -139,9 +155,9 @@
                         :text="app | truncate(65)"/>                    
                 </div>
                 
-                <div v-if="otherType.length>0" style="margin:0.5rem 0 0 1rem;"> 
+                <div v-if="otherType.length>0" style="margin:1rem 0 0 1rem;"> 
                     
-                    <underline-form
+                    <grey-box-form
                         style="text-indent:0;margin-left:1rem;display:inline;" 
                         textwidth="30rem"
                         beforetext=""
@@ -151,46 +167,40 @@
             </div>
         </section>
             
-        <div style="margin-top: 1rem;">
+        <div class="print-block" style="margin-top: 1rem; color: #999">
             <i>
-                List the facts that you wish to present to the court. If certain facts are not within 
-                your personal knowledge, identify the source of your information. If you refer to 
-                documents, attach them to this affidavit and mark them as exhibits.
+                List the facts that you wish to present to the court using short sentences. Each fact or piece of information should be organized into its own numbered paragraphs (starting with 2). If certain facts are not within your personal knowledge, identify the source ofyour information. If you refer to documents, attach them to this affidavit and mark them as exhibits.
             </i>
         </div>
         <!-- <2> -->        
 
         <div v-for="story in stories" :key="story.index"
-            style="display:block; font-size: 9pt; margin-top: 1rem;"> 
-            <b>{{ story.index }}.</b> {{ story.content }}
+            style="display:block; font-size: 11pt; margin-top: 1rem;"> 
+            <div style="display: flex;">
+                <div style="padding: 10px;">
+                    <b>{{ story.index }}.</b> 
+                </div>
+                <div class="answerbox" style="width: 100%; background: #d6d6d6;min-height: 30px; padding: 4px;">
+                    {{ story.content }}
+                </div>
+            </div>
         </div> 
 
         <div class="print-block">
 
-            <div style="display:block; font-size: 9pt; margin-top: 1rem;"> 
-                <b>{{ lastStory.index }}.</b> {{ lastStory.content }}
+            <div style="display:block; font-size: 11pt; margin-top: 1rem;"> 
+                <div style="display: flex;">
+                    <div style="padding: 10px;">
+                        <b>{{ lastStory.index }}.</b> 
+                    </div>
+                    <div class="answerbox" style="width: 100%; background: #d6d6d6;min-height: 30px; padding: 4px;">
+                        {{ lastStory.content }}
+                    </div>
+                </div>
             </div>
 
-        <!-- <SWEAR > -->        
-
-            <div style="margin:1rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem" beforetext="Sworn or affirmed before me at" hint="(city)" text="" />
-            </div>
-            <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="British Columbia on" hint="(date)" text="" />
-            </div>
-
-            <div style="margin:2rem 0 0 0">
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block;"></div>
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
-            </div>
-            <div>
-                <div style="width:20rem; display:inline-block; font-size:9pt" >A Commissioner for taking Affidavits in British Columbia</div>
-                <div style="width:20rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
-            </div>
-            <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="" hint="[print name or affix stamp of commissioner]" text="" />
-            </div>
+            <!-- <SWEAR > -->                    
+            <FormFooterSignature></FormFooterSignature>
         </div>
 
     </div>
@@ -209,11 +219,19 @@ import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 import { aboutAffiantDataInfoType, affidavitDataInfoType, storyDataInfoType } from '@/types/Application/Affidavit';
+import CourtStamp from '@/components/utils/PopulateForms/components/CourtStamp.vue';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
+import FormFooterSignature from '@/components/utils/PopulateForms/components/FormFooterSignature.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox       
+        CheckBox,
+        CourtStamp,
+        GreyBoxForm, 
+        FormHeader,
+        FormFooterSignature   
     }
 })
 
@@ -237,6 +255,9 @@ export default class Form45Layout extends Vue {
     stories: storyDataInfoType[] = [];
     lastStory = {} as storyDataInfoType; 
     storyCount = 0;
+
+    hintFontSize = "8pt"
+    hintTextColor = "#333"
    
     mounted(){
         this.dataReady = false;
