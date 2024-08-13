@@ -1940,6 +1940,15 @@ class Application extends VuexModule {
         p.label = "Other Form Filing Location";
         p.active = false;
         p.progress = 0;
+
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "LastNamesOfParties";
+        p.label = "Last names of Parties";
+        p.active = false;
+        p.progress = 0;
     
         s.pages.push(p); 
     
