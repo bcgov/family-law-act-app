@@ -1,9 +1,78 @@
 <template>
     <div v-if="dataReady">
-
-<!-- <Page 1> -->
-<!-- <HEADER> -->
-        <div  class="form-header-reloc">
+        
+        <!-- <HEADER> -->
+        <div style="height: 160px;">
+            <div style="float:left; width: 33%;">
+                <div style="font-size:13pt;"><b>Guardianship Affidavit</b></div>
+                <div style="font-size:12pt;"><b>Form 5</b></div>
+                <div>Provincial Court Family Rules</div>
+                <div>Rule 26, 51, 172</div>
+            </div>
+            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
+                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
+            </div>
+            <div style="width: 35%; float:right; text-align: right; font-size: 8pt;">
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
+                        result.applicationLocation }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ?
+                        existingFileNumber : '&nbsp;' }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Last name of parties: <div
+                            style="font-size: 6pt; padding-left:16px;">Party 1/ Party 2</div>
+                    </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Document number: <div
+                            style="font-size: 6pt; padding-left:16px;">For registry use only</div>
+                    </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
+            <div style="flex:1; margin-right: 10px;">
+                <p>This Guardianship Affidavit provides evidence to the court respecting the best interests of the 
+                    child in support of an application for guardianship of a child as required under section 51 of 
+                    the <i>Family Law Act</i> and Rule 26.
+                </p>
+                <div style="border-style: dashed; border-color: black; padding:0.5rem; background: #909090;">
+                    <b>Please read before completing the form:</b>
+                    <ul>
+                        <li>
+                            You must complete the main part of this application and any applicable schedule for your application identified in Part 5 of the main application.
+                        </li>
+                        <li>
+                            For guidance filling in this form, including how to complete the record checks, please
+                            read the guidebook. The guide is available from your local court registry or online at
+                            <a href="https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms" target="_blank">www.gov.bc.ca/court-forms</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div style="width: 20%">
+                <NoteBox style="margin-top:75px;">
+                    <p>
+                        <b-icon-info-circle-fill />
+                        <br />
+                        The record checks must be 
+                        dated within 60 days of the 
+                        date you will file the affidavit. 
+                        If you are past 60 days, you 
+                        will need to request a new 
+                        record check [Rule 26].
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+        <!-- <div  class="form-header-reloc">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
                 <div style="font-size:13pt;"><b>Guardianship Affidavit</b></div>               
@@ -24,188 +93,343 @@
                         <template v-slot:cell(value)="data">
                             <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
                         </template>
-                </b-table>                
+                </b-table>
             </div>
-        </div> 
+        </div>  -->
         
+        <!-- Part 1 -->
+        <div style="margin-top: 1rem;" />
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
+            <div style="flex:1; margin-right: 10px;">
+                <grey-box-form entryFontSize="7pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="8rem"
+                            hintindent="45px" beforetext="<b>I,</b>" hint="Full name" :text="yourInfo.name | getFullName" />
+                
+                <grey-box-form entryFontSize="7pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="6rem"
+                    hintindent="25px" beforetext="," hint="Occupation" :text="yourInfo.occupation" />
 
-        <underline-form 
-            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-            textwidth="22rem" 
-            beforetext="I" 
-            hint="(full name)" 
-            :italicHint="false" :text="yourInfo.name | getFullName"/>
+                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                    of
+                </div>
 
-        <underline-form 
-            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-            textwidth="15rem" 
-            beforetext="," 
-            hint="(occupation)" 
-            :italicHint="false" :text="yourInfo.occupation"/>
-
-        <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-            of
-        </div>
-
-        <div style="margin-top: 1rem;">  
-
-            <underline-form 
-                style="text-indent:2px;font-size: 9pt;" 
-                textwidth="30rem" 
-                beforetext="" 
-                hint="(address of party, city, province)" 
-                :italicHint="false" :text="address"/>
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                ,
+                <grey-box-form entryFontSize="7pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="15rem"
+                    hintindent="60px" beforetext="" hint="Address of party, City, Province" :text="address" />
+                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                    ,
+                </div>
+                <div style="text-indent:5px;display:block; font-size: 10pt; margin-top: 2rem;"> 
+                    <b>SWEAR OR AFFIRM THAT:</b>
+                </div> 
+                <div style="display:block; font-size: 10pt; margin: 0rem 0 0 5px; font-weight: 700;"> 
+                    I know or believe the following facts to be true. If these facts are based on information 
+                    from others, I believe that information to be true.
+                </div>
             </div>
-
+            <div style="width: 20% ">
+                <NoteBox style="margin-top: 40px;">
+                    <b-icon-book />
+                    <p>
+                        For more information about 
+                        who is a child’s guardian, 
+                        including when a parent is not 
+                        a guardian, see the 
+                        guidebook.
+                    </p>
+                </NoteBox>
+            </div>
         </div>
-        
-        
-        <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 2rem;"> 
-            SWEAR OR AFFIRM THAT:
-        </div> 
-        <div style="display:block; font-size: 9pt; margin: 1rem 0 0 5px; font-weight: 700;"> 
-            I know or believe the following facts to be true. If these facts are based on information 
-            from others, I believe that information to be true.
-        </div>
-           
-        <div style="margin-top: 1rem;"></div>  
 
     <!-- <1> -->        
-        <section>
-            <div style="display:inline; margin-left:0.25rem;font-size: 9pt; ">
-                I am making this affidavit in support of an application under the Family 
-                Law Act to become a guardian of the following child(ren):
-            </div>          
-            
-            <b-table
-                :items="childrenInfo"
-                :fields="childFields"
-                class="mt-2"
-                small
-                bordered>                    
-                    <template v-slot:cell()="data">
-                        <div style="min-height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
-                    </template>
-                    <template v-slot:head(dob)>
-                        Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                    </template>
-            </b-table> 
-        </section>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                    <p>
+                        About the child(ren)
+                    </p>
+                </div>
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>1. </b> 
+                    I am applying under the <i>Family Law Act</i> <b>to become a guardian of the following child(ren)</b>:
+                    <br />
+                </div>
+                
+                <b-table
+                    :items="childrenInfo"
+                    :fields="childFields"
+                    class="mt-2"
+                    style="margin-left: 1rem; width:97%;"
+                    small
+                    bordered>                    
+                        <template v-slot:cell()="data">
+                            <div style="min-height:1rem; font-size:8pt; color:#000;">{{data.value}}</div>                                           
+                        </template>
+                        <template v-slot:head(dob)>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
+                        </template>
+                </b-table> 
+            </div>
+        </div>
 
     <!-- <2> -->
         <div class="print-block">
-            <section>
-                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext="My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob"/>
-            </section>
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>2. </b> 
+                <grey-box-form style="display:inline;text-indent:2px;" textwidth="15rem" beforetext="My date of birth is" hintindent="90px" hint="(dd/mmm/yyyy)" :italicHint="false" :text="yourInfo.dob"/>
+                <br />
+            </div>
         </div>
 
-    <!-- <3> -->        
-        <section>
-            <div style="display:inline; margin-left:0.25rem;font-size: 9pt; ">
-                The nature and length of my relationship with the child(ren) 
-                referred to in paragraph 1 of this affidavit is as follows:
-            </div>          
-            
-            <b-table
-                :items="childrenInfo"
-                :fields="childRelationshipFields"
-                class="mt-2"
-                small
-                bordered>                    
+        <div style="margin-top: 1rem;"/>
+    <!-- <3> -->  
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>3. </b> 
+                    The nature and length of <b>my relationship with the child(ren)</b> referred to in paragraph 1 of this affidavit is as follows:
+                    <br />
+                </div>
+                
+                <b-table
+                    :items="childrenInfo"
+                    :fields="childRelationshipFields"
+                    class="mt-2"
+                    style="margin-left: 1rem; width:97%;"
+                    small
+                    bordered>                    
                     <template v-slot:cell()="data">
                         <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                     </template>
-                    <template v-slot:head(dob)>
-                        Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                    </template>
-            </b-table> 
-        </section>
-
-    <!-- <4> -->        
-        <section>
-            <div style="display:inline; margin-left:0.25rem;font-size: 9pt; ">
-                The current living arrangements of the child(ren) referred 
-                to in paragraph 1 of this affidavit are as follows:
-            </div>          
-            
-            <b-table
-                :items="childrenInfo"
-                :fields="childLivingArrangementFields"
-                class="mt-2"
-                small
-                bordered>                    
-                    <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
-                    </template>
-                    <template v-slot:head(dob)>
-                        Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                    </template>
-            </b-table> 
-        </section>
-    <!-- <5> -->
-        <section>
-            I plan to care for the child(ren) referred to in paragraph 1 of this affidavit as follows:
-            <i>Set out detailed plans for how the child(ren) is/are to be cared for.</i>
-            <div v-if="careDetails.length>0" 
-                class="answerbox">{{careDetails}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>  
-        </section>
-
-    <!-- <6> -->
-        <section>
-            <i>
-                Select whichever option is correct.
-            </i>
-            <check-box style="margin:0 0 0 1rem;" 
-                    :check="!familyViolenceExists?'yes':''" 
-                    text="<b>I am not aware</b> of any incidents of family violence, as that term is defined in section 1 of the Family Law Act, that affect the
-                        child(ren) referred to in paragraph 1 of this affidavit."/> 
-
-            <check-box 
-                style="margin:1rem 0 0 1rem;" 
-                :check="familyViolenceExists?'yes':''" 
-                text="<b>I am aware</b> of the following incidents of family violence, as that term is defined in section 1 of the Family Law Act, that affect
-                    the child(ren) referred to in paragraph 1 of this affidavit:<br><i>Describe the incidents of family violence of which you are aware</i>"/>
-            
-            <div v-if="familyViolenceExists" 
-                class="answerbox">{{ familyViolenceDesc }}</div>
-            <div v-else style="margin-bottom:3rem;"></div>  
-        </section>
-
-    <!-- <7> -->
-        <section>
-            <i>
-                Select whichever option is correct.
-            </i>
-            <check-box style="margin:0 0 0 1rem;" 
-                    :check="!otherChildrenExist?'yes':''" 
-                    text="<b>I am not</b> a parent, step-parent or guardian of any children except that child/those children referred to in paragraph 1 of this
-                        affidavit."/> 
-
-            <check-box 
-                style="margin:1rem 0 0 1rem;" 
-                :check="otherChildrenExist?'yes':''" 
-                text="<b>I am</b> the parent, step-parent or guardian of the following child(ren) who is/are not referred to in paragraph 1 of this affidavit."/>
-            
-            <b-table
-                :items="otherChildrenInfo"
-                :fields="otherChildrenFields"
-                class="mt-2"
-                small
-                bordered>                    
-                    <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
-                    </template>
-                    <template v-slot:head(dob)>
-                        Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                    <template v-slot:head(relationWithchild)>
+                        Nature of relationship with child <i style="font-size:7pt; font-weight:normal;"><br/>(Specify whether parent, step-parent, grandparent, aunt, uncle, family friend, etc.)</i>
                     </template>
             </b-table>  
-        </section>
+            </div>
+            <div style="width: 20% ">
+                <NoteBox style="margin-top:-20px">
+                    <b-icon-info-circle-fill />
+                    <p>
+                        You may provide only the first 
+                        name of the child for the rest 
+                        of the questions that ask for 
+                        the name of a child referred to 
+                        in paragraph 1. <br/>
+                        You may state “since birth” in 
+                        the last column instead of 
+                        putting the specific length, if 
+                        applicable.
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+
+    <!-- <4> -->
+        <div style="margin-top: 1rem;"/>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>4. </b> 
+                    The current living arrangements of the child(ren) referred to in paragraph 1 of this affidavit are as follows:
+                    <br />
+                </div>
+                <b-table
+                    :items="childrenInfo"
+                    :fields="childLivingArrangementFields"
+                    class="mt-2"
+                    small
+                    style="margin-left: 1rem; width:97%;"
+                    bordered>                    
+                        <template v-slot:cell()="data">
+                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                        </template>
+                </b-table>
+            </div>
+            <div style="width: 20% ">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        Briefly explain where and with whom the child is living right now.
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+
+    <!-- <5> -->
+        <div style="margin-top: 1rem;"/>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>5. </b> 
+                    I plan to care for the child(ren) referred to in paragraph 1 of this affidavit as follows:
+                    <br />
+                    <i>Set out detailed plans for how the child(ren) is/are to be cared for</i>
+                </div>
+                <div style="margin-left: 1rem;">
+                    <div v-if="careDetails.length>0" class="answerbox" style="margin-left: 1rem;">{{careDetails}}</div>
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"></div> 
+                </div> 
+            </div>
+            <div style="width: 20% ">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        A guardian must exercise 
+                        parental responsibilities in the 
+                        best interests of the child [s. 
+                        43 <i>Family Law Act</i>]. S. 41 of 
+                        the <i>Family Law Act</i> lists the 
+                        parental responsibilities with 
+                        respect to a child which a 
+                        guardian may exercise in their 
+                        care for the child.
+
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+
+    <!-- <6> -->
+        <div style="margin-top: 1rem;"/>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                    <p>
+                        Incidents of family violence
+                    </p>
+                </div>
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>6. </b>
+                    <i>Select whichever option is correct</i>
+                </div>
+                <div style="margin:0 0 0 3rem;">
+                    <check-box style="text-indent: -16px" 
+                        :check="!familyViolenceExists?'yes':''" 
+                        text="<b>I am not aware</b> of any <b>incidents of family violence</b>, as that term is defined in section 1 of the <i>Family Law Act</i>, that affect the
+                            child(ren) referred to in paragraph 1 of this affidavit."/> 
+                    <check-box 
+                        style="text-indent: -16px" 
+                        :check="familyViolenceExists?'yes':''" 
+                        text="<b>I am aware</b> of the <b>following incidents of family violence</b>, as that term is defined in section 1 of the <i>Family Law Act</i>, that affect
+                            the child(ren) referred to in paragraph 1 of this affidavit:<br><i>Describe the incidents of family violence of which you are aware</i>"/>
+                    <div v-if="familyViolenceExists" class="answerbox">{{ familyViolenceDesc }}</div>
+                    <div v-else style="margin-bottom:3rem; min-height:35px; background-color: #dedede"></div> 
+                </div>
+                </div>
+            <div style="width: 20% ">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        Family violence is defined in 
+                        s. 1 of the <i>Family Law Act</i>. In
+                        the case of a child, family
+                        violence includes, with or
+                        without an intent to harm a
+                        family member, direct or
+                        indirect exposure to family
+                        violence. <br/>
+                        To determine what is in the 
+                        best interests of a child, s. 37 
+                        (2) (g) requires you to
+                        consider the impact of any
+                        family violence on the child’s
+                        safety, security or well-being,
+                        whether the family violence is
+                        directed toward the child or
+                        another family member.
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+
+    <!-- <7> -->
+        <div style="margin-top: 1rem;"/>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                    <p>
+                        Other children
+                    </p>
+                </div>
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>7. </b>
+                    <i>Select whichever option is correct</i>
+                </div>
+                <div style="margin:0 0 0 3rem;">
+                    <check-box style="text-indent: -16px;" 
+                        :check="!otherChildrenExist?'yes':''" 
+                        text="I am <b>not a parent, step-parent or guardian of any children except</b> that child/those children referred to in paragraph 1 of this
+                            affidavit."/> 
+                    <check-box  style="text-indent: -16px;" 
+                        :check="otherChildrenExist?'yes':''" 
+                        text="I am <b>the parent, step-parent or guardian of the following child(ren)</b> who is/are not referred to in paragraph 1 of this affidavit."/>
+                </div>
+                <b-table
+                    :items="otherChildrenInfo"
+                    :fields="otherChildrenFields"
+                    class="mt-2"
+                    style="margin-left: 3rem; width:90%;"
+                    small
+                    bordered>                    
+                        <template v-slot:cell()="data">
+                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                        </template>
+                        
+                        <template v-slot:head(dob)>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mm/yyyy)</i>
+                        </template>
+                        <template v-slot:head(relation)>
+                            Nature of relationship with child <i style="font-size:7pt; font-weight:normal;"><br/>(Specify whether parent, step-parent, grandparent, aunt, uncle, family friend, etc.)</i>
+                        </template>
+                </b-table>  
+                </div>
+            <div style="width: 20% "/>
+        </div>
 
     <!-- <8> -->
-        <section>
+        <div style="margin-top: 1rem;"/>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                    <p>
+                        Involvement in court proceedings
+                    </p>
+                </div>
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>8. </b>
+                    <i>Select whichever option is correct</i>
+                </div>
+                <div style="margin:0 0 0 3rem;">
+                    <check-box style="text-indent: -16px;" 
+                        :check="!otherChildrenExist?'yes':''" 
+                        text="I have not been involved in court proceedings in British Columbia under the
+                            Child, Family and Community Service Act, the Family Relations Act, the Family
+                            Law Act, or the Divorce Act (Canada), or in any court proceedings under
+                            comparable legislation in any other jurisdiction, concerning children under my
+                            care"/> 
+                    <check-box  style="text-indent: -16px;" 
+                        :check="otherChildrenExist?'yes':''" 
+                        text="I am <b>the parent, step-parent or guardian of the following child(ren)</b> who is/are not referred to in paragraph 1 of this affidavit."/>
+                </div>
+                <b-table
+                    :items="otherChildrenInfo"
+                    :fields="otherChildrenFields"
+                    class="mt-2"
+                    style="margin-left: 3rem; width:90%;"
+                    small
+                    bordered>                    
+                        <template v-slot:cell()="data">
+                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                        </template>
+                        
+                        <template v-slot:head(dob)>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mm/yyyy)</i>
+                        </template>
+                        <template v-slot:head(relation)>
+                            Nature of relationship with child <i style="font-size:7pt; font-weight:normal;"><br/>(Specify whether parent, step-parent, grandparent, aunt, uncle, family friend, etc.)</i>
+                        </template>
+                </b-table>  
+                </div>
+            <div style="width: 20% "/>
+        </div>
+        <!-- <section>
             <i>
                 Select whichever option is correct.
             </i>
@@ -252,7 +476,7 @@
                             textwidth="6rem" 
                             beforetext="The order dated" 
                             hint="(mmm/dd/yyyy)" 
-                            :text="exhibit.fileDate | beautify-date"/>
+                            :text="exhibit.fileDate | beautify-date-mid"/>
                         <underline-form 
                             style="text-indent:1px;display:inline-block;" 
                             textwidth="3rem" 
@@ -270,7 +494,7 @@
                 </ol>
             
             </div>
-        </section>
+        </section> -->
 
     <!-- <9> -->
         
@@ -443,7 +667,10 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import GreyBoxForm from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
@@ -452,7 +679,10 @@ import { aboutAffiantGaDataInfoType, backgroundCivilCourtProceedingsDataInfoType
 @Component({
     components:{
         UnderlineForm,
-        CheckBox       
+        GreyBoxForm,
+        CheckBox,
+        NoteBox,
+        FormPart
     }
 })
 
@@ -500,14 +730,14 @@ export default class Form5Layout extends Vue {
     ];
 
     childRelationshipFields = [
-        {key:"fullName",               label:"Child's full name",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"relationWithchild",      label:"Nature of relationship to child",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"fullName",               label:"Name of child",                     tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:20%;"},
+        {key:"relationWithchild",      label:"Nature of relationship to child",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
         {key:"lengthOfRelationship",   label:"Length of relationship",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
     ];  
 
     childLivingArrangementFields = [
-        {key:"fullName",               label:"Child's full name",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"currentLiving",          label:"Current living arrangements",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+        {key:"fullName",               label:"Name of child",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
+        {key:"currentLiving",          label:"Current living arrangements",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"}
     ]; 
 
     otherChildrenFields = [
@@ -556,7 +786,7 @@ export default class Form5Layout extends Vue {
             aboutAffiant = this.result.aboutAffiantGaSurvey;
 
             this.yourInfo = getYourInformationResults(aboutAffiant);    
-            this.yourInfo.dob = Vue.filter("beautify-date")(aboutAffiant.Dob);       
+            this.yourInfo.dob = Vue.filter("beautify-date-mid")(aboutAffiant.Dob);       
             const addressInfo = aboutAffiant.ApplicantAddress;
 
             const addressText = addressInfo.street + ', ' 
@@ -598,7 +828,7 @@ export default class Form5Layout extends Vue {
         for (const child of childData){            
             const childInfo = {fullName: '', dob:'', currentGuardiansToChild: '', parentsNotGuardians: '', relationWithchild: '', lengthOfRelationship: '', currentLiving:''};
             childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);
+            childInfo.dob = Vue.filter('beautify-date-mid')(child.dob);
             childInfo.currentGuardiansToChild = child.currentGuardiansToChild.map(function (guardian) { return guardian.name; }).join(', ');
             if (child.parentsNotGuardiansExist == 'y'){
                 for (const parent of child.parentsNotGuardians)
@@ -609,7 +839,7 @@ export default class Form5Layout extends Vue {
             if (child.lengthOfRelationship.selected == 'sinceBirth'){
                 childInfo.lengthOfRelationship = "Since Birth";
             } else {
-                childInfo.lengthOfRelationship = "Since "+ child.lengthOfRelationship?.relationStartDate?Vue.filter('beautify-date')(child.lengthOfRelationship.relationStartDate):'';
+                childInfo.lengthOfRelationship = "Since "+ child.lengthOfRelationship?.relationStartDate?Vue.filter('beautify-date-mid')(child.lengthOfRelationship.relationStartDate):'';
             }
 
             childInfo.currentLiving = child.currentLiving;
@@ -637,7 +867,7 @@ export default class Form5Layout extends Vue {
                 for (const child of childData){            
                     const childInfo = {fullName: '', dob:'', relation: ''};
                     childInfo.fullName = Vue.filter('getFullName')(child.name);
-                    childInfo.dob = Vue.filter('beautify-date')(child.dob);            
+                    childInfo.dob = Vue.filter('beautify-date-mid')(child.dob);            
                     childInfo.relation = child.relation;           
                     this.otherChildrenInfo.push(childInfo);
                 } 
@@ -677,12 +907,12 @@ export default class Form5Layout extends Vue {
                     const proceedingInfo = {itemNo: '', partyNames: '', courtLocation:'', courtOrderDates: []};
                     const index = this.civilProceedingInfo.findIndex(proc=>{return(proc.itemNo == proceeding.itemNo)})
                     if(index >= 0 ){                
-                        this.civilProceedingInfo[index].courtOrderDates.push(Vue.filter('beautify-date')(proceeding.fileDate)); 
+                        this.civilProceedingInfo[index].courtOrderDates.push(Vue.filter('beautify-date-mid')(proceeding.fileDate)); 
                     } else {
                         proceedingInfo.itemNo = proceeding.itemNo;
                         proceedingInfo.partyNames = proceeding.partyNames;
                         proceedingInfo.courtLocation = proceeding.courtLocation;
-                        proceedingInfo.courtOrderDates.push(Vue.filter('beautify-date')(proceeding.fileDate));
+                        proceedingInfo.courtOrderDates.push(Vue.filter('beautify-date-mid')(proceeding.fileDate));
                         this.civilProceedingInfo.push(proceedingInfo);
                     }  
                     
@@ -716,15 +946,15 @@ export default class Form5Layout extends Vue {
             if (ga.haveBrcResults == 'y'){
                 const mcfdRecordData = this.exhibitList.filter(exhibit => exhibit.fileName == "Ministry of Children and Family Development Record Check dated ")[0];                
                 this.mcfdRecord.exhibitName = mcfdRecordData.exhibitName;
-                this.mcfdRecord.fileDate = Vue.filter('beautify-date')(mcfdRecordData.fileDate);
+                this.mcfdRecord.fileDate = Vue.filter('beautify-date-mid')(mcfdRecordData.fileDate);
 
                 const crcRecordData = this.exhibitList.filter(exhibit => exhibit.fileName == "Criminal Record Check dated ")[0];
                 this.crcRecord.exhibitName = crcRecordData.exhibitName;
-                this.crcRecord.fileDate = Vue.filter('beautify-date')(crcRecordData.fileDate);
+                this.crcRecord.fileDate = Vue.filter('beautify-date-mid')(crcRecordData.fileDate);
 
                 const porsRecordData = this.exhibitList.filter(exhibit => exhibit.fileName == "Protection Order Record Check from the Protection Order Registry dated ")[0];
                 this.porsRecord.exhibitName = porsRecordData.exhibitName;
-                this.porsRecord.fileDate = Vue.filter('beautify-date')(porsRecordData.fileDate)
+                this.porsRecord.fileDate = Vue.filter('beautify-date-mid')(porsRecordData.fileDate)
                 this.policeDept = ga.policeDept?ga.policeDept:'';
             }
         }    
@@ -753,7 +983,7 @@ export default class Form5Layout extends Vue {
                 for (const charge of chargeData){            
                     const chargeInfo = {chargeNature: '', chargeDate:'', chargeCourtLocation: ''};
                     chargeInfo.chargeNature = charge.chargeNature;
-                    chargeInfo.chargeDate = Vue.filter('beautify-date')(charge.chargeDate);            
+                    chargeInfo.chargeDate = Vue.filter('beautify-date-mid')(charge.chargeDate);            
                     chargeInfo.chargeCourtLocation = charge.chargeCourtLocation;           
                     this.currentCharges.push(chargeInfo);
                 } 
@@ -766,7 +996,11 @@ export default class Form5Layout extends Vue {
  
 }
 </script>
+<style>
+tbody{
+    background-color: #dedede;
+}
+</style>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
-   
 </style>
