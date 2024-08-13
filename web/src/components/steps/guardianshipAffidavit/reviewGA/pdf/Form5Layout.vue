@@ -398,107 +398,151 @@
                 </div>
                 <div style="margin:0 0 0 3rem;">
                     <check-box style="text-indent: -16px;" 
-                        :check="!otherChildrenExist?'yes':''" 
-                        text="I have not been involved in court proceedings in British Columbia under the
-                            Child, Family and Community Service Act, the Family Relations Act, the Family
-                            Law Act, or the Divorce Act (Canada), or in any court proceedings under
+                        :check="!courtProceedingsExist?'yes':''" 
+                        text="I have <b>not been involved in court proceedings</b> in British Columbia under the
+                            <i>Child, Family and Community Service Act</i>, the <i>Family Relations Act</i>, the <i>Family
+                            Law Act</i>, or the <i>Divorce Act (Canada)</i>, or in any court proceedings under
                             comparable legislation in any other jurisdiction, concerning children under my
                             care"/> 
                     <check-box  style="text-indent: -16px;" 
-                        :check="otherChildrenExist?'yes':''" 
-                        text="I am <b>the parent, step-parent or guardian of the following child(ren)</b> who is/are not referred to in paragraph 1 of this affidavit."/>
+                        :check="courtProceedingsExist?'yes':''" 
+                        text="I have <b>been involved in the following court proceedings</b> in British Columbia
+                            under the <i>Child, Family and Community Service Act</i>, the <i>Family Relations Act</i>,
+                            the <i>Family Law Act</i>, or the <i>Divorce Act (Canada)</i>, and/or in the following court
+                            proceedings under comparable legislation in any other jurisdiction, concerning
+                            children under my care:"/>
                 </div>
-                <b-table
-                    :items="otherChildrenInfo"
-                    :fields="otherChildrenFields"
-                    class="mt-2"
-                    style="margin-left: 3rem; width:90%;"
-                    small
-                    bordered>                    
+                <div v-if="courtProceedingsExist">
+                    <b-table
+                        :items="civilProceedingInfo"
+                        :fields="proceedingFields"
+                        class="mt-2"
+                        style="margin-left: 3rem; width:90%;"
+                        small
+                        bordered>  
+                            <template v-slot:cell(courtOrderDates)="data">
+                                <div v-for="(orderDate,inx) in data.value" :key="inx" style="list-style-type: none;">
+                                    {{ orderDate }}
+                                </div>
+                            </template>                  
+                            <template v-slot:cell()="data">
+                                <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            </template>
+                    </b-table>
+                </div>
+                <div v-else>
+                    <b-table
+                        :items="[{ itemNo: 1 },{ itemNo: 2 },{ itemNo: 3 }]"
+                        :fields="proceedingFields"
+                        class="mt-2"
+                        style="margin-left: 3rem; width:90%;"
+                        small
+                        bordered>
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                         </template>
-                        
-                        <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mm/yyyy)</i>
-                        </template>
-                        <template v-slot:head(relation)>
-                            Nature of relationship with child <i style="font-size:7pt; font-weight:normal;"><br/>(Specify whether parent, step-parent, grandparent, aunt, uncle, family friend, etc.)</i>
-                        </template>
-                </b-table>  
+                    </b-table>
                 </div>
+            </div>
             <div style="width: 20% "/>
         </div>
-        <!-- <section>
-            <i>
-                Select whichever option is correct.
-            </i>
-            <check-box style="margin:0 0 0 1rem;" 
-                    :check="!courtProceedingsExist?'yes':''" 
-                    text="<b>I have not been</b> 
-                    involved in court proceedings in British Columbia under the <i>Child, Family and Community Service Act</i>, the
-                    <i>Family Relations Act</i>, the <i>Family Law Act</i>, or the <i>Divorce Act (Canada)</i>, or in any court proceedings under comparable
-                    legislation in any other jurisdiction, concerning children under my care."/> 
-
-            <check-box 
-                style="margin:1rem 0 0 1rem;" 
-                :check="courtProceedingsExist?'yes':''" 
-                text="<b>I have been</b> 
-                    involved in the following court proceedings in British Columbia under the <i>Child, Family and Community Service Act</i>, the
-                    <i>Family Relations Act</i>, the <i>Family Law Act</i>, or the <i>Divorce Act (Canada)</i>, and/or in any court proceedings under comparable
-                    legislation in any other jurisdiction, concerning children under my care."/>
-            
-            <b-table
-                :items="civilProceedingInfo"
-                :fields="proceedingFields"
-                class="mt-2"
-                small
-                bordered>  
-                    <template v-slot:cell(courtOrderDates)="data">
-                        <ul>
-                            <li v-for="(orderDate,inx) in data.value" :key="inx" style="margin:0;">
-                                {{ orderDate }}
-                            </li>
-                        </ul>
-                    </template>                  
-                    <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
-                    </template>
-                    
-            </b-table>  
-
-            <div style="display:block; font-size: 9pt; margin: 1rem 0;"> 
-                <ol class="list-brackets" style="margin:0.25rem 0 0 1.5rem;" type="a">
-                    
-                    <li v-for="exhibit in orderList" :key="exhibit.exhibitIndex" style="margin:0.5rem 0 0 0;">                        
-                        <underline-form 
-                            style="text-indent:0;margin-left:.75rem;display:inline-block;" 
-                            textwidth="6rem" 
-                            beforetext="The order dated" 
-                            hint="(mmm/dd/yyyy)" 
-                            :text="exhibit.fileDate | beautify-date-mid"/>
-                        <underline-form 
-                            style="text-indent:1px;display:inline-block;" 
-                            textwidth="3rem" 
-                            beforetext="referred to in Item" 
-                            hint="(1, 2, 3, etc.)" 
-                            :text="exhibit.itemNo"/> 
-                        <underline-form 
-                            style="text-indent:1px;display:inline-block;" 
-                            textwidth="3rem" 
-                            beforetext="above is attached as Exhibit" 
-                            hint="(A, B, etc.)" 
-                            :text="exhibit.exhibitName.replace('Exhibit ', '')"/>
-                    </li>
-                            
-                </ol>
-            
-            </div>
-        </section> -->
 
     <!-- <9> -->
-        
-        <section>            
+        <div style="margin-top: 1rem;"/>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="margin-left: 2rem; padding-left: 10px;">
+                    <p>The orders referred to in the table above are attached as Exhibits to this affidavit as follows:</p>
+                    <div v-if="courtProceedingsExist">
+                        <div v-for="(exhibit, index) in orderList" :key="exhibit.exhibitIndex" style="margin:1rem 0 0 0;">
+                            <!-- Use character codes to help convert the index to a,b,c etc... -->
+                            ({{ String.fromCharCode(97 + index) }})                   
+                            <grey-box-form
+                                style="text-indent:0;margin-left:.75rem;display:inline-block;" 
+                                textwidth="6rem" 
+                                beforetext="The order dated" 
+                                entryFontSize="9pt"
+                                marginTop="-17px"
+                                hint="(dd/mm/yyyy)" 
+                                hintindent="20px"
+                                :text="exhibit.fileDate | beautify-date-mid"/>
+                            <grey-box-form
+                                style="text-indent:1px;display:inline-block;" 
+                                textwidth="3rem" 
+                                beforetext="referred to in Item" 
+                                entryFontSize="9pt"
+                                marginTop="-17px"
+                                hint="(1, 2, etc.)" 
+                                hintindent="5px"
+                                :text="exhibit.itemNo"/> 
+                                <div style="margin-top: 0.5rem;"/>
+                            <grey-box-form
+                                style="text-indent:7px;display:inline-block;" 
+                                textwidth="3rem" 
+                                beforetext="above is attached as Exhibit" 
+                                entryFontSize="9pt"
+                                marginTop="-17px"
+                                hint="(A, B, etc.)" 
+                                hintindent="0px"
+                                :text="exhibit.exhibitName.replace('Exhibit ', '')"/>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <div v-for="n in 3" style="margin:1rem 0 0 0;">
+                            <!-- Use character codes to help convert the index to a,b,c etc... -->
+                            ({{ String.fromCharCode(96 + n) }})                   
+                            <grey-box-form
+                                style="text-indent:0;margin-left:.75rem;display:inline-block;" 
+                                textwidth="6rem" 
+                                beforetext="The order dated" 
+                                entryFontSize="9pt"
+                                marginTop="-17px"
+                                hint="(dd/mm/yyyy)" 
+                                hintindent="20px"
+                                text=''/>
+                            <grey-box-form
+                                style="text-indent:1px;display:inline-block;" 
+                                textwidth="3rem" 
+                                beforetext="referred to in Item" 
+                                entryFontSize="9pt"
+                                marginTop="-17px"
+                                hint="(1, 2, etc.)" 
+                                hintindent="5px"
+                                text=''/> 
+                                <div style="margin-top: 0.5rem;"/>
+                            <grey-box-form
+                                style="text-indent:15px;display:inline-block;" 
+                                textwidth="3rem" 
+                                beforetext="above is attached as Exhibit" 
+                                entryFontSize="9pt"
+                                marginTop="-17px"
+                                hint="(A, B, etc.)" 
+                                hintindent="-8px"
+                                text=''/>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <div style="width: 20% ">
+                <NoteBox>
+                    <b-icon-paperclip />
+                    <p>
+                        You must attach a copy of 
+                        each order as an exhibit to 
+                        this affidavit for filing. 
+                    </p>
+                </NoteBox>
+                <NoteBox style="margin-top:10px">
+                    <b-icon-book />
+                    <p>
+                        For more information about 
+                        how to reference and attach 
+                        exhibits, see the guidebook
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+        <!-- <section>            
             <underline-form 
                 style="text-indent:0;margin-left:.25rem;display:inline;" 
                 textwidth="2.5rem" 
@@ -518,11 +562,25 @@
                     .
                 </div>            
                     
-        </section>
+        </section> -->
 
     <!-- <10> -->
+        <div style="margin-top: 1rem;"/>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                    <p>
+                        Record checks
+                    </p>
+                </div>
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>9. </b>
+                </div>
+            </div>
+            <div style="width: 20% "/>
+        </div>
         
-        <section>            
+        <!-- <section>            
             <underline-form 
                 style="text-indent:0;margin-left:.25rem;display:inline;" 
                 textwidth="2.5rem" 
@@ -545,7 +603,7 @@
             </div>
                
           
-        </section>
+        </section> -->
 
     <!-- <11> -->
         
@@ -747,9 +805,9 @@ export default class Form5Layout extends Vue {
     ];
 
     proceedingFields = [
-        {key:"itemNo",                 label:"Item #",                                                                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"partyNames",             label:"Names of the parties to the proceeding",                                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
+        {key:"itemNo",                 label:"Item",                                                                        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:10%;"},
+        {key:"partyNames",             label:"Names of the parties to the proceeding",                                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
+        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},        
         {key:"courtOrderDates",        label:"Date of any orders concerning children under my care made in the proceeding", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
     ];
 
@@ -898,6 +956,7 @@ export default class Form5Layout extends Vue {
             if(this.courtProceedingsExist){
                 this.orderList = this.exhibitList.filter(exhibit => exhibit.itemNo != 0); 
                 const civilProceedingsData = this.orderList;
+                
                 this.civilProceedingInfo = [];  
                 
                 let maxItemNo = '';
