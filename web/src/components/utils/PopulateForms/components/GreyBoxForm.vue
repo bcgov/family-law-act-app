@@ -4,7 +4,7 @@
         <div style="display:inline-block">
             <div :style="{position: 'absolute', marginTop:marginTop, fontSize: entryFontSize, background: '#d6d6d6', color:'#000000', minWidth: textwidth, textAlign: 'center'}">{{text ? text : '&nbsp;'}}</div> 
             <div :style="{borderBottom: '0.7px solid #d6d6d6', minWidth: textwidth, background: '#d6d6d6', marginTop: '1px'}"></div>            
-            <div :style="{position: 'absolute', marginTop:hintmargintop, marginLeft: hintindent, fontSize: hintFontSize, color:'#8a8a8a'}">
+            <div :style="{position: 'absolute', marginTop:hintmargintop, marginLeft: hintindent, fontSize: hintFontSize, color: hintTextColor}">
                <i v-if="italicHint"> {{hint}} </i>
                <span v-else > {{hint}} </span> 
             </div>
@@ -39,6 +39,9 @@ export default class GreyBoxForm extends Vue {
 
     @Prop({ required: false, default: '6pt' })
     hintFontSize!: string;
+
+    @Prop({required: false, default: '#8a8a8a'})
+    hintTextColor!: string;
 
     @Prop({ required: false, default: '11pt' })
     entryFontSize!: string;
