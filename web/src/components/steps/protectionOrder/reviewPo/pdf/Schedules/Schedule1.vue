@@ -1262,6 +1262,12 @@ export default class Schedule1 extends Vue {
 }
 </script>
 
+<style>
+tbody{
+    background-color: #dedede;
+}
+</style>
+
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
 </style> 
