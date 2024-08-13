@@ -573,73 +573,108 @@
                         Record checks
                     </p>
                 </div>
-                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <div style="margin-left: 1rem; margin-bottom:1rem; text-indent: -10px; padding-left: 10px;">
                     <b>9. </b>
+                    <grey-box-form
+                        style="text-indent:0;margin-left:.25rem;display:inline;" 
+                        textwidth="4rem" 
+                        beforetext="Attached to this affidavit and marked as Exhibit" 
+                        entryFontSize="9pt"
+                        marginTop="-17px"
+                        :text="mcfdRecord.exhibitName?mcfdRecord.exhibitName.replace('Exhibit ',''):''"/>
+
+                    <div style="text-indent:5px;display:inline;"> 
+                        is a copy of a <b>British Columbia Ministry of Children and Family Development</b> records check dated
+                    </div>
+                    <grey-box-form
+                        style="text-indent:0;display: inline; margin: 0.25rem 0;" 
+                        textwidth="10rem" 
+                        beforetext="" 
+                        hint="(mmm/dd/yyyy)"
+                        entryFontSize="9pt"
+                        marginTop="-17px"
+                        hintindent="15px"
+                        :text="mcfdRecord.fileDate?mcfdRecord.fileDate:''"/>
+                </div>
+                <div style="margin-left: 1rem; margin-bottom:1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>10. </b>
+                    <grey-box-form
+                        style="text-indent:0;margin-left:.25rem;display:inline;" 
+                        textwidth="4rem" 
+                        beforetext="Attached to this affidavit and marked as Exhibit" 
+                        entryFontSize="9pt"
+                        marginTop="-17px"
+                        :text="porsRecord.exhibitName?porsRecord.exhibitName.replace('Exhibit ',''):''"/>
+
+                    <div style="text-indent:5px;display:inline;"> 
+                        is a copy of a <b>Protection Order Registry protection order records check</b> dated
+                    </div>
+                    <grey-box-form
+                        style="text-indent:0;display: inline; margin: 0.25rem 0;" 
+                        textwidth="10rem" 
+                        beforetext="" 
+                        hint="(dd/mmm/yyyy)"
+                        entryFontSize="9pt"
+                        marginTop="-17px"
+                        hintindent="15px"
+                        :text="porsRecord.fileDate?porsRecord.fileDate:''"/>
+                </div>
+                <div style="margin-left: 1rem; margin-bottom:1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>11. </b>
+                    <grey-box-form
+                        style="text-indent:0;margin-left:.25rem;display:inline;" 
+                        textwidth="4rem" 
+                        beforetext="Attached to this affidavit and marked as Exhibit" 
+                        entryFontSize="9pt"
+                        marginTop="-17px"
+                        :text="crcRecord.exhibitName?crcRecord.exhibitName.replace('Exhibit ',''):''"/>
+
+                    <div style="text-indent:5px;display:inline;"> 
+                        is a copy of a <b>criminal records check</b> dated
+                    </div>
+                    <grey-box-form
+                        style="text-indent:0;display: inline; margin: 0.25rem 0;" 
+                        textwidth="10rem" 
+                        beforetext="" 
+                        hint="(dd/mmm/yyyy)"
+                        entryFontSize="9pt"
+                        marginTop="-17px"
+                        hintindent="15px"
+                        :text="crcRecord.fileDate?crcRecord.fileDate:''"/>
+                    <div style="text-indent:5px;display:inline;"> 
+                        obtained from the
+                    </div>
+                    <grey-box-form 
+                        style="text-indent:0;display: inline-block; margin: 0.45rem 0;" 
+                        textwidth="25rem" 
+                        beforetext="" 
+                        hint="(name and location of police force or department from which the criminal records check was obtained)"
+                        marginTop="-17px"
+                        hintindent="15px"
+                        hintmargintop="3px"
+                        :text="policeDept"/>
                 </div>
             </div>
-            <div style="width: 20% "/>
+            <div style="width: 20% ">
+                <NoteBox style="margin-top:40px">
+                    <b-icon-paperclip />
+                    <p>
+                        You must attach a copy of 
+                        each order as an exhibit to 
+                        this affidavit for filing. 
+                    </p>
+                </NoteBox>
+                <NoteBox style="margin-top:10px">
+                    <b-icon-book />
+                    <p>
+                        For more information about 
+                        how to reference and attach 
+                        exhibits, see the guidebook
+                    </p>
+                </NoteBox>
+            </div>
         </div>
-        
-        <!-- <section>            
-            <underline-form 
-                style="text-indent:0;margin-left:.25rem;display:inline;" 
-                textwidth="2.5rem" 
-                beforetext="Attached to this affidavit and marked as Exhibit" 
-                hint="(A, B, etc.)" 
-                :text="porsRecord.exhibitName?porsRecord.exhibitName.replace('Exhibit ',''):''"/>
-
-            <div style="text-indent:5px;display:inline;"> 
-                is a copy of a Protection Order Registry protection order
-            </div>
-               
-            <underline-form 
-                style="text-indent:0;display: inline-block; margin: 0.35rem 0;"
-                textwidth="6rem" 
-                beforetext=" records check dated" 
-                hint="(mmm/dd/yyyy)" 
-                :text="porsRecord.fileDate?porsRecord.fileDate:''"/>
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                .
-            </div>
-               
-          
-        </section> -->
-
     <!-- <11> -->
-        
-        <section>            
-            <underline-form 
-                style="text-indent:0;margin-left:.25rem;display:inline;" 
-                textwidth="2.5rem" 
-                beforetext="Attached to this affidavit and marked as Exhibit" 
-                hint="(A, B, etc.)" 
-                :text="crcRecord.exhibitName?crcRecord.exhibitName.replace('Exhibit ',''):''"/>
-
-            <div style="text-indent:5px;display:inline;"> 
-                    is a copy of a criminal records check dated
-            </div>
-            <underline-form 
-                style="text-indent:0;display: inline; margin: 0.25rem 0;" 
-                textwidth="6rem" 
-                beforetext="" 
-                hint="(mmm/dd/yyyy)" 
-                :text="crcRecord.fileDate?crcRecord.fileDate:''"/>
-
-            <div style="text-indent:5px;display:inline;"> 
-                obtained from the
-            </div>
-            
-            <underline-form 
-                style="text-indent:0;display: inline-block; margin: 0.35rem 0;" 
-                textwidth="26.75rem" 
-                beforetext="" 
-                hint="(name and location of police force or department from which the criminal records check was obtained)" 
-                :text="policeDept"/>
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                .
-            </div>
-                           
-        </section>
 
     <!-- <12> -->
         <section>
