@@ -18,26 +18,23 @@
                 </div>
                 <div style="width: 35%; float:right; font-size: 8pt;">
                     <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                        <div style="float: left; width: 50%; padding-top:10px; padding-left:24px"> Registry location: </div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
                             result.applicationLocation }} </div>
                     </div>
                     <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                        <div style="float: left; width: 50%; padding-top:5px; padding-left:20px;"> Court file number: </div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
                             existingFileNumber ?
                             existingFileNumber : '&nbsp;' }} </div>
                     </div>
                     <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding: 2px;"> Last name of parties: <div
-                                style="font-size: 6pt; padding-left:56px;">Part 1/ Part 2</div>
-                        </div>
+                        <div style="float: left; width: 50%; padding-left:6px;"> Last Name of parties:<br/><i style="color:#ababab; padding-left:30px;">Party 1/ party 2 </i></div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ '&nbsp;' }} </div>
                     </div>
                     <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding: 2px;"> Document number: <div
-                                style="font-size: 6pt; padding-left:16px;">For registry use only</div>
-                        </div>
+           
+                        <div style="float: left; width: 50%; padding-left:14px;"> Document number:<br/><i style="color:#ababab">For registry use only </i></div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ '&nbsp;' }} </div>
                     </div>
                 </div>
@@ -46,15 +43,15 @@
 
         <div>
             <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" textwidth="10rem"
-                beforetext="<b>I,</b>" hint="Full name" :italicHint="true" :text="yourInfo.name | getFullName"
+                beforetext="<b>I,</b>" hint="Full name"  hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="true" :text="yourInfo.name | getFullName"
                 hintindent="40px" />
             <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="8rem" beforetext=","
-                hint="Occupation" :italicHint="false" :text="yourInfo.occupation" hintindent="40px" />
-            <grey-box style="text-indent:2px;font-size: 9pt;" textwidth="10rem" beforetext="of"
-                hint="Address of person, City, Province" :italicHint="false" :text="address" aftertext=" ," />
+                hint="Occupation" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="false" :text="yourInfo.occupation" hintindent="40px" />
+            <grey-box style="text-indent:2px; font-size: 9pt;" textwidth="10rem" beforetext="of"
+                hint="Address of person, City, Province"hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="false" :text="address" aftertext=" ," />
         </div>
 
-        <div style="text-indent:5px;display:block; font-size: 11pt; margin-top: 2rem; font-weight: 700;">
+        <div style="display:block; font-size: 11pt; margin-top: 2rem; font-weight: 700;">
             SWEAR OR AFFIRM THAT:
         </div>
 
@@ -64,24 +61,24 @@
 
         <p><b> 1. I personally served</b></p>
         <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="40rem" beforetext=""
-            hint="Full name of the person served (copy their name from the document you served them)" :italicHint="false"
+            hint="Full name of the person served (copy their name from the document you served them)" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px" :italicHint="false"
             :text="servedPersonName" />
 
         <div style="margin: 0.5rem 0 2rem 1rem;">
-            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" textwidth="20rem"
-                beforetext="<b>on</b>" hint="Date the documents were served (dd/mmm/yyyy) " :italicHint="false"
+            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" textwidth="18rem"
+                beforetext="<b>on</b>" hint="Date the documents were served (dd/mmm/yyyy)" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px" :italicHint="false"
                 :text="serviceDate" />
-            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" textwidth="14rem"
-                beforetext="<b>at</b>" hint="Time the documents were served" :italicHint="false" :text="serviceTime"
+            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" textwidth="12rem"
+                beforetext="<b>at</b>" hint="Time the documents were served" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px" :italicHint="false" :text="serviceTime"
                 aftertext="<b> a.m./p.m.</b>" />
         </div>
         <div style="margin: 0.5rem 0 2rem 1rem;">
             <grey-box style="text-indent:2px;font-size: 9pt;" textwidth="38rem" beforetext="<b>at</b>"
-                hint="(address or location where service took place, city, province)" :italicHint="false"
+                hint="Street address or location where service took place, city, province" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px"  :italicHint="false"
                 :text="serviceAddress" />
         </div>
-        <div style="display:block; margin: 0.5rem 0 0 0">
-            <b>with a copy of the attached protection order</b> made under Part 9 of the Family Law Act, marked as Exhibit
+        <div style="display:block;">
+            <b>with a copy of the attached protection order</b> made under Part 9 of the <i>Family Law Act,</i> marked as Exhibit
             “A”
         </div>
 
@@ -89,17 +86,17 @@
 
         <!-- <2> -->
         <div style="padding-top: 12px;">
-            <p><b>2. </b>I<b> also personally served them with</b>a copy of the following document(s) </p>
-            <div style="display:block; font-style: italic; margin: 0 0 0 1rem;">
+            <p><b>2.  </b>I<b> also personally served them with</b> a copy of the following document(s) </p>
+            <div style="display:block; font-style: italic; font-size:9pt; margin-left:10px;">
                 Indicate each additional document served by marking it with
                 an exhibit letter, listing it below, and attaching a copy to the affidavit.
             </div>
 
-            <div v-if="exhibitList.length > 0" style="margin:0.5rem 0 0 1rem;">
+            <div v-if="exhibitList.length > 0" style="margin: 0 0 0 1rem;">
                 <div v-for="exhibit, inx in exhibitList" :key="inx">
                     <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;"
                         textwidth="30rem" :beforetext="'<b>EXHIBIT </b>' + exhibit.exhibitName + ':'"
-                        hint="(name of document)" :italicHint="false" :text="exhibit.fileName" />
+                        hint="" :italicHint="false" :text="exhibit.fileName" />
                 </div>
             </div>
         </div>
@@ -110,10 +107,10 @@
         <!-- <3> -->
         <div style="padding-top: 12px;">
             <div style="display:inline; font-size: 9pt;">
-                <b>3. </b> The party served was identified to me in this manner:
+                <b>3.  </b> The party served was identified to me in this manner:
             </div>
 
-            <div style="display:block; font-style: italic; margin: 0 0 0 1rem;">
+            <div style="display:block; font-style: italic;">
                 Select only one of the options below
             </div>
 
@@ -130,43 +127,20 @@
 
             <div style="display:block;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                    :check="idMethod == 'other' ? 'yes' : ''" text="Other (specify):" />
-
-                <div v-if="idMethod == 'other'" class="answerbox">{{ idMethodComment }}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
+                    :check="idMethod == 'other' ? 'yes' : ''" text="Other<i>(specify):</i>" />
+                    <div style="padding-left:8rem; margin-top:-1.5rem">
+                        <grey-box v-if="idMethod == 'other'"  style="margin-top:10px; text-indent:0rem;"
+                            textwidth="20rem" :text="idMethodComment">
+                        </grey-box>
+                        <grey-box v-else style="margin-top:10px; text-indent:0rem;" textwidth="20rem"></grey-box>
+                    </div>                
             </div>
 
 
         </div>
-        <div class="print-block">
-
-            <!-- <SWEAR > -->
-
-            <div style="margin:1rem 0 0 0">
-                <p>Sworn or affirmed before me</p>
-                <grey-box marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem"
-                    beforetext="at" hint="City" aftertext=", British Columbia" />
-            </div>
-            <div style="margin:1rem 0 0 0">
-                <grey-box marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem"
-                    beforetext="on" hint="Date" text="" />
-            </div>
-
-            <div style="margin:2rem 0 0 0">
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block;"></div>
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block; margin-left:2rem;">
-                </div>
-            </div>
-            <div>
-                <div style="width:20rem; display:inline-block; font-size:9pt">A Commissioner for taking affidavits in
-                    British Columbia</div>
-                <div style="width:20rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
-            </div>
-            <div style="margin:.5rem 0 0 0">
-                <grey-box marginTop="-22px" style="margin-top:0.2rem; text-indent:2px;display:inline;" textwidth="20rem"
-                    beforetext="" hint="print name or affix stamp of commissioner" text="" />
-            </div>
-        </div>
+        <!-- <SWEAR > -->
+    
+        <FormFooterSignature></FormFooterSignature>
 
     </div>
 </template>
@@ -185,12 +159,14 @@ import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInfor
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 import { aboutAffiantApspDataInfoType, aboutServiceApspDataInfoType } from '@/types/Application/AffidavitPersonalServicePO';
 import GreyBox from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
+import FormFooterSignature from '@/components/utils/PopulateForms/components/FormFooterSignature.vue';
 
 @Component({
     components: {
         UnderlineForm,
         CheckBox,
-        GreyBox
+        GreyBox,
+        FormFooterSignature
     }
 })
 export default class Form49Layout extends Vue {
@@ -214,6 +190,9 @@ export default class Form49Layout extends Vue {
 
     idMethod = '';
     idMethodComment = '';
+
+    hintFontSize = "8pt"
+    hintTextColor = "#333"
 
     mounted() {
         this.dataReady = false;
