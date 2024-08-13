@@ -50,7 +50,7 @@
                         You must keep the original paper version of the document until the earliest of
                     </li>
                 </ul>
-                <div style="padding-left: 42px;">
+                <div style="padding-left: 42px; margin-top: -16px;">
                     <span>i. the date the proceeding, including any appeals, is completed</span> <br>
                     <span>ii. the date the appeal period has expired, if no appeal is filed </span> <br>
                     <span> iii. the date on which a judge orders the paper version be filed</span>
@@ -65,15 +65,15 @@
         <section>
 
             <div style="text-indent:5px;display:inline; font-size: 9pt;">
-                <i>Select the applicable option and complete the required information</i>
+                <i> Select the applicable option and complete the required information</i>
             </div>
             <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
                     :check="isLawyer ? 'yes' : ''" text="I," />
                 <grey-box style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="10rem" beforetext=""
-                    hint="Full name of lawyer" hintindent="40px" :text="isLawyer ? lawyerName : ''" />
+                    hint="Full name of lawyer" hintTextColor="hintTextColor" hintindent="40px" :text="isLawyer ? lawyerName : ''" />
                 <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="20rem"
-                    beforetext=", am the lawyer for" hint="Full name of party/parties" :italicHint="false"
+                    beforetext=",  am the lawyer for" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
                     :text="isLawyer ? parties : ''" />
             </div>
 
@@ -81,7 +81,7 @@
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
                     :check="!isLawyer ? 'yes' : ''" text="I, " />
                 <grey-box style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="15rem" beforetext=""
-                    hint="Full name of party" :text="!isLawyer ? applicant : ''" />
+                    hint="Full name of party" hintTextColor="hintTextColor" :text="!isLawyer ? applicant : ''" />
                 <div style="display:inline-block;margin-left:1.25rem;">, am not represented by a lawyer</div>
             </div>
         </section>
@@ -91,7 +91,7 @@
         <!-- <2> -->
         <section>
             <grey-box style="margin-top:0.5rem; text-indent:2px;display:inline-block;" textwidth="32.5rem"
-                beforetext="The other party is" hint="Full name of the other party/parties" :italicHint="false"
+                beforetext="The other party is" hintTextColor="hintTextColor" hint="Full name of the other party/parties" :italicHint="false"
                 :text="otherParties" />
         </section>
 
@@ -104,15 +104,15 @@
             </div>
             <div style="margin:0.25rem 0 0 1.5rem;">
 
-                <grey-box style="text-indent:2px;margin-left:0rem;display:inline-block;" textwidth="37rem" beforetext="The"
+                <grey-box style="text-indent:2px;margin-left:0rem;display:inline-block;" textwidth="20rem" beforetext="The" hintTextColor="hintTextColor"
                     hint="Name and identifying description of document" :text="documents" />
                 <div style="display:block;margin:0.5rem 0.25rem;">
-                    is being submitted for filing electronically <i>(add if applicable)</i>
+                    is being submitted for filing electronically <i style="color:#ababab">(add if applicable)</i>
                     on behalf of
                 </div>
 
                 <grey-box style="text-indent:2px;margin: 0.5rem 0 0 -1rem;display:inline-block; font-size: 9pt;"
-                    textwidth="38.5rem" beforetext="" hint="Full name of party/parties" :italicHint="false"
+                    textwidth="20rem" beforetext="" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
                     :text="isLawyer ? parties : ''" />
             </div>
 
@@ -135,9 +135,9 @@
         <div
             style="margin:2rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
             <grey-box style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
-                hint="Date (mmm/dd/yyyy)" text="" hintindent="40px" />
-            <grey-box style="text-indent:2px;display:inline-block;" textwidth="20rem" beforetext="" hint="Signature"
-                text="" />
+                hint="Date (dd/mmm/yyyy)" hintTextColor="hintTextColor" text="" hintindent="40px"/> 
+            <UnderlineForm style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
+                text=""/>
 
         </div>
 
@@ -184,6 +184,9 @@ export default class Form51Layout extends Vue {
     documents = '';
 
     existingFileNumber = '';
+
+    hintFontSize = "8pt"
+    hintTextColor = "#333"
 
     mounted() {
         this.dataReady = false;
