@@ -47,7 +47,7 @@ export default class Form51 extends Vue {
         const el = document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA768    `+moment().format("MM/YYYY")+` \\a           Form 51";`;
+        const bottomLeftText = `"PFA 768    `+moment().format("MM/YYYY")+` \\a           Form 51";`;
         const bottomRightText = `" Electronic Filing Statement"`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );

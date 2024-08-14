@@ -18,12 +18,12 @@
                 </div>
                 <div style="width: 35%; float:right; font-size: 8pt;">
                     <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding-top:10px; padding-left:24px"> Registry location: </div>
+                        <div style="float: left; width: 50%; padding-left:24px"> Registry location: </div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
                             result.applicationLocation }} </div>
                     </div>
                     <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding-top:5px; padding-left:20px;"> Court file number: </div>
+                        <div style="float: left; width: 50%; padding-left:20px;"> Court file number: </div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
                             existingFileNumber ?
                             existingFileNumber : '&nbsp;' }} </div>
@@ -42,13 +42,13 @@
         </div>
 
         <div>
-            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" textwidth="10rem"
+            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" textwidth="12rem"
                 beforetext="<b>I,</b>" hint="Full name"  hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="true" :text="yourInfo.name | getFullName"
                 hintindent="40px" />
-            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="8rem" beforetext=","
+            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="6rem" beforetext=" ,"
                 hint="Occupation" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="false" :text="yourInfo.occupation" hintindent="40px" />
             <grey-box style="text-indent:2px; font-size: 9pt;" textwidth="10rem" beforetext="of"
-                hint="Address of person, City, Province"hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="false" :text="address" aftertext=" ," />
+                hint="Address of person, City, Province" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="false" :text="address" aftertext=" ," />
         </div>
 
         <div style="display:block; font-size: 11pt; margin-top: 2rem; font-weight: 700;">
@@ -60,11 +60,11 @@
         <!-- <1> -->
 
         <p><b> 1. I personally served</b></p>
-        <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="40rem" beforetext=""
+        <grey-box style="text-indent:14px;display:inline-block; font-size: 9pt; " textwidth="40rem" beforetext=""
             hint="Full name of the person served (copy their name from the document you served them)" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px" :italicHint="false"
             :text="servedPersonName" />
 
-        <div style="margin: 0.5rem 0 2rem 1rem;">
+        <div style="margin: 0.5rem 0 2rem 2rem;">
             <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" textwidth="18rem"
                 beforetext="<b>on</b>" hint="Date the documents were served (dd/mmm/yyyy)" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px" :italicHint="false"
                 :text="serviceDate" />
@@ -72,36 +72,31 @@
                 beforetext="<b>at</b>" hint="Time the documents were served" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px" :italicHint="false" :text="serviceTime"
                 aftertext="<b> a.m./p.m.</b>" />
         </div>
-        <div style="margin: 0.5rem 0 2rem 1rem;">
+        <div style="margin: 0.5rem 0 2rem 2rem;">
             <grey-box style="text-indent:2px;font-size: 9pt;" textwidth="38rem" beforetext="<b>at</b>"
                 hint="Street address or location where service took place, city, province" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px"  :italicHint="false"
                 :text="serviceAddress" />
         </div>
-        <div style="display:block;">
+        <div style="display:block; padding-left:12px;">
             <b>with a copy of the attached protection order</b> made under Part 9 of the <i>Family Law Act,</i> marked as Exhibit
-            “A”
+            “A”.
         </div>
-
-
 
         <!-- <2> -->
         <div style="padding-top: 12px;">
-            <p><b>2.  </b>I<b> also personally served them with</b> a copy of the following document(s) </p>
-            <div style="display:block; font-style: italic; font-size:9pt; margin-left:10px;">
-                Indicate each additional document served by marking it with
-                an exhibit letter, listing it below, and attaching a copy to the affidavit.
-            </div>
+            <p><b>2.  </b>I<b> also personally served them with</b> a copy of the following document(s): <br>
+                <i style="display:block; padding-left:15px; color:#ababab"> Indicate each additional document served by marking it with
+                an exhibit letter, listing it below, and attaching a copy to the affidavit.</i>
+            </p>
 
             <div v-if="exhibitList.length > 0" style="margin: 0 0 0 1rem;">
                 <div v-for="exhibit, inx in exhibitList" :key="inx">
-                    <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;"
-                        textwidth="30rem" :beforetext="'<b>EXHIBIT </b>' + exhibit.exhibitName + ':'"
+                    <grey-box style="display:inline-block; font-size: 9pt; margin-top: 1rem;"
+                        textwidth="30rem" :beforetext="'<b>EXHIBIT &ldquo;</b>' + exhibit.exhibitName + '&rdquo; :'"
                         hint="" :italicHint="false" :text="exhibit.fileName" />
                 </div>
             </div>
         </div>
-
-
 
 
         <!-- <3> -->
@@ -110,7 +105,7 @@
                 <b>3.  </b> The party served was identified to me in this manner:
             </div>
 
-            <div style="display:block; font-style: italic;">
+            <div style="display:block; font-style: italic; color:#ababab">
                 Select only one of the options below
             </div>
 
@@ -130,9 +125,9 @@
                     :check="idMethod == 'other' ? 'yes' : ''" text="Other<i>(specify):</i>" />
                     <div style="padding-left:8rem; margin-top:-1.5rem">
                         <grey-box v-if="idMethod == 'other'"  style="margin-top:10px; text-indent:0rem;"
-                            textwidth="20rem" :text="idMethodComment">
+                            textwidth="30rem" :text="idMethodComment">
                         </grey-box>
-                        <grey-box v-else style="margin-top:10px; text-indent:0rem;" textwidth="20rem"></grey-box>
+                        <grey-box v-else style="margin-top:10px; text-indent:0rem;" textwidth="30rem"></grey-box>
                     </div>                
             </div>
 
