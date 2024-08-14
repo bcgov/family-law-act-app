@@ -28,7 +28,7 @@
             <div style="width: 16px; height: 250px; border: 1px solid #313131; border-left: 0;"></div>
             <!-- column 3 -->
             <div style="width: 40%; display: flex; flex-direction: column; margin-top: 155px;">
-                <div style="height:3rem; width:100%;border:1px solid #313132; display:inline-block; margin-left:2rem;">&nbsp;</div>
+                <div style="height:3rem; width:280px;border:1px solid #313132; display:inline-block; margin-left:2rem;">&nbsp;</div>
                 <div style="width:100%; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
             </div>
         </div>
