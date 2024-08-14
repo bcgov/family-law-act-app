@@ -3,7 +3,7 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <FormHeader :tableItems="tableItems" formName="Application About a Family Law Matter" formNumber="FORM 3" formRuleNumer="Rule 24"></FormHeader>
+        <FormHeader :tableItems="tableItems" formName="Application About a Family Law Matter" formNumber="FORM 3" formRuleNumber="Rule 24"></FormHeader>
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">

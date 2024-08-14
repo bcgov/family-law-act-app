@@ -5,7 +5,7 @@
                 <div style="font-size:14pt;"><b>{{formName}}</b></div>
                 <div style="font-size:10pt;"><b>{{formNumber}}</b></div>
                 <div>Provincial Court Family Rules</div>
-                <div>{{formRuleNumer}}</div>
+                <div>{{formRuleNumber}}</div>
             </div>
             <div style="width:200px;">
                 <CourtStamp></CourtStamp>
@@ -72,7 +72,7 @@ export default class FormHeader extends Vue {
     formNumber!: string;
 
     @Prop({required: false, default: ''})
-    formRuleNumer!: string;
+    formRuleNumber!: string;
 }
 </script>
 <style>
