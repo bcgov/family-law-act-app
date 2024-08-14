@@ -42,13 +42,16 @@
         </div>
 
         <div>
-            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" textwidth="12rem"
+            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" textwidth="22rem"
                 beforetext="<b>I,</b>" hint="Full name"  hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="true" :text="yourInfo.name | getFullName"
                 hintindent="40px" />
-            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="6rem" beforetext=" ,"
+            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="15rem" beforetext=" ,"
                 hint="Occupation" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="false" :text="yourInfo.occupation" hintindent="40px" />
-            <grey-box style="text-indent:2px; font-size: 9pt;" textwidth="10rem" beforetext="of"
-                hint="Address of person, City, Province" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="false" :text="address" aftertext=" ," />
+                <div style="margin: 1.5rem 0;">          
+                <grey-box style="text-indent:2px; font-size: 9pt;" textwidth="37.5rem" beforetext="of"
+                hint="Address of person, City, Province" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="150px" :italicHint="false" :text="address" aftertext=" ," /> 
+            </div>
+
         </div>
 
         <div style="display:block; font-size: 11pt; margin-top: 2rem; font-weight: 700;">
