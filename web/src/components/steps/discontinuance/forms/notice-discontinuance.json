@@ -77,10 +77,17 @@
                   ]
                 },
                 {
-                  "type": "infotext",
+                  "type": "checkbox",
                   "name": "ExplanationServe",                  
-                  "title": "You must serve each other party with a copy of the Notice of Discontinuance within 14 days of filing the notice, or before the date of the next scheduled court appearance, whichever is sooner.",
-                  "titleLocation": "hidden"
+                  "title": "Notice",
+                  "description": "I understand <b>I must give notice</b> of this notice of discontinuance to each other party. To give notice, they must be served with a copy of the notice of discontinuance before the earlier of the following dates:<br<br><ol><li><b>14 days after you</b> filed the notice of discontinuance</li><li>The <b>date of the next scheduled court appearance.</b></li></ol>",
+                  "choices": [
+                    {
+                      "value": "confirm",
+                      "text": "I confirm"
+                    }
+                  ],
+                  "isRequired": true
                 },
                 {
                   "type": "checkbox",
