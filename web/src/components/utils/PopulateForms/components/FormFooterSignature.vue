@@ -6,10 +6,10 @@
             <div style="width: 55%; padding-right: 8px;">
                 <div style="margin:1rem 0 0 0">
                     <p>Sworn or affirmed before me</p>
-                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:4px;display:inline;" textwidth="12rem" beforetext="at" hint="City" text="" aftertext=", British Columbia" />
+                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:4px;display:inline;" textwidth="12rem" beforetext="at" hint="City" hintTextColor="hintTextColor" hintindent="80px" text="" aftertext=", British Columbia" />
                 </div>
                 <div style="margin:1rem 0 0 0">
-                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="on" hint="Date" text="" />
+                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="on" hint="Date" hintTextColor="hintTextColor" hintindent="80px" text="" />
                 </div>
     
                 <div style="margin:2rem 0 0 0">
@@ -47,6 +47,9 @@ import UnderlineForm from './UnderlineForm.vue';
     }
 })
 export default class FormFooterSignature extends Vue {
+
+    hintFontSize = "8pt"
+    hintTextColor = "#333"
     
 }
 </script>
