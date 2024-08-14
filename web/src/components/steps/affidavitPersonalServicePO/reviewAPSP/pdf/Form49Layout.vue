@@ -92,7 +92,7 @@
             <div v-if="exhibitList.length > 0" style="margin: 0 0 0 1rem;">
                 <div v-for="exhibit, inx in exhibitList" :key="inx">
                     <grey-box style="display:inline-block; font-size: 9pt; margin-top: 1rem;"
-                        textwidth="30rem" :beforetext="'<b>EXHIBIT </b>' + exhibit.exhibitName+ ':'"
+                        textwidth="30rem" :beforetext="'<b>EXHIBIT &ldquo;</b>' + exhibit.exhibitName + '&rdquo; :'"
                         hint="" :italicHint="false" :text="exhibit.fileName" />
                 </div>
             </div>
