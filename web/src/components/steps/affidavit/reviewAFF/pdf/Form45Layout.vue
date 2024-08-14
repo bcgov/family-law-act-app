@@ -10,7 +10,7 @@
             {value: ''}]"
             formName="Affidavit – General"
             formNumber="FORM 45"
-            formRuleNumer="Rules 171 and 172"
+            formRuleNumber="Rules 171 and 172"
         ></FormHeader>
 
         <div style="margin-bottom: 1rem;"></div>
@@ -37,8 +37,8 @@
             textwidth="22rem" 
             beforetext="<b>I</b>" 
             hint="Full name" 
-            hintFontSize="hintFontSize"
-            hintTextColor="hintTextColor"
+            :hintFontSize="hintFontSize"
+            :hintTextColor="hintTextColor"
             :italicHint="false" :text="yourInfo.name | getFullName"/>
 
         <grey-box-form 
@@ -46,8 +46,8 @@
             textwidth="15rem" 
             beforetext="," 
             hint="Occupation" 
-            hintFontSize="hintFontSize"
-            hintTextColor="hintTextColor"
+            :hintFontSize="hintFontSize"
+            :hintTextColor="hintTextColor"
             :italicHint="false" :text="yourInfo.occupation"/>
 
         <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
@@ -61,8 +61,8 @@
                 textwidth="30rem" 
                 beforetext="" 
                 hint="Address of person, City, Province" 
-                hintFontSize="hintFontSize"
-                hintTextColor="hintTextColor"
+                :hintFontSize="hintFontSize"
+                :hintTextColor="hintTextColor"
                 :italicHint="false" :text="address"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                 ,
@@ -99,8 +99,8 @@
                 textwidth="24rem" 
                 beforetext="" 
                 hint="Briefly describe the type of application"
-                hintFontSize="hintFontSize"
-                hintTextColor="hintTextColor" 
+                :hintFontSize="hintFontSize"
+                :hintTextColor="hintTextColor" 
                 :text="supportApplication?appType:''"/>
             
             <div v-if="supportApplication" style="margin:1rem 0 0 9rem;">
@@ -139,8 +139,8 @@
                     textwidth="24rem" 
                     beforetext="" 
                     hint="Briefly describe the type of application" 
-                    hintFontSize="hintFontSize"
-                    hintTextColor="hintTextColor" 
+                    :hintFontSize="hintFontSize"
+                    :hintTextColor="hintTextColor" 
                     :text="!supportApplication?appType:''"/>            
             </div>
             <div v-if="!supportApplication" style="margin:0.5rem 0 0 9rem;">
