@@ -677,77 +677,111 @@
     <!-- <11> -->
 
     <!-- <12> -->
-        <section>
-            <i>
-                Select whichever option is correct.
-            </i>
-            <check-box style="margin:0 0 0 1rem;" 
-                    :check="!pastConviction?'yes':''" 
-                    text="There are no criminal offences, other than those, if any, specified in the criminal records check referred to in paragraph 11 of
-                    this affidavit, of which I have been convicted and not pardoned."/> 
+        <div style="margin-top: 1rem;"/>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                    <p>
+                        Criminal offences
+                    </p>
+                </div>
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>12. </b>
+                    <i>Select whichever option is correct</i>
+                <check-box style="margin:0 0 0 1rem; text-indent: -16px;" 
+                        :check="!pastConviction?'yes':''" 
+                        text="There are <b>no criminal offences, other than those, if any, specified in the criminal records check</b> referred to in paragraph 11 of
+                        this affidavit, of which I have been convicted and not pardoned."/> 
 
-            <check-box 
-                style="margin:1rem 0 0 1rem;" 
-                :check="pastConviction?'yes':''" 
-                text="In addition to the convictions, if any, specified in the criminal records check referred to in paragraph 11 of this affidavit, I have
-                been convicted of, and not pardoned for, the following criminal offences:<br><i>Provide details of any criminal convictions, not referred to in the criminal records check, for which you have not received a
-                pardon</i>"/>
-            
-            <div style="margin:0rem 0 0 1rem;" v-if="pastConviction" 
-                class="answerbox">{{ convictionDetails }}</div>
-            <div v-else style="margin-bottom:3rem;"></div>  
-        </section>
-
-    <!-- <13> -->
-        <section>
-            <i>
-                Select whichever option is correct.
-            </i>
-            <check-box style="margin:0 0 0 1rem;" 
-                    :check="!currentlyConvicted?'yes':''" 
-                    text="<b>I am not</b> currently charged with any criminal offences."/> 
-
-            <check-box 
-                style="margin:1rem 0 0 1rem;" 
-                :check="currentlyConvicted?'yes':''" 
-                text="<b>I am</b> currently charged with criminal offences. The particulars of each charge are set out below:"/>
-            
-            <b-table
-                :items="currentCharges"
-                :fields="chargeFields"
-                class="mt-2"
-                small
-                bordered>             
-                    <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
-                    </template>
-                    <template v-slot:head(chargeDate)>
-                        Date of alleged offence <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                    </template>
-            </b-table>  
-        </section>
-
-
-        <!-- <SWEAR > -->        
-
-            <div style="margin:1rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem" beforetext="Sworn or affirmed before me at" hint="(city)" text="" />
+                <check-box 
+                    style="margin:1rem 0 0 1rem; text-indent: -16px;" 
+                    :check="pastConviction?'yes':''" 
+                    text="<b>In addition to the convictions</b>, if any, specified in the criminal records check referred to in paragraph 11 of this affidavit, <b>I have
+                    been convicted of</b>, and not pardoned for, <b>the following criminal offences</b>:
+                    <br><i>Provide details of any criminal convictions, not referred to in the criminal records check, for which you have not received a pardon</i>"/>
+                
+                <div style="margin:0rem 0 0 1rem;" v-if="pastConviction" 
+                    class="answerbox">{{ convictionDetails }}</div>
+                <div v-else style="margin:0 0 3rem 1.5rem; min-height:75px; background-color: #dedede"></div>
+                </div>
+                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                    <b>13. </b>
+                    <i>Select whichever option is correct</i>
+                    <check-box style="margin:0 0 0 1rem; text-indent: -16px;" 
+                        :check="!currentlyConvicted?'yes':''" 
+                        text="I am <b>not currently charged with any criminal offences</b>"/> 
+                    <check-box 
+                        style="margin:1rem 0 0 1rem; text-indent: -16px;" 
+                        :check="currentlyConvicted?'yes':''" 
+                        text="I am <b>currently charged with criminal offences</b>. The particulars of each charge are set out below:"/>
+                    
+                    <b-table
+                        :items="currentCharges"
+                        :fields="chargeFields"
+                        class="mt-2"
+                        small
+                        bordered>          
+                            <template v-slot:cell()="data">
+                                <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                            </template>
+                            <template v-slot:head(chargeDate)>
+                                Date of alleged offence <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
+                            </template>
+                    </b-table> 
+                </div> 
             </div>
-            <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="British Columbia on" hint="(date)" text="" />
-            </div>
+            <div style="width: 20%"/>
+        </div>
 
-            <div style="margin:2rem 0 0 0">
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block;"></div>
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
+        <!-- <SWEAR > -->
+        <div style="display: flex; flex-direction: row;">   
+            <div style="width: 40%; padding-right: 4px; border: 1px solid black; clip-path: inset(1px 0px 1px 1px);">
+                <div style="text-indent:5px;display:block; font-size: 9pt;margin:1rem 0 0 0"> 
+                    Sworn or affirmed before me 
+                </div>
+                <div style="margin:0.5rem 0 0 0">
+                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" hintFontSize="8pt" hintindent="90px" beforetext="at" aftertext=", British Columbia" hint="City" text="" />
+                </div>
+                <div style="margin-top: 1.25rem;"/>
+                <div style="margin:.5rem 0 0 0">
+                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" hintFontSize="8pt" hintindent="85px" beforetext="on" hint="Date" text="" />
+                </div>
+                <div style="margin:2rem 0 0 0; display:inline-block;">
+                    <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block;"></div>
+                    <br/>
+                    <div style="width:10rem; display:inline-block; font-size:8pt" >
+                        A Commissioner for taking Affidavits in British Columbia
+                        [print name or affix stamp of commissioner]
+                    </div>
+                </div>
             </div>
-            <div>
-                <div style="width:20rem; display:inline-block; font-size:9pt" >A Commissioner for taking Affidavits in British Columbia</div>
-                <div style="width:20rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
+            <div style="width: 40%; margin:8.65rem 1rem 0 0">
+                <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
+                <div style="width:10rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
             </div>
-            <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="" hint="[print name or affix stamp of commissioner]" text="" />
+            <div style="width: 20%">
+                <NoteBox style="margin-top:-20px">
+                    <b-icon-info-circle-fill />
+                    <p>
+                        This document must be 
+                        signed only with a 
+                        commissioner for taking 
+                        affidavits. <b>Do not sign</b> the 
+                        document until they tell you 
+                        to. You will sign it with them.
+                    </p>
+                </NoteBox>
+                <NoteBox style="margin-top:10px">
+                    <b-icon-info-circle-fill />
+                    <p>
+                        Once the affidavit is signed 
+                        with a commissioner, it must 
+                        be filed within 7 days [Rule 
+                        26].
+                    </p>
+                </NoteBox>
             </div>
+        </div>
     </div>
 
 </template>
