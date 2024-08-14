@@ -70,9 +70,9 @@
             <div class="marginleft2p5vue" style="margin:1rem 0 0 1.5rem;">
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
                     :check="isLawyer ? 'yes' : ''" text="I," />
-                <grey-box style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="10rem" beforetext=""
+                <grey-box style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="15rem" beforetext=""
                     hint="Full name of lawyer" hintTextColor="hintTextColor" hintindent="40px" :text="isLawyer ? lawyerName : ''" />
-                <grey-box style="text-indent:2px;display:inline-block;" textwidth="20rem"
+                <grey-box style="text-indent:2px;display:inline-block;" textwidth="15rem"
                     beforetext=",am the lawyer for" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
                     :text="isLawyer ? parties : ''" />
             </div>
