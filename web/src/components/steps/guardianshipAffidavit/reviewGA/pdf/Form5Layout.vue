@@ -788,6 +788,8 @@ export default class Form5Layout extends Vue {
     familyViolenceExists = false;
     familyViolenceDesc = '';
 
+    otherPartyNames='';
+
     courtProceedingsExist = false;
     civilProceedingInfo = [];
     exhibitList = [];
@@ -854,7 +856,7 @@ export default class Form5Layout extends Vue {
             {
                 name: 'Last names of parties:',
                 subtitle: 'Party 1/ Party 2',
-                value: ''
+                value: this.otherPartyNames
             },
             {
                 name: "Document number:",
@@ -872,6 +874,7 @@ export default class Form5Layout extends Vue {
         this.childrenInfo = this.getChildrenDetails();
         this.getCareDetails();
         this.getFamilyViolenceInfo();
+        this.getOtherPartiesInfo();
         this.getChargeDetails();
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);        
     } 
@@ -899,6 +902,11 @@ export default class Form5Layout extends Vue {
             this.address = aboutAffiant.inCareOf?.length>0?('Care of '+ addressText ):addressText;
         }
             
+    }
+
+    public getOtherPartiesInfo(){
+        this.otherPartyNames 
+            = `${this.result.otherFormsLastNamesOfPartiesSurvey.party1 ?? "NA"} / ${this.result.otherFormsLastNamesOfPartiesSurvey.party2 ?? "NA"}`;
     }
 
     public getFamilyViolenceInfo(){ 
