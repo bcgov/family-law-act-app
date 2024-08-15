@@ -99,21 +99,22 @@
         
         <!-- Part 1 -->
         <div style="margin-top: 1rem;" />
-        <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
-            <div style="flex:1; margin-right: 10px;">
-                <grey-box-form entryFontSize="7pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="8rem"
-                            hintindent="45px" beforetext="<b>I,</b>" hint="Full name" :text="yourInfo.name | getFullName" />
+        <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
+            <div style="width: 80%; margin-right: 10px;">
+                <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="10rem"
+                            hintindent="45px" hintmargintop="4px" beforetext="<b>I,</b>" hint="Full name" :text="yourInfo.name | getFullName" />
                 
-                <grey-box-form entryFontSize="7pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="6rem"
-                    hintindent="25px" beforetext="," hint="Occupation" :text="yourInfo.occupation" />
+                <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="10rem"
+                    hintindent="25px" beforetext="," hintmargintop="4px" hint="Occupation" :text="yourInfo.occupation" />
 
-                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                    <div style="margin-top: 1.25rem;"/>
+                <div style="text-indent:5px;display:inline; font-size: 10pt;"> 
                     of
                 </div>
 
-                <grey-box-form entryFontSize="7pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="15rem"
-                    hintindent="60px" beforetext="" hint="Address of party, City, Province" :text="address" />
-                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="25rem"
+                    hintindent="60px" beforetext="" hintmargintop="4px" hint="Address of party, City, Province" :text="address" />
+                <div style="text-indent:5px;display:inline; font-size: 10pt;"> 
                     ,
                 </div>
                 <div style="text-indent:5px;display:block; font-size: 10pt; margin-top: 2rem;"> 
@@ -263,7 +264,7 @@
                     <i>Set out detailed plans for how the child(ren) is/are to be cared for</i>
                 </div>
                 <div style="margin-left: 1rem;">
-                    <div v-if="careDetails.length>0" class="answerbox" style="margin-left: 1rem;">{{careDetails}}</div>
+                    <div v-if="careDetails.length>0" class="answerbox" style="margin-left: 1rem; background-color: #dedede">{{careDetails}}</div>
                     <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"></div> 
                 </div> 
             </div>
@@ -481,7 +482,7 @@
                                 textwidth="3rem" 
                                 beforetext="above is attached as Exhibit" 
                                 entryFontSize="9pt"
-                                marginTop="-17px"
+                                marginTop="-15px"
                                 hint="(A, B, etc.)" 
                                 hintindent="0px"
                                 :text="exhibit.exhibitName.replace('Exhibit ', '')"/>
@@ -735,16 +736,19 @@
 
         <!-- <SWEAR > -->
         <div style="display: flex; flex-direction: row;">   
-            <div style="width: 40%; padding-right: 4px; border: 1px solid black; clip-path: inset(1px 0px 1px 1px);">
+            <div style="width: 40%; padding-right: 4px; 
+                border: 1px solid black; -webkit-clip-path: inset(1px 0px 1px 1px); clip-path: inset(1px 0px 1px 1px);
+                    border-top-right-radius: 15px;
+                    border-bottom-right-radius: 15px;">
                 <div style="text-indent:5px;display:block; font-size: 9pt;margin:1rem 0 0 0"> 
                     Sworn or affirmed before me 
                 </div>
                 <div style="margin:0.5rem 0 0 0">
-                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" hintFontSize="8pt" hintindent="90px" beforetext="at" aftertext=", British Columbia" hint="City" text="" />
+                    <grey-box-form marginTop="-20px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" hintFontSize="8pt" hintindent="90px" beforetext="at" aftertext=", British Columbia" hint="City" text="" />
                 </div>
                 <div style="margin-top: 1.25rem;"/>
                 <div style="margin:.5rem 0 0 0">
-                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" hintFontSize="8pt" hintindent="85px" beforetext="on" hint="Date" text="" />
+                    <grey-box-form marginTop="-20px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" hintFontSize="8pt" hintindent="85px" beforetext="on" hint="Date" text="" />
                 </div>
                 <div style="margin:2rem 0 0 0; display:inline-block;">
                     <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block;"></div>
