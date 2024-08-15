@@ -18,12 +18,12 @@
 
                 <div style="width: 35%; float:right; font-size: 8pt;">
                     <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                        <div style="float: left; width: 50%; padding-left: 24px; padding-top: 6px;"> Registry location: </div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
                             result.applicationLocation }} </div>
                     </div>
                     <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                        <div style="float: left; width: 50%; padding-left: 20px;"> Court file number: </div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
                             existingFileNumber ?
                             existingFileNumber : '&nbsp;' }} </div>
@@ -51,9 +51,9 @@
                     </li>
                 </ul>
                 <div style="padding-left: 42px; margin-top: -16px;">
-                    <span>i. the date the proceeding, including any appeals, is completed</span> <br>
-                    <span>ii. the date the appeal period has expired, if no appeal is filed </span> <br>
-                    <span> iii. the date on which a judge orders the paper version be filed</span>
+                    <span>i.the date the proceeding, including any appeals, is completed</span> <br>
+                    <span>ii.the date the appeal period has expired, if no appeal is filed </span> <br>
+                    <span> iii.the date on which a judge orders the paper version be filed</span>
                 </div>
             </div>
         </div>
@@ -64,16 +64,16 @@
         </div>
         <section>
 
-            <div style="text-indent:5px;display:inline; font-size: 9pt;">
+            <div style="text-indent:5px;display:inline; font-size: 9pt; color:#ababab">
                 <i> Select the applicable option and complete the required information</i>
             </div>
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:1rem 0 0 1.5rem;">
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
                     :check="isLawyer ? 'yes' : ''" text="I," />
-                <grey-box style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="10rem" beforetext=""
+                <grey-box style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="15rem" beforetext=""
                     hint="Full name of lawyer" hintTextColor="hintTextColor" hintindent="40px" :text="isLawyer ? lawyerName : ''" />
-                <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="20rem"
-                    beforetext=",  am the lawyer for" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
+                <grey-box style="text-indent:2px;display:inline-block;" textwidth="15rem"
+                    beforetext=",am the lawyer for" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
                     :text="isLawyer ? parties : ''" />
             </div>
 
@@ -134,7 +134,7 @@
 
         <div
             style="margin:2rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
-            <grey-box style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
+            <UnderlineForm style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
                 hint="Date (dd/mmm/yyyy)" hintTextColor="hintTextColor" text="" hintindent="40px"/> 
             <UnderlineForm style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
                 text=""/>

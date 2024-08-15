@@ -48,8 +48,8 @@ export default class Form48 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"  `+moment().format("MMMM D, YYYY")+` \\a           Form 48";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"  `+moment().format("MMM/YYYY")+` \\a           Form 48";`;
+        const bottomRightText = `"Affidavit of Personal Service"`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 

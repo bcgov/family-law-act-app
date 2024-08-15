@@ -48,7 +48,7 @@ export default class Form49 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA766    `+moment().format("MM/YYYY")+` \\a           Form 49";`;
+        const bottomLeftText = `"PFA 766    `+moment().format("MM/YYYY")+` \\a           Form 49";`;
         const bottomRightText = `"Affidavit of Personal Service of Protection Order"`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );

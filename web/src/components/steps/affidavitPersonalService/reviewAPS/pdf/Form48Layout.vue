@@ -3,59 +3,48 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-reloc">
-            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Affidavit of Personal Service</b></div>               
-                <div style="font-size:10pt;"><b>FORM 48</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rule 183</div>
-            </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>                
-            </div>
-        </div> 
+        <FormHeader formName="Affidavit of Personal Service" formNumber="FORM 48" formRuleNumber="Rule 183" :headerTableData="
+            [{value: result.applicationLocation}, 
+            {value: existingFileNumber}, 
+            {value: ''}, 
+            {value: ''}]"></FormHeader>    
 
-        <underline-form 
-            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+        <div style="margin-top: 1rem;"></div>
+
+        <grey-box-form 
+            style="text-indent:2px;display:inline-block; font-size: 12pt;" 
             textwidth="22rem" 
-            beforetext="I, " 
-            hint="(full name)" 
+            beforetext="<b>I, </b>" 
+            hint="Full name" 
+            :hintFontSize="hintFontSize"
+            :hintTextColor="hintTextColor"
             :italicHint="false" :text="yourInfo.name | getFullName"/>
 
-        <underline-form 
-            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+        <grey-box-form 
+            style="text-indent:2px;display:inline-block; font-size: 12pt;" 
             textwidth="15rem" 
             beforetext="," 
-            hint="(occupation)" 
+            hint="Occupation" 
+            :hintFontSize="hintFontSize"
+            :hintTextColor="hintTextColor"
             :italicHint="false" :text="yourInfo.occupation"/>
         
 
         <div style="margin: 1rem 0;">
-            <underline-form 
-                style="text-indent:2px;font-size: 9pt;" 
+            <grey-box-form 
+                style="text-indent:2px;font-size: 12pt;" 
                 textwidth="37.25rem" 
                 beforetext="of" 
-                hint="(address of party, city, province)" 
+                hint="Address of person, City, Province" 
+                :hintFontSize="hintFontSize"
+                :hintTextColor="hintTextColor"
                 :italicHint="false" :text="address"/> 
             <div style="text-indent:5px;display:inline; font-size: 9pt;">
             ,
             </div>
         </div> 
 
-        <div style="text-indent:5px;display:block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
+        <div style="text-indent:5px;display:block; font-size: 12pt; margin-top: 2rem; font-weight: bold;"> 
             SWEAR OR AFFIRM THAT:
         </div>
 
@@ -63,51 +52,70 @@
            
         <div style="margin-top: 1rem;"></div>  
     <!-- <1> -->
-        <section>
-
-            <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="20rem" 
-                beforetext="I personally served" 
-                hint="(full name of person served)" 
+        <section style="text-indent: 0pt;">
+            <p style="display: inline; text-indent: 4px;font-size: 14pt;"><b>I personally served</b></p>
+            <br>
+            <grey-box-form 
+                style="text-indent:2px;display:inline-block; font-size: 12pt;" 
+                textwidth="37.5rem" 
+                beforetext="" 
+                hint="Full name of the person served (copy their name from the document you served them)" 
+                hintindent="10pt"
+                :hintFontSize="hintFontSize"
+                :hintTextColor="hintTextColor"
                 :italicHint="false" :text="servedPersonName"/>        
-
-            <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" 
-                textwidth="12.5rem" 
-                beforetext="on" 
-                hint="(date the document(s) were served mmm/dd/yyyy)" 
+            
+            <div style="margin-top: 20px;">
+                <grey-box-form 
+                style="text-indent:2px;display:inline; font-size: 12pt;margin-top: 1rem;" 
+                textwidth="20rem" 
+                beforetext="<b>on</b>" 
+                hint="Date the documents were served (dd/mmm/yyyy)" 
+                hintindent="10pt"
+                :hintFontSize="hintFontSize"
+                :hintTextColor="hintTextColor"
                 :italicHint="false" :text="serviceDate"/>
-                  
-
-            <div style="margin: 0.5rem 0 2rem 0;">
-                <underline-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt;margin-top: 1rem;" 
+                
+                <grey-box-form 
+                    style="text-indent:2px;display:inline; font-size: 12pt;margin-top: 1rem;" 
                     textwidth="11rem" 
-                    beforetext="at" 
-                    hint="(time the document(s) were served a.m./p.m.)" 
+                    beforetext="<b>at</b>" 
+                    aftertext="<b>a.m./p.m.</b>"
+                    hint="Time the documents were served"
+                    hintindent="0"
+                    :hintFontSize="hintFontSize"
+                    :hintTextColor="hintTextColor" 
                     :italicHint="false" :text="serviceTime"/>  
-                <underline-form 
-                    style="text-indent:2px;font-size: 9pt;" 
-                    textwidth="28.5rem" 
-                    beforetext="at" 
-                    hint="(address or location where service took place, city, province)" 
-                    :italicHint="false" :text="serviceAddress"/> 
-            </div> 
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <grey-box-form 
+                style="text-indent:2px;font-size: 12pt;" 
+                textwidth="37.5rem" 
+                beforetext="<b>at</b>" 
+                hint="Street address or location where service took place, city, province" 
+                hintindent="10pt"
+                :hintFontSize="hintFontSize"
+                :hintTextColor="hintTextColor" 
+                :italicHint="false" :text="serviceAddress"/> 
+            </div>
+            
 
-            <div style="display:block; font-size: 9pt; margin: 1rem 0 0.5rem 0.25rem;"> 
-                with a copy of the following document(s):
+            <div style="text-indent:14px; display:block; font-size: 12pt; margin: 2rem 0 0.5rem 0.25rem;"> 
+                <b>with a copy of the following document(s):</b>
             </div> 
-            <div style="display:block; font-size: 9pt; margin: 0 0 0 0.25rem; font-style: italic;"> 
+            <div style="margin-left:14px; display:block; font-size: 12pt; font-style: italic;"> 
                 Indicate each document served by marking it with an exhibit letter, listing it below, and attaching a copy to the affidavit.
             </div>
 
+            <div style="margin-top: 1rem;"></div>
+
             <div v-for="exhibit,inx in exhibitList" :key="inx">            
-                <underline-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
-                    textwidth="35rem" 
-                    :beforetext="'EXHIBIT ' + exhibit.exhibitName +':'"
-                    hint="(name of document)" 
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; font-size: 13pt; margin-top: 1rem;" 
+                    textwidth="30rem" 
+                    :beforetext="'Exhibit &quot;' + exhibit.exhibitName +'&quot;:'"
+                    hint="" 
                     :italicHint="false" :text="exhibit.fileName"/>              
             </div>
 
@@ -117,15 +125,15 @@
 
         <section>
             
-            <div style="display:inline; font-size: 9pt;"> 
-                The person served was identified to me in this manner:
+            <div style="display:inline; font-size: 12pt;"> 
+                The party served was identified to me in this manner:
             </div>
 
             <div style="display:block; font-style: italic; margin: 0 0 0 1rem;"> 
                 Select only one of the options below
             </div>
             
-            <div style="display:block;">
+            <div style="display:block;font-size: 12pt;">
                 <check-box 
                     checkbox="" 
                     inline="inline" 
@@ -136,7 +144,7 @@
                     text="I know the person"/>
             </div>
 
-            <div style="display:block;">
+            <div style="display:block;font-size: 12pt;">
                 <check-box 
                     checkbox="" 
                     inline="inline" 
@@ -147,44 +155,25 @@
                     text="the person served admitted to being this person"/>   
             </div>         
                 
-            <div style="display:block;">
+            <div style="display:block;font-size: 12pt;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
                     boxMargin="0"
                     shiftmark="-3"
-                    style="text-indent: 5px;" 
+                    style="text-indent: 5px; margin-right: 20px;" 
                     :check="idMethod == 'other'?'yes':''" 
                     text="Other (specify):"/>
                     
-                <div v-if="idMethod == 'other'" class="answerbox">{{idMethodComment}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
+                <div v-if="idMethod == 'other'" class="answerbox" style="display: inline-block; font-size: 12pt;background: #d6d6d6; width: 420px; height: 26px;">{{idMethodComment}}</div>
+                <div v-else class="answerbox" style="display: inline-block; margin-bottom:3rem;background: #d6d6d6;"></div> 
             </div>
 
         </section>       
 
         <div class="print-block">
         <!-- <SWEAR > -->        
-
-            <div style="margin:1rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem" beforetext="Sworn or affirmed before me at" hint="(city)" text="" />
-            </div>
-            <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="British Columbia on" hint="(date)" text="" />
-            </div>
-
-            <div style="margin:2rem 0 0 0">
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block;"></div>
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
-            </div>
-            <div>
-                <div style="width:20rem; display:inline-block; font-size:9pt" >A Commissioner for taking Affidavits in British Columbia</div>
-                <div style="width:20rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
-            </div>
-            <div style="margin:.5rem 0 0 0">
-                <underline-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="" hint="(print name or affix stamp of commissioner)" text="" />
-            </div>
-            
+            <FormFooterSignature></FormFooterSignature> 
         </div>
 
     </div>
@@ -203,11 +192,17 @@ import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 import { aboutAffiantApsDataInfoType, aboutServiceApsDataInfoType } from '@/types/Application/AffidavitPersonalService';
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
+import FormFooterSignature from '@/components/utils/PopulateForms/components/FormFooterSignature.vue';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox       
+        CheckBox,
+        GreyBoxForm,
+        FormHeader,
+        FormFooterSignature       
     }
 })
 
@@ -231,13 +226,16 @@ export default class Form48Layout extends Vue {
     exhibitList = [];
 
     idMethod = '';
-    idMethodComment = '';    
+    idMethodComment = '';
+    
+    hintFontSize = "8pt"
+    hintTextColor = "#333"
    
     mounted(){
         this.dataReady = false;
         console.log(this.result)
         this.extractInfo();       
-        this.dataReady = true;        
+        this.dataReady = true;   
     }
    
     public extractInfo(){        
@@ -289,7 +287,7 @@ export default class Form48Layout extends Vue {
             this.servedPersonName = serviceData.ServedPersonName?Vue.filter('getFullName')(serviceData.ServedPersonName):'';
             
             if(serviceData.dateTimeServed){
-                this.serviceDate = Vue.filter('beautify-date')(serviceData.dateTimeServed);
+                this.serviceDate = Vue.filter('beautify-date-mid')(serviceData.dateTimeServed);
                 this.serviceTime = Vue.filter('convert-date-time24to12')(serviceData.dateTimeServed);                           
             }
 
