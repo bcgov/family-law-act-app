@@ -3,27 +3,7 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-    <div style="height: 160px;">
-            <div style="float:left; width: 33%;">
-                <div style="font-size: 14pt;"><b>Notice of Lawyer for Child</b></div>
-                <div style="font-size:12pt;"><b>Form 40</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rule 162</div>
-            </div>
-            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
-                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
-            </div>
-            <div style="width: 35%; float:right; font-size: 8pt;">
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
-                </div>
-            </div>
-        </div>
+        <FormHeader :headerTableData="headerTableData" formName="Notice of Lawyer for Child" formNumber="FORM 40" formRuleNumer="Rule 162"></FormHeader>
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -289,7 +269,7 @@ export default class Form40Layout extends Vue {
         {key:"dob",   label:"Child’s Date of Birth",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"}
     ];
  
-    tableItems = [];
+    headerTableData = [];
 
     mounted(){
         this.dataReady = false;
@@ -297,7 +277,7 @@ export default class Form40Layout extends Vue {
         this.extractInfo();
         this.dataReady = true;        
  
-        this.tableItems = [
+        this.headerTableData = [
             {
                 name:'REGISTRY LOCATION:', 
                 value: this.result.applicationLocation
