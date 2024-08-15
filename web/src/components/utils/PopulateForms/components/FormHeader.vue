@@ -17,7 +17,7 @@
                 </div>
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;"> Court file number:&nbsp; </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{  headerTableData[1].value }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{  headerTableData[1].value ? headerTableData[1].value : '&nbsp;' }} </div>
                 </div>
                 <div v-if="headerTableData[2]" style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;">Last names of parties:&nbsp;<br/><span style="color:#626262;font-style:italic">Party 1/ Party 2&nbsp;</span></div>
