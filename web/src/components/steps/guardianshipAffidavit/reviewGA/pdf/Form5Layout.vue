@@ -2,42 +2,13 @@
     <div v-if="dataReady">
         
         <!-- <HEADER> -->
-        <div style="height: 160px;">
-            <div style="float:left; width: 33%;">
-                <div style="font-size:13pt;"><b>Guardianship Affidavit</b></div>
-                <div style="font-size:12pt;"><b>Form 5</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rule 26, 51, 172</div>
-            </div>
-            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
-                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
-            </div>
-            <div style="width: 35%; float:right; text-align: right; font-size: 8pt;">
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
-                        result.applicationLocation }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ?
-                        existingFileNumber : '&nbsp;' }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Last name of parties: <div
-                            style="font-size: 6pt; padding-left:16px;">Party 1/ Party 2</div>
-                    </div>
-                                        <!-- todo: add party question to workflow -->
-                    <!-- <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div> -->
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number: <div
-                            style="font-size: 6pt; padding-left:16px;">For registry use only</div>
-                    </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">&nbsp;</div>
-                </div>
-            </div>
-        </div>
+        <FormHeader 
+            :headerTableData="tableItems" 
+            formName="Guardianship Affidavit" 
+            formNumber=5 
+            subtitle="Provincial Court Family Rules"
+            formRuleNumber="Rules 26, 51, 172" />
+
         <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px;">
                 <p>This Guardianship Affidavit provides evidence to the court respecting the best interests of the 
@@ -771,6 +742,7 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import GreyBoxForm from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
@@ -787,7 +759,8 @@ import { aboutAffiantGaDataInfoType, backgroundCivilCourtProceedingsDataInfoType
         GreyBoxForm,
         CheckBox,
         NoteBox,
-        FormPart
+        FormPart,
+        FormHeader
     }
 })
 
@@ -809,6 +782,8 @@ export default class Form5Layout extends Vue {
     careDetails = '';
     otherChildrenExist = false;
     otherChildrenInfo = [];
+
+    tableItems = [];
 
     familyViolenceExists = false;
     familyViolenceDesc = '';
@@ -866,7 +841,28 @@ export default class Form5Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.extractInfo();       
+        this.extractInfo();
+        this.tableItems = [
+            {
+                name:'REGISTRY LOCATION:', 
+                value: this.result.applicationLocation
+            },
+            {
+                name:'COURT FILE NUMBER:',
+                value: this.existingFileNumber ? this.existingFileNumber : null
+            },
+            {
+                name: 'Last names of parties:',
+                subtitle: 'Party 1/ Party 2',
+                value: ''
+            },
+            {
+                name: "Document number:",
+                subtitle: 'For registry use only',
+                value: ""
+
+            }
+        ];     
         this.dataReady = true;        
     }
    
