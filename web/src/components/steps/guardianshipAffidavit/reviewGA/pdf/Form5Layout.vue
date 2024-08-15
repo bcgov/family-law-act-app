@@ -72,37 +72,13 @@
                 </NoteBox>
             </div>
         </div>
-        <!-- <div  class="form-header-reloc">
-            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Guardianship Affidavit</b></div>               
-                <div style="font-size:10pt;"><b>FORM 5</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rules 26, 51 and 172</div>
-            </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>
-            </div>
-        </div>  -->
-        
+
         <!-- Part 1 -->
         <div style="margin-top: 1rem;" />
         <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
             <div style="width: 80%; margin-right: 10px;">
                 <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                            hintindent="45px" hintmargintop="4px" beforetext="<b>I,</b>" hint="Full name" :text="yourInfo.name | getFullName" />
+                    hintindent="45px" hintmargintop="4px" beforetext="<b>I,</b>" hint="Full name" :text="yourInfo.name | getFullName" />
                 
                 <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="10rem"
                     hintindent="25px" beforetext="," hintmargintop="4px" hint="Occupation" :text="yourInfo.occupation" />
@@ -130,10 +106,8 @@
                     <b-icon-book />
                     <p>
                         For more information about 
-                        who is a child’s guardian, 
-                        including when a parent is not 
-                        a guardian, see the 
-                        guidebook.
+                        swearing or affirming an 
+                        affidavit, see the guidebook. 
                     </p>
                 </NoteBox>
             </div>
@@ -168,9 +142,20 @@
                         </template>
                 </b-table> 
             </div>
+            <div style="width: 20% ">
+                <NoteBox style="margin-top: 40px;">
+                    <b-icon-book />
+                    <p>
+                        For more information about 
+                        who is a child’s guardian, 
+                        including when a parent is not 
+                        a guardian, see the 
+                        guidebook.
+                    </p>
+                </NoteBox>
+            </div>
         </div>
 
-    <!-- <2> -->
         <div class="print-block">
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <b>2. </b> 
@@ -180,7 +165,6 @@
         </div>
 
         <div style="margin-top: 1rem;"/>
-    <!-- <3> -->  
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
@@ -222,7 +206,6 @@
             </div>
         </div>
 
-    <!-- <4> -->
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -253,7 +236,6 @@
             </div>
         </div>
 
-    <!-- <5> -->
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -287,7 +269,7 @@
             </div>
         </div>
 
-    <!-- <6> -->
+        <!-- <2> -->
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -340,7 +322,7 @@
             </div>
         </div>
 
-    <!-- <7> -->
+        <!-- <3> -->
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -384,7 +366,7 @@
             <div style="width: 20% "/>
         </div>
 
-    <!-- <8> -->
+        <!-- <4> -->
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -445,10 +427,26 @@
                     </b-table>
                 </div>
             </div>
-            <div style="width: 20% "/>
+            <div style="width: 20%">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        Court proceedings may be in 
+                        Provincial Court or Supreme 
+                        Court, including divorce or 
+                        family law proceedings, or 
+                        child protection.<br/>
+                        Include any family proceeding 
+                        (including divorce) where 
+                        there were children of the 
+                        marriage even if the children 
+                        weren’t the subject of any 
+                        contested proceeding.
+                    </p>
+                </NoteBox>
+            </div>
         </div>
 
-    <!-- <9> -->
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -543,29 +541,8 @@
                 </NoteBox>
             </div>
         </div>
-        <!-- <section>            
-            <underline-form 
-                style="text-indent:0;margin-left:.25rem;display:inline;" 
-                textwidth="2.5rem" 
-                beforetext="Attached to this affidavit and marked as Exhibit" 
-                hint="(A, B, etc.)" 
-                :text="mcfdRecord.exhibitName?mcfdRecord.exhibitName.replace('Exhibit ',''):''"/>
-                <div style="text-indent:5px;display:inline;"> 
-                    is a copy of a British Columbia Ministry of
-                </div>           
-                <underline-form 
-                    style="text-indent:0;display: inline-block; margin: 0.25rem 0;" 
-                    textwidth="6rem" 
-                    beforetext=" Children and Family Development records check dated" 
-                    hint="(mmm/dd/yyyy)" 
-                    :text="mcfdRecord.fileDate?mcfdRecord.fileDate:''"/>                    
-                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                    .
-                </div>            
-                    
-        </section> -->
 
-    <!-- <10> -->
+        <!-- <5> -->
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -675,9 +652,8 @@
                 </NoteBox>
             </div>
         </div>
-    <!-- <11> -->
 
-    <!-- <12> -->
+        <!-- <6> -->
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -705,7 +681,7 @@
                     class="answerbox">{{ convictionDetails }}</div>
                 <div v-else style="margin:0 0 3rem 1.5rem; min-height:75px; background-color: #dedede"></div>
                 </div>
-                <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <div style="margin: 1rem 0 0 1rem; text-indent: -10px; padding-left: 10px;">
                     <b>13. </b>
                     <i>Select whichever option is correct</i>
                     <check-box style="margin:0 0 0 1rem; text-indent: -16px;" 
@@ -736,10 +712,7 @@
 
         <!-- <SWEAR > -->
         <div style="display: flex; flex-direction: row;">   
-            <div style="width: 40%; padding-right: 4px; 
-                border: 1px solid black; -webkit-clip-path: inset(1px 0px 1px 1px); clip-path: inset(1px 0px 1px 1px);
-                    border-top-right-radius: 15px;
-                    border-bottom-right-radius: 15px;">
+            <div style="width: 40%; padding-right: 4px;">
                 <div style="text-indent:5px;display:block; font-size: 9pt;margin:1rem 0 0 0"> 
                     Sworn or affirmed before me 
                 </div>
