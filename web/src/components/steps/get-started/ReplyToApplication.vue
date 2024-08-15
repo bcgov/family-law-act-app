@@ -20,8 +20,7 @@
                         stacked
                         >
                         <div class="checkbox-border">
-                            <!-- <b-form-checkbox value="replyFlm"> -->
-                            <b-form-checkbox value="replyFamilyLawManual">
+                            <b-form-checkbox value="replyFlm">
                                 <div class="checkbox-choices">Application About a Family Law Matter Form 3</div>
                                 <p>
                                     Family law matters include: parenting arrangements (<tooltip title="parental responsibilities" size="xl" :index="0"/>
@@ -278,7 +277,6 @@ export default class ReplyToApplication extends Vue {
         if (selectedReplyApplications !== undefined) {       
         
             const replyFlm = selectedReplyApplications.includes("replyFlm");
-            const replyFamilyLawManual = selectedReplyApplications.includes("replyFamilyLawManual");
             const writtenResponse = selectedReplyApplications.includes("replyCaseMgmt") || 
                                     selectedReplyApplications.includes("replyProtectionOrder") || 
                                     selectedReplyApplications.includes("replyPriorityParenting") ||
@@ -291,13 +289,11 @@ export default class ReplyToApplication extends Vue {
             toggleStep(this.stPgNo.WR._StepNo, writtenResponse);
             toggleSteps([this.stPgNo.COMMON._StepNo, this.stPgNo.SUBMIT._StepNo], writtenResponse || replyFlm);
             toggleStep(this.stPgNo.CA._StepNo, replyCounterApplication);
-            toggleStep(this.stPgNo.RTFLM._StepNo, replyFamilyLawManual);
-
+            
             togglePages([this.stPgNo.COMMON.SafetyCheck, this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], writtenResponse || replyFlm, this.stPgNo.COMMON._StepNo)
 
             this.selectedReplyForms =[];
             if(replyFlm) this.selectedReplyForms.push("replyFlm")
-            if(replyFamilyLawManual) this.selectedReplyForms.push("replyFamilyLawManual")
             if(writtenResponse) this.selectedReplyForms.push("writtenResponse")
             if(replyCounterApplication) this.selectedReplyForms.push("replyCounterApplication")
             this.UpdateCommonStepResults({data:{'selectedReplyForms':this.selectedReplyForms}})

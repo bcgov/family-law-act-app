@@ -48,7 +48,6 @@ class Application extends VuexModule {
     public pathwayCompleted = { 
         protectionOrder:false, 
         replyFlm: false, 
-        replyFamilyLawManual: false,
         writtenResponse: false, 
         replyCounterApplication: false, 
         familyLawMatter:false, 
@@ -1939,6 +1938,15 @@ class Application extends VuexModule {
         p.key = "2";
         p.name = "OtherFormsFilingLocation";
         p.label = "Other Form Filing Location";
+        p.active = false;
+        p.progress = 0;
+
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "LastNamesOfParties";
+        p.label = "Last names of Parties";
         p.active = false;
         p.progress = 0;
     

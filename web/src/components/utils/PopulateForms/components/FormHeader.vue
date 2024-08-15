@@ -2,9 +2,10 @@
     <!-- <HEADER> -->
         <div  style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px; justify-content: space-between;">
             <div style="width: 30%">
-                <div style="font-size:14pt;"><b>Application About a Family Law Matter</b></div>
-                <div style="font-size:10pt;"><b>FORM 3</b></div>
-                <div>Provincial Court Family Rules (Rule 24)</div>
+                <div style="font-size:14pt; padding-right: 10px;"><b>{{formName}}</b></div>
+                <div style="font-size:12pt;"><b>{{formNumber}}</b></div>
+                <div style="font-size: 12pt;">Provincial Court Family Rules</div>
+                <div style="font-size: 12pt;">{{formRuleNumber}}</div>
             </div>
             <div style="width:200px;margin-left:-70px;">
                 <CourtStamp></CourtStamp>
@@ -12,17 +13,17 @@
             <div style="width: 40%; float:right; font-size: 8pt;margin-left:-50px;">
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;"> Registry location:&nbsp; </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{ tableItems[0].value }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{ headerTableData[0].value }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;"> Court file number:&nbsp; </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{  tableItems[1].value }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{  headerTableData[1].value }} </div>
                 </div>
-                <div style="width: 100%; display: inline-block;">
+                <div v-if="headerTableData[2]" style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;">Last names of parties:&nbsp;<br/><span style="color:#626262;font-style:italic">Party 1/ Party 2&nbsp;</span></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 35px;"> {{  tableItems[2].value ?  tableItems[2].value : '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 35px;"> {{  headerTableData[2].value ?  headerTableData[2].value : '&nbsp;' }} </div>
                 </div>
-                <div style="width: 100%; display: inline-block;">
+                <div v-if="headerTableData[3]" style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;"> Document number:&nbsp;<br/><span style="color:#626262;font-style:italic">For registry use only&nbsp; </span></div>
                     <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
                 </div>
@@ -62,8 +63,16 @@ import CourtStamp from './CourtStamp.vue';
 })
 export default class FormHeader extends Vue {
     @Prop({required: true})
-    tableItems!: any;
+    headerTableData!: any;
 
+    @Prop({required: true})
+    formName!: string;
+
+    @Prop({required: true})
+    formNumber!: string;
+
+    @Prop({required: false, default: ''})
+    formRuleNumber!: string;
 }
 </script>
 <style>

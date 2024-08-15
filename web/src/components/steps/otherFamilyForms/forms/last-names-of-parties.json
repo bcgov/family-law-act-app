@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "name": "Last Names of Parties",
+      "title": "Last Names of Parties",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "lastNamesOfPartiesPanel",
+          "elements": [
+            {
+              "type": "text",
+              "name": "party1",
+              "title": "Party 1",
+              "isRequired": false
+            },
+            {
+              "type": "text",
+              "name": "party2",
+              "title": "Party 2",
+              "isRequired": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
