@@ -27,13 +27,13 @@
                     <div style="float: left; width: 50%; padding: 2px;"> Last name of parties: <div
                             style="font-size: 6pt; padding-left:16px;">Party 1/ Party 2</div>
                     </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
+                    <!-- todo: add party question to workflow -->
+                    <!-- <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div> -->
                 </div>
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 50%; padding: 2px;"> Document number: <div
                             style="font-size: 6pt; padding-left:16px;">For registry use only</div>
                     </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
                 </div>
             </div>
         </div>
