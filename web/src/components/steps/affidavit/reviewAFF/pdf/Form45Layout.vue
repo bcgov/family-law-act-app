@@ -23,7 +23,7 @@
             <p><b>Please read before completing the form:</b></p>
             <ul>
                 <li>An affidavit is used to present written evidence that is relevant to the case to the court.</li>
-                <li>The affidavit must be signed with a commissioner for taking affidavits. Lawyers and notaries are allcommissioners for taking affidavits. The court registry also has staff who are commissioners for takingaffidavits who can swear or affirm your affidavit for free.</li>
+                <li>The affidavit must be signed with a commissioner for taking affidavits. Lawyers and notaries are all commissioners for taking affidavits. The court registry also has staff who are commissioners for taking affidavits who can swear or affirm your affidavit for free.</li>
                 <li>
                     For guidance completing this form, please read the guidebook. The guide is available online at <a href="http://www.gov.bc.ca/court-forms" target="_blank">www.gov.bc.ca/court-forms</a> or from your local court registry.
                 </li>
@@ -35,7 +35,7 @@
         <grey-box-form 
             style="text-indent:2px;display:inline-block; font-size: 9pt;" 
             textwidth="22rem" 
-            beforetext="<b>I</b>" 
+            beforetext="<b>I, </b>" 
             hint="Full name" 
             :hintFontSize="hintFontSize"
             :hintTextColor="hintTextColor"
@@ -169,7 +169,7 @@
             
         <div class="print-block" style="margin-top: 1rem; color: #999">
             <i>
-                List the facts that you wish to present to the court using short sentences. Each fact or piece of information should be organized into its own numbered paragraphs (starting with 2). If certain facts are not within your personal knowledge, identify the source ofyour information. If you refer to documents, attach them to this affidavit and mark them as exhibits.
+                List the facts that you wish to present to the court using short sentences. Each fact or piece of information should be organized into its own numbered paragraphs (starting with 2). If certain facts are not within your personal knowledge, identify the source of your information. If you refer to documents, attach them to this affidavit and mark them as exhibits.
             </i>
         </div>
         <!-- <2> -->        
