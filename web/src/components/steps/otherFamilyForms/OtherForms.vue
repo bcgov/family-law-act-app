@@ -262,7 +262,7 @@ export default class OtherForms extends Vue {
         togglePages([p.CompleteOtherForms], this.allRequiredInfoExists(), this.currentStep);
        
         // LastNamesOfParties
-        const IncludeLastNamesOfPartiesFor = ['Form 45']
+        const IncludeLastNamesOfPartiesFor = ['Form 45', 'Form 5']
         togglePages([p.LastNamesOfParties], this.selectedForms.length > 0 && this.selectedForms.every((s) => IncludeLastNamesOfPartiesFor.includes(s.formNumber)), this.currentStep);
     }
 
