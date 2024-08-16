@@ -47,8 +47,8 @@ export default class Form41 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA759    `+moment().format("MMMM D, YYYY")+` \\a           Form 41";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 759    `+moment().format("MM/YYYY")+` \\a           Form 41";`;
+        const bottomRightText = `"Notice of Removal of Lawyer for Child | "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
