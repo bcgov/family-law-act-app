@@ -49,8 +49,8 @@ export default class Form29 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA725    `+moment().format("MM/YYYY")+` \\a           Form 29";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 725    `+moment().format("MM/YYYY")+` \\a           Form 29";`;
+        const bottomRightText = `"Application About Enforcement | "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
