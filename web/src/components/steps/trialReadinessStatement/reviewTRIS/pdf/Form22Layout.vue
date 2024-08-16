@@ -297,7 +297,142 @@
                     shift="-8" marginLeft="0.5rem" :check="resolvable == 'n'?'yes':''" text="No"/> 
                 </div>
             </div>
+            <!-- 8 -->
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b style="display:inline;">8. </b>
+                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                    There is an existing court order involving one or more of the parties, and/or the child(ren) about the following:
+                </div>
+            </div>
+            <div style="display:inline-block; text-indent:0; margin:0 0.5rem 0 2rem;">
+                <i>Select all options that apply</i>
+            </div>
+            <div style="text-indent:-16px">
+                <div style="margin:0.25rem 0 0 5rem;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="existingOrder.includes('interimOrder')?'yes':''" text="Interim order about the issue to be determined at trial"/>
+                </div>
+                <div style="margin:0.25rem 0 0 5rem;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="existingOrder.includes('childProtectionOrder')?'yes':''" text="Order under the <i>Child, Family and Community Service Act</i>"/>
+                </div>
+                
+            <div style="margin:0.25rem 0 0 5rem;">
+                <check-box 
+                    class="marginleft" 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="existingOrder.includes('supremeOrder')?'yes':''" text="Supreme Court order under the <i>Family Law Act or Divorce Act</i>"/>
+            </div>
+            <div style="margin:0.25rem 0 0 5rem;">
+                <check-box 
+                    class="marginleft" 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="existingOrder.includes('protectionOrder')?'yes':''" text="Section 183 <i>Family Law Act</i> protection order"/>
+            </div>
+            <div>                
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; margin-left: 5.5rem;" 
+                    textwidth="10rem" 
+                    beforetext="Expiry date:" 
+                    hint="(mmm/dd/yyyy)" 
+                    :italicHint="false" :text="sec183ExpiryDate"/>
+            </div> 
+            <div style="margin:0.25rem 0 0 5rem;">
+                <check-box 
+                    class="marginleft" 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="existingOrder.includes('peaceBond')?'yes':''" text="Section 810 <i>Criminal Code</i> peacebond"/>
+            </div>
+            <div>                
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; margin-left: 5.5rem;" 
+                    textwidth="10rem" 
+                    beforetext="Expiry date:" 
+                    hint="(mmm/dd/yyyy)" 
+                    :italicHint="false" :text="sec810ExpiryDate"/>
+            </div> 
+            <div style="margin:0.25rem 0 0 5rem;">
+                <check-box 
+                    class="marginleft" 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="existingOrder.includes('bailOrder')?'yes':''" text="Section 515 <i>Criminal Code</i> bail order"/>
+            </div>
+            <div>                
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; margin-left: 5.5rem;" 
+                    textwidth="10rem" 
+                    beforetext="Expiry date:" 
+                    hint="(mmm/dd/yyyy)" 
+                    :italicHint="false" :text="sec515ExpiryDate"/>
+            </div>
+            <div style="margin:0.25rem 0 0 5rem;">
+                <check-box 
+                    class="marginleft" 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="existingOrder.includes('probationOrder')?'yes':''" text="<i>Criminal Code</i> probation order"/>
+            </div>
+            <div>                
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; margin-left: 5.5rem;" 
+                    textwidth="10rem" 
+                    beforetext="Expiry date:" 
+                    hint="(mmm/dd/yyyy)" 
+                    :italicHint="false" :text="probationExpiryDate"/>
+            </div>
+            <div style="margin:0.25rem 0 0 5rem;">
+                <check-box 
+                    class="marginleft" 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline;" 
+                    :check="existingOrder.includes('otherOrder')?'yes':''" 
+                    text="Other order that would affect the conduct of the trial <i>(specify)</i>:"/>
+                <grey-box-form 
+                    style="text-indent:0;margin-left:.25rem;display:inline-block;" 
+                    textwidth="13rem" 
+                    beforetext="" 
+                    hint="" 
+                    :text="existingOrderOther"/>                    
+            </div>
+           
+            <div style="margin:0.25rem 0 0 5rem;">
+                <check-box 
+                    class="marginleft" 
+                    checkbox="" 
+                    inline="inline" 
+                    boxMargin="0" 
+                    style="display:inline;" 
+                    :check="existingOrder.includes('none')?'yes':''" 
+                    text="None of the above"/>                        
+            </div>
         </div>
+    </div>
         <div style="width:20%">
             <NoteBox>
                 <b-icon-info-circle-fill />
@@ -311,6 +446,7 @@
             </NoteBox>
         </div>
     </div>
+    
 <!-- 
         <section>
             <underline-form 
@@ -729,8 +865,8 @@
         </section>
 
     <!-- <19> -->
-        <section>
-            <div style="text-indent:5px;display:inline; font-size:9.25pt;"> 
+        <!-- <section> -->
+            <!-- <div style="text-indent:5px;display:inline; font-size:9.25pt;"> 
                 There is an existing court order involving one or more of the parties, and/or the child(ren) about the following:
             </div> 
             <div style="text-indent:5px; font-style: italic; font-size:9.25pt;"> 
@@ -857,8 +993,8 @@
                     style="display:inline;" 
                     :check="existingOrder.includes('none')?'yes':''" 
                     text="none of the above"/>                        
-            </div>
-        </section>
+            </div> -->
+        <!-- </section> -->
     <!-- <20> -->
         <section>
             <underline-form style="text-indent:3px; display:inline-block;" textwidth="3rem" beforetext="I believe this trial will take" hint="" :italicHint="false" :text="trialTimeOne"/>
