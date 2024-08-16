@@ -102,8 +102,8 @@
                         <i>List your reasons</i>
                     </div>
                     
-                    <div style="background-color: #eee;">
-                        {{guardInfo.abtCancel.bestInterest}}
+                    <div style="background-color: #eee; min-height: 80px;">
+                        <span v-if="guardInfo.abtCancel && guardInfo.abtCancel.bestInterest">{{guardInfo.abtCancel.bestInterest}}</span>
                     </div>
                 </div>
                 <div style="width: 20%;">
@@ -137,13 +137,13 @@
                                 <b>3. </b> Is the child or children Indigenous?
                             </div>
                             <div>
-                                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.indigenous?'yes':''" text="Yes - go to next question"/>
+                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.indigenous?'yes':''" text="Yes - go to next question"/>
                             </div>
                             <div>
-                                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.nonIndigenous?'yes':''" text="No - Skip ahead to Part 4"/>
+                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.nonIndigenous?'yes':''" text="No - Skip ahead to Part 4"/>
                             </div>
                             <div>
-                                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown - Skip ahead to Part 4"/>
+                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown - Skip ahead to Part 4"/>
                             </div>
                         </div>
                         <div>
@@ -155,9 +155,9 @@
                                 <b>Please select the option below that best describes the child(ren)’s Indigenous ancestry:</b>
                             </div>
                             <div style="margin:0 0 0 1.35rem;">
-                                <check-box  :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
-                                <check-box  :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
-                                <check-box  :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation, including"/>
+                                <check-box boxMargin="0" shiftmark="0" :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
+                                <check-box boxMargin="0" shiftmark="0" :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
+                                <check-box boxMargin="0" shiftmark="0" :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation, including"/>
                                 <ul>
                                     <li>Tsawwassen First Nation</li>
                                     <li>Maa-nulth First Nations:
@@ -171,8 +171,8 @@
                                     </li>
                                     <li>Tla’amin Nation</li>
                                 </ul>
-                                <check-box  :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is ofIndigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
-                                <check-box  :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis andInuit, and self-identifies as Indigenous"/>
+                                <check-box boxMargin="0" shiftmark="0" :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is ofIndigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
+                                <check-box boxMargin="0" shiftmark="0" :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis andInuit, and self-identifies as Indigenous"/>
                             </div>
                         </div>
                     </div>
@@ -226,16 +226,16 @@
                         
                         <div>
                             <b>5. </b>
-                            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
-                            <div style="margin:0 0 0 2rem; display:inline;">before the court can make a final order about guardianship</div>
+                            <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
+                            <div style="margin:0 0 0 2rem;">before the court can make a final order about guardianship</div>
                         </div>
                     </div>
 
                     <div style="margin-top:1rem;"></div>
                     <div>
                         <b>6. </b>
-                        <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
-                        <div style="margin:0 0 0 2rem; display:inline;">Form 5</div>
+                        <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
+                        <div style="margin:0 0 0 2rem;">Form 5</div>
                     </div>
 
                     <div style="margin-top:1rem;"></div>
@@ -243,7 +243,7 @@
                         <b>7. </b>
                         <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
                         <div style="margin:0 0 0 1rem;">                     
-                            <check-box  :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
+                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
                         </div>
                         <div style="margin:0 0 0 3rem;">
                             <ul>
@@ -257,7 +257,7 @@
                         
                         </div>
                         <div style="margin:0.5rem 0 0 1rem;">                     
-                            <check-box  :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to file the required documentswith this application.I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that thedocuments be filedwith this application. I understand I will still be required to filethe documentsat a later date."/>
+                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to file the required documentswith this application.I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that thedocuments be filedwith this application. I understand I will still be required to filethe documentsat a later date."/>
                         </div>
                     </div>
 
@@ -289,7 +289,6 @@
                             You must file a consent and request for record check or an Application for Case Management Order Without Notice or Attendance Form 11
                         </p>
                     </NoteBox>
-
                 </div>        
             </div>
         </div>

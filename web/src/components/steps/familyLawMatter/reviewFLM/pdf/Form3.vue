@@ -9,8 +9,9 @@
         <schedule-4 v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
         <schedule-5 v-bind:result="result"  v-if="selectedSchedules.includes('schedule5')" />
         <schedule-6 v-bind:result="result"  v-if="selectedSchedules.includes('schedule6')" />
-        <schedule-7 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule7')" />
-        <schedule-8 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule8')" />
+        <schedule-7 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule7') || selectedSchedules.includes('schedule8')" />
+        <!-- <schedule-8 v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"  v-if="selectedSchedules.includes('schedule8')" /> --> 
+         <!-- Note: New version of the forms, Schedule 8 is merged into Schedule 7  -->
         <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
         <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
         <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
