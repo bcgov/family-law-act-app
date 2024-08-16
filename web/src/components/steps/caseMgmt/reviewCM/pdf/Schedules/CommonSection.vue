@@ -107,7 +107,7 @@
                     <b>Part 2 |  Application without notice </b>
             </div>
             <div style="margin-top: 1rem;"></div>
-        <span style="font-size: 11pt;margin-left:20px"><b>3. </b></span>
+            <span style="font-size: 11pt;margin-left:20px"><b>3. </b></span>
                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="understandWithoutNotice?'yes':''" text=""/> 
                  <div style="margin-top:-23px;text-indent:47px;margin-left:20px">I am <b>applying</b> for a case management order <b>without notice</b> to any other</div> 
                 <div style="text-indent:47px;margin-left:22px"> party. I understand that <b>I will be required to serve a copy of any order</b></div> 
