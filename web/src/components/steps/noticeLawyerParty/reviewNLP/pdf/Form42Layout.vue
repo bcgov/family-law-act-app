@@ -1,251 +1,262 @@
 <template>
-    <div v-if="dataReady">
+    <div v-if="dataReady" style="font-size:10pt;">
 
 <!-- <Page 1> -->
-<!-- <HEADER> -->
-        <div  class="form-header-reloc">
-            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Notice of Lawyer for Party</b></div>               
-                <div style="font-size:10pt;"><b>FORM 42</b></div>
+<!-- <HEADER> : BEGIN -->
+    <div style="height: 160px;">
+            <div style="float:left; width: 33%;">
+                <div style="font-size: 14pt !important;"><b>Notice of Lawyer for Party</b></div>
+                <div style="font-size:12pt !important;"><b>Form 42</b></div>
                 <div>Provincial Court Family Rules</div>
-                <div>Rule 163</div>
+                <div>Rule 163</div> 
             </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>                
+            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
+                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
             </div>
-        </div> 
-        
-<!-- <1> -->
-        <section>
-            <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="17rem" 
-                beforetext="I" 
-                hint="(full name of lawyer)" 
-                :italicHint="false" :text="lawyerInformation.lawyerName | getFullName"/>
+            <div style="width: 35%; float:right; font-size: 8pt;">
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Registry location: </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height:15px;"> {{ result.applicationLocation }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Court file number:</div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height:15px;"> {{ existingFileNumber }} </div>
+                </div>
+            </div>
+        </div>    
+        <div style="width: 80%;float: left; padding:0.3rem;margin-top:-15px;">
+            This Notice of Lawyer for Party provides notice to the court and each party that a party is
+            represented by a lawyer as set out in this document.
+        </div>
+        <div style="border-style: dashed; border-color: black; width: 80%;float: left; padding:0.3rem; background: #909090;width: 80%;">
+        <b>Please read before completing this form:</b>
+        <ul style="margin-left:-4px;">
+            <li><div style="margin-left:9px;">You do not have to complete a Notice of Lawyer for Party if a lawyer starts
+                    representing a party at the time of filing an application or reply and the lawyer’s
+                    contact information and address for service of documents is provided on the
+                    application or reply [Rule 163].
+                </div>
+            </li>
+            <li><div style="margin-left:9px;">This notice may be filed at any time during a case.
+            </div>
+            </li>            
+        </ul>
+    </div>
+<!-- <HEADER> : END -->
+<!-- <1A> : BEGIN-->
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 0.5rem;"></div>
+            <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
+                    <b>Part 1 | Party Information</b>
+            </div>
+            <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block;">
+                        <b>1.</b><span style="margin-left:12px;">The <b>parties to this case</b> are:</span>
+                    </div>
+                    <div style="margin-left:30px;background-color: #dedede;padding:5px;min-height:10px;display:block">         
+                            <span style="display:block;margin-left:1rem" >{{otherParties}}</span>
+                    </div>
+                    <div style="margin-left:30px;padding:5px;min-height:2px;display:block;text-align:center;">         
+                            <span style="display:block;margin-left:1rem;font-size:6pt;margin-top:-8px;" >Full name of each party</span>
+                    </div>
+                    
 
-            <underline-form 
-                style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                textwidth="19rem" 
-                beforetext=", of" 
-                hint="(firm name, if applicable)" 
-                :italicHint="false" :text="lawyerInformation.firmName"/>
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                am the
-            </div>  
-            <div style="text-indent:5px;font-size: 9pt;margin-top: 0.5rem;"> 
-                lawyer for the following party/parties:
+            </div>            
+        </div>
+        <div style="width: 18%;float: right; margin-top: 10px;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    This notice must be filed and served on each other party [Rule 163]. 
+                </NoteBox>
             </div>
-
-            <div style="text-indent:5px;font-size: 9pt;margin-top: 0.5rem;"> 
-                <i>Provide the full name of each party the lawyer is representing</i>
+    </div>
+<!-- <1A> : END-->
+<!-- <1B> : BEGIN-->   
+    <div>
+        <div style="width: 80%; float: left;margin: 0rem 0.5rem 0.5rem 1rem;margin-top:-10px;" >
+            <div> 
+                        <b>2. </b>
+                        <!-- <check-box inline="inline"  boxMargin="0" shiftmark="0" :check="''" text="    or "/> -->
+                        
+                        <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:2px;" :check="acknowledgeService?'yes':''" text=""/>
+                            <div style="margin-top:-20px;">
+                            <div style="margin-left:45px;">I understand <b> need to serve each party</b>I with a filed copy of this notice.</div>
+                            </div>
             </div>
+        </div>
+    </div>
+<!-- <1B> : END-->
+<!-- <2A> : BEGIN-->
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="margin-top: 0.5rem;"></div>
+            <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
+                    <b>Part 2 | Lawyer for party</b>
+            </div>
+            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block;">
+                        <b>3.</b><span style="margin-left:12px;"><b>I</b> </span>
+                    </div>
+                    <underline-form style="text-indent:4px;display:inline-block; " textwidth="200px"
+                        beforetext="" hint="Full name of lawyer" :italicHint="false" textBackgroundColor="#dedede" hintMargin="52px" :text="lawyerInformation.lawyerName | getFullName" />
+                    <span style="padding-left:2px;padding-right:2px;"> , of ,</span>
+                    <underline-form style="text-indent:4px;display:inline-block;" textwidth="240px"
+                        beforetext="" hint="Firm name, if applicable" :italicHint="false" textBackgroundColor="#dedede" hintMargin="82px" :text="lawyerInformation.firmName | truncate-word-after(25)" />
+                    <underline-form v-if="lawyerInformation.firmName.length > 25" style="text-align:left;text-indent:4px;display:inline-block;margin-top:15px;margin-left:22px;" textwidth="64%"
+                        beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="82px" :text="lawyerInformation.firmName | truncate-word-before(25)" />
+                    
+                        <div style="margin-top:6px;margin-left:22px;"><b>am the lawyer for the following party/parties:</b></div>   
+                    <div style="font-style:italic;margin-left:22px;"><span style="color:#626262;font-style:italic;">Provide the full name of each party the lawyer is representing</span></div>  
+                    <div style="margin-left:22px;background-color: #dedede;padding:5px;min-height:10px;display:block">         
+                            <span style="display:block;margin-left:1rem" >{{OtherPartyInfoNlp.length>0 ? OtherPartyInfoNlp[0]: ''}}</span>
+                    </div>
+            </div>             
+        </div>
+        <div style="width: 18%;float: right; margin-top: 50px;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    A lawyer may represent a party for all issues in a case or for unbundled services or limited representation.
+                    Unbundled services or limited representation means that a lawyer provides legal services for only certain parts of a 
+                    case based on what you agree to.
+                </NoteBox>
+            </div>
+    </div>
+<!-- <2A> : END-->
+<!-- <2B> :  BEGIN-->
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
             
-            <underline-form 
-                style="text-indent:2px;font-size: 9pt; margin-left:1rem;" 
-                textwidth="32rem" 
-                beforetext="" 
-                hint=""
-                :italicHint="false" 
-                :text="otherParties"/>     
+            <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.1rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block;">
+                        <b>4.</b><span style="margin-left:12px;">I will be <b>representing the party/parties</b> identified in question 3 <b>as follows</b>:</span>
+                    </div>
+                    <div style="font-style:italic;margin-left:22px;"><span style="color:#626262;font-style:italic;">Select all options that apply</span></div>  
 
-        </section>
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="allIssues?'yes':''" text='on all issues until further notice to the court'/>             
+                    </div> 
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="listOfIssues.includes('specifiedIssues')?'yes':''" text='on only the following specified issue(s) until further notice to the court:'/>             
+                    </div>
+            </div>            
+        </div>        
+    </div>
+<!-- <2B> :  END-->
+<!-- <2B> :  BEGIN-->
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">            
+            <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0rem 0.5rem 0.5rem 1rem;">                     
+                     
+                    <div v-if="specifiedIssuesComment" style="background-color: #dedede;padding:5px;margin-left:25px;min-height:70px;margin-left:60px;">
+                    {{specifiedIssuesComment}}
+                    </div>
+                    <div v-else style="background-color: #dedede;padding:10px;margin-left:25px;min-height:70px;margin-bottom:0rem;margin-left:60px;"></div> 
+            </div>            
+        </div>        
+    </div>
+<!-- <2B> :  END-->
+<!-- <2C> :  BEGIN-->
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">            
+            <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0rem 0.5rem 0.5rem 1rem;">                     
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="listOfIssues.includes('courtDocumentsPreparation')?'yes':''" text='preparation of the following court documents for filing and/or filing of the court documents:'/>             
+                    </div> 
+                    <div style="font-style:italic;margin-left:62px;">List any applicable court document(s)</div>    
+                    <div v-if="courtDocumentsPreparationComment" style="background-color: #dedede;padding:5px;margin-left:25px;min-height:70px;margin-left:60px;">
+                    {{courtDocumentsPreparationComment}}
+                    </div>
+                    <div v-else style="background-color: #dedede;padding:10px;margin-left:25px;min-height:70px;margin-bottom:0rem;margin-left:60px;"></div> 
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="listOfIssues.includes('familyManagementConference')?'yes':''" text='at the family management conference'/>             
+                    </div> 
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="listOfIssues.includes('familySettlementConference')?'yes':''" text='at the family settlement conference'/>             
+                    </div> 
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="listOfIssues.includes('trial')?'yes':''" text='at trial (including any scheduled trial preparation conference)'/>             
+                    </div> 
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="listOfIssues.includes('applicationAbout')?'yes':''" text='on the application about <span style="color:#626262;font-style:italic;">(specify)</span>:'/>             
+                    </div>  
+                    <!-- <div v-if="applicationAboutComment" style="background-color: #dedede;padding:10px;margin-left:25px;min-height:70px;margin-left:60px;">
+                    {{applicationAboutComment}}
+                    </div> -->
+                    <span v-if="applicationAboutComment" >
+                    <div v-if="applicationAboutComment.length >30" style="background-color: #dedede;text-align:left;vertical-align:middle !important;min-width:200px;padding:2px;margin-top:-20px;height:25px;margin-left:272px;">
+                    {{applicationAboutComment | truncate-word-after(30)}}
+                    </div>
+                    <div style="margin-top:3px;background-color: #dedede;padding:5px;margin-left:25px;min-height:70px;margin-left:60px;">
+                    {{applicationAboutComment | truncate-word-before(30)}}
+                    </div>
+                    </span> 
+                    <div v-else style="background-color: #dedede;padding:5px;margin-left:25px;min-height:50px;margin-bottom:0rem;margin-left:60px;"></div> 
+                    <div>
+                    <div style="margin-top: 0.3rem;"></div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="listOfIssues.includes('other')?'yes':''" text='other <span style="color:#626262;font-style:italic;">(specify)</span>:'/>             
+                    </div>  
+                    <span v-if="otherComment" >
+                    <div v-if="otherComment.length >50" style="background-color: #dedede;text-align:left;vertical-align:middle !important;min-width:240px;padding:2px;margin-top:-20px;height:25px;margin-left:160px;">
+                    {{otherComment | truncate-word-after(50)}}
+                    </div>
+                    <div style="margin-top:3px;background-color: #dedede;padding:5px;margin-left:25px;min-height:70px;margin-left:60px;">
+                    {{otherComment | truncate-word-before(50)}}
+                    </div>
+                    </span>                    
+                    <div v-else style="background-color: #dedede;padding:5px;margin-left:25px;min-height:70px;margin-bottom:0rem;margin-left:60px;"></div> 
+            </div>            
+        </div>        
+    </div>
+<!-- <2C> :  END-->
+<!-- <2C> :  BEGIN-->
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">            
+            <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0rem 0.5rem 0.5rem 1rem;">                     
+                <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.1rem 0.5rem 0.5rem 1rem;">
+                    <div style="display: inline-block;">
+                        <b>5.</b><span style="margin-left:12px;"><span style="color:#626262;font-style:italic;">Select the option that applies and complete any required information</span></span>
+                    </div>
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="allIssues?'yes':''" text='There are <b>no changes to the contact information or address for service</b> of court documents on file'/>             
+                    </div> 
+                    <div>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="listOfIssues.includes('specifiedIssues')?'yes':''" text='The <b>contact information and address for service of court documents</b> are:'/>             
+                    </div>
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ lawyerInformation.address.street }} 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">City: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.city }}</div>
+                            </td>
+                            <td style="padding-left:50px; border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.state }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.postcode }}</div>
+                            </td>
+                        </tr>
+                    </table>
 
-           
-        <div style="margin-top: 1rem;"></div>  
-
-<!-- <2> -->
-    <section>
-        <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-            I will be representing the party/parties identified in section 1 as follows:
-        </div>         
-
-        <div style="margin-top: 0.5rem;"></div>
-
-        <i>Select all options that apply</i>
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;"
-                :check="allIssues?'yes':''" text="on all issues until further notice to the court"/>
-        </div>
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;" 
-                :check="listOfIssues.includes('specifiedIssues')?'yes':''" 
-                text="on only the following specified issue(s) until further notice to the court:"/>
-            <underline-form 
-                style="text-indent:0;margin-left:.25rem;display:inline-block;" 
-                textwidth="10rem" 
-                beforetext="" 
-                hint="" 
-                :text="specifiedIssuesComment"/>
-                   
-        </div>
-
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;" 
-                :check="listOfIssues.includes('courtDocumentsPreparation')?'yes':''" 
-                text="preparation of the following court documents for filing and/or filing of the court documents:"/>
-            <underline-form 
-                style="text-indent:0;margin-left:.25rem;display:inline-block;" 
-                textwidth="37.5rem" 
-                beforetext="<i>List any applicable court document(s)</i>" 
-                hint="" 
-                :text="courtDocumentsPreparationComment"/>
-        </div>
-
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;"
-                :check="listOfIssues.includes('familyManagementConference')?'yes':''" text="at the family management conference"/>
-        </div>
-
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;"
-                :check="listOfIssues.includes('familySettlementConference')?'yes':''" text="at the family settlement conference"/>
-        </div>
-
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;"
-                :check="listOfIssues.includes('trial')?'yes':''" text="at trial (including any scheduled trial preparation conference)"/>
-        </div>
-
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;" 
-                :check="listOfIssues.includes('applicationAbout')?'yes':''" 
-                text="on the application about <i>(specify)</i>:"/>
-            <underline-form 
-                style="text-indent:1px;display:inline-block;" 
-                textwidth="6rem" 
-                beforetext="" 
-                hint="" 
-                :text="applicationAboutComment"/>            
-        </div>
-
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;" 
-                :check="listOfIssues.includes('other')?'yes':''" 
-                text="other <i>(specify)</i>:"/>
-            <underline-form 
-                style="text-indent:1px;display:inline-block;" 
-                textwidth="6rem" 
-                beforetext="" 
-                hint="" 
-                :text="otherComment"/>            
-        </div>
-    </section>
-           
-    <div style="margin-top: 1rem;"></div>
-<!-- <3> -->
-
-    <section>
-
-        <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-            <i>Select the option that applies and complete any required information</i>
-        </div> 
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;"
-                :check="!addressChanged?'yes':''" 
-                text="There are no changes to the contact information or address for service of court documents on file"/>
-        </div>
-        <div class="marginleft2p5vue" style="margin:0.25rem 0 0.5rem 1.5rem;">
-            <check-box 
-                class="marginleft" 
-                checkbox="" 
-                inline="inline" 
-                boxMargin="0" 
-                style="display:inline;"
-                :check="addressChanged?'yes':''" 
-                text="The contact information and address for service of court documents are:"/>
-        </div>
-
-        <table class="compactfullsize" style="font-size: 9pt;">
-            <tr style="border:1px solid #414142" >
-                <td colspan="3">Firm name (if applicable): <div class="answer"> {{lawyerInformation.firmName}}</div></td>
-            </tr>
-            <tr style="border:1px solid #414142">          
-                <td colspan="3">Address: <div class="answer">{{lawyerInformation.address.street}} </div> </td>
-            </tr>
-            <tr style="border:1px solid #313132">
-                <td  >City: <div class="answer">{{lawyerInformation.address.city}}</div> </td>
-            <td style="padding-left:50px">Province: <div class="answer">{{lawyerInformation.address.state}}</div> </td>
-                <td>Postal Code: <div class="answer">{{lawyerInformation.address.postcode}}</div> </td>
-            </tr>
-            <tr style="border:1px solid #313132">
-                <td colspan="2">Email: <div class="answer">{{lawyerInformation.contact.email}}</div> </td>
-                <td>Telephone: <div class="answer">{{lawyerInformation.contact.phone}}</div> </td>
-            </tr>
-        </table>
-         
-    </section>
-
-    <div style="margin-top: 1rem;"></div>  
-<!-- <4> -->
-    <section>
-        <check-box 
-            inline="inline" 
-            boxMargin="0" 
-            style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
-            :check="acknowledgeService?'yes':''" 
-            text="I understand I need to serve each other party with a filed copy of this notice."/>
-                                         
-    </section>
-
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.contact.email }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.contact.phone }}</div>
+                            </td>
+                        </tr>
+                    </table>
+            </div>  
+            </div>            
+        </div>        
+    </div>
+<!-- <2C> :  END-->
     </div>
 </template>
 
@@ -261,11 +272,13 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { addressInfoType, contactInfoType, nameInfoType } from "@/types/Application/CommonInformation";
 import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 import { lawyerInformationInfoDataInfoType, noticeLawyerPartyDataInfoType } from '@/types/Application/LawyerParty';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox       
+        CheckBox ,
+        NoteBox      
     }
 })
 
@@ -282,7 +295,7 @@ export default class Form42Layout extends Vue {
     existingFileNumber = '';
     acknowledgeService = false; 
     lawyerInformation = {} as lawyerInformationInfoDataInfoType; 
-    
+    OtherPartyInfoNlp = [];
     otherParties = '';
     allIssues = false;
     addressChanged = false;
@@ -328,8 +341,8 @@ export default class Form42Layout extends Vue {
             for (const otherParty of noticeLawyerParty.OtherPartyInfoNlp){
                 otherParties.push(Vue.filter('getFullName')(otherParty.name))
             }      
-
-            this.otherParties = otherParties.join(', ')        
+            this.OtherPartyInfoNlp = otherParties;
+            this.otherParties = otherParties.join(', ')     
             
             this.allIssues = noticeLawyerParty.RepresentingOnAllIssues == 'y';
 

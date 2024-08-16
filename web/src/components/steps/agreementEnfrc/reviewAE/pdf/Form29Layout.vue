@@ -15,20 +15,20 @@
             </div>
             <div style="width: 35%; float:right; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Registry location: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Court file number: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number:<br/><i>For registry use only </i></div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Document number:<br/><span style="color:#626262;font-style:italic;">For registry use only </span></div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height: 35px;"> {{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
                 </div>
             </div>
         </div>
-        <div>
+        <div style="width: 79%;">
             This Application About Enforcement sets out the details of an application to enforce an order 
             in Provincial Court under the <i>Family Law Act</i> or to set aside the registration of a foreign 
 support order under the <i>Interjurisdictional Support Orders</i> Act that a person is applying for.
@@ -96,7 +96,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                     <b>Part 2 | Notice of the application</b>
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;"> 
-                <span style="text-indent: 5px;font-size: 11pt;"><b>3. </b></span><span style="margin-left:12px;"><i>Select whichever option is correct</i></span>
+                <span style="text-indent: 5px;font-size: 11pt;"><b>3. </b></span><span style="margin-left:12px;"><span style="color:#626262;font-style:italic;">Select whichever option is correct</span></span>
                 <div style="margin-top: 0.3rem;"></div>
 
                     <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.otherPartyNotice?'yes':''"
@@ -148,12 +148,11 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                     <b>Part 3 | About your court appearance</b>
             </div>
             <div style="text-indent: -8px;" value="3"> 
-            <div style="text-indent: 22px;margin-top:15px;margin-left:-20px;"><i>For registry or judicial case manager use only</i></div>
-            
+            <div style="text-indent: 22px;margin-top:3px;margin-left:-20px;"><span style="color:#626262;font-style:italic;">
+                For registry or judicial case manager use only</span></div>
             </div>
-            <div style="margin-top: 0.5rem;"></div>
         </div>
-            <div  style="border-style: solid; border-color: black; width: 80%;float: left;margin-top:15px; ">
+            <div  style="border-style: solid; border-color: black; width: 80%;float: left;margin-top:2px; ">
         <div style="margin-top:10px;margin-left:-35px;">
             <ul>
             <b>The application, which requires a court appearance, will be heard by the court</b>
@@ -173,7 +172,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
             <div style="margin-left:220px;font-size:6pt;"><i> court location</i></div>
             </div>
                     </ul>
-                    <div style="margin-top: 1rem;"></div>
+                    <div style="margin-top: 0.6rem;"></div>
                     <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
                     />                    
                     <ul style="margin-top: -20px;margin-left:-16px;">
@@ -274,9 +273,9 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
             full representation, depending on circumstances. Availability and wait times may vary. Services are for children and 
             youth who want legal assistance, are able to express their views and preferences, and who can instruct a lawyer.
         </div>   
-        <div style="margin-top:5px;font-size:11pt;">
+        <div style="margin-top:15px;font-size:11pt;">
             For more information: <a href="https://www.scyofbc.org/child-youth-legal-centre/">https://www.scyofbc.org/child-youth-legal-centre/</a>
-            Contact the Child and Youth Legal Centre <a href="cylc@scyofbc.org">cylc@scyofbc.org</a> - (778)-657-5544.
+            <br/>Contact the Child and Youth Legal Centre <a href="cylc@scyofbc.org">cylc@scyofbc.org</a> - (778)-657-5544.
         </div>   
         <div style="justify-content: left;font-size:11pt;margin-top:10px;">
             <b>Interpreter</b>
@@ -351,15 +350,19 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
     
         <div style="text-indent: 20px;">
         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:22px"  :check="form29Info.orderList.includes('writtenAgreementOrder')?'yes':''" text="enforce the order or filed written agreement made on"/>               
-        <underline-form class="marginleft0p25vue" style="text-indent:0px; display:inline-block;" textBackgroundColor="#dedede"  textwidth="7rem" beforetext="" hintMargin="25px" hint="Date (dd/mmm/yyyy)" :text="form29Info.writtenAgreementOrderDate"/>
+        <underline-form class="marginleft0p25vue" style="text-indent:0px; display:inline-block;" textBackgroundColor="#dedede"  textwidth="7rem" beforetext="" hintMargin="15px" hint="Date (dd/mmm/yyyy)" :text="form29Info.writtenAgreementOrderDate"/>
         </div>
 
         <div  style="text-indent: 20px;">
         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:22px"  :check="form29Info.orderList.includes('determination')?'yes':''" text=""/>
         <div style="margin-top:-20px;text-indent:47px;margin-left:22px">
         enforce, change or set aside the filed determination of a parenting </div> 
-        <div style="text-indent:47px;margin-left:22px">coordinator dated &nbsp;        
-         <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;margin-top:-200px;" textBackgroundColor="#dedede"  textwidth="9rem" beforetext="" hintMargin="40px" hint="(dd/mmm/yyyy)" :text="form29Info.determinationDate"/> 
+        <div style="text-indent:47px;margin-left:22px;margin-top:5px;">coordinator dated &nbsp;        
+         <underline-form v-if="form29Info.determinationDate" class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;margin-top:-200px;" textBackgroundColor="#dedede"  textwidth="9rem" beforetext="" hintMargin="40px" hint="(dd/mmm/yyyy)" :text="form29Info.determinationDate"/> 
+         <div v-else style="margin-left:165px;margin-top:-25px;">
+            <div style="background: #d6d6d6;width:100px;height:22px;">&nbsp;</div>
+            <div style="width:200px;font-size:6pt;margin-left:-30px;margin-top:-2px;">(dd/mmm/yyyy)</div>
+         </div>
         </div>       
         </div>
     
@@ -380,10 +383,16 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
         <check-box inline="inline" boxMargin="0" style="display: inline;text-indent: -17px;margin-left:22px" :check="form29Info.orderList.includes('arrears')?'yes':''" text=""/>  
         <div style="margin-top:-20px;text-indent:47px;margin-left:22px">
         to determine whether arrears are owing under the support order or </div>
-        <div style="text-indent:47px;margin-left:22px">agreement dated &nbsp;          
-        <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;text-align:center;" textBackgroundColor="#dedede"  textwidth="9rem" beforetext="" hintMargin="45px" hint="(dd/mmm/yyyy)" :text="form29Info.arrearsDate"/>
-        made under the <i>Family Law Act</i>,</div> 
-        <div style="text-indent:47px;margin-left:22px">and if so, the amount of arrears (unpaid support)</div>
+        <div style="text-indent:0px;margin-left:70px;">agreement dated &nbsp;</div> 
+        <div style="display:flex;margin-left:185px;margin-top:-20px;"> 
+        <underline-form v-if="form29Info.arrearsDate" class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;text-align:center;" textBackgroundColor="#dedede"  textwidth="9rem" beforetext="" hintMargin="45px" hint="(dd/mmm/yyyy)" :text="form29Info.arrearsDate"/>
+        <div v-else style="margin-left:0px;margin-top:-2px;">
+            <div style="background: #d6d6d6;width:100px;height:22px;">&nbsp;</div>
+            <div style="width:80px;font-size:6pt;margin-left:0px;margin-top:-2px;">(dd/mmm/yyyy)</div> 
+        </div>
+        <div style="margin-left:-15px"> under the <i>Family Law Act</i>, and if</div>
+        </div> 
+        <div style="text-indent:47px;margin-left:22px"> so, the amount of arrears (unpaid support)</div>
         </div>
 
         <div style="text-indent: 20px;">
@@ -445,7 +454,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                 <span style="font-size: 11pt;"><b>6. </b></span><span style="margin-left:12px;">The <b>details of the order</b> I am applying for are as follows:</span>
                 <br/>
                 <span style="margin-left:25px;font-size: 11pt;text-indent:47px;">
-                    <i>List the specific details of the order(s) you are asking for</i>
+                    <span style="color:#626262;font-style:italic;">List the specific details of the order(s) you are asking for</span>
                 </span>
                 <div v-if="form29Info.orderdesc" style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:100px;">{{form29Info.orderdesc}}</div>
                     <div v-else style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;margin-bottom:3rem;min-height:100px;"></div> 
@@ -470,10 +479,10 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                 <span style="font-size: 11pt;"><b>7. </b></span><span style="margin-left:12px;">The <b>facts</b> on which this application is based <b>are as follows:</b></span>
                 <br/>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>Explain why you are making the application and why the order you</i>
+                    <span style="color:#626262;font-style:italic;">Explain why you are making the application and why the order you are</span>
                 </div>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>are requesting should be made</i>
+                    <span style="color:#626262;font-style:italic;">requesting should be made</span>
                 </div>
                 
                <div v-if="form29Info.facts" style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:100px;">{{form29Info.facts}}</div>
@@ -492,12 +501,10 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
         
     </div>
     <div>
-        <div style="width: 80%; float: left; margin-right: 10px;margin-top:25px;">
-           
-            <div style="text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;font-size: 11pt;">
-                
+        <div style="width: 80%; float: left; margin-right: 10px;margin-top:25px;">           
+            <div style="text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;font-size: 11pt;">                
                 <div style="margin-left:15px;font-size: 11pt;text-indent:5px;">
-                    <i>To add more, select the box below and attach a page with the additional information</i>
+                    <span style="color:#626262;font-style:italic;">To add more, select the box below and attach a page with the additional information</span>
                 </div>
                 <div style="text-indent: 20px;">
                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;" :check="''" text=""/> 
@@ -525,10 +532,10 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                 <span style="font-size: 11pt;"><b>8. </b></span><span style="margin-left:12px">My <b>address for service</b> of court documents and contact information is:</span>
                 <br/>
                 <div style="margin-left:22px;font-size: 11pt;text-indent:5px;">
-                    <i>You must provide an address for service and contact number, but it does </i>
+                    <span style="color:#626262;font-style:italic;">You must provide an address for service and contact number, but it does </span>
                 </div>
                 <div style="margin-left:22px;font-size: 11pt;text-indent:5px;">
-                    <i>not have to be your own if you don’t want to</i>
+                    <span style="color:#626262;font-style:italic;">not have to be your own if you don’t want to</span>
                 </div>
                 
                 
