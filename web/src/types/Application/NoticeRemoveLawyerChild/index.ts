@@ -1,8 +1,9 @@
-import { nameInfoType, questionInfoType } from "../CommonInformation";
+import { nameInfoType, otherPartyInfoType, otherPartyNameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface noticeRemoveLawyerChildDataInfoType {
     ApplicantName?: nameInfoType;
-    ChildInfoNlcr?: noticeRemoveLawyerChildChildrenInfoType[];    
+    ChildInfoNlcr?: noticeRemoveLawyerChildChildrenInfoType[];
+    otherPartyNamesDynamicPanel: otherPartyNameInfoType[]   
 }
 
 export interface noticeRemoveLawyerChildSurveyInfoType {
