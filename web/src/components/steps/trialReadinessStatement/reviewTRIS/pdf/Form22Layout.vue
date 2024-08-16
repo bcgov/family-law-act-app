@@ -1040,7 +1040,7 @@ export default class Form22Layout extends Vue {
                 name:'COURT FILE NUMBER:',
                 value: this.existingFileNumber ? this.existingFileNumber : null
             },
-            {},
+            null,
             {
                 name: "Document number:",
                 subtitle: 'For registry use only',
