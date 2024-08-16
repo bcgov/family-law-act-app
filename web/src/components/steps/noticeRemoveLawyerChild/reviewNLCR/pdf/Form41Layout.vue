@@ -41,7 +41,7 @@
                         textDisplay="inline"
                         style="margin:0 0 0 0.5rem; display:inline; font-size: 12pt;" 
                         :check="acknowledgeService?'yes':''" 
-                        text="I understand <b>I need to serve each party</b> with a filed copy of this notice"/> 
+                        text="I understand <b>I need to serve each party</b> with a filed copy of this notice."/> 
                 </div>
             </div>
             <div style="width: 20%;">
@@ -82,10 +82,10 @@
                     small
                 >                    
                     <template v-slot:cell()="data">
-                        <div style="font-size:12pt;color:#000">{{data.value}}</div>                                           
+                        <div style="font-size:12pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                     </template>
                     <template v-slot:head(dob)>
-                        Child’s Date of Birth <br><span style="font-size:8pt; font-weight:normal;">(dd/mmm/yyyy)</span>                            
+                        Child’s Date of Birth <br><span style="font-size:9pt; font-weight: normal; color: #999;">(dd/mmm/yyyy)</span>                            
                     </template>                       
                 </b-table>
 
@@ -137,8 +137,8 @@ export default class Form41Layout extends Vue {
 
     childDetails: childInformationNlcrDataInfoType[] =[{name:'', dob: ''}];
     childTableFields = [
-        {key:"name",label:"Child’s full name",     tdClass:"bordered-dark text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
-        {key:"dob", label:"Child’s Date of Birth", tdClass:"bordered-dark text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
+        {key:"name",label:"Child’s full name",     tdClass:"text-center align-middle", thClass:"  align-middle", thStyle:"font-size:10pt; width:55%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;"},
+        {key:"dob", label:"Child’s date of Birth", tdClass:"text-center align-middle", thClass:"  align-middle", thStyle:"font-size:10pt; width:35%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;"},
     ];
 
     otherPartyDetails: otherPartyNameInfoType[] = [];
