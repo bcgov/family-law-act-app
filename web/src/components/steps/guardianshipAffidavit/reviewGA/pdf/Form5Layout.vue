@@ -6,6 +6,7 @@
             :headerTableData="tableItems" 
             formName="Guardianship Affidavit" 
             formNumber="Form 5"
+            ruleFontSize="10pt"
             formRuleNumber="Rules 26, 51, 172" />
 
         <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
@@ -28,7 +29,7 @@
                 </div>
             </div>
             <div style="width: 20%">
-                <NoteBox style="margin-top:75px;">
+                <NoteBox textColor="#626262" style="margin-top:75px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
@@ -72,7 +73,7 @@
                 </div>
             </div>
             <div style="width: 20% ">
-                <NoteBox style="margin-top: 40px;">
+                <NoteBox textColor="#626262" style="margin-top: 40px;">
                     <b-icon-book />
                     <p>
                         For more information about 
@@ -112,7 +113,7 @@
                 </b-table> 
             </div>
             <div style="width: 20% ">
-                <NoteBox style="margin-top: 40px;">
+                <NoteBox textColor="#626262" style="margin-top: 40px;">
                     <b-icon-book />
                     <p>
                         For more information about 
@@ -157,7 +158,7 @@
             </b-table>  
             </div>
             <div style="width: 20% ">
-                <NoteBox style="margin-top:-20px">
+                <NoteBox textColor="#626262" style="margin-top:-20px">
                     <b-icon-info-circle-fill />
                     <p>
                         You may provide only the first 
@@ -194,7 +195,7 @@
                 </b-table>
             </div>
             <div style="width: 20% ">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-info-circle-fill />
                     <p>
                         Briefly explain where and with whom the child is living right now.
@@ -218,7 +219,7 @@
                 </div> 
             </div>
             <div style="width: 20% ">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-info-circle-fill />
                     <p>
                         A guardian must exercise 
@@ -264,7 +265,7 @@
                 </div>
                 </div>
             <div style="width: 20% ">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-info-circle-fill />
                     <p>
                         Family violence is defined in 
@@ -369,7 +370,7 @@
                         style="margin-left: 3rem; width:90%;"
                         small>  
                             <template v-slot:cell(courtOrderDates)="data">
-                                <div v-for="(orderDate,inx) in data.value" :key="inx" style="list-style-type: none;">
+                                <div v-for="(orderDate,inx) in data.value" :key="inx" style="list-style-type: none; min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">
                                     {{ orderDate }}
                                 </div>
                             </template>                  
@@ -392,7 +393,7 @@
                 </div>
             </div>
             <div style="width: 20%">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-info-circle-fill />
                     <p>
                         Court proceedings may be in 
@@ -495,7 +496,7 @@
                 </div>   
             </div>
             <div style="width: 20% ">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-paperclip />
                     <p>
                         You must attach a copy of 
@@ -503,7 +504,7 @@
                         this affidavit for filing. 
                     </p>
                 </NoteBox>
-                <NoteBox style="margin-top:10px">
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <b-icon-book />
                     <p>
                         For more information about 
@@ -610,7 +611,7 @@
                 </div>
             </div>
             <div style="width: 20% ">
-                <NoteBox style="margin-top:40px">
+                <NoteBox textColor="#626262" style="margin-top:40px">
                     <b-icon-paperclip />
                     <p>
                         You must attach a copy of 
@@ -618,7 +619,7 @@
                         this affidavit for filing. 
                     </p>
                 </NoteBox>
-                <NoteBox style="margin-top:10px">
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <b-icon-book />
                     <p>
                         For more information about 
@@ -720,7 +721,7 @@
                 <div style="width:10rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
             </div>
             <div style="width: 20%">
-                <NoteBox style="margin-top:-20px">
+                <NoteBox textColor="#626262" style="margin-top:-20px">
                     <b-icon-info-circle-fill />
                     <p>
                         This document must be 
@@ -731,7 +732,7 @@
                         to. You will sign it with them.
                     </p>
                 </NoteBox>
-                <NoteBox style="margin-top:10px">
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <b-icon-info-circle-fill />
                     <p>
                         Once the affidavit is signed 
@@ -834,22 +835,22 @@ export default class Form5Layout extends Vue {
     ]; 
 
     otherChildrenFields = [
-        {key:"fullName",               label:"Child's full name",                 tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"},
-        {key:"dob",                    label:"Child's date of birth",             tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"},
+        {key:"fullName",               label:"Child's full name",                 tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"dob",                    label:"Child's date of birth",             tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
         {key:"relation",               label:"Nature of relationship to child",   tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
 
     proceedingFields = [
         {key:"itemNo",                 label:"Item",                                                                        tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:10%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
         {key:"partyNames",             label:"Names of the parties to the proceeding",                                      tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
-        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"},        
-        {key:"courtOrderDates",        label:"Date of any orders concerning children under my care made in the proceeding", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"}
+        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
+        {key:"courtOrderDates",        label:"Date of any orders concerning children under my care made in the proceeding", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
 
     chargeFields = [
         {key:"chargeNature",             label:"Nature of alleged offence",                                       tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
         {key:"chargeDate",               label:"Date of alleged offence",                                         tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
-        {key:"chargeCourtLocation",      label:"Name and location of court in which proceedings are outstanding", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"}
+        {key:"chargeCourtLocation",      label:"Name and location of court in which proceedings are outstanding", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
    
     mounted(){
@@ -1117,11 +1118,6 @@ export default class Form5Layout extends Vue {
  
 }
 </script>
-<style>
-/* tbody{
-    background-color: #dedede;
-} */
-</style>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
 </style>

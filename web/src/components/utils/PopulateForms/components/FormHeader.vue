@@ -4,8 +4,8 @@
             <div style="width: 30%">
                 <div style="font-size:14pt; padding-right: 10px;"><b>{{formName}}</b></div>
                 <div style="font-size:12pt;"><b>{{formNumber}}</b></div>
-                <div style="font-size: 10pt;">Provincial Court Family Rules</div>
-                <div style="font-size: 10pt;">{{formRuleNumber}}</div>
+                <div :style="{fontSize: ruleFontSize}">Provincial Court Family Rules</div>
+                <div :style="{fontSize: ruleFontSize}">{{formRuleNumber}}</div>
             </div>
             <div style="width:200px;">
                 <CourtStamp></CourtStamp>
@@ -73,6 +73,9 @@ export default class FormHeader extends Vue {
 
     @Prop({required: false, default: ''})
     formRuleNumber!: string;
+
+    @Prop({required: false, default: '12pt'})
+    ruleFontSize!: string;
 }
 </script>
 <style>
