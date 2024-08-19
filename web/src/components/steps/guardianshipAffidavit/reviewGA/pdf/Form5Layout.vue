@@ -102,10 +102,9 @@
                     :fields="childFields"
                     class="mt-2"
                     style="margin-left: 1rem; width:97%;"
-                    small
-                    bordered>                    
+                    small>                    
                         <template v-slot:cell()="data">
-                            <div style="min-height:1rem; font-size:8pt; color:#000;">{{data.value}}</div>                                           
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
                             Child's date of birth <i style="font-size:6pt; font-weight:normal; color: #8a8a8a">(dd/mmm/yyyy)</i>
@@ -148,10 +147,9 @@
                     :fields="childRelationshipFields"
                     class="mt-2"
                     style="margin-left: 1rem; width:97%;"
-                    small
-                    bordered>                    
+                    small>                    
                     <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                        <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                     </template>
                     <template v-slot:head(relationWithchild)>
                         Nature of relationship with child <i style="font-size:7pt; font-weight:normal;"><br/>(Specify whether parent, step-parent, grandparent, aunt, uncle, family friend, etc.)</i>
@@ -189,10 +187,9 @@
                     :fields="childLivingArrangementFields"
                     class="mt-2"
                     small
-                    style="margin-left: 1rem; width:97%;"
-                    bordered>                    
+                    style="margin-left: 1rem; width:97%;">                    
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000;">{{data.value}}</div>                                           
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                         </template>
                 </b-table>
             </div>
@@ -319,10 +316,9 @@
                     :fields="otherChildrenFields"
                     class="mt-2"
                     style="margin-left: 3rem; width:90%;"
-                    small
-                    bordered>                    
+                    small>                    
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>
                         </template>
                         
                         <template v-slot:head(dob)>
@@ -371,15 +367,14 @@
                         :fields="proceedingFields"
                         class="mt-2"
                         style="margin-left: 3rem; width:90%;"
-                        small
-                        bordered>  
+                        small>  
                             <template v-slot:cell(courtOrderDates)="data">
                                 <div v-for="(orderDate,inx) in data.value" :key="inx" style="list-style-type: none;">
                                     {{ orderDate }}
                                 </div>
                             </template>                  
                             <template v-slot:cell()="data">
-                                <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                                <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                             </template>
                     </b-table>
                 </div>
@@ -389,10 +384,9 @@
                         :fields="proceedingFields"
                         class="mt-2"
                         style="margin-left: 3rem; width:90%;"
-                        small
-                        bordered>
+                        small>
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                         </template>
                     </b-table>
                 </div>
@@ -677,10 +671,9 @@
                         :items="currentCharges"
                         :fields="chargeFields"
                         class="mt-2"
-                        small
-                        bordered>          
+                        small>          
                             <template v-slot:cell()="data">
-                                <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                                <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>
                             </template>
                             <template v-slot:head(chargeDate)>
                                 Date of alleged offence <i style="font-size:6pt; font-weight:normal; color:#626262">(dd/mmm/yyyy)</i>
@@ -823,40 +816,40 @@ export default class Form5Layout extends Vue {
     currentCharges = [];
 
     childFields = [
-        {key:"fullName",               label:"Child's full name",                                           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth",                                       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"currentGuardiansToChild",label:"Name(s) of child's current guardian(s)",                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"parentsNotGuardians",    label:"Name(s) of child's parent(s) who are not current guardian(s)",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"fullName",               label:"Child's full name",                                           tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"dob",                    label:"Child's date of birth",                                       tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"currentGuardiansToChild",label:"Name(s) of child's current guardian(s)",                      tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
+        {key:"parentsNotGuardians",    label:"Name(s) of child's parent(s) who are not current guardian(s)",tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
 
     childRelationshipFields = [
-        {key:"fullName",               label:"Name of child",                     tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:20%;"},
-        {key:"relationWithchild",      label:"Nature of relationship to child",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
-        {key:"lengthOfRelationship",   label:"Length of relationship",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+        {key:"fullName",               label:"Name of child",                     tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:20%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"relationWithchild",      label:"Nature of relationship to child",   tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"lengthOfRelationship",   label:"Length of relationship",            tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];  
 
     childLivingArrangementFields = [
-        {key:"fullName",               label:"Name of child",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
-        {key:"currentLiving",          label:"Current living arrangements",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"}
+        {key:"fullName",               label:"Name of child",                 tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:35%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"currentLiving",          label:"Current living arrangements",       tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ]; 
 
     otherChildrenFields = [
-        {key:"fullName",               label:"Child's full name",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth",             tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"relation",               label:"Nature of relationship to child",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+        {key:"fullName",               label:"Child's full name",                 tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"},
+        {key:"dob",                    label:"Child's date of birth",             tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"},
+        {key:"relation",               label:"Nature of relationship to child",   tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
 
     proceedingFields = [
-        {key:"itemNo",                 label:"Item",                                                                        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:10%;"},
-        {key:"partyNames",             label:"Names of the parties to the proceeding",                                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
-        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},        
-        {key:"courtOrderDates",        label:"Date of any orders concerning children under my care made in the proceeding", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"itemNo",                 label:"Item",                                                                        tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:10%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"partyNames",             label:"Names of the parties to the proceeding",                                      tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"},        
+        {key:"courtOrderDates",        label:"Date of any orders concerning children under my care made in the proceeding", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"}
     ];
 
     chargeFields = [
-        {key:"chargeNature",             label:"Nature of alleged offence",                                       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"chargeDate",               label:"Date of alleged offence",                                         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"chargeCourtLocation",      label:"Name and location of court in which proceedings are outstanding", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"chargeNature",             label:"Nature of alleged offence",                                       tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"chargeDate",               label:"Date of alleged offence",                                         tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
+        {key:"chargeCourtLocation",      label:"Name and location of court in which proceedings are outstanding", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;;"}
     ];
    
     mounted(){
@@ -1125,9 +1118,9 @@ export default class Form5Layout extends Vue {
 }
 </script>
 <style>
-tbody{
+/* tbody{
     background-color: #dedede;
-}
+} */
 </style>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
