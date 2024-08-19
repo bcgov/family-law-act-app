@@ -1,6 +1,6 @@
 <template>
 
-    <div :style="{'background-color': '#d6d6d6', padding: '8px', 'font-size': fontSize, 'border-radius': borderRadius, border: border}">
+    <div :style="{'background-color': '#d6d6d6', padding: '8px', 'font-size': fontSize, 'border-radius': borderRadius, border: border, color: '#626262'}">
        <slot></slot> 
     </div>
 
