@@ -41,7 +41,7 @@
             on the application, reply or counter application.
         </div>
 
-        <div class="fla-col-left-80 fla-medium-grey" style="border-style: dashed; padding: 6px; border-color: black; width: 80%">
+        <div class="fla-col-left-80 fla-medium-grey" style="border-style: dashed; padding: 6px; background: #909090; border-color: black; width: 80%">
             <b>Please read before completing this form:</b>
             <ul>
                 <li>This form can be filed at any time, but sometimes you need the consent of the other parties 
@@ -95,7 +95,7 @@
         <!-- 3 -->
         <section style="text-indent: 8px; width: 80%;" resetquestion="3">
             <check-box inline="inline" boxMargin="0" style="margin-left: 4px; margin-top: -20px; display: inline; text-indent: -16px;" :check="acknowledge ? 'yes' : ''"
-            text="I understand <b>I must give notice</b> of "" />
+            text="I understand <b>I must give notice</b> of " />
             this notice of discontinuance to each <br/><div style="margin-left: 42px;">other 
             party. To give notice, they <b>must be served</b> with a copy of the 
             notice</div><div style="margin-left: 42px;"> of discontinuance <b>before the earlier of the following</b> dates:</div>
@@ -164,7 +164,7 @@
                     shiftmark="-10"
                     style="display:inline;" 
                     :check="disWholeApp.includes('form6') || disWholeApp.includes('form8')?'yes':''" 
-                    text="Reply to an Application about a family law matter on "/>
+                    text="Reply to an Application About a Family Law Matter on "/>
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 5px;" 
                     textwidth="17rem" 
@@ -191,7 +191,7 @@
                     hint="Date (dd/mmm/yyyy)" 
                     :italicHint="false" :text="disWholeApp.includes('form6Counter')?counterDate:''"/>
             </div>
-            <div style="margin-top: 0.5rem;"></div>
+            <div style="margin-top: 0.5rem; border-bottom: 1px solid black; width: 91%; margin-left: 32px;"></div>
             <div style="display: inline-block">
                 <check-box 
                     inline="inline" 
@@ -213,7 +213,7 @@
                     shiftmark="-10"
                     style="display:inline;" 
                     :check="disPartialApp.includes('form3')?'yes':''" 
-                    text="Application about a family law matter on "/>
+                    text="Application About a Family Law Matter on "/>
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 5px;" 
                     textwidth="17rem" 
@@ -232,7 +232,7 @@
                     shiftmark="-10"
                     style="display:inline;" 
                     :check="disPartialApp.includes('form6') || disWholeApp.includes('form8')?'yes':''" 
-                    text="Reply to an Application about a family law matter on "/>
+                    text="Reply to an Application About a Family Law Matter on "/>
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 5px;" 
                     textwidth="17rem" 
@@ -362,7 +362,7 @@
 
         <!-- <Part 5> -->
         <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-            <b>Part 5 | Consent of the parties–Complete this part only if consent is required based onyour responses in Part 4.</b>
+            <b>Part 5 | Consent of the parties–Complete this part only if consent is required based on your responses in Part 4.</b>
         </div>
 
         <div style="height: 9px;">&nbsp;</div>
@@ -378,7 +378,8 @@
                 <div style="display: inline;">discontinuing their application, reply or counter application as described in Part 3 of this form.</div>           
         </div>
         <div style="height: 30px;">&nbsp;</div>
-        <hr style="width:45%; margin-inline-start: 0;">
+        <div style="margin-top: 0.5rem; border-top: 1px solid black; width: 78%;"></div>
+        <div style="margin-top: 1rem;"></div>
         <div style="display: inline-block;">
             <underline-form 
                 style="text-indent:0px;display:inline-block;" 
@@ -397,7 +398,8 @@
             <underline-form style="text-indent:1px;display:inline-block;" textwidth="16rem" beforetext="" hint="name of party/parties" :text="''"/>            
         </div>  
         <div style="height: 30px;">&nbsp;</div>
-        <hr style="width:45%; margin-inline-start: 0;">
+        <div style="margin-top: 0.5rem; border-top: 1px solid black; width: 78%;"></div>
+        <div style="margin-top: 1rem;"></div>
         <div style="display: inline-block;">
             <underline-form 
                 style="text-indent:0px;display:inline-block;" 
