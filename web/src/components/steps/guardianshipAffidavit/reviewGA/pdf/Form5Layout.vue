@@ -5,8 +5,8 @@
         <FormHeader 
             :headerTableData="tableItems" 
             formName="Guardianship Affidavit" 
-            formNumber=5 
-            subtitle="Provincial Court Family Rules"
+            formNumber="Form 5"
+            ruleFontSize="10pt"
             formRuleNumber="Rules 26, 51, 172" />
 
         <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
@@ -19,18 +19,17 @@
                     <b>Please read before completing the form:</b>
                     <ul>
                         <li>
-                            You must complete the main part of this application and any applicable schedule for your application identified in Part 5 of the main application.
+                            To complete this form, you must have completed the required record checks as referred to in the form. You will be required to attach the results to this affidavit.
                         </li>
                         <li>
-                            For guidance filling in this form, including how to complete the record checks, please
-                            read the guidebook. The guide is available from your local court registry or online at
+                            For guidance filling in this form, including how to complete the record checks, please read the guidebook. The guide is available from your local court registry or online at
                             <a href="https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms" target="_blank">www.gov.bc.ca/court-forms</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div style="width: 20%">
-                <NoteBox style="margin-top:75px;">
+                <NoteBox textColor="#626262" style="margin-top:75px;">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
@@ -50,10 +49,10 @@
         <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
             <div style="width: 80%; margin-right: 10px;">
                 <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                    hintindent="45px" hintmargintop="4px" beforetext="<b>I,</b>" hint="Full name" :text="yourInfo.name | getFullName" />
+                    hintindent="45px" hintmargintop="4px" beforetext="<b>I,</b>" hintTextColor="black" hint="Full name" :text="yourInfo.name | getFullName" />
                 
-                <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="10rem"
-                    hintindent="25px" beforetext="," hintmargintop="4px" hint="Occupation" :text="yourInfo.occupation" />
+                <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block; padding-left:5px" textwidth="10rem"
+                    hintindent="25px" beforetext="," hintmargintop="4px" hintTextColor="black" hint="Occupation" :text="yourInfo.occupation" />
 
                     <div style="margin-top: 1.25rem;"/>
                 <div style="text-indent:5px;display:inline; font-size: 10pt;"> 
@@ -61,7 +60,7 @@
                 </div>
 
                 <grey-box-form entryFontSize="9pt" marginTop="-12px" style="text-indent:2px;display:inline-block;" textwidth="25rem"
-                    hintindent="60px" beforetext="" hintmargintop="4px" hint="Address of party, City, Province" :text="address" />
+                    hintindent="60px" beforetext="" hintmargintop="4px" hintTextColor="black" hint="Address of party, City, Province" :text="address" />
                 <div style="text-indent:5px;display:inline; font-size: 10pt;"> 
                     ,
                 </div>
@@ -74,7 +73,7 @@
                 </div>
             </div>
             <div style="width: 20% ">
-                <NoteBox style="margin-top: 40px;">
+                <NoteBox textColor="#626262" style="margin-top: 40px;">
                     <b-icon-book />
                     <p>
                         For more information about 
@@ -88,7 +87,7 @@
     <!-- <1> -->        
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                <div style="background-color: #626262; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
                     <p>
                         About the child(ren)
                     </p>
@@ -104,18 +103,17 @@
                     :fields="childFields"
                     class="mt-2"
                     style="margin-left: 1rem; width:97%;"
-                    small
-                    bordered>                    
+                    small>                    
                         <template v-slot:cell()="data">
-                            <div style="min-height:1rem; font-size:8pt; color:#000;">{{data.value}}</div>                                           
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal; color: #8a8a8a">(dd/mmm/yyyy)</i>
                         </template>
                 </b-table> 
             </div>
             <div style="width: 20% ">
-                <NoteBox style="margin-top: 40px;">
+                <NoteBox textColor="#626262" style="margin-top: 40px;">
                     <b-icon-book />
                     <p>
                         For more information about 
@@ -150,10 +148,9 @@
                     :fields="childRelationshipFields"
                     class="mt-2"
                     style="margin-left: 1rem; width:97%;"
-                    small
-                    bordered>                    
+                    small>                    
                     <template v-slot:cell()="data">
-                        <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                        <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                     </template>
                     <template v-slot:head(relationWithchild)>
                         Nature of relationship with child <i style="font-size:7pt; font-weight:normal;"><br/>(Specify whether parent, step-parent, grandparent, aunt, uncle, family friend, etc.)</i>
@@ -161,7 +158,7 @@
             </b-table>  
             </div>
             <div style="width: 20% ">
-                <NoteBox style="margin-top:-20px">
+                <NoteBox textColor="#626262" style="margin-top:-20px">
                     <b-icon-info-circle-fill />
                     <p>
                         You may provide only the first 
@@ -191,15 +188,14 @@
                     :fields="childLivingArrangementFields"
                     class="mt-2"
                     small
-                    style="margin-left: 1rem; width:97%;"
-                    bordered>                    
+                    style="margin-left: 1rem; width:97%;">                    
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                         </template>
                 </b-table>
             </div>
             <div style="width: 20% ">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-info-circle-fill />
                     <p>
                         Briefly explain where and with whom the child is living right now.
@@ -215,15 +211,15 @@
                     <b>5. </b> 
                     I plan to care for the child(ren) referred to in paragraph 1 of this affidavit as follows:
                     <br />
-                    <i>Set out detailed plans for how the child(ren) is/are to be cared for</i>
+                    <i style="color: #626262">Set out detailed plans for how the child(ren) is/are to be cared for</i>
                 </div>
                 <div style="margin-left: 1rem;">
-                    <div v-if="careDetails.length>0" class="answerbox" style="margin-left: 1rem; background-color: #dedede">{{careDetails}}</div>
+                    <div v-if="careDetails.length>0" class="answerbox" style="margin-left: 1rem; background-color: #dedede; word-wrap: break-word;">{{careDetails}}</div>
                     <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"></div> 
                 </div> 
             </div>
             <div style="width: 20% ">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-info-circle-fill />
                     <p>
                         A guardian must exercise 
@@ -245,14 +241,14 @@
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                <div style="background-color: #626262; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
                     <p>
                         Incidents of family violence
                     </p>
                 </div>
                 <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                     <b>6. </b>
-                    <i>Select whichever option is correct</i>
+                    <i style="color: #626262">Select whichever option is correct</i>
                 </div>
                 <div style="margin:0 0 0 3rem;">
                     <check-box style="text-indent: -16px" 
@@ -263,13 +259,13 @@
                         style="text-indent: -16px" 
                         :check="familyViolenceExists?'yes':''" 
                         text="<b>I am aware</b> of the <b>following incidents of family violence</b>, as that term is defined in section 1 of the <i>Family Law Act</i>, that affect
-                            the child(ren) referred to in paragraph 1 of this affidavit:<br><i>Describe the incidents of family violence of which you are aware</i>"/>
-                    <div v-if="familyViolenceExists" class="answerbox">{{ familyViolenceDesc }}</div>
-                    <div v-else style="margin-bottom:3rem; min-height:35px; background-color: #dedede"></div> 
+                            the child(ren) referred to in paragraph 1 of this affidavit:<br><i style='color: #626262'>Describe the incidents of family violence of which you are aware</i>"/>
+                    <div v-if="familyViolenceExists" class="answerbox" style="background-color: #dedede; word-wrap: break-word;">{{ familyViolenceDesc }}</div>
+                    <div v-else style="margin-bottom:3rem; min-height:35px; background-color: #dedede;  min-height: 200px;"></div> 
                 </div>
                 </div>
             <div style="width: 20% ">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-info-circle-fill />
                     <p>
                         Family violence is defined in 
@@ -298,14 +294,14 @@
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                <div style="background-color: #626262; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
                     <p>
                         Other children
                     </p>
                 </div>
                 <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                     <b>7. </b>
-                    <i>Select whichever option is correct</i>
+                    <i style="color: #626262">Select whichever option is correct</i>
                 </div>
                 <div style="margin:0 0 0 3rem;">
                     <check-box style="text-indent: -16px;" 
@@ -321,17 +317,16 @@
                     :fields="otherChildrenFields"
                     class="mt-2"
                     style="margin-left: 3rem; width:90%;"
-                    small
-                    bordered>                    
+                    small>                    
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>
                         </template>
                         
                         <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mm/yyyy)</i>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal; color: #626262">(dd/mm/yyyy)</i>
                         </template>
                         <template v-slot:head(relation)>
-                            Nature of relationship with child <i style="font-size:7pt; font-weight:normal;"><br/>(Specify whether parent, step-parent, grandparent, aunt, uncle, family friend, etc.)</i>
+                            Nature of relationship with child <i style="font-size:7pt; font-weight:normal; color: #626262"><br/>(Specify whether parent, step-parent, grandparent, aunt, uncle, family friend, etc.)</i>
                         </template>
                 </b-table>  
                 </div>
@@ -342,14 +337,14 @@
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                <div style="background-color: #626262; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
                     <p>
                         Involvement in court proceedings
                     </p>
                 </div>
                 <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                     <b>8. </b>
-                    <i>Select whichever option is correct</i>
+                    <i style="color: #626262">Select whichever option is correct</i>
                 </div>
                 <div style="margin:0 0 0 3rem;">
                     <check-box style="text-indent: -16px;" 
@@ -373,15 +368,14 @@
                         :fields="proceedingFields"
                         class="mt-2"
                         style="margin-left: 3rem; width:90%;"
-                        small
-                        bordered>  
+                        small>  
                             <template v-slot:cell(courtOrderDates)="data">
-                                <div v-for="(orderDate,inx) in data.value" :key="inx" style="list-style-type: none;">
+                                <div v-for="(orderDate,inx) in data.value" :key="inx" style="list-style-type: none; min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">
                                     {{ orderDate }}
                                 </div>
                             </template>                  
                             <template v-slot:cell()="data">
-                                <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                                <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                             </template>
                     </b-table>
                 </div>
@@ -391,16 +385,15 @@
                         :fields="proceedingFields"
                         class="mt-2"
                         style="margin-left: 3rem; width:90%;"
-                        small
-                        bordered>
+                        small>
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                         </template>
                     </b-table>
                 </div>
             </div>
             <div style="width: 20%">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-info-circle-fill />
                     <p>
                         Court proceedings may be in 
@@ -431,30 +424,34 @@
                             <grey-box-form
                                 style="text-indent:0;margin-left:.75rem;display:inline-block;" 
                                 textwidth="6rem" 
-                                beforetext="The order dated" 
+                                beforetext="The order dated"
                                 entryFontSize="9pt"
                                 marginTop="-17px"
                                 hint="(dd/mm/yyyy)" 
                                 hintindent="20px"
+                                hintTextColor="black"
                                 :text="exhibit.fileDate | beautify-date-mid"/>
                             <grey-box-form
-                                style="text-indent:1px;display:inline-block;" 
+                                style="text-indent:1px;display:inline;" 
                                 textwidth="3rem" 
-                                beforetext="referred to in Item" 
+                                beforetext="referred to in Item"
                                 entryFontSize="9pt"
                                 marginTop="-17px"
                                 hint="(1, 2, etc.)" 
                                 hintindent="5px"
+                                hintTextColor="black"
                                 :text="exhibit.itemNo"/> 
-                                <div style="margin-top: 0.5rem;"/>
+                            <div style="margin-top: 0.5rem;"/>
                             <grey-box-form
                                 style="text-indent:7px;display:inline-block;" 
                                 textwidth="3rem" 
-                                beforetext="above is attached as Exhibit" 
+                                beforetext="above is attached as Exhibit"
+                                aftertext="to this affidavit"
                                 entryFontSize="9pt"
                                 marginTop="-15px"
                                 hint="(A, B, etc.)" 
                                 hintindent="0px"
+                                hintTextColor="black"
                                 :text="exhibit.exhibitName.replace('Exhibit ', '')"/>
                         </div>
                     </div>
@@ -470,6 +467,7 @@
                                 marginTop="-17px"
                                 hint="(dd/mm/yyyy)" 
                                 hintindent="20px"
+                                hintTextColor="black"
                                 text=''/>
                             <grey-box-form
                                 style="text-indent:1px;display:inline-block;" 
@@ -478,24 +476,27 @@
                                 entryFontSize="9pt"
                                 marginTop="-17px"
                                 hint="(1, 2, etc.)" 
+                                hintTextColor="black"
                                 hintindent="5px"
                                 text=''/> 
                                 <div style="margin-top: 0.5rem;"/>
                             <grey-box-form
                                 style="text-indent:15px;display:inline-block;" 
                                 textwidth="3rem" 
-                                beforetext="above is attached as Exhibit" 
+                                beforetext="above is attached as Exhibit"
+                                aftertext="to this affidavit"
                                 entryFontSize="9pt"
                                 marginTop="-17px"
                                 hint="(A, B, etc.)" 
                                 hintindent="-8px"
+                                hintTextColor="black"
                                 text=''/>
                         </div>
                     </div>
                 </div>   
             </div>
             <div style="width: 20% ">
-                <NoteBox>
+                <NoteBox textColor="#626262">
                     <b-icon-paperclip />
                     <p>
                         You must attach a copy of 
@@ -503,7 +504,7 @@
                         this affidavit for filing. 
                     </p>
                 </NoteBox>
-                <NoteBox style="margin-top:10px">
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <b-icon-book />
                     <p>
                         For more information about 
@@ -518,7 +519,7 @@
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                <div style="background-color: #626262; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
                     <p>
                         Record checks
                     </p>
@@ -540,10 +541,11 @@
                         style="text-indent:0;display: inline; margin: 0.25rem 0;" 
                         textwidth="10rem" 
                         beforetext="" 
-                        hint="(mmm/dd/yyyy)"
+                        hint="(dd/mmm/yyyy)"
                         entryFontSize="9pt"
                         marginTop="-17px"
                         hintindent="15px"
+                        hintTextColor="black"
                         :text="mcfdRecord.fileDate?mcfdRecord.fileDate:''"/>
                 </div>
                 <div style="margin-left: 1rem; margin-bottom:1rem; text-indent: -10px; padding-left: 10px;">
@@ -567,6 +569,7 @@
                         entryFontSize="9pt"
                         marginTop="-17px"
                         hintindent="15px"
+                        hintTextColor="black"
                         :text="porsRecord.fileDate?porsRecord.fileDate:''"/>
                 </div>
                 <div style="margin-left: 1rem; margin-bottom:1rem; text-indent: -10px; padding-left: 10px;">
@@ -590,6 +593,7 @@
                         entryFontSize="9pt"
                         marginTop="-17px"
                         hintindent="15px"
+                        hintTextColor="black"
                         :text="crcRecord.fileDate?crcRecord.fileDate:''"/>
                     <div style="text-indent:5px;display:inline;"> 
                         obtained from the
@@ -602,11 +606,12 @@
                         marginTop="-17px"
                         hintindent="15px"
                         hintmargintop="3px"
+                        hintTextColor="black"
                         :text="policeDept"/>
                 </div>
             </div>
             <div style="width: 20% ">
-                <NoteBox style="margin-top:40px">
+                <NoteBox textColor="#626262" style="margin-top:40px">
                     <b-icon-paperclip />
                     <p>
                         You must attach a copy of 
@@ -614,7 +619,7 @@
                         this affidavit for filing. 
                     </p>
                 </NoteBox>
-                <NoteBox style="margin-top:10px">
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <b-icon-book />
                     <p>
                         For more information about 
@@ -629,33 +634,32 @@
         <div style="margin-top: 1rem;"/>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+                <div style="background-color: #626262; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
                     <p>
                         Criminal offences
                     </p>
                 </div>
                 <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                     <b>12. </b>
-                    <i>Select whichever option is correct</i>
+                    <i style="color: #626262">Select whichever option is correct</i>
                 <check-box style="margin:0 0 0 1rem; text-indent: -16px;" 
                         :check="!pastConviction?'yes':''" 
                         text="There are <b>no criminal offences, other than those, if any, specified in the criminal records check</b> referred to in paragraph 11 of
-                        this affidavit, of which I have been convicted and not pardoned."/> 
+                        this affidavit, of which I have been convicted and not pardoned"/> 
 
                 <check-box 
                     style="margin:1rem 0 0 1rem; text-indent: -16px;" 
                     :check="pastConviction?'yes':''" 
                     text="<b>In addition to the convictions</b>, if any, specified in the criminal records check referred to in paragraph 11 of this affidavit, <b>I have
                     been convicted of</b>, and not pardoned for, <b>the following criminal offences</b>:
-                    <br><i>Provide details of any criminal convictions, not referred to in the criminal records check, for which you have not received a pardon</i>"/>
+                    <br><i style='color: #626262'>Provide details of any criminal convictions, not referred to in the criminal records check, for which you have not received a pardon</i>"/>
                 
-                <div style="margin:0rem 0 0 1rem;" v-if="pastConviction" 
-                    class="answerbox">{{ convictionDetails }}</div>
-                <div v-else style="margin:0 0 3rem 1.5rem; min-height:75px; background-color: #dedede"></div>
+                <div style="margin:0rem 0 0 1rem; background-color: #dedede; word-wrap: break-word;" v-if="pastConviction" class="answerbox">{{ convictionDetails }}</div>
+                <div v-else style="margin:0 0 3rem 1.5rem; background-color: #dedede; min-height: 200px;"></div>
                 </div>
                 <div style="margin: 1rem 0 0 1rem; text-indent: -10px; padding-left: 10px;">
                     <b>13. </b>
-                    <i>Select whichever option is correct</i>
+                    <i style="color: #626262">Select whichever option is correct</i>
                     <check-box style="margin:0 0 0 1rem; text-indent: -16px;" 
                         :check="!currentlyConvicted?'yes':''" 
                         text="I am <b>not currently charged with any criminal offences</b>"/> 
@@ -668,13 +672,12 @@
                         :items="currentCharges"
                         :fields="chargeFields"
                         class="mt-2"
-                        small
-                        bordered>          
+                        small>          
                             <template v-slot:cell()="data">
-                                <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>
+                                <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{data.value}}</div>
                             </template>
                             <template v-slot:head(chargeDate)>
-                                Date of alleged offence <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
+                                Date of alleged offence <i style="font-size:6pt; font-weight:normal; color:#626262">(dd/mmm/yyyy)</i>
                             </template>
                     </b-table> 
                 </div> 
@@ -683,33 +686,42 @@
         </div>
 
         <!-- <SWEAR > -->
-        <div style="display: flex; flex-direction: row;">   
-            <div style="width: 40%; padding-right: 4px;">
-                <div style="text-indent:5px;display:block; font-size: 9pt;margin:1rem 0 0 0"> 
-                    Sworn or affirmed before me 
-                </div>
-                <div style="margin:0.5rem 0 0 0">
-                    <grey-box-form marginTop="-20px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" hintFontSize="8pt" hintindent="90px" beforetext="at" aftertext=", British Columbia" hint="City" text="" />
-                </div>
-                <div style="margin-top: 1.25rem;"/>
-                <div style="margin:.5rem 0 0 0">
-                    <grey-box-form marginTop="-20px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" hintFontSize="8pt" hintindent="85px" beforetext="on" hint="Date" text="" />
-                </div>
-                <div style="margin:2rem 0 0 0; display:inline-block;">
-                    <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block;"></div>
-                    <br/>
-                    <div style="width:10rem; display:inline-block; font-size:8pt" >
-                        A Commissioner for taking Affidavits in British Columbia
-                        [print name or affix stamp of commissioner]
+        <div style="display: flex; flex-direction: row;">  
+             
+            <div style="width: 40%; padding-right: 4px; ">
+                
+                <div style="border-right: solid 1px;">
+                    <hr style="width:10%; text-align:right; margin-right:0; height: 0px; border: none; border-top: 1px solid black;"/>
+                    <div style="text-indent:5px;display:block; font-size: 9pt;margin:1rem 0 0 0;"> 
+                        Sworn or affirmed before me 
                     </div>
+                    
+                    <div style="margin:0.5rem 0 0 0">
+                        <grey-box-form marginTop="-20px" style="margin-top:0.2rem; text-indent:3px; display:inline; font-size:9pt;" 
+                            textwidth="8.25rem" hintFontSize="8pt" hintindent="90px" hintTextColor="black" beforetext="at" aftertext=", British Columbia" hint="City" text="" />
+                    </div>
+                    <div style="margin-top: 1.25rem;"/>
+                    <div style="margin:.5rem 0 0 0">
+                        <grey-box-form marginTop="-20px" style="margin-top:0.2rem; text-indent:3px;display:inline; font-size:9pt;" textwidth="8.25rem" 
+                            hintTextColor="black" hintFontSize="8pt" hintindent="85px" beforetext="on" hint="Date" text="" />
+                    </div>
+                    <div style="margin:2rem 0 0 0; display:inline-block;">
+                        <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block;"></div>
+                        <br/>
+                        <div style="width:10rem; display:inline-block; font-size:8pt" >
+                            A Commissioner for taking Affidavits in British Columbia
+                            [print name or affix stamp of commissioner]
+                        </div>
+                    </div>
+                    <hr style="width:10%; text-align:right; margin-right:0; height: 0px; border: none; border-top: 1px solid black;"/>
                 </div>
             </div>
             <div style="width: 40%; margin:8.65rem 1rem 0 0">
-                <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
-                <div style="width:10rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
+                <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block; margin: 0rem 0 0 2rem;"></div>
+                <div style="width:10rem; display:inline-block; font-size:9pt; margin: 0 0 0 2rem;">Signature</div>
             </div>
             <div style="width: 20%">
-                <NoteBox style="margin-top:-20px">
+                <NoteBox textColor="#626262" style="margin-top:-20px">
                     <b-icon-info-circle-fill />
                     <p>
                         This document must be 
@@ -720,7 +732,7 @@
                         to. You will sign it with them.
                     </p>
                 </NoteBox>
-                <NoteBox style="margin-top:10px">
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <b-icon-info-circle-fill />
                     <p>
                         Once the affidavit is signed 
@@ -805,40 +817,40 @@ export default class Form5Layout extends Vue {
     currentCharges = [];
 
     childFields = [
-        {key:"fullName",               label:"Child's full name",                                           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth",                                       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"currentGuardiansToChild",label:"Name(s) of child's current guardian(s)",                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"parentsNotGuardians",    label:"Name(s) of child's parent(s) who are not current guardian(s)",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"fullName",               label:"Child's full name",                                           tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"dob",                    label:"Child's date of birth",                                       tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"currentGuardiansToChild",label:"Name(s) of child's current guardian(s)",                      tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
+        {key:"parentsNotGuardians",    label:"Name(s) of child's parent(s) who are not current guardian(s)",tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
 
     childRelationshipFields = [
-        {key:"fullName",               label:"Name of child",                     tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:20%;"},
-        {key:"relationWithchild",      label:"Nature of relationship to child",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
-        {key:"lengthOfRelationship",   label:"Length of relationship",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+        {key:"fullName",               label:"Name of child",                     tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:20%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"relationWithchild",      label:"Nature of relationship to child",   tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"lengthOfRelationship",   label:"Length of relationship",            tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];  
 
     childLivingArrangementFields = [
-        {key:"fullName",               label:"Name of child",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
-        {key:"currentLiving",          label:"Current living arrangements",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"}
+        {key:"fullName",               label:"Name of child",                 tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:35%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"currentLiving",          label:"Current living arrangements",       tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ]; 
 
     otherChildrenFields = [
-        {key:"fullName",               label:"Child's full name",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth",             tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"relation",               label:"Nature of relationship to child",   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+        {key:"fullName",               label:"Child's full name",                 tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"dob",                    label:"Child's date of birth",             tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"relation",               label:"Nature of relationship to child",   tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
 
     proceedingFields = [
-        {key:"itemNo",                 label:"Item",                                                                        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:10%;"},
-        {key:"partyNames",             label:"Names of the parties to the proceeding",                                      tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
-        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},        
-        {key:"courtOrderDates",        label:"Date of any orders concerning children under my care made in the proceeding", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"itemNo",                 label:"Item",                                                                        tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:10%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"partyNames",             label:"Names of the parties to the proceeding",                                      tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"courtLocation",          label:"Name and location of court in which the proceeding was conducted",            tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
+        {key:"courtOrderDates",        label:"Date of any orders concerning children under my care made in the proceeding", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
 
     chargeFields = [
-        {key:"chargeNature",             label:"Nature of alleged offence",                                       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"chargeDate",               label:"Date of alleged offence",                                         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"chargeCourtLocation",      label:"Name and location of court in which proceedings are outstanding", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"chargeNature",             label:"Nature of alleged offence",                                       tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"chargeDate",               label:"Date of alleged offence",                                         tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
+        {key:"chargeCourtLocation",      label:"Name and location of court in which proceedings are outstanding", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ];
    
     mounted(){
@@ -1106,11 +1118,6 @@ export default class Form5Layout extends Vue {
  
 }
 </script>
-<style>
-tbody{
-    background-color: #dedede;
-}
-</style>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
 </style>
