@@ -837,7 +837,6 @@ export default class CommonSection extends Vue {
         ];
 
         this.dataReady = true;
-        console.log("ready:", this.result);
     }
    
     childrenFields=[

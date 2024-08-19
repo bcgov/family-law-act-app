@@ -258,7 +258,7 @@ export default class GuardianOfChild extends Vue {
     }
     
     public setPages(){ 
-        if (this.survey.data?.applicationType?.includes("cancelGuardian")) {                
+        if (this.survey.data?.applicationType?.includes("cancelGuardian") || this.survey.data?.applicationType?.includes("becomeGuardian")) {                
             togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], true, this.currentStep);                
         } else {
             togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], false, this.currentStep);
