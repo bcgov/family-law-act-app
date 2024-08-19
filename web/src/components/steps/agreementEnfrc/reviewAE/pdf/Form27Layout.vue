@@ -3,236 +3,224 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-ea">
-            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
-                <div style="font-size:12pt;"><b>Request to File a Determination</b></div>     
-                <div style="font-size:12pt;"><b>of Parenting Coordinator</b></div>             
-                <div style="font-size:10pt;"><b>FORM 27</b></div>
-                <div style="font-size:9pt;">Provincial Court Family Rules</div>
-                <div style="font-size:9pt;">Rules 133</div>
-            </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>                
-            </div>
-        </div> 
+    <FormHeader :headerTableData="headerTableData" formName="Request to File a Determination of Parenting Coordinator" formNumber="Form 27" formRuleNumer="Rule 133"></FormHeader>
         
-<!-- <1> -->
-        <section>
-            <underline-form style="text-indent:2px;display:inline-block;  " textwidth="18.75rem" beforetext="My name is" hint="(full name of party)" :italicHint="false" :text="yourInfo.name | getFullName"/>
-            <underline-form style="display:inline;text-indent:2px;  " textwidth="9rem" beforetext=". My date of birth is" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
-            <div style="text-indent:1px;display:inline;  ">.</div>
-            <div style="margin-top:0.25rem; text-indent:0px;  ">My contact information and address for service of court documents are:</div>
-            <table class="fullsize" style="margin-top:0 !important;  ">
-                <tr style="border:1px solid #414142" >
-                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
-                    <td v-else  colspan="3">Lawyer (if applicable): </td>
-                </tr>
-                <tr style="border:1px solid #414142">          
-                    <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
-                </tr>
-                <tr style="border:1px solid #313132">
-                    <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
-                <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
-                    <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
-                </tr>
-                <tr style="border:1px solid #313132">
-                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
-                </tr>
-            </table>
-        </section>         
-
-<!-- <2> -->
-        <div class="print-block" style="margin-top: 0rem;">
-            <section> 
-                <div style="display:inline;  ">
-                    <underline-form 
-                        style="text-indent:2px;display:inline-block; margin-top: 0.6rem;" 
-                        textwidth="15rem" 
-                        beforetext="The other party, who is the subject of this determination, is" 
-                        hint="      (full name of other party)" 
-                        :italicHint="false" 
-                        :text="firstOtherParty.name | getFullName"/>
-                    <div style="display:inline;">.</div>
-                    <div style="margin:0.25rem 0 0.05rem 1rem;">
-                        <underline-form 
-                            style="display:inline;text-indent:0px; margin-top: 1rem;" 
-                            textwidth="7rem" 
-                            beforetext="Their date of birth is" 
-                            hint="(mmm/dd/yyyy)" 
-                            :italicHint="false" 
-                            :text="firstOtherParty.dob | beautify-date"/>
-                        <div style="text-indent:5px;display:inline;"> .</div>                    
-                        <div style="text-indent:1px; margin-top: 1rem;display:inline;"> Their contact information, as I know it, is:</div>
-                    </div>
-                    <table class="fullsize">
-                        <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">
-                                Lawyer (if applicable): 
-                                <div class="answer">
-                                    {{firstOtherParty.lawyer}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">          
-                            <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td  >City: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.city:''}}</div> </td>
-                        <td style="padding-left:50px">Province: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.state:''}}</div> </td>
-                            <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.email:''}}</div> </td>
-                            <td>Telephone: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.phone:''}}</div> </td>
-                        </tr>
-                    </table>
+    <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div>
+                    This Request to File a Determination of Parenting Coordinator provides information about a
+                    determination of a parenting coordinator that a person is filing under the Family Law Act in
+                    the Provincial Court. A determination of a parenting coordinator that is filed in Provincial
+                    Court is enforceable under the Act as if it were an order of the Provincial Court. 
                 </div>
-                <div style="text-indent:5px; margin:0"><i>Additional party (Complete only if applicable. You may leave this section blank)</i></div>
-                        
-                <div v-if="additionalOtherParties.length>0">
-
-                    <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
-                    
-                        <table class="compactfullsize">
-                            <tr style="border:1px solid #313132">
-                                <td colspan="2">Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>                               
-                                <td>Date of birth: <div class="answer">{{otherParty.dob | beautify-date}}</div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Contact information</td>
-                            </tr>
-                            <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">
-                                    Lawyer (if applicable): 
-                                    <div class="answer">
-                                        {{otherParty.lawyer}}
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">          
-                                <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">
-                                <td  >City: <div class="answer">{{otherParty.address?otherParty.address.city:''}}</div> </td>
-                            <td style="padding-left:50px">Province: <div class="answer">{{otherParty.address?otherParty.address.state:''}}</div> </td>
-                                <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">
-                                <td colspan="2">Email: <div class="answer">{{otherParty.contactInfo?otherParty.contactInfo.email:''}}</div> </td>
-                                <td>Telephone: <div class="answer">{{otherParty.contactInfo?otherParty.contactInfo.phone:''}}</div> </td>
-                            </tr>
-                        </table>                    
-                    </div>
-                </div>
-                <div v-else>
-
-                    <div style="display:inline;  ">
-                    
-                        <table class="compactfullsize">
-                            <tr style="border:1px solid #313132">
-                                <td colspan="2">Full name: <div class="answer"></div> </td>
-                                <td>Date of birth: <div class="answer"></div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Contact information</td>
-                            </tr>
-                            <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Lawyer (if applicable): </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">          
-                                <td colspan="3">Address: <div class="answer"> </div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">
-                                <td  >City: <div class="answer"></div> </td>
-                            <td style="padding-left:50px">Province: <div class="answer"></div> </td>
-                                <td>Postal Code: <div class="answer"></div> </td>
-                            </tr>
-                            <tr style="border:1px solid #313132">
-                                <td colspan="2">Email: <div class="answer"></div> </td>
-                                <td>Telephone: <div class="answer"></div> </td>
-                            </tr>
-                        </table>                    
-                    </div>
-                </div>
-            </section>
-        </div> 
-
-    <!-- <3> -->
-
-        <div class="print-block" style="margin-top: 1rem;">
-            <section> 
-                <div style="display:inline; margin:0rem 0 0 0.35rem;">
-                    <check-box 
-                        inline="inline" 
-                        boxMargin="0" 
-                        style="display:inline; margin:0 0.5rem 0 0;" 
-                        :check="form27Info.filed?'yes':''" 
-                        text="I request the determination by a parenting coordinator referred to in section 18 <i>[determinations by</i>"/>
-                    <div style="text-indent:0px; margin:0rem 0 0 1.75rem; " >
-                        <i>parenting coordinators]</i> of the <i>Family Law Act</i> dated               
-                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form27Info.existingDate"/>
-                        <div style="text-indent:0px; display:inline;"> between the above parties be filed in the Provincial Court</div>
-                    </div>
-                </div>              
-            </section>
-        </div> 
-
-    <!-- <4> -->
-        <div class="print-block">
-            <section>
-                <div style="margin:0 0 0 0.25rem;display:inline;  ">The parenting coordinator made the determination under:</div>
-
-                <div style="margin:0rem 0 0 1rem; " >
-                    <i>Select only one of the options below and complete the required information.</i> 
-
-                    <div style="margin:0.5rem 0 0 0rem;">
-                        <check-box 
-                            inline="inline" 
-                            boxMargin="0" 
-                            style="display:inline; margin:0 0.5rem 0 0;" 
-                            :check="form27Info.type == 'writtenAgreement'?'yes':''" 
-                            text="an agreement made on"/>               
-                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form27Info.agreementDate"/>
-                        <div style="text-indent:10px;display:inline;"> between </div>
-                        <div v-for="party,inx in form27Info.partiesToAgreement" :key="inx" style="text-indent:10px;display:inline;">
-                            <underline-form style="text-indent:1px;display:inline;" textwidth="16.75rem" beforetext="" hint="(parties to the agreement)" :text="party"/>
-                            <div v-if="inx != (form27Info.partiesToAgreement.length-1)" style="display:inline;"> , </div>
-                        </div>
-                        <div style="display:inline; text-indent:0px; line-height:1.5rem; margin:0.25rem 0 0 0.72rem;"> which is filed in the Provincial Court </div>
-                    </div>
-
-                    <div style="margin:0.75rem 0 0 0rem;">
-                        <check-box 
-                            inline="inline" 
-                            boxMargin="0" 
-                            style="display:inline; margin:0 0.5rem 0 0;" 
-                            :check="form27Info.type == 'courtOrder'?'yes':''" 
-                            text="a court order made on"/>               
-                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form27Info.orderDate"/>
-                        
-                    </div>                            
-                </div>                  
-            </section>
+            </div>
+            <div style="width: 20%; margin-top: 64px;">
+            </div>
         </div>
 
+        <div style="margin-top: 1rem;"></div>
 
+<!-- <Part 1> -->
+    <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="1" title="About the parties"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
 
-        <div class="print-block mt-5"></div> 
+        <div style="margin-top: 0.1rem;"></div>
 
+<!-- <1> -->
+    <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <b style="padding-right:3px">1.</b>
+                <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;"><b>My full name </b>is</div>
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
+                    textwidth="55%" 
+                    beforetext="" 
+                    hint="Full name of party"
+                    hintindent="23%"
+                    :italicHint="false" :text="yourInfo.name | getFullName"/>
+                <div style="margin-top: 0.8rem;"></div>
+                <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;">My <b>date of birth</b> is:</div>
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
+                    textwidth="42.8%" 
+                    beforetext="" 
+                    hint="(dd/mmm/yyyy)" 
+                    hintindent="15%"
+                    :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+                <div style="margin-top: 0.8rem;"></div>
+                <b style="padding-right:3px">2.</b>
+                <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;">The <b>other party who is the subjest of this determination</b> is:</div>
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
+                    textwidth="300px" 
+                    beforetext="" 
+                    hint="Full name of party"
+                    hintindent="100px"
+                    :italicHint="false" :text="firstOtherParty.name | getFullName"/>
+                <div style="margin-top: 0.8rem;"></div>
+                <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;">Their <b>date of birth</b> (dd/mmm/yyyy) is:</div>
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
+                    textwidth="300px" 
+                    beforetext="" 
+                    hint="(dd/mmm/yyyy)" 
+                    hintindent="100px"
+                    :italicHint="false" :text="firstOtherParty.dob | beautify-date"/>
+                <div style="margin-top: 0.8rem;"></div>
+                <check-box inline="inline" :shiftmark="0" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="additionalOtherParties.length>0?'yes':''" text="There is an additional party"/>
+                <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
+                    <div style="display: inline-block; font-size: 11pt;">
+                        The <b>additional party's full name</b> is:
+                    </div>
+                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
+                        beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="otherParty.name | getFullName" />
+                    <div style="display: inline-block; font-size: 11pt;">
+                        Their <b>date of birth</b> (dd/mmm/yyyy) is:
+                    </div>
+                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
+                        beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="otherParty.dob | beautify-date" />
+                </div>
+            </div>
+            <div style="width: 20%;margin-top:-42px;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        A person can apply under Rule 135 to enforce, change, or set aside a filed determination of a parenting
+                        coordinator using the Application About Enforcement Form 29. The determination must first be
+                        filed with the court. 
+                    </p>
+                </NoteBox>
+            </div>
+        </div>  
+
+        <div style="margin-top: 0.8rem;"></div>
+
+<!-- <Part 2> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="2" title="Request to file determination of parenting coordinator"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
+
+        <div style="margin-top: 0.1rem;"></div>
+
+<!-- 3/4 -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <b style="padding-right:3px">3.</b>
+                <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;">I <b>request to file a copy of the determination</b> by a parenting coordinator referred to in
+                    section 18 <i>[determinations by parenting coordinators]</i> of the <i>Family Law Act</i> dated<br/></div>
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
+                    textwidth="25%" 
+                    beforetext="" 
+                    hint="(dd/mmm/yyyy)"
+                    hintindent="10%"
+                    :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+                <div style="display:inline; margin-left: 195px;">, between the above parties, in the Provincial Court.</div>
+                <div style="margin-top: 0.8rem;"></div>
+                <b style="padding-right:3px">4.</b>
+                <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;">The parenting coordinator made the determination under:<br/>
+                    <i>Select only one of the options below and complete the required information</i><br/></div>
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
+                    textwidth="55%" 
+                    beforetext="" 
+                    hint="Full name of party"
+                    hintindent="23%"
+                    :italicHint="false" :text="firstOtherParty.name | getFullName"/>
+                <div style="margin-top: 0.8rem;"></div>
+                <check-box inline="inline" :shiftmark="0" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="form27Info.type == 'writtenAgreement'?'yes':''" text="An <b>agreement</b> made on "/>
+                <grey-box-form style="text-indent:4px;display:inline-block;" textwidth="290px"
+                    beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="form27Info.agreementDate" />
+                <div style="margin-top: 0.8rem;"></div>
+                <grey-box-form style="text-indent:4px;display:inline-block;" textwidth="290px"
+                    beforetext="<b>between</b>" hint="(Parties to the agreement)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="form27Info.partiesToAgreement" />
+                    <b>Which is filed in the<br/><div style="text-indent:8px"> Provincial Court.</div></b>
+                <br/>
+                <check-box inline="inline" :shiftmark="0" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="form27Info.type == 'courtOrder'?'yes':''" text="A <b>court order</b> made on "/>
+                <grey-box-form style="text-indent:4px;display:inline-block;" textwidth="290px"
+                    beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px" :text="form27Info.orderDate" />
+            </div>
+            <div style="width: 20%;margin-top:-42px;">
+                <NoteBox>
+                    <b-icon-book />
+                    <br />
+                    <p>
+                        You must file a copy of the determination of a parenting coordinator along with this form. 
+                    </p>
+                </NoteBox>
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        A parenting coordinator may assist only if there is a parenting coordination agreement or order in place
+                        [s. 15 <i>Family Law Act</i>]. If you had a written agreement to use a parenting coordinator, the agreement
+                        must also be filed with the court using the Request to file an Agreement Form 26.
+                    </p>
+                </NoteBox>
+            </div>
+        </div>  
+
+        <div style="margin-top: 0.8rem;"></div>
+
+<!-- <Part 3> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="3" title="Address for service"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
+
+        <div style="margin-top: 0.1rem;"></div>
+
+<!-- 5 -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <b style="padding-right:3px">5.</b>
+                <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;">My address for service of court documents and 
+                    contact information is: <i>You must provide an address for service and contact number, but it does not have to 
+                    be your own if you don’t want to</i><br/></div>
+                <table class="fullsize" style="margin-top:0 !important;  ">
+                    <tr style="border:1px solid #414142">          
+                        <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
+                    </tr>
+                    <tr style="border:1px solid #313132">
+                        <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
+                    <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
+                        <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
+                    </tr>
+                    <tr style="border:1px solid #313132">
+                        <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
+                        <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
+                    </tr>
+                    <tr style="border:1px solid #414142" >
+                        <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
+                        <td v-else  colspan="3">Lawyer’s name and firm name (if applicable): </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="width: 20%;margin-top:-42px;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        This information will be available to the other party and the court. 
+                    </p>
+                </NoteBox>
+            </div>
+        </div>  
+
+        <div style="margin-top: 0.8rem;"></div>
     </div>
 </template>
 
@@ -244,6 +232,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import GreyBoxForm from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
@@ -251,11 +240,20 @@ import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInfor
 import { enfrcOtherPartyDataInfoType, form27InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 import { enforceChangeSetAsideDeterminationSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
 import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
+import CourtStamp from '@/components/utils/PopulateForms/components/CourtStamp.vue';
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 
 @Component({
     components:{
         UnderlineForm,
         CheckBox,
+        CourtStamp,
+        FormHeader,
+        FormPart,
+        NoteBox,
+        GreyBoxForm,
         OrderedCheckBox        
     }
 })
@@ -278,10 +276,28 @@ export default class Form27Layout extends Vue {
     
     existingFileNumber = ''; 
 
+    headerTableData = [];
+
     mounted(){
         this.dataReady = false;
         this.extractInfo();       
         this.dataReady = true;
+
+        this.headerTableData = [
+            {
+                name:'REGISTRY LOCATION:', 
+                value: this.result.applicationLocation
+            },
+            {
+                name:'COURT FILE NUMBER:', 
+                value: this.existingFileNumber
+            },
+            {
+                name:'Document number:',
+                value: ''
+            }
+        ];
+
     }
    
     public extractInfo(){
