@@ -15,12 +15,20 @@
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="1" title="Party information"></FormPart>
                 
-                <div style="font-size: 12pt;">
+                <div style="font-size: 12pt; margin-bottom: 10px;">
                     <p><b>1. </b> The <b>parties to this case</b> are:</p> 
-                    <GreyBoxForm 
-
-                        hint="Full name of each party"
-                    />
+                    
+                    <grey-box-form 
+                        v-for="(otherPartyPanel, idx) of otherPartyDetails" 
+                        style="text-indent:2px;display:inline-block; font-size: 12pt;" 
+                        textwidth="33rem" 
+                        beforetext="" 
+                        :hint="idx == otherPartyDetails.length - 1 ? 'Full name of each party': ''" 
+                        hintindent="12rem"
+                        :hintFontSize="hintFontSize"
+                        :hintTextColor="hintTextColor"
+                        :italicHint="false" 
+                        :text="otherPartyPanel.name | getFullName"/>
                 </div>
 
                 <div>
@@ -33,7 +41,7 @@
                         textDisplay="inline"
                         style="margin:0 0 0 0.5rem; display:inline; font-size: 12pt;" 
                         :check="acknowledgeService?'yes':''" 
-                        text="I understand <b>I need to serve each party</b> with a filed copy of this notice"/> 
+                        text="I understand <b>I need to serve each party</b> with a filed copy of this notice."/> 
                 </div>
             </div>
             <div style="width: 20%;">
@@ -52,14 +60,17 @@
                                 
                 <div>
                     <b>3. </b>
-                    <underline-form 
+                    <grey-box-form 
                         style="text-indent:0;margin-left:.05rem;display:inline-block; font-size: 12pt;" 
                         textwidth="30rem" 
                         beforetext="I, " 
-                        hint="Full name of lawyer" 
+                        hint="Full name of lawyer"
+                        hintindent="12rem"
+                        :hintFontSize="hintFontSize"
+                        :hintTextColor="hintTextColor" 
                         :text="applicantName | getFullName"/>  
                     
-                    <p style="font-size: 12pt;">
+                    <p style="font-size: 12pt; margin-top: 10px;">
                         am <b>no longer representing</b> the following child(ren) in this case:
                     </p>
                 </div>
@@ -69,12 +80,12 @@
                     :fields="childTableFields"
                     class="mt-4"
                     small
-                    bordered>                    
+                >                    
                     <template v-slot:cell()="data">
-                        <div style="font-size:12pt;color:#000">{{data.value}}</div>                                           
+                        <div style="font-size:12pt;color:#000; background: #d6d6d6;">{{data.value}}</div>                                           
                     </template>
                     <template v-slot:head(dob)>
-                        Child’s Date of Birth <br><span style="font-size:8pt; font-weight:normal;">(dd/mmm/yyyy)</span>                            
+                        Child’s Date of Birth <br><span style="font-size:9pt; font-weight: normal; color: #999;">(dd/mmm/yyyy)</span>                            
                     </template>                       
                 </b-table>
 
@@ -94,16 +105,18 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { nameInfoType } from "@/types/Application/CommonInformation";
+import { nameInfoType, otherPartyNameInfoType } from "@/types/Application/CommonInformation";
 import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 import { noticeRemoveLawyerChildDataInfoType, childInformationNlcrDataInfoType } from '@/types/Application/NoticeRemoveLawyerChild';
 import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
 import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
 import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 
 @Component({
     components:{
         UnderlineForm,
+        GreyBoxForm,
         CheckBox,
         FormHeader,
         FormPart,
@@ -124,9 +137,14 @@ export default class Form41Layout extends Vue {
 
     childDetails: childInformationNlcrDataInfoType[] =[{name:'', dob: ''}];
     childTableFields = [
-        {key:"name",label:"Child’s full name",     tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
-        {key:"dob", label:"Child’s Date of Birth", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
+        {key:"name",label:"Child’s full name",     tdClass:"text-center align-middle", thClass:"  align-middle", thStyle:"font-size:10pt; width:55%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;"},
+        {key:"dob", label:"Child’s date of Birth", tdClass:"text-center align-middle", thClass:"  align-middle", thStyle:"font-size:10pt; width:35%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;"},
     ];
+
+    otherPartyDetails: otherPartyNameInfoType[] = [];
+
+    hintFontSize = '8pt';
+    hintTextColor = '#333';
    
     mounted(){
         this.dataReady = false;
@@ -146,7 +164,6 @@ export default class Form41Layout extends Vue {
         this.childDetails = [{name: '', dob: ''}];        
 
         if(this.result?.noticeRemoveLawyerChildSurvey){
-
             let noticeRemoveLawyerChild = {} as noticeRemoveLawyerChildDataInfoType;
             noticeRemoveLawyerChild = this.result.noticeRemoveLawyerChildSurvey; 
             
@@ -161,7 +178,11 @@ export default class Form41Layout extends Vue {
 
             if (childrenInfo.length>0){
                 this.childDetails = childrenInfo;
-            }                      
+            }   
+            
+            if (noticeRemoveLawyerChild.otherPartyNamesDynamicPanel && noticeRemoveLawyerChild.otherPartyNamesDynamicPanel.length > 0) {
+                this.otherPartyDetails = noticeRemoveLawyerChild.otherPartyNamesDynamicPanel;
+            }
         }             
     } 
 }
