@@ -4,8 +4,8 @@
             <div style="width: 30%">
                 <div style="font-size:14pt; padding-right: 10px;"><b>{{formName}}</b></div>
                 <div style="font-size:12pt;"><b>{{formNumber}}</b></div>
-                <div style="font-size: 12pt;">Provincial Court Family Rules</div>
-                <div style="font-size: 12pt;">{{formRuleNumber}}</div>
+                <div style="font-size: 10pt;">Provincial Court Family Rules</div>
+                <div style="font-size: 10pt;">{{formRuleNumber}}</div>
             </div>
             <div style="width:200px;">
                 <CourtStamp></CourtStamp>
