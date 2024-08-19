@@ -444,9 +444,308 @@
                     Rules].
                 </p>
             </NoteBox>
+            <NoteBox style="margin-top:90px">
+                <b-icon-book />
+                <p>
+                    For more information about 
+                    these types of orders, see the 
+                    guidebook. 
+                </p>
+            </NoteBox>
         </div>
     </div>
-    
+
+    <!-- Part 4 -->
+    <div style="margin-top: 1rem;" />
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:11pt">
+        <div style="width: 80%; margin-right: 10px;">
+            <FormPart :part="4" title="Disclosure of information" />
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>9. </b>
+                <i>Select all options that apply</i>
+            </div>
+            <div style="text-indent:-16px; margin:1rem 0 0 1.5rem;">
+                <div class="marginleft2p5vue">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="finInfoOnFile == ''?'yes':''" 
+                        text="The issue(s) to be determined at trial <b>do not include a support issue</b>"/>
+                </div>
+                <div class="marginleft2p5vue">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="finInfoOnFile=='y'?'yes':''" 
+                        text="My <b>financial information</b> on file with the court <b>is current</b>"/>
+                </div>
+                <div class="marginleft2p5vue">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="finInfoOnFile=='n'?'yes':''" 
+                        text="There have been <b>changes to my financial information</b> since I filed the Financial Statement"/>
+                </div>
+            </div>
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>10. </b>
+                <div style="text-indent:10px;display:inline;"> 
+                    I have provided each other party with a copy of the information I plan to 
+                    rely on during the trial, including financial information, documents, 
+                    and a list of witnesses
+                </div> 
+            </div>
+            <div style="display:inline-block; text-indent:-16px; margin-left: 2rem;">
+                <check-box inline="inline" boxMargin="0" style="display:inline;" 
+                    shift="10"  marginLeft="1.75rem" :check="copyForParty?'yes':''"  text="Yes"/>                                  
+                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                    shift="-8" marginLeft="0.5rem" :check="!copyForParty?'yes':''" text="No"/> 
+            </div>
+            <div>  
+                <grey-box-form 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; margin: 0rem 0 0 5rem;" 
+                    textwidth="23rem" 
+                    beforetext="<b><i>⤷ If no</i></b>, when can these be provided to the parties?"
+                    marginTop="-12px"
+                    :italicHint="false" :text="copyForPartyDate"/>
+            </div>
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>11. </b>
+                <div style="text-indent:10px;display:inline;"> 
+                    Is there any information you still need from the other party, including 
+                    financial information, documents, or a list of witnesses?
+                </div> 
+            </div>
+            <div style="display:inline-block; text-indent:-16px; margin-left:2rem">
+                <check-box inline="inline" boxMargin="0" style="display:inline;" 
+                    shift="10"  marginLeft="1.75rem" :check="needInfo?'yes':''"  text="Yes"/>                                  
+                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                    shift="-8" marginLeft="0.5rem" :check="!needInfo?'yes':''" text="No"/> 
+            </div>
+            <div>                
+                <div style="text-indent:0.25px;font-size: 9pt; margin: 0rem 0 0 2rem;"> 
+                    <b><i>⤷ If yes</i></b>, please explain what information you need
+                    <div v-if="needInfo" class="answerbox">{{ neededInfoDesc }}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
+            </div>
+            </div>      
+        </div>
+        <div style="width: 20%;">
+            <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>
+                    This part will help the court to 
+                    understand what information 
+                    needs to be shared between 
+                    the parties to help get ready 
+                    for the trial.
+
+                </p>
+            </NoteBox>
+        </div>
+    </div>
+
+    <!-- Part 5 -->
+    <div style="margin-top: 1rem;" />
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:11pt">
+        <div style="width: 80%; margin-right: 10px;">
+            <FormPart :part="5" title="Witnesses" />
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>12. </b>
+                I plan to have the following people <b>attend as witnesses</b> in this trial:
+            </div>
+            <div style="text-indent:5px;font-size: 9pt;font-style: italic; margin:0rem 0 0 2rem;"> 
+                Include your own name on the list if you plan to provide evidence
+            </div>          
+            <div style="margin:0.5rem 0 0 2rem;">
+                <div style="text-indent:1px;display:inline; font-size: 9pt;"> 
+                    <b>Witness Names:</b>
+                </div> 
+                <div style="display: inline;">
+                    <grey-box-form
+                        style="text-indent:0;display:inline-block;margin-left:1rem;" 
+                        textwidth="16.5rem" 
+                        beforetext="(1)" 
+                        hint="" 
+                        :text="firstTwoWitnesses[0]"/>
+                    <grey-box-form
+                        style="text-indent:0;margin:0.25rem 0 0 7rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        beforetext="(2)" 
+                        hint="" 
+                        :text="firstTwoWitnesses[1]"/>
+                    <grey-box-form
+                        style="text-indent:0;margin:0.25rem 0 0 7rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        beforetext="(3)" 
+                        hint="" 
+                        :text="firstTwoWitnesses[2]"/>  
+                    <grey-box-form
+                        style="text-indent:0;margin:0.25rem 0 0 7rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        beforetext="(4)" 
+                        hint="" 
+                        :text="firstTwoWitnesses[3]"/>  
+                    <grey-box-form
+                        style="text-indent:0;margin:0.25rem 0 0 7rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        beforetext="(5)" 
+                        hint="" 
+                        :text="firstTwoWitnesses[4]"/>  
+                    <grey-box-form
+                        style="text-indent:0;margin:0.25rem 0 0 7rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        beforetext="(6)" 
+                        hint="" 
+                        :text="firstTwoWitnesses[5]"/>  
+                </div>                               
+            </div>
+            <div v-if="additionalWitnesses.length>0">
+                <div  v-for="witness, inx in witnessLineArray" :key="inx" style="margin:0.5rem 0 0 4.15rem;">
+                    <grey-box-form
+                        style="text-indent:0;display:inline-block;margin-left:1rem;" 
+                        textwidth="16.5rem" 
+                        :beforetext="'('+ (2*inx + 3) + ')'" 
+                        hint="" 
+                        :text="additionalWitnesses[2*inx]"/>
+                    <grey-box-form
+                        style="text-indent:0;margin-left:1rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        :beforetext="'('+ (2*inx + 4) + ')'"
+                        hint="" 
+                        :text="additionalWitnesses[2*inx+1]"/>
+                    <grey-box-form
+                        style="text-indent:0;margin-left:1rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        :beforetext="'('+ (2*inx + 5) + ')'"
+                        hint="" 
+                        :text="additionalWitnesses[2*inx+2]"/> 
+                    <grey-box-form
+                        style="text-indent:0;margin-left:1rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        :beforetext="'('+ (2*inx + 6) + ')'"
+                        hint="" 
+                        :text="additionalWitnesses[2*inx+3]"/> 
+                    <grey-box-form
+                        style="text-indent:0;margin-left:1rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        :beforetext="'('+ (2*inx + 7) + ')'"
+                        hint="" 
+                        :text="additionalWitnesses[2*inx+4]"/> 
+                    <grey-box-form
+                        style="text-indent:0;margin-left:1rem;display:inline-block;" 
+                        textwidth="16.5rem" 
+                        :beforetext="'('+ (2*inx + 8) + ')'"
+                        hint="" 
+                        :text="additionalWitnesses[2*inx+5]"/>                   
+                </div>
+            </div>
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>13. </b>
+                <div style="text-indent:10px;display:inline;"> 
+                    Is there any witness or party travelling from another community to attend the trial?
+                </div> 
+                <!-- todo, thgis needss to be added to questionnaire -->
+                <div style="display:block; margin: 0.5rem 0 0 1rem; text-indent: -16px; font-weight: bold;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="10"  marginLeft="1.75rem" :check="true?'yes':''"  text="Yes"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="-8" marginLeft="0.5rem" :check="!true?'yes':''" text="No"/> 
+                </div>
+            </div>
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <div style="font-size:9.75pt; display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                    <b>14. </b>
+                    Are there <b>expert reports</b>?
+                </div>
+                <div style="display:block;margin-left: 1rem; text-indent:-16px; font-weight: bold;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertReports == 'Yes'?'yes':''"  text="Yes"/>                        
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertReports == 'No'?'yes':''" text="No"/> 
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertReports == 'Unknown'?'yes':''" text="Unknown"/>                 
+                </div>
+                <div style="margin-left: 1rem;">
+                    <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                        <i>⤷ If yes, please answer the following questions:</i>
+                    </div>
+                    <div style="display:block; text-indent:0; margin:0 0.5rem 0 1rem;">
+                        (a) Has the report been provided to the other party?
+                    </div>
+                    <div style="display:block; margin:0 0.5rem 0 2rem; text-indent: -16px; font-weight: bold;">
+                        <check-box inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="10"  marginLeft="1.75rem" :check="reportProvided == 'y'?'yes':''"  text="Yes"/>                                  
+                        <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="-8" marginLeft="0.5rem" :check="reportProvided == 'n'?'yes':''" text="No"/> 
+                    </div> 
+                </div>
+                <div style="margin-left: 2rem;">
+                    <div style="text-indent:0; margin:0 0 0 0rem;">
+                        (b) will the expert be called as a witness at the trial to provide opinion evidence or to be asked questions?
+                    </div>
+                    <div style="margin-left: 1rem; text-indent:-16px; font-weight: bold;">
+                        <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertCalled == 'Yes'?'yes':''"  text="Yes"/>                        
+                        <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertCalled == 'No'?'yes':''" text="No"/> 
+                        <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertCalled == 'Unknown'?'yes':''" text="Unknown"/>                 
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                    <b>15. </b>
+                    Has a report been ordered for <b>views of the child</b> or <b>under section 211</b> of the <i>Family
+                    Law Act</i> including for the assessment of the needs of a child, the views of a child, and/or
+                    the ability and willingness of a party to satisfy the needs of a child?
+                </div>
+                <div style="display:block;margin-left: 1rem; font-weight: bold; text-indent: -16px">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="reportOrdered?'yes':''"  text="Yes"/>                        
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="!reportOrdered?'yes':''" text="No"/>                
+                </div>
+                <div style="margin-left: 1.35rem;">
+                    <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; font-size: 9.45pt;">
+                        If yes, (a) has the report been completed?
+                    </div>
+                    <div style="display:inline-block;">
+                        <check-box inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="10"  marginLeft="1.75rem" :check="reportCompleted=='y'?'yes':''"  text="Yes"/>                                  
+                        <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="-8" marginLeft="0.5rem" :check="reportCompleted=='n'?'yes':''" text="No"/> 
+                    </div> 
+                </div>
+                <div style="margin-left: 3rem;">
+                    <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; font-size: 9.25pt;">
+                        (b) is there a court order requiring the person who prepared the report to attend the trial?
+                    </div>
+                    <div style="display:inline-block;">
+                        <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" marginLeft="1.75rem" :check="orderAttendTrial=='y'?'yes':''"  text="Yes"/>                        
+                        <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="orderAttendTrial=='n'?'yes':''" text="No"/>                
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div style="width: 20%;">
+            <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>
+                    A witness must have direct 
+                    knowledge of the things you 
+                    want them to give evidence 
+                    about. The evidence must 
+                    also be relevant to the issues 
+                    to be decided at trial.
+
+                </p>
+            </NoteBox>
+        </div>
+    </div>
+
 <!-- 
         <section>
             <underline-form 
@@ -534,7 +833,7 @@
         </section>
 
     <!-- <10> -->
-        <section>
+        <!-- <section>
             <div style="text-indent:5px;display:inline;"> 
                 Please select the correct statement
             </div> 
@@ -568,10 +867,10 @@
                     :check="finInfoOnFile=='n'?'yes':''" 
                     text="There have been changes to my financial information since I filed the Financial Statement"/>
             </div>
-        </section>
+        </section> -->
 
     <!-- <11> -->
-        <section>
+        <!-- <section>
             <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                 I have provided each other party with a copy of the information I plan to 
                 rely on during the trial, including financial information, documents, 
@@ -591,10 +890,10 @@
                     hint="(mmm/dd/yyyy)" 
                     :italicHint="false" :text="copyForPartyDate"/>
             </div>            
-        </section>
+        </section> -->
 
     <!-- <12> -->
-        <section>
+        <!-- <section>
             <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                 Is there any information you still need from the other party, including 
                 financial information, documents, or a list of witnesses?
@@ -613,11 +912,11 @@
                     class="answerbox">{{ neededInfoDesc }}</div>
                 <div v-else style="margin-bottom:3rem;"></div>
             </div>            
-        </section>
+        </section> -->
 
     <!-- <13> -->
-        <section>
-            <div style="text-indent:5px;display:inline;"> 
+        <!-- <section> -->
+            <!-- <div style="text-indent:5px;display:inline;"> 
                 I plan to have the following people attend as witnesses in this trial:
             </div>
             <div style="text-indent:5px;font-size: 9pt;font-style: italic;"> 
@@ -661,12 +960,12 @@
             </div>
             
 
-            </div>
+            </div> -->
             
-        </section>
+        <!-- </section> -->
 
     <!-- <14> -->
-        <section>
+        <!-- <section>
             <div style="font-size:9.75pt; display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                 Are there expert reports? Expert reports provide information to help the court. 
                 <i>
@@ -708,10 +1007,10 @@
                     hint="" 
                     :italicHint="false" :text="timeRequired"/>
             </div>                   
-        </section>
+        </section> -->
 
     <!-- <15> -->
-        <section>
+        <!-- <section>
             <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;font-size: 9.5pt;">
                 Has a report been ordered for views of the child or needs of the child under section 211?
             </div>
@@ -739,7 +1038,7 @@
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="orderAttendTrial=='n'?'yes':''" text="No"/>                
                 </div>
             </div>                  
-        </section>
+        </section> -->
 
     <!-- <16> -->
         <section>
@@ -756,7 +1055,7 @@
         </section>   
 
     <!-- <17> -->
-        <section>
+        <!-- <section>
             <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                 Is there any witness or party travelling from another community to attend the trial?
             </div>
@@ -766,7 +1065,7 @@
                 <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
                 shift="-8" marginLeft="0.5rem" :check="!true?'yes':''" text="No"/> 
             </div>
-        </section>  
+        </section>   -->
 
     <!-- <18> -->
         <section>
