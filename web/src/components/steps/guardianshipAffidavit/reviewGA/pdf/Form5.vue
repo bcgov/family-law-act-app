@@ -48,8 +48,8 @@ export default class Form5 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA762    `+moment().format("MMMM D, YYYY")+` \\a           Form 45";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 733    `+moment().format("MM/YYYY")+` \\a           Form 5";`;
+        const bottomRightText = `"Guardianship Affidavit"`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
