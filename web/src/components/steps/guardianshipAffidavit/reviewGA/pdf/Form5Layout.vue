@@ -691,7 +691,7 @@
             <div style="width: 40%; padding-right: 4px; ">
                 
                 <div style="border-right: solid 1px;">
-                    <hr style="width:10%;text-align:right;margin-right:0"/>
+                    <hr style="width:10%; text-align:right; margin-right:0; height: 0px; border: none; border-top: 1px solid black;"/>
                     <div style="text-indent:5px;display:block; font-size: 9pt;margin:1rem 0 0 0;"> 
                         Sworn or affirmed before me 
                     </div>
@@ -713,12 +713,12 @@
                             [print name or affix stamp of commissioner]
                         </div>
                     </div>
-                    <hr style="width:10%;text-align:right;margin-right:0"/>
+                    <hr style="width:10%; text-align:right; margin-right:0; height: 0px; border: none; border-top: 1px solid black;"/>
                 </div>
             </div>
             <div style="width: 40%; margin:8.65rem 1rem 0 0">
-                <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
-                <div style="width:10rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
+                <div style="height:2rem; width:15rem; border:1px solid #313132; display:inline-block; margin: 0rem 0 0 2rem;"></div>
+                <div style="width:10rem; display:inline-block; font-size:9pt; margin: 0 0 0 2rem;">Signature</div>
             </div>
             <div style="width: 20%">
                 <NoteBox textColor="#626262" style="margin-top:-20px">
