@@ -709,25 +709,41 @@
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="!reportOrdered?'yes':''" text="No"/>                
                 </div>
                 <div style="margin-left: 1.35rem;">
-                    <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; font-size: 9.45pt;">
-                        If yes, (a) has the report been completed?
+                    <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                        <i>⤷ If yes, please answer the following questions</i>
                     </div>
-                    <div style="display:inline-block;">
+                    <div style="display:block; text-indent:0; margin:0 0.5rem 0 1rem;">
+                        (a) Has the report been completed?
+                    </div>
+                    <div style="display:block; margin:0 0.5rem 0 2rem; text-indent: -16px; font-weight: bold;">
                         <check-box inline="inline" boxMargin="0" style="display:inline;" 
-                        shift="10"  marginLeft="1.75rem" :check="reportCompleted=='y'?'yes':''"  text="Yes"/>                                  
+                            shift="10"  marginLeft="1.75rem" :check="reportCompleted=='y'?'yes':''"  text="Yes"/>                                  
                         <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
-                        shift="-8" marginLeft="0.5rem" :check="reportCompleted=='n'?'yes':''" text="No"/> 
+                            shift="-8" marginLeft="0.5rem" :check="reportCompleted=='n'?'yes':''" text="No"/> 
                     </div> 
                 </div>
                 <div style="margin-left: 3rem;">
-                    <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; font-size: 9.25pt;">
-                        (b) is there a court order requiring the person who prepared the report to attend the trial?
+                    <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                        (b) Is there a court order requiring the person who prepared the report to attend the trial?
                     </div>
-                    <div style="display:inline-block;">
+                    <div style="display:block; margin:0 0.5rem 0 0.5rem; text-indent: -16px; font-weight: bold;">
                         <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" marginLeft="1.75rem" :check="orderAttendTrial=='y'?'yes':''"  text="Yes"/>                        
                         <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="orderAttendTrial=='n'?'yes':''" text="No"/>                
                     </div>
-                </div>  
+                </div>
+            <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                <b>16. </b>
+                I have <b>confirmed all my witnesses are available</b> for the trial date(s) <b>OR I have
+                served them</b> with a Subpoena to Witness in Form 23:
+            </div>
+            <div style="display:block; text-indent: -16px; margin:0 0.5rem 0 1.5rem;">
+                <check-box inline="inline" boxMargin="0" style="display:inline;" 
+                    shift="10"  marginLeft="1.75rem" :check="witnessesConfirmed?'yes':''"  text="<b>Yes</b>"/>                                  
+                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                    shift="-8" marginLeft="0.5rem" :check="!witnessesConfirmed?'yes':''" text="<b>No</b>"/> 
+                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                    shift="-8" marginLeft="0.5rem" :check="false" text="<b>Not applicable</b>, a trial date has not been scheduled"/> 
+            </div> 
             </div>
         </div>
         <div style="width: 20%;">
@@ -740,6 +756,38 @@
                     about. The evidence must 
                     also be relevant to the issues 
                     to be decided at trial.
+
+                </p>
+            </NoteBox>
+            <NoteBox style="margin-top:50px">
+                <b-icon-info-circle-fill />
+                <p>
+                    Expert reports provide 
+                    information to help the court. 
+                    They are written by an expert 
+                    who has special knowledge 
+                    about a certain area because 
+                    of their training, education and 
+                    work experience.
+                </p>
+            </NoteBox>
+            <NoteBox style="margin-top:50px">
+                <b-icon-book />
+                <p>
+                    For more information about 
+                    witnesses, expert reports and 
+                    section 211 reports, see the 
+                    guidebook. 
+                </p>
+            </NoteBox>
+            <NoteBox style="margin-top:125px">
+                <b-icon-info-circle-fill />
+                <p>
+                    If you want a witness to give 
+                    evidence at your trial, you 
+                    must make sure they can 
+                    come to your trial and are 
+                    ready to give evidence.
 
                 </p>
             </NoteBox>
@@ -1041,7 +1089,7 @@
         </section> -->
 
     <!-- <16> -->
-        <section>
+        <!-- <section>
             <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                 I have confirmed all my witnesses are available for the trial date(s) OR 
                 I have served them with a Subpoena to Witness in Form 23:
@@ -1052,7 +1100,7 @@
                 <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
                 shift="-8" marginLeft="0.5rem" :check="!witnessesConfirmed?'yes':''" text="No"/> 
             </div>
-        </section>   
+        </section>    -->
 
     <!-- <17> -->
         <!-- <section>
