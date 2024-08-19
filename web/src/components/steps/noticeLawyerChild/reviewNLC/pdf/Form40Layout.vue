@@ -3,7 +3,7 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <FormHeader :headerTableData="headerTableData" formName="Notice of Lawyer for Child" formNumber="FORM 40" formRuleNumer="Rule 162"></FormHeader>
+        <FormHeader :headerTableData="headerTableData" formName="Notice of Lawyer for Child" formNumber="FORM 40" formRuleNumber="Rule 162"></FormHeader>
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -51,7 +51,7 @@
                         style="text-indent:2px;display:block; font-size: 9pt; margin-top: 1rem; line-height: 30px;" 
                         textwidth="70.5%" 
                         beforetext="" 
-                        hint="(full name of each other party)" 
+                        hint="Full name of each party" 
                         hintindent="28%"
                         :italicHint="false" :text="otherParty"/>
                     <br/>
@@ -91,14 +91,14 @@
                     style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
                     textwidth="17rem" 
                     beforetext="I" 
-                    hint="(full name of lawyer)" 
+                    hint="Full name of lawyer" 
                     :italicHint="false" :text="lawyerInformation.lawyerName | getFullName"/>
-                <div style="margin-top: 1rem;"></div>
+                <div style="margin-top: 0.7rem;"></div>
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
                     textwidth="19rem" 
-                    beforetext=", of" 
-                    hint="(firm name, if applicable)" 
+                    beforetext=", of, " 
+                    hint="Firm name, if applicable" 
                     :italicHint="false" :text="lawyerInformation.firmName"/>
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                     <b>am the lawyer for the following children</b>:
@@ -118,7 +118,7 @@
                 </b-table>
 <!-- <4> -->
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                    <b>4. </b>I will be <b>representing the child(ren)</b> identified in section 1 <b>on the following issue(s)</b>:
+                    <b>4. </b>I will be <b>representing the child(ren)</b> identified in question 3 <b>on the following issue(s)</b>:
                 </div> 
 
                 <div style="margin-top: 0.5rem;"></div>
@@ -170,9 +170,6 @@
                 </div> 
 
                 <table class="compactfullsize" style="font-size: 9pt;">
-                    <tr style="border:1px solid #414142" >
-                        <td colspan="3">Firm name (if applicable): <div class="answer"> {{lawyerInformation.firmName}}</div></td>
-                    </tr>
                     <tr style="border:1px solid #414142">          
                         <td colspan="3">Address: <div class="answer">{{lawyerInformation.address.street}} </div> </td>
                     </tr>
