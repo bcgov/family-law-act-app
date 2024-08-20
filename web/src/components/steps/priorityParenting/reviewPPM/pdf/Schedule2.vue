@@ -12,12 +12,12 @@
                     <b style="position: relative; top:-10px">Application for Order Respecting</b> <br/>
                     <b style="margin-left:210px; position: relative; top:-25px">Guardianship of a Child</b>
                 </div>
-                <div style="text-indent: -0px; text-align: justify;text-justify: inter-word; margin: 1rem 0.5rem 0.5rem 1rem; background: #d6d6d6">
+                <div style="text-indent: -0px; text-align: justify;text-justify: inter-word; margin: 1rem 0.5rem 0.5rem 1rem; background: #d6d6d6; font-size:10pt">
                     <div style="display: inline-block;">
                         Complete this schedule only if you are applying for a priority parenting matter order for
-                        guardianship of a child under section 51 [order respecting guardianship] of the Family Law Act
+                        guardianship of a child under section 51 [order respecting guardianship] of the <i>Family Law Act</i>
                         because the order is needed to transfer a child from the care of the Director or to prevent the 
-                        removal of a child under the Child, Family and Community Service Act
+                        removal of a child under the <i>Child, Family and Community Service Act</i>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
         </div>
 
         <!-- Part 1-->
-        <div style="margin-top: 1rem;" />
+        <div style="margin-top: 0.5rem;" />
         <div style="display:flex; flex-direction:row; gap:6px; font-size:9pt">
             <div style="flex:1; margin-right: 10px; width:75%;">
                 <div style="margin-top: 0.3rem;" />
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin-left:3.75rem;">
+                <div style="margin-left:3.75rem; color: #626262">
                     <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'yes')?'yes':''" text="<b>Yes</b> &#10132; go to next question"/> 
                     <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'no')?'yes':''" text="<b>No</b> &#10132; skip ahead to <b>Part 2</b>"/> 
                     <check-box style="text-indent: -16px;" :check="(scheduleInfo.isFirstNations == 'unknown')?'yes':''" text="<b>Unknown</b> &#10132; skip ahead to <b>Part 2</b>"/> 
@@ -65,8 +65,8 @@
                 <div style="text-indent: -0px; text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
                     <div style="display: flex;">
                         <b>2.</b> 
-                        <div style="padding-left: 1rem; display: inline;">
-                            <i>Complete this question only if a child is Indigenous.
+                        <div style="padding-left: 1rem; display: inline; color: #626262">
+                            <i>Complete this question only if a child is Indigenous.<br/>
                             If not, you may leave this question blank.</i> <br/>
                             Please select the option below that best describes the <b>child(ren)’s Indigenous ancestry:</b>
                         </div>
@@ -78,7 +78,7 @@
                         <ul>
                             <li>Tsawwassen First Nation</li>
                             <li>Maa-nulth First Nations:</li>
-                            <ul>
+                            <ul style='list-style-type: disc;'>
                                 <li>Huu-ay-aht First Nations</li>
                                 <li>Ka:’yu:’k’t’h’/Che:k’tles7et’h’ First Nations</li>
                                 <li>Toquaht Nation</li>
@@ -98,7 +98,7 @@
                                 <p>
                                     If the child is a Nisga’a or Treaty First Nation child, you must serve the Nisga'a Lisims 
                                     Government or the Treaty First Nation to which the child belongs with notice of this application 
-                                    as described in section 208 or 209 of the Family Law Act. <br />
+                                    as described in section 208 or 209 of the <i>Family Law Act</i>. <br />
                                     To serve them notice, they must receive a copy of this application.
                                 </p>
                             </div>
@@ -156,7 +156,7 @@
                         :check="scheduleInfo.understandFileForm5?'yes':''" />
                     <div style="margin-top: -16px; padding-left:35px;">
                         I understand that I am required to <b>file a Guardianship Affidavit</b> in Form 5 as
-                        described in Rule 26 before the court can make a final order about guardianship
+                        described in Rule 26 <b>before the court can make a final order</b> about guardianship
                     </div>
                 </div>
                 <div style="text-indent: 0px; margin: 0rem 0.5rem 0.5rem 1rem;">
@@ -176,7 +176,7 @@
                         I am <b>filing the following required documents</b> along with this application:
                         <ul>
                             <li>
-                                a Consent for Child Protection Record Check in Form 5 under the Family Law Act Regulation
+                                a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>
                             </li>
                             <li>
                                 a request, in the form provided by the registry, to search the protection order registry
@@ -188,7 +188,7 @@
                     <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                         :check="!scheduleInfo.filingRequiredDocs?'yes':''" />
                     <div style="margin-top: -16px; padding-left: 25px">
-                        I am <b>not able to file the required documents</b> with this application.
+                        I am <b>not able to file the required documents</b> with this application.<br/>
                         I am filing an Application for Case Management Order Without Notice or Attendance
                         in Form 11 requesting to waive or modify the requirement that the documents be
                         filed with this application. I understand I will still be required to file the documents at
