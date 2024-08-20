@@ -155,7 +155,7 @@
 
 <!-- <HEADER> -->
         <div class="new-page"></div>
-        <FormHeader :headerTableData="headerTableData" formName="Request for Scheduling" formNumber="FORM 39" formRuleNumer="Rule 156"></FormHeader>
+        <FormHeader :headerTableData="headerTableData" formName="Request for Scheduling" formNumber="FORM 39" formRuleNumber="Rule 156"></FormHeader>
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -747,6 +747,10 @@ export default class Form39Layout extends Vue {
             {
                 name:'COURT FILE NUMBER:', 
                 value: this.existingFileNumber
+            },
+            {
+                name:'',
+                value:''
             },
             {
                 name:'Document number:',
