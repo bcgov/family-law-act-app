@@ -21,11 +21,11 @@
                 </div>
                 <div v-if="headerTableData[2]" style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;">Last names of parties:&nbsp;<br/><span style="color:#626262;font-style:italic">Party 1/ Party 2&nbsp;</span></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 35px;"> {{  headerTableData[2].value ?  headerTableData[2].value : '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 22px;"> {{  headerTableData[2].value ?  headerTableData[2].value : '&nbsp;' }} </div>
                 </div>
                 <div v-if="headerTableData[3]" style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;"> Document number:&nbsp;<br/><span style="color:#626262;font-style:italic">For registry use only&nbsp; </span></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 22px;"> {{ '&nbsp;' }} </div>
                 </div>
             </div>
              <!-- <div style="width: 38%; font-size: 7pt; font-weight: bold;">
