@@ -99,7 +99,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                 <span style="text-indent: 5px;font-size: 11pt;"><b>3. </b></span><span style="margin-left:12px;"><span style="color:#626262;font-style:italic;">Select whichever option is correct</span></span>
                 <div style="margin-top: 0.3rem;"></div>
 
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.otherPartyNotice?'yes':''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.otherPartyNotice?'yes':''" text=""
                     />
                     <div style="margin-top: -22px;text-indent: 16px;margin-left: 30px;text-align: justify;">
                         This <b>application is about enforcement under Rule 135</b>. I understand</div>
@@ -109,7 +109,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                         to be made without notice or with less than 7 days’ notice.
                     </div>
                     <div style="margin-top: 0.5rem;"></div>
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.foreignNotice?'yes':''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.foreignNotice?'yes':''" text=""
                     />
                     <div style="margin-top: -22px;text-indent: 16px;margin-left: 30px;text-align: justify;">
                         This <b>application is to set aside the registration of a foreign support </b></div>
@@ -164,7 +164,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
             <div style="margin-left:230px !important;font-size:6pt;margin-top:-12px;"><i> time</i></div>
             </div>
               
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''" text=""
                     />
                     <ul style="margin-top: -20px;margin-left:-25px;">
                         <span style="margin-left:20px;">in person at</span><span style="margin-left:20px;background-color:#dedede;width:100px;min-width:100px;">______________________________________________</span>
@@ -173,7 +173,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
             </div>
                     </ul>
                     <div style="margin-top: 0.6rem;"></div>
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''" text=""
                     />                    
                     <ul style="margin-top: -20px;margin-left:-16px;">
                         <div>
