@@ -202,7 +202,7 @@
                         <b>3.</b> This application is about the following child(ren) that I am a guardian of:
                     </div>
 
-                    <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small bordered>
+                    <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small>
                         <template v-slot:cell()="data">
                             <div style="height:1rem; font-size:8pt;color:#000; background-color:#dedede " >{{ data.value }}</div>
                         </template>
@@ -653,11 +653,11 @@
                     I believe it is in the best interests of the child(ren) to prohibit the proposed relocation because:
                     </div>
 
-                    <GreyBoxForm v-if="relocInfo.childBestInterestReason" style="margin-top:10px; text-indent:0rem; height:120px; background-color: #d6d6d6;"
-                        textwidth="33rem" :text="relocInfo.childBestInterestReason">
-                    </GreyBoxForm>
-                    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
-
+                    <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
+                                <span v-if="relocInfo.childBestInterestReason">
+                                    {{relocInfo.childBestInterestReason}}
+                                </span>
+                            </div>
 
                 </div>
             </div>
@@ -732,32 +732,45 @@
                 <div style="margin-left:2rem;">
                     <i style="color:#ababab">You must provide an address for service and contact number, but it does not have to be your own if
                         you don’t want to</i>
-                    <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
-                        <tr style="border:1px solid #414142">
-                            <td colspan="3">Address: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.street }} </div>
+                    <table class="compactfullsize" style="width:98%;margin-top:0.5 !important; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:1px solid #fff">
+                            <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color:#dedede">
+                                    {{ yourInfo.address.street }} </div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #313132">
-                            <td >City: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.city }}</div>
+                        <tr style="border:1px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">
+                                City: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.city }}</div>
                             </td>
-                            <td style="padding-left:50px">Province: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.state }}</div>
+                            <td style="padding-left:50px border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.state }}</div>
                             </td>
-                            <td>Postal Code: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.postcode }}</div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer" style="background-color:#dedede">{{ yourInfo.contact.email }}</div>
-                            </td>
-                            <td>Telephone: <div class="answer" style="background-color:#dedede">{{ yourInfo.contact.phone }}</div>
+                            <td style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #414142">
-                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer" style="background-color:#dedede">
-                                    {{ yourInfo.lawyerName | getFullName }}</div>
-                            </td>
-                            <td v-else colspan="3">Lawyer (if applicable): </td>
-                        </tr>
+                       
                     </table>
+                    <table class="compactfullsize" style="width:98%;margin-top:0.5 !important; font-size: 9pt; background-color: #dedede;">
+                    <tr style="border:2px solid #fff">
+                        <td style="border:2px solid #fff">Email: <div class="answer" style="background-color: #d6d6d6;">{{yourInfo.contact.email }}</div>
+                        </td>
+                        <td style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
+                        </td>
+                    </tr>
+                   </table>
+                   <div style="margin-top: 0.5rem;"></div>
+            
+            <table class="compactfullsize" style="width:98%;margin-top:0.5 !important; font-size: 9pt; background-color: #dedede;">
+                <tr style="border:1px solid #fff;">
+                    <td v-if="yourInfo.lawyer" colspan="3" style="border:2px solid #fff; padding: 4px;">Lawyer’s name and firm name (if applicable): 
+                        <div class="answer" style="background-color: #d6d6d6;">
+                            {{ yourInfo.lawyerName | getFullName}}
+                        </div>
+                    </td>
+                    <td v-else colspan="3" style="border:2px solid #fff; padding: 4px;" >Lawyer’s name and firm name (if applicable):</td>
+                </tr>
+            </table>
                 </div>
             </div>
             <div style="width: 20% ">
@@ -824,9 +837,9 @@ export default class Form16Layout extends Vue {
     childrenInfo = [{ fullName: '', dob: '', currentSituation: '' }];
 
     childrenFields = [
-        { key: "fullName", label: "Child's full name", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:30%;" },
-        { key: "dob", label: "Child's date of birth (dd/mmm/yyyy)", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:18%;" },
-        { key: "currentSituation", label: "Child is currently living with", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:16%;" },
+        { key: "fullName", label: "Child's full name", tdClass: "text-center align-middle", thClass: "text-center align-middle", thStyle: "font-size:10pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;" },
+        { key: "dob", label: "Child's date of birth (dd/mmm/yyyy)", tdClass: "text-center align-middle", thClass: "text-center align-middle", thStyle: "font-size:10pt; width:16%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;" },
+        { key: "currentSituation", label: "Child is currently living with", tdClass: " text-center align-middle", thClass: "text-center align-middle", thStyle: "font-size:10pt; width:18%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;" },
     ]
 
     mounted() {
