@@ -556,7 +556,8 @@
                         </p>
                         <p>
                             <b>Before the scheduled hearing date,</b>please visit the Provincial Court website at
-                            https://www.provincialcourt.bc.ca and review:
+                            <a href="https://www.provincialcourt.bc.ca"target="_blank"> https://www.provincialcourt.bc.ca</a>
+                            and review:
                         <ul>
                             <li>
                                 Policy on Use of Electronic Devices in Courtrooms and Access to Court Proceedings Policy
@@ -565,27 +566,27 @@
                                 authorized
                                 by the Court and there are penalties for breach)
                             </li>
-                            <li>NP 21 Remote Attendance in the Provincial Court (for etiquette and directions on connecting
+                            <li><i>NP 21 Remote Attendance in the Provincial Court</i> (for etiquette and directions on connecting
                                 by
                                 another method of attendance) (counsel attendance requirements when attending Family matters
                                 remotely)
                             </li>
                             <li>
-                                NP 24 Form of Address for Parties and Lawyers (provide the judge or justice with each
+                                <i>NP 24 Form of Address for Parties and Lawyers</i> (provide the judge or justice with each
                                 person’s
                                 name, title (e.g.
                                 “Mr./ Ms./Mx./Counsel Jones”) and pronouns to be used in the proceeding)
                             </li>
                             <li>
-                                Guide for Appearing in the Provincial Court using MS Teams
+                                <i>Guide for Appearing in the Provincial Court using MS Teams</i>
                             </li>
                             <li>
-                                eNews - What to expect at a family management conference?
+                                <i>eNews</i> - What to expect at a family management conference?
                             </li>
                         </ul>
                         </p>
                         <p>
-                            <b>If you are unable to dial-in or are dropped from the appearance</b>immediately call the court
+                            <b>If you are unable to dial-in or are dropped from the appearance</b> immediately call the court
                             registry.
                         </p>
                     </div>
@@ -604,9 +605,9 @@
                 </div>
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     7. <b> The details of the order</b> I am applying for are as follows:
-                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">List the specific details of the order(s) you are asking for</i>
-                    <div v-if="ppmInfo.orderdesc" style="margin: 0rem 0.5rem 0.5rem 2rem;" class="answerbox">{{ppmInfo.orderdesc}}</div>
-                    <div v-else style="margin-bottom:3rem;"/>
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color:#626262">List the specific details of the order(s) you are asking for</i>
+                    <div v-if="ppmInfo.orderdesc" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;" class="answerbox">{{ppmInfo.orderdesc}}</div>
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
                 </div>
             </div>
 
@@ -623,19 +624,19 @@
 
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     8. The <b>facts</b> on which this application is based <b>are as follows:</b>
-                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color: #626262">
                         Provide a summary of the facts you want the court to consider. Include why you are
                         making the application and why the order you are requesting should be made.
                     </i>             
                     
-                    <div v-if="ppmInfo.facts" style="margin: 0rem 0.5rem 0.5rem 2rem;"
+                    <div v-if="ppmInfo.facts" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;"
                         class="answerbox">{{ppmInfo.facts}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div> 
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/> 
                     <i style="margin: 0rem 0.5rem 0.5rem 2rem;">To add more, select the box below and attach a page with the additional information</i>
                     
                     <i style="margin: 0rem 0.5rem 0.5rem 2rem; display:inline-block">
                         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;" :check="''" text=""/> 
-                        <b>Additional page(s) (see attached)</b>
+                        <b>Additional page(s) <span style="color: #626262">(see attached)</span></b>
                     </i>
                 </div>
             </div>
@@ -685,21 +686,21 @@
                     <check-box boxMargin="0" style="display:inline-block; width:200px" :check="ppmInfo.ExistingCase?'yes':''"  text="<b>Yes</b> (see attached copy)"/>                        
                     <check-box boxMargin="0" style="display:inline-block;" :check="!ppmInfo.ExistingCase?'yes':''" text="<b>No</b>"/> 
                 </div>
-                <div style="display:flex; margin: 1rem 0.5rem 0.5rem 0.75rem; font-size: 9pt;">
+                <div style="display:flex; margin: 1rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     10.
-                    <div style="padding-left: 0.5rem; display: inline;">
+                    <div style="padding-left: 0.75rem; display: inline;">
                         I know the following <b>information about any court proceeding</b> that is pending or that
                         has been initiated about parenting arrangements, contact with a child, guardianship of
                         a child, or protection of a child who is the subject of this application:
                     </div>
                 </div>
                 <div style="padding-left: 2.25rem;">
-                    <i style="display:inline-block; ">
+                    <i style="display:inline-block; color: #626262">
                         If there is no pending or ongoing court proceeding, that you know of, in this court or
                         another court or jurisdiction, you may leave this section blank
                     </i>
-                    <div v-if="ppmInfo.existingProceeding && ppmInfo.proceedingInfo" class="answerbox">{{ppmInfo.proceedingInfo}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div> 
+                    <div v-if="ppmInfo.existingProceeding && ppmInfo.proceedingInfo" style="background-color: #dedede; word-wrap: break-word;" class="answerbox">{{ppmInfo.proceedingInfo}}</div>
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"></div> 
                 </div>
             </div>
 
@@ -738,17 +739,17 @@
                     11. I am filing this application <b>in the court registry:</b>
                     <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color: #626262">Select only one of the options below</i>
 
-                    <div style="margin-left:3rem; text-indent: -16px;">
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
-                        text="Where my <b>existing case</b> with the same party/parties is located. I already have a court file number."/> 
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
-                        text="Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue"/>          
-                    <check-box  
-                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
-                        text="Permitted by <b>court order</b>"/>                
-                </div>
+                    <div style="margin:0 0 0 3rem; text-indent: -16px; display: inline-block; width:95%; word-wrap: break-word;">
+                        <check-box  
+                            :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                            text="Where my <b>existing case</b> with the same party/parties is located. I already have a court file number."/> 
+                        <check-box  
+                            :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                            text="Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue"/>          
+                        <check-box  
+                            :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                            text="Permitted by <b>court order</b>"/>                
+                    </div>
                 </div>
             </div>
             <div style="width: 20%">
@@ -780,33 +781,33 @@
                 </div>
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     12. My <b>address for service</b> of court documents and contact information is:
-                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color: #626262">
                         You must provide an address for service and contact number, but it does not have to be your own if you don’t want to
                     </i>
                     <table class="compactfullsize" style="margin: 0.5rem 0.5rem 0.5rem 1rem; font-size: 9pt; width:95%">
                         <tr style="border:1px solid #414142">
-                            <td colspan="3">Address: <div class="answer">{{ yourInfo.address.street }} </div>
+                            <td colspan="3" style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Address: <div class="answer">{{ yourInfo.address.street }} </div>
+                            </td>
+                        </tr>
+                        <tr style="border:1px solid #313132;">
+                            <td style="background-color:#d6d6d6; background-clip: content-box; padding:3px">City: <div class="answer">{{ yourInfo.address.city }}</div>
+                            </td>
+                            <td style="margin-left:50px; background-color:#d6d6d6; background-clip: content-box; padding:3px">Province: <div class="answer">{{ yourInfo.address.state }}</div>
+                            </td>
+                            <td style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Postal Code: <div class="answer">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>City: <div class="answer">{{ yourInfo.address.city }}</div>
+                            <td style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Email: <div class="answer">{{ yourInfo.contact.email }}</div>
                             </td>
-                            <td style="padding-left:50px">Province: <div class="answer">{{ yourInfo.address.state }}</div>
-                            </td>
-                            <td>Postal Code: <div class="answer">{{ yourInfo.address.postcode }}</div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td>Email: <div class="answer">{{ yourInfo.contact.email }}</div>
-                            </td>
-                            <td colspan="2" style="padding-left:50px">Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
+                            <td colspan="2" style="padding-left:50px; background-color:#d6d6d6; background-clip: content-box; padding:3px">Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
                             </td>
                         </tr>
                         <tr style="border:1px solid #414142">
-                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer’s name and firm name (if applicable): 
+                            <td v-if="yourInfo.lawyer" colspan="3" style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Lawyer’s name and firm name (if applicable): 
                                 <div class="answer"> {{ yourInfo.lawyerName | getFullName }}</div>
                             </td>
-                            <td v-else colspan="3">Lawyer’s name and firm name (if applicable): </td>
+                            <td v-else colspan="3" style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Lawyer’s name and firm name (if applicable): </td>
                         </tr>
                     </table>
                 </div>
