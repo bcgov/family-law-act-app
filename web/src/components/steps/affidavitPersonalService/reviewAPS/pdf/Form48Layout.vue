@@ -3,7 +3,7 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <FormHeader formName="Affidavit of Personal Service" formNumber="FORM 48" formRuleNumber="Rule 183" :headerTableData="
+        <FormHeader formName="Affidavit of Personal Service" formNumber="FORM 48" formRuleNumber="Rule 183" ruleFontSize="10pt" :headerTableData="
             [{value: result.applicationLocation}, 
             {value: existingFileNumber}, 
             {value: ''}, 
@@ -53,11 +53,11 @@
         <div style="margin-top: 1rem;"></div>  
     <!-- <1> -->
         <section style="text-indent: 0pt;">
-            <p style="display: inline; text-indent: 4px;font-size: 14pt;"><b>I personally served</b></p>
+            <p style="display: inline; text-indent: 6px;font-size: 14pt;"><b> I personally served</b></p>
             <br>
             <grey-box-form 
-                style="text-indent:2px;display:inline-block; font-size: 12pt;" 
-                textwidth="37.5rem" 
+                style="text-indent:16px;display:inline-block; font-size: 12pt;" 
+                textwidth="35.5rem" 
                 beforetext="" 
                 hint="Full name of the person served (copy their name from the document you served them)" 
                 hintindent="10pt"
@@ -67,8 +67,8 @@
             
             <div style="margin-top: 20px;">
                 <grey-box-form 
-                style="text-indent:2px;display:inline; font-size: 12pt;margin-top: 1rem;" 
-                textwidth="20rem" 
+                style="text-indent:12px;display:inline; font-size: 12pt;margin-top: 1rem;" 
+                textwidth="18rem" 
                 beforetext="<b>on</b>" 
                 hint="Date the documents were served (dd/mmm/yyyy)" 
                 hintindent="10pt"
@@ -78,7 +78,7 @@
                 
                 <grey-box-form 
                     style="text-indent:2px;display:inline; font-size: 12pt;margin-top: 1rem;" 
-                    textwidth="11rem" 
+                    textwidth="10rem" 
                     beforetext="<b>at</b>" 
                     aftertext="<b>a.m./p.m.</b>"
                     hint="Time the documents were served"
@@ -90,7 +90,7 @@
             
             <div style="margin-top: 20px;">
                 <grey-box-form 
-                style="text-indent:2px;font-size: 12pt;" 
+                style="text-indent:8px;font-size: 12pt;" 
                 textwidth="37.5rem" 
                 beforetext="<b>at</b>" 
                 hint="Street address or location where service took place, city, province" 
@@ -104,7 +104,7 @@
             <div style="text-indent:14px; display:block; font-size: 12pt; margin: 2rem 0 0.5rem 0.25rem;"> 
                 <b>with a copy of the following document(s):</b>
             </div> 
-            <div style="margin-left:14px; display:block; font-size: 12pt; font-style: italic;"> 
+            <div style="margin-left:14px; display:block; font-size: 12pt; font-style: italic; color: #999;"> 
                 Indicate each document served by marking it with an exhibit letter, listing it below, and attaching a copy to the affidavit.
             </div>
 
@@ -129,13 +129,12 @@
                 The party served was identified to me in this manner:
             </div>
 
-            <div style="display:block; font-style: italic; margin: 0 0 0 1rem;"> 
+            <div style="display:block; font-style: italic; margin: 0 0 0 1rem; color: #999;"> 
                 Select only one of the options below
             </div>
             
             <div style="display:block;font-size: 12pt;">
                 <check-box 
-                    checkbox="" 
                     inline="inline" 
                     boxMargin="0"
                     shiftmark="-3"
@@ -146,7 +145,6 @@
 
             <div style="display:block;font-size: 12pt;">
                 <check-box 
-                    checkbox="" 
                     inline="inline" 
                     boxMargin="0"
                     shiftmark="-3"
@@ -156,17 +154,17 @@
             </div>         
                 
             <div style="display:block;font-size: 12pt;">
-                <check-box
-                    checkbox="" 
-                    inline="inline" 
+                <check-box 
+                    inline="inline-block"
                     boxMargin="0"
                     shiftmark="-3"
-                    style="text-indent: 5px; margin-right: 20px;" 
+                    style="display: inline-block; text-indent: 5px; margin-left: 18px;" 
                     :check="idMethod == 'other'?'yes':''" 
-                    text="Other (specify):"/>
-                    
-                <div v-if="idMethod == 'other'" class="answerbox" style="display: inline-block; font-size: 12pt;background: #d6d6d6; width: 420px; height: 26px;">{{idMethodComment}}</div>
-                <div v-else class="answerbox" style="display: inline-block; margin-bottom:3rem;background: #d6d6d6;"></div> 
+                    text="Other <i style='color: #999;'>(specify)</i>:"/>
+
+                <div class="answerbox" style="display: inline-block; font-size: 12pt;background: #d6d6d6; width: 480px; padding: 2px; margin-left: 4px;">
+                    <span v-if="idMethod == 'other'">{{idMethodComment}}</span>
+                </div>
             </div>
 
         </section>       
@@ -233,7 +231,6 @@ export default class Form48Layout extends Vue {
    
     mounted(){
         this.dataReady = false;
-        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;   
     }
