@@ -88,19 +88,20 @@
                 <FormPart :part="2" title="Lawyer for child"></FormPart>
                 <b style="padding-right:3px">3.</b>
                 <grey-box-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
+                    style="text-indent:2px;display:inline-block;; line-height: 30px;" 
                     textwidth="17rem" 
                     beforetext="I" 
                     hint="Full name of lawyer" 
                     :italicHint="false" :text="lawyerInformation.lawyerName | getFullName"/>
+                <div style="text-indent:5px;display:inline;">, of, </div>
                 <div style="margin-top: 0.7rem;"></div>
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
                     textwidth="19rem" 
-                    beforetext=", of, " 
+                    beforetext="" 
                     hint="Firm name, if applicable" 
                     :italicHint="false" :text="lawyerInformation.firmName"/>
-                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                <div style="text-indent:5px;display:inline;"> 
                     <b>am the lawyer for the following children</b>:
                 </div> 
                 <b-table
@@ -157,32 +158,40 @@
                         :check="listOfIssues.includes('other')?'yes':''" 
                         text="other <i>(specify)</i>:"/>
                     <div style="margin-top: 0.5rem;"></div>
-                    <grey-box-form 
-                        style="text-indent:1px;display:inline-block;" 
-                        textwidth="32rem" 
-                        beforetext="" 
-                        hint="" 
-                        :text="otherIssue"/>            
+                    <div style="margin-left: 28px;" class="answerbox">{{otherIssue ? otherIssue : '&nbsp;'}}</div>
                 </div>
 <!-- <5> -->
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
                     <b>5. </b>My <b>contact information and address for service</b> of court documents are:
                 </div> 
 
-                <table class="compactfullsize" style="font-size: 9pt;">
-                    <tr style="border:1px solid #414142">          
-                        <td colspan="3">Address: <div class="answer">{{lawyerInformation.address.street}} </div> </td>
-                    </tr>
-                    <tr style="border:1px solid #313132">
-                        <td  >City: <div class="answer">{{lawyerInformation.address.city}}</div> </td>
-                    <td style="padding-left:50px">Province: <div class="answer">{{lawyerInformation.address.state}}</div> </td>
-                        <td>Postal Code: <div class="answer">{{lawyerInformation.address.postcode}}</div> </td>
-                    </tr>
-                    <tr style="border:1px solid #313132">
-                        <td colspan="2">Email: <div class="answer">{{lawyerInformation.contact.email}}</div> </td>
-                        <td>Telephone: <div class="answer">{{lawyerInformation.contact.phone}}</div> </td>
-                    </tr>
-                </table>
+                <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ lawyerInformation.address.street }} 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">City: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.city }}</div>
+                            </td>
+                            <td style="padding-left:50px; border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.state }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.postcode }}</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.contact.email }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.contact.phone }}</div>
+                            </td>
+                        </tr>
+                    </table>
                 <div class="print-block">
                     <div style="margin-top:1rem;"><b>NOTE TO THE REGISTRY:</b>
                         The lawyer for the child(ren) is to be given notice of all court 
