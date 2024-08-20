@@ -169,20 +169,33 @@
                     <b>5. </b>My <b>contact information and address for service</b> of court documents are:
                 </div> 
 
-                <table class="compactfullsize" style="font-size: 9pt;">
-                    <tr style="border:1px solid #414142">          
-                        <td colspan="3">Address: <div class="answer">{{lawyerInformation.address.street}} </div> </td>
-                    </tr>
-                    <tr style="border:1px solid #313132">
-                        <td  >City: <div class="answer">{{lawyerInformation.address.city}}</div> </td>
-                    <td style="padding-left:50px">Province: <div class="answer">{{lawyerInformation.address.state}}</div> </td>
-                        <td>Postal Code: <div class="answer">{{lawyerInformation.address.postcode}}</div> </td>
-                    </tr>
-                    <tr style="border:1px solid #313132">
-                        <td colspan="2">Email: <div class="answer">{{lawyerInformation.contact.email}}</div> </td>
-                        <td>Telephone: <div class="answer">{{lawyerInformation.contact.phone}}</div> </td>
-                    </tr>
-                </table>
+                <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ lawyerInformation.address.street }} 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">City: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.city }}</div>
+                            </td>
+                            <td style="padding-left:50px; border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.state }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.address.postcode }}</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.contact.email }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ lawyerInformation.contact.phone }}</div>
+                            </td>
+                        </tr>
+                    </table>
                 <div class="print-block">
                     <div style="margin-top:1rem;"><b>NOTE TO THE REGISTRY:</b>
                         The lawyer for the child(ren) is to be given notice of all court 
