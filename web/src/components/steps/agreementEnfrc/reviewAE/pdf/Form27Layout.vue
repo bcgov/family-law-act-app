@@ -292,6 +292,7 @@ export default class Form27Layout extends Vue {
                 name:'COURT FILE NUMBER:', 
                 value: this.existingFileNumber
             },
+            null,
             {
                 name:'Document number:',
                 value: ''
