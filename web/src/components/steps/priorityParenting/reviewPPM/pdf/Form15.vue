@@ -57,8 +57,8 @@ export default class Form15 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA722    `+moment().format("MMMM D, YYYY")+` \\a           Form 15";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 722  `+moment().format("MM/YYYY")+` \\a           Form 15";`;
+        const bottomRightText = `"Application Priority Parenting Matter"`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
