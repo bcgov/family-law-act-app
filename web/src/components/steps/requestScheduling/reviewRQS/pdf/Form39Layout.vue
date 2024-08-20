@@ -748,10 +748,7 @@ export default class Form39Layout extends Vue {
                 name:'COURT FILE NUMBER:', 
                 value: this.existingFileNumber
             },
-            {
-                name:'',
-                value:''
-            },
+            null,
             {
                 name:'Document number:',
                 value: ''
