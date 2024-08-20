@@ -325,7 +325,7 @@
                         boxMargin="0" 
                         style="display:inline;"
                         :check="existingOrder.includes('childProtectionOrder')?'yes':''" text="Order under the <i>Child, Family and Community Service Act</i>"/>
-                </div>
+            </div>
                 
             <div style="margin:0.25rem 0 0 5rem;">
                 <check-box 
@@ -954,6 +954,189 @@
         </div>
     </div>
 
+    <!-- Part 7 -->
+    <div style="margin-top: 1rem;" />
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
+        <div style="width: 80%; margin-right: 10px;">
+            <FormPart :part="7" title="About the trial" />
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>18. </b>
+                Has the trial been scheduled?
+            </div>
+            <div style="text-indent:-16px;">
+                <div style="margin:0.25rem 0 0 5rem;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" shift="10"
+                        :check="trialScheduled?'yes':''" text="<b>Yes</b>"/>
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" shift="30" marginLeft="3rem"
+                        :check="!trialScheduled?'no':''" text="<b>No</b>"/>
+                </div>
+                <div style="display:inline; text-indent:0; margin:0 0rem 0 3.50rem;">
+                    <i><b>⤷ If yes</b></i>, the trial is scheduled for the following date(s):
+                    <grey-box-form
+                        style="text-indent:0;margin:0.25rem 0 0 4rem;display:inline-block;" 
+                        textwidth="10rem"
+                        hint="(Month Day(s), Year)" 
+                        :text="trialDate"/>
+                </div>
+            </div>
+            <div style="margin: 0.5rem 0 0 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>19. </b>
+                <i>Select whichever statement is correct</i>
+            </div>
+            <div style="text-indent:-16px;">
+                <div style="margin:0.25rem 0 0 5rem;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;"
+                        :check="feelReady?'yes':''" text="I am ready to start on the scheduled trial date"/>
+                </div>
+                <div style="margin:0.25rem 0 0 5rem;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="!feelReady?'yes':''" 
+                        text="I will not be ready to start on the scheduled trial date because:"/>
+                    <div class="marginleft-0p5vue" style="margin-left:0.5rem; text-indent:0px;font-size: 9pt; font-style: italic;"> 
+                        Explain why you will not be ready on the trial date
+                    </div>
+                    <div v-if="!feelReady && feelReadyExplanation.length>0" 
+                        class="answerbox">{{ feelReadyExplanation }}</div>
+                    <div v-else style="margin-bottom:3rem;"></div> 
+                </div>
+            </div>
+            <div style="margin: 1rem 0 0 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>20. </b>
+                <i>I believe this trial will take</i>
+                <grey-box-form
+                    style="text-indent:0;display:inline;" 
+                    textwidth="5rem"
+                    :text="trialTimeOne"/> 
+                hours or
+                <grey-box-form
+                    style="text-indent:0;display:inline;" 
+                    textwidth="5rem"
+                    aftertext="days."
+                    :text="trialTimeTwo"/> 
+            </div>
+            <div style="margin: 0.5rem 0 0 0.5rem; padding-left: 10px;">
+                <b>21. </b>
+                I have reviewed the witnesses I plan to call and the information I plan to rely on during 
+                trial when I calculated the amount of time needed for Trial
+                <div style="display:inline-block; margin-left:1rem">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="10" shiftmark="0"  marginLeft="1.75rem" :check="reviewedWitnesses?'yes':''"  text="<b>Yes<b/>"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="-8" shiftmark="0" marginLeft="0.5rem" :check="!reviewedWitnesses?'yes':''" text="<b>No</b>"/> 
+                </div>
+            </div>
+        </div>
+        <div style="width: 20%; margin-top:100px">
+            <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>
+                    Even if your trial has been 
+                    scheduled, it is helpful if you 
+                    give the court an estimate of 
+                    how long you think the trial 
+                    will take, especially now that 
+                    you have done some 
+                    planning. Consider the 
+                    evidence you plan to present.
+                    Note: A day of court time is 
+                    approximately 5 hours
+                </p>
+            </NoteBox>
+        </div>
+    </div>
+
+    <!-- Part 8 -->
+    <div style="margin-top: 1rem;" />
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
+        <div style="width: 80%; margin-right: 10px;">
+            <FormPart :part="8" title=" Orders at the Trial Preparation Conference" />
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <b>12. </b>
+                <i>Complete only if applicable. You may leave this question blank.</i>
+                <p style="margin-left:1rem">I will be asking for the following order(s) at the trial preparation conference:</p>
+                <div v-if="orders && orderDetails.length>0" class="answerbox">{{ orderDetails }}</div>
+                <div v-else style="margin-bottom:3rem;"></div> 
+            </div>
+        <!-- <For registery> -->
+        <div class="print-block">
+            <i style="margin-left: 1rem;">To be completed by the Judge if required</i>
+            <div style="margin-left:1rem; width:96.37%; border:1px solid; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                <div style="text-indent:4px; margin:0 0 0.5rem 0; font-weight:bold; font-size: 11pt;">To the Judicial Case Manager:</div>
+                <div style="margin:0rem 0 0 1.5rem;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="false?'yes':''" 
+                        text="trial date(s) confirmed as scheduled"/>                        
+                </div>
+                <div style="margin:0rem 0 0 1.5rem;">
+                    <check-box 
+                        class="marginleft" 
+                        checkbox="" 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="display:inline;" 
+                        :check="false?'yes':''" 
+                        text="trial to be set for"/>
+                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="3rem" beforetext="" hint="" text=""/>
+                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="3rem" beforetext="hours or" hint="" text=""/>
+                    <div style="display:inline-block;">days</div>                        
+                </div>                               
+                <div style="margin: 1rem 0 4rem 0;">Additional comments:</div>
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="Date:" hint="" text=""/>
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="18.5rem" beforetext="Signature of Judge:" hint="" text=""/>
+                
+            </div>            
+        </div>
+        </div>
+        <div style="width: 20%; margin-top:10px">
+            <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>
+                    At a trial preparation 
+                    conference, a judge may 
+                    make orders or directions 
+                    [Rule 112]. The orders or 
+                    directions are usually about 
+                    how the trial will proceed or 
+                    things that need to be done 
+                    before the trial to get ready for 
+                    it. The judge will be prepared 
+                    to make some of these orders 
+                    or directions without you 
+                    asking, but if there is 
+                    something specific you need, 
+                    you can ask here.
+                </p>
+            </NoteBox>
+        </div>
+    </div>
+</div>
+</template>
+
 <!-- 
         <section>
             <underline-form 
@@ -972,7 +1155,7 @@
         <div style="margin-top: 1rem;"></div>   -->
 
     <!-- <7> -->
-        <section>
+        <!-- <section>
             <div style="text-indent:5px;display:inline; font-style: italic;"> 
                 Select whichever statement is correct
             </div> 
@@ -1001,10 +1184,10 @@
                     class="answerbox">{{ feelReadyExplanation }}</div>
                 <div v-else style="margin-bottom:3rem;"></div>                    
             </div>
-        </section>
+        </section> -->
 
     <!-- <8> -->
-        <section>
+        <!-- <section>
             <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                 I have attended a family settlement conference
             </div>
@@ -1014,10 +1197,10 @@
                 <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
                 shift="-8" marginLeft="0.5rem" :check="!attendedFamilyConf?'yes':''" text="No"/> 
             </div>
-        </section>
+        </section> -->
 
     <!-- <9> -->
-        <section>
+        <!-- <section>
             <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                 Are there ongoing settlement discussions?
             </div>
@@ -1038,7 +1221,7 @@
                     shift="-8" marginLeft="0.5rem" :check="resolvable == 'n'?'yes':''" text="No"/> 
                 </div>
             </div>            
-        </section>
+        </section> -->
 
     <!-- <10> -->
         <!-- <section>
@@ -1276,7 +1459,7 @@
         </section>   -->
 
     <!-- <18> -->
-        <section>
+        <!-- <section>
             <div style="text-indent:5px;display:inline;"> 
                 I have the following special requirements/considerations:
             </div> 
@@ -1369,7 +1552,7 @@
                     class="answerbox">{{ disabilitySpecs }}</div>
                 <div v-else style="margin-bottom:3rem;"></div>                    
             </div>
-        </section>
+        </section> -->
 
     <!-- <19> -->
         <!-- <section> -->
@@ -1503,7 +1686,7 @@
             </div> -->
         <!-- </section> -->
     <!-- <20> -->
-        <section>
+        <!-- <section>
             <underline-form style="text-indent:3px; display:inline-block;" textwidth="3rem" beforetext="I believe this trial will take" hint="" :italicHint="false" :text="trialTimeOne"/>
             <underline-form style="display:inline;margin-left:0.5rem; text-indent:1px;" textwidth="3rem" beforetext=" hours or " hint="" :italicHint="false" :text="trialTimeTwo"/>
             <div style="line-height:2rem; text-indent:5px; display:inline;">
@@ -1521,9 +1704,9 @@
                     shift="-8" shiftmark="0" marginLeft="0.5rem" :check="!reviewedWitnesses?'yes':''" text="No"/> 
                 </div>
             </div>               
-        </section>
+        </section> -->
     <!-- <21> -->
-        <section>
+        <!-- <section>
             <div style="display: inline; margin:0.25rem 0 0 0.25rem;">
                 <i>Complete only if applicable. You may leave this section blank.</i>
             </div>
@@ -1533,9 +1716,9 @@
             <div v-if="orders && orderDetails.length>0" 
                 class="answerbox">{{ orderDetails }}</div>
             <div v-else style="margin-bottom:3rem;"></div> 
-        </section>        
+        </section>         -->
     <!-- <For registery> -->
-        <div class="print-block">
+        <!-- <div class="print-block">
             <i style="margin-left: 1rem;">To be completed by the Judge if required</i>
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-size: 9pt; padding:0.5rem;font-family:BCSans">
                 <div style="text-indent:4px; margin:0 0 0.5rem 0; font-weight:bold; font-size: 11pt;">To the Judicial Case Manager:</div>
@@ -1567,9 +1750,9 @@
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="18.5rem" beforetext="Signature of Judge:" hint="" text=""/>
                 
             </div>            
-        </div>
-    </div>
-</template>
+        </div> -->
+    <!-- </div>
+</template> -->
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -1941,7 +2124,7 @@ export default class Form22Layout extends Vue {
             this.trialScheduled = trialInfo.TrialScheduled == 'y';
 
             if (this.trialScheduled){
-                this.trialDate = Vue.filter('beautify-date')(trialInfo.TrialDate);
+                this.trialDate = Vue.filter('beautify-date-full-no-weekday')(trialInfo.TrialDate);
             } else {
                 this.trialDate = 'N/A'
             }
