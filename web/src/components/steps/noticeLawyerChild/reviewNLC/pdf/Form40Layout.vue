@@ -88,19 +88,20 @@
                 <FormPart :part="2" title="Lawyer for child"></FormPart>
                 <b style="padding-right:3px">3.</b>
                 <grey-box-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
+                    style="text-indent:2px;display:inline-block;; line-height: 30px;" 
                     textwidth="17rem" 
                     beforetext="I" 
                     hint="Full name of lawyer" 
                     :italicHint="false" :text="lawyerInformation.lawyerName | getFullName"/>
+                <div style="text-indent:5px;display:inline;">, of, </div>
                 <div style="margin-top: 0.7rem;"></div>
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; line-height: 30px;" 
                     textwidth="19rem" 
-                    beforetext=", of, " 
+                    beforetext="" 
                     hint="Firm name, if applicable" 
                     :italicHint="false" :text="lawyerInformation.firmName"/>
-                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
+                <div style="text-indent:5px;display:inline;"> 
                     <b>am the lawyer for the following children</b>:
                 </div> 
                 <b-table
@@ -157,12 +158,7 @@
                         :check="listOfIssues.includes('other')?'yes':''" 
                         text="other <i>(specify)</i>:"/>
                     <div style="margin-top: 0.5rem;"></div>
-                    <grey-box-form 
-                        style="text-indent:1px;display:inline-block;" 
-                        textwidth="32rem" 
-                        beforetext="" 
-                        hint="" 
-                        :text="otherIssue"/>            
+                    <div style="margin-left: 28px;" class="answerbox">{{otherIssue ? otherIssue : '&nbsp;'}}</div>
                 </div>
 <!-- <5> -->
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
