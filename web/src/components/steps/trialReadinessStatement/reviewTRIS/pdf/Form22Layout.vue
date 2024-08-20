@@ -34,7 +34,7 @@
     </div>
     <!-- Part 1 -->
     <div style="margin-top: 1rem;" />
-    <div style="display:flex; flex-direction:row; gap:6px; font-size:11pt">
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
         <div style="width: 80%; margin-right: 10px;">
             <FormPart :part="1" title="Parties and lawyers at trial" />
             <!-- 1 -->
@@ -118,7 +118,7 @@
     </div>
     <!-- Part 2 -->
     <div style="margin-top: 1rem;" />
-    <div style="display:flex; flex-direction:row; gap:6px; font-size:11pt">
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
         <div style="width: 80%; margin-right: 10px;">
             <FormPart :part="2" title="Issues for trial" />
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px; text-indent: -16px">
@@ -257,7 +257,7 @@
         <div style="width: 20%;"/>
     </div>
     <!-- Part 3 -->
-    <div style="display:flex; flex-direction:row; gap:6px; font-size:11pt">
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
         <div style="width: 80%; margin-right: 10px;">
             <FormPart :part="3" title="Background information" />
             <!-- 6 -->
@@ -457,7 +457,7 @@
 
     <!-- Part 4 -->
     <div style="margin-top: 1rem;" />
-    <div style="display:flex; flex-direction:row; gap:6px; font-size:11pt">
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
         <div style="width: 80%; margin-right: 10px;">
             <FormPart :part="4" title="Disclosure of information" />
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
@@ -556,7 +556,7 @@
 
     <!-- Part 5 -->
     <div style="margin-top: 1rem;" />
-    <div style="display:flex; flex-direction:row; gap:6px; font-size:11pt">
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
         <div style="width: 80%; margin-right: 10px;">
             <FormPart :part="5" title="Witnesses" />
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
@@ -731,19 +731,19 @@
                         <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="orderAttendTrial=='n'?'yes':''" text="No"/>                
                     </div>
                 </div>
-            <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
-                <b>16. </b>
-                I have <b>confirmed all my witnesses are available</b> for the trial date(s) <b>OR I have
-                served them</b> with a Subpoena to Witness in Form 23:
-            </div>
-            <div style="display:block; text-indent: -16px; margin:0 0.5rem 0 1.5rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="10"  marginLeft="1.75rem" :check="witnessesConfirmed?'yes':''"  text="<b>Yes</b>"/>                                  
-                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="-8" marginLeft="0.5rem" :check="!witnessesConfirmed?'yes':''" text="<b>No</b>"/> 
-                <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="-8" marginLeft="0.5rem" :check="false" text="<b>Not applicable</b>, a trial date has not been scheduled"/> 
-            </div> 
+                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                    <b>16. </b>
+                    I have <b>confirmed all my witnesses are available</b> for the trial date(s) <b>OR I have
+                    served them</b> with a Subpoena to Witness in Form 23:
+                </div>
+                <div style="display:block; text-indent: -16px; margin:0 0.5rem 0 1.5rem;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="10"  marginLeft="1.75rem" :check="witnessesConfirmed?'yes':''"  text="<b>Yes</b>"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="-8" marginLeft="0.5rem" :check="!witnessesConfirmed?'yes':''" text="<b>No</b>"/> 
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
+                        shift="-8" marginLeft="0.5rem" :check="false" text="<b>Not applicable</b>, a trial date has not been scheduled"/> 
+                </div> 
             </div>
         </div>
         <div style="width: 20%;">
@@ -780,7 +780,7 @@
                     guidebook. 
                 </p>
             </NoteBox>
-            <NoteBox style="margin-top:125px">
+            <NoteBox style="margin-top:70px">
                 <b-icon-info-circle-fill />
                 <p>
                     If you want a witness to give 
@@ -789,6 +789,166 @@
                     come to your trial and are 
                     ready to give evidence.
 
+                </p>
+            </NoteBox>
+        </div>
+    </div>
+
+    <!-- Part 6 -->
+    <div style="margin-top: 1rem;" />
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
+        <div style="width: 80%; margin-right: 10px;">
+            <FormPart :part="6" title="Requirements and considerations" />
+            <!-- 17 -->
+            <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                <div style="font-size:9.75pt; display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                    <b>7. </b>
+                    I have the following special requirements/considerations for the trial: <br/>
+                    <i>Select each option that applies and provide the additional information as required</i>
+                </div>
+                <!-- Technology -->
+                 <div>
+                    <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem; text-indent: -16px;">
+                        <check-box 
+                            class="marginleft" 
+                            checkbox="" 
+                            inline="inline" 
+                            boxMargin="0" 
+                            style="display:inline;"
+                            :check="specialReqList.includes('technology')?'yes':''" text="<b>Technology needs</b><i> (specify):</i>"/>
+                    </div>
+                    <div>                
+                        <div v-if="specialReqList.includes('technology')" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;" class="answerbox">
+                            {{techSpecs}}
+                        </div>
+                        <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
+                    </div>
+                </div>
+                
+                <!-- Interpreter -->
+                <div style="margin-top: 0.25rem;" />
+                <div>
+                    <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem; text-indent: -16px;">
+                        <check-box 
+                            class="marginleft" 
+                            checkbox="" 
+                            inline="inline" 
+                            boxMargin="0" 
+                            style="display:inline;"
+                            :check="specialReqList.includes('interpreter')?'yes':''" text="<b>Interpreter</b> for <i> (name of party or witness):</i>"/>
+                    </div>
+                    <div>                
+                        <div v-if="specialReqList.includes('interpreter')" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;" class="answerbox">
+                            {{interpreterInfo.name}}
+                        </div>
+                        <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
+                    </div>
+                    <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem; text-indent: -16px;">
+                        Language <i> (specify):</i>
+                    </div>
+                    <div v-if="specialReqList.includes('interpreter')" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;" class="answerbox">
+                        {{interpreterInfo.language}}
+                    </div>
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
+                </div>
+
+                <!-- Safety Planning -->
+                <div style="margin-top: 0.25rem;" />
+                <div>
+                    <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem; text-indent: -16px;">
+                        <check-box 
+                            class="marginleft" 
+                            checkbox="" 
+                            inline="inline" 
+                            boxMargin="0" 
+                            style="display:inline;"
+                            :check="specialReqList.includes('safety')?'yes':''" text="<b>Safety planning</b>"/>
+                            <br/>
+                        <i>Please explain your concerns or why you need a safety plan in place for the courtroom:</i>
+                    </div>
+                    <div>                
+                        <div v-if="specialReqList.includes('safety')" class="answerbox" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;">{{ safetySpecs }}</div>
+                        <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
+                    </div>
+                </div>
+
+                <!-- Trial Accomodations -->
+                <div style="margin-top: 0.25rem;" />
+                <div>
+                    <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem; text-indent: -16px;">
+                        <check-box 
+                            class="marginleft" 
+                            checkbox="" 
+                            inline="inline" 
+                            boxMargin="0" 
+                            style="display:inline;"
+                            :check="specialReqList.includes('accommodations')?'yes':''" text="<b>Trial Accomodations,</b>"/>
+                            such as allowing evidence by affidavit, video or telephone attendance, or other requested accommodations <i>(specify)</i>:
+
+                    </div>
+                    <div>                
+                        <div v-if="specialReqList.includes('accommodations')" class="answerbox" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;">{{ trialSpecs }}</div>
+                        <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
+                    </div>
+                </div>
+
+                <!-- Disability Accomodations -->
+                <div style="margin-top: 0.25rem;" />
+                <div>
+                    <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem; text-indent: -16px;">
+                        <check-box 
+                            class="marginleft" 
+                            checkbox="" 
+                            inline="inline" 
+                            boxMargin="0" 
+                            style="display:inline;"
+                            :check="specialReqList.includes('disability')?'yes':''" text="<b>Accommodations for disability,</b>"/>
+                            such as court room access and set up, audio aids, or other accommodations <i>(specify)</i>:
+                    </div>
+                    <div>                
+                        <div v-if="specialReqList.includes('disability')" class="answerbox" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;">{{ disabilitySpecs }}</div>
+                        <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
+                    </div>
+                </div>
+
+                <!-- No Requirements -->
+                <div style="margin-top: 0.25rem;" />
+                <div>
+                    <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem; text-indent: -16px;">
+                        <check-box 
+                            class="marginleft" 
+                            checkbox="" 
+                            inline="inline" 
+                            boxMargin="0" 
+                            style="display:inline;"
+                            :check="false"/>
+                            I have no <b>special requirements or considerations</b> for the trial
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 20%; margin-top:10px">
+            <NoteBox>
+                <b-icon-info-circle-fill />
+                <p>
+                    There are resources available 
+                    to support individuals at trial
+                    at no cost to the person. 
+                    Resource availability may be 
+                    limited in some court locations 
+                    so early identification and 
+                    booking may be required. 
+                </p>
+            </NoteBox>
+            <NoteBox style="margin-top: 10px">
+                <b-icon-book />
+                <p>
+                    For more information about 
+                    bringing a support person with 
+                    you to trial to provide 
+                    emotional support, take notes, 
+                    and help organize documents, 
+                    see the guidebook
                 </p>
             </NoteBox>
         </div>
