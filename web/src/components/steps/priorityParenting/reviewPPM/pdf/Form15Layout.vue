@@ -27,7 +27,7 @@
                 </div>
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 50%; padding: 2px;"> Document number: <div
-                            style="font-size: 6pt; padding-left:16px;">For registry use only</div>
+                            style="font-size: 6pt; padding-left:16px; color: #626262">For registry use only</div>
                     </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
                 </div>
@@ -54,14 +54,14 @@
                 </div>
             </div>
             <div style="width: 20%">
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:55px; font-size:7pt">
+                <NoteBox textColor="#626262" style="margin-top:55px">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
                         If you also need an order about long-term parenting arrangements, including 
                         parental responsibilities and parenting time, you must also complete an Application About a Family Law Matter Form 3
                     </p>
-                </div>
+                </NoteBox>
             </div>
         </div>
         
@@ -76,7 +76,7 @@
                 <div
                     style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 1rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; ">
-                        <b>1. </b>My <b>full name</b> is:
+                        <b>1. My full name</b> is:
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
                         beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede"
@@ -95,9 +95,9 @@
                 <div
                     style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block;">
-                        <b>2. </b>The <b>other party’s full name is:</b>
+                        <b>2. </b>The <b>other party’s full name</b> is:
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
+                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
                         beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px"
                         :text="firstOtherParty.name | getFullName" />
 
@@ -105,7 +105,7 @@
                         <div style="display: inline-block; ">
                             Their <b>date of birth</b>(dd/mmm/yyyy) is:
                         </div>
-                        <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
+                        <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
                             beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px"
                             :text="firstOtherParty.dob | beautify - date" />
                         <div>
@@ -123,13 +123,13 @@
                                     <div style="display: inline-block; margin-left:2rem;">
                                         The<b> additional party’s</b> full name is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="235px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="80px" :text="otherParty.name | getFullName" />
                                     <div style="display: inline-block; padding-top:10px; margin-left:2rem;">
                                         Their<b> date of birth</b>(dd/mmm/yyyy) is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="225px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="152px" :text="otherParty.dob | beautify - date" />
                                 </div>
@@ -138,13 +138,13 @@
                                 <div style="display: inline-block; margin-left:2rem;">
                                         The<b> additional party’s</b> full name is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="235px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="80px" text="" />
                                     <div style="display: inline-block; padding-top:10px; margin-left:2rem;">
                                         Their<b> date of birth</b>(dd/mmm/yyyy) is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="225px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="152px" text="" />
                             </div>
@@ -154,14 +154,14 @@
             </div>
 
             <div style="width: 20% ">
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:10px; font-size:7pt">
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
                         The other party is any other parent or guardian of the child(ren).
                     </p>
-                </div>
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:10px; font-size:7pt">
+                </NoteBox>
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
@@ -172,7 +172,7 @@
                         paper to this application that 
                         includes the information.
                     </p>
-                </div>
+                </NoteBox>
             </div>
             <br />
         </div>
@@ -190,9 +190,13 @@
                         <b>3.</b> This application is about the following child(ren):
                     </div>
 
-                    <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small bordered>
+                    <b-table 
+                        :items="childrenInfo" 
+                        :fields="childrenFields" 
+                        class="mt-2" 
+                        small>
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{ data.value }}</div>
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{ data.value }}</div>
                         </template>
                         <template v-slot:head(dob)>
                             Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mm/yyyy)</i>
@@ -228,7 +232,7 @@
                 <div>
                     <div style="text-indent: 0px; margin: 0rem 0.5rem 0.5rem 1rem;">
                         <b>5. &nbsp;</b>
-                        <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt;"><i>Select only one of the options below</i></div>
+                        <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt; color: #626262"><i>Select only one of the options below</i></div>
 
                         <div style="margin:0 0 0 3rem;font-size: 9pt;" >
                             <check-box inline="inline" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am applying with <b>at least 7 days’ notice</b> to the other party" style="text-indent: -16px;"/>
@@ -288,7 +292,7 @@
                 </div>
 
                 <div style="margin:0.25rem 0 0 0rem;font-size: 9pt;" >
-                    <i>For registry or judicial case manager use only</i>
+                    <i style="color: #626262">For registry or judicial case manager use only</i>
                 </div>
 
                 <div style="border:1px solid; font-size: 9pt; padding:1rem;font-family:BCSans">
@@ -380,14 +384,14 @@
                     text="I am <b>applying for an order about</b> the following priority parenting matter(s):"/>
 
                 <div style="margin:0.25rem 0 0 3rem;font-size: 9pt; text-indent: -16px;" >
-                    <i>Select all options that apply</i>
+                    <i style="color: #626262">Select all options that apply</i>
                     <check-box  :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
                     <check-box  :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
                     <check-box  :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
                     <check-box  :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
-                    <check-box  :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
-                    <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
-                    <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the <i>Family Law Act</i>"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the <i>Family Law Act</i>"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the <i>Family Law Act</i>"/>
                     <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
                     <check-box  
                         :check="ppmInfo.ppmList.includes('childServices')?'yes':''" 
@@ -396,9 +400,9 @@
                             under section 30 [removal of child], 36 [interim supervision order no longer protects the child] or 42 
                             [enforcement of supervision order after the protection hearing] of the Child, Family and Community 
                             Service Act and a director under that Act has advised that the order will allow for a child to be 
-                            returned to the applicant;</li><li>a director under the Child, Family and Community Service Act has 
+                            returned to the applicant;</li><li>a director under the <i>Child, Family and Community Service Act</i> has 
                             advised that the child to whom the order relates will be removed under section 30, 36 or 42 of that 
-                            Act unless the order is made;</li></ol><i><span>&#10132;</span> Complete <b>Schedule 1</b> and, if you are applying for guardianship, <b>Schedule 2</i></b>"/>
+                            Act unless the order is made;</li></ol><i><span style='color: #626262'>&#10132;</span> <span style='color: #626262'>Complete <b>Schedule 1</b> and, if you are applying for guardianship, <b>Schedule 2</i></b></span>"/>
                 </div>
             </div>
             </div>
@@ -455,14 +459,12 @@
             <div style="text-align: justify; font-size:11px;">
                 <p style="text-align: center; font-size: 14px;"> <b>IMPORTANT INFORMATION ABOUT YOUR APPEARANCE</b></p>
                 <div style="padding-top: 12px;">
-                    <b>What do parties need to know about attending by another method other than in person? </b>
+                    <b>What do parties need to know about attending by another method other than in person? </b> <br/>
                     <p>
                         If your notice indicates that you are to attend by another method of attendance, parties, including
                         the
                         judge, will attend
-                        using the Microsoft Teams audio- and video-conferencing (video) platform. Do not attend the
-                        courthouse
-                        in person.
+                        using the Microsoft Teams audio- and video-conferencing (video) platform. <b>Do not attend the courthouse in person.</b>
                         Parties will receive remote MS Teams appearance details within 24 hours prior to the appearance,
                         this
                         notification is
@@ -472,7 +474,7 @@
                         Microsoft Teams allows participants to join the conference using video or audio from a desktop,
                         laptop,
                         tablet, or
-                        smartphone, or to dial-in to a proceeding from a telephone. If you are appearing by video, please
+                        smartphone, or to dial-in to a proceeding from a telephone. <b>If you are appearing by video</b>, please
                         ensure
                         that you
                         have downloaded Microsoft Teams or have the latest version of Google Chrome or Microsoft Edge.
@@ -734,7 +736,7 @@
                 </div>
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     11. I am filing this application <b>in the court registry:</b>
-                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">Select only one of the options below</i>
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color: #626262">Select only one of the options below</i>
 
                     <div style="margin-left:3rem; text-indent: -16px;">
                     <check-box  
@@ -836,6 +838,7 @@ const applicationState = namespace("Application");
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import GreyBoxForm  from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
@@ -846,7 +849,8 @@ import { getYourInformationResults, getLocationInfo } from '@/components/utils/P
     components:{
         UnderlineForm,
         GreyBoxForm,
-        CheckBox        
+        CheckBox,
+        NoteBox      
     }
 })
 
@@ -873,10 +877,10 @@ export default class Form15Layout extends Vue {
     childrenInfo: childrenInfoSurveyInfoType[] = [];
 
     childrenFields = [
-        {key:"fullName",               label:"Child's full name",                          tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",               tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"fullName",               label:"Child's full name",                          tdClass:" text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",        tdClass:" text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"myRelationship",         label:"My relationship to the child",               tdClass:" text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
+        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:" text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ]   
 
     mounted(){
