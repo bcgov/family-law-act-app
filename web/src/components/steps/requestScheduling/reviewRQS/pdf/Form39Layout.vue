@@ -85,7 +85,7 @@
             <div class="new-page"></div>
 
             <div style="display: flex;">
-                <div style="width: 50%; padding: 8px; font-size: 12px;">
+                <div style="width: 50%; padding: 8px; font-size: 11px;">
                     <div style="background-color: #666; color: #fff;">
                         <b>Need legal help?</b>
                     </div>
@@ -100,19 +100,15 @@
                     <b>Legal Services and Resources </b>
                     <br>
                     Visit the ClickLaw HelpMap at <a href="http://www.clicklaw.bc.ca/helpmap" target="_blank">http://www.clicklaw.bc.ca/helpmap</a> 
-
+                    <br><br>
                     <div style="background-color: #666; color: #fff;">
                         <b>
                             Filling out the form and preparing to file it
                         </b>
                     </div>
-
-                    <br>
-
                     Make sure you follow the instructions in the form and include all  the  required  information.  You  don’t  need  to  use  any  special wording. Try to be clear and concise.
                     <br>
                     <p>If you complete the form by hand, be sure it’s readable.</p>
-                    <br>
                     <b>How do I prepare the form for filing? </b>
                     <ul>
                         <li>print or make copies of the completed form: one set foryou,  one  set  for  the  court,  and  one  set  for  each  otherparty</li>
@@ -137,14 +133,12 @@
 
                     <b>Be sure to bring all copies of the documents to the registry if you are filing in person. </b>
                     <p>The registry clerk will review your form to make sure it’s complete before filing it. You’ll be given a copy for your records along with a copy for the other party.</p>
-                </div>
-                <div style="width: 50%; padding: 8px; font-size: 12px;">
                     <div style="background-color: #666; color: #fff;">
                         <b>Serving the document</b>
                     </div>
                     <b>Serve</b> a copy of the document to each other party at least 7 days’ before the date and time of the appearance unless the court  has  ordered  something  different.  This  means  there  must be at least 7 days between the date the document is served and the date and time of the court appearance.
-
-                    <br>
+                </div>
+                <div style="width: 50%; padding: 8px; font-size: 11px;">
                     The document can be served by <b>ordinary service to the address of service</b> for each party. Their address for service is the address they have provided to the court.
                     <br>
                     A party who does not have an address for service must be served by <b>personal service</b>. An adult (at least 19 years old) who is not a party must hand-deliver the documents to the party to be served.
@@ -156,6 +150,8 @@
                     <b>What if I can’t find the other party or they are avoiding service?</b>
                     <br>
                     If you’re in this situation, you can apply to the court to allow you  to  use  an  alternative  method  of  service.  You  must  complete and file an <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true">Application About a Case Management Order Without Notice or Attendance Form 11</a>. 
+                    <br>
+                    <br>
                     <div style="background-color: #666; color: #fff;">
                         <b>Attending the court appearance</b>
                     </div>
