@@ -657,9 +657,9 @@
                 <!-- todo, thgis needss to be added to questionnaire -->
                 <div style="display:block; margin: 0.5rem 0 0 1rem; text-indent: -16px; font-weight: bold;">
                     <check-box inline="inline" boxMargin="0" style="display:inline;" 
-                        shift="10"  marginLeft="1.75rem" :check="true?'yes':''"  text="Yes"/>                                  
+                        shift="10"  marginLeft="1.75rem" :check="travellingForTrial?'yes':''"  text="Yes"/>                                  
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
-                        shift="-8" marginLeft="0.5rem" :check="!true?'yes':''" text="No"/> 
+                        shift="-8" marginLeft="0.5rem" :check="!travellingForTrial?'yes':''" text="No"/> 
                 </div>
             </div>
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
@@ -1839,6 +1839,7 @@ export default class Form22Layout extends Vue {
     reportCompleted = '';
     orderAttendTrial = '';
     witnessesConfirmed = false;
+    travellingForTrial = false;
 
     disabilitySpecs = '';
     interpreterInfo = {} as interpreterDetailsDataInfoType;
@@ -2072,6 +2073,7 @@ export default class Form22Layout extends Vue {
                 this.orderAttendTrial = witnessesInfo.OrderAttendTrial;
             }
             this.witnessesConfirmed = witnessesInfo.WitnessesConfirmed == 'y';
+            this.travellingForTrial = witnessesInfo.TravellingForTrial == 'y';
         }
     }
 
