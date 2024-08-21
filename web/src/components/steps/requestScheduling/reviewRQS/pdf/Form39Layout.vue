@@ -46,7 +46,7 @@
 
             <br>
 
-            The <a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020" target="_blank">Provincial Court Family Rules</a> set out the steps that you must take and the forms you must complete in a family law case. These rules apply t  o cases in Provincial Court about matters under the <a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_00" target="_blank">Family Law Act</a> and the <a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96127_01" target="_blank">Family Maintanance Enforcement Act</a>.
+            The <a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020" target="_blank">Provincial Court Family Rules</a> set out the steps that you must take and the forms you must complete in a family law case. These rules apply to cases in Provincial Court about matters under the <a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_00" target="_blank">Family Law Act</a> and the <a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96127_01" target="_blank">Family Maintanance Enforcement Act</a>.
 
             <br>
 
@@ -85,8 +85,8 @@
             <div class="new-page"></div>
 
             <div style="display: flex;">
-                <div style="width: 50%; padding: 8px;">
-                    <div style="background-color: #333; color: #fff;">
+                <div style="width: 50%; padding: 8px; font-size: 12px;">
+                    <div style="background-color: #666; color: #fff;">
                         <b>Need legal help?</b>
                     </div>
                     It’s  important  to  understand  the  law  and  make  sure  you  have the right information. If   you don’t, it can make solving your problem harder. Getting  advice  from  a  lawyer  can  help. You can find a lawyer through:
@@ -101,7 +101,7 @@
                     <br>
                     Visit the ClickLaw HelpMap at <a href="http://www.clicklaw.bc.ca/helpmap" target="_blank">http://www.clicklaw.bc.ca/helpmap</a> 
 
-                    <div style="background-color: #333; color: #fff;">
+                    <div style="background-color: #666; color: #fff;">
                         <b>
                             Filling out the form and preparing to file it
                         </b>
@@ -118,7 +118,7 @@
                         <li>print or make copies of the completed form: one set foryou,  one  set  for  the  court,  and  one  set  for  each  otherparty</li>
                         <li>staple  or  secure  each  package  of  documents  together</li>
                     </ul>
-                    <div style="background-color: #333; color: #fff;">
+                    <div style="background-color: #666; color: #fff;">
                         <b>Filing the form at the registry</b>
                     </div>
                     After  you’ve  filled  out  the  form,  you  must  file  it at  the  <a href="https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96" target="_blank">Provincial Court Registry</a> where your existing Provincial Court case is filed.
@@ -137,15 +137,16 @@
 
                     <b>Be sure to bring all copies of the documents to the registry if you are filing in person. </b>
                     <p>The registry clerk will review your form to make sure it’s complete before filing it. You’ll be given a copy for your records along with a copy for the other party.</p>
-                    <div style="background-color: #333; color: #fff;">
+                </div>
+                <div style="width: 50%; padding: 8px; font-size: 12px;">
+                    <div style="background-color: #666; color: #fff;">
                         <b>Serving the document</b>
                     </div>
                     <b>Serve</b> a copy of the document to each other party at least 7 days’ before the date and time of the appearance unless the court  has  ordered  something  different.  This  means  there  must be at least 7 days between the date the document is served and the date and time of the court appearance.
 
                     <br>
                     The document can be served by <b>ordinary service to the address of service</b> for each party. Their address for service is the address they have provided to the court.
-                </div>
-                <div style="width: 50%; padding: 8px;">
+                    <br>
                     A party who does not have an address for service must be served by <b>personal service</b>. An adult (at least 19 years old) who is not a party must hand-deliver the documents to the party to be served.
                     <br>
                     See the guidebook if you need more information about serving the document.
@@ -155,7 +156,7 @@
                     <b>What if I can’t find the other party or they are avoiding service?</b>
                     <br>
                     If you’re in this situation, you can apply to the court to allow you  to  use  an  alternative  method  of  service.  You  must  complete and file an <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true">Application About a Case Management Order Without Notice or Attendance Form 11</a>. 
-                    <div style="background-color: #333; color: #fff;">
+                    <div style="background-color: #666; color: #fff;">
                         <b>Attending the court appearance</b>
                     </div>
                     Depending on the application you are requesting to schedule, your court appearance may be a family management conference or another type of court appearance. The registry will provide you with this information on your document when you file it.
@@ -372,7 +373,7 @@
                         textwidth="310px" 
                         beforetext="" 
                         hint="court location"
-                        hintindent="45px"
+                        hintMargin="125px"
                         :italicHint="false" text=""/>
                     <div style="display: flex; flex-direction: row;">
                         <div style="width: 25%; margin-top: 30px;">
@@ -563,7 +564,7 @@
                     shift="5"
                     shiftmark="0"
                     :check="reasons.includes('adjourned')?'yes':''" 
-                    text="this matter was <b>adjourned by the court</b> without setting a new date (adjourned generally)"/>
+                    text="This matter was <b>adjourned by the court</b> without setting a new date (adjourned generally)"/>
                 <hr style="margin-top: 5px; margin-bottom: 5px;">
                 <check-box 
                     inline="inline" 
@@ -572,7 +573,7 @@
                     shift="5"
                     shiftmark="0"
                     :check="reasons.includes('struck')?'yes':''" 
-                    text="this matter was <b>struck off the court list</b> by the court without setting a new date"/>
+                    text="This matter was <b>struck off the court list</b> by the court without setting a new date"/>
                 <hr style="margin-top: 5px; margin-bottom: 5px;">
                 <check-box 
                     inline="inline" 
@@ -581,7 +582,7 @@
                     shift="5"
                     shiftmark="0"
                     :check="reasons.includes('party')?'yes':''" 
-                    text="an order or direction was made by the court referring or <b>requiring the party/parties to attend, participate or complete</b> a
+                    text="An order or direction was made by the court referring or <b>requiring the party/parties to attend, participate or complete</b> a
                     requirement before returning to court"/>
                 <hr style="margin-top: 5px; margin-bottom: 5px;">
                 <check-box 
@@ -591,7 +592,7 @@
                     shift="5"
                     shiftmark="0"
                     :check="reasons.includes('deficiency')?'yes':''" 
-                    text="an order or direction was made by the court <b>requiring that a deficiency under these rules be addressed</b> by a party before
+                    text="An order or direction was made by the court <b>requiring that a deficiency under these rules be addressed</b> by a party before
                     returning to court"/>
                 <hr style="margin-top: 5px; margin-bottom: 5px;">
                 <check-box 
@@ -601,7 +602,7 @@
                     shift="5"
                     shiftmark="0"
                     :check="reviewOrderMade?'yes':''" 
-                    text="an order was made by the court providing for <b>the review of the order</b>"/>
+                    text="An order was made by the court providing for <b>the review of the order</b>"/>
                 <hr style="margin-top: 5px; margin-bottom: 5px;">
                 <check-box 
                     inline="inline" 
@@ -610,13 +611,13 @@
                     shift="5"
                     shiftmark="0"
                     :check="reasons.includes('orderChanged')?'yes':''" 
-                    text="an <b>interim order on a family law matter was made</b> by the court and I am <b>applying for the interim order to be changed, suspended or cancelled</b>
+                    text="An <b>interim order on a family law matter was made</b> by the court and I am <b>applying for the interim order to be changed, suspended or cancelled</b>
                     under section 216(3) of the <i>Family Law Act</i> because:"/>
                 <div style="margin-left: 28px;"><i>Please describe why the interim order can’t remain in place until a final decision can be made</i></div>
-                <div style="margin-left: 28px;" class="answerbox">{{reasonForChange ? reasonForChange : '&nbsp;'}}</div>
+                <div style="margin-left: 28px;background-color: #dedede;" class="answerbox">{{reasonForChange ? reasonForChange : '&nbsp;'}}</div>
                 <div style="margin-left: 28px;">I would like the interim order about a family law matter <b>changed, suspended or cancelled as follows</b>:</div>
                 <div style="margin-left: 28px;"><i>Please describe the order you want the court to make instead of the current interim order</i></div>
-                <div style="margin-left: 28px;" class="answerbox">{{descriptionOnChange ? descriptionOnChange : '&nbsp;'}}</div>
+                <div style="margin-left: 28px;background-color: #dedede;" class="answerbox">{{descriptionOnChange ? descriptionOnChange : '&nbsp;'}}</div>
                 <hr>
                 <check-box 
                     inline="inline" 
@@ -634,7 +635,7 @@
                         shift="5"
                         shiftmark="0"
                         :check="flmTypes.includes('Parenting arrangements including parental responsibilities and parenting time')?'yes':''" 
-                        text="parenting arrangements, including parental responsibilities and parenting time"/>
+                        text="Parenting arrangements, including parental responsibilities and parenting time"/>
                 </div>
                 <div style="margin:0.25rem 0 0 1.5rem;">
                     <check-box 
@@ -644,7 +645,7 @@
                         shift="5"
                         shiftmark="0"
                         :check="flmTypes.includes('Child support')?'yes':''" 
-                        text="child support"/>
+                        text="Child support"/>
                 </div>
                 <div style="margin:0.25rem 0 0 1.5rem;">
                     <check-box 
@@ -654,7 +655,7 @@
                         shift="5"
                         shiftmark="0"
                         :check="flmTypes.includes('Contact with a child')?'yes':''" 
-                        text="contact with a child"/>
+                        text="Contact with a child"/>
                 </div>
                 <div style="margin:0.25rem 0 0 1.5rem;">
                     <check-box 
@@ -664,7 +665,7 @@
                         shift="5"
                         shiftmark="0"
                         :check="flmTypes.includes('Guardianship of a child')?'yes':''" 
-                        text="guardianship of a child"/>
+                        text="Guardianship of a child"/>
                 </div>
                 <div style="margin:0.25rem 0 0 1.5rem;">
                     <check-box 
@@ -674,7 +675,17 @@
                         shift="5"
                         shiftmark="0"
                         :check="flmTypes.includes('Spousal support')?'yes':''" 
-                        text="spousal support"/>
+                        text="Spousal support"/>
+                </div>
+                <div style="margin:0.25rem 0 0 1.5rem;">
+                    <check-box 
+                        inline="inline" 
+                        :boxMargin="0" 
+                        style="display:inline;" 
+                        shift="5"
+                        shiftmark="0"
+                        :check="flmTypes.includes('Property division in respect of a companion animal')?'yes':''" 
+                        text="Property division in respect of a companion animal"/>
                 </div>
                 <hr style="margin-top: 5px; margin-bottom: 5px;">
             </div>
