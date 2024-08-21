@@ -53,20 +53,36 @@
                     <FormPart :part="1" title="Order about guardianship"></FormPart>
 
                     <section>
-                        Select each option that applies 
+                        <i style="color: #999;">Select each option that applies</i> 
                         <div>
-                            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I am applying to be appointed as a guardian of the child(ren)"/>
+                            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="result.guardianOfChildSurvey?.applicationType?.includes('becomeGuardian')?'yes':''" text="I am applying to be <b>appointed as a guardian</b> of the child(ren)"/>
                         </div>
                         <div>
-                            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="!guardInfo.becomeGuardian?'yes':''" text="I am applying for the following person(s) to no longer be the guardian of the child(ren):"/>
+                            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="result.guardianOfChildSurvey?.applicationType?.includes('cancelGuardian') ?'yes':''" text="I am applying for the following person(s) to <b>no longer be the guardian</b> of the child(ren):"/>
                         </div>
-                        <i>Complete the information requested below. Specify the child only if the information does not apply to each child this application is about.</i>
-                        <div style="margin: 0 0 1rem 3.5rem;">
-                            <i>List the name of each child you want to be appointed as a guardian of</i>
-                            <ul v-if="guardInfo.becomeGuardian && guardInfo.abtGuardian && guardInfo.abtGuardian.children">
-                                <li v-for="(child,inx) of guardInfo.abtGuardian.children" :key="inx"><span class="mx-3">{{child}}</span></li>
-                            </ul>                     
-                        </div>                
+                        <i style="color: #999;">Complete the information requested below. Specify the child only if the information does not apply to each child this application is about.</i>
+                        <div style="margin: 0 0 1rem 3.5rem;">                  
+                            <b-table
+                                :items="guardInfo.abtCancel.cancelDetails"
+                                :fields="childrenGuardianshipFields"
+                                class="mt-4"
+                                small
+                            >
+                                <template v-slot:cell="data">
+                                    <div style="background: #999;">
+                                        {{data.value}}
+                                    </div>                                           
+                                </template>                    
+                                <template #head(childName)="data">
+                                    <span>
+                                        Name of child(ren)  
+                                        <br>
+                                        <span style="color: #999;">You may leave blank</span>
+                                    </span>
+                                </template>
+                            </b-table>
+                        </div>   
+
                     </section>
 
                 </div>
@@ -97,23 +113,25 @@
                     <FormPart :part="2" title="Best interests of the child"></FormPart>
 
                     <div>
-                        <b>2. </b> I believe the order about guardianship of a child that I am applying for is in the best interests of the child(ren) because:
+                        <b>2. </b> I believe the order about guardianship of a child that I am applying for is in the <b>best interests of the child(ren)</b> because:
                         <br>
-                        <i>List your reasons</i>
+                        <i style="color: #999;">List your reasons</i>
                     </div>
                     
                     <div style="background-color: #eee; min-height: 80px; padding: 8px;">
 
                         <span v-if="result.guardianOfChildSurvey.applicationType.includes('becomeGuardian')">
-                            <b>Please explain why you believe it is in the child's best interests to appoint you as a guardian.</b>
+                            
                             <br>
-                            {{result.guardianOfChildBestInterestsOfChildSurvey.appointGuradianChildBestInterest}}
+                            <span v-if="result.guardianOfChildBestInterestsOfChildSurvey && result.guardianOfChildBestInterestsOfChildSurvey.appointGuradianChildBestInterest">
+                                {{result.guardianOfChildBestInterestsOfChildSurvey.appointGuradianChildBestInterest}}
+                            </span>
                             <br>
                             <br>
                         </span>
                         
                         <span v-if="guardInfo.abtCancel && guardInfo.abtCancel.bestInterest">
-                            <b>Please explain why you believe it is in the child’s best interests to cancel the guardianship of the other party.</b>
+                            
                             <br>
                             {{guardInfo.abtCancel.bestInterest}}
                         </span>
@@ -147,25 +165,25 @@
                     <div class="print-block">
                        <div>
                             <div>
-                                <b>3. </b> Is the child or children Indigenous?
+                                <b>3. </b> Is the child or children <b>Indigenous</b>?
                             </div>
                             <div>
-                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.indigenous?'yes':''" text="Yes - go to next question"/>
+                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.indigenous?'yes':''" text="<b>Yes</b> - <i>go to <b style='color: #666;'>next question</b></i>"/>
                             </div>
                             <div>
-                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.nonIndigenous?'yes':''" text="No - Skip ahead to Part 4"/>
+                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.nonIndigenous?'yes':''" text="<b>No</b> - <i>Skip ahead to <b style='color: #666;'>Part 4</b></i>"/>
                             </div>
                             <div>
-                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown - Skip ahead to Part 4"/>
+                                <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:1rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="<b>Unknown</b> - <i>Skip ahead to <b style='color: #666;'>Part 4</b></i>"/>
                             </div>
                         </div>
                         <div>
                             <div>
-                                <b>4. </b> Complete this question only if a child is Indigenous.
+                                <b>4. </b> <i  style="color: #666;">Complete this question only if a child is Indigenous</i>.
                                 <br>
-                                <i>If not, you may leave this question blank</i>
+                                <i style="color: #666;">If not, you may leave this question blank</i>
                                 <br>
-                                <b>Please select the option below that best describes the child(ren)’s Indigenous ancestry:</b>
+                                Please select the option below that best describes the <b>child(ren)’s Indigenous ancestry:</b>
                             </div>
                             <div style="margin:0 0 0 1.35rem;">
                                 <check-box boxMargin="0" shiftmark="0" :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
@@ -239,24 +257,23 @@
                         
                         <div>
                             <b>5. </b>
-                            <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
-                            <div style="margin:0 0 0 2rem;">before the court can make a final order about guardianship</div>
+                            <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I understand that I am required to <b>file a Guardianship Affidavit</b> in Form 5 as described in Rule 26 <b>before the court can make a final order</b> about guardianship."/>
+                            
                         </div>
                     </div>
 
                     <div style="margin-top:1rem;"></div>
                     <div>
                         <b>6. </b>
-                        <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
-                        <div style="margin:0 0 0 2rem;">Form 5</div>
+                        <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have <b>initiated or completed a criminal record check</b> as required for the Guardianship Affidavit."/>
                     </div>
 
                     <div style="margin-top:1rem;"></div>
                     <div>
                         <b>7. </b>
-                        <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
+                        <i style="display:inline; margin-left:0.35rem; color: #999;">Select only one of the options below</i>                
                         <div style="margin:0 0 0 1rem;">                     
-                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
+                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am <b>filing the following required documents</b> along with this application"/>
                         </div>
                         <div style="margin:0 0 0 3rem;">
                             <ul>
@@ -270,7 +287,7 @@
                         
                         </div>
                         <div style="margin:0.5rem 0 0 1rem;">                     
-                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to file the required documents with this application. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that the documents be filed with this application. I understand I will still be required to file the documents at a later date."/>
+                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am <b>not able to file the required documents</b> with this application. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that the documents be filed with this application. I understand I will still be required to file the documents at a later date."/>
                         </div>
                     </div>
 
@@ -341,11 +358,12 @@ export default class Schedule7 extends Vue {
    
     dataReady = false; 
     guardInfo = {} as schedule7DataInfoType;    
-     
+    
+
     childrenGuardianshipFields = [
-        {key:"guardianName",  label:"Full name of guardian",                                tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:30%;"},
-        {key:"childName",     label:"Name of child(ren)",                                   tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:30%;"},
-        {key:"guardianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:25%;"},
+        {key:"guardianName",  label:"Full name of guardian:",  tdClass:"bg-grey  align-middle", thClass:" align-middle text-center align-middle", thStyle:"width:30%; font-size: 8pt; font-weight: bold; border: none; border-bottom: 2px solid #333; border-right: 1px solid #333; padding-left: 16px;"},
+        {key:"guardianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:" align-middle", thClass:" align-middle text-center align-middle", thStyle:"width:25%; font-size: 8pt; font-weight: bold; border: none; border-bottom: 2px solid #333; border-right: 1px solid #333; padding-left: 16px;"},
+        {key:"childName",     label:"Name of child(ren)  You may leave blank",   tdClass:" align-middle", thClass:" align-middle text-center align-middle", thStyle:"width:30%; font-size: 8pt; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;"}
     ]
 
     noteBoxFontSize = '10.5pt';
@@ -445,7 +463,7 @@ export default class Schedule7 extends Vue {
                 };
             } 
         }
-
+        
         if(this.result.guardianOfChildSurvey?.applicationType?.includes('becomeGuardian')){
             guardianshipInfo.becomeGuardian = true;
         }else 
