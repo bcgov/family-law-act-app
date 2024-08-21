@@ -815,28 +815,6 @@
                             </td>
                         </tr>
                     </table>
-
-                    <!-- <table class="compactfullsize" style="margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
-                        <tr style="border:2px solid #fff">
-                            <td colspan="2" style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
-                            </td>
-                            <td colspan="2" style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
-                            </td>
-                        </tr>
-                        <tr style="border:2px solid #fff">
-                            <td colspan="4" style="border:2px solid #fff; padding: 4px;">Lawyer’s name and firm name (if applicable): 
-                                <div class="answer" style="background-color: #d6d6d6;">
-                                    {{ yourInfo.lawyerName | getFullName }}
-                                </div>
-                            </td>
-                        </tr> -->
-                        <!-- <tr style="border:2px solid #fff">
-                            <td v-if="yourInfo.lawyer" colspan="3" style="border:2px solid #fff; padding: 4px;">Lawyer’s name and firm name (if applicable): 
-                                <div class="answer"> {{ yourInfo.lawyerName | getFullName }}</div>
-                            </td>
-                            <td v-else colspan="3" style="border:2px solid #fff; padding: 4px;">Lawyer’s name and firm name (if applicable): </td>
-                        </tr> -->
-                    <!-- </table> -->
                 </div>
             </div>
 
