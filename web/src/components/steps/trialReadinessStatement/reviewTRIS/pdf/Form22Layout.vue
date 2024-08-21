@@ -1079,8 +1079,11 @@
             </div>
         <!-- <For registery> -->
         <div class="print-block">
-            <i style="margin-left: 1rem;">To be completed by the Judge if required</i>
-            <div style="margin-left:1rem; width:96.37%; border:1px solid; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+            <div style="background: #828282; color: white; font-size: 11pt;">
+                Instructions for judicial case manager
+            </div>
+            <i>To be completed by the Judge if required</i>
+            <div style="width:96.37%; border:1px solid; font-size: 9pt; padding:0.5rem;font-family:BCSans">
                 <div style="text-indent:4px; margin:0 0 0.5rem 0; font-weight:bold; font-size: 11pt;">To the Judicial Case Manager:</div>
                 <div style="margin:0rem 0 0 1.5rem;">
                     <check-box 
@@ -1090,9 +1093,9 @@
                         boxMargin="0" 
                         style="display:inline;" 
                         :check="false?'yes':''" 
-                        text="trial date(s) confirmed as scheduled"/>                        
+                        text="Trial date(s) confirmed as scheduled"/>                        
                 </div>
-                <div style="margin:0rem 0 0 1.5rem;">
+                <div style="margin:0.5rem 0 0 1.5rem;">
                     <check-box 
                         class="marginleft" 
                         checkbox="" 
@@ -1100,16 +1103,19 @@
                         boxMargin="0" 
                         style="display:inline;" 
                         :check="false?'yes':''" 
-                        text="trial to be set for"/>
-                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="3rem" beforetext="" hint="" text=""/>
-                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="3rem" beforetext="hours or" hint="" text=""/>
+                        text="Trial to be set for"/>
+                    <grey-box-form style="text-indent:2px;display:inline-block;" textwidth="3rem" beforetext="" hint="" text=""/>
+                    <grey-box-form style="text-indent:2px;display:inline-block;" textwidth="3rem" beforetext="hours or" hint="" text=""/>
                     <div style="display:inline-block;">days</div>                        
                 </div>                               
-                <div style="margin: 1rem 0 4rem 0;">Additional comments:</div>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="Date:" hint="" text=""/>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="18.5rem" beforetext="Signature of Judge:" hint="" text=""/>
-                
-            </div>            
+                <div style="margin: 1rem 0 1rem 0; ">Additional comments:
+                    <div style="background-color: #d6d6d6; height:100px"/>
+                </div>
+                <grey-box-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="Date:" hint="" text=""/>
+                <div style="text-indent:2px;display:inline; margin-left:1rem;">
+                    Signature of Judge:
+                </div>
+            </div>
         </div>
         </div>
         <div style="width: 20%; margin-top:10px">
