@@ -166,7 +166,7 @@
                             inline="inline" 
                             boxMargin="0" 
                             style="display:inline;"
-                            :check="issuesList.includes('Ppm')?'yes':''" text="Priority parenting matter <i>(specify)</i>:"/>
+                            :check="issuesList.includes('Ppm')?'yes':''" text="Priority parenting matter <i style='color: #626262'>(specify)</i>:"/>
                     </div>
                 </div>
                 <div class="marginleft2p5vue row" style="margin:0.25rem 0 0 1.5rem;">
@@ -224,7 +224,7 @@
                             inline="inline" 
                             boxMargin="0" 
                             style="display:inline;"
-                            :check="issuesList.includes('Other')?'yes':''" text="Other <i>(specify)</i>:"/>
+                            :check="issuesList.includes('Other')?'yes':''" text="Other <i style='color: #626262'>(specify)</i>:"/>
                     </div>
                 </div>
                 <div class="marginleft2p5vue row" style="margin:0.25rem 0 0 1.5rem;">
