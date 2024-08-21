@@ -1,91 +1,106 @@
 <template>
-    <div v-if="dataReady">
+    <div v-if="dataReady" style="font-size:10pt;">
 
 <!-- <Page 1> -->
-<!-- <HEADER> -->
-        <div  class="form-header-reloc">
-            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Certificate of Service</b></div>             
-                <div style="font-size:10pt;"><b>FORM 7</b></div>
+<!-- <HEADER> : BEGIN -->
+    <div style="height: 160px;">
+            <div style="float:left; width: 33%;">
+                <div style="font-size: 14pt !important;"><b>Certificate of Service</b></div>
+                <div style="font-size:12pt !important;"><b>Form 7</b></div>
                 <div>Provincial Court Family Rules</div>
-                <div>Rules 2, 27, 68, 77, 136 and 183</div>
+                <div>Rules 2, 27, 68, 77, 136 and 183</div> 
             </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>                
+            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
+                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
             </div>
-        </div> 
-
-        <div style="text-indent:5px;display:block; font-size: 9pt; font-weight: 700;"> 
-            I certify that
+            <div style="width: 35%; float:right; font-size: 8pt;">
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Registry location: </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height:15px;"> {{ result.applicationLocation }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Court file number:</div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
+                </div>
+            </div>
+        </div>    
+        <div style="width: 80%;float: left; padding:0.3rem;margin-top:-15px;">
+            This Certificate of Service provides proof of service of court documents.
         </div>        
-
-        <underline-form 
-            style="text-indent:2px;display:block; font-size: 9pt; margin-top: 1rem;" 
-            textwidth="40rem" 
+<!-- <HEADER> : END -->
+<!-- <1A> : BEGIN -->
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
+        <span style="text-indent:5px;"> 
+            <b>I certify that:</b>
+        </span>   
+    <underline-form 
+            style="text-indent:2px;display:block; margin-top: 1rem; margin-left:40px;" 
+            textwidth="475px" 
             beforetext="<b>I,</b>" 
             hint="Your full name" 
+            textBackgroundColor="#dedede"
+            hintMargin="200px"
             :italicHint="false" :text="yourInfo.name | getFullName"/>
 
         <underline-form 
-            style="text-indent:2px;display:block; font-size: 9pt; margin-top: 1rem;" 
-            textwidth="38rem" 
+            style="text-indent:2px;display:block; margin-top: 1rem;margin-left:5px;" 
+            textwidth="475px" 
             beforetext="<b>served</b>" 
             hint="Full name of the person served (copy their name from the document you served them)" 
+            textBackgroundColor="#dedede"
+            hintMargin="60px"
             :italicHint="false" :text="servedPersonName"/>
 
         <underline-form 
-            style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" 
-            textwidth="15rem" 
+            style="text-indent:2px;display:inline-block; margin-top: 1rem;margin-left:32px;" 
+            textwidth="220px" 
             beforetext="<b>on</b>" 
             hint="Date the document(s) were service (mmm/dd/yyyy)" 
+            textBackgroundColor="#dedede"
+            hintMargin="10px"
             :italicHint="false" :text="serviceDate"/>
 
         <underline-form 
-            style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-            textwidth="15rem" 
+            style="text-indent:2px;display:inline-block;" 
+            textwidth="160px" 
             beforetext="<b>at</b>" 
             hint="Time the document(s) were served" 
+            textBackgroundColor="#dedede"
+            hintMargin="10px"
             :italicHint="false" :text="serviceTime"/>
 
-        <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-            a.m./p.m.
-        </div>
-
-        <div style="margin-top: 1rem;">
-            <underline-form 
-                style="text-indent:2px;font-size: 9pt;" 
-                textwidth="40rem" 
-                beforetext="<b>at</b>" 
-                hint="Street address or location, city, province, or email address or fax number where the document(s) were served." 
-                :italicHint="false" :text="serviceDetails.substring(0,85)"/>
-
-            <div v-if="serviceDetails.length>85" class="answerbox">{{serviceDetails.substring(85)}}</div>
+        <span style="text-indent:5px;display:inline;margin-left:5px;"> 
+            <b>a.m./p.m.</b>
+        </span>
+        <underline-form 
+            style="text-indent:2px;display:block; margin-top: 1rem; margin-left:32px;" 
+            textwidth="480px" 
+            beforetext="<b>at </b>" 
+            hint="Street address or location, city, province, or email address or other identifier where the document(s) were served" 
+            textBackgroundColor="#dedede"
+            hintMargin="22px"
+            :italicHint="false" :text="serviceDetails.substring(0,55)"/>
+            <div v-if="serviceDetails.length>55" style="width:480px;text-indent:2px;display:block;text-align:left ;margin-top: 0.4rem; margin-left:55px;background-color: #dedede;line-height:25px;">{{serviceDetails.substring(55)}}</div>
             <div v-else style="margin-bottom:3rem;"></div> 
-        </div>
-        
-        <div style="display:block; font-size: 9pt; margin-top: 2rem; font-weight: 700;"> 
-            with the following document(s):
-        </div> 
-
-        <div style="display:block; font-style: italic; margin: 1rem 0 0 0rem;"> 
-            Select all options that apply. Attach a copy of each document you have selected 
-            below (except the blank reply) to this Certificate of Service.
-        </div>
-           
-        <div style="margin-top: 1rem;"></div>                 
+    </div>
+    <div style="width: 18%;float: right; margin-top: 20px;">
+                <NoteBox style="color:#414142">
+                    <b-icon-info-circle-fill />
+                    <br />
+                    For service by mail, the date the documents were served is 14 days after the date the documents were mailed, or the date the documents were confirmed as delivered if sent by registered mail.
+                </NoteBox>
+            </div>
+</div>
+<!-- <1A> : END -->
+<!-- <2> : BEGIN -->
+    <div style="display:block; margin-top: 2rem;"> 
+            <b>with the following document(s) attached to this certificate:</b>
+            <div style="color:#626262"><i>Select all options that apply</i></div>
+    </div> 
+        <div>
+            <div style="width: 80%; float: left; margin-right: 10px;">
+    
         
         <div class="marginleft row" style="margin:0.25rem 0 0 0;">
             <div style="width:50%;">
@@ -100,13 +115,13 @@
             </div>
             <div style="width:50%;">
                 <check-box
-                    checkbox=""
-                    style="display:inline;" 
+                    checkbox="" 
                     inline="inline" 
                     :shiftmark="1"
-                    boxMargin="0"
-                    :check="documentList.includes('Order')?'yes':''" text="Order"/>
-            </div>
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="documentList.includes('Reply to a Counter Application')?'yes':''" text="Reply to a Counter Application"/>
+            </div>             
         </div>
 
         <div class="marginleft row" style="margin:0.25rem 0 0 0;">
@@ -127,8 +142,8 @@
                     :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="documentList.includes('Reply to a Counter Application')?'yes':''" text="Reply to a Counter Application"/>
-            </div>
+                    :check="documentList.includes('Application for Order Prohibiting the Relocation of a Child')?'yes':''" text="Application for Order Prohibiting the Relocation of a Child"/>
+            </div>            
         </div>
 
         <div class="marginleft row" style="margin:0.25rem 0 0 0;">
@@ -141,29 +156,7 @@
                     boxMargin="0" 
                     style="display:inline;"
                     :check="documentList.includes('Guardianship Affidavit')?'yes':''" text="Guardianship Affidavit"/>
-            </div>
-            <div style="width:50%;">
-                <check-box
-                    checkbox="" 
-                    inline="inline" 
-                    :shiftmark="1"
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="documentList.includes('Application for Order Prohibiting the Relocation of a Child')?'yes':''" text="Application for Order Prohibiting the Relocation of a Child"/>
-            </div>
-        </div>
-
-        <div class="marginleft row" style="margin:0.25rem 0 0 0;">
-            <div style="width:50%;">
-                <check-box 
-                    class="" 
-                    checkbox="" 
-                    inline="inline" 
-                    :shiftmark="1"
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="documentList.includes('Instructions about filing reply')?'yes':''" text="Instructions about filing reply"/>
-            </div>
+            </div>            
             <div style="width:50%;">
                 <check-box
                     checkbox="" 
@@ -184,7 +177,7 @@
                     :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="documentList.includes('Application for Case Management Order')?'yes':''" text="Application for Case Management Order"/>
+                    :check="documentList.includes('Instructions about filing reply')?'yes':''" text="Instructions about filing reply"/>
             </div>
             <div style="width:50%;">
                 <check-box
@@ -196,7 +189,27 @@
                     :check="documentList.includes('Written Response to Application')?'yes':''" text="Written Response to Application"/>
             </div>
         </div>
-
+        <div class="marginleft row" style="margin:0.25rem 0 0 0;">
+            <div style="width:50%;">
+                <check-box 
+                    class="" 
+                    checkbox="" 
+                    inline="inline" 
+                    :shiftmark="1"
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="documentList.includes('Application for Case Management Order')?'yes':''" text="Application for Case Management Order"/>
+            </div>
+            <div style="width:50%;">
+                <check-box
+                    checkbox="" 
+                    inline="inline" 
+                    :shiftmark="1"
+                    boxMargin="0" 
+                    style="display:inline;"
+                    :check="documentList.includes('Notice of Intention to Proceed')?'yes':''" text="Notice of Intention to Proceed"/>
+            </div>
+        </div>
         <div class="marginleft row" style="margin:0.25rem 0 0 0;">
             <div style="width:50%;">
                 <check-box 
@@ -215,65 +228,61 @@
                     :shiftmark="1"
                     boxMargin="0" 
                     style="display:inline;"
-                    :check="documentList.includes('Notice of Intention to Proceed')?'yes':''" text="Notice of Intention to Proceed"/>
+                    :check="documentList.includes('other')?'yes':''" text='Other <span style="color:#626262;font-style:italic;">(list additional document(s))</span>:'/>
             </div>
         </div>
-
         <div class="marginleft row" style="margin:0.25rem 0 0 0;">
             <div style="width:50%;">
-                <check-box 
-                    class="" 
-                    checkbox="" 
+                <check-box
+                    checkbox=""
+                    style="display:inline;" 
                     inline="inline" 
                     :shiftmark="1"
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="documentList.includes('Application About Priority Parenting Matter')?'yes':''" text="Application About Priority Parenting Matter"/>
+                    boxMargin="0"
+                    :check="documentList.includes('Order')?'yes':''" text="Order"/>
             </div>
             <div style="width:50%;">
-                <check-box
-                    checkbox="" 
-                    inline="inline" 
-                    :shiftmark="1"
-                    boxMargin="0" 
-                    style="display:inline;"
-                    :check="documentList.includes('other')?'yes':''" text="Other (list any additional document(s) that you served here):"/>
-            </div>
-        </div>
-
-        <div style="margin-top: 1rem;">  
-
-            <underline-form 
-                style="text-indent:2px;font-size: 9pt;" 
-                textwidth="42rem" 
+                <!-- <underline-form 
+                style="text-indent:2px;margin-left:20px;" 
+                textwidth="250px" 
                 beforetext="" 
                 hint="" 
-                :italicHint="false" :text="documentList.includes('other')?documentListComment:''"/>
+                :italicHint="false" :text="?documentListComment:''"/>  -->
+                <div v-if="documentList.includes('other')" style="margin-top:3px;background-color: #dedede;padding:5px;margin-left:25px;min-height:50px;margin-left:60px;">
+                    {{documentListComment}}
+                    </div>                   
+                    <div v-else style="background-color: #dedede;padding:5px;margin-left:25px;min-height:50px;margin-bottom:0rem;margin-left:25px;"></div>   
+            </div> 
+            
         </div>
-        
-        <div style="display:inline;margin-top: 1rem;"> 
-            by:
-        </div>
-
-        <div style="display:block; font-style: italic; margin-left: 1rem;"> 
-            Select the appropriate option for how you served the other party with the document(s)
-        </div>
-
-        <div style="display:block;text-decoration: underline; font-weight: 700;"> 
-            Personal service
-        </div>
-
-        <div style="display:block; margin-left: 1rem; font-style: italic;"> 
-            Note: Application About a Family Law Matter or About a Protection Order can only be served this way.
-        </div>
-        
-        <check-box 
+    </div> 
+    <div style="width: 18%;float: right; margin-top: 20px;">
+                <NoteBox style="color:#414142">
+                    <b-icon-paperclip />
+                    <br />
+                    You must attach a copy of each document you served to this Certificate of Service.
+                </NoteBox>
+            </div>
+</div> 
+<!-- <2> : END -->
+<!-- <3> : BEGIN -->    
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="display:block; margin-top: rem;"> 
+            <b>by:</b>
+            </div> 
+            <div style="margin-top: 0.3rem;"></div>
+            <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
+                    Personal Service
+            </div>
+            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
+                <check-box 
             checkbox="" 
             inline="inline" 
             :shiftmark="1"
             boxMargin="0" 
             style="display:block; margin-left: 1rem;" 
-            :check="personalServiceMethod == 'leaving a copy of the document(s) with the person'?'yes':''" 
+            :check="personalServiceMethod == 'Leaving a copy of the document(s) with the person'?'yes':''" 
             text="leaving a copy of the document(s) with the person"/>
 
         <check-box 
@@ -283,35 +292,45 @@
             boxMargin="0" 
             style="display:block; margin-left: 1rem;" 
             :check="personalServiceMethod == 'other'?'yes':''" 
-            text="alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"/>            
-        <div 
-            v-if="personalServiceMethod == 'other'" 
-            class="answerbox"
-            style="margin-left: 3rem;">
-            {{personalServiceMethodComment}}
+            text="Alternate service method ordered by the court as follows:"/>          
+        <div v-if="personalServiceMethod == 'other'" style="background-color: #dedede;padding:5px;margin-left:25px;min-height:70px;margin-left:45px;">
+                    {{personalServiceMethodComment}}
+                    </div>
+                    <div v-else style="background-color: #dedede;padding:10px;margin-left:25px;min-height:70px;margin-bottom:0rem;margin-left:45px;"></div> 
+                 
+            </div>             
         </div>
-        <div v-else style="margin-bottom:3rem;"></div>      
-        
-        <div class="print-block">
-
-            <div style="display:block;text-decoration: underline; font-weight: 700;"> 
-                Ordinary service
+        <div style="width: 18%;float: right; margin-top: 30px;">
+                <NoteBox style="color:#414142">
+                    <b-icon-info-circle-fill />
+                    <br />
+                    An Application About a Family Law Matter can only be served by personal service. 
+                    An Application About a Protection Order must also be served by personal service
+                    unless the court grants permission to proceed without notice.
+                </NoteBox>
             </div>
-
-            <div style="display:block; margin-left: 1rem; font-style: italic;"> 
-                Note: This method of service is not allowed for an Application About a Family Law Matter or About a Protection Order.
+</div>
+<!-- <3> : END -->
+<!-- <4A> : BEGIN -->
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="display:block; margin-top: 1rem;"> 
+            </div> 
+            <div style="margin-top: 0.3rem;"></div>
+            <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
+                Ordinary service to a party’s address for service
             </div>
-           
-            <check-box 
+            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
+                <check-box 
                 checkbox="" 
                 inline="inline" 
                 :shiftmark="1"
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
                 :check="ordinaryServiceMethod == 'leaveCopy'?'yes':''" 
-                text="leaving a copy of the document(s) at the person’s address for delivery"/>               
-            
-            <div style="display:block;">
+                text="Leaving a copy of the document(s) at the person’s address for service"/>              
+            </div>
+            <div style="display:block;text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
                 <check-box
                     checkbox="" 
                     inline="inline" 
@@ -319,20 +338,25 @@
                     boxMargin="0"
                     style="display:inline; margin-left: 1rem;" 
                     :check="ordinaryServiceMethod == 'ordinaryMail'?'yes':''" 
-                    text="mailing the document(s) by ordinary mail to the person’s address for delivery on"/>
-                <underline-form 
-                    style="text-indent:1px;display:inline;" 
-                    textwidth="8rem" 
-                    beforetext="" 
-                    hint="(mmm/dd/yyyy)" 
-                    :text="mailServiceDate"/>   
-                    
-                <div style="display:block; margin-left: 2.5rem; font-style: italic;"> 
-                    Note: The date the document(s) were served is 14 days after the documents were mailed.
+                    text="Mailing the document(s) by ordinary mail to the person’s address for service"/>
+                    <underline-form v-if="mailServiceDate"
+                    style="text-indent:1px;display:inline;margin-left:45px;" 
+                    textwidth="7rem" 
+                    beforetext="on" 
+                    hintMargin="20px"
+                    hint="(dd/mmm/yyyy)" 
+                    textBackgroundColor="#dedede"
+                    :text="mailServiceDate"/>
+                <div v-else style="margin-left:20px;" >
+                <div style="margin-left:25px;">on</div>
+                <div style="margin-top:-20px;width:7rem;text-indent:15px;background-color: #dedede;padding:10px;margin-left:45px;margin-bottom:3rem;min-height:15px;"></div>   
+                 <div style="font-size:6pt;margin-top:-50px;margin-left:68px;">(dd/mmm/yyyy)</div>
+                </div>              
+                <div style="display:block; margin-left: 2.5rem;font-size:8pt;color:#626262"> 
+                    Note: The date the document is served is 14 days after this date.
                 </div>
             </div>  
-
-            <div style="display:block;">
+            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
                 <check-box 
                     checkbox="" 
                     inline="inline" 
@@ -340,24 +364,22 @@
                     boxMargin="0" 
                     style="display:block; margin-left: 1rem;" 
                     :check="ordinaryServiceMethod == 'registeredMail'?'yes':''" 
-                    text="mailing the document(s) by registered mail to the person’s address for delivery"/>   
-                <div style="display:block; margin-left: 2.5rem; font-style: italic;"> 
-                    Note: The date the document(s) were served is the date the document(s) 
-                    were confirmed to have been delivered by Canada Post. Attach a copy 
-                    of the delivery confirmation from Canada Post.
-                </div>     
-            
-            </div>
-
-            <check-box 
+                    text="Mailing the document(s) by registered mail to the person’s address for service"/>   
+                <div style="display:block; margin-left: 2.5rem;font-size:8pt;color:#626262"> 
+                    Note: The date the document is served is the date the document was confirmed to have been delivered.
+                </div>    
+            </div>    
+            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
+                <check-box 
                 checkbox="" 
                 inline="inline" 
                 :shiftmark="1"
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
                 :check="ordinaryServiceMethod == 'email'?'yes':''" 
-                text="emailing the document(s) to the person’s email address for delivery"/>           
-
+                text="Emailing the document(s) to the person’s email address for service"/>           
+            </div>  
+            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">     
             <check-box 
                 checkbox="" 
                 inline="inline" 
@@ -365,39 +387,63 @@
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
                 :check="ordinaryServiceMethod == 'fax'?'yes':''" 
-                text="faxing the document(s) to the person’s fax number for delivery"/>           
-
-            <check-box 
+                text="Faxing the document(s) to the person’s fax number for service"/>           
+            </div>
+                   
+        </div>
+        <div style="width: 18%;float: right; margin-top:30px;">
+                <NoteBox style="color:#414142">
+                    <b-icon-paperclip />
+                    <br />
+                    If you served the documents by registered mail, you must
+                    attach a copy of the delivery confirmation.
+                </NoteBox>
+        </div>
+</div>
+<!-- <4A> : END -->
+    
+<!-- <4B> : BEGIN --> 
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="display:block; margin-top: rem;"> 
+            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
+                <check-box 
                 checkbox="" 
                 inline="inline" 
                 :shiftmark="1"
                 boxMargin="0" 
                 style="display:block; margin-left: 1rem;" 
                 :check="ordinaryServiceMethod == 'other'?'yes':''" 
-                text="alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"/>           
-            
-            <div 
-                v-if="ordinaryServiceMethod == 'other'" 
-                class="answerbox"
-                style="margin-left: 3rem;">{{ordinaryServiceMethodComment}}</div>
-            <div v-else style="margin-bottom:3rem;"></div>
-            
+                text="Alternative service method ordered by the court as follows:"/>           
+                <div v-if="ordinaryServiceMethodComment" style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:45px;min-height:70px;">{{ordinaryServiceMethodComment}}</div>
+               <div v-else style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:45px;margin-bottom:2.5rem;min-height:70px;"></div> 
+                
+            </div>  
         </div>
-
-        <div class="print-block">
-
-        <!-- <SWEAR > --> 
-
-            <div style="margin:2rem 0 0 0">
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block;"></div>
-                <div style="height:3rem; width:20rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
-            </div>
-            <div>
-                <div style="width:20rem; display:inline-block; font-size:9pt" >Signature of the person who served the document</div>
-                <div style="width:20rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Date of signature (mmm/dd/yyyy)</div>
-            </div>
+    </div>     
+</div>
+<!-- <4B> : END -->   
+<!-- <4C> : BEGIN --> 
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">
+            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
+                <div style="margin-left:0px;" >
+                <div style="margin-top:-20px;width:250px;text-indent:15px;background-color: #dedede;padding:10px;margin-left:45px;margin-bottom:3rem;min-height:38px;"></div>   
+                 <div style="font-size:6pt;margin-top:-50px;margin-left:68px;">Signature of the person who served the document</div>
+                </div>   
+                <div style="margin-left:300px;margin-top:-49px" >
+                <div style="margin-top:-20px;width:200px;text-indent:15px;background-color: #dedede;padding:10px;margin-left:45px;margin-bottom:3rem;min-height:38px;"></div>   
+                 <div style="font-size:6pt;margin-top:-50px;margin-left:78px;">Date of signature (dd/mmm/yyyy)</div>
+                </div>  
+            </div>  
             
-        </div>
+    </div>     
+</div>
+<!-- <4C> : END -->   
+
+        
+        
+        
 
     </div>
 </template>
@@ -415,11 +461,15 @@ import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getLocationInfo, getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 import { aboutAffiantCsvDataInfoType, aboutServiceCsvDataInfoType } from '@/types/Application/CertificateOfService';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import GreyBoxForm from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox       
+        CheckBox,
+        NoteBox,
+        GreyBoxForm       
     }
 })
 export default class Form7Layout extends Vue {
