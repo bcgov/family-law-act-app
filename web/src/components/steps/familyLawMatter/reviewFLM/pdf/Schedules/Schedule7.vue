@@ -63,7 +63,7 @@
                         <i style="color: #999;">Complete the information requested below. Specify the child only if the information does not apply to each child this application is about.</i>
                         <div style="margin: 0 0 1rem 3.5rem;">                  
                             <b-table
-                                :items="guardInfo.abtCancel.cancelDetails"
+                                :items="guardInfo.abtCancel && guardInfo.abtCancel.cancelDetails ? guardInfo.abtCancel.cancelDetails : [{}, {}]"
                                 :fields="childrenGuardianshipFields"
                                 class="mt-4"
                                 small
