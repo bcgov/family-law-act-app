@@ -5,6 +5,7 @@ export interface requestForSchedulingDataInfoType {
     Unresolved?: string;
     ReviewOrdered?: string;
     LastAppearanceDate?: string;
+    DocumentNumber?: string;
 }  
 
 export interface requestForSchedulingOtherPartyInfoType {
