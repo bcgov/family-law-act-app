@@ -77,7 +77,7 @@
                     :text="isLawyer ? parties : ''" />
             </div>
 
-            <div class="marginleft2p5vue" style="margin:1rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:3rem 0 0 1.5rem;">
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
                     :check="!isLawyer ? 'yes' : ''" text="I, " />
                 <grey-box-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="15rem" beforetext=""
@@ -133,7 +133,7 @@
 
 
         <div
-            style="margin:2rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
+            style="margin:2rem 0 0 1rem; width:96.37%; font-size: 16pt; padding:0.5rem;font-family:BCSans">
             <UnderlineForm style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
                 hint="Date (dd/mmm/yyyy)" hintTextColor="hintTextColor" text="" hintindent="40px"/> 
             <UnderlineForm style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
