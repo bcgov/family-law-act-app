@@ -395,11 +395,11 @@
                     <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
                     <check-box  
                         :check="ppmInfo.ppmList.includes('childServices')?'yes':''" 
-                        text="applying for an order under section 45 [orders respecting parenting arrangements] or 51 [order respecting guardianship]
-                            of the Family Law Act in one of the following circumstances:<ol style='list-style-type: lower-roman'><li>the child to whom the order relates has been removed 
-                            under section 30 [removal of child], 36 [interim supervision order no longer protects the child] or 42 
-                            [enforcement of supervision order after the protection hearing] of the Child, Family and Community 
-                            Service Act and a director under that Act has advised that the order will allow for a child to be 
+                        text="applying for an order under section 45 <i>[orders respecting parenting arrangements]</i> or 51 <i>[order respecting guardianship]</i>
+                            of the <i>Family Law Act</i> in one of the following circumstances:<ol style='list-style-type: lower-roman'><li>the child to whom the order relates has been removed 
+                            under section 30 <i>[removal of child]</i>, 36 <i>[interim supervision order no longer protects the child]</i> or <i>42 
+                            [enforcement of supervision order after the protection hearing]</i> of the <i>Child, Family and Community 
+                            Service Act</i> and a director under that Act has advised that the order will allow for a child to be 
                             returned to the applicant;</li><li>a director under the <i>Child, Family and Community Service Act</i> has 
                             advised that the child to whom the order relates will be removed under section 30, 36 or 42 of that 
                             Act unless the order is made;</li></ol><i><span style='color: #626262'>&#10132;</span> <span style='color: #626262'>Complete <b>Schedule 1</b> and, if you are applying for guardianship, <b>Schedule 2</i></b></span>"/>
@@ -784,30 +784,35 @@
                     <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color: #626262">
                         You must provide an address for service and contact number, but it does not have to be your own if you don’t want to
                     </i>
-                    <table class="compactfullsize" style="margin: 0.5rem 0.5rem 0.5rem 1rem; font-size: 9pt; width:95%">
-                        <tr style="border:1px solid #414142">
-                            <td colspan="3" style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Address: <div class="answer">{{ yourInfo.address.street }} </div>
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td colspan="6" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ yourInfo.address.street }} 
+                                </div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #313132;">
-                            <td style="background-color:#d6d6d6; background-clip: content-box; padding:3px">City: <div class="answer">{{ yourInfo.address.city }}</div>
+                        <tr style="border:2px solid #fff">
+                            <td colspan="2" style="border:2px solid #fff; padding: 4px;">City: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.city }}</div>
                             </td>
-                            <td style="margin-left:50px; background-color:#d6d6d6; background-clip: content-box; padding:3px">Province: <div class="answer">{{ yourInfo.address.state }}</div>
+                            <td colspan="2" style="padding-left:50px; border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.state }}</div>
                             </td>
-                            <td style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Postal Code: <div class="answer">{{ yourInfo.address.postcode }}</div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Email: <div class="answer">{{ yourInfo.contact.email }}</div>
-                            </td>
-                            <td colspan="2" style="padding-left:50px; background-color:#d6d6d6; background-clip: content-box; padding:3px">Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
+                            <td colspan="2" style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #414142">
-                            <td v-if="yourInfo.lawyer" colspan="3" style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Lawyer’s name and firm name (if applicable): 
-                                <div class="answer"> {{ yourInfo.lawyerName | getFullName }}</div>
+                        <tr style="border:2px solid #fff">
+                            <td colspan="3" style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
                             </td>
-                            <td v-else colspan="3" style="background-color:#d6d6d6; background-clip: content-box; padding:3px">Lawyer’s name and firm name (if applicable): </td>
+                            <td colspan="3" style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
+                            </td>
+                        </tr>
+                        <tr style="border:2px solid #fff">
+                            <td colspan="6" style="border:2px solid #fff; padding: 4px;">Lawyer’s name and firm name (if applicable): 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ yourInfo.lawyerName | getFullName }}
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </div>
