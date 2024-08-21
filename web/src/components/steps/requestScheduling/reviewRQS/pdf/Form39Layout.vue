@@ -286,7 +286,7 @@
                     style="text-indent:12px;display:inline-block; margin-left: 10px;" 
                     textwidth="6rem" 
                     beforetext="" 
-                    :italicHint="false" :text="hello"/>
+                    :italicHint="false" :text="documentNumber"/>
                 <div style="text-indent:5px;display:inline;"> 
                     , <b>be scheduled for a court appearance</b>. The court appearance is
                 </div>
@@ -756,6 +756,7 @@ export default class Form39Layout extends Vue {
     acknowledgeService = false;
 
     filedDate = '';
+    documentNumber = '';
     lastAppearanceDate = '';
     reviewOrderMade = false;
 
@@ -803,6 +804,7 @@ export default class Form39Layout extends Vue {
     public getRequestSchedulingInfo(){      
         
         this.filedDate = '';
+        this.documentNumber = '';
         this.lastAppearanceDate = '';
         this.reviewOrderMade = false;
 
@@ -817,6 +819,7 @@ export default class Form39Layout extends Vue {
             }
 
             this.filedDate = requestForScheduling.FiledDate?requestForScheduling.FiledDate:'';
+            this.documentNumber = requestForScheduling.DocumentNumber?requestForScheduling.DocumentNumber:'';
             this.lastAppearanceDate = requestForScheduling.LastAppearanceDate?requestForScheduling.LastAppearanceDate:'';           
         }             
     }
