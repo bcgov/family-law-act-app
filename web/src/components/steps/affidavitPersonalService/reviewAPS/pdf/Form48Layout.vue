@@ -162,7 +162,7 @@
                     :check="idMethod == 'other'?'yes':''" 
                     text="Other <i style='color: #999;'>(specify)</i>:"/>
 
-                <div class="answerbox" style="display: inline-block; font-size: 12pt;background: #d6d6d6; width: 480px; padding: 2px; margin-left: 4px;">
+                <div class="answerbox" style="display: inline-block; font-size: 12pt;background: #d6d6d6; width: 480px; margin: 0; margin-left: 14px; min-height: 24px;">
                     <span v-if="idMethod == 'other'">{{idMethodComment}}</span>
                 </div>
             </div>
