@@ -470,7 +470,7 @@
         </div>
     </div>
 
-    <!-- Part 4 -->
+    <!-- Part 4 section 1-->
     <div style="margin-top: 1rem;" />
     <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
         <div style="width: 80%; margin-right: 10px;">
@@ -510,7 +510,15 @@
                         :check="finInfoOnFile=='n'?'yes':''" 
                         text="There have been <b>changes to my financial information</b> since I filed the Financial Statement"/>
                 </div>
-            </div>
+            </div>     
+        </div>
+        <div style="width: 20%;">
+        </div>
+    </div>
+
+    <!-- Part 4 section 2 -->
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
+        <div style="width: 80%; margin-right: 10px;">
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <b>10. </b>
                 <div style="text-indent:10px;display:inline;"> 
@@ -554,20 +562,8 @@
             </div>
             </div>      
         </div>
-        <div style="width: 20%;">
-            <NoteBox textColor="#626262">
-                <b-icon-info-circle-fill />
-                <p>
-                    This part will help the court to 
-                    understand what information 
-                    needs to be shared between 
-                    the parties to help get ready 
-                    for the trial.
-
-                </p>
-            </NoteBox>
-        </div>
     </div>
+
 
     <!-- Part 5 section 1-->
     <div style="margin-top: 1rem;" />
@@ -664,26 +660,6 @@
                         :text="additionalWitnesses[2*inx+5]"/>                   
                 </div>
             </div>
-        </div>
-        <div style="width: 20%">
-            <NoteBox textColor="#626262">
-                <b-icon-info-circle-fill />
-                <p>
-                    A witness must have direct 
-                    knowledge of the things you 
-                    want them to give evidence 
-                    about. The evidence must 
-                    also be relevant to the issues 
-                    to be decided at trial.
-
-                </p>
-            </NoteBox>
-        </div>
-    </div>
-
-    <!-- Part 5 section 2-->
-    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
-        <div style="width: 80%; margin-right: 10px;">
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <b>13. </b>
                 <div style="text-indent:10px;display:inline;"> 
@@ -731,6 +707,38 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div style="width: 20%">
+            <NoteBox textColor="#626262">
+                <b-icon-info-circle-fill />
+                <p>
+                    A witness must have direct 
+                    knowledge of the things you 
+                    want them to give evidence 
+                    about. The evidence must 
+                    also be relevant to the issues 
+                    to be decided at trial.
+
+                </p>
+            </NoteBox>
+            <NoteBox textColor="#626262" style="margin-top:120px">
+                <b-icon-info-circle-fill />
+                <p>
+                    Expert reports provide 
+                    information to help the court. 
+                    They are written by an expert 
+                    who has special knowledge 
+                    about a certain area because 
+                    of their training, education and 
+                    work experience.
+                </p>
+            </NoteBox>
+        </div>
+    </div>
+
+    <!-- Part 5 section 2-->
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
+        <div style="width: 80%; margin-right: 10px;">
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
                     <b>15. </b>
@@ -781,19 +789,7 @@
             </div>
         </div>
         <div style="width: 20%;">
-            <NoteBox textColor="#626262" style="margin-top:50px">
-                <b-icon-info-circle-fill />
-                <p>
-                    Expert reports provide 
-                    information to help the court. 
-                    They are written by an expert 
-                    who has special knowledge 
-                    about a certain area because 
-                    of their training, education and 
-                    work experience.
-                </p>
-            </NoteBox>
-            <NoteBox textColor="#626262" style="margin-top:50px">
+            <NoteBox textColor="#626262" style="margin-top:10px">
                 <b-icon-book />
                 <p>
                     For more information about 
@@ -802,7 +798,7 @@
                     guidebook. 
                 </p>
             </NoteBox>
-            <NoteBox textColor="#626262" style="margin-top:70px">
+            <NoteBox textColor="#626262" style="margin-top:10px">
                 <b-icon-info-circle-fill />
                 <p>
                     If you want a witness to give 
