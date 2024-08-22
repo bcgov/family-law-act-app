@@ -42,15 +42,16 @@
 <!-- <1> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <b style="padding-right:3px">1.</b>
-                <check-box inline="inline" shift="5" shiftmark="0" boxMargin="0" checkbox="" style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
-                <grey-box-form marginTop="-22px" style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="There is a <b>protection order made on</b>" hintindent="2rem" hint="(dd/mmm/yyyy)" :text="aboutOrder.dateOfPO | beautify-date"/>
-                <div style="display:inline; margin-left:0.5rem;">that I am applying to </div><br/>
-                <div style="padding-left: 18px;"></div>terminate <b>(see attached copy of order)</b>.</div>
             </div>
             <div style="width: 20%;margin-top:30px;">
             </div>
         </div>  
+
+        <section class="resetquestion" style="width: 80%">
+            <check-box inline="inline" boxMargin="0" checkbox="" style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
+            <grey-box-form marginTop="-22px" style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="There is a <b>protection order made on</b>" hintindent="2rem" hint="(dd/mmm/yyyy)" :text="aboutOrder.dateOfPO | beautify-date"/>
+            <div style="display:inline; margin-left:0.5rem;">that I am applying to terminate <b>(see attached copy of order)</b>.</div>
+        </section>
 
         <div style="margin-top:1rem;"></div>
 <!-- <2> -->
