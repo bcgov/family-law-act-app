@@ -502,7 +502,8 @@
                             </div>
         <!-- Part 7E -->
         <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;">
-                                <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule7')?'yes':''" text="<b>Guardianship of a child</b> - Appointing a new guardian or cancelling guardianship of a child"/>
+                                <check-box boxMargin="0" shiftmark="0" :check="result.guardianOfChildSurvey.applicationType.includes('cancelGuardian') || result.guardianOfChildSurvey.applicationType.includes('becomeGuardian')  ?'yes':''" text="<b>Guardianship of a child</b> - Appointing a new guardian or cancelling guardianship of a child"/>
+
                                 
                                 <NoteBox borderRadius="8px" border="1px solid #333" style="padding: 20px;margin-left:30px;">
                                     <b>Guardianship</b> is who is responsible for a child. Only guardians have parental responsibilities and parenting time with a child.

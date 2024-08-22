@@ -265,7 +265,7 @@
                     <div style="margin-top:1rem;"></div>
                     <div>
                         <b>6. </b>
-                        <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have <b>initiated or completed a criminal record check</b> as required for the Guardianship Affidavit."/>
+                        <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian && guardInfo.criminalCheck?'yes':''" text="I have <b>initiated or completed a criminal record check</b> as required for the Guardianship Affidavit."/>
                     </div>
 
                     <div style="margin-top:1rem;"></div>
@@ -273,7 +273,7 @@
                         <b>7. </b>
                         <i style="display:inline; margin-left:0.35rem; color: #999;">Select only one of the options below</i>                
                         <div style="margin:0 0 0 1rem;">                     
-                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am <b>filing the following required documents</b> along with this application"/>
+                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.becomeGuardian && guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am <b>filing the following required documents</b> along with this application"/>
                         </div>
                         <div style="margin:0 0 0 3rem;">
                             <ul>
@@ -287,7 +287,7 @@
                         
                         </div>
                         <div style="margin:0.5rem 0 0 1rem;">                     
-                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am <b>not able to file the required documents</b> with this application. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that the documents be filed with this application. I understand I will still be required to file the documents at a later date."/>
+                            <check-box boxMargin="0" shiftmark="0" :check="guardInfo.becomeGuardian && guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am <b>not able to file the required documents</b> with this application. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that the documents be filed with this application. I understand I will still be required to file the documents at a later date."/>
                         </div>
                     </div>
 
@@ -374,7 +374,7 @@ export default class Schedule7 extends Vue {
         this.extractInfo();       
         this.dataReady = true;
     }
-
+    
     public extractInfo(){
         if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
             this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
