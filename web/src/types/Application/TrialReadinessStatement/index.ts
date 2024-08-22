@@ -106,6 +106,7 @@ export interface witnessesSurveyDataInfoType {
     ReportCompleted?: string;
     OrderAttendTrial?: string;
     WitnessesConfirmed?: string;
+    TravellingForTrial?: string;
 }
 
 export interface witnessesSurveyInfoType {
