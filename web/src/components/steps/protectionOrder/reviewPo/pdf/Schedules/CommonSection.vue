@@ -2,250 +2,323 @@
     <div v-if="dataReady">
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div style="height: 160px;">
-            <div style="float:left; width: 33%;">
-                <div style="font-size: 14pt;"><b>Application About a Protection Order</b></div>
-                <div style="font-size:12pt;"><b>FORM 12 </b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rules 67, 68 and 172</div>
-            </div>
-            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
-                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
-            </div>
-            <div style="width: 35%; float:right; font-size: 8pt;">
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ '&nbsp;' }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px; opacity: 0.3;"> For registry use only </div>
-                </div>
-            </div>
-        </div>
+        <FormHeader :headerTableData="headerTableData" formName="Application About a Protection Order" formNumber="FORM 12" formRuleNumber="Rules 67, 68 and 172"></FormHeader>
 
-        <!-- <Page 1> -->
 <!-- <NOTICE SECTION> -->
-        <div style="font-size: 10pt; width: 80%;">
-            This Application About a Protection Order sets out the details of an order about a protection
-            order that a person is applying for.<br/>
-            A protection order made under the <i>Family Law Act</i> is a court order to protect a family
-            member from another family member if there is a risk of family violence.
-        </div>
-
-        <div class="fla-col-left-80 fla-medium-grey" style="border: 1px dashed black; width: 80%">
-            <b>Please read before completing this form:</b>
-            <ul>
-                <li>You must complete the main application and any applicable schedule for your
-                    application identified in Part 2 of the main application.</li>
-                <li>For guidance filling in this form, please read the guidebook. The guide is available
-                    online at <a href="https://www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.</li>
-            </ul>
-        </div>
-
-        <div style="float: right;width: 18%; margin-top: -230px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-            <p>
-                <b-icon-book />
-                <div style="font-size: 9px">For more information about what family violence includes or who is a family member, see the guidebook.</div>
-            </p>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div>
+                    This Application About a Protection Order sets out the details of an order about a protection
+                    order that a person is applying for.<br/>
+                    A protection order made under the <i>Family Law Act</i> is a court order to protect a family
+                    member from another family member if there is a risk of family violence.
+                </div>
+                <div style="flex: 1; border: 2px dotted #000; background: #ededed; margin-right: 4px">
+                    <b>Please read before completing this form:</b>
+                    <ul>
+                        <li>You must complete the main application and any applicable schedule for your
+                            application identified in Part 2 of the main application.</li>
+                        <li>For guidance filling in this form, please read the guidebook. The guide is available
+                            online at <a href="https://www.gov.bc.ca/court-forms">www.gov.bc.ca/court-forms</a> or from your local court registry.</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="width: 20%;">
+                <NoteBox>
+                    <b-icon-book />
+                    <br />
+                    <p>
+                        For more information about what family violence includes or who is a family member, see the guidebook. 
+                    </p>
+                </NoteBox>
+            </div>
         </div>
 
         <div style="margin-top: 1rem;"></div>
 
+<!-- <Part 1> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="1" title="About the parties"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
+
 <!-- <1> -->
-    <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-            <b>Part 1 | Party information</b>
-        </div>
-
-        <section style="width: 80%; line-height: 28px;">
-            <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="<b>My full name</b> is (full name of party):" :italicHint="false" :text="yourInfo.name | getFullName"/>
-            <div style="margin-top: 0.1rem;"></div>
-            <grey-box-form marginTop="-22px" style="display:inline;text-indent:2px;" textwidth="7rem" beforetext="My <b>date of birth</b> is (dd/mmm/yyyy):" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
-        </section>
-
-        <section style="width: 80%; line-height: 28px;">
-            <div v-for="(otherParty,inx) in otherPartyInfo" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
-                The person <b>I want protection from</b>, or <b>who made an application for protection from me</b>, is the other party.
-                <div style="margin-top: 0.1rem;"></div>
-                <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="The <b>other party's full name</b> is:" :italicHint="false" :text="otherParty.name | getFullName"/>
-                <div style="margin-top: 0.1rem;"></div>
-                <grey-box-form marginTop="-22px" style="display:inline;text-indent:2px;" textwidth="7rem" beforetext="Their <b>date of birth</b> is:" hintindent="0.6rem" hint="(dd/mmm/yyyy) or (unknown)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
-            </div>
-        </section>
-
-        <div style="float: right;width: 18%; margin-top: -190px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-            <p>
-                <b-icon-info-circle-fill />
-                <div style="font-size: 9px">A protection order may be made on application by a family member claiming to be an at-risk family member or by
-                a person on behalf of an atrisk family member [s. 183 <i>Family Law Act</i>].</div>
-            </p>
-        </div>
-
-<!-- <2> -->
-    <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-        <b>Part 2 | What are you asking for in this application</b>
-    </div>
-
-    <section style="width: 80%">
-        I am <b>applying for the following order</b>:<br/>
-        <i>Select only one of the options below and complete the required schedule</i>
-        <br/>
-        <check-box  :check="orderType == 'needPO'?'yes':''" text="<b>Protection order</b> ➜ <i>Complete <b>Schedule 1</b></i>"/>
-        <check-box  :check="orderType == 'changePO'?'yes':''" text="<b>Order to change an existing protection order</b> ➜ <i>Complete <b>Schedule 2</b></i>"/>
-        <check-box  :check="orderType == 'terminatePO'?'yes':''" text="<b>Order to terminate and existing protection order</b> ➜ <i>Complete <b>Schedule 3</b></i>"/>
-    </section>
-
-<!-- <PART 3> -->
-    <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-        <b>Part 3 | Notice of the application</b>
-    </div>
-
-    <div style="float: right;width: 18%; margin-top: -25px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-        <p>
-            <b-icon-book />
-            <div style="font-size: 9px">For more information about serving court documents, see the guidebook.</div>
-        </p>
-    </div>
-
-    <div style="margin-top: 1rem;"></div>
-
-    <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%">
-        An application is usually made with notice to the other party. To give notice, the other party must
-        be served with the application and supporting documents at least 7 days before the date set for
-        the court appearance.<br/>
-        An application about a protection order can also be made without notice to the other party [s. 186
-        <i>Family Law Act</i>].
-    </div>
-
-    <section style="width: 80%">
-        <i>Select only one of the options below</i>
-        <br/>
-        <check-box  :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying <b>with notice</b> to the other party"/>
-        <check-box v-if="urgency.PORNoNotice == 'y'"  :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply <b>without notice</b> to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i><br/><div style=\'color:#000;background-color:#d6d6d6;font-size:10pt;line-height:1rem;\'>'+urgency.PORWhyNoNotice+'</div>'"/>
-        <check-box v-else  :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply <b>without notice</b> to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>'"/>
-    </section>
-
-    <div class="fla-col-left-80 fla-light-grey" style="border: 1px dashed black; width: 80%">
-        <b>NOTE TO PARTY:</b><br/>
-        You may make your application without notice to the other party, but the judge will decide if it
-        will be heard without notice, if notice must be given, or if the notice period should be shortened.
-    </div>
-
-    <div style="float: right;width: 18%; margin-top: -240px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-        <p>
-            <b-icon-info-circle-fill />
-            <div style="font-size: 9px">To apply without notice, you must satisfy the court that there is a real risk of danger or serious consequence if
-            notice were required.</div>
-        </p>
-    </div>
-
-    <div style="margin-top: 1rem;"></div>
-
-    <!-- <PART 4> -->
-    <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-        <b>Part 4 | About your court appearance</b>
-    </div>
-
-    <div style="float: right;width: 18%; margin-top: -140px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-        <p>
-            <b-icon-book />
-            <div style="font-size: 9px">For more information about applying with or without notice, see the guidebook.</div>
-        </p>
-    </div>
-
-    <div>
-        <i>For registry or judicial case manager use only</i>
-    </div>
-
-    <div class="fla-col-left-80" style="border: 1px solid black; line-height: 28px; width: 80%;">
-            <b>The application, which requires a court appearance, will be heard by the court on</b><grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" hintindent="3rem" beforetext="" hint="date (mmm/dd/yyyy)" text=""/>
-            <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
-            <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
-
-            <div style="margin-top: 1rem;"></div>
-
-            <div style="line-height: 16px; display: inline-block; width:38%; vertical-align: top; padding-left: 18px;">
-                <check-box :check="''" text="In person at "/><br/>
-                <check-box :check="''" text="by another method of attendance, as specified"/>
-            </div>
-            <div style="display: inline-block; width:58%">
-                <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0; line-height: 28px;" textwidth="19.5rem" beforetext="" hint="court location" text=""/>
-                <div style="line-height: 14px; border: 1px solid black;">
-                    <b>Do not attend the courthouse in person</b>. The registry will send within 24 hours before the hearing
-                        date noted above the link to connect by MS Teams, including a dial-in conferencing number to be used by
-                        any party that is unable to use MS Teams or has problems with their video connection. If you have not
-                        provided your email address or telephone number to the registry on your Notice of Address Change
-                        (Form 46), you must contact the registry to obtain the MS Teams conference information.
+    <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div>
+                    <b style="padding-right:3px">1.</b>
+                    <div style="text-indent: 2px; display:inline-block;"><b>My full name</b> is (full name of party):</div>
+                    <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="" :italicHint="false" :text="yourInfo.name | getFullName"/>
+                    <div style="margin-top: 0.3rem;"></div>
+                    <div style="text-indent: 17px; display:inline-block;">My <b>date of birth</b> is (dd/mmm/yyyy):</div>
+                    <grey-box-form marginTop="-22px" style="display:inline; text-indent:18px; padding-left: 3px;" textwidth="256px" beforetext="" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+                </div>
+                <div v-for="(otherParty,inx) in otherPartyInfo" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
+                    <b style="padding-right:3px">2.</b>
+                    The person <b>I want protection from</b>, or <b>who made an application for protection</b><br> 
+                    <div style="text-indent:18px;"><b>from me</b>, is the other party.</div>
+                    <div style="margin-top: 0.3rem;"></div>
+                    <div style="text-indent: 17px; display:inline-block;">The <b>other party's full name</b> is:</div>
+                    <grey-box-form marginTop="-22px" style="text-indent:20px;display:inline-block; padding-left:13px;" textwidth="16rem" beforetext="" :italicHint="false" :text="otherParty.name | getFullName"/>
+                    <div style="margin-top: 0.3rem;"></div>
+                    <div style="text-indent: 17px; display:inline-block;">Their <b>date of birth</b> is:</div>
+                    <grey-box-form marginTop="-22px" style="display:inline; text-indent:18px; padding-left:94px;" textwidth="256px" beforetext="" hintindent="65px" hint="(dd/mmm/yyyy) or (unknown)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
                 </div>
             </div>
-    </div>
+            <div style="width: 20%;margin-top: -10px;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        A protection order may be made on application by a family member claiming to be an at-risk family member or by
+                        a person on behalf of an atrisk family member [s. 183 <i>Family Law Act</i>].
+                    </p>
+                </NoteBox>
+            </div>
+        </div>  
 
-    <div style="margin-top: 1rem;"></div>
+        <div style="margin-top: 1rem;"></div>
 
-    <div class="fla-col-left-80 fla-light-grey" style="border: 1px dashed black; width: 80%">
-        <b>NOTE TO THE OTHER PARTY:</b><br/>
-        <b>If you do not attend</b> court on the date and time scheduled for the court appearance, the court
-        may make an order in your absence.<br/>
-        You may also choose to <b>file a written response</b> in reply to the application in Form 19 Written
-        Response to Application.
-    </div>
+<!-- <2> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="2" title="What are you asking for in this application"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
 
-    <div style="float: right;width: 18%; margin-top: -280px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-        <p>
-            <b-icon-info-circle-fill />
-            <div style="font-size: 9px">The registry or judicial case manager will work with you to schedule a date for the court
-                appearance and will fill in the actual date and method of attendance on the form. Be prepared to talk about your
-                availability if there are options for dates.</div>
-        </p>
-    </div>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div>
+                    <b style="padding-right:3px">3.</b>
+                    I am <b>applying for the following order</b>:<br/>
+                    <div style="padding-left:18px;"><i>Select only one of the options below and complete the required schedule</i></div>
+                    <check-box style="padding-left: 10px;" shift="25" shiftmark="0" :check="orderType == 'needPO'?'yes':''" text="<b>Protection order</b> ➜ <i>Complete <b>Schedule 1</b></i>"/>
+                    <check-box style="padding-left: 10px;" shift="25" shiftmark="0" :check="orderType == 'changePO'?'yes':''" text="<b>Order to change an existing protection order</b> ➜ <i>Complete <b>Schedule 2</b></i>"/>
+                    <check-box style="padding-left: 10px;" shift="25" shiftmark="0" :check="orderType == 'terminatePO'?'yes':''" text="<b>Order to terminate an existing protection order</b> ➜ <i>Complete <b>Schedule 3</b></i>"/>
+                </div>
+            </div>
+            <div style="width: 20%;">
+            </div>
+        </div>
 
-    <div style="margin-top: 1rem;"></div>
+        <div style="margin-top: 1rem;"></div>
 
-    <!-- <5> -->
-        <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-        <b>Part 5 | Address for service</b>
-    </div>
+<!-- <PART 3> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="3" title="Notice of the application"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
 
-    <section style="width: 80%">
-        My <b>address for service</b> of court documents and contact information is:<br/>
-        <i>You must provide an address for service and contact number, but it does not have to be<br/>
-        your own if you don’t want</i>
-        <br/>
-        <table style="margin:1rem 0 1rem 0; width: 96%">
-            <tr style="border:1px solid #414142" >          
-                <td colspan="3">Address: <div class="answer"> {{serviceAddress.street}} </div> </td>
-            </tr>
-            <tr style="border:1px solid #414142" >
-                <td>City: <div class="answer">{{serviceAddress.city}}</div> </td>
-                <td>Province: <div class="answer">{{serviceAddress.state}}</div> </td>
-                <td>Postal Code: <div class="answer">{{serviceAddress.postcode}}</div> </td>
-            </tr>
-            <tr style="border:1px solid #414142" >
-                <td>Email: <div class="answer">{{serviceContact.email}}</div> </td>
-                <td></td>
-                <td>Telephone: <div class="answer">{{serviceContact.phone}}</div> </td>
-            </tr>
-            <tr style="border:1px solid #414142" >
-                <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
-                <td v-else  colspan="3">Lawyer (if applicable): </td>
-            </tr>
-        </table>
-    </section>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div>
+                    <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 99%; background-color: #dedede;">
+                        An application is usually made with notice to the other party. To give notice, the other party must
+                        be served with the application and supporting documents at least 7 days before the date set for
+                        the court appearance.<br/>
+                        An application about a protection order can also be made without notice to the other party [s. 186
+                        <i>Family Law Act</i>].
+                    </div>
+                    <b style="padding-right:3px">4.</b>
+                    <i>Select only one of the options below</i><br/>
+                    <check-box style="padding-left: 10px;" shift="25" shiftmark="0" :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying <b>with notice</b> to the other party"/>
+                    <check-box style="padding-left: 10px;" shift="25" shiftmark="0" :check="urgency.PORNoNotice == 'y'?'yes':''" text="I want to apply <b>without notice</b> to the other party because:"/>
+                    <i style="font-size:11.5px;" > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>
+                    <div class="answerbox" style="background: #C0C0C0;">{{ urgency.PORWhyNoNotice ? urgency.PORWhyNoNotice : '&nbsp;' }}</div>
 
-    <div style="float: right;width: 18%; margin-top: -250px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-        <p>
-            <b-icon-info-circle-fill />
-            <div style="font-size: 9px">For more information about how this information will be used and who will have
-                access to it, see the guidebook.</div>
-        </p>
-    </div>
+                    <div class="fla-col-left-80 fla-light-grey" style="border: 1px dashed black; width: 98%; background-color: #dedede">
+                        <b>NOTE TO PARTY:</b><br/>
+                        You may make your application without notice to the other party, but the judge will decide if it
+                        will be heard without notice, if notice must be given, or if the notice period should be shortened.
+                    </div>
+                </div>
+            </div>
+            <div style="width: 20%;">
+                <NoteBox>
+                    <b-icon-book />
+                    <br />
+                    <p>
+                        For more information about serving court documents, see the guidebook.
+                    </p>
+                </NoteBox>
+                <div style="margin-top: 0.2rem;"></div>
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        To apply without notice, you must satisfy the court that there is a real risk of danger or serious consequence if
+                        notice were required.
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+
+        <div style="margin-top: 1rem;"></div>
+
+    <!-- <PART 4> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="4" title="About your court appearance"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
+
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <i>For registry or judicial case manager use only</i>
+                <div style="border:1px solid black; padding: 5px;">
+                    <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;"><b>The application, which requires
+                        a court appearance, will be heard by the court</b></div>
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; line-height: 30px;" 
+                        textwidth="110px" 
+                        beforetext="<b>on</b>" 
+                        hint="date"
+                        hintindent="45px"
+                        :italicHint="false" text=""/>
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; line-height: 30px;" 
+                        textwidth="110px" 
+                        beforetext="<b>at</b>" 
+                        hint="time"
+                        hintindent="45px"
+                        :italicHint="false" text=""/>
+                    <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;"><b>a.m./p.m.</b></div>
+                    <div style="margin-top: 0.8rem;"></div>
+                    <check-box 
+                        inline="inline" 
+                        boxMargin="0" 
+                        style="margin:0 0 0 0.5rem; display:inline;" 
+                        :check="''" 
+                        shift="5"
+                        shiftmark="0"
+                        text="in person at"/>                
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block; line-height: 30px;" 
+                        textwidth="310px" 
+                        beforetext="" 
+                        hint="court location"
+                        hintMargin="125px"
+                        :italicHint="false" text=""/>
+                    <div style="display: flex; flex-direction: row;">
+                        <div style="width: 25%; margin-top: 30px;">
+                            <check-box 
+                                inline="inline" 
+                                boxMargin="0" 
+                                style="margin:0 0 0 0.5rem; display:inline;" 
+                                :check="''" 
+                                shift="5"
+                                shiftmark="0"
+                                text="by another"/>                
+                            <div style="margin-left: 35px;">method of attendance, as specified</div>
+                        </div>
+                        <div style="width: 74%; margin-top: 30px; border:1px solid black; padding: 5px; font-size: 11px;">
+                            <b>Do not attend the courthouse in person</b>. The registry will send within 24 hours before 
+                            the hearing date noted above the link to connect by MS Teams, including a dial-in conferencing 
+                            number to be used by any party that is unable to use MS Teams or has problems with their video 
+                            connection. If you have not provided your email address or telephone number to the registry on 
+                            your Notice of Address Change (<a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa763.pdf?forcedownload=true">Form 46</a>), you must contact the registry to obtain the MS Teams 
+                            conference information.
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 0.3rem;"></div>
+                <div class="fla-col-left-80 fla-light-grey" style="border: 1px dashed black; width: 99%">
+                    <b>NOTE TO THE OTHER PARTY:</b><br/>
+                    <b>If you do not attend</b> court on the date and time scheduled for the court appearance, the court
+                    may make an order in your absence.<br/>
+                    You may also choose to <b>file a written response</b> in reply to the application in Form 19 Written
+                    Response to Application.
+                </div>
+            </div>
+            <div style="width: 20%;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        The registry or judicial case manager will work with you to schedule a date for the court
+                        appearance and will fill in the actual date and method of attendance on the form. Be prepared to talk about your
+                        availability if there are options for dates.
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
+
+        <div style="margin-top: 1rem;"></div>
+
+   <!-- <5> -->
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="5" title="Address for service"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
+
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <div>
+                    <b style="padding-right:3px">5.</b>
+                    My <b>address for service</b> of court documents and contact information is:<br/>
+                    <i>You must provide an address for service and contact number, but it does not have to be<br/>
+                    your own if you don’t want</i>
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ serviceAddress.street }} 
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">City: <div class="answer" style="background-color: #d6d6d6;">{{ serviceAddress.city }}</div>
+                            </td>
+                            <td style="padding-left:50px; border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color: #d6d6d6;">{{ serviceAddress.state }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ serviceAddress.postcode }}</div>
+                            </td>
+                        </tr>
+                    </table>    
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ serviceContact.email }}</div>
+                            </td>
+                            <td style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ serviceContact.phone }}</div>
+                            </td>
+                        </tr>
+                        <tr style="border:2px solid #fff">
+                            <td v-if="yourInfo.lawyer" colspan="2" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ yourInfo.lawyerName | getFullName }} 
+                                </div>
+                            </td>
+                            <td v-else colspan="2" style="border: 2px solid #fff; padding: 4px;">Lawyer (if applicable): </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="width: 20%;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        For more information about how this information will be used and who will have
+                        access to it, see the guidebook.
+                    </p>
+                </NoteBox>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -254,6 +327,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import GreyBoxForm  from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { addressInfoType, contactInfoType } from '@/types/Application/CommonInformation';
@@ -263,7 +339,10 @@ import { urgencyInfoType } from '@/types/Application/ProtectionOrder/PDF';
     components:{
        UnderlineForm,
        GreyBoxForm,
-       CheckBox
+       CheckBox,
+       FormHeader,
+       FormPart,
+       NoteBox
     }
 })
 export default class CommonSection extends Vue {
@@ -282,6 +361,8 @@ export default class CommonSection extends Vue {
     orderType = '';   
     dataReady = false; 
 
+    headerTableData = [];
+
     mounted(){
         this.dataReady = false;
         this.getServiceInfo();
@@ -291,6 +372,22 @@ export default class CommonSection extends Vue {
         this.orderType = this.getOrderType(); 
         this.urgency = this.getUrgencyInfo();
         this.dataReady = true;
+
+        this.headerTableData = [
+            {
+                name:'REGISTRY LOCATION:', 
+                value: this.result.applicationLocation
+            },
+            {
+                name:'COURT FILE NUMBER:', 
+                value: this.existingFileNumber
+            },
+            null,
+            {
+                name: 'Document number',
+                value: ''
+            }
+        ];
     }
 
     public getOrderType(){
