@@ -28,19 +28,29 @@
             </p>
         </div>
 
-<!-- <PART 1> -->
-        <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-            <b>Part 1 | Existing protection order</b>
-        </div>
+<!-- <Part 1> -->
+    <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="1" title="Existing protection order"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
 
         <div style="margin-top: 1rem;"></div>
 
 <!-- <1> -->
-        <section class="resetquestion" style="width: 80%">
-            <check-box inline="inline" boxMargin="0" checkbox="" style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
-            <grey-box-form marginTop="-22px" style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="There is a <b>protection order made on</b>" hintindent="2rem" hint="(dd/mmm/yyyy)" :text="aboutOrder.dateOfPO | beautify-date"/>
-            <div style="display:inline; margin-left:0.5rem;">that I am applying to terminate <b>(see attached copy of order)</b>.</div>
-        </section>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <b style="padding-right:3px">1.</b>
+                <check-box inline="inline" shift="5" shiftmark="0" boxMargin="0" checkbox="" style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
+                <grey-box-form marginTop="-22px" style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="There is a <b>protection order made on</b>" hintindent="2rem" hint="(dd/mmm/yyyy)" :text="aboutOrder.dateOfPO | beautify-date"/>
+                <div style="display:inline; margin-left:0.5rem;">that I am applying to </div><br/>
+                <div style="padding-left: 18px;"></div>terminate <b>(see attached copy of order)</b>.</div>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
 
         <div style="margin-top:1rem;"></div>
 <!-- <2> -->
@@ -77,10 +87,14 @@
             </p>
         </div>
 
-<!-- <PART 2> -->
-    <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-            <b>Part 2 | The facts</b>
-        </div>
+<!-- <Part 1> -->
+    <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="2" title="The facts"></FormPart>
+            </div>
+            <div style="width: 20%;margin-top:30px;">
+            </div>
+        </div>  
 
         <div style="margin-top: 1rem;"></div>
 
@@ -101,13 +115,19 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import GreyBoxForm  from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 import { schedule3AboutOrderInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
     components:{
         UnderlineForm,
         GreyBoxForm,
-        CheckBox
+        CheckBox,
+        FormHeader,
+        FormPart,
+        NoteBox
     }
 })
 export default class Schedule3 extends Vue {
