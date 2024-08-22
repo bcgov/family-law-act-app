@@ -95,8 +95,8 @@
         <!-- 3 -->
         <section style="text-indent: 8px; width: 80%;" resetquestion="3">
             <check-box inline="inline" boxMargin="0" style="margin-left: 4px; margin-top: -20px; display: inline; text-indent: -16px;" :check="acknowledge ? 'yes' : ''"
-            text="I understand <b>I must give notice</b> of " />
-            this notice of discontinuance to each <br/><div style="margin-left: 42px;">other 
+            text="I understand <b>I must give notice</b> of this notice of discontinuance to each" />
+            <div style="margin-left: 42px;">other 
             party. To give notice, they <b>must be served</b> with a copy of the 
             notice</div><div style="margin-left: 42px;"> of discontinuance <b>before the earlier of the following</b> dates:</div>
 
@@ -303,12 +303,13 @@
                     boxMargin="0" 
                     shift="10"
                     shiftmark="-10"
-                    style="display:inline;margin-left:0.35rem" 
+                    style="display:inline;margin-left:0.35rem;" 
                     :check="courtAppearanceScheduled == 'y'?'yes':''" 
                     text="The application is scheduled for a court appearance on "/>
                 <grey-box-form 
-                    style="text-indent:1px;display:inline-block;" 
+                    style="text-indent:5px;display:inline-block;" 
                     textwidth="6rem" 
+                    marginTop="-19px"
                     hintindent="1rem"
                     beforetext="" 
                     hint="dd/mmm/yyyy" 
