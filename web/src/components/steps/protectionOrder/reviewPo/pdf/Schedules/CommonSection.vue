@@ -232,7 +232,7 @@
                     </div>
                 </div>
                 <div style="margin-top: 0.3rem;"></div>
-                <div class="fla-col-left-80 fla-light-grey" style="border: 1px dashed black; width: 99%">
+                <div class="fla-col-left-80 fla-light-grey" style="border: 1px dashed black; width: 99%; background-color: #dedede;">
                     <b>NOTE TO THE OTHER PARTY:</b><br/>
                     <b>If you do not attend</b> court on the date and time scheduled for the court appearance, the court
                     may make an order in your absence.<br/>
