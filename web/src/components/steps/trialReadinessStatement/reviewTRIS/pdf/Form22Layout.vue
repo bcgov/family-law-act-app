@@ -295,13 +295,13 @@
             </div>
             <div style="margin-left: 2rem; text-indent: -10px;">
                 <div style="display:inline; text-indent:0; margin:0 0rem 0 0.85rem;">
-                    <i><b>⤷ If yes</b></i>, is there likelihood of resolution before the trial?
+                    <span style="color: #626262"><i><b>⤷ If yes</b></i>, is there likelihood of resolution before the trial?</span>
                 </div>
-                <div style="display:inline-block; margin: 0.5rem 0 0 0">
-                    <check-box inline="inline" boxMargin="0" style="display:inline; text-indent:-16px; font-weight: bold;" 
-                    shift="10"  marginLeft="1.75rem" :check="resolvable == 'y'?'yes':''"  text="Yes"/>                                  
+                <div style="display:block; margin: 0rem 0 0 3rem">
+                    <check-box inline="inline" boxMargin="0" style="display:inline-block; text-indent:-16px; font-weight: bold;" 
+                        shift="10"  marginLeft="1.75rem" :check="resolvable == 'y'?'yes':''"  text="Yes"/>    
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline; text-indent:-16px; font-weight: bold;" 
-                    shift="-8" marginLeft="0.5rem" :check="resolvable == 'n'?'yes':''" text="No"/> 
+                        shift="-8" marginLeft="0.5rem" :check="resolvable == 'n'?'yes':''" text="No"/> 
                 </div>
             </div>
             <!-- 8 -->
@@ -312,7 +312,7 @@
                 </div>
             </div>
             <div style="display:inline-block; text-indent:0; margin:0 0.5rem 0 2rem;">
-                <i>Select all options that apply</i>
+                <i style="color: #626262">Select all options that apply</i>
             </div>
             <div style="text-indent:-16px">
                 <div style="margin:0.25rem 0 0 5rem;">
@@ -427,7 +427,7 @@
                     boxMargin="0" 
                     style="display:inline;" 
                     :check="existingOrder.includes('otherOrder')?'yes':''" 
-                    text="Other order that would affect the conduct of the trial <i>(specify)</i>:"/>
+                    text="Other order that would affect the conduct of the trial <i style='color: #626262'>(specify)</i>:"/>
                 <grey-box-form 
                     style="text-indent:0;margin:0.5rem 0 0 .25rem;display:inline-block;" 
                     textwidth="13rem" 
@@ -477,7 +477,7 @@
             <FormPart :part="4" title="Disclosure of information" />
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <b>9. </b>
-                <i>Please select the correct statement</i>
+                <i style="color: #626262">Please select the correct statement</i>
             </div>
             <div style="text-indent:-16px; margin:0.25rem 0 0 1.5rem;">
                 <div class="marginleft2p5vue">
@@ -514,22 +514,22 @@
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <b>10. </b>
                 <div style="text-indent:10px;display:inline;"> 
-                    I have provided each other party with a copy of the information I plan to 
-                    rely on during the trial, including financial information, documents, 
+                    I have <b>provided each other party with a copy of the information I plan to 
+                    rely on</b> during the trial, including financial information, documents, 
                     and a list of witnesses
                 </div> 
             </div>
             <div style="display:inline-block; text-indent:-16px; margin-left: 2rem;">
                 <check-box inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="10"  marginLeft="1.75rem" :check="copyForParty?'yes':''"  text="Yes"/>                                  
+                    shift="10"  marginLeft="1.75rem" :check="copyForParty?'yes':''"  text="<b>Yes</b>"/>                                  
                 <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="-8" marginLeft="0.5rem" :check="!copyForParty?'yes':''" text="No"/> 
+                    shift="-8" marginLeft="0.5rem" :check="!copyForParty?'yes':''" text="<b>No</b>"/> 
             </div>
             <div>  
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; margin: 0rem 0 0 5rem;" 
                     textwidth="23rem" 
-                    beforetext="<b><i>⤷ If no</i></b>, when can these be provided to the parties?"
+                    beforetext="<span style='color: #626262'><b><i>⤷ If no</i></b>, when can these be provided to the parties?</span>"
                     marginTop="-12px"
                     :italicHint="false" :text="copyForPartyDate"/>
             </div>
@@ -542,13 +542,13 @@
             </div>
             <div style="display:inline-block; text-indent:-16px; margin-left:2rem">
                 <check-box inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="10"  marginLeft="1.75rem" :check="needInfo?'yes':''"  text="Yes"/>                                  
+                    shift="10"  marginLeft="1.75rem" :check="needInfo?'yes':''"  text="<b>Yes</b>"/>                                  
                 <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" 
-                    shift="-8" marginLeft="0.5rem" :check="!needInfo?'yes':''" text="No"/> 
+                    shift="-8" marginLeft="0.5rem" :check="!needInfo?'yes':''" text="<b>No</b>"/> 
             </div>
             <div>                
                 <div style="text-indent:0.25px;font-size: 9pt; margin: 0rem 0 0 2rem;"> 
-                    <b><i>⤷ If yes</i></b>, please explain what information you need
+                    <span style="color: #626262"><b><i>⤷ If yes</i></b>, please explain what information you need</span>
                     <div v-if="needInfo" class="answerbox">{{ neededInfoDesc }}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
             </div>
@@ -569,7 +569,7 @@
         </div>
     </div>
 
-    <!-- Part 5 -->
+    <!-- Part 5 section 1-->
     <div style="margin-top: 1rem;" />
     <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
         <div style="width: 80%; margin-right: 10px;">
@@ -578,7 +578,7 @@
                 <b>12. </b>
                 I plan to have the following people <b>attend as witnesses</b> in this trial:
             </div>
-            <div style="text-indent:5px;font-size: 9pt;font-style: italic; margin:0rem 0 0 2rem;"> 
+            <div style="text-indent:5px;font-size: 9pt;font-style: italic; margin:0rem 0 0 2rem; color: #626262"> 
                 Include your own name on the list if you plan to provide evidence
             </div>          
             <div style="margin:0.5rem 0 0 2rem;">
@@ -664,6 +664,26 @@
                         :text="additionalWitnesses[2*inx+5]"/>                   
                 </div>
             </div>
+        </div>
+        <div style="width: 20%">
+            <NoteBox textColor="#626262">
+                <b-icon-info-circle-fill />
+                <p>
+                    A witness must have direct 
+                    knowledge of the things you 
+                    want them to give evidence 
+                    about. The evidence must 
+                    also be relevant to the issues 
+                    to be decided at trial.
+
+                </p>
+            </NoteBox>
+        </div>
+    </div>
+
+    <!-- Part 5 section 2-->
+    <div style="display:flex; flex-direction:row; gap:6px; font-size:10pt">
+        <div style="width: 80%; margin-right: 10px;">
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <b>13. </b>
                 <div style="text-indent:10px;display:inline;"> 
@@ -688,7 +708,7 @@
                 </div>
                 <div style="margin-left: 1rem;">
                     <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
-                        <i>⤷ If yes, please answer the following questions:</i>
+                        <i style="color: #626262">⤷ If yes, please answer the following questions:</i>
                     </div>
                     <div style="display:block; text-indent:0; margin:0 0.5rem 0 1rem;">
                         (a) Has the report been provided to the other party?
@@ -724,7 +744,7 @@
                 </div>
                 <div style="margin-left: 1.35rem;">
                     <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
-                        <i>⤷ If yes, please answer the following questions</i>
+                        <i style="color: #626262">⤷ If yes, please answer the following questions</i>
                     </div>
                     <div style="display:block; text-indent:0; margin:0 0.5rem 0 1rem;">
                         (a) Has the report been completed?
@@ -761,18 +781,6 @@
             </div>
         </div>
         <div style="width: 20%;">
-            <NoteBox textColor="#626262">
-                <b-icon-info-circle-fill />
-                <p>
-                    A witness must have direct 
-                    knowledge of the things you 
-                    want them to give evidence 
-                    about. The evidence must 
-                    also be relevant to the issues 
-                    to be decided at trial.
-
-                </p>
-            </NoteBox>
             <NoteBox textColor="#626262" style="margin-top:50px">
                 <b-icon-info-circle-fill />
                 <p>
@@ -816,9 +824,9 @@
             <!-- 17 -->
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <div style="font-size:9.75pt; display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
-                    <b>7. </b>
+                    <b>17. </b>
                     I have the following special requirements/considerations for the trial: <br/>
-                    <i>Select each option that applies and provide the additional information as required</i>
+                    <i style="color: #626262">Select each option that applies and provide the additional information as required</i>
                 </div>
                 <!-- Technology -->
                  <div>
@@ -829,7 +837,7 @@
                             inline="inline" 
                             boxMargin="0" 
                             style="display:inline;"
-                            :check="specialReqList.includes('technology')?'yes':''" text="<b>Technology needs</b><i> (specify):</i>"/>
+                            :check="specialReqList.includes('technology')?'yes':''" text="<b>Technology needs</b><i style='color: #626262'> (specify):</i>"/>
                     </div>
                     <div>                
                         <div v-if="specialReqList.includes('technology')" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;" class="answerbox">
@@ -849,7 +857,7 @@
                             inline="inline" 
                             boxMargin="0" 
                             style="display:inline;"
-                            :check="specialReqList.includes('interpreter')?'yes':''" text="<b>Interpreter</b> for <i> (name of party or witness):</i>"/>
+                            :check="specialReqList.includes('interpreter')?'yes':''" text="<b>Interpreter</b> for <i style='color: #626262'> (name of party or witness):</i>"/>
                     </div>
                     <div>                
                         <div v-if="specialReqList.includes('interpreter')" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;" class="answerbox">
@@ -858,7 +866,7 @@
                         <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
                     </div>
                     <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1rem; text-indent: -16px;">
-                        Language <i> (specify):</i>
+                        Language <i style="color: #626262"> (specify):</i>
                     </div>
                     <div v-if="specialReqList.includes('interpreter')" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;" class="answerbox">
                         {{interpreterInfo.language}}
@@ -878,7 +886,7 @@
                             style="display:inline;"
                             :check="specialReqList.includes('safety')?'yes':''" text="<b>Safety planning</b>"/>
                             <br/>
-                        <i>Please explain your concerns or why you need a safety plan in place for the courtroom:</i>
+                        <i style="color: #626262">Please explain your concerns or why you need a safety plan in place for the courtroom:</i>
                     </div>
                     <div>                
                         <div v-if="specialReqList.includes('safety')" class="answerbox" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;">{{ safetySpecs }}</div>
@@ -917,7 +925,7 @@
                             boxMargin="0" 
                             style="display:inline;"
                             :check="specialReqList.includes('disability')?'yes':''" text="<b>Accommodations for disability,</b>"/>
-                            such as court room access and set up, audio aids, or other accommodations <i>(specify)</i>:
+                            such as court room access and set up, audio aids, or other accommodations <i style="color: #626262">(specify)</i>:
                     </div>
                     <div>                
                         <div v-if="specialReqList.includes('disability')" class="answerbox" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;">{{ disabilitySpecs }}</div>
@@ -995,7 +1003,7 @@
                         :check="!trialScheduled?'no':''" text="<b>No</b>"/>
                 </div>
                 <div style="display:inline; text-indent:0; margin:0 0rem 0 3.50rem;">
-                    <i><b>⤷ If yes</b></i>, the trial is scheduled for the following date(s):
+                    <span style="color: #626262"><i><b>⤷ If yes</b></i>, the trial is scheduled for the following date(s):</span>
                     <grey-box-form
                         style="text-indent:0;margin:0.25rem 0 0 4rem;display:inline-block;" 
                         textwidth="10rem"
@@ -1007,7 +1015,7 @@
             </div>
             <div style="margin: 0.5rem 0 0 1rem; text-indent: -10px; padding-left: 10px;">
                 <b>19. </b>
-                <i>Select whichever statement is correct</i>
+                <i style="color: #626262">Select whichever statement is correct</i>
             </div>
             <div style="text-indent:-16px;">
                 <div style="margin:0.25rem 0 0 5rem;">
@@ -1028,7 +1036,7 @@
                         style="display:inline;" 
                         :check="!feelReady?'yes':''" 
                         text="I will not be ready to start on the scheduled trial date because:"/>
-                    <div class="marginleft-0p5vue" style="margin-left:0.5rem; text-indent:0px;font-size: 9pt; font-style: italic;"> 
+                    <div class="marginleft-0p5vue" style="margin-left:0.5rem; text-indent:0px;font-size: 9pt; font-style: italic; color: #626262"> 
                         Explain why you will not be ready on the trial date
                     </div>
                     <div v-if="!feelReady && feelReadyExplanation.length>0" style="background-color: #dedede; word-wrap: break-word;"
@@ -1038,7 +1046,7 @@
             </div>
             <div style="margin: 1rem 0 0 1rem; text-indent: -10px; padding-left: 10px;">
                 <b>20. </b>
-                <i>I believe this trial will take</i>
+                I believe this trial will take
                 <grey-box-form
                     style="text-indent:0;display:inline;" 
                     textwidth="5rem"
@@ -1087,8 +1095,8 @@
         <div style="width: 80%; margin-right: 10px;">
             <FormPart :part="8" title=" Orders at the Trial Preparation Conference" />
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
-                <b>12. </b>
-                <i>Complete only if applicable. You may leave this question blank.</i>
+                <b>22. </b>
+                <i style="color: #626262">Complete only if applicable. You may leave this question blank.</i>
                 <p style="margin-left:1rem">I will be asking for the following order(s) at the trial preparation conference:</p>
                 <div v-if="orders && orderDetails.length>0" style="background-color: #dedede; word-wrap: break-word;" class="answerbox">{{ orderDetails }}</div>
                 <div v-else style="margin-bottom:3rem;"></div> 
