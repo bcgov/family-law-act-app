@@ -5,18 +5,21 @@
     <div v-if="dataReady">
         <div class="new-page" />
 
-        <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 17pt; width: 80%;">
-                <b><span style="font-size: 34pt;">Schedule 1</span> | Protection Order</b>
-            </div>
-            <div style="width: 20%;">
+        <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 50%;">
+                    <span style="font-size: 30pt;"><b>Schedule 1 |</b></span>
+                </div>
+                <div style="width: 50%;">
+                    <span style="vertical-align: middle;"><b>Protection Order</b></span>
+                </div>
             </div>
         </div>
 
         <div style="margin-top: 1rem;"></div>
 
         <div style="display: flex; flex-direction: row;">
-            <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%">
+            <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%; background-color: #dedede;">
                 Complete this schedule only if you are applying for a <i>Family Law Act</i> protection order.
                 This schedule is an affidavit. It sets out the evidence to help you explain to the court why you
                 need a protection order and what it should include.
@@ -26,23 +29,24 @@
         </div>
 
         <div style="margin-top: 1rem;"></div>
+
 <!-- <PART 1> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
-                <b>Part 1 | Affidavit</b>
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="1" title="Affidavit"></FormPart>
             </div>
-            <div style="width: 20%;">
+            <div style="width: 20%;margin-top:30px;">
             </div>
-        </div>
+        </div>  
 
-        <div style="margin-top: 1rem;"></div>
+        <div style="margin-top: 0.1rem;"></div>
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%">
-                <grey-box-form marginTop="-17px" style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="yourInfo.name | getFullName"/>
-                <grey-box-form marginTop="-17px" style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hintindent="1rem" hint="occupation" :text="yourInfo.occupation"/>
-                <div style="margin-top: 0.1rem;"></div>
-                <grey-box-form marginTop="-17px" style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="serviceAddress | getFullAddress"/>
+                <grey-box-form marginTop="-19px" style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="yourInfo.name | getFullName"/>
+                <grey-box-form marginTop="-19px" style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hintindent="1rem" hint="occupation" :text="yourInfo.occupation"/>
+                <div style="margin-top: 0.6rem;"></div>
+                <grey-box-form marginTop="-19px" style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="serviceAddress | getFullAddress"/>
                 <div style="text-indent:1px;display:inline;"> ,</div>
             </div>
             <div style="width: 20%;">
@@ -62,30 +66,29 @@
             <div style="width: 80%; padding-left: 8px;">  
                 <b>1. </b>I am making this affidavit in support of an application for a protection order.
             </div>
-            <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -130px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+            <div style="width: 20%; margin-top:-100px;">
+                <NoteBox>
+                    <b-icon-book />
+                    <br />
                     <p>
-                        <b-icon-book />
-                        <div style="font-size: 9px">For more information about swearing or affirming an affidavit, see the guidebook.</div>
+                        For more information about swearing or affirming an affidavit, see the guidebook.
                     </p>
-                </div>
+                </NoteBox>
             </div>
         </div>
 
 
 <!-- <PART 2> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
-                <b>Part 2 | Protected party/parties</b>
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="2" title="Protected party/parties"></FormPart>
             </div>
-            <div style="width: 20%;">
+            <div style="width: 20%;margin-top:30px;">
             </div>
-        </div>
-
-        <div style="margin-top: 1rem;"></div>
+        </div>  
 
         <div style="display: flex; flex-direction: row;">
-            <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%">
+            <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%; background-color: #dedede;">
                 A protection order made under the <i>Family Law Act</i> is a court order that protects one family
                 member from another family member if there is a risk of family violence.<br/>
                 The person(s) identified in this part is/are referred to as the protected party/parties. The other
@@ -123,18 +126,20 @@
                 </b-table> 
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                <div style="margin-top: -140px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">As set out in s. 183 of the <i>Family Law Act</i>, a protection order can protect:<br/>
+                        <br />
+                        <p>
+                            As set out in s. 183 of the <i>Family Law Act</i>, a protection order can protect:<br/>
                             <ul>
-                                <li>you (the applying party)</li>
-                                <li>your children</li>
-                                <li>an adult family member that lives with the protected party (you and/or your children)</li>
-                                <li>an at-risk person you are applying on behalf of for protection from their family member</li>
+                                <li style="margin-left: -20px;">you (the applying party)</li>
+                                <li style="margin-left: -20px;">your children</li>
+                                <li style="margin-left: -20px;">an adult family member that lives with the protected party (you and/or your children)</li>
+                                <li style="margin-left: -20px;">an at-risk person you are applying on behalf of for protection from their family member</li>
                             </ul>
-                        </div>
-                    </p>
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -175,25 +180,27 @@
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -5px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                <div style="margin-top: -70px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">You cannot apply for the protection of another person’s child. If you believe a child
-                        needs protection and their parent or guardian is unwilling or unable to apply for a protection order on their
-                        behalf, contact the Ministry of Children and Family Development.</div>
-                    </p>
-                </div>
-
-                <div style="background: #FFFFFF; line-height: 8px;">
-                    &nbsp;<br/>
-                </div>
-
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
-                        <b-icon-book />
-                        <div style="font-size: 9px">A family member is a defined term under s. 1 of the <i>Family Law Act</i>. For more
-                        information about who is a family member, see the guidebook.</div>
-                    </p>
+                        <br />
+                        <p>
+                            You cannot apply for the protection of another person’s child. If you believe a child
+                            needs protection and their parent or guardian is unwilling or unable to apply for a protection order on their
+                            behalf, contact the Ministry of Children and Family Development.
+                        </p>
+                    </NoteBox>
+                    <div style="background: #FFFFFF; line-height: 8px; margin-left: -5px; width: 130px;">
+                        &nbsp;<br/>
+                    </div>
+                    <NoteBox>
+                        <b-icon-info-circle-fill />
+                        <br />
+                        <p>
+                            A family member is a defined term under s. 1 of the <i>Family Law Act</i>. For more
+                            information about who is a family member, see the guidebook.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -202,12 +209,12 @@
 
 <!-- <PART 3> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
-                <b>Part 3 | About the protection order</b>
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="3" title="About the protection order"></FormPart>
             </div>
-            <div style="width: 20%;">
+            <div style="width: 20%;margin-top:30px;">
             </div>
-        </div>
+        </div>  
 
         <div style="margin-top: 1rem;"></div>
 
@@ -228,11 +235,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -90px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
-                        <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">A protection order may include any of the terms set out in s.183(3) of the
-                        <i>Family Law Act</i>.</div>
-                    </p>
+                    <NoteBox>
+                        <b-icon-book />
+                        <br />
+                        <p>
+                            A protection order may include any of the terms set out in s.183(3) of the
+                            <i>Family Law Act</i>.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -254,11 +264,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: 0px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
-                        <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">You might be asked by the judge at your court appearance to provide the
-                        specific address and name of the place. Be sure to have them ready.</div>
-                    </p>
+                    <NoteBox>
+                        <b-icon-book />
+                        <br />
+                        <p>
+                            You might be asked by the judge at your court appearance to provide the
+                            specific address and name of the place. Be sure to have them ready.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -352,11 +365,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -30px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
-                        <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">Examples of weapons someone might own include swords, hunting knives, nun
-                        chucks, and brass knuckles.</div>
-                    </p>
+                    <NoteBox>
+                        <b-icon-book />
+                        <br />
+                        <p>
+                            Examples of weapons someone might own include swords, hunting knives, nun
+                            chucks, and brass knuckles.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -388,11 +404,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
-                        <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">The court can order that the police help to remove the other party from a shared
-                        residence and/or that they help supervise the removal or collection of belongings.</div>
-                    </p>
+                    <NoteBox>
+                        <b-icon-book />
+                        <br />
+                        <p>
+                            The court can order that the police help to remove the other party from a shared
+                            residence and/or that they help supervise the removal or collection of belongings.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -401,12 +420,12 @@
 
 <!-- <PART 4> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="background: #626262; color: white; font-size: 13pt; width: 78%;">
-                <b>Part 4 | Your story</b>
+            <div style="width: 80%; padding-right: 4px;">
+                <FormPart :part="4" title="Your story"></FormPart>
             </div>
-            <div style="width: 20%;">
+            <div style="width: 20%;margin-top:30px;">
             </div>
-        </div>
+        </div>  
 
         <div style="margin-top: 1rem;"></div>
 
@@ -418,11 +437,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">Section 184 of the Family Law Act sets out what a court must consider in determining
-                        whether to make a protection order.</div>
-                    </p>
+                        <br />
+                        <p>
+                            Section 184 of the Family Law Act sets out what a court must consider in determining
+                            whether to make a protection order.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -488,11 +510,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">If the protection order is only for the protection of a child or
-                        children, please answer this Part for the parents or guardians of the children.</div>
-                    </p>
+                        <br />
+                        <p>
+                            If the protection order is only for the protection of a child or
+                            children, please answer this Part for the parents or guardians of the children.
+                        </p>
+                    </NoteBox>
                 </div>
 
                 <div style="background: #FFFFFF; line-height: 8px;">
@@ -500,11 +525,14 @@
                 </div>
 
                 <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">Spouses may be separated even if they continue to live in the same residence
-                        [<i>Family Law Act</i> s. 3(4)].</div>
-                    </p>
+                        <br />
+                        <p>
+                            Spouses may be separated even if they continue to live in the same residence
+                            [<i>Family Law Act</i> s. 3(4)].
+                        </p>
+                    </NoteBox>
                 </div>
 
                 <div style="background: #FFFFFF; line-height: 8px;">
@@ -512,11 +540,14 @@
                 </div>
 
                 <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-book />
-                        <div style="font-size: 9px">A family member is a defined term under s. 1 of the <i>Family Law Act</i>. For more
-                        information about who is a family member, see the guidebook.</div>
-                    </p>
+                        <br />
+                        <p>
+                            A family member is a defined term under s. 1 of the <i>Family Law Act</i>. For more
+                            information about who is a family member, see the guidebook.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -568,11 +599,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -5px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">A child may split their time between two residences. If a child spends at least 40% of
-                        their time living somewhere, include both.</div>
-                    </p>
+                        <br />
+                        <p>
+                            A child may split their time between two residences. If a child spends at least 40% of
+                            their time living somewhere, include both.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -617,11 +651,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -10px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">Include any order (interim or final), agreement or plan from any level of court and any
-                        location.</div>
-                    </p>
+                        <br />
+                        <p>
+                            Include any order (interim or final), agreement or plan from any level of court and any
+                            location.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -643,11 +680,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: 10px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-paperclip />
-                        <div style="font-size: 9px">If yes, you must attach a copy of any order, agreement or plan to this application for
-                        filing.</div>
-                    </p>
+                        <br />
+                        <p>
+                            If yes, you must attach a copy of any order, agreement or plan to this application for
+                            filing.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -695,11 +735,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">You will be asked to describe specific incidents that police
-                        attended in a later part of this form.</div>
-                    </p>
+                        <br />
+                        <p>
+                            You will be asked to describe specific incidents that police
+                            attended in a later part of this form.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -714,12 +757,15 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">If there is reason to believe a child (under 19) is being abused, neglected, sexually
-                        exploited, or is otherwise in need of protection, and a parent or guardian is unable or unwilling to protect the
-                        child, the matter must be reported to a social worker at the Ministry of Children and Family Development.</div>
-                    </p>
+                        <br />
+                        <p>
+                            If there is reason to believe a child (under 19) is being abused, neglected, sexually
+                            exploited, or is otherwise in need of protection, and a parent or guardian is unable or unwilling to protect the
+                            child, the matter must be reported to a social worker at the Ministry of Children and Family Development.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -747,19 +793,25 @@
                     </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-book />
-                        <div style="font-size: 9px">For more information about what information you should include, see the guidebook.</div>
-                    </p>
+                        <br />
+                        <p>
+                            For more information about what information you should include, see the guidebook.
+                        </p>
+                    </NoteBox>
                 </div>
 
                 <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-paperclip />
-                        <div style="font-size: 9px">Remember to attach a copy of any exhibit(s) when you file your application.
-                        Each exhibit gets a letter assigned to it, starting with ‘A’ and continuing through the
-                        alphabet. For example, the police report attached as Exhibit A.</div>
-                    </p>
+                        <br />
+                        <p>
+                            Remember to attach a copy of any exhibit(s) when you file your application.
+                            Each exhibit gets a letter assigned to it, starting with ‘A’ and continuing through the
+                            alphabet. For example, the police report attached as Exhibit A.
+                        </p>
+                    </NoteBox>
                 </div>
 
                 <div style="background: #FFFFFF; line-height: 8px;">
@@ -767,11 +819,14 @@
                 </div>
 
                 <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-paperclip />
-                        <div style="font-size: 9px">If you need more space, select the box, and remember to include your additional
-                        page(s).</div>
-                    </p>
+                        <br />
+                        <p>
+                            If you need more space, select the box, and remember to include your additional
+                            page(s).
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -806,11 +861,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -40px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">A person whose safety and security is, or is likely, at risk from family violence carried
-                        out by a family member is an at-risk family member [s.182 <i>Family Law Act</i>].</div>
-                    </p>
+                        <br />
+                        <p>
+                            A person whose safety and security is, or is likely, at risk from family violence carried
+                            out by a family member is an at-risk family member [s.182 <i>Family Law Act</i>].
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -828,11 +886,14 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-book />
-                        <div style="font-size: 9px">For more information about risk factors for family violence, see the guidebook or s.184 of
-                        the <i>Family Law Act</i>.</div>
-                    </p>
+                        <br />
+                        <p>
+                            For more information about risk factors for family violence, see the guidebook or s.184 of
+                            the <i>Family Law Act</i>.
+                        </p>
+                    </NoteBox>
                 </div>
 
                 <div style="background: #FFFFFF; line-height: 8px;">
@@ -840,11 +901,15 @@
                 </div>
 
                 <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">The court may make a protection order if the court determines that family
-                        violence is likely to occur, and the other family member is an at-risk family member [s.183 <i>Family Law Act</i>].</div>
-                    </p>
+                        <br />
+                        <p>
+                            The court may make a protection order if the court determines that family
+                            violence is likely to occur, and the other family member is an at-risk family member 
+                            [s.183 <i>Family Law Act</i>].
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -886,12 +951,15 @@
             </div>
             <div style="width: 20%; padding: 6px;">
                 <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <p>
+                    <NoteBox>
                         <b-icon-info-circle-fill />
-                        <div style="font-size: 9px">This document must be signed only with a commissioner for taking
-                        affidavits. A commissioner is available at the court registry for free. Do not sign the
-                        document until they tell you to. You will sign it with them.</div>
-                    </p>
+                        <br />
+                        <p>
+                            This document must be signed only with a commissioner for taking
+                            affidavits. A commissioner is available at the court registry for free. Do not sign the
+                            document until they tell you to. You will sign it with them.
+                        </p>
+                    </NoteBox>
                 </div>
             </div>
         </div>
@@ -903,6 +971,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import GreyBoxForm  from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { contactInfoType, addressInfoType } from '@/types/Application/CommonInformation';
@@ -912,7 +983,10 @@ import { schedule1ChildInfoType, schedule1AnotherAdultInfoType, schedule1OtherCh
     components:{
         UnderlineForm,
         GreyBoxForm,
-        CheckBox
+        CheckBox,
+        FormHeader,
+        FormPart,
+        NoteBox
     }
 })
 export default class Schedule1 extends Vue {
