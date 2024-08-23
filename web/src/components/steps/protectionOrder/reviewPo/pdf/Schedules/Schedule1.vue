@@ -66,7 +66,7 @@
             <div style="width: 80%; padding-left: 8px;">  
                 <b>1. </b>I am making this affidavit in support of an application for a protection order.
             </div>
-            <div style="width: 20%; margin-top:-100px;">
+            <div style="width: 20%; margin-top:-100px; line-height: 11px;">
                 <NoteBox>
                     <b-icon-book />
                     <br />
@@ -88,11 +88,13 @@
         </div>  
 
         <div style="display: flex; flex-direction: row;">
-            <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 80%; background-color: #dedede;">
-                A protection order made under the <i>Family Law Act</i> is a court order that protects one family
-                member from another family member if there is a risk of family violence.<br/>
-                The person(s) identified in this part is/are referred to as the protected party/parties. The other
-                party is the family member they need protection from.
+            <div style="width: 80%; padding-right: 4px;">
+                <div class="fla-col-left-80 fla-light-grey" style="border-style: none; border-color: black; width: 100%; background-color: #dedede;">
+                    A protection order made under the <i>Family Law Act</i> is a court order that protects one family
+                    member from another family member if there is a risk of family violence.<br/>
+                    The person(s) identified in this part is/are referred to as the protected party/parties. The other
+                    party is the family member they need protection from.
+                </div>
             </div>
             <div style="width: 20%;">
             </div>
@@ -102,17 +104,17 @@
 
 <!-- <2> -->
         <div style="display: flex; flex-direction: row;">
-            <div style="width: 80%; padding-left: 8px;">  
+            <div style="width: 80%; padding-left: 8px; padding-right: 2px;">  
                 <b>2. </b>I am applying for a protection order for <b>the following person(s) to be protected:</b>
                 <div style="margin:0.25rem 0 0 2rem; width: 80%;" >
                     <i>Select and complete only those options that apply to your situation. You may select more than one.</i>
-                    <check-box shift="10" shiftmark="0" :check="applicantNeedsProtection == 'y'?'yes':''" text="me"/>
-                    <check-box shift="10" shiftmark="0" :check="hasChildren?'yes':''" text=" the following <b>child(ren)</b> I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
+                    <check-box shift="10" shiftmark="0" :check="applicantNeedsProtection == 'y'?'yes':''" text="<b>Me</b>"/>
+                    <check-box shift="10" shiftmark="0" :check="hasChildren?'yes':''" text="The following <b>child(ren)</b> I am parent or guardian to:<br><i>Provide the requested information below for each child</i>"/>                
                 </div>
                 <b-table
                     :items="childrenItem"
                     :fields="childrenFields"
-                    class="mt-2"                
+                    class="mt-2"  
                     small>                    
                         <template v-slot:cell()="data">
                             <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
@@ -125,22 +127,20 @@
                         </template>
                 </b-table> 
             </div>
-            <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -140px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
-                    <NoteBox>
-                        <b-icon-info-circle-fill />
-                        <br />
-                        <p>
-                            As set out in s. 183 of the <i>Family Law Act</i>, a protection order can protect:<br/>
-                            <ul>
-                                <li style="margin-left: -20px;">you (the applying party)</li>
-                                <li style="margin-left: -20px;">your children</li>
-                                <li style="margin-left: -20px;">an adult family member that lives with the protected party (you and/or your children)</li>
-                                <li style="margin-left: -20px;">an at-risk person you are applying on behalf of for protection from their family member</li>
-                            </ul>
-                        </p>
-                    </NoteBox>
-                </div>
+            <div style="width: 20%; margin-top:-135px; line-height: 11px;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        As set out in s. 183 of the <i>Family Law Act</i>, a protection order can protect:<br/>
+                        <ul>
+                            <li style="margin-left: -20px;">you (the applying party)</li>
+                            <li style="margin-left: -20px;">your children</li>
+                            <li style="margin-left: -20px;">an adult family member that lives with the protected party (you and/or your children)</li>
+                            <li style="margin-left: -20px;">an at-risk person you are applying on behalf of for protection from their family member</li>
+                        </ul>
+                    </p>
+                </NoteBox>
             </div>
         </div>
         <div style="display: flex; flex-direction: row;">
@@ -175,12 +175,12 @@
                             <b >Date of birth</b> <br/> <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
                         </template>
                     </b-table>
-                    <div style="text-indent:-18px;display:block;margin-top:0.5rem;"> Explain why you are applying for the other person:</div>
-                    <div class="answerbox" style="width:98%"> {{anotherAdult.reason ? anotherAdult.reason : '&nbsp;'}}</div>
+                    <div style="text-indent:-18px;display:block;margin-top:0.5rem;"> Explain <b>why</b> you are applying for the other person:</div>
+                    <div class="answerbox" style="width:98%; background-color: #dedede;"> {{anotherAdult.reason ? anotherAdult.reason : '&nbsp;'}}</div>
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -70px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -70px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -234,7 +234,7 @@
                 <b>No go</b>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -90px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -90px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-book />
                         <br />
@@ -263,7 +263,7 @@
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: 0px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-book />
                         <br />
@@ -322,7 +322,7 @@
                 <b>5. </b>I am concerned the other party would <b>cause harm with or threaten to use <br/>guns, explosives or another kind of firearm</b><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.firearms == 'n'?'yes':''" text="<b>No</b>"/><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.firearms == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your concerns:"/>
-                <div class="answerbox" style="width:98%">{{weaponsFirearms.firearmsReason ? weaponsFirearms.firearmsReason : '&nbsp;'}}</div>
+                <div class="answerbox" style="width:98%; background-color: #dedede;">{{weaponsFirearms.firearmsReason ? weaponsFirearms.firearmsReason : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
             </div>
@@ -335,7 +335,7 @@
                 <b>6. </b>I believe the other party <b>owns or has access to guns, explosives or another kind<br/> of firearm</b><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.firearmsYes == 'n'?'yes':''" text="<b>No</b>"/><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.firearmsYes == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your belief:"/>
-                <div class="answerbox" style="width:98%">{{weaponsFirearms.firearmsYesReason ? weaponsFirearms.firearmsYesReason : '&nbsp;'}}</div>
+                <div class="answerbox" style="width:98%; background-color: #dedede;">{{weaponsFirearms.firearmsYesReason ? weaponsFirearms.firearmsYesReason : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
             </div>
@@ -348,7 +348,7 @@
                 <b>7. </b>I am concerned the other party would <b>cause harm with or threaten to use a <br/>weapon that is not a gun or explosive</b><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.weapons == 'n'? 'yes' : ''" text="<b>No</b>"/><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.weapons == 'y'? 'yes' : ''" text="<b>Yes</b> ➜ explain the reason(s) for your concerns:"/>
-                <div class="answerbox" style="width:98%">{{weaponsFirearms.weaponsReasons ? weaponsFirearms.weaponsReasons : '&nbsp;'}}</div>
+                <div class="answerbox" style="width:98%; background-color: #dedede;">{{weaponsFirearms.weaponsReasons ? weaponsFirearms.weaponsReasons : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
             </div>
@@ -361,10 +361,10 @@
                 <b>8. </b>I believe the other party <b>owns a weapon that is not a gun or explosive</b><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.weaponsYes == 'n'?'yes':''" text="<b>No</b>"/><br/>            
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.weaponsYes == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your belief:"/>
-                <div class="answerbox" style="width:98%">{{weaponsFirearms.weaponsYesReason ? weaponsFirearms.weaponsYesReason : '&nbsp;'}}</div>
+                <div class="answerbox" style="width:98%; background-color: #dedede;">{{weaponsFirearms.weaponsYesReason ? weaponsFirearms.weaponsYesReason : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -30px; background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -30px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-book />
                         <br />
@@ -399,11 +399,11 @@
                     <check-box style="margin-top:0rem;" shift="10" shiftmark="0" :check="removePerson.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
                     <check-box style="margin-top:0rem;" shift="10" shiftmark="0" :check="removePerson.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
                     <check-box style="margin-top:0rem;" shift="10" shiftmark="0" :check="removePerson.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                    <div class="answerbox" style="width:98%">{{removePerson.needPoliceComment ? removePerson.needPoliceComment : '&nbsp;'}}</div>
+                    <div class="answerbox" style="width:98%; background-color: #dedede;">{{removePerson.needPoliceComment ? removePerson.needPoliceComment : '&nbsp;'}}</div>
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 1px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-book />
                         <br />
@@ -436,7 +436,7 @@
                 apply for a protection order.
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -30px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -505,11 +505,11 @@
                         text="The protected party has never been the other party’s spouse. The protected
                         party/parties and the other party are related as follows:"/>                                    
                         <i><b>Describe how</b> they are <b>related</b> for the purposes of this application</i>
-                    <div class="answerbox" style="width:98%"> {{'&nbsp;'}}</div>
+                    <div class="answerbox" style="width:98%; background-color: #dedede;"> {{'&nbsp;'}}</div>
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -30px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -524,7 +524,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -539,7 +539,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-book />
                         <br />
@@ -556,8 +556,8 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
                 <b>11. </b>The protected party <b>currently shares a residence</b> with the other party<br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="removePerson.liveTogether == 'y'?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="removePerson.liveTogether == 'n'?'yes':''" text="No"/>                       
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="removePerson.liveTogether == 'y'?'yes':''" text="<b>Yes</b>"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="removePerson.liveTogether == 'n'?'yes':''" text="<b>No</b>"/>                       
             </div>
             <div style="width: 20%; padding: 6px;">
             </div>
@@ -598,7 +598,7 @@
                 </b-table> 
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -5px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -5px;line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -622,9 +622,9 @@
 <!-- <13> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
-                <b>13. </b>I would like to share the following information with the court about the <b>cultural, linguistic, religious and spiritual upbringing and heritage of my family</b>, including, if the child is an Indigenous child, the child’s Indigenous identity:
+                <b>13. </b>I would like to share the following information with the court about the <b>cultural, linguistic, religious and spiritual upbringing and heritage of my family</b>, including, if the child is an Indigenous child, the child’s Indigenous identity:<br/>
                 <i>You may choose to leave this question blank</i>  
-                <div class="answerbox" style="width:98%"> {{backgroundSurvey.culturalExplain ? backgroundSurvey.culturalExplain : '&nbsp;'}}</div>
+                <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.culturalExplain ? backgroundSurvey.culturalExplain : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
             </div>
@@ -645,12 +645,12 @@
                 arrangements, child support, contact with a child, guardianship of a child,<br/> spousal
                 support, and/or property division in respect of a companion animal.
                 <div  style="margin:0 0 0 0.5rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline" :shift="10" shiftmark="0" :check="backgroundSurvey.existingOrders=='y'?'yes':''" text="Yes (see attached copy)"/>
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.5rem" :shift="10" shiftmark="0" :check="backgroundSurvey.existingOrders=='n'?'yes':''" text="No"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline" :shift="10" shiftmark="0" :check="backgroundSurvey.existingOrders=='y'?'yes':''" text="<b>Yes (see attached copy)</b>"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.5rem" :shift="10" shiftmark="0" :check="backgroundSurvey.existingOrders=='n'?'yes':''" text="<b>No</b>"/>
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -10px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -10px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -674,12 +674,12 @@
                     <li style="text-indent: 20px;">a peace bond, restraining order, bail condition or other criminal order.</li>
                 </ul>  
                 <div style="display:block; margin-left:.5rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.existingPOOrders == 'y'?'yes':''" text="Yes (see attached copy)"/>
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.existingPOOrders == 'n'?'yes':''" text="No"/>                       
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.existingPOOrders == 'y'?'yes':''" text="<b>Yes (see attached copy)</b>"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.existingPOOrders == 'n'?'yes':''" text="<b>No</b>"/>                       
                 </div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: 10px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 10px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-paperclip />
                         <br />
@@ -696,10 +696,10 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
                 <b>16. </b>Has the other party ever <b>failed to obey a court order</b>?<br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.disobeyOrder == 'Yes'?'yes':''" text="Yes ➜ describe the circumstances"/><br/>
-                <div class="answerbox" style="width:98%"> {{backgroundSurvey.describeDisobeyOrder ? backgroundSurvey.describeDisobeyOrder : '&nbsp;'}}</div>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.disobeyOrder == 'No'?'yes':''" text="No"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.disobeyOrder == 'Unknown'?'yes':''" text="Unknown"/> 
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.disobeyOrder == 'Yes'?'yes':''" text="<b>Yes</b> ➜ describe the circumstances"/><br/>
+                <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.describeDisobeyOrder ? backgroundSurvey.describeDisobeyOrder : '&nbsp;'}}</div>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.disobeyOrder == 'No'?'yes':''" text="<b>No</b>"/><br/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.disobeyOrder == 'Unknown'?'yes':''" text="<b>Unknown</b>"/> 
             </div>
             <div style="width: 20%; padding: 6px;">
             </div>
@@ -709,9 +709,9 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
                 <b>17. </b>I am concerned the other party <b>may not obey a court order</b><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.concernForNotObeying == 'n'?'yes':''" text="No"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.concernForNotObeying == 'y'?'yes':''" text="Yes 🠆 explain the reason(s) for your concerns:"/>
-                <div class="answerbox" style="width:98%"> {{backgroundSurvey.explainNotObeyingConcern ? backgroundSurvey.explainNotObeyingConcern : '&nbsp;'}}</div>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.concernForNotObeying == 'n'?'yes':''" text="<b>No</b>"/><br/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.concernForNotObeying == 'y'?'yes':''" text="<b>Yes</b> 🠆 explain the reason(s) for your concerns:"/>
+                <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.explainNotObeyingConcern ? backgroundSurvey.explainNotObeyingConcern : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
             </div>
@@ -729,12 +729,12 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
                 <b>18. </b>I am concerned the other party <b>may not obey a court order</b><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToPolice == 'n'?'yes':''" text="No"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToPolice == 'y'?'yes':''" text="Yes 🠆 describe what actions they have taken:"/>
-                <div class="answerbox" style="width:98%"> {{backgroundSurvey.policeActions ? backgroundSurvey.policeActions : '&nbsp;'}}</div>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToPolice == 'n'?'yes':''" text="<b>No</b>"/><br/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToPolice == 'y'?'yes':''" text="<b>Yes</b> 🠆 describe what actions they have taken:"/>
+                <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.policeActions ? backgroundSurvey.policeActions : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -30px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -30px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -751,12 +751,12 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
                 <b>19. </b>I have <b>reported</b> my safety concerns <b>to a social worker</b> (Ministry of Children and<br/> Family Development)<br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToSW == 'n'?'yes':''" text="No"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToSW == 'y'?'yes':''" text="Yes 🠆 describe what actions they have taken:"/>
-                <div class="answerbox" style="width:98%"> {{backgroundSurvey.swAction ? backgroundSurvey.swAction : '&nbsp;'}}</div>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToSW == 'n'?'yes':''" text="<b>No</b>"/><br/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToSW == 'y'?'yes':''" text="<b>Yes</b> 🠆 describe what actions they have taken:"/>
+                <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.swAction ? backgroundSurvey.swAction : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -20px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -788,11 +788,11 @@
                         If there is a police report, medical report or doctor’s note, or any photographs related to<br/> an
                         incident, you must talk about them in this section. Refer to the document, state it<br/> is
                         attached as an exhibit and attach them as exhibits.</i>
-                    <div class="answerbox" style="width:98%"> {{yourStory.recentIncidents ? yourStory.recentIncidents : '&nbsp;'}}</div>
+                    <div class="answerbox" style="width:98%; background-color: #dedede;"> {{yourStory.recentIncidents ? yourStory.recentIncidents : '&nbsp;'}}</div>
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="<b>Additional page(s) (see attached)</b>"/>
                     </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -20px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-book />
                         <br />
@@ -802,7 +802,7 @@
                     </NoteBox>
                 </div>
 
-                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-paperclip />
                         <br />
@@ -818,7 +818,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-paperclip />
                         <br />
@@ -857,10 +857,10 @@
                 <b>21. </b>I am concerned about the <b>mental health</b> of the protected party and/or the other<br/> party<br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.mentalHealthConcern == 'n'?'yes':''" text="<b>No</b>"/><br/>                      
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.mentalHealthConcern == 'y'?'yes':''" text="<b>Yes</b> 🠆 explain the reason(s) for your concerns:"/>
-                <div class="answerbox" style="width:98%"> {{backgroundSurvey.mentalHealthConcernReasons ? backgroundSurvey.mentalHealthConcernReasons : '&nbsp;'}}</div>
+                <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.mentalHealthConcernReasons ? backgroundSurvey.mentalHealthConcernReasons : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -40px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -40px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -882,10 +882,10 @@
                     circumstances, health or economic dependence</i>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.riskOfViolence == 'n'?'yes':''" text="<b>No</b>"/><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="<b>Yes</b> 🠆 please describe the circumstances:"/>
-                <div class="answerbox" style="width:98%"> {{backgroundSurvey.violenceCirumstances ? backgroundSurvey.violenceCirumstances : '&nbsp;'}}</div>
+                <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.violenceCirumstances ? backgroundSurvey.violenceCirumstances : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -20px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-book />
                         <br />
@@ -900,7 +900,7 @@
                     &nbsp;<br/>
                 </div>
 
-                <div style="margin-top: 0px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: 0px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
@@ -917,10 +917,10 @@
 <!-- <23> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <b>23. </b>Is there any family violence <b>you fear is likely</b> to happen or <b>concerns for the safety</b><br/> of the protected party/parties that you have <b>not already described</b> in this affidavit?<br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="yourStory.isViolence == 'n'?'yes':''" text="No"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="yourStory.isViolence == 'y'?'yes':''" text="Yes 🠆 please describe the circumstances:"/>
-                <div class="answerbox" style="width:98%"> {{yourStory.whatViolence ? yourStory.whatViolence : '&nbsp;'}}</div>
+                <b>23. </b>Is there any family violence <b>you fear is likely</b> to happen or <b>concerns for the</b><br/><b>safety</b> of the protected party/parties that you have <b>not already described</b> in this affidavit?<br/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="yourStory.isViolence == 'n'?'yes':''" text="<b>No</b>"/><br/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="yourStory.isViolence == 'y'?'yes':''" text="<b>Yes</b> 🠆 please describe the circumstances:"/>
+                <div class="answerbox" style="width:98%; background-color: #dedede;"> {{yourStory.whatViolence ? yourStory.whatViolence : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
             </div>
@@ -929,28 +929,43 @@
 <!-- <SWEAR > -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <div style="margin:1rem 0 0 0">Sworn or affirmed before me</div>
+                <table border="0">
+                    <tr>
+                        <td style="width: 35%">
+                            <div style="margin:1rem 0 0 0">Sworn or affirmed before me</div>
 
-                <div style="margin:0.5rem 0 0 0">
-                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem" beforetext="at" hint="City" text="" />                        
-                    <div style="margin-top:0.2rem; text-indent:3px;display:inline;"> , British Columbia </div>
-                </div>
-                <div style="margin:1rem 0 0 0">
-                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="11.75rem" beforetext="on" hint="Date" text="" />
-                </div>
+                            <div style="margin:0.5rem 0 0 0">
+                                <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="6rem" beforetext="at" hint="City" hintindent="2rem" text="" />                        
+                                <div style="margin-top:0.2rem; text-indent:3px;display:inline;"> , British Columbia </div>
+                            </div>
+                            <div style="margin:1rem 0 0 0">
+                                <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="5.75rem" beforetext="on" hint="Date" hintindent="2rem" text="" />
+                            </div>
 
-                <div style="margin:2rem 0 0 0">
-                    <div style="height:3rem; width:15rem;border:1px solid #313132; display:inline-block;"></div>
-                    <div style="height:3rem; width:15rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
-                </div>
-                <div>
-                    <div style="width:15rem; display:inline-block; font-size:9pt" >A Commissioner for taking Affidavits in British Columbia</div>
-                    <div style="width:15rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
-                </div>
-                <div style="width:15rem; display:inline-block; font-size:9pt" >[print name or affix stamp of commissioner]</div>
+                            <div style="margin:2rem 0 0 0">
+                                <div style="height:3rem; width:15rem;border:1px solid #313132; display:inline-block;"></div>
+                            </div>
+                            <div>
+                                <div style="width:15rem; display:inline-block; font-size:8pt" >A Commissioner for taking Affidavits in British Columbia</div>
+                            </div>
+                            <div style="width:15rem; display:inline-block; font-size:8pt" >[print name or affix stamp of commissioner]</div>
+                        </td>
+                        <td style="width: 35%; border-right: 1px black solid; border-top: 1px black solid; border-bottom: 1px black solid;">
+
+                        </td>
+                        <td style="width: 35%">
+                            <div style="margin:5rem 0 0 0">
+                                <div style="height:3rem; width:15rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
+                            </div>
+                            <div>
+                                <div style="width:15rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Signature</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <div style="width: 20%; padding: 6px;">
-                <div style="margin-top: -20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 11px;">
+                <div style="margin-top: -20px; line-height: 11px;">
                     <NoteBox>
                         <b-icon-info-circle-fill />
                         <br />
