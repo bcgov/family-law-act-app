@@ -289,7 +289,7 @@
             </div>
             <div style="margin-left: 2rem; text-indent: -10px;">
                 <check-box inline="inline" boxMargin="0" style="display:inline; text-indent:-16px; font-weight: bold;" 
-                shift="10"  marginLeft="1.75rem" :check="ongoingDis?'yes':''"  text="Yes"/>                                  
+                shift="10"  marginLeft="2rem" :check="ongoingDis?'yes':''"  text="Yes"/>                                  
                 <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline; text-indent:-16px; font-weight: bold;" 
                 shift="-8" marginLeft="0.5rem" :check="!ongoingDis?'yes':''" text="No"/> 
             </div>
@@ -297,10 +297,10 @@
                 <div style="display:inline; text-indent:0; margin:0 0rem 0 0.85rem;">
                     <span style="color: #626262"><i><b>⤷ If yes</b></i>, is there likelihood of resolution before the trial?</span>
                 </div>
-                <div style="display:block; margin: 0rem 0 0 3rem">
-                    <check-box inline="inline" boxMargin="0" style="display:inline-block; text-indent:-16px; font-weight: bold;" 
-                        shift="10"  marginLeft="2rem" :check="resolvable == 'y'?'yes':''"  text="Yes"/>    
-                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline; text-indent:-16px; font-weight: bold;" 
+                <div style="display:block; margin:0 0.5rem 0 2rem; text-indent: -16px; ">
+                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight: bold;" 
+                        shift="10"  marginLeft="1.75rem" :check="resolvable == 'y'?'yes':''"  text="Yes"/>    
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;font-weight: bold;" 
                         shift="-8" marginLeft="0.5rem" :check="resolvable == 'n'?'yes':''" text="No"/> 
                 </div>
             </div>
@@ -557,8 +557,8 @@
             <div>                
                 <div style="text-indent:0.25px;font-size: 9pt; margin: 0rem 0 0 2rem;"> 
                     <span style="color: #626262"><b><i>⤷ If yes</i></b>, please explain what information you need</span>
-                    <div v-if="needInfo" class="answerbox">{{ neededInfoDesc }}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
+                    <div v-if="needInfo" class="answerbox" style="background-color: #dedede; word-wrap: break-word;">{{ neededInfoDesc }}</div>
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"></div>
             </div>
             </div>      
         </div>
