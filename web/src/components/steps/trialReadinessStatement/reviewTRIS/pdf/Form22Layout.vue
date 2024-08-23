@@ -6,7 +6,7 @@
     <FormHeader 
             :headerTableData="headerItems" 
             formName="Trial Readiness Statement" 
-            formNumber=22 
+            formNumber="Form 22" 
             ruleFontSize="10pt"
             formRuleNumber="Rule 110" />
         
@@ -299,7 +299,7 @@
                 </div>
                 <div style="display:block; margin: 0rem 0 0 3rem">
                     <check-box inline="inline" boxMargin="0" style="display:inline-block; text-indent:-16px; font-weight: bold;" 
-                        shift="10"  marginLeft="1.75rem" :check="resolvable == 'y'?'yes':''"  text="Yes"/>    
+                        shift="10"  marginLeft="2rem" :check="resolvable == 'y'?'yes':''"  text="Yes"/>    
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline; text-indent:-16px; font-weight: bold;" 
                         shift="-8" marginLeft="0.5rem" :check="resolvable == 'n'?'yes':''" text="No"/> 
                 </div>
@@ -308,7 +308,7 @@
             <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
                 <b style="display:inline;">8. </b>
                 <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
-                    There is an existing court order involving one or more of the parties, and/or the child(ren) about the following:
+                    There is an <b>existing court order</b> involving one or more of the parties, and/or the child(ren) about the following:
                 </div>
             </div>
             <div style="display:inline-block; text-indent:0; margin:0 0.5rem 0 2rem;">
@@ -357,7 +357,7 @@
                     style="text-indent:2px;display:inline-block; margin: 0.5rem 0 0 5.5rem;" 
                     textwidth="10rem" 
                     beforetext="Expiry date:" 
-                    hint="(mmm/dd/yyyy)" 
+                    hint="(dd/mmm/yyyy)" 
                     hintTextColor = "black"
                     hintindent="50px"
                     :italicHint="false" :text="sec183ExpiryDate"/>
@@ -376,7 +376,7 @@
                     style="text-indent:2px;display:inline-block; margin: 0.5rem 0 0 5.5rem;" 
                     textwidth="10rem" 
                     beforetext="Expiry date:" 
-                    hint="(mmm/dd/yyyy)" 
+                    hint="(dd/mmm/yyyy)" 
                     hintTextColor = "black"
                     hintindent="50px"
                     :italicHint="false" :text="sec810ExpiryDate"/>
@@ -395,7 +395,7 @@
                     style="text-indent:2px;display:inline-block; margin: 0.5rem 0 0 5.5rem;" 
                     textwidth="10rem" 
                     beforetext="Expiry date:" 
-                    hint="(mmm/dd/yyyy)" 
+                    hint="(dd/mmm/yyyy)" 
                     hintTextColor = "black"
                     hintindent="50px"
                     :italicHint="false" :text="sec515ExpiryDate"/>
@@ -414,7 +414,7 @@
                     style="text-indent:2px;display:inline-block; margin: 0.5rem 0 0 5.5rem;" 
                     textwidth="10rem" 
                     beforetext="Expiry date:" 
-                    hint="(mmm/dd/yyyy)" 
+                    hint="(dd/mmm/yyyy)" 
                     hintTextColor = "black"
                     hintindent="50px"
                     :italicHint="false" :text="probationExpiryDate"/>
@@ -698,7 +698,7 @@
                 </div>
                 <div style="margin-left: 2rem;">
                     <div style="text-indent:0; margin:0 0 0 0rem;">
-                        (b) will the expert be called as a witness at the trial to provide opinion evidence or to be asked questions?
+                        (b) Will the expert be called as a witness at the trial to provide opinion evidence or to be asked questions?
                     </div>
                     <div style="margin-left: 1rem; text-indent:-16px; font-weight: bold;">
                         <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="expertCalled == 'Yes'?'yes':''"  text="Yes"/>                        
@@ -1021,7 +1021,7 @@
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline;"
-                        :check="feelReady?'yes':''" text="I am ready to start on the scheduled trial date"/>
+                        :check="feelReady?'yes':''" text="I am (will be) <b>ready to start on the scheduled trial date</b>"/>
                 </div>
                 <div style="margin:0.25rem 0 0 5rem;">
                     <check-box 
@@ -1031,7 +1031,7 @@
                         boxMargin="0" 
                         style="display:inline;" 
                         :check="!feelReady?'yes':''" 
-                        text="I will not be ready to start on the scheduled trial date because:"/>
+                        text="I <b>will not be ready to start on the scheduled trial date</b> because:"/>
                     <div class="marginleft-0p5vue" style="margin-left:0.5rem; text-indent:0px;font-size: 9pt; font-style: italic; color: #626262"> 
                         Explain why you will not be ready on the trial date
                     </div>
