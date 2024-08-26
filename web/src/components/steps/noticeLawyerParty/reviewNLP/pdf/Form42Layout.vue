@@ -65,7 +65,7 @@
             </div>            
         </div>
         <div style="width: 18%;float: right; margin-top: 10px;">
-                <NoteBox>
+                <NoteBox style="color:#414142"> 
                     <b-icon-info-circle-fill />
                     <br />
                     This notice must be filed and served on each other party [Rule 163]. 
@@ -82,7 +82,7 @@
                         
                         <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:2px;" :check="acknowledgeService?'yes':''" text=""/>
                             <div style="margin-top:-20px;">
-                            <div style="margin-left:45px;">I understand <b> need to serve each party</b>I with a filed copy of this notice.</div>
+                            <div style="margin-left:45px;">I understand <b> need to serve each party </b>with a filed copy of this notice.</div>
                             </div>
             </div>
         </div>
@@ -93,29 +93,54 @@
         <div style="width: 80%; float: left; margin-right: 10px;">
             <div style="margin-top: 0.5rem;"></div>
             <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
-                    <b>Part 2 | Lawyer for party</b>
+                    <b>Part 2 | Lawyer for partys</b>
             </div>
             <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0.5rem 1rem;">
+                
                     <div style="display: inline-block;">
                         <b>3.</b><span style="margin-left:12px;"><b>I</b> </span>
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; " textwidth="200px"
+                    <!-- <underline-form style="text-indent:4px;display:inline-block;" textwidth="200px"
                         beforetext="" hint="Full name of lawyer" :italicHint="false" textBackgroundColor="#dedede" hintMargin="52px" :text="lawyerInformation.lawyerName | getFullName" />
-                    <span style="padding-left:2px;padding-right:2px;"> , of ,</span>
-                    <underline-form style="text-indent:4px;display:inline-block;" textwidth="240px"
-                        beforetext="" hint="Firm name, if applicable" :italicHint="false" textBackgroundColor="#dedede" hintMargin="82px" :text="lawyerInformation.firmName | truncate-word-after(25)" />
-                    <underline-form v-if="lawyerInformation.firmName.length > 25" style="text-align:left;text-indent:4px;display:inline-block;margin-top:15px;margin-left:22px;" textwidth="64%"
-                        beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="82px" :text="lawyerInformation.firmName | truncate-word-before(25)" />
+                         -->
+                         <table>
+                        <tr>
+                        <td>
+                            <div style="width:250px;display:block;word-break: break-all;">
+                    <div style="margin-left:35px;margin-top:-20px;background-color: #dedede;padding:5px;min-height:10px;line-height:14px;">         
+                            <span style="margin-left:1rem" >{{lawyerInformation.lawyerName | getFullName}}</span>
+                    </div>
+                    <div style="width:250px;display:flex;text-align:center;margin-left:65px;margin-top:-10px;padding:5px;min-height:10px;">         
+                            <span style="margin-left:1rem;font-size:7pt" >Full name of lawyer</span>
+                    </div>
+                    </div>
+                        </td>
+                        <td style="vertical-align: bottom;">
+                            <div style="display:block;">, of ,</div>
+                    <div style="width:220px;display:block;word-break: break-all;">
+                    <div style="margin-left:35px;margin-top:-20px;background-color: #dedede;padding:5px;min-height:10px;line-height:14px;">         
+                            <span style="margin-left:1rem" >{{lawyerInformation.firmName}}</span>
+                    </div>
+                    <div style="width:220px;display:flex;text-align:center;margin-left:55px;margin-top:-10px;padding:5px;min-height:10px;">         
+                            <span style="margin-left:1rem;font-size:7pt" >Firm name, if applicable</span>
+                    </div>
+                    </div>
+                        </td>
+                        </tr>
+                         </table>
                     
+                    
+                    <div style="margin-top:0px;">                        
                         <div style="margin-top:6px;margin-left:22px;"><b>am the lawyer for the following party/parties:</b></div>   
                     <div style="font-style:italic;margin-left:22px;"><span style="color:#626262;font-style:italic;">Provide the full name of each party the lawyer is representing</span></div>  
                     <div style="margin-left:22px;background-color: #dedede;padding:5px;min-height:10px;display:block">         
                             <span style="display:block;margin-left:1rem" >{{OtherPartyInfoNlp.length>0 ? OtherPartyInfoNlp[0]: ''}}</span>
                     </div>
+                    </div>
             </div>             
         </div>
         <div style="width: 18%;float: right; margin-top: 50px;">
-                <NoteBox>
+                <NoteBox style="color:#414142"> 
                     <b-icon-info-circle-fill />
                     <br />
                     A lawyer may represent a party for all issues in a case or for unbundled services or limited representation.
