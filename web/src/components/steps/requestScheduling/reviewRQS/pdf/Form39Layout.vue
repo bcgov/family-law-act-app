@@ -31,7 +31,7 @@
         </div>
 
         <div>
-            A PDF version of this form is available online for download at <a href="www.gov.bc.ca/court-forms" target="_blank">www.gov.bc.ca/court-forms</a>.
+            A PDF version of this form is available online for download at <a href="http://www.gov.bc.ca/court-forms" target="_blank">www.gov.bc.ca/court-forms</a>.
 
             <br>
 
@@ -42,6 +42,12 @@
 
             <br>
 
+            <b>Need assistance with how to complete this form?</b>
+            <br>
+            Refer to the guidebook if you need more information about how to complete this form and apply for a court
+            order about a family law matter. Find it online, with interactive links, at <a href="http://www.gov.bc.ca/court-forms" target="_blank">www.gov.bc.ca/court-forms</a> or pick up a
+            printed copy from your local court registry.
+            <br>
             <b>Family law:</b>
 
             <br>
@@ -86,37 +92,52 @@
 
             <div style="display: flex;">
                 <div style="width: 50%; padding: 8px; font-size: 11px;">
-                    <div style="background-color: #666; color: #fff;">
+                    <span style="display: inline-block; background: #d6d6d6; padding: 10px; border-radius: 16px; margin-right: 4px; width: 32px; height: 32px; ">
+                        <b-icon-chat-left-fill font-scale="1.2" /> 
+                        <b-icon-chat-right-fill font-scale="0.7" style="
+                            border-left: 1px solid #fff;
+                            border-top: 1px solid #fff;
+                            display: inline-block;
+                            margin-left: -10px;
+                            " />
+                    </span>
+                    <div style="display: inline; background-color: #666; color: #fff;">
                         <b>Need legal help?</b>
-                    </div>
+                    </div><br>
                     It’s  important  to  understand  the  law  and  make  sure  you  have the right information. If   you don’t, it can make solving your problem harder. Getting  advice  from  a  lawyer  can  help. You can find a lawyer through:
                     <br>
-                    <b>Lawyer Referral Service</b>
+                    <b>Lawyer Referral Service</b><br>
                     Visit <a href="www.accessprobono.ca/our-programs/lawyer-referral-service" target="_blank">www.accessprobono.ca/our-programs/lawyer-referral-service</a> or call at 604-687-3221 
                     <br>
-                    <b>Legal Aid, Duty Counsel and Family Advice Lawyers</b>
+                    <b>Legal Aid, Duty Counsel and Family Advice Lawyers</b><br>
                     Visit <a href="https://legalaid.bc.ca/" target="_blank">https://legalaid.bc.ca/</a> or call 1-866-577-2525
                     <br>
                     <b>Legal Services and Resources </b>
                     <br>
                     Visit the ClickLaw HelpMap at <a href="http://www.clicklaw.bc.ca/helpmap" target="_blank">http://www.clicklaw.bc.ca/helpmap</a> 
                     <br><br>
-                    <div style="background-color: #666; color: #fff;">
+                    <span style="display: inline-block; background: #d6d6d6; padding: 8px; border-radius: 16px; margin-right: 4px; width: 32px; height: 32px; ">
+                        <b-icon-pencil-fill />
+                    </span>
+                    <div style="display: inline; background-color: #666; color: #fff;">
                         <b>
                             Filling out the form and preparing to file it
                         </b>
-                    </div>
+                    </div><br>
                     Make sure you follow the instructions in the form and include all  the  required  information.  You  don’t  need  to  use  any  special wording. Try to be clear and concise.
                     <br>
                     <p>If you complete the form by hand, be sure it’s readable.</p>
                     <b>How do I prepare the form for filing? </b>
                     <ul>
-                        <li>print or make copies of the completed form: one set foryou,  one  set  for  the  court,  and  one  set  for  each  otherparty</li>
-                        <li>staple  or  secure  each  package  of  documents  together</li>
+                        <li>print or make copies of the completed form: one set for you, one set for the court, and one set for each other party</li>
+                        <li>staple or secure each package of documents together</li>
                     </ul>
-                    <div style="background-color: #666; color: #fff;">
+                    <span style="display: inline-block; background: #d6d6d6; padding: 8px; border-radius: 16px; margin-right: 4px; width: 32px; height: 32px; ">
+                        <b-icon-download font-scale="1.5" /> 
+                    </span>
+                    <div style="display: inline; background-color: #666; color: #fff;">
                         <b>Filing the form at the registry</b>
-                    </div>
+                    </div><br>
                     After  you’ve  filled  out  the  form,  you  must  file  it at  the  <a href="https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96" target="_blank">Provincial Court Registry</a> where your existing Provincial Court case is filed.
 
                     <br>
@@ -133,9 +154,12 @@
 
                     <b>Be sure to bring all copies of the documents to the registry if you are filing in person. </b>
                     <p>The registry clerk will review your form to make sure it’s complete before filing it. You’ll be given a copy for your records along with a copy for the other party.</p>
-                    <div style="background-color: #666; color: #fff;">
+                    <span style="display: inline-block; background: #d6d6d6; padding: 8px; border-radius: 16px; margin-right: 4px; width: 32px; height: 32px; ">
+                        <b-icon-envelope font-scale="1.5" /> 
+                    </span>
+                    <div style="display: inline; background-color: #666; color: #fff;">
                         <b>Serving the document</b>
-                    </div>
+                    </div><br>
                     <b>Serve</b> a copy of the document to each other party at least 7 days’ before the date and time of the appearance unless the court  has  ordered  something  different.  This  means  there  must be at least 7 days between the date the document is served and the date and time of the court appearance.
                 </div>
                 <div style="width: 50%; padding: 8px; font-size: 11px;">
@@ -152,9 +176,12 @@
                     If you’re in this situation, you can apply to the court to allow you  to  use  an  alternative  method  of  service.  You  must  complete and file an <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true">Application About a Case Management Order Without Notice or Attendance Form 11</a>. 
                     <br>
                     <br>
-                    <div style="background-color: #666; color: #fff;">
+                    <span style="display: inline-block; background: #d6d6d6; padding: 8px; border-radius: 16px; margin-right: 4px; width: 32px; height: 32px; ">
+                        <b-icon-people font-scale="1.5" /> 
+                    </span>
+                    <div style="display: inline; background-color: #666; color: #fff;">
                         <b>Attending the court appearance</b>
-                    </div>
+                    </div><br>
                     Depending on the application you are requesting to schedule, your court appearance may be a family management conference or another type of court appearance. The registry will provide you with this information on your document when you file it.
                     <br>
                     The document will also tell you the method of attendance for the appearance.
