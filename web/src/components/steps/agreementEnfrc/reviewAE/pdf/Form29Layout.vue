@@ -74,7 +74,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>2.</b><span style="margin-left:12px;">The <b>other party’s full name is:</b></span>
+                        <b>2.</b><span style="margin-left:12px;">The <b>other party’s full name</b> is:</span>
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="270px"
                         beforetext="" hint="Full name of party/parties" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="firstOtherParty.name | getFullName" />
@@ -117,7 +117,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                         <b>order </b>under the <i>Interjurisdictional Support Orders Act</i>. I understand <b>I must give
                         notice of this application to the designated authority.</b> To give notice, the
                         designated authority must be served with the application and supporting
-                        documents by registered mail <b>at least 30 days</b> before the application is to be
+                        documents by registered mail <b>at least 30 days before</b> the application is to be
                         heard by the court.
                     </div>
                 </div>
@@ -370,7 +370,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
 
          <div style="text-indent: 20px;">
         <check-box  inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:22px" :check="form29Info.orderList.includes('expenses')?'yes':''" text="to have reasonable and necessarily incurred expenses set under the"/>
-        <div style="margin-left:50px;"> following sections of the <i>Family Law Act</i>:</div>
+        <div style="margin-left:50px;"> following section(s) of the <i>Family Law Act</i>:</div>
         <check-box style="margin-left:65px;text-indent: -17px;margin-left:87px" :check="form29Info.expenseList.includes('section61')?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
         <check-box style="margin-left:65px;text-indent: -17px;margin-left:87px" :check="form29Info.expenseList.includes('section63')?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
         <check-box style="margin-left:65px;text-indent: -17px;margin-left:87px" :check="form29Info.expenseList.includes('section212')?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
