@@ -158,7 +158,7 @@
                         :check="listOfIssues.includes('other')?'yes':''" 
                         text="other <i>(specify)</i>:"/>
                     <div style="margin-top: 0.5rem;"></div>
-                    <div style="margin-left: 28px;" class="answerbox">{{otherIssue ? otherIssue : '&nbsp;'}}</div>
+                    <div style="margin-left: 28px; background-color: #d6d6d6;" class="answerbox">{{otherIssue ? otherIssue : '&nbsp;'}}</div>
                 </div>
 <!-- <5> -->
                 <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
