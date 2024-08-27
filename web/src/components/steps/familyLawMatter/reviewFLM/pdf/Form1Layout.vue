@@ -177,7 +177,7 @@
                                     <div style="display: inline-block; font-size: 11pt; ">
                                         The <b>additional party’s</b> full name is:
                                     </div>
-                                    <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
+                                    <grey-box-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
                                         beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
                                         hintMargin="100px" :text="otherParty.name | getFullName" />
 
@@ -200,14 +200,14 @@
                                     <div style="display: inline-block; font-size: 11pt; ">
                                         The <b>additional party’s</b> full name is:
                                     </div>
-                                    <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
+                                    <grey-box-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
                                         beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
                                         hintMargin="100px" :text="'.'" />
 
                                     <div style="display: inline-block; font-size: 11pt; margin-top: 2px;">
                                         Their <b>date of birth</b> (dd/mmm/yyyy) is:
                                     </div>
-                                    <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
+                                    <grey-box-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
                                         beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
                                         hintMargin="100px" :text="'.'" />
                             </div>
@@ -587,7 +587,6 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import GreyBoxForm  from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
@@ -599,7 +598,6 @@ import { existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf'
 
 @Component({
     components:{
-        UnderlineForm,
         CheckBox,
         OrderedCheckBox,
         GreyBoxForm       
