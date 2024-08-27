@@ -88,10 +88,8 @@
                 <b><span style="font-size: 18px">NOTE:</span> If you were directed by the court to schedule your next appearance with a judicial case manager or together with the other party</b>, you probably don’t need to use this form. Check in with the judicial case manager or registry staff if you are not sure.
             </div>
 
-            <div class="new-page"></div>
-
             <div style="display: flex;">
-                <div style="width: 50%; padding: 8px; font-size: 11px;">
+                <div style="width: 50%; padding: 8px; font-size: 10.5px;">
                     <span style="display: inline-block; background: #d6d6d6; padding: 10px; border-radius: 16px; margin-right: 4px; width: 32px; height: 32px; ">
                         <b-icon-chat-left-fill font-scale="1.2" /> 
                         <b-icon-chat-right-fill font-scale="0.7" style="
@@ -162,7 +160,7 @@
                     </div><br>
                     <b>Serve</b> a copy of the document to each other party at least 7 days’ before the date and time of the appearance unless the court  has  ordered  something  different.  This  means  there  must be at least 7 days between the date the document is served and the date and time of the court appearance.
                 </div>
-                <div style="width: 50%; padding: 8px; font-size: 11px;">
+                <div style="width: 50%; padding: 8px; font-size: 10.5px;">
                     The document can be served by <b>ordinary service to the address of service</b> for each party. Their address for service is the address they have provided to the court.
                     <br>
                     A party who does not have an address for service must be served by <b>personal service</b>. An adult (at least 19 years old) who is not a party must hand-deliver the documents to the party to be served.
