@@ -25,23 +25,23 @@
             </div>
             <div style="width: 35%; float:right; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align: right;padding-right:5px;"> Registry location: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align: right;padding-right:5px;"> Court file number: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number:<br/><i>For registry use only </i></div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align: right;padding-right:5px;"> Document number:<br/><span style="color:#747474;font-size:7pt">For registry use only </span></div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
                 </div>
             </div>
         </div>
         <div>
         <div style="margin-left:-20px;margin-top: 0px;">&nbsp;</div>
-        <div style="margin-left:-20px;margin-top: 100px;">This Written Response to Application provides notice to each party,</div> 
-        <div style="margin-left:-20px;margin-top: -2px;">and the court, of a party’s reply to an application.</div>        
+        <div style="margin-left:-20px;margin-top: 100px;">This Written Response to Application provides notice to each party, and the court, </div> 
+        <div style="margin-left:-20px;margin-top: -2px;">of a party’s reply to an application.</div>        
         </div>
         <div style="margin-top: 0.3rem;"></div>
         <div style="margin-left:-20px;border-style: dashed; border-color: black; float: left; padding:0.5rem; background: #909090;width: 80%;">
@@ -81,18 +81,30 @@
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>2. </b>The <b>other party’s full name is:</b>
+                        <b>2. </b>The <b>other party’s full name </b>is:
                     </div>
-                    <div v-for="otherparty,inx in otherPartyInfo" :key="inx" style="font-size: 9pt; display:inline;">
                     <underline-form 
-                        style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                        style="text-indent:4px;display:inline-block; font-size: 9pt;margin-bottom:10px;"
                         textwidth="280px" 
                         :beforetext="inx>0? ',' : '' " 
                         hint="Full name of party/parties" 
                         textBackgroundColor="#dedede" hintMargin="80px"
                         :italicHint="false" 
+                        :text="otherPartyInfo[0].name | getFullName"/> 
+                        <div style="margin-left:232px;padding:0px;margin-top:-10px;">
+                    <div v-if="otherPartyInfo.length > 1" v-for="otherparty,inx in otherPartyInfo.slice(1)" :key="inx" style="font-size: 9pt; display:inline;padding:10px;">
+                        <div style="margin-top:-10px">
+                    <underline-form 
+                        style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                        textwidth="280px" 
+                        :beforetext="inx>0? '' : '' " 
+                        hint="" 
+                        textBackgroundColor="#dedede" hintMargin="80px"
+                        :italicHint="false" 
                         :text="otherparty.name | getFullName"/> 
+                    </div>
                     </div> 
+                </div>
             </div>
         </div>
         <div style="float: right;width: 18%; margin-top: 35px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size: 9pt;">
@@ -105,7 +117,7 @@
     </div>
 <!-- <2> -->
     <div>
-        <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;">
+        <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;margin-top:-20px">
             <!-- <div style="margin-top: 1rem;"></div> -->
             <div style="background: #626262; color: white; font-size: 11pt;width:99%;">
                     <b>Part 2 | Replying to an application</b>
@@ -125,7 +137,7 @@
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <span style="display: inline-block; font-size: 11pt;">
-                        <b>&nbsp;made by</b> <i>(name of person)</i>:
+                        <b>&nbsp;made by</b> <i><span style="color:#747474;">(name of person)</span></i>:
                     </span>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="330px"
                         beforetext="" hint="Name of person who made the application" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="wrInfo.otherPartiesList" />
@@ -134,7 +146,7 @@
         <div style="margin-left:-20px;width: 85%; float: left; margin-right: 10px;">            
             <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="float: left;width:35%;">
-                        <div style="font-size: 11pt;float: right;"><b>on</b><i>(filed date)</i>:</div>
+                        <div style="font-size: 11pt;float: right;"><b>on </b><i><span style="color:#747474;">(filed date)</span></i>:</div>
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="322px"
                         beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="135px" :text="wrInfo.applicationFiledOn | beautify-date-full" />
@@ -163,25 +175,25 @@
                     <span style="font-size: 9pt;padding:2px;">Complete this part only if you agree to all or part of the order requested by the other party in their application. You may leave this part blank</span>
             </div>
             <div style="text-align: justify;text-justify: inter-word; margin-top:5px;margin-left:20px;font-size: 11pt;">
-                <div style="font-size: 11pt;"><b>5. </b><i>Select the option that applies and complete the additional information,</i></div>
-                <div style="font-size: 11pt;margin-left:20px;"><i>as applicable</i></div>
+                <div style="font-size: 11pt;"><b>5. </b><i><span style="color:#747474;">Select the option that applies and complete the additional information,</span></i></div>
+                <div style="font-size: 11pt;margin-left:20px;"><i><span style="color:#747474;">as applicable</span></i></div>
             </div>
                
         <div>
     
         <div style="text-indent: 20px;margin-left:15px;">
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;"  :check="wrInfo.agreed?'yes':''" text="<b>I agree to the order</b> as requested by the other party"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;"  :check="wrInfo.agreed?'yes':''" text="I <b>agree to the order</b> as requested by the other party"/>               
         </div>
 
         <div  style="text-indent: 20px;margin-left:15px;">
         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;"  :check="wrInfo.partialagreed?'yes':''" text=""/>
         <div style="margin-top:-20px;text-indent:47px;">
-            <b>I agree only to the following order term(s)</b> requested by the other party:</div> 
-        <div style="text-indent:47px;">Provide details of the order term(s) you agree to &nbsp;        
+            I <b>agree only to the following order term(s)</b> requested by the other party:</div> 
+        <div style="text-indent:47px;"><span style="color:#747474;font-style: italic;">Provide details of the order term(s) you agree to &nbsp;</span>        
         </div>  
         <!-- <div  style="margin-left:47px;"> -->
-        <div v-if="wrInfo.agreed && wrInfo.agreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.agreeDetails}}</div>
-        <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
+        <div v-if="wrInfo.agreed && wrInfo.agreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:250px;">{{wrInfo.agreeDetails}}</div>
+        <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:250px;"></div>                
     </div>
         
         <div>
@@ -190,8 +202,8 @@
                 <div style="font-size: 11pt;margin-left:20px;">application even though I agree:</div>
             </div>
             <!-- <div  style="margin-left:57px;"> -->
-                <div v-if="wrInfo.agreeAdditionalDetailsYesNo && wrInfo.agreeAdditionalDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.agreeAdditionalDetails}}</div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
+                <div v-if="wrInfo.agreeAdditionalDetailsYesNo && wrInfo.agreeAdditionalDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:250px;">{{wrInfo.agreeAdditionalDetails}}</div>
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:250px;"></div>                
             </div>
            
         </div>  
@@ -209,13 +221,13 @@
                     <span style="font-size: 9pt;padding:2px;">Complete this part only if you disagree with all or part of the order requested by the other party in their application. You may leave this part blank.</span>
             </div>
             <div style="text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;font-size: 11pt;">
-                <div style="font-size: 11pt;"><b>7. </b><i>Select the option that applies and complete the additional information,</i></div>
-                <div style="font-size: 11pt;margin-left:20px;"><i>as applicable</i></div>
+                <div style="font-size: 11pt;"><b>7. </b><span style="color:#747474;font-style: italic;">Select the option that applies and complete the additional information,</span></div>
+                <div style="font-size: 11pt;margin-left:20px;"><span style="color:#747474;font-style: italic;">as applicable</span></div>
             </div>
                
         <div>    
         <div style="text-indent: 20px;margin-left:10px;">
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;"  :check="wrInfo.disagree?'yes':''" text="<b>I disagree with the order</b> as requested by the other party"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;"  :check="wrInfo.disagree?'yes':''" text="I <b>disagree with the order</b> as requested by the other party"/>               
         </div>
 
        
@@ -230,13 +242,13 @@
       <div  style="text-indent: 20px;margin-left:10px;">
         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;"  :check="wrInfo.partialdisagree?'yes':''" text=""/>
         <div style="margin-top:-20px;text-indent:47px;">
-        <b>I disagree only with the following order term(s) </b>as requested by the</div> 
+            I <b>disagree only with the following order term(s) </b>as requested by the</div> 
         <div style="text-indent:47px;">other party:</div>
-        <div style="text-indent:47px;font-size:9.5pt;"><i>Provide details of the order term(s) you disagree to </i>&nbsp;        
+        <div style="text-indent:47px;font-size:9.5pt;"><span style="color:#747474;font-style: italic;">Provide details of the order term(s) you disagree to </span>&nbsp;        
         </div>  
         <!-- <div  style="margin-left:47px;"> -->
-        <div v-if="wrInfo.disagree && wrInfo.disagreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:250px;">{{wrInfo.disagreeDetails}}</div>
-        <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:250px;"></div>                
+        <div v-if="wrInfo.disagree && wrInfo.disagreeDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.disagreeDetails}}</div>
+        <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
     </div>        
           
         </div>
@@ -250,11 +262,11 @@
 
        <div>
             <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
-                <div style="font-size: 11pt;"><b>8. I do not agree with the order requested</b> by the other party because:</div>
+                <div style="font-size: 11pt;"><b>8.</b> I <b>do not agree with the order requested</b> by the other party because:</div>
             </div>
             <!-- <div  style="margin-left:57px;"> -->
-            <div v-if="wrInfo.partialdisagree && wrInfo.disAgreeDetailsOtherParty" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:250px;">{{wrInfo.disAgreeDetailsOtherParty}}</div>
-            <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:250px;"></div>                
+            <div v-if="wrInfo.partialdisagree && wrInfo.disAgreeDetailsOtherParty" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.disAgreeDetailsOtherParty}}</div>
+            <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
 
         </div>  
        
@@ -267,9 +279,9 @@
     <div>
         <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;">
             <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
-                <div style="font-size: 11pt;"><b>9. </b>I am <b>applying for the order to be made as follows:</b></div>
-                <div style="text-indent:22px;font-size:9.5pt;"><i>Provide the details of the order(s) about this issue that you want the court to make</i></div>  
-                <div style="text-indent:22px;font-size:9.5pt;"><i>instead of what the other party has asked for </i>&nbsp;</div>     
+                <div style="font-size: 11pt;"><b>9. </b>I am <b>applying for the order to be made as follows</b>:</div>
+                <div style="text-indent:22px;font-size:9.5pt;"><i><span style="color:#747474;">Provide the details of the order(s) about this issue that you want the court to make</span></i></div>  
+                <div style="text-indent:22px;font-size:9.5pt;"><i><span style="color:#747474;">instead of what the other party has asked for</span> </i>&nbsp;</div>     
             </div>
             <!-- <div  style="margin-left:57px;"> -->
                 <div v-if="wrInfo.orderDetails" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;" v-html="wrInfo.orderDetails">{{wrInfo.orderDetails}}</div>
@@ -291,9 +303,9 @@
         <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;">
            <div style="text-align: justify;text-justify: inter-word; margin-left:20px;margin-top:10px;font-size: 11pt;">
                 <div style="font-size: 11pt;"><b>10.</b>The <b>facts</b> on which this written response is based are as follows:</div>
-                <div style="margin-left:30px;font-size: 9pt;"><i>Provide the facts you want the court to consider when they are making a decision about
+                <div style="margin-left:25px;font-size: 9pt;"><i><span style="color:#747474;">Provide the facts you want the court to consider when they are making a decision about
                     the application, including why the order you are requesting should be made instead of the
-                    order the other party has asked for</i></div>
+                    order the other party has asked for</span></i></div>
             </div>
             <!-- <div  style="margin-left:57px;"> -->
                 <div v-if="wrInfo.orderFacts" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.orderFacts}}</div>
@@ -315,7 +327,7 @@
         <div>
         <div style="margin-left:-20px;width: 85%; float: left; margin-right: 10px;margin-top:50px;">
         <div style="margin-left:30px;font-size: 9.5pt;text-indent:5px;width: 85%;">
-            <i>To add more, select the box below and attach a page with the additional information</i>
+            <i><span style="color:#747474;">To add more, select the box below and attach a page with the additional information</span></i>
         </div>
         <div style="text-indent: 20px;margin-left:20px;">
                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;" :check="''" text=""/> 
@@ -333,7 +345,7 @@
     </div> 
 <!--5 -->
 <div class="print-block">
-        <div style="width: 80%; float: left; margin-right: 10px; margin-top:60px;">
+        <div style="width: 80%; float: left; margin-right: 10px; margin-top:40px;">
             <div style="background: #626262; color: white; font-size: 11pt;">
                     <b>Part 5 |Address for service</b>
             </div>
@@ -392,7 +404,7 @@
             </div>
         </div>
         
-        <div style="float: right;width: 18%; margin-top: 95px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
+        <div style="float: right;width: 18%; margin-top: 75px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; font-size: 9pt;">
                 <p>
                     <b-icon-book />
                     <br />
