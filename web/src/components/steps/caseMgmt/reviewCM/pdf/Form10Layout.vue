@@ -16,15 +16,15 @@
             </div>
             <div style="width: 35%; float:right; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align: right;padding-right:5px;"> Registry location: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align: right;padding-right:5px;"> Court file number: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ locationInfo.existingFileNumber ? locationInfo.existingFileNumber : '&nbsp;' }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number:<br/><i>For registry use only </i></div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align: right;padding-right:5px;"> Document number:<br/><span style="color:#747474;font-size:7pt">For registry use only </span></div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
                 </div>
             </div>
@@ -77,10 +77,10 @@
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>2.</b><span style="margin-left:12px;">The <b>other party’s full name is:</b></span>
+                        <b>2.</b><span style="margin-left:12px;">The <b>other party’s full name </b>is:</span>
                     </div>
-                    <div v-for="otherparty,inx in otherPartyInfo" :key="inx" style="display:inline;background-color:#dedede;">
-                    <underline-form 
+                    <!-- <div v-for="otherparty,inx in otherPartyInfo" :key="inx" style="display:inline;background-color:#dedede;"> -->
+                    <!-- <underline-form 
                         style="text-indent:4px;display:inline-block; font-size: 9pt;background-color:#dedede;"
                         textwidth="270px" 
                         :beforetext="inx>0? ',' : '' " 
@@ -88,16 +88,46 @@
                         :italicHint="false" 
                         textBackgroundColor="#dedede"
                         hintMargin="80px"
+                        :text="otherparty.name | getFullName"/> -->
+                        <underline-form 
+                        style="text-indent:4px;display:inline-block; font-size: 9pt;margin-bottom:10px;"
+                        textwidth="270px" 
+                        :beforetext="inx>0? ',' : '' " 
+                        hint="Full name of party/parties" 
+                        textBackgroundColor="#dedede" hintMargin="80px"
+                        :italicHint="false" 
+                        :text="otherPartyInfo[0].name | getFullName"/> 
+                        <div style="margin-left:232px;padding:0px;margin-top:-10px;">
+                    <div v-if="otherPartyInfo.length > 1" v-for="otherparty,inx in otherPartyInfo.slice(1)" :key="inx" style="font-size: 9pt; display:inline;padding:10px;">
+                        <div style="margin-top:-10px">
+                    <underline-form 
+                        style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                        textwidth="270px" 
+                        :beforetext="inx>0? '' : '' " 
+                        hint="" 
+                        textBackgroundColor="#dedede" hintMargin="80px"
+                        :italicHint="false" 
                         :text="otherparty.name | getFullName"/> 
-                    </div>                    
+                    </div>
+                    </div> 
+                </div> 
+                        
+                        
+                        
+                    <!-- </div>                     -->
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>3.</b><span style="margin-left:12px;"><i>Complete only if applicable. You may leave this question blank:</i></span>
-                        <span style="margin-left:12px;">The following other person(s) who may be directed affected by the order is/are:</span>
+                        <b>3.</b><span style="margin-left:12px;color:#747474;"><i>Complete only if applicable. You may leave this question blank:</i></span>
+                        <div style="margin-left:28px;">The following other person(s) who may be directed affected by the order is/are:</div>
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="510px"
-                        beforetext="" hint="Full name of other person(s)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="200px" :text="form10Info.otherPersonsList" />
+                    <div>
+                    <div v-if="form10Info.otherPersonsList" style="background-color: #626262">{{ form10Info.otherPersonsList }}</div>
+                    <div v-else style="background-color: #dedede;font-size: 11pt;margin-left:25px;min-height:25px;"></div>                
+                    <div style="font-size:6pt;text-align: center">Full name of other person(s)</div>
+                    </div>
+                    <!-- <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="510px"
+                        beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="200px" :text="" /> -->
             </div>
         </div>
         <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
@@ -112,15 +142,15 @@
 <!-- <1> : END-->
 <!-- <2> : BEGIN-->
     <div style="page-break-after:always;">
-        <div style="width: 80%; float: left; margin-right: 10px;">
+        <div style="width: 80%; float: left; margin-right: 10px;margin-top:-10px">
             <div style="margin-top: 1rem;"></div>
             <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
                     <b>Part 2 | Information about children</b>
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>4.</b><span style="margin-left:12px;"><i>Select the correct option below and provide the additional information</i></span>
-                        <div style="margin-left:25px;"><i>if applicable</i></div>
+                        <b>4.</b><span style="margin-left:12px;"><span style="color:#747474;font-style:italic">Select the correct option below and provide the additional information</span></span>
+                        <div style="margin-left:25px;"><span style="color:#747474;font-style:italic">if applicable</span></div>
                     </div>     
                     <div>
                     <div style="text-indent: 20px;">
@@ -141,20 +171,24 @@
                         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="childRelatedType == 'A party to the case and the case involves a child-related issue'?'yes':''" text="I am a party to the case and the case <b>involves a child</b>-related issue"/>               
                         <div  style="display: inline; margin-left:52px">about the following child or children:</div>
                     </div>
-                    <b-table
-                    :items="childrenInfo"
-                    :fields="childrenFields"
-                    class="mt-2"
-                    small
-                    bordered
-                    style="width:480px;margin-left:50px;background-color:#dedede;">                    
-                        <template v-slot:cell()="data">
-                            <div style="background-color:#dedede;height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;"><br/>(dd/mmm/yyyy)</i>
-                        </template>
-                </b-table>
+                    
+                    <div  style="display: inline; margin-left:52px"><span style="color:#747474;font-style: italic;">Provide the requested information below for each child</span></div>
+                    <table style="width:80%;margin-left:52px; border-collapse: collapse;">
+                    <tr style="border-bottom: 2px solid black;">
+                    <td style="width:60%"><b>Child's full name</b></td>
+                    <td style="text-align: center"><b>Child's date of birth</b><div style="font-size:6pt; font-weight:normal;font-style: italic;margin-top:-15px;text-align: center"><br/>(dd/mmm/yyyy)</div></td></tr>
+                    <tr v-for="(table, index) in data" :key="index"><div style="background-color:#fff;height:1rem; font-size:8pt;">{{data.value}}</div>   </tr>
+                    </table>
+                    <table style="width:80%;margin-left:52px; border-collapse: collapse;">
+                    <tbody >
+                    <tr 
+                    v-for="data in childrenInfo">
+                    <td style="border-right: 2px solid #fff;"><div style="background-color: #d6d6d6">{{ data.fullName }}</div></td>
+                    <td style="text-align: center"><div style="background-color: #d6d6d6">{{ data.dob }}</div></td>
+                    </tr>
+                    </tbody>    
+                    </table>
+
             </div>            
         </div>               
     </div>    
@@ -252,7 +286,7 @@
                 <span style="font-size: 11pt;"><b>7. </b></span><span style="margin-left:12px;">The <b>details of the order</b> I am applying for are as follows:</span>
                 <br/>
                 <span style="margin-left:25px;font-size: 11pt;text-indent:47px;">
-                    <i>List the specific details of the order(s) you are asking for</i>
+                    <span style="color:#747474;font-style:italic">List the specific details of the order(s) you are asking for</span>
                 </span>
                 <div v-if="form10Info.orderDetails" style="min-height:150px;text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;">{{form10Info.orderDetails}}</div>
                     <div v-else style="margin-bottom:3rem;min-height:150px;"></div> 
@@ -271,10 +305,10 @@
                 <span style="font-size: 11pt;"><b>8. </b></span><span style="margin-left:12px;">The <b>facts</b> on which this application is based <b>are as follows:</b></span>
                 <br/>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>Explain why you are making the application and why the order you</i>
+                    <span style="color:#747474;font-style:italic">Explain why you are making the application and why the order you</span>
                 </div>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>are requesting should be made</i>
+                    <span style="color:#747474;font-style:italic">are requesting should be made</span>
                 </div>
                 
                 <div v-if="!includesFoaeaaOnly && form10Info.orderFacts" style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:230px;">
@@ -312,8 +346,8 @@
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>9.</b><span style="margin-left:12px;"><i>Select one of the following options, and complete the additional </i></span>
-                        <div style="margin-left:25px;"><i>information as applicable</i></div>
+                        <b>9.</b><span style="margin-left:12px;color:#747474;"><i>Select one of the following options, and complete the additional </i></span>
+                        <div style="margin-left:25px;color:#747474;"><i>information as applicable</i></div>
                     </div>     
                     <div>
                     <div style="text-indent: 20px;">
@@ -361,7 +395,7 @@
             </div>
             <div style="height:220px;text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>10.</b><span style="margin-left:12px;"><i>Select only one of the following options</i></span>
+                        <b>10.</b><span style="margin-left:12px;color:#747474;"><i>Select only one of the following options</i></span>
                     </div>     
                     <div>
                     <div style="text-indent: 20px;">
@@ -371,8 +405,9 @@
                         <check-box style="display: block; text-indent: -17px;margin-left:40px"  :check="form10Info.contactedOP && !form10Info.oPAgreed?'yes':''" text="<b>I contacted</b> the other party, and each other person affected, but <b>we have not agreed</b>  to a date and time for the court appearance"/>               
                     </div>
                     <div style="text-indent: 20px;">
-                        <check-box style="display: block; text-indent: -17px;margin-left:40px"  :check="!form10Info.contactedOP?'yes':''" text="<b>I have not contacted</b> the other party, and each other person affected, to discuss available dates and times for the court appearance"/>               
-                    </div>                 
+                        <check-box style="display: block; text-indent: -17px;margin-left:40px"  :check="!form10Info.contactedOP?'yes':''" text="<b>I have not contacted</b> the other party, and each other person "/>               
+                    <div style="margin-left:34px;">affected, to discuss available dates and times for the court appearance</div>
+                        </div>                 
                 </div>                                 
             </div>            
         </div>  
@@ -387,13 +422,13 @@
 <!-- <8> : END-->
 <!-- <9> : BEGIN-->
     <div class="print-block">
-        <div style="width: 80%; float: left; margin-right: 10px;margin-top:-5px;" >
+        <div style="width: 80%; float: left; margin-right: 10px;margin-top:-45px;" >
             <div style="margin-top: 0.3rem;"></div>
             <div style="background: #626262; color: white; font-size: 11pt;">
                     <b>Part 9 | About your court appearance</b>
             </div>
             <div style="text-indent: -8px;" value="3"> 
-            <div style="text-indent: 22px;margin-top:10px;margin-left:-20px;"><i>For registry or judicial case manager use only</i></div>
+            <div style="text-indent: 22px;margin-top:10px;margin-left:-20px;color:#747474;"><i>For registry or judicial case manager use only</i></div>
             
             </div>
         </div>
@@ -415,6 +450,7 @@
                     <ul style="margin-top: -20px;margin-left:-25px;">
                         <!-- <underline-form style="text-indent:4px;display:inline-block;margin-left:10px; " textwidth="350px" beforetext="in person at" hintMargin="120px"  hint="court location" text=""/>  -->
                         <span style="margin-left:20px;">in person at</span><span style="margin-left:20px;background-color:#dedede;width:100px;min-width:100px;">______________________________________________</span>
+            
             <div style="margin-top:-3px;">
             <div style="margin-left:220px;font-size:6pt;"><i> court location</i></div>
             </div>
@@ -476,13 +512,13 @@
         <b>What do parties need to know about attending by another method other than in person?</b>
         <div style="margin-top:5px;font-size:11pt;">
             If your notice indicates that you are to attend by another method of attendance, parties, including the judge, will attend 
-            using the Microsoft Teams audio- and video-conferencing (video) platform. Do not attend the courthouse in person. 
+            using the Microsoft Teams audio- and video-conferencing (video) platform. <b>Do not attend the courthouse in person</b>. 
             Parties will receive remote MS Teams appearance details within 24 hours prior to the appearance, this notification is
             sent to you by email.
         </div>
         <div style="margin-top:5px;font-size:11pt;">
             Microsoft Teams allows participants to join the conference using video or audio from a desktop, laptop, tablet, or
-            smartphone, or to dial-in to a proceeding from a telephone. If you are appearing by video, please ensure that you 
+            smartphone, or to dial-in to a proceeding from a telephone. <b>If you are appearing by video</b>, please ensure that you 
             have downloaded Microsoft Teams or have the latest version of Google Chrome or Microsoft Edge.
         </div>
         <div style="margin-top:5px;font-size:11pt;">
@@ -589,7 +625,7 @@
                     </div>     
                     <div>
                     <div >
-                        <check-box  style="display: block; text-indent: -17px;margin-left:45px"  :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" text="Where my <b>existing case</b> with the same party/parties is located. I already have a file number"/>               
+                        <check-box  style="display: block; text-indent: -17px;margin-left:45px"  :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" text="Where my <b>existing case</b> with the same party/parties is located. I already have a file number."/>               
                     </div>
                     <div>
                         <check-box style="display: block; text-indent: -17px;margin-left:45px"  :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" text="Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue"/>               
