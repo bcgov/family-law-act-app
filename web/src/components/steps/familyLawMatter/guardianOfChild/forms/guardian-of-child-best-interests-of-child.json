@@ -17,7 +17,16 @@
             },
             {
               "type": "comment",
+              "name": "appointGuradianChildBestInterest",
+              "visibleIf": "{applicationType} contains 'becomeGuardian'",
+              "title": "Please explain why you believe it is in the child's best interests to appoint you as a guardian.",
+              "description": "You do not need to use any special wording. The key is to be clear about why you think the order you want to make is in the child’s best interests.",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
               "name": "cancelGuradianChildBestInterest",
+              "visibleIf": "{applicationType} contains 'cancelGuardian'",
               "title": "Please explain why you believe it is in the child’s best interests to cancel the guardianship of the other party.",
               "description": "You do not need to use any special wording. The key is to be clear about why you think the order you want to make is in the child’s best interests.",
               "isRequired": true
