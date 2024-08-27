@@ -43,10 +43,10 @@
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%">
-                <grey-box-form marginTop="-19px" style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="yourInfo.name | getFullName"/>
-                <grey-box-form marginTop="-19px" style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hintindent="1rem" hint="occupation" :text="yourInfo.occupation"/>
+                <grey-box-form marginTop="-19px" style="display:inline-block;" textwidth="13rem" beforetext="I," hint="Name of party" :text="yourInfo.name | getFullName"/>
+                <grey-box-form marginTop="-19px" style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hintindent="1rem" hint="Occupation" :text="yourInfo.occupation"/>
                 <div style="margin-top: 0.6rem;"></div>
-                <grey-box-form marginTop="-19px" style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="serviceAddress | getFullAddress"/>
+                <grey-box-form marginTop="-19px" style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="Address of person, City, Province" :text="serviceAddress | getFullAddress"/>
                 <div style="text-indent:1px;display:inline;"> ,</div>
             </div>
             <div style="width: 20%;">
@@ -120,9 +120,9 @@
                             <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
                         </template>
-                        <template v-slot:head(livingwith)>
+                        <template v-slot:head(living)>
                             Child is currently living with <i style="font-size:6pt; font-weight:normal;">(name of person)</i>
                         </template>
                 </b-table> 
@@ -146,7 +146,7 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
                 <div style="margin:0.25rem 0 0 2rem;" >
-                    <check-box shift="10" shiftmark="0" :check="hasSharingAdult?'yes':''" text="The following <b>adult family member(s)</b> sharing the residence with the other protected person:"/>               
+                    <check-box shift="10" shiftmark="0" :check="hasSharingAdult?'yes':''" text="The following <b>adult family member(s)</b> sharing the residence with the protected person:"/>               
                 </div>
                 <b-table
                     :items="sharingAdultItem"
@@ -251,7 +251,7 @@
 <!-- <3> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
-                <b>3. </b>I <b>do not want</b> the other party to be able to <b>attend at, enter or be found near</b><br/> the following places:
+                <b>3. </b>I <b>do not want</b> the other party to be able to <b>attend at, enter or be found near</b><br/> the following place(s):
                 <div style="margin:0.25rem 0 0 1rem;" >
                     <i>Select all options that apply</i>
                     <check-box shift="10" shiftmark="0" :check="noGo.places.includes('Home')?'yes':''" text="Residence"/>
@@ -332,7 +332,7 @@
 <!-- <6> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
-                <b>6. </b>I believe the other party <b>owns or has access to guns, explosives or another kind<br/> of firearm</b><br/>
+                <b>6. </b>I believe the other party <b>owns or has access to guns, explosives or another<br/> kind of firearm</b><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.firearmsYes == 'n'?'yes':''" text="<b>No</b>"/><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="weaponsFirearms.firearmsYes == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your belief:"/>
                 <div class="answerbox" style="width:98%; background-color: #dedede;">{{weaponsFirearms.firearmsYesReason ? weaponsFirearms.firearmsYesReason : '&nbsp;'}}</div>
@@ -394,6 +394,7 @@
                 <b>9. </b>I believe <b>police assistance may be required</b> for the following purpose(s):
                 <div style="margin:0.25rem 0 0 1rem;" >
                     <i>Select all options that apply</i>                
+                    <check-box shift="10" shiftmark="0" :check="removePerson.needPolice.includes('Not applicable')?'yes':''" text="Not applicable"/>
                     <check-box shift="10" shiftmark="0" :check="removePerson.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
                     <check-box style="margin-top:0rem;" shift="10" shiftmark="0" :check="removePerson.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
                     <check-box style="margin-top:0rem;" shift="10" shiftmark="0" :check="removePerson.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
@@ -590,9 +591,9 @@
                             <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
-                            Child's date of birth<i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                            Child's date of birth<i style="font-size:6pt; font-weight:normal;">(dd/mmm/yyyy)</i>
                         </template>
-                        <template v-slot:head(livingwith)>
+                        <template v-slot:head(livingWith)>
                             Child is currently living with <i style="font-size:6pt; font-weight:normal;">(name of person)</i>
                         </template>
                 </b-table> 
@@ -710,7 +711,7 @@
             <div style="width: 80%; padding-left: 8px;">  
                 <b>17. </b>I am concerned the other party <b>may not obey a court order</b><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.concernForNotObeying == 'n'?'yes':''" text="<b>No</b>"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.concernForNotObeying == 'y'?'yes':''" text="<b>Yes</b> 🠆 explain the reason(s) for your concerns:"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.concernForNotObeying == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your concerns:"/>
                 <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.explainNotObeyingConcern ? backgroundSurvey.explainNotObeyingConcern : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
@@ -728,9 +729,9 @@
 <!-- <18> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
-                <b>18. </b>I am concerned the other party <b>may not obey a court order</b><br/>
+                <b>18. </b>I have <b>reported</b> my safety concerns <b>to the police</b><br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToPolice == 'n'?'yes':''" text="<b>No</b>"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToPolice == 'y'?'yes':''" text="<b>Yes</b> 🠆 describe what actions they have taken:"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToPolice == 'y'?'yes':''" text="<b>Yes</b> ➜ describe what actions they have taken:"/>
                 <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.policeActions ? backgroundSurvey.policeActions : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
@@ -752,7 +753,7 @@
             <div style="width: 80%; padding-left: 8px;">  
                 <b>19. </b>I have <b>reported</b> my safety concerns <b>to a social worker</b> (Ministry of Children and<br/> Family Development)<br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToSW == 'n'?'yes':''" text="<b>No</b>"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToSW == 'y'?'yes':''" text="<b>Yes</b> 🠆 describe what actions they have taken:"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.reportedToSW == 'y'?'yes':''" text="<b>Yes</b> ➜ describe what actions they have taken:"/>
                 <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.swAction ? backgroundSurvey.swAction : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
@@ -854,9 +855,9 @@
 <!-- <21> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
-                <b>21. </b>I am concerned about the <b>mental health</b> of the protected party and/or the other<br/> party<br/>
+                <b>21. </b>I am concerned about the <b>mental health</b> of the protected party and/or the other party<br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.mentalHealthConcern == 'n'?'yes':''" text="<b>No</b>"/><br/>                      
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.mentalHealthConcern == 'y'?'yes':''" text="<b>Yes</b> 🠆 explain the reason(s) for your concerns:"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.mentalHealthConcern == 'y'?'yes':''" text="<b>Yes</b> ➜ explain the reason(s) for your concerns:"/>
                 <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.mentalHealthConcernReasons ? backgroundSurvey.mentalHealthConcernReasons : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
@@ -876,12 +877,12 @@
 <!-- <22> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-left: 8px;">  
-                <b>22. </b>Are there <b>circumstances</b> you want to share about a party or the relationship <b>that<br/> may increase the risk of family violence</b>?
+                <b>22. </b>Are there <b>circumstances</b> you want to share about a party or the relationship <b>that may increase the risk of family violence</b>?
                 <i style="text-indent:0rem;display:block;margin-left:.2rem; width:98%">Circumstances may include risk factors such as substance misuse, employment or
                     financial stress, history of violence, and vulnerabilities including pregnancy, age, family
                     circumstances, health or economic dependence</i>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.riskOfViolence == 'n'?'yes':''" text="<b>No</b>"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="<b>Yes</b> 🠆 please describe the circumstances:"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="backgroundSurvey.riskOfViolence == 'y'?'yes':''" text="<b>Yes</b> ➜ please describe the circumstances:"/>
                 <div class="answerbox" style="width:98%; background-color: #dedede;"> {{backgroundSurvey.violenceCirumstances ? backgroundSurvey.violenceCirumstances : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
@@ -919,7 +920,7 @@
             <div style="width: 80%; padding-right: 4px;">
                 <b>23. </b>Is there any family violence <b>you fear is likely</b> to happen or <b>concerns for the</b><br/><b>safety</b> of the protected party/parties that you have <b>not already described</b> in this affidavit?<br/>
                 <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="yourStory.isViolence == 'n'?'yes':''" text="<b>No</b>"/><br/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="yourStory.isViolence == 'y'?'yes':''" text="<b>Yes</b> 🠆 please describe the circumstances:"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" shiftmark="0" :check="yourStory.isViolence == 'y'?'yes':''" text="<b>Yes</b> ➜ please describe the circumstances:"/>
                 <div class="answerbox" style="width:98%; background-color: #dedede;"> {{yourStory.whatViolence ? yourStory.whatViolence : '&nbsp;'}}</div>
             </div>
             <div style="width: 20%; padding: 6px;">
@@ -1042,7 +1043,7 @@ export default class Schedule1 extends Vue {
     sharingAdultFields = [
         {key:"name",     label:"Full name",                                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",      label:"Date of birth (mmm/dd/yyyy)",              tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:17%;"},
-        {key:"relation", label:"Relationship to other protected person(s)",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:20%;"},
+        {key:"relation", label:"Relationship to the protected person(s)",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:20%;"},
     ]    
     
     otherChildrenFields=[
