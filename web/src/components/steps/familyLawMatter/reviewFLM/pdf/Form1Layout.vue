@@ -113,20 +113,20 @@
                         <div style="display: inline-block; font-size: 11pt;">
                             <b>2. My full name</b> is:
                         </div>
-                        <underline-form style="text-indent:30px;display:inline-block; font-size: 9pt;" textwidth="365px"
-                            beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede" 
+                        <grey-box-form style="text-indent:30px;display:inline-block; font-size: 9pt;" textwidth="365px"
+                            beforetext="" hint="Full name of party" :italicHint="false"
                             hintMargin="130px" :text="yourInfo.name | getFullName" />
                     </div>
                 </div>
-                <div style="text-indent: 6px; float: right">
+                <div style="text-indent: 4px;">
                     <div style="display: inline-block; font-size: 11pt;margin-left:16px;">
                         My <b>date of birth </b> is:
                     </div>
-                    <underline-form style="text-indent:9px;display:inline-block; font-size: 9pt; " textwidth="357px"
-                        beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" 
+                    <grey-box-form style="text-indent:9px;display:inline-block; font-size: 9pt; " textwidth="357px"
+                        beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false"
                         hintMargin="150px" :text="yourInfo.dob | beautify-date-mid" />
                 </div>
-                <div style="text-indent: 6px;">
+                <div style="text-indent: 4px;">
                     <div style="display: inline-block; font-size: 11pt;margin-left:16px;">
                         My <b>current contact information</b> is:
                         <br />
@@ -134,10 +134,10 @@
                     <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 27px; font-size: 9pt; background-color: #dedede; width: 95%;">
                         <tr style="border:2px solid #fff">
                             <td style="border:2px solid #fff; padding: 4px;">
-                                Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
+                                Email: <div style="display: inline">{{ yourInfo.contact.email }}</div>
                             </td>
                             <td style="border:2px solid #fff; padding: 4px;">
-                                Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
+                                Telephone: <div style="display: inline">{{ yourInfo.contact.phone }}</div>
                             </td>
                         </tr>
                     </table>
@@ -146,8 +146,8 @@
                             <div style="display: inline-block; font-size: 11pt;">
                                 <b>3.</b> The full name of <b> other party to this agreement</b> is:
                             </div>
-                            <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
-                                beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
+                            <grey-box-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
+                                beforetext="" hint="" :italicHint="false"
                                 hintMargin="100px" :text="firstOtherParty.name | getFullName" />
                         </div>
                     </div>
@@ -157,9 +157,12 @@
                             <div style="display: inline-block; font-size: 11pt;">
                                 Their <b>date of birth</b>  (dd/mmm/yyyy) is:
                             </div>
-                            <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
-                                beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
-                                hintMargin="100px" :text="firstOtherParty.dob | beautify-date-mid" />
+                            <grey-box-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" 
+                                textwidth="155px" 
+                                beforetext="" hint="" 
+                                :italicHint="false"
+                                hintMargin="100px" 
+                                :text="firstOtherParty.dob | beautify-date-mid" />
                         </div>
                     </div>
 
@@ -181,9 +184,12 @@
                                     <div style="display: inline-block; font-size: 11pt; margin-top: 2px;">
                                         Their <b>date of birth</b> (dd/mmm/yyyy) is:
                                     </div>
-                                    <underline-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" textwidth="155px" 
-                                        beforetext="" hint="" :italicHint="false" textBackgroundColor="#dedede" 
-                                        hintMargin="100px" :text="otherParty.dob | beautify-date-mid" />
+                                    <grey-box-form style="text-indent:5px;display:inline-block; font-size: 9pt; margin-right:-30px;" 
+                                        textwidth="155px" 
+                                        beforetext="" hint="" 
+                                        :italicHint="false" 
+                                        hintMargin="100px" 
+                                        :text="otherParty.dob | beautify-date-mid" />
                                 </div>
                             </div>
                             <!-- if NO additional parties -->
@@ -284,10 +290,9 @@
                             :items="childrenInfo"
                             :fields="childrenFields"
                             class="mt-2"
-                            small
-                            bordered>                    
+                            small>                    
                                 <template v-slot:cell()="data">
-                                    <div style="height:1rem; font-size:8pt;color:#000;background-color: #dedede; padding: 0rem;">{{data.value}}</div>                                           
+                                    <div style="height:1rem; font-size:8pt;color:#000;background-color: #d6d6d6;">{{data.value}}</div>                                           
                                 </template>
                                 <template v-slot:head(dob)>
                                     Child's date of birth <br/><i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
@@ -928,6 +933,7 @@ const applicationState = namespace("Application");
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
+import GreyBoxForm  from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { childrenInfoSurveyInfoType, yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
@@ -938,7 +944,8 @@ import { existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf'
     components:{
         UnderlineForm,
         CheckBox,
-        OrderedCheckBox        
+        OrderedCheckBox,
+        GreyBoxForm       
     }
 })
 export default class Form1Layout extends Vue {
@@ -966,8 +973,8 @@ export default class Form1Layout extends Vue {
     existingFileNumber = '';
     
     childrenFields=[
-        {key:"fullName", label:"Child's full name",                   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",      label:"Child's date of birth (mmm/dd/yyyy)", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
+        {key:"fullName", label:"Child's full name",                   tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"dob",      label:"Child's date of birth (mmm/dd/yyyy)", tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ]
    
     mounted(){
