@@ -46,8 +46,8 @@ export default class Form27 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA744    `+moment().format("MMMM D, YYYY")+` \\a           Form 27";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 744    `+moment().format("MM/YYYY")+` \\a           Form 27";`;
+        const bottomRightText = `"Request to File a Determination of Parenting Coordinator "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
