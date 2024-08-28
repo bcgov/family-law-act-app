@@ -3,33 +3,12 @@
 
         <!-- <Page 1> -->
         <!-- <HEADER> -->
-        <div style="height: 160px;">
-            <div style="float:left; width: 33%; margin-left:-10px;">
-                <div style="font-size: 14pt;"><b>Notice to Resolve a Family Law Matter</b></div>
-                <div style="font-size:12pt;"><b>FORM 1</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rule 10</div>
-            </div>
-
-            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
-                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
-            </div>
-
-            <div style="width: 35%; float:right; font-size: 8pt;">
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number:<br/><i>For registry use only</i></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> &nbsp; </div>
-                </div>
-            </div>
-        </div>
+        <FormHeader 
+            :headerTableData="headerItems" 
+            formName="Notice to Resolve a Family Law Matter" 
+            formNumber="Form 1" 
+            ruleFontSize="10pt"
+            formRuleNumber="Rule 10" />
 
         <!-- Header description -->
         <div>
@@ -239,7 +218,7 @@
                         <div>
                             <b>4.</b> I would like <b>help with</b> the following family law matter(s):
                         </div>
-                        <div style="margin-left:1rem;">
+                        <div style="margin-left:1rem; color: #626262">
                             <i>Select all options that apply</i>
                         </div>
                         <div style="margin-left:2.5rem; text-indent: -17px;">
@@ -279,12 +258,13 @@
 
                 <div style="margin-left:-5px;width: 100%; float: left; margin-right: 0px;">
                     <div style="text-indent: -20px; padding-left: 20px; margin: 0rem 0rem 0rem 0.7rem; font-size: 11pt;">
-                        <div>
+                        <div style="color: #626262">
                             <b>5.</b> <i>Select the correct option below and provide the additional information if applicable</i>
                         </div>
                         <div style="margin-left:2.5rem; text-indent: -17px;" >
-                            <check-box marginLeft="1.5rem"  :check="!childRelatedType?'yes':''" text="My family law matter is not about a child or children"/>
-                            <check-box marginLeft="1.5rem"  :check="childRelatedType?'yes':''" text="My family law matter is about the following child or children:"/>
+                            <check-box marginLeft="1.5rem"  :check="!childRelatedType?'yes':''" text="My family law matter is <b>not about a child</b> or children"/>
+                            <check-box marginLeft="1.5rem"  :check="childRelatedType?'yes':''" text="My family law matter is about <b>the following child</b> or children:"/>
+                            <i style="margin-left:0.5rem; color: #626262">Provide the requested information below for each child</i>
                         </div>
                         <b-table
                             :items="childrenInfo"
@@ -295,7 +275,7 @@
                                     <div style="height:1rem; font-size:8pt;color:#000;background-color: #d6d6d6;">{{data.value}}</div>                                           
                                 </template>
                                 <template v-slot:head(dob)>
-                                    Child's date of birth <br/><i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
+                                    Child's date of birth <br/><i style="font-size:6pt; font-weight:normal;">(dd/mm/yyyy)</i>
                                 </template>
                         </b-table>
                     </div>
@@ -319,8 +299,8 @@
                             support, and/or property division in respect of a companion animal.
                         </div>
                         <div style="margin-left:2.5rem; text-indent: -17px;" >
-                            <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
-                            <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
+                            <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="<b>Yes</b>"/>
+                            <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="<b>No</b>"/>
                         </div>
                     </div>
                 </div>
@@ -336,8 +316,8 @@
                             </ul>
                         </div>
                         <div style="margin-left:2.5rem; text-indent: -17px;" >
-                            <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
-                            <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>
+                            <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="<b>Yes</b>"/>
+                            <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="<b>No</b>"/>
                         </div>
                     </div>
                 </div>
@@ -365,7 +345,7 @@
                         <div>
                             <b>8.</b> I am filing this application <b>in the court registry</b>: 
                         </div>
-                        <div style="margin-left:1rem;">
+                        <div style="margin-left:1rem; color: #626262">
                             <i>Select only one of the options below</i>
                             <check-box  
                                 :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
@@ -587,6 +567,7 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import GreyBoxForm  from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
@@ -600,7 +581,8 @@ import { existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf'
     components:{
         CheckBox,
         OrderedCheckBox,
-        GreyBoxForm       
+        GreyBoxForm,
+        FormHeader    
     }
 })
 export default class Form1Layout extends Vue {
@@ -626,6 +608,8 @@ export default class Form1Layout extends Vue {
     filingLocationReason = '';  
     existingOrders = {} as existingOrdersInfoType;
     existingFileNumber = '';
+
+    headerItems = [];
     
     childrenFields=[
         {key:"fullName", label:"Child's full name",                   tdClass:"text-center align-middle", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
@@ -635,6 +619,22 @@ export default class Form1Layout extends Vue {
     mounted(){
         this.dataReady = false;
         this.extractInfo();     
+        this.headerItems = [
+            {
+                name:'REGISTRY LOCATION:', 
+                value: this.result.applicationLocation
+            },
+            {
+                name:'COURT FILE NUMBER:',
+                value: this.existingFileNumber ? this.existingFileNumber : null
+            },
+            null,
+            {
+                name: "Document number:",
+                subtitle: 'For registry use only',
+                value: ""
+            }
+        ]; 
         this.dataReady = true;
     } 
 
