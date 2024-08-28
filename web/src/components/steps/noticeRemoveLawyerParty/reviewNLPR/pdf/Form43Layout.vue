@@ -80,14 +80,14 @@
 <!-- <Part 1> -->
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
-                <FormPart :part="2" title="Lawyer for the party"></FormPart>
+                <FormPart :part="2" title="Lawyer for party"></FormPart>
             </div>
             <div style="width: 20%;margin-top:30px;">
             </div>
         </div>  
 
 <!-- <3> -->
-    <div style="display: flex; flex-direction: row;">
+        <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <b style="padding-right:3px">3.</b>
                 <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;"><i>Select the option that applies and complete the required information</i></div>
@@ -151,7 +151,19 @@
                         hintindent="1.2rem" 
                         :italicHint="false" :text="!applicantLawyer?effectiveDate:''"/>
                 </div>
-                <div style="margin-top: 0.8rem;"></div>
+            </div>
+            <div style="width: 20%;margin-top:-42px;">
+                <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <br />
+                    <p>
+                        This notice may be prepared and filed by the lawyer or a party.
+                    </p>
+                </NoteBox>
+            </div>
+        </div>  
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
                 <b style="padding-right:3px">4.</b>
                 <div style="display:inline; margin:0 0 0 0.25rem; line-height: 30px;"><i>Select the option that applies and complete the required information</i></div>
                 <div style="margin:0.25rem 0 0 0.5rem; width: 100%;">
@@ -210,13 +222,6 @@
                 </div>
             </div>
             <div style="width: 20%;margin-top:-42px;">
-                <NoteBox>
-                    <b-icon-info-circle-fill />
-                    <br />
-                    <p>
-                        This notice may be prepared and filed by the lawyer or a party.
-                    </p>
-                </NoteBox>
             </div>
         </div>  
 
