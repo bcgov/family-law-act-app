@@ -26,14 +26,14 @@
                     <FormPart :part="1" title="Final order or agreement"></FormPart>
 
                     <section>
-                        <i>Select only one of the options below and complete the requested information</i>
+                        <i style="color: #999;">Select only one of the options below and complete the requested information</i>
                         <br>
 
                         <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.35rem;" :check="result.contactWithChildOrderSurvey.existingType == 'ExistingOrder'?'yes':''" text="I have a <b>final court order</b> about contact with a child made"/>
-                        <GreyBoxForm style="margin-left:2rem; margin-top: 0.2rem; text-indent:0px;" textwidth="10rem" beforetext="on (<i>date</i>)" aftertext="that I want to change or cancel <b>(see attached copy of order)</b>.🠆 </br><i>Complete <b>Part 2</b></i>" :text="result.contactWithChildOrderSurvey.existingType == 'ExistingOrder' ? exChContInfo.date: ''"/>
+                        <GreyBoxForm style="margin-left:2rem; margin-top: 0.2rem; text-indent:0px;" textwidth="10rem" beforetext="on (<i>date</i>)" aftertext="that I want to change or cancel <b>(see attached copy of order)</b>. -> </br><i>Complete <b>Part 2</b></i>" :text="result.contactWithChildOrderSurvey.existingType == 'ExistingOrder' ? exChContInfo.date: ''" hint="" />
                         
                         <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.35rem;" :check="result.contactWithChildOrderSurvey.existingType == 'ExistingAgreement'?'yes':''" text="I have a <b>written agreement</b> about contact with a child made"/>
-                        <GreyBoxForm style="margin-left:2rem; margin-top: 0.2rem; text-indent:0px;" textwidth="10rem" beforetext="on (<i>date</i>)" aftertext="that I want to repeal or replace (<b>see attached copy of agreement</b>).🠆 </br><i>Complete <b>Part 3</b></i>" :text="result.contactWithChildOrderSurvey.existingType == 'ExistingAgreement' ? exChContInfo.date : ''"/>
+                        <GreyBoxForm style="margin-left:2rem; margin-top: 0.2rem; text-indent:0px;" textwidth="10rem" beforetext="on (<i>date</i>)" aftertext="that I want to repeal or replace (<b>see attached copy of agreement</b>). -> </br><i>Complete <b>Part 3</b></i>" :text="result.contactWithChildOrderSurvey.existingType == 'ExistingAgreement' ? exChContInfo.date : ''" hint="" />
                     </section>
 
                 </div>
@@ -62,12 +62,12 @@
                         
                         <div>
                             <div><b>3.</b> I am applying for the final order to be:</div>
-                            <i style="display:inline; margin-left:0.35rem">Select only one option</i>
+                            <i style="display:inline; margin-left:0.35rem; color: #999;">Select only one option</i>
                             
                             <div style="margin:0 0 2rem 0rem;">
-                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.order && exChContInfo.abtExOrdr.ordrdiff == 'changeOrder'?'yes':''" text="<b>changed</b> 🠆 <i>Complete <b>Part 4</b></i>"/>
-                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.order && exChContInfo.abtExOrdr.ordrdiff == 'suspendedOrder'?'yes':''" text="<b>suspended</b> 🠆 <i>Skip ahead to <b>Part 5</b></i>"/>
-                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.order && exChContInfo.abtExOrdr.ordrdiff == 'cancelOrder'?'yes':''" text="<b>cancelled</b> 🠆 <i>Skip ahead to <b>Part 5</b></i>"/>
+                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.order && exChContInfo.abtExOrdr.ordrdiff == 'changeOrder'?'yes':''" text="<b>changed</b> -> <i>Complete <b>Part 4</b></i>"/>
+                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.order && exChContInfo.abtExOrdr.ordrdiff == 'suspendedOrder'?'yes':''" text="<b>suspended</b> -> <i>Skip ahead to <b>Part 5</b></i>"/>
+                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.order && exChContInfo.abtExOrdr.ordrdiff == 'cancelOrder'?'yes':''" text="<b>cancelled</b> -> <i>Skip ahead to <b>Part 5</b></i>"/>
                             </div>
                         </div>
                     </div>
@@ -98,13 +98,13 @@
                             </div>
                             <div>
                                 <div>
-                                    <b>5.</b> <i>Select only one option</i>
+                                    <b>5.</b> <i style="color: #999;">Select only one option</i>
                                     <div style="margin-left: 0.5rem;">
                                         I am applying for the existing agreement to be:
                                     </div>
                                 </div>
-                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="(!exChContInfo.order) && exChContInfo.abtExAgrmnt.agrmntdiff == 'setAsideAgreement'?'yes':''" text="<b>set aside</b> 🠆 <i>Skip ahead to <b>Part 5</b></i>"/>
-                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="(!exChContInfo.order) && exChContInfo.abtExAgrmnt.agrmntdiff == 'replacedAgreement'?'yes':''" text="<b>replaced with an order</b> 🠆 <i>Complete <b>Part 4</b></i>"/>
+                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="(!exChContInfo.order) && exChContInfo.abtExAgrmnt.agrmntdiff == 'setAsideAgreement'?'yes':''" text="<b>set aside</b> -> <i>Skip ahead to <b>Part 5</b></i>"/>
+                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="(!exChContInfo.order) && exChContInfo.abtExAgrmnt.agrmntdiff == 'replacedAgreement'?'yes':''" text="<b>replaced with an order</b> -> <i>Complete <b>Part 4</b></i>"/>
                             </div>
                         </div>
                     </div>
@@ -125,45 +125,45 @@
             <!-- <4> -->
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 80%; padding-right: 4px;">
-                    <FormPart :part="4" title="About the new order" subtitle="Complete this part only if you are asking to change orreplace the existing order or agreement"></FormPart>
+                    <FormPart :part="4" title="About the new order" subtitle="Complete this part only if you are asking to change or replace the existing order or agreement"></FormPart>
 
                     <div class="print-block"> 
                         <div>
                             <b>6.</b> I am applying to change or replace the existing final order or agreement about contactwith a child as follows:
                             <br>
-                            <i style="display:inline; margin-left:0.35rem">Select all options that apply and complete the required information</i>
+                            <i style="display:inline; margin-left:0.35rem; color: #999;">Select all options that apply and complete the required information</i>
                             <div style="margin:0 0rem 1rem 1rem;">                                
                                 <!-- <check-box  :check="exChContInfo.abt.conType.noContact?'yes':''" text="no contact of any type"/> -->
-                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.abt.conType.inPerson?'yes':''" text="In person: "/>
-                                <i class="marginleft1vue" style="margin:0 0 0 1.75rem;">Provide specific dates or events requested, or dates and times that would be most suitable</i>
+                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.abt.conType.inPerson?'yes':''" text="In person <i style='color: #999;'>(specify)</i>:"/>
+                                <i class="marginleft1vue" style="margin:0 0 0 1.75rem; color: #999;">Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
                                 <div v-if="exChContInfo.abt.conType.inPerson" style="margin-left: 1rem; margin-top: 0; background-color: #dedede; padding:10px; font-size: 11pt; min-height:100px;">
                                     {{exChContInfo.abt.inPrsn}}
                                 </div>
                                 <div v-else>
-                                    <GreyBoxForm style="margin-top:5px; margin-left:1rem; text-indent:0rem" textwidth="31rem" :text="exChContInfo.abt.inPrsn"></GreyBoxForm>
+                                    <GreyBoxForm style="margin-top:5px; margin-left:1rem; text-indent:0rem" textwidth="31rem" :text="exChContInfo.abt.inPrsn" beforetext="" hint=""></GreyBoxForm>
                                 </div>
                                 <check-box :shift="10" :shiftmark="1" :boxMargin="0" style="margin:1rem 0 0 0" :check="exChContInfo.abt.conType.tel?'yes':''" text="Telephone communication"/>
                                 <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.abt.conType.video?'yes':''" text="Video communication"/>
                                 <check-box :shift="10" :shiftmark="1" :boxMargin="0" :check="exChContInfo.abt.conType.written?'yes':''" text="Written communication"/>
-                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" checkbox="" inline="inline" style="display:inline;" :check="exChContInfo.abt.conType.other?'yes':''" text="Other method of communication <i>(specify):</i>"/>
+                                <check-box :shift="10" :shiftmark="1" :boxMargin="0" checkbox="" inline="inline" style="display:inline;" :check="exChContInfo.abt.conType.other?'yes':''" text="Other method of communication <i style='color: #999;'>(specify)</i>"/>
                                 <!-- <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="" :text="exChContInfo.abt.otherComm"/> -->
                                 <div v-if="exChContInfo.abt.otherComm" style="margin-left: 1.5rem; margin-top: 0; background-color: #dedede; padding:10px; font-size: 11pt; min-height:100px;">
                                     {{exChContInfo.abt.otherComm}}
                                 </div>
-                                <GreyBoxForm v-if="!exChContInfo.abt.otherComm" style="margin-top:5px; margin-left:1.5rem; text-indent:0rem" textwidth="31rem" :text="exChContInfo.abt.otherComm"></GreyBoxForm>
+                                <GreyBoxForm v-if="!exChContInfo.abt.otherComm" style="margin-top:5px; margin-left:1.5rem; text-indent:0rem" textwidth="31rem" :text="exChContInfo.abt.otherComm" beforetext="" hint=""></GreyBoxForm>
                             </div>
                         </div> 
 
                         <div style="margin:0 0rem 1rem 1rem;">
-                            <b>7.</b> <i>Complete if applicable. You may leave this question blank.</i>
+                            <b>7.</b> <i style="color: #999;">Complete if applicable. You may leave this question blank.</i>
                             <div style="margin-left: 1rem;">I am applying for <b>additional terms about contact</b> with a child as follows:
                                 <br>
-                                <i>List the details of the terms you are asking for</i>
+                                <i style="color: #999;">List the details of the terms you are asking for</i>
                             </div>
                             <div v-if="result.aboutContactWithChildOrderSurvey && result.aboutContactWithChildOrderSurvey.placeConditions == 'y'" style="margin-left: 1rem; margin-top: 0; background-color: #dedede; padding:10px; font-size: 11pt; min-height:100px;">
                                 {{exChContInfo.abt.cond}}
                             </div>
-                            <GreyBoxForm v-if="!exChContInfo.abt.cond" style="margin-top:5px; margin-left:1.5rem; text-indent:0rem" textwidth="31rem" :text="exChContInfo.abt.otherComm"></GreyBoxForm>
+                            <GreyBoxForm v-if="!exChContInfo.abt.cond" style="margin-top:5px; margin-left:1.5rem; text-indent:0rem" textwidth="31rem" :text="exChContInfo.abt.otherComm" beforetext="" hint=""></GreyBoxForm>
                         </div>
                     </div> 
                 </div>
@@ -195,16 +195,16 @@
                     <FormPart :part="5" title="Best interests of the child" ></FormPart>
 
                     <div class="print-block">
-                        <section>
-                            <div style="display:inline; margin:0 0 3rem 0.35rem;">I believe the order about contact with a child that I am applying for is in the <b>best interests of the child(ren)</b> because:
+                        <div>
+                            <div style="display:inline; margin:0 0 3rem 0.35rem;"><b>8: </b> I believe the order about contact with a child that I am applying for is in the <b>best interests of the child(ren)</b> because:
                                 <br>
-                                <i>List your reasons:</i>
+                                <i style="color: #999;">List your reasons</i>
                             </div>
                             <div v-if="exChContInfo.bstIntrst" style="margin-left: 0rem; margin-top: 0; background-color: #dedede; padding-left:1.5rem; padding-right:0.5rem; font-size: 11pt; min-height:20rem;">
                                 {{exChContInfo.bstIntrst}}
                             </div>
-                            <GreyBoxForm v-if="!exChContInfo.bstIntrst" style="margin-top:5px; margin-left:2.5rem; text-indent:2.5rem" textwidth="31rem" :text="exChContInfo.bstIntrst"></GreyBoxForm>
-                        </section>
+                            <GreyBoxForm v-if="!exChContInfo.bstIntrst" style="margin-top:5px; margin-left:2.5rem; text-indent:2.5rem" textwidth="31rem" :text="exChContInfo.bstIntrst" hint="" breforetext=""></GreyBoxForm>
+                        </div>
                     </div>
                 </div>
                 <div style="width: 20%;">

@@ -87,15 +87,14 @@
                     <FormPart :part="3" title="Order about spousal support"></FormPart>
                     
                     <div>
-                        <b>3. </b>
-                        <div style="display:inline; margin:0 0 0 0.25rem;"> I am applying for an <b>order for spousal support</b> to be paid by <i>(name of paying party)</i></div>                   
-                        <grey-box-form v-for="payor,inx in spsSupInfo.current.payors" :key="inx" style="text-indent:0px;display:inline; margin:0 0 0 0.5rem;" textwidth="11.5rem" :beforetext="inx>0?', ':''" hint="" :text="payor"/>          
+                        <div style="display:inline; margin:0 0 1rem 0.25rem; line-height: 32px;"><b>3. </b> I am applying for an <b>order for spousal support</b> to be paid by <i>(name of paying party)</i></div>                   
+                        <grey-box-form v-for="payor,inx in spsSupInfo.current.payors" :key="inx" style="text-indent:0px;display:inline; margin:1rem 0 0 0.5rem;" textwidth="11.5rem" :beforetext="inx>0?', ':''" hint="" :text="payor"/>          
                         <div style="display:inline; margin:0 0 0 0.5rem;">as follows:</div>
                         
                         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                             <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.monthly?'yes':''" text=""/>
                                         
-                            <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="<b>Monthly payments</b> to commence on (date)" hint="" :text="spsSupInfo.payDetails.start"/>            
+                            <GreyBoxForm style="text-indent:1px;display:inline-block; margin-bottom: 14px;" textwidth="6rem" beforetext="<b>Monthly payments</b> to commence on (date)" hint="" :text="spsSupInfo.payDetails.start"/>            
                             <br>
                             <GreyBoxForm style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="5rem" beforetext="(number)" hint="" :text="spsSupInfo.payDetails.rate"/>
 
@@ -108,7 +107,7 @@
                         <div class="marginleft2p5vue" style="margin:0.25rem 0 0rem 1.5rem;">
                             <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" :check="spsSupInfo.payDetails.other?'yes':''" text="<b>Other</b> <i>(specify):</i>"/>
                                 
-                            <GreyBoxForm style="text-indent:1px;" textwidth="29rem" beforetext="" hint="" :text="spsSupInfo.payDetails.otherComm"/>            
+                            <GreyBoxForm style="text-indent:1px; margin-top: 10px;" textwidth="29rem" beforetext="" hint="" :text="spsSupInfo.payDetails.otherComm"/>            
                         
                         </div>
                     </div>
@@ -118,9 +117,9 @@
                         <div>
                             <i>Select only one of the options below</i>
                         </div>
-                        <div>
-                            <check-box shift="10" shiftmark="0" textDisplay="inline" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect the range for the <b>monthly amount payable</b> for spousal support to be approximately $"/>
-                            <GreyBoxForm style="text-indent:1px;display:inline;" textwidth="10rem" beforetext="" hint="" text=""/>  
+                        <div style="margin-left: 2rem;">
+                            <check-box shift="10" shiftmark="0" textDisplay="inline" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; line-height: 16px;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect the range for the <b>monthly amount payable</b> for spousal support to be "/>
+                            <GreyBoxForm style="text-indent:1px;display:inline-block;margin-top: 10px;" textwidth="10rem" beforetext=" approximately $" hint="" text=""/>  
                             <GreyBoxForm style="text-indent:1px;display:inline;" textwidth="10rem" beforetext="to $" hint="" text=""/>  
                                 <br>
                             <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect a <b>lump sum amount payable</b> for spousal support to be approximately $"/>
@@ -169,20 +168,21 @@
                         <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                         <div style="margin:0 0 1rem 1.25rem;">
                             <check-box shift="10" shiftmark="0" :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="<b>I am filing</b> a Financial Statement in Form 4 with this application."/>
-                            <check-box shift="10" shiftmark="0" :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am <b>not able to file</b> a Financial Statement in Form 4 with this application. <br> I am filing an Application for Case Management Order Without Notice orAttendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date."/>
+                            <check-box shift="10" shiftmark="0" :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am <b>not able to file</b> a Financial Statement in Form 4 with this application. <br> I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date."/>
                         </div>
                     </div>
                 
 
                     <div>
                         <b>7. </b> <i>Select only one of the options below and provide the requested information</i>
-                        <div>
+                        
+                        <div style="margin-top: 1rem; margin-left: 2rem;">
                             <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I believe the <b>payor’s annual income</b> is $"/>
                             <GreyBoxForm style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="" aftertext="because:" hint="" :text="spsSupInfo.incomeInfo.opIncome"/>
-                            <GreyBoxForm style="margin:0 0 0 0.5rem;" textwidth="18rem" beforetext="" hint="" text=""/> 
+                            <div class="answerbox" style="min-height: 80px; padding: 4px; background: #d6d6d6;"></div> 
                         </div>
-                        <div>
-                            <check-box shift="10" shiftmark="0" :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I <b>do not know the income</b> of the payor.I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>
+                        <div style="margin-left: 2rem;">
+                            <check-box shift="10" shiftmark="0" :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I <b>do not know the income</b> of the payor. I can provide the following facts about the payor’s employment (past or present), training, health and ability to work:"/>
                             <br>
                             <div v-if="spsSupInfo.incomeInfo.knowFacts" 
                                 class="answerbox" style="min-height: 80px; padding: 4px; background: #d6d6d6;">{{spsSupInfo.incomeInfo.facts}}</div>

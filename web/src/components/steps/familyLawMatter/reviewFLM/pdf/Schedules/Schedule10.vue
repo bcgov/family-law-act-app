@@ -22,17 +22,17 @@
     <div style="flex: 1">
         <FormPart :part="1" title="Final order or agreement"></FormPart>
         <div style="margin:0 0 0 1.5rem;">
-            <i>Select only one of the options below.</i>
+            <b>1. </b> <i>Select only one of the options below and complete the requested information.</i>
 
             <div style="display:block; width: 98%;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                :check="true?'yes':''" text="I have <b>a final court</b> orderabout spousal support made on (date)"/>
-                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="" aftertext="that I want to change or cancel (see attached copy of order). --> <i>Complete Part 2</i>" hint="dd/mmm/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
+                :check="true?'yes':''" text="I have <b>a final court order</b> about spousal support made on <i>(date)</i>"/>
+                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="" aftertext="that I want to change or cancel <b style='color: #999;'>(see attached copy of order)</b>. ➜ <i style='color:  #999;'>Complete <b>Part 2</b></i>" hint=""  hintindent="40px" :text="exSpsSupInfo.current.date"/>
             </div>
             <div style="display:block; width: 98%;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                :check="true?'yes':''" text="I have a <b>written agreementabout</b> spousal support made on(date)"/>
-                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext=" " aftertext="that I want to repeal or replace (see attached copy of agreement). --> <i>Complete Part 3</i>" hint="dd/mmm/yyyy"  hintindent="40px" :text="exSpsSupInfo.current.date"/>
+                :check="true?'yes':''" text="I have a <b>written agreement about</b> spousal support made on <i>(date)</i>"/>
+                <GreyBoxForm style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext=" " aftertext="that I want to repeal or replace <b style='color: #999;'>(see attached copy of agreement)</b>. ➜ <i style='color: #999;'>Complete <b>Part 3</b></i>" hint=""  hintindent="40px" :text="exSpsSupInfo.current.date"/>
             </div>
         </div>
         </div>
@@ -52,12 +52,11 @@
     <!-- <Part 2> -->
     <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
         <div style="flex: 1">
-            <FormPart :part="2" title="Final order –Complete this part only if you have a final order"></FormPart>
+            <FormPart :part="2" title="Final order" subtitle="Complete this part only if you have a final order"></FormPart>
             <div class="print-block">
                 <div>
                 <div><b>2. Since the final order was made, the following circumstances occurred:</b><br>
-                <i>Select all options that apply and complete the required
-                    information</i>
+                
                 </div>
                        <div style="padding-left: 24px;">
                         <div style="display:block;">
@@ -73,40 +72,36 @@
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.myEmp?'yes':''" text="My employment, training, health and/or ability to work has changed as follows:" />
                            </div>
-                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.myEmp" style="margin-top:10px; text-indent:0rem"
-                                textwidth="35rem" :text="exSpsSupInfo.orderInfo.myEmp">
+                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.myEmp" style="margin-top:10px; text-indent:0rem" textwidth="35rem" beforetext="" hint="" :text="exSpsSupInfo.orderInfo.myEmp">
 
                             </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem" beforetext="" hint="" text=""></GreyBoxForm>
                         
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.houseHold?'yes':''" text="My household expenses have changed as follows:"/>
                             </div>
-                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.houseHold" style="margin-top:10px; text-indent:0rem"
-                                textwidth="35rem" :text="exSpsSupInfo.orderInfo.houseHold">
+                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.houseHold" style="margin-top:10px; text-indent:0rem" textwidth="35rem" beforetext="" hint="" :text="exSpsSupInfo.orderInfo.houseHold">
 
                             </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem" beforetext="" hint="" text=""></GreyBoxForm>
                             <div style="display:block; width: 98%;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.newInfo?'yes':''" text="Information has become available that was not available when the order was made <i>(specify):</i>"/>
                             </div>
-                            <GreyBoxForm  v-if="exSpsSupInfo.orderInfo.changes.newInfo" style="margin-top:10px; text-indent:0rem"
-                                textwidth="35rem" :text="exSpsSupInfo.orderInfo.newInfo">
+                            <GreyBoxForm  v-if="exSpsSupInfo.orderInfo.changes.newInfo" style="margin-top:10px; text-indent:0rem" textwidth="35rem" beforetext="" hint="" :text="exSpsSupInfo.orderInfo.newInfo">
 
                             </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" beforetext="" hint="" textwidth="30rem" text=""></GreyBoxForm>
                         
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.changes.other?'yes':''" text="Other changes or circumstances <i>(specify)</i>:"/>
                             </div>
-                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.other" style="margin-top:10px; text-indent:0rem"
-                                textwidth="35rem" :text="exSpsSupInfo.orderInfo.otherChange">
+                            <GreyBoxForm v-if="exSpsSupInfo.orderInfo.changes.other" style="margin-top:10px; text-indent:0rem" textwidth="35rem" beforetext="" hint="" :text="exSpsSupInfo.orderInfo.otherChange">
 
                             </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>  
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" beforetext="" hint="" textwidth="30rem" text=""></GreyBoxForm>  
                     </div>
                 </div>
                 <div>
@@ -124,11 +119,11 @@
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="<b>suspended</b> -> <i>Complete Part 5</i>"/>
+                                style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.suspend?'yes':''" text="<b>suspended</b> -> <i>Complete Part 5</i>"/>
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="<b>cancelled</b> -> <i>Complete Part 5</i>"  />
+                                style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="<b>cancelled</b> -> <i>Complete Part 5</i>"  />
                         </div>
                     </div>
                 </div>
@@ -159,9 +154,9 @@
     <div style="margin:0 0 -0.25rem 0;"><b>4. </b>I believe the agreement about spousal support <b></b> should be set aside or replaced </b> because:
     </div>
     <GreyBoxForm v-if="exSpsSupInfo.agreementInfo.reason" style="margin-top:10px; text-indent:0rem"
-        textwidth="35rem" :text="exSpsSupInfo.agreementInfo.reason">
+        beforetext="" hint="" textwidth="35rem" :text="exSpsSupInfo.agreementInfo.reason">
     </GreyBoxForm>
-    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" beforetext="" hint="" text="" textwidth="30rem"></GreyBoxForm>
     </div>
     <div>
         <div>
@@ -211,10 +206,10 @@
                 <div style="margin:0 0 -.25rem 0;"><b>6.</b> I am applying for the final order or agreement about spousal support to be <b></b>changed or replaced </b> as follows:
                 </div>   
                 <GreyBoxForm v-if="exSpsSupInfo.about.chSinceOrder" style="margin-top:10px; text-indent:0rem"
-                            textwidth="35rem" :text="exSpsSupInfo.about.chSinceOrder">
+                            textwidth="35rem" beforetext="" hint="" :text="exSpsSupInfo.about.chSinceOrder">
                         </GreyBoxForm>
 
-                        <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="35rem"></GreyBoxForm>                 
+                        <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" beforetext="" hint="" text="" textwidth="35rem"></GreyBoxForm>                 
                 
             </div>
             <div>
@@ -223,19 +218,19 @@
                 </div>
                 <div style="display:block; line-height: 25px;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                        text="<b>I expect the range for the monthly amount payable</b>"  />
+                        text="<b>I expect the range for the monthly amount payable</b>" check=""  />
                        
                 </div>
                 <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="for spousal support to be approximately $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                 <div style="display:block;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
-                        text="I expect a <b>lump sum amount payable</b> for spousal support to be approximately" />
+                        text="I expect a <b>lump sum amount payable</b> for spousal support to be approximately" check="" />
                 </div>
                 <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                 <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px;" textwidth="9rem" beforetext="to $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                 <div style="display:block;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                        text="I am <b>not able to estimate </b>the amount payable for spousal support at this time" />
+                        text="I am <b>not able to estimate </b>the amount payable for spousal support at this time" check="" />
                 </div>
             </div>
         </div>
@@ -272,7 +267,7 @@
                         <i>Select only one of the options below.</i>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                            check="exSpsSupInfo.payDetails.unpaid && !exSpsSupInfo.payDetails.reduce?'yes':''" text="I am <b>not applying</b> to reduce the amount of unpaid spousal support (arrears)" />
+                            :check="exSpsSupInfo.payDetails.unpaid && !exSpsSupInfo.payDetails.reduce?'yes':''" text="I am <b>not applying</b> to reduce the amount of unpaid spousal support (arrears)" />
                         </div>
                     </div>
                     <div style="margin:0 0 0 1.5rem;"> 
@@ -284,10 +279,10 @@
                         <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="8rem" beforetext=" $" aftertext="because:" hint="" :text="exSpsSupInfo.payDetails.reduceAmount"/>
    
                         <GreyBoxForm v-if="exSpsSupInfo.payDetails.reduce" style="margin-top:10px; text-indent:0rem"
-                                textwidth="35rem" :text="exSpsSupInfo.payDetails.reduceReason">
+                                textwidth="35rem" beforetext="" hint="" :text="exSpsSupInfo.payDetails.reduceReason">
 
                             </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="35rem"></GreyBoxForm>
+                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" beforetext="" hint="" textwidth="35rem" text=""></GreyBoxForm>
                        
                         <div style="margin:0 0 0 1rem;" v-if="exSpsSupInfo.payDetails.reduce" 
                             class="answerbox">{{exSpsSupInfo.payDetails.reduceReason}}</div>
@@ -494,7 +489,8 @@ export default class Schedule10 extends Vue {
                 otherChange: (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('other')                  && changesSinceOrderList && changesSinceOrderList.otherComment)?                  changesSinceOrderList.otherComment:'',
                 
                 change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
-                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
+                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'cancelOrder' ,
+                suspend: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'suspendedOrder'
                 
             }
         } else {
@@ -516,7 +512,8 @@ export default class Schedule10 extends Vue {
                 opEmp:       '',
                 otherChange: '',
                 change: false,
-                cancel: false
+                cancel: false,
+                suspend: false
             }
         }
 

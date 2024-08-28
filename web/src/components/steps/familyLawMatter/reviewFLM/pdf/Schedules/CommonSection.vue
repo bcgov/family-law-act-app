@@ -3,7 +3,7 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <FormHeader :tableItems="tableItems" formName="Application About a Family Law Matter" formNumber="FORM 3" formRuleNumber="Rule 24"></FormHeader>
+        <FormHeader :headerTableData="tableItems" formName="Application About a Family Law Matter" formNumber="FORM 3" formRuleNumber="Rule 24"></FormHeader>
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -809,7 +809,27 @@ export default class CommonSection extends Vue {
     culturalInfo = '';  
     filingLocationReason = '';
     
-    tableItems = [];
+    tableItems = [
+        {
+            name:'REGISTRY LOCATION:', 
+            value: ''
+        },
+        {
+            name:'COURT FILE NUMBER:', 
+            value: ''
+        },
+        {
+            name: 'Last namesof parties:',
+            subtitle: 'Party 1/ Party 2',
+            value: ''
+        },
+        {
+            name: "Document number:",
+            subtitle: 'For registry use only',
+            value: ""
+
+        }
+    ];
    
     mounted(){
         this.dataReady = false;

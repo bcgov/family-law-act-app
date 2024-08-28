@@ -367,6 +367,7 @@ export interface existingSpousalSupportOrderInfoDataInfoType {
     otherChange: string;
     change: boolean;
     cancel: boolean;
+    suspend: boolean
 }
 
 export interface existingSpousalSupportOrderChangesInfoType {    
