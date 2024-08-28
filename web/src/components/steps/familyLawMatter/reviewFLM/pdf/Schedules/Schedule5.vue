@@ -81,25 +81,25 @@
                         <div style="margin:0 3rem 1rem 1rem; text-indent:-16px">
                             <div style="display:inline; margin-left:0.35rem"><b>3.</b> I am applying for an order for the child(ren) to have <b>contact with a person <u>who is not their guardian</u></b> as follows:</div>                   
                             <div style="margin:0 3rem 1rem 1rem;">
-                                <i>Select all options that apply and complete the required information</i>
-                                <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="<b>In person</b>: <i>(specify)</i>"/>
-                                <i class='marginleft1vue' style="margin:0 0 -0.25rem 1.75rem;">Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
+                                <i style="color: #999;">Select all options that apply and complete the required information</i>
+                                <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="<b>In person</b>: <i style='color: #999;'>(specify)</i>"/>
+                                <i class='marginleft1vue' style="margin:0 0 -0.25rem 1.75rem; color: #999;">Provide details including specific dates or events requested, or dates and times that would be most suitable</i>
                                 <div v-if="chContInfo.abt.conType.inPerson" 
                                     class="answerbox" style="background-color:#dedede">{{chContInfo.abt.inPrsn}}</div>
                                 <div v-else style="margin-bottom:3rem;"></div>
                                 <check-box style="margin:0rem 0 0 0" :check="chContInfo.abt.conType.tel?'yes':''" text="Telephone communication"/>
                                 <check-box  :check="chContInfo.abt.conType.video?'yes':''" text="Video communication"/>
                                 <check-box  :check="chContInfo.abt.conType.written?'yes':''" text="Written communication"/>
-                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chContInfo.abt.conType.other?'yes':''" text="Other method of communication <i>(specify):</i>"/>
+                                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chContInfo.abt.conType.other?'yes':''" text="Other method of communication <i style='color: #999;'>(specify):</i>"/>
                                 <GreyBoxForm style="text-indent:1px;display:inline-block; margin-top:0.5rem;" textwidth="25.5rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
                             </div>
                             <div style="margin:0 3rem 1rem 1rem;">
-                                <b>4.</b> <i>Complete if applicable. You may leave this question blank.</i>
+                                <b>4.</b> <i style="color: #999;">Complete if applicable. You may leave this question blank.</i>
                                 <div>
                                     <p>
                                         I am applying for <b>additional terms about contact</b> with a child as follows:
                                         <br>
-                                        <i>List the details of the terms you are asking for</i></p>
+                                        <i style="color: #999;">List the details of the terms you are asking for</i></p>
                                 </div>
                                 <div v-if="result.aboutContactWithChildOrderSurvey && result.aboutContactWithChildOrderSurvey.placeConditions == 'y'" 
                                     class="answerbox" style="background-color:#dedede">{{chContInfo.abt.cond}}</div>
@@ -141,7 +141,7 @@
                             <b>5.</b>
                             <div style="display:inline; margin:0 0 3rem 0.35rem;">I believe the order about contact with a child that I am applying for is in the <b>best interests of the child(ren)</b> because:
                                 <br>
-                                <i>
+                                <i style="color: #999;">
                                     List your reasons
                                 </i>
                             </div>
