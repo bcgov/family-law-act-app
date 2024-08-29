@@ -145,25 +145,50 @@
                         <div class="checkbox-choices-header text-primary">Spousal Support</div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('spouseSupport', 'newSpouseSupport', $event)" 
-                            value="newSpouseSupport">
-                            <div class="checkbox-choices">Spousal Support - new</div>
+                            v-on:change="changeSelection('spouseSupport', 'agreeSpouseSupport', $event)" 
+                            value="agreeSpouseSupport">
+                            <div class="checkbox-choices">I agree with the request of the other party</div>
                             <p>
-                                Schedule 9 of the application was completed by the other party. 
-                                They are asking for an order about spousal support because 
-                                there wasn’t already one in place.
                             </p>                    
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('spouseSupport', 'existingSpouseSupport', $event)" 
-                            value="existingSpouseSupport">
-                            <div class="checkbox-choices">Spousal Support order/agreement – existing </div>
+                            v-on:change="changeSelection('spouseSupport', 'disagreeSpouseSupport', $event)" 
+                            value="disagreeSpouseSupport">
+                            <div class="checkbox-choices">I disagree with the request of the other party</div>
                             <p>
-                                Schedule 10 of the application was completed by the other party. 
-                                They are asking for an order about a spousal support order or 
-                                agreement that already exists.
+                                A different order about spousal 
+                                support should be made. 🠆 Complete Schedule 5
                             </p>                    
                         </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('spouseSupport', 'counterSpouseSupport', $event)" 
+                            value="counterSpouseSupport" v-model="counterSSChecked">
+                            <div class="checkbox-choices">I am making a counter application for an order about spousal support</div>
+                            <p>
+                                No application about this family law matter was made by the other party.
+                            </p>                    
+                        </b-form-checkbox>
+                        <b-form-checkbox-group
+                            :disabled="counterSSChecked = 'counterSpouseSupport'"
+                            v-model="selectedSpousalSupportForm" 
+                            stacked
+                            >                                
+                            <div class="checkbox-choices-header text-primary">Do you have a final order or written agreement about spousal support?</div>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('spouseSupportFinalOrder', 'noFinalOrderSpouseSupport', $event)" 
+                                value="noFinalOrderSpouseSupport">
+                                <div class="checkbox-choices">No 🠆 Complete Schedule 14</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('spouseSupportFinalOrder', 'yesFinalOrderSpouseSupport', $event)" 
+                                value="yesFinalOrderSpouseSupport">
+                                <div class="checkbox-choices">Yes 🠆 Complete Schedule 15</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                        </b-form-checkbox-group>
                     </div>
                     
                 </b-form-checkbox-group>
@@ -221,6 +246,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 import { rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
+import SpousalSupport from './counterFlm/spousalSupport/SpousalSupport.vue';
 
 @Component({
     components:{
@@ -253,6 +279,8 @@ export default class RflmQuestionnaire extends Vue {
 
     currentStep = 0;
     currentPage = 0;
+
+    counterSSChecked = '';
 
     allPages = []; 
 
@@ -317,6 +345,10 @@ export default class RflmQuestionnaire extends Vue {
         } else if (category == 'spouseSupport'){
             if (list.length>0){
                 this.selectedSpousalSupportForm = [selection];            
+            }
+        } else if (category == 'spouseSupportFinalOrder'){
+            if (list.length>0){
+                this.selectedSpousalSupportForm = [selection];
             }
         } else if (category == 'companionAnimal'){
             if (list.length>0){
@@ -454,6 +486,13 @@ export default class RflmQuestionnaire extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'RflmQuestionnaire',title:"Other Party's application:",value:this.getSelectedFormsNames()}]        
         this.UpdateStepResultData({step:this.step, data: {rflmQuestionnaireSurvey: {data: this.getData(), questions: questions, pageName:"Reply to Family Law Matter Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+    }
+
+    isCounter() {
+        if(this.selectedSpousalSupportForm[0].counterSpouseSupport)
+            return true;
+        else
+            return false;
     }
 }
 </script>
