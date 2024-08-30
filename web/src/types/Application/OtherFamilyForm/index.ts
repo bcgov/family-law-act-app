@@ -37,6 +37,8 @@ export interface otherFormsFilingLocationSurveyDataInfoType {
     ExistingFileNumber?: string;        
     CourtLocationFAQ1?: boolean | string;
     CourtLocationFAQ2?: boolean | string;    
+    Party1LastName?: string;
+    Party2LastName?: string;
     // PreviouslyRejected: string;
     // ExplanationPreviouslyRejected?: boolean;
 }   
