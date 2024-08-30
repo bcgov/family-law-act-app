@@ -92,9 +92,11 @@ export default class ReplyNewChildSupport extends Vue {
                 const selectedRepliesData = this.step.result.rflmQuestionnaireSurvey.data;
                 if (selectedRepliesData.selectedSpousalSupportForm.length > 0){
                             
-                    includesSpouseSupportPathway = ((selectedRepliesData.selectedSpousalSupportForm.includes("newSpouseSupport") && 
+                    includesSpouseSupportPathway = ((selectedRepliesData.selectedSpousalSupportForm.includes("disagreeSpouseSupport") && 
                                                         this.step.result.replyNewSpouseSupportSurvey.data.agreeCourtOrder == 'n') ||
-                                                    (selectedRepliesData.selectedSpousalSupportForm.includes("existingSpouseSupport") && 
+                                                    (selectedRepliesData.selectedSpousalSupportForm.includes("agreeSpouseSupport") && 
+                                                        this.step.result.replyExistingSpouseSupportSurvey.data.agreeCourtOrder == 'n')) ||
+                                                    (selectedRepliesData.selectedSpousalSupportForm.includes("counterSpouseSupport") && 
                                                         this.step.result.replyExistingSpouseSupportSurvey.data.agreeCourtOrder == 'n'));                
                 } 
             }
