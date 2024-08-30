@@ -56,9 +56,9 @@
                         <div style="font-size: 11pt;margin-left:22px;"><i>Select each applicable option and complete the required part(s)</i></div>
                     </div>   
                     <div>
-                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.changetype.includes('changewaive')?'yes':''" text='<b>Waive</b> a requirement related to service or giving notice -> <i>Complete <span style="color:#626262"><b>Part 2</b></span></i>'/>
-                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.changetype.includes('changemodify')?'yes':''" text='<b>Modify</b> a requirement related to service or giving notice -> <i>Complete <span style="color:#626262"><b>Part 3</b></span></i>'/>
-                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.isAltMethodService?'yes':''" text='<b>Allow service</b> of a document using an <b>alternative method</b> -> <i>Complete <span style="color:#626262"><b>Part 4</b></span></i>'/>
+                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.changetype.includes('changewaive')?'yes':''" text='<b>Waive</b> a requirement related to service or giving notice <i><span style="color:#626262"><b> -> </b> Complete <b>Part 2</b></span></i>'/>
+                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.changetype.includes('changemodify')?'yes':''" text='<b>Modify</b> a requirement related to service or giving notice <i><span style="color:#626262"><b> -> </b>Complete <b>Part 3</b></span></i>'/>
+                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.isAltMethodService?'yes':''" text='<b>Allow service</b> of a document using an <b>alternative method</b> <i><span style="color:#626262"><b> -> </b>Complete <b>Part 4</b></span></i>'/>
                     <br/>
                                   
                 </div>                                 
@@ -79,10 +79,10 @@
     <div >
         <div style="width: 80%; float: left; margin-right: 10px;">
             <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
-                    <b>Part 2 |  Waive a requirement – <span style="font-size:9pt;">Complete this part only if you are applying to waive a</span></b>
+                    <b>Part 2 |  Waive a requirement – </b><span style="font-size:9pt;">Complete this part only if you are applying to waive a</span>
             </div>
             <div style="background: #626262; color: white; font-size: 12pt;margin-top:-10px;">
-                    <span style="margin-left:220px;margin-top:-40px;font-size:8pt;"><b>requirement related to service or giving notice.</b></span>
+                    <span style="margin-left:220px;margin-top:-40px;font-size:8pt;">requirement related to service or giving notice.</span>
             </div>
             <div style="min-width:80%; margin-top: 10px;background: #d6d6d6;line-height: 14px;font-size:8pt;">
                 <p>
@@ -95,7 +95,7 @@
                 <div style="display: inline-block; font-size: 11pt;">
                         <b>2.</b><span style="margin-left:12px;">I am applying to <b>waive the requirement</b> for service or giving notice to a</span>
                         <div style="font-size: 11pt;margin-left:24px;">person of the following document(s):</div>
-                        <div style="font-size: 11pt;margin-left:24px;"><i>Select all options that apply</i></div>
+                        <div style="font-size: 11pt;margin-left:24px;"><span style="color:#626262;font-style:italic;">Select all options that apply</span></div>
                     </div>   
                     <div style="margin-left:1.0rem;">
                         <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:25px;" :check="modReqInfo.waiveChangeRequirementList.includes('Application About Priority Parenting Matter')?'yes':''" text="Application About Priority Parenting Matter"/>
@@ -108,7 +108,7 @@
                         <!-- <div class="answer">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div> -->
                         <div style="margin-top:-20px;margin-left:27px;">
                         <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
-                        <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.waiveChangeRequirementComment |truncate-word-after(70)}}</span>
+                        <div style="margin-top:-25px;margin-left:105px;min-width: 200px;text-align:center;min-height:25px;background-color: #dedede;">{{ modReqInfo.waiveChangeRequirementComment |truncate-word-after(70)}}</div>
                         <div v-if="modReqInfo.waiveChangeRequirementComment && modReqInfo.waiveChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div>    
                         </div> 
                         </span>
@@ -127,16 +127,16 @@
                 <span style="font-size: 11pt;"><b>3. </b></span><span style="margin-left:12px;">The <b>facts</b> on which this application is based <b>are as follows:</b></span>
                 <br/>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>Explain why you are making the application and why the order you</i>
+                    <i><span style="color:#626262">Explain why you are making the application and why the order you</span></i>
                 </div>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>are requesting should be made</i>
+                    <i><span style="color:#626262">are requesting should be made</span></i>
                 </div>
                 
                 <div v-if="modReqInfo.applicationFacts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;">
                     {{modReqInfo.applicationFacts}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;margin-bottom:3rem;"></div> 
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;margin-bottom:0rem;"></div> 
                 
             </div>                            
             </div>            
@@ -163,10 +163,10 @@
         <div style="width: 80%; float: left; margin-right: 10px;">
             <div style="margin-top: 1rem;"></div>
             <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
-                    <b>Part 3 |  Modify a requirement – <span style="font-size:9pt;">Complete this part only if you are applying to </span></b>
+                    <b>Part 3 |  Modify a requirement – </b><span style="font-size:9pt;">Complete this part only if you are applying to </span>
             </div>
             <div style="background: #626262; color: white; font-size: 12pt;margin-top:-10px;">
-                    <span style="margin-left:228px;margin-top:-40px;font-size:8pt;"><b>modify a requirement related to service or giving notice.</b></span>
+                    <span style="margin-left:228px;margin-top:-40px;font-size:8pt;">modify a requirement related to service or giving notice.</span>
             </div>
             <div style="min-width:80%; margin-top: 10px;background: #d6d6d6;line-height: 14px;font-size:8pt;">
                 <p>
@@ -180,7 +180,7 @@
                 <div style="display: inline-block; font-size: 11pt;">
                         <b>4.</b><span style="margin-left:12px;">I am applying to <b>modify the requirement</b> for service or giving notice to a</span>
                         <div style="font-size: 11pt;margin-left:24px;">person of the following document(s):</div>
-                        <div style="font-size: 11pt;margin-left:24px;"><i>Select all options that apply</i></div>
+                        <div style="font-size: 11pt;margin-left:24px;"><span style="color:#626262;font-style:italic;">Select all options that apply</span></div>
                     </div>   
                     <div style="margin-left:1.0rem;">
                         <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:25px;" :check="modReqInfo.modifyChangeRequirementList.includes('Application About Priority Parenting Matter')?'yes':''" text="Application About Priority Parenting Matter"/>
@@ -192,8 +192,9 @@
                         <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:34px;" textwidth="23rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.modifyChangeRequirementComment|truncate-word-after(70)"/>                      -->
                         <!-- <div class="answer">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div> -->
                         <div style="margin-top:-20px;margin-left:27px;">
-                        <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
-                        <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.modifyChangeRequirementComment |truncate-word-after(70)}}</span>
+                        <span style="margin-left:9px;">Other <i><span style="color:#626262">(specify)</span></i>:</span>
+                        <div style="margin-top:-25px;margin-left:105px;min-width: 200px;text-align:center;min-height:25px;background-color: #dedede;">{{ modReqInfo.modifyChangeRequirementComment |truncate-word-after(70)}}</div>
+
                         <div v-if="modReqInfo.modifyChangeRequirementComment && modReqInfo.modifyChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div>    
                         </div> 
                     </span>
@@ -212,16 +213,16 @@
                 <span style="font-size: 11pt;"><b>5. </b></span><span style="margin-left:12px;">The <b>details of the order</b> I am applying for <b>are as follows:</b></span>
                 <br/>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>Explain how you want the requirement for service or giving notice </i>
+                    <span style="color:#626262;font-style: italic">Explain how you want the requirement for service or giving notice </span>
                 </div>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>to be modified</i>
+                    <span style="color:#626262;font-style: italic">to be modified</span>
                 </div>
                 
                 <div v-if="modReqInfo.orderChangesDetail" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;">
                     {{modReqInfo.orderChangesDetail}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:3rem;"></div> 
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:10px;"></div> 
                 
             </div>                            
             </div>            
@@ -233,16 +234,16 @@
                 <span style="font-size: 11pt;"><b>6. </b></span><span style="margin-left:12px;">The <b>facts</b> on which this application is based <b>are as follows:</b></span>
                 <br/>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>Explain why you are making the application and why the order you</i>
+                    <span style="color:#626262;font-style: italic">Explain why you are making the application and why the order you</span>
                 </div>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>are requesting should be made</i>
+                    <span style="color:#626262;font-style: italic">are requesting should be made</span>
                 </div>
                 
                 <div v-if="modReqInfo.modifyMethodApplicationFacts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;">
                     {{modReqInfo.modifyMethodApplicationFacts}}
                 </div>
-                <div v-else  style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:3rem;"></div> 
+                <div v-else  style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:10px;"></div> 
             </div>                            
             </div>            
         </div>  
@@ -287,24 +288,25 @@
                     <div style="display: inline-block; font-size: 11pt;margin-left:-15px;">
                         <b>7.</b><span style="margin-left:12px;">I need <b>to serve</b></span>
                     </div>
+                    <div v-if="modReqInfo.nameOfPersonToBeServed.length>0" > 
                     <div v-for="name,inx in modReqInfo.nameOfPersonToBeServed" :key="inx" style="display:inline;">
-                        <!-- <underline-form v-if="name"  style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="372px" :beforetext="inx==0?'':',' " hint="Full name of person" hintMargin="135px" :italicHint="false" :text="name"/> -->
-                        <span  v-if="name" style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ name }}</span>
+                        <div style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ name }}</div>
                     </div>
-                    <br/>
-                    <div style="display:inline; margin-left:10px">
+                    </div>
+                    <div v-else style="margin-top:-25px;width:398px;margin-left:130px;background-color: #dedede;padding:3px;font-size: 11pt;min-height:25px;"></div> 
+                    <div style="margin-left:10px;margin-top:10px;">
                          <b>with the following document(s):</b>
                     </div>
                     <div style="margin-left:8px;font-size: 11pt;text-indent:5px;">
-                    <i>List each document you need an order from the court to serve using an 
-                    </i>
+                        <span style="color:#626262;font-style:italic;">List each document you need an order from the court to serve using an
+                    </span>
                 </div>
                 <div style="margin-left:10px;font-size: 11pt;text-indent:5px;">
-                    <i>alternative method</i>
+                    <span style="color:#626262;font-style: italic">alternative method</span>
                 </div>
                 <div v-if="modReqInfo.altMethodDocList"  style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:10px;min-height:190px;"
                     v-html="modReqInfo.altMethodDocList" >{{modReqInfo.altMethodDocList}}</div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:3rem;"></div> 
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:10px;min-height:190px;margin-bottom:20px;"></div> 
             </div> 
             <div style="background: #a2a2a2; color: white; font-size: 10pt;padding:1px;">
                 Reason for application
@@ -325,16 +327,16 @@
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;margin-top:-10px;">
                   
                 <div style="text-align: justify;text-justify: inter-word;font-size: 11pt;">
-                <span style="font-size: 11pt;"><b>8. </b></span><span style="margin-left:12px;"><i>Select whichever option is correct and complete the requested information</i></span>
+                <span style="font-size: 11pt;"><b>8. </b></span><span style="margin-left:12px;"><span style="color:#626262;font-style:italic;">Select whichever option is correct and complete the requested information</span></span>
                 <br/>
                 <div>
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.isalternativeServiceReasonUnknown" text='<b>I do not know where to find</b> the person to be served. I have made the following <b>efforts to find them</b>:'/>             
                 </div> 
                 <div style="margin-left:45px;font-size: 11pt;text-indent:5px;">
-                    <i>Explain how you have tried to locate them, where you have searched, and  </i>
+                    <span style="color:#626262;font-style:italic;">Explain how you have tried to locate them, where you have searched, and  </span>
                 </div>
                 <div style="margin-left:45px;font-size: 11pt;text-indent:5px;">
-                    <i>who you have contacted</i>
+                    <span style="color:#626262;font-style:italic;">who you have contacted</span>
                 </div>
                 
                 <div v-if="modReqInfo.isalternativeServiceReasonUnknown" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;">
@@ -369,14 +371,14 @@
                 <div style="text-align: justify;text-justify: inter-word;font-size: 11pt;">
                 
                 <div>
-                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.isalternativeServiceReasonNotReachable" text='I believe the person to be served is <b>avoiding service</b> of the document(s) or is <b>temporarily outside of British Columbia</b>. I believe this to be true because the following <b>efforts have been made to serve</b> them with the document(s):
+                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="modReqInfo.isalternativeServiceReasonNotReachable" text='I believe the person to be served is <b>avoiding service</b> of the document(s) <b>or</b> is <b>temporarily outside of British Columbia</b>. I believe this to be true because the following <b>efforts have been made to serve</b> them with the document(s):
 '/>             
                 </div> 
                 <div style="margin-left:45px;font-size: 11pt;text-indent:5px;">
-                    <i>Explain when and where you tried to serve the person and what happened </i>
+                    <span style="color:#626262;font-style:italic;">Explain when and where you tried to serve the person and what happened </span>
                 </div>
                 <div style="margin-left:45px;font-size: 11pt;text-indent:5px;">
-                    <i>when you tried</i>
+                    <span style="color:#626262;font-style:italic;">when you tried</span>
                 </div>
                 
                 <div v-if="modReqInfo.isalternativeServiceReasonNotReachable" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:210px;">
@@ -395,10 +397,10 @@
                     </span>
                     <div style="margin-left:30px;">contact information or who might be able to get in touch with them:</div>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>Include the information you know, how you know the information and</i>
+                    <span style="color:#626262;font-style:italic;">Include the information you know, how you know the information and</span>
                 </div>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>when it was last confirmed or became known to you</i>
+                    <span style="color:#626262;font-style:italic;">when it was last confirmed or became known to you</span>
                 </div>
                 
                 <div v-if="modReqInfo.personwhereabouts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:210px;">
@@ -449,16 +451,16 @@
                 <div>
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('post')?'yes':''" text='Posting the documents on the door of the person’s residence at <i>(provide address)</i>:'/>             
                 </div>                 
-                <div v-if="modReqInfo.alternativeorderservice.includes('post')" style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
+                <div style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
                 <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt;">
                         <tr style="border:2px solid #fff">
-                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
-                                <div>
+                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;">
+                                <div style="background-color: #dedede;min-height:25px;">
                                     {{ modReqInfo.alternativemailAddress }} 
                                 </div>
                             </td>
-                            <td colspan="1" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
-                                <div>
+                            <td colspan="1" style="border: 2px solid #fff; padding: 4px;">
+                                <div style="background-color: #dedede;min-height:25px;">
                                     {{ modReqInfo.alternativemailCity }} 
                                 </div>
                             </td>
@@ -479,10 +481,10 @@
                         
                     </table>
                 </div>
-                <div>
-                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('relative')?'yes':''" text='Leaving the documents with a relative or other adult person to give to the person to be served:'/>             
+                <div style="margin-top:-10px;">
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('relative')?'yes':''" text='Leaving the documents with a relative or other adult person to give to the person to be served:'/>             
                 </div> 
-                <div v-if="modReqInfo.alternativeorderservice.includes('relative')" style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
+                <div  style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
                 <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt;">
                         <tr style="border:2px solid #fff">
                             <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
@@ -517,20 +519,21 @@
                 <div>
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice == 'mail' ?'yes':''" text='Mailing the documents by '/>             
                 </div> 
-                <div v-if="modReqInfo.alternativeorderservice == 'mail'" style="text-indent:15px;font-size: 11pt;margin-left:20px;">
-                    <div style="display:inline-block;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="10"  marginLeft="1.75rem" :check="modReqInfo.alternativemailType.includes('registeredmail')?'yes':''"  text="Registered mail"/>                                  
-                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="-8" marginLeft="0.5rem" :check="modReqInfo.alternativemailType.includes('regularmail')?'yes':''" text="Regular mail"/>
+                <div style="text-indent:15px;font-size: 11pt;margin-left:20px;">
+                    <div style="margin-left:200px;margin-top:-22px;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="10"  marginLeft="1.75rem" :check="modReqInfo.alternativemailType.includes('registeredmail')?'yes':''"  text="<b>registered mail</b>"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="-8" marginLeft="0.5rem" :check="modReqInfo.alternativemailType.includes('regularmail')?'yes':''" text="<b>regular mail</b>"/>
+                    <div style="margin-left:260px;margin-top:-23.5px">to:</div>
                     </div>
-                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 55px; font-size: 9pt;width:80%;">
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 55px; font-size: 9pt;width:90%;">
                         <tr style="border:2px solid #fff">
-                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
-                                <div>
+                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;">
+                                <div style="background-color: #dedede;min-height:25px;">
                                     {{ modReqInfo.alternativemailAddress }} 
                                 </div>
                             </td>
-                            <td colspan="1" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
-                                <div>
+                            <td colspan="1" style="border: 2px solid #fff; padding: 4px;">
+                                <div style="background-color: #dedede;min-height:25px;">
                                     {{ modReqInfo.alternativemailCity }} 
                                 </div>
                             </td>
@@ -554,35 +557,37 @@
                 <div>
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('email')?'yes':''" text='Sending the documents to the person’s email at:'/>             
                 </div> 
-                <div v-if="modReqInfo.alternativeorderservice.includes('email')" style="text-indent:15px;font-size: 11pt;margin-left:5px;">
-                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 55px; font-size: 9pt;width:80%;">
+                <div  style="text-indent:15px;font-size: 11pt;margin-left:5px;">
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 55px; font-size: 9pt;width:90%;">
                         <tr style="border:2px solid #fff">
-                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
-                                <div>
+                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;">
+                                <div style="background-color: #dedede;min-height:25px;">
                                     {{ modReqInfo.alternativeEmail }} 
                                 </div>
                             </td>                            
                         </tr>                    
                     </table>
                 </div>
-                <div>
-                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('text')?'yes':''" text='Sending the documents by text message to the person’s cell at:'/>             
+                <div  style="margin-top:5px;">
+                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('text')?'yes':''" text='Sending the documents by text message to the person’s '/>             
                 </div> 
-                <div v-if="modReqInfo.alternativeorderservice.includes('text')" style="text-indent:15px;font-size: 11pt;margin-top:-25px;margin-left:50px;">
-                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 55px; font-size: 9pt;width:75%;">
+                <div style="text-indent:15px;font-size: 11pt;margin-left:45px;margin-top:5px;">
+                    <div>cell at:</div>
+                    <table class="compactfullsize" style="margin-top:-30px; margin-left:60px; font-size: 9pt;width:88%;">
                         <tr style="border:2px solid #fff">
-                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
-                                <div>
+                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;">
+                                
+                                <div style="background-color: #dedede;min-height:25px;">
                                     {{ modReqInfo.alternativeText }} 
                                 </div>
                             </td>                            
                         </tr>                    
                     </table>
                 </div>
-                <div>
+                <div  style="margin-top:5px;">
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('instant')?'yes':''" text='Sending the documents by instant messaging to the person to be served through'/>             
                 </div> 
-                <div v-if="modReqInfo.alternativeorderservice.includes('instant')" style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
+                <div  style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
                 <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; ">
                         <tr style="border:2px solid #fff">
                             <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
@@ -620,19 +625,19 @@
                         </tr>
                     </table>
                 </div>
-                <div>
+                <div style="margin-top:-10px">
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('knownaddress')?'yes':''" text='Leaving the documents at the person’s last known address at <i>(provide address):</i>'/>             
                 </div> 
-                <div v-if="modReqInfo.alternativeorderservice.includes('knownaddress')" style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
+                <div  style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
                 <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 12px; font-size: 9pt;">
                         <tr style="border:2px solid #fff">
-                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
-                                <div>
+                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;">
+                                <div style="background-color: #dedede;min-height:25px;">
                                     {{ modReqInfo.alternativemailAddress }} 
                                 </div>
                             </td>
-                            <td colspan="1" style="border: 2px solid #fff; padding: 4px;background-color: #dedede;">
-                                <div>
+                            <td colspan="1" style="border: 2px solid #fff; padding: 4px;">
+                                <div style="background-color: #dedede;min-height:25px;">
                                     {{ modReqInfo.alternativemailCity }} 
                                 </div>
                             </td>
@@ -653,10 +658,10 @@
                         
                     </table>
                 </div>              
-                <div>
-                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('other')?'yes':''" text='Other method <i>(specify)</i>:'/>             
+                <div style="margin-top:-10px">
+                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('other')?'yes':''" text='Other method <span style="color:#626262;font-style:italic;">(specify)</span>:'/>             
                 </div> 
-                <div v-if="modReqInfo.alternativeorderservice.includes('other')" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:65px;min-height:100px;">
+                <div style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:65px;min-height:100px;">
                     {{modReqInfo.alternativeOther}}
                 </div>
                 
@@ -693,7 +698,7 @@
                 <div v-if="modReqInfo.altMethodApplicationFacts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:40px;min-height:200px;">
                     {{modReqInfo.altMethodApplicationFacts}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:65px;min-height:200px;"></div>                
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:40px;min-height:200px;"></div>                
                 
             </div>                            
             </div>            

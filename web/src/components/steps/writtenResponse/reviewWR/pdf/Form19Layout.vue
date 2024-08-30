@@ -116,8 +116,8 @@
         </div>
     </div>
 <!-- <2> -->
-    <div>
-        <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;margin-top:-20px">
+    <div style="display:block;">
+        <div style="margin-left:-20px;width: 80%; float: left; margin-right: 10px;margin-top:10px">
             <!-- <div style="margin-top: 1rem;"></div> -->
             <div style="background: #626262; color: white; font-size: 11pt;width:99%;">
                     <b>Part 2 | Replying to an application</b>
@@ -129,7 +129,7 @@
                         <b>3. </b>I am completing this written response <b>to reply to the application about:</b>                         
                     </div>
                     <div style="display: inline-block; font-size: 9.5pt;margin-left:15px;">
-                        <i>Briefly describe the type of application</i>                         
+                        <span style="color:#747474;font-style:italic;">Briefly describe the type of application</span>                         
                     </div>
                     <div style="margin-top: 0.2rem;"></div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="514px"
