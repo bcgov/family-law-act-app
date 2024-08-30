@@ -51,24 +51,7 @@
                      "description": "<div style='color: white; margin: -1.25rem 0.25rem; font-size: 10pt;'>Note: <b>Vancouver</b> is listed as Robson Square Provincial Court.",
                      "isRequired": true
                   },
-                  {
-                     "type": "text",
-                     "name": "Party1LastName",
-                     "visible": true,
-                     "startWithNewLine": false,
-                     "title": "Please provide the last names of the on this court file",
-                     "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Last name of <b>Party 1</b>:",
-                     "isRequired": true
-                  },
-                  {
-                     "type": "text",
-                     "name": "Party2LastName",
-                     "visible": true,
-                     "startWithNewLine": false,
-                     "title": " ",
-                     "description": "<div style='color: grey; margin: -1.25rem 0.25rem; font-size: 10pt;'>Last name of <b>Party 2</b>:",
-                     "isRequired": true
-                  },
+                 
                   {
                      "type": "infotext",
                      "name": "ExplanationExistingFamilyCase",
