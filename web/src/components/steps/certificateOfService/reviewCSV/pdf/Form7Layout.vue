@@ -1,6 +1,14 @@
 <template>
     <div v-if="dataReady" style="font-size:10pt;">
-
+        <FormHeader :headerTableData="[
+            {value: result.applicationLocation}, 
+            {value: existingFileNumber}, 
+            {value: ''}, 
+            {value: ''}]"
+            formName="Certificate of Service"
+            formNumber="FORM 7"
+            formRuleNumber="Rules 2, 27, 68, 77, 136 and 183"
+        ></FormHeader>
 <!-- <Page 1> -->
 <!-- <HEADER> : BEGIN -->
     <div style="height: 160px;">
@@ -24,7 +32,7 @@
                 </div>
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Last names of parties:<br/><span style="color:#747474;font-size:7pt">Party 1/Party 2 </span></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height: 35px;"> {{ party1lastName +' / '+party2lastName }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;min-height: 35px;"> {{ party1lastName +' / '+party2lastName }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Document number:<br/><span style="color:#747474;font-size:7pt">For registry use only </span></div>
@@ -526,9 +534,10 @@ export default class Form7Layout extends Vue {
     public extractInfo(){        
         this.getAffiantInfo();  
         this.getServiceInfo();
+        console.log(this.result);
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);        
-        this.party1lastName = this.result.otherFormsFilingLocationSurvey?.Party1LastName; 
-        this.party2lastName =  this.result.otherFormsFilingLocationSurvey?.Party2LastName; 
+        this.party1lastName = this.result.otherFormsLastNamesOfPartiesSurvey?.party1; 
+        this.party2lastName = this.result.otherFormsLastNamesOfPartiesSurvey?.party2;  
     } 
 
     public getAffiantInfo(){ 
