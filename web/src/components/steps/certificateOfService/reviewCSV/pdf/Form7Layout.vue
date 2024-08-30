@@ -1,6 +1,14 @@
 <template>
     <div v-if="dataReady" style="font-size:10pt;">
-
+        <FormHeader :headerTableData="[
+            {value: result.applicationLocation}, 
+            {value: existingFileNumber}, 
+            {value: ''}, 
+            {value: ''}]"
+            formName="Certificate of Service"
+            formNumber="FORM 7"
+            formRuleNumber="Rules 2, 27, 68, 77, 136 and 183"
+        ></FormHeader>
 <!-- <Page 1> -->
 <!-- <HEADER> : BEGIN -->
     <div style="height: 160px;">
@@ -21,6 +29,14 @@
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Court file number:</div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Last names of parties:<br/><span style="color:#747474;font-size:7pt">Party 1/Party 2 </span></div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;min-height: 35px;"> {{ party1lastName +' / '+party2lastName }} </div>
+                </div>
+                <div style="width: 100%; display: inline-block;">
+                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Document number:<br/><span style="color:#747474;font-size:7pt">For registry use only </span></div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
                 </div>
             </div>
         </div>    
@@ -56,16 +72,16 @@
             style="text-indent:2px;display:inline-block; margin-top: 1rem;margin-left:32px;" 
             textwidth="220px" 
             beforetext="<b>on</b>" 
-            hint="Date the document(s) were service (mmm/dd/yyyy)" 
+            hint="Date the documents were service (dd/mmm/yyyy)" 
             textBackgroundColor="#dedede"
             hintMargin="10px"
-            :italicHint="false" :text="serviceDate"/>
+            :italicHint="false" :text="serviceDate | beautify-date-mid"/>
 
         <underline-form 
             style="text-indent:2px;display:inline-block;" 
             textwidth="160px" 
             beforetext="<b>at</b>" 
-            hint="Time the document(s) were served" 
+            hint="Time the documents were served" 
             textBackgroundColor="#dedede"
             hintMargin="10px"
             :italicHint="false" :text="serviceTime"/>
@@ -77,7 +93,7 @@
             style="text-indent:2px;display:block; margin-top: 1rem; margin-left:32px;" 
             textwidth="480px" 
             beforetext="<b>at </b>" 
-            hint="Street address or location, city, province, or email address or other identifier where the document(s) were served" 
+            hint="Street address or location, city, province, or email address or other identifier where the documents were served" 
             textBackgroundColor="#dedede"
             hintMargin="22px"
             :italicHint="false" :text="serviceDetails.substring(0,55)"/>
@@ -239,9 +255,18 @@
                     inline="inline" 
                     :shiftmark="1"
                     boxMargin="0"
+                    :check="documentList.includes('Application About Priority Parenting Matter')?'yes':''" text="Application About a Priority Parenting Matter"/>
+                    <br/>
+                    <check-box
+                    checkbox=""
+                    style="display:inline;" 
+                    inline="inline" 
+                    :shiftmark="1"
+                    boxMargin="0"
                     :check="documentList.includes('Order')?'yes':''" text="Order"/>
             </div>
-            <div style="width:50%;">
+            
+            <div style="width:50%;margin-left:-35px;">
                 <!-- <underline-form 
                 style="text-indent:2px;margin-left:20px;" 
                 textwidth="250px" 
@@ -283,7 +308,7 @@
             boxMargin="0" 
             style="display:block; margin-left: 1rem;" 
             :check="personalServiceMethod == 'Leaving a copy of the document(s) with the person'?'yes':''" 
-            text="leaving a copy of the document(s) with the person"/>
+            text="Leaving a copy of the document(s) with the person"/>
 
         <check-box 
             checkbox="" 
@@ -352,7 +377,7 @@
                 <div style="margin-top:-20px;width:7rem;text-indent:15px;background-color: #dedede;padding:10px;margin-left:45px;margin-bottom:3rem;min-height:15px;"></div>   
                  <div style="font-size:6pt;margin-top:-50px;margin-left:68px;">(dd/mmm/yyyy)</div>
                 </div>              
-                <div style="display:block; margin-left: 2.5rem;font-size:8pt;color:#626262"> 
+                <div style="display:block; margin-top:1px;margin-left:45px;font-size:8pt;color:#626262"> 
                     Note: The date the document is served is 14 days after this date.
                 </div>
             </div>  
@@ -365,7 +390,7 @@
                     style="display:block; margin-left: 1rem;" 
                     :check="ordinaryServiceMethod == 'registeredMail'?'yes':''" 
                     text="Mailing the document(s) by registered mail to the person’s address for service"/>   
-                <div style="display:block; margin-left: 2.5rem;font-size:8pt;color:#626262"> 
+                <div style="display:block; margin-left:45px;font-size:8pt;color:#626262"> 
                     Note: The date the document is served is the date the document was confirmed to have been delivered.
                 </div>    
             </div>    
@@ -405,7 +430,7 @@
 <!-- <4B> : BEGIN --> 
     <div>
         <div style="width: 80%; float: left; margin-right: 10px;">
-            <div style="display:block; margin-top: rem;"> 
+            <div style="display:block; margin-top:0.5rem;"> 
             <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
                 <check-box 
                 checkbox="" 
@@ -425,8 +450,8 @@
 <!-- <4B> : END -->   
 <!-- <4C> : BEGIN --> 
     <div>
-        <div style="width: 80%; float: left; margin-right: 10px;">
-            <div style="text-indent: -0px;margin: 0.5rem 0.5rem 0rem -1rem;">
+        <div style="width: 80%; float: left; margin-left: -15px;">
+            <div style="text-indent: -0px;display:block;margin-top:50px;">
                 <div style="margin-left:0px;" >
                 <div style="margin-top:-20px;width:250px;text-indent:15px;background-color: #dedede;padding:10px;margin-left:45px;margin-bottom:3rem;min-height:38px;"></div>   
                  <div style="font-size:6pt;margin-top:-50px;margin-left:68px;">Signature of the person who served the document</div>
@@ -482,6 +507,8 @@ export default class Form7Layout extends Vue {
 
     dataReady = false; 
     existingFileNumber = '';  
+    party1lastName='';
+    party2lastName=''
    
     yourInfo = {} as yourInformationInfoDataInfoType;
     servedPersonName = '';
@@ -507,8 +534,10 @@ export default class Form7Layout extends Vue {
     public extractInfo(){        
         this.getAffiantInfo();  
         this.getServiceInfo();
-        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        
+        console.log(this.result);
+        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);        
+        this.party1lastName = this.result.otherFormsLastNamesOfPartiesSurvey?.party1; 
+        this.party2lastName = this.result.otherFormsLastNamesOfPartiesSurvey?.party2;  
     } 
 
     public getAffiantInfo(){ 
@@ -564,7 +593,6 @@ export default class Form7Layout extends Vue {
                                     + addressInfo.postcode;
                 serviceAddress = addressText;
             } 
-            
             otherServiceLocation = serviceData.otherServiceLocation?.length>0? 'other: '+ serviceData.otherServiceLocation:'';
             serviceEmail = serviceData.serviceContact?.email?.length>0? 'email: '+ serviceData.serviceContact?.email:'';
             serviceFax = serviceData.serviceContact?.fax?.length>0? 'fax: '+ serviceData.serviceContact?.fax:'';
