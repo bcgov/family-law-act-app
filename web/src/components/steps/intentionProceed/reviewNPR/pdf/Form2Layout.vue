@@ -43,30 +43,30 @@
 
                 <div>
                     <b>1. </b>
-                    <grey-box-form style="text-indent:2px;display:inline-block;" textwidth="21rem" beforetext="My <b>full name</b> is:" hint="(full name of party)" :italicHint="false" :text="yourInfo.name | getFullName"/>
+                    <grey-box-form style="text-indent:2px;display:inline-block;" textwidth="21rem" beforetext="My <b>full name</b> is:" hint="Full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
 
-                    <grey-box-form style="text-indent:2px;display:inline-block;margin-left:-0.25rem; margin-top: 10px;" textwidth="7rem" beforetext="My <b>date of birth</b> is:" hint="(dd/mmm/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date-mid"/>
+                    <grey-box-form style="text-indent:2px;display:inline-block;margin-left:-0.25rem; margin-top: 15px; padding-left: 20px;" textwidth="20rem" beforetext="My <b>date of birth</b> is:" hint="(dd/mmm/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date-mid"/>
                 </div>
 
                 <div>
                     <b>2. </b>
                     <div style="display:inline;">
                         <grey-box-form 
-                            style="text-indent:2px;display:inline-block; margin-top: 0.6rem;" 
-                            textwidth="17.5rem" 
+                            style="text-indent:2px;display:inline-block; margin-top: 1rem; margin-bottom:0.5rem" 
+                            textwidth="16rem" 
                             beforetext="The <b>other party’s full name</b> is:" 
                             hint=""
-                            aftertext="." 
+                            aftertext="" 
                             :italicHint="false" 
                             :text="firstOtherParty.name | getFullName"/> 
                                                                   
                         <grey-box-form 
-                            style="display:inline;text-indent:2px; margin-top: 0.6rem;" 
-                            textwidth="6.75rem" 
+                            style="display:inline;text-indent:2px;padding-left: 20px;" 
+                            textwidth="13rem" 
                             beforetext="Their <b>date of birth</b> (dd/mmm/yyyy) is:" 
                             hint="" 
                             :italicHint="false"
-                            aftertext="." 
+                            aftertext="" 
                             :text="firstOtherParty.dob | beautify-date-mid"/>
                     </div>
                 </div>
@@ -97,9 +97,9 @@
                         textDisplay="inline"
                         boxMargin="0" 
                         shiftmark="0"
-                        style="display: inline; margin:0 0 0 1rem;" 
+                        style="display:inline; margin-left: 10px;" 
                         :check="''" 
-                        text="More than one year has passed since the parties have taken any step in my case and <b>I want to proceed with the family law matter(s) as set out in the following document</b> filed with the court:" />           
+                        text="More than one year has passed since the parties have taken any step <br> in my case and <b>I want to proceed with the family law matter(s) as set out in the following document</b> filed with the court:" />           
                 </div>
 
                 <div style="margin-left: 24px;">
@@ -132,7 +132,15 @@
                         shiftmark="0"
                         style="display: inline; margin:0 0 0 1rem;" 
                         :check="!lastStepInfo.resolveFlmDate && !lastStepInfo.flmDate ?'yes':''" 
-                        text="Other (specify):" /> 
+                        text="Other" /> 
+
+                        <grey-box-form 
+                        style="text-indent:0;margin-left:.25rem;display:inline-block;" 
+                        textwidth="18rem" 
+                        beforetext="<i style='color:#ababab'>(specify):</i>" 
+                        hint="" 
+                        marginTop="-15px"
+                        :text="lastStepInfo.otherDescription"/>
                 </div>
         
                 <div style="margin-bottom: 1rem;"></div>
@@ -147,10 +155,10 @@
             </div>
             <div style="width: 20%;">
                 <NoteBox>
-                    <b-icon-info-circle-fill />
-                    <p>
+                    <b-icon-info-circle-fill /><br>
+                    <span>
                         If you have already filed an Application About a Family Law Matter, you do not need to also select the Notice to Resolve.
-                    </p>
+                    </span>
                 </NoteBox>
             </div>
         </div>
@@ -168,9 +176,9 @@
                         textDisplay="inline"
                         boxMargin="0" 
                         shiftmark="0"
-                        style="margin:0 0 0 0.5rem; display:inline;" 
+                        style="display:inline; margin-left: 10px" 
                         :check="acknowledgeService?'yes':''" 
-                        text="I understand <b>I must give notice</b> of my intention to proceed to each other party. To give notice, each other party must be:"/>   
+                        text="I understand <b>I must give notice</b> of my intention to proceed to <br> each other party. To give notice, each other party must be:"/>   
                     
                     <ul style="margin-left: 24px;">
                         <li>
@@ -185,10 +193,10 @@
             </div>
             <div style="width: 20%;">
                 <NoteBox>
-                    <b-icon-book />
-                    <p>
+                    <b-icon-book /><br>
+                    <span>
                         For more information about how to give notice to the other party, see the guidebook.
-                    </p>
+                    </span>
                 </NoteBox>
             </div>
         </div>
@@ -209,9 +217,11 @@
                         aftertext="was:"
                         hint="Date (dd/mmm/yyyy)" 
                         hintindent="0"
+                        marginTop="-15px"
+                        hintmargintop="6px"
                         :text="lastStepInfo.selectedDate | beautify-date-mid"/> 
 
-                    <div style="margin-left:1rem;">
+                    <div style="margin-left:1rem;margin-top:6px">
                         <i style="color: #999;">Select only one of the options below and complete the required information</i>
                     </div>
 
@@ -284,18 +294,19 @@
                             shiftmark="0"
                             style="display:inline;" 
                             :check="lastStepInfo.otherDate?'yes':''" 
-                            text="other (specify) "/>
+                            text="other  "/>
                         
                             <grey-box-form 
                                 style="text-indent:0;margin-left:.25rem;display:inline-block;" 
-                                textwidth="25rem" 
-                                beforetext="" 
+                                textwidth="18rem" 
+                                beforetext="<i style='color:#ababab'>(specify):</i>" 
                                 hint="" 
+                                 marginTop="-15px"
                                 :text="lastStepInfo.otherDescription"/>
                     </div>                                      
                 </div> 
 
-                <div style="margin-top: 1rem;"></div>       
+                    
 
             </div>
             <div style="width: 20%;">
@@ -354,7 +365,7 @@
     
                     <div style="margin-top: 1rem;"></div>
                 
-                    <table class="compactfullsize" style="width:98%;margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede;">
+                    <table class="compactfullsize" style="width:98%;margin-top:0.5 !important; margin-left: 12px; font-size: 9pt; background-color: #dedede; margin-top: -12px;">
                         <tr style="border:1px solid #fff;">
                             <td v-if="yourInfo.lawyer" colspan="3" style="border:2px solid #fff; padding: 4px;">Lawyer (if applicable): 
                                 <div class="answer" style="background-color: #d6d6d6;">
@@ -407,7 +418,7 @@
                         shiftmark="0"
                         style="display:inline;" 
                         check="" 
-                        text="Give <b>notice</b> of the Notice of Intention to Proceed <b>to each other part</b>"/>
+                        text="Give <b>notice</b> of the Notice of Intention to Proceed <b>to each other party</b>"/>
                 </div>
                 <div style="margin-left: 20px;">
                     <b>Note:</b> If the Notice to Resolve or Application About a Family Law Matter has not been given to the other party, you must includ ea copy of it along with the Notice of Intention to Proceed.
@@ -428,6 +439,9 @@
                         style="display:inline;" 
                         check="" 
                         text="<b>Contact</b> Family Justice Services Division to <b>schedule</b> your individual <b>needs assessment</b>"/>
+                </div>
+                <div style="height:120px; margin-left:100px; margin-right: 80px;  display: flex; justify-content: space-around; align-items: center; border: 2px solid #dedede;">
+                    <div style="text-align: center; color: #dedede;">FJSD <br> contact information</div>
                 </div>
 
                 <div style="margin-left: 44px;">
