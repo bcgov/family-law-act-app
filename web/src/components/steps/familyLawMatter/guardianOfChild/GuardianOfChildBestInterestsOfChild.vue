@@ -72,6 +72,8 @@ export default class GuardianOfChildBestInterestsOfChild extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
+        this.survey.setVariable('applicationType', this.step.result.guardianOfChildSurvey.data.applicationType);
+
         if (this.step.result?.guardianOfChildBestInterestsOfChildSurvey) {
             this.survey.data = this.step.result.guardianOfChildBestInterestsOfChildSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            

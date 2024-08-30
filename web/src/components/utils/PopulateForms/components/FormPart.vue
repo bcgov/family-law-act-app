@@ -1,6 +1,6 @@
 <template>
     
-    <div style="background-color: #333; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
+    <div style="background-color: #666; color: white; font-size: 12pt; font-weight: bold; padding: 0 4px;">
         <p >
             Part {{ part }} | {{title}}  
             <span v-if="subtitle"> - 

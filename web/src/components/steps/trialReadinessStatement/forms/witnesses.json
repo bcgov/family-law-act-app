@@ -126,6 +126,13 @@
               "title": "Have you confirmed all your witnesses are available for the trial date(s) OR have you served them with a Subpoena to Witness in Form 23?",
               "description": "If you want a witness to give evidence at your trial, you must make sure they can come to your trial and are ready to give evidence.<br><br>If you do not have a trial date scheduled, select yes but ensure when you are scheduling the trial that you consider the availability of your witnesses and make sure to send a Subpoena to Witness to any witness you don’t think will attend on their own.",
               "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "TravellingForTrial",
+              "title": "Is there any witness or party travelling from another community to attend the trial?",
+              "description": "",
+              "isRequired": true
             }, 
             {
               "type": "helptext",

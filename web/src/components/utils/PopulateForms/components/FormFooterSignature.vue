@@ -17,7 +17,7 @@
                 </div>
                 <div>
                     <div style="width:100%; display:inline-block; font-size:9pt">
-                        A Commissioner for taking Affidavits in British Columbia
+                        A commissioner for taking affidavits in British Columbia
                     </div>
                 </div>
                 <div style="margin:.5rem 0 0 0">

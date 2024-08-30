@@ -3,6 +3,7 @@
 <!-- <Page 9> --> 
 <!-- <Header> -->
     <!-- This template is not in use: check https://jag.gov.bc.ca/jira/browse/PFCF-491 -->
+     <!-- In new version of forms developed Aug, 2024, schedule 8 is merged into schedule 7 -->
         <div v-if="selectedSchedules.includes('notinuse')">
             <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 8 – CANCELLING GUARDIANSHIP OF A CHILD OR CHILDREN</b></div>

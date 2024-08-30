@@ -16,20 +16,19 @@
             </div>
             <div style="width: 35%; float:right; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
+                    <div style="float: left; width: 50%; padding-left:24px"> Registry location: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
                         result.applicationLocation }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
+                    <div style="float: left; width: 50%; padding-left:20px"> Court file number: </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ?
                         existingFileNumber : '&nbsp;' }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number:<br /><i>For registry use only </i>
+                    <div style="float: left; width: 50%; padding-left:14px;"> Document number:<br /><i style="color:#ababab">For registry use only </i>
                     </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ?
-                        fmepNumber : '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ '&nbsp;' }} </div>
                 </div>
             </div>
         </div>
@@ -93,7 +92,7 @@
                         <b>1. </b>My <b>full name</b> is:
                     </div>
                     <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
-                        beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede"
+                        beforetext="" hint="Full name of party"  hintTextColor="hintTextColor" hintindent="150px" :italicHint="false" textBackgroundColor="#dedede"
                         hintMargin="152px" :text="yourInfo.name | getFullName" />
 
                     <div style="padding-top:15px; padding-left:12px;">
@@ -101,7 +100,7 @@
                             My <b> date of birth</b> is:
                         </div>
                         <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="356px"
-                            beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede"
+                            beforetext="" hint="(dd/mmm/yyyy)"  hintindent="140px" hintTextColor="hintTextColor" :italicHint="false" textBackgroundColor="#dedede"
                             hintMargin="152px" :text="yourInfo.dob | beautify-date-mid" />
                     </div>
                 </div>
@@ -109,7 +108,7 @@
                 <div
                     style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block;">
-                        <b>2. </b>The <b>other party’s full name is:</b>
+                        <b>2. </b>The <b>other party’s full name </b>is:
                     </div>
                     <GreyBoxForm style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
                         beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px"
@@ -190,7 +189,7 @@
         </div>
 
         <!-- Part 2-->
-        <div style="margin-top: 1rem;"></div>
+        <div style="margin-top: .5rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
             <div style="width:80%; margin-right: 10px;">
                 <div style="margin-top: 0.3rem;"></div>
@@ -198,12 +197,12 @@
                     <b>Part 2 |Information about children</b>
                 </div>
                 <div
-                    style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
+                    style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 0.5rem 0.5rem 0.5rem 0.5rem;">
                     <div style="display: inline-block;">
                         <b>3.</b> This application is about the following child(ren) that I am a guardian of:
                     </div>
 
-                    <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small bordered>
+                    <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small>
                         <template v-slot:cell()="data">
                             <div style="height:1rem; font-size:8pt;color:#000; background-color:#dedede " >{{ data.value }}</div>
                         </template>
@@ -224,7 +223,7 @@
                 </div>
             </div>
             <div style="width: 20% ">
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:165px">
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:150px">
                     <p>
                         <b-icon-book />
                         <br />
@@ -236,18 +235,16 @@
         </div>
 
         <!-- Part 3  -->
-        <div style="margin-top: 1rem;"></div>
+        <div style="margin-top: 0.5rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
             <div style="width:80%; margin-right: 10px;">
-                <div style="margin-top: 0.3rem;"></div>
                 <div style="background: #626262; color: white; font-size: 13pt;">
                     <b>Part 3 |Notice of the application</b>
                 </div>
-                <br>
                 <div>
                     <b>5.</b> <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                         :check="true ? 'yes' : ''" />
-                    <div style="margin-top: -16px;text-indent: 28px;">
+                    <div style="margin-top: -18px;text-indent: 28px;">
                         I understand <b>I must give notice</b> of this application to each other party, including any other
                         person who may be directly affected by the order.
                     </div>
@@ -259,7 +256,7 @@
                 </div>
             </div>
             <div style="width: 20% ">
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:50px">
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:30px">
                     <p>
                         <b-icon-book />
                         <br />
@@ -270,33 +267,32 @@
 
         </div>
 
-        <!-- Part 4 -->
-        <div style="page-break-after:always;">&nbsp;</div>
-        <div class="print-block">
-            <div style="margin-top: 1rem;"></div>
+        <!-- Part 4 --> 
+        <div>
+            <div style="margin-top: 0.5rem;"></div>
             <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
                 <div style="width:80%; margin-right: 10px;">
                     <div style="margin-top: 0.3rem;"></div>
                     <div style="background: #626262; color: white; font-size: 13pt;">
                         <b>Part 4 |About your court appearance</b>
                     </div>
-                    <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:9pt;"><i>For registry or
+                    <div style="text-indent:4px; font-weight:normal; font-size:9pt;"><i style="color:#ababab">For registry or
                             judicial case manager use only</i></div>
-                    <div style="border:1px solid; font-size: 9pt; padding:1rem;font-family:BCSans">
-                        <b>This application, which requires a court apprearance, will be heard by the court</b>
+                    <div style="border:1px solid; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                        <b>The application, which requires a court apprearance, will be heard by the court</b>
                         <GreyBoxForm style="text-indent:2px;" textwidth="10rem"
-                            beforetext="<b>on</b>" textafter="<b>at</b>" hint="date" hintMargin="25px" hintindent="50px" hintmargintop="12px" text="" marginTop="-8px" />
+                            beforetext="<b>on</b>" textafter="<b>at</b>" hint="date" hintMargin="25px" hintTextColor="hintTextColor" hintindent="50px" hintmargintop="12px" text="" marginTop="-8px" />
                         <GreyBoxForm style="text-indent:2px;" textwidth="10rem"
-                            beforetext="<b>at</b>" hint="time" hintMargin="60px" hintindent="50px" hintmargintop="12px" text="" marginTop="-8px"/>
+                            beforetext="<b>at</b>" hint="time" hintMargin="60px" hintindent="50px" hintmargintop="12px" hintTextColor="hintTextColor" text="" marginTop="-8px"/>
                         <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
 
-                        <div style="margin:2rem 0 0 0.25rem;">
+                        <div style="margin:1rem 0 0 0.25rem;">
                             <div>
                                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;" />
                                 <div style="margin-top: -18px;text-indent: 20px;">
-                                    In person at
+                                    in person at
                                     <GreyBoxForm style="text-indent:2px;display:inline-block;" textwidth="20rem"
-                                        beforetext="" hint="court location"  hintMargin="60px" hintmargintop="12px" text="" marginTop="-8px"/>
+                                        beforetext="" hint="court location" hintTextColor="hintTextColor" hintMargin="60px" hintmargintop="12px" text="" marginTop="-8px"/>
                                 </div>
                             </div>
                         </div>
@@ -330,24 +326,24 @@
                     <div
                         style="border-style: dashed; border-color: black; margin-top: 10px;padding:0.5rem; background: #d6d6d6; ">
                         <b>NOTE TO THE OTHER PARTY:</b>
-                        <div style="margin:0.5rem; font-size:9pt;">
+                        <div style="margin:0.2rem; font-size:9pt;">
                             <p>
                                 <b> If you do not attend court</b> on the date and time scheduled for the court
                                 appearance,the court may make an order in your absence.<br>
                                 You may also choose to <b> file a
-                                    written response </b> in reply to the application in Form19 Written Response to
+                                written response </b> in reply to the application in Form19 Written Response to
                                 Application.
                             </p>
                         </div>
-                        <div style="margin:0.2rem 0 0 1rem; font-size: 9pt;"> The court must be satisfied that:
-                            <ol class='resetcounteralpha'>
-                                <li class='bracketalpha'>the proposed relocation is being made in good faith,</li>
-                                <li class='bracketalpha'>the relocating guardian has proposed reasonable and workable
-                                    arrangements to
-                                    preserve the relationship between the child and the child’s other guardians,
+                        <div style="margin:-0.5rem 0 0 1rem; font-size: 9pt;"> The court must be satisfied that:
+
+                            <ol class='resetcounteralpha' style="padding-left: 12px;">
+                                <li>a) the proposed relocation is being made in good faith,</li>
+                                <li>b) the relocating guardian has proposed reasonable and workable
+                                    arrangements to preserve the relationship between the child and the child’s other guardians,
                                     persons who are entitled to contact with the child, and other persons who have a
                                     significant role in the child’s life, and</li>
-                                <li class='bracketalpha'>the relocation is in the best interests of the child.</li>
+                                <li>c) the relocation is in the best interests of the child.</li>
                             </ol>
                         </div>
                     </div>
@@ -390,14 +386,15 @@
                             style="display:inline; font-size: 9pt; text-indent: -16px; "
                             :check="relocInfo.existingOrder ? 'yes' : ''" />
                         <div style="margin-top: -18px;text-indent: 30px;">
-                            There is a written agreement or order respecting parenting arrangements referred to in section
-                            65 of
-                            the <i>Family Law Act</i> made on
-                            <GreyBoxForm style="text-indent:2px;display:inline" textwidth="8rem" beforetext=""
-                                hint="Date (dd/mmm/yyyy)" hintindent="30px" :italicHint="false" 
+                            There is a written agreement or order respecting parenting arrangements referred 
+                            
+                            <GreyBoxForm style="display:inline" textwidth="8rem" beforetext=" to in section 65 of the <i>Family Law Act</i> made on" aftertext=""
+                               marginTop="-10px" hint="Date (dd/mmm/yyyy)" hintindent="10px" hintTextColor="hintTextColor" hintmargintop="10px" :italicHint="false" 
                                 :text="relocInfo.existingOrderDate | beautify-date-mid " />
-                            that applies to the child(ren) that are the subject of this application
-                            <b>(see attached copy of agreement or order)</b>.
+                                <div style="padding-top: 12px;;">
+                              that applies to the child(ren) that are the subject of this application <br> <i style="color: #ababab; padding-left: 32px;">(see attached copy of agreement or order).</i>
+                                </div>
+                                
                         </div>
                     </div>
 
@@ -414,8 +411,9 @@
                                 <div style="margin-top: -18px;text-indent: 22px;">
                                     Notice of relocation was given to me on
                                     <GreyBoxForm style="margin:0 0 0.5rem 0rem;text-indent:2px;display:inline-block"
-                                        textwidth="8rem" beforetext="" aftertext="(see attached copy)" hint="Date (dd/mmm/yyyy)" hintindent="30px"
+                                        textwidth="8rem" beforetext="" aftertext="" hint="Date (dd/mmm/yyyy)" hintindent="30px"
                                         :italicHint="false" :text="relocInfo.noticeDate | beautify-date-mid" />
+                                        <i style="color:#ababab; padding-left: 3px;">(see attached copy)</i>
                                 </div>
                             </div>
                             <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
@@ -423,26 +421,27 @@
                                     style="display:inline; font-size: 9pt; text-indent: -16px;"
                                     :check="!relocInfo.receivedNotice ? 'yes' : ''" text="" />
                                 <div style="margin-top: -18px;text-indent: 22px;">
-                                    <GreyBoxForm style="margin-left:0rem; text-indent:0px; display:inline"
+                                    <span>I did not receive written notice of relocation but became aware of the planned</span>
+                                    <GreyBoxForm style="margin-left:1.5rem; text-indent:0px; "
                                         textwidth="5.7rem"
-                                        beforetext="I did not receive written notice of relocation but became aware of the planned relocation on"
-                                        aftertext="." hint="Date (dd/mmm/yyyy)" hintindent="10px"  :italicHint="false" hintmargintop="12px" marginTop="-8px"
+                                        beforetext="relocation on"
+                                        aftertext="." hint="Date (dd/mmm/yyyy)" hintindent="10px"  hintTextColor="hintTextColor" :italicHint="false" hintmargintop="12px" marginTop="-8px"
                                         :text="relocInfo.foundOutDate | beautify-date-mid" />
                                 </div>
                                 <div style="margin:1.5rem 0 0 1rem;  font-size: 9pt;">
                                     <GreyBoxForm style="margin-left:0.35rem; display:inline" textwidth="6rem"
                                         beforetext="I understand the date of the relocation of the child(ren) to be"
-                                        hint="Date (dd/mmm/yyyy)" hintindent="10px" :italicHint="false" hintmargintop="12px"  marginTop="-8px"
+                                        hint="Date (dd/mmm/yyyy)" hintindent="10px"  hintTextColor="hintTextColor" :italicHint="false" hintmargintop="12px"  marginTop="-8px"
                                         :text="relocInfo.presumedRelocationDate | beautify-date-mid" />
                                     <GreyBoxForm style="margin:0 0 0 0.35rem; text-indent:5px;display:inline"
                                         :textwidth="relocInfo.presumedLocation.length < 22 ? '9rem' : '22rem'"
-                                        beforetext="to" aftertext="." hint="proposed location" hintindent="10px" :italicHint="false" hintmargintop="12px" marginTop="-8px"
+                                        beforetext="to" aftertext="." hint="Location"  hintTextColor="hintTextColor" hintindent="10px" :italicHint="false" hintmargintop="12px" marginTop="-8px"
                                         :text="relocInfo.presumedLocation" />
                                 </div>
                                 <div style="text-indent:10px; margin:1rem 0 0 0.65rem; font-size: 9pt;">
                                     I learned about the planned relocation:
                                 </div>
-                                <i style="text-indent:5px; padding-left:12px; display: block; font-size: 9pt;">Briefly
+                                <i style="padding-left:12px; display: block; font-size: 9pt; color: #ababab;">Briefly
                                     explain how you found out about the planned relocation if you did not receive written
                                     notice</i>
                                 <GreyBoxForm v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription"
@@ -492,13 +491,13 @@
 
         <!-- INFORMATION ABOUT YOUR APPEARANCE -->
         <div style="page-break-after:always;">&nbsp;</div>
-        <div class="print-block">
+        <div>
             <div style="margin-top: 1rem;"></div>
             <div style="text-align: justify; font-size:11px;">
                 <p style="text-align: center; font-size: 14px;"> <b>IMPORTANT INFORMATION ABOUT YOUR APPEARANCE</b></p>
                 <div style="padding-top: 12px;">
                     <b>What do parties need to know about attending by another method other than in person? </b>
-                    <p>
+                    <p style="padding-top:8px">
                         If your notice indicates that you are to attend by another method of attendance, parties, including
                         the
                         judge, will attend
@@ -640,7 +639,7 @@
         </div>
 
         <!-- Part 6 -->
-        <div style="page-break-after:always;">&nbsp;</div>
+        
         <div style="margin-top: 1rem;"></div>
         <div style="display:flex; flex-direction:row gap:6px; font-size:9pt">
             <div style="width:80%; margin-right: 10px;">
@@ -650,28 +649,26 @@
                 </div>
                 <div>
                     <b style="padding-right:3px">9.</b>
-                    <div style="margin:0 0 0 0.4rem; display: inline; font-size: 9pt;">
-                        I believe it is in the child(ren)’s best interests to prohibit the proposed relocation because:
+                    <div style="display: inline; font-size: 9pt;">
+                    I believe it is in the best interests of the child(ren) to prohibit the proposed relocation because:
                     </div>
 
-                    <GreyBoxForm v-if="relocInfo.childBestInterestReason" style="margin-top:10px; text-indent:0rem"
-                        textwidth="35rem" :text="relocInfo.childBestInterestReason">
-
-                    </GreyBoxForm>
-                    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
-
+                    <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
+                                <span v-if="relocInfo.childBestInterestReason">
+                                    {{relocInfo.childBestInterestReason}}
+                                </span>
+                            </div>
 
                 </div>
             </div>
             <div style="width: 20% ">
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:50px">
+                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:30px">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
                         To determine what is in the best interests of a child, all of the child’s needs and circumstances
-                        must be considered including the factors set out in s. 37 of the <i>Family Law Act</i>. The parties
-                        and the
-                        court must consider the best interests of a child when making a decision about contact with a child.
+                        must be considered including the factors set out in s. 37 of the <i>Family Law Act</i>.<br> 
+                        The parties and the court must consider the best interests of a child when making a decision about contact with a child.
                         For more information, see the guidebook.
                     </p>
                 </div>
@@ -693,7 +690,7 @@
                     <div style="display:inline; margin:0 0 0 0.25rem">I am filing this application <b>in the court
                             registry:</b></div>
                     <div style="margin-left:1rem;">
-                        <i>Select only one of the options below</i>
+                        <i style="color:#ababab">Select only one of the options below</i>
                         <div style="padding-left:20px;">
                             <check-box style="text-indent:-16px"
                                 :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed') ? 'yes' : ''"
@@ -733,34 +730,47 @@
                     My <b>address for service </b>of court documents and contact information is:
                 </div>
                 <div style="margin-left:2rem;">
-                    <i>You must provide an address for service and contact number, but it does not have to be your own if
+                    <i style="color:#ababab">You must provide an address for service and contact number, but it does not have to be your own if
                         you don’t want to</i>
-                    <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
-                        <tr style="border:1px solid #414142">
-                            <td colspan="3">Address: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.street }} </div>
+                    <table class="compactfullsize" style="width:98%;margin-top:0.5 !important; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:1px solid #fff">
+                            <td colspan="3" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color:#dedede">
+                                    {{ yourInfo.address.street }} </div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #313132">
-                            <td >City: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.city }}</div>
+                        <tr style="border:1px solid #fff">
+                            <td style="border:2px solid #fff; padding: 4px;">
+                                City: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.city }}</div>
                             </td>
-                            <td style="padding-left:50px">Province: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.state }}</div>
+                            <td style="padding-left:50px border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.state }}</div>
                             </td>
-                            <td>Postal Code: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.postcode }}</div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td colspan="2">Email: <div class="answer" style="background-color:#dedede">{{ yourInfo.contact.email }}</div>
-                            </td>
-                            <td>Telephone: <div class="answer" style="background-color:#dedede">{{ yourInfo.contact.phone }}</div>
+                            <td style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color:#dedede">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #414142">
-                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer" style="background-color:#dedede">
-                                    {{ yourInfo.lawyerName | getFullName }}</div>
-                            </td>
-                            <td v-else colspan="3">Lawyer (if applicable): </td>
-                        </tr>
+                       
                     </table>
+                    <table class="compactfullsize" style="width:98%;margin-top:0.5 !important; font-size: 9pt; background-color: #dedede;">
+                    <tr style="border:2px solid #fff">
+                        <td style="border:2px solid #fff">Email: <div class="answer" style="background-color: #d6d6d6;">{{yourInfo.contact.email }}</div>
+                        </td>
+                        <td style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
+                        </td>
+                    </tr>
+                   </table>
+                   <div style="margin-top: 0.5rem;"></div>
+            
+            <table class="compactfullsize" style="width:98%;margin-top:0.5 !important; font-size: 9pt; background-color: #dedede;">
+                <tr style="border:1px solid #fff;">
+                    <td v-if="yourInfo.lawyer" colspan="3" style="border:2px solid #fff; padding: 4px;">Lawyer’s name and firm name (if applicable): 
+                        <div class="answer" style="background-color: #d6d6d6;">
+                            {{ yourInfo.lawyerName | getFullName}}
+                        </div>
+                    </td>
+                    <td v-else colspan="3" style="border:2px solid #fff; padding: 4px;" >Lawyer’s name and firm name (if applicable):</td>
+                </tr>
+            </table>
                 </div>
             </div>
             <div style="width: 20% ">
@@ -819,14 +829,17 @@ export default class Form16Layout extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
     relocInfo = {} as relocationOfChildInformationDataInfoType;
 
+    hintFontSize = "8pt"
+    hintTextColor = "#333"
+
     existingFileNumber = '';
     filingLocationReason = '';
     childrenInfo = [{ fullName: '', dob: '', currentSituation: '' }];
 
     childrenFields = [
-        { key: "fullName", label: "Child's full name", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:30%;" },
-        { key: "dob", label: "Child's date of birth (dd/mmm/yyyy)", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:18%;" },
-        { key: "currentSituation", label: "Child is currently living with", tdClass: "border-dark text-center align-middle", thClass: "border-dark text-center align-middle", thStyle: "font-size:8pt; width:16%;" },
+        { key: "fullName", label: "Child's full name", tdClass: "text-center align-middle", thClass: "text-center align-middle", thStyle: "font-size:10pt; width:25%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;" },
+        { key: "dob", label: "Child's date of birth (dd/mmm/yyyy)", tdClass: "text-center align-middle", thClass: "text-center align-middle", thStyle: "font-size:10pt; width:16%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;" },
+        { key: "currentSituation", label: "Child is currently living with", tdClass: " text-center align-middle", thClass: "text-center align-middle", thStyle: "font-size:10pt; width:18%; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;" },
     ]
 
     mounted() {

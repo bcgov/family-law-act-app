@@ -27,7 +27,7 @@
                 </div>
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 50%; padding: 2px;"> Document number: <div
-                            style="font-size: 6pt; padding-left:16px;">For registry use only</div>
+                            style="font-size: 6pt; padding-left:16px; color: #626262">For registry use only</div>
                     </div>
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ fmepNumber ? fmepNumber : '&nbsp;' }} </div>
                 </div>
@@ -54,14 +54,14 @@
                 </div>
             </div>
             <div style="width: 20%">
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:55px; font-size:7pt">
+                <NoteBox textColor="#626262" style="margin-top:55px">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
                         If you also need an order about long-term parenting arrangements, including 
                         parental responsibilities and parenting time, you must also complete an Application About a Family Law Matter Form 3
                     </p>
-                </div>
+                </NoteBox>
             </div>
         </div>
         
@@ -76,7 +76,7 @@
                 <div
                     style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 1rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; ">
-                        <b>1. </b>My <b>full name</b> is:
+                        <b>1. My full name</b> is:
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="376px"
                         beforetext="" hint="Full name of party" :italicHint="false" textBackgroundColor="#dedede"
@@ -95,9 +95,9 @@
                 <div
                     style="text-indent: -0px;text-align: justify;text-justify: inter-word;  margin: 1rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block;">
-                        <b>2. </b>The <b>other party’s full name is:</b>
+                        <b>2. </b>The <b>other party’s full name</b> is:
                     </div>
-                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
+                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="290px"
                         beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px"
                         :text="firstOtherParty.name | getFullName" />
 
@@ -105,7 +105,7 @@
                         <div style="display: inline-block; ">
                             Their <b>date of birth</b>(dd/mmm/yyyy) is:
                         </div>
-                        <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
+                        <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="256px"
                             beforetext="" :italicHint="false" textBackgroundColor="#dedede" hintMargin="152px"
                             :text="firstOtherParty.dob | beautify - date" />
                         <div>
@@ -123,13 +123,13 @@
                                     <div style="display: inline-block; margin-left:2rem;">
                                         The<b> additional party’s</b> full name is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="235px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="80px" :text="otherParty.name | getFullName" />
                                     <div style="display: inline-block; padding-top:10px; margin-left:2rem;">
                                         Their<b> date of birth</b>(dd/mmm/yyyy) is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="225px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="152px" :text="otherParty.dob | beautify - date" />
                                 </div>
@@ -138,13 +138,13 @@
                                 <div style="display: inline-block; margin-left:2rem;">
                                         The<b> additional party’s</b> full name is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="235px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="80px" text="" />
                                     <div style="display: inline-block; padding-top:10px; margin-left:2rem;">
                                         Their<b> date of birth</b>(dd/mmm/yyyy) is:
                                     </div>
-                                    <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
+                                    <grey-box-form style="text-indent:4px;display:inline-block; font-size: 9pt;"
                                         textwidth="225px" beforetext="" :italicHint="false" textBackgroundColor="#dedede"
                                         hintMargin="152px" text="" />
                             </div>
@@ -154,14 +154,14 @@
             </div>
 
             <div style="width: 20% ">
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:10px; font-size:7pt">
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
                         The other party is any other parent or guardian of the child(ren).
                     </p>
-                </div>
-                <div style="background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px; margin-top:10px; font-size:7pt">
+                </NoteBox>
+                <NoteBox textColor="#626262" style="margin-top:10px">
                     <p>
                         <b-icon-info-circle-fill />
                         <br />
@@ -172,7 +172,7 @@
                         paper to this application that 
                         includes the information.
                     </p>
-                </div>
+                </NoteBox>
             </div>
             <br />
         </div>
@@ -190,9 +190,13 @@
                         <b>3.</b> This application is about the following child(ren):
                     </div>
 
-                    <b-table :items="childrenInfo" :fields="childrenFields" class="mt-2" small bordered>
+                    <b-table 
+                        :items="childrenInfo" 
+                        :fields="childrenFields" 
+                        class="mt-2" 
+                        small>
                         <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{ data.value }}</div>
+                            <div style="min-height:1rem; font-size:8pt;color:#000; background: #d6d6d6;">{{ data.value }}</div>
                         </template>
                         <template v-slot:head(dob)>
                             Child's date of birth <i style="font-size:6pt; font-weight:normal;">(dd/mm/yyyy)</i>
@@ -228,7 +232,7 @@
                 <div>
                     <div style="text-indent: 0px; margin: 0rem 0.5rem 0.5rem 1rem;">
                         <b>5. &nbsp;</b>
-                        <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt;"><i>Select only one of the options below</i></div>
+                        <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt; color: #626262"><i>Select only one of the options below</i></div>
 
                         <div style="margin:0 0 0 3rem;font-size: 9pt;" >
                             <check-box inline="inline" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am applying with <b>at least 7 days’ notice</b> to the other party" style="text-indent: -16px;"/>
@@ -288,7 +292,7 @@
                 </div>
 
                 <div style="margin:0.25rem 0 0 0rem;font-size: 9pt;" >
-                    <i>For registry or judicial case manager use only</i>
+                    <i style="color: #626262">For registry or judicial case manager use only</i>
                 </div>
 
                 <div style="border:1px solid; font-size: 9pt; padding:1rem;font-family:BCSans">
@@ -380,25 +384,25 @@
                     text="I am <b>applying for an order about</b> the following priority parenting matter(s):"/>
 
                 <div style="margin:0.25rem 0 0 3rem;font-size: 9pt; text-indent: -16px;" >
-                    <i>Select all options that apply</i>
+                    <i style="color: #626262">Select all options that apply</i>
                     <check-box  :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
                     <check-box  :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
                     <check-box  :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
                     <check-box  :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
-                    <check-box  :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
-                    <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
-                    <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the <i>Family Law Act</i>"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the <i>Family Law Act</i>"/>
+                    <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the <i>Family Law Act</i>"/>
                     <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
                     <check-box  
                         :check="ppmInfo.ppmList.includes('childServices')?'yes':''" 
-                        text="applying for an order under section 45 [orders respecting parenting arrangements] or 51 [order respecting guardianship]
-                            of the Family Law Act in one of the following circumstances:<ol style='list-style-type: lower-roman'><li>the child to whom the order relates has been removed 
-                            under section 30 [removal of child], 36 [interim supervision order no longer protects the child] or 42 
-                            [enforcement of supervision order after the protection hearing] of the Child, Family and Community 
-                            Service Act and a director under that Act has advised that the order will allow for a child to be 
-                            returned to the applicant;</li><li>a director under the Child, Family and Community Service Act has 
+                        text="applying for an order under section 45 <i>[orders respecting parenting arrangements]</i> or 51 <i>[order respecting guardianship]</i>
+                            of the <i>Family Law Act</i> in one of the following circumstances:<ol style='list-style-type: lower-roman'><li>the child to whom the order relates has been removed 
+                            under section 30 <i>[removal of child]</i>, 36 <i>[interim supervision order no longer protects the child]</i> or <i>42 
+                            [enforcement of supervision order after the protection hearing]</i> of the <i>Child, Family and Community 
+                            Service Act</i> and a director under that Act has advised that the order will allow for a child to be 
+                            returned to the applicant;</li><li>a director under the <i>Child, Family and Community Service Act</i> has 
                             advised that the child to whom the order relates will be removed under section 30, 36 or 42 of that 
-                            Act unless the order is made;</li></ol><i><span>&#10132;</span> Complete <b>Schedule 1</b> and, if you are applying for guardianship, <b>Schedule 2</i></b>"/>
+                            Act unless the order is made;</li></ol><i><span style='color: #626262'>&#10132;</span> <span style='color: #626262'>Complete <b>Schedule 1</b> and, if you are applying for guardianship, <b>Schedule 2</i></b></span>"/>
                 </div>
             </div>
             </div>
@@ -455,14 +459,12 @@
             <div style="text-align: justify; font-size:11px;">
                 <p style="text-align: center; font-size: 14px;"> <b>IMPORTANT INFORMATION ABOUT YOUR APPEARANCE</b></p>
                 <div style="padding-top: 12px;">
-                    <b>What do parties need to know about attending by another method other than in person? </b>
+                    <b>What do parties need to know about attending by another method other than in person? </b> <br/>
                     <p>
                         If your notice indicates that you are to attend by another method of attendance, parties, including
                         the
                         judge, will attend
-                        using the Microsoft Teams audio- and video-conferencing (video) platform. Do not attend the
-                        courthouse
-                        in person.
+                        using the Microsoft Teams audio- and video-conferencing (video) platform. <b>Do not attend the courthouse in person.</b>
                         Parties will receive remote MS Teams appearance details within 24 hours prior to the appearance,
                         this
                         notification is
@@ -472,7 +474,7 @@
                         Microsoft Teams allows participants to join the conference using video or audio from a desktop,
                         laptop,
                         tablet, or
-                        smartphone, or to dial-in to a proceeding from a telephone. If you are appearing by video, please
+                        smartphone, or to dial-in to a proceeding from a telephone. <b>If you are appearing by video</b>, please
                         ensure
                         that you
                         have downloaded Microsoft Teams or have the latest version of Google Chrome or Microsoft Edge.
@@ -554,7 +556,8 @@
                         </p>
                         <p>
                             <b>Before the scheduled hearing date,</b>please visit the Provincial Court website at
-                            https://www.provincialcourt.bc.ca and review:
+                            <a href="https://www.provincialcourt.bc.ca"target="_blank"> https://www.provincialcourt.bc.ca</a>
+                            and review:
                         <ul>
                             <li>
                                 Policy on Use of Electronic Devices in Courtrooms and Access to Court Proceedings Policy
@@ -563,27 +566,27 @@
                                 authorized
                                 by the Court and there are penalties for breach)
                             </li>
-                            <li>NP 21 Remote Attendance in the Provincial Court (for etiquette and directions on connecting
+                            <li><i>NP 21 Remote Attendance in the Provincial Court</i> (for etiquette and directions on connecting
                                 by
                                 another method of attendance) (counsel attendance requirements when attending Family matters
                                 remotely)
                             </li>
                             <li>
-                                NP 24 Form of Address for Parties and Lawyers (provide the judge or justice with each
+                                <i>NP 24 Form of Address for Parties and Lawyers</i> (provide the judge or justice with each
                                 person’s
                                 name, title (e.g.
                                 “Mr./ Ms./Mx./Counsel Jones”) and pronouns to be used in the proceeding)
                             </li>
                             <li>
-                                Guide for Appearing in the Provincial Court using MS Teams
+                                <i>Guide for Appearing in the Provincial Court using MS Teams</i>
                             </li>
                             <li>
-                                eNews - What to expect at a family management conference?
+                                <i>eNews</i> - What to expect at a family management conference?
                             </li>
                         </ul>
                         </p>
                         <p>
-                            <b>If you are unable to dial-in or are dropped from the appearance</b>immediately call the court
+                            <b>If you are unable to dial-in or are dropped from the appearance</b> immediately call the court
                             registry.
                         </p>
                     </div>
@@ -602,9 +605,9 @@
                 </div>
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     7. <b> The details of the order</b> I am applying for are as follows:
-                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">List the specific details of the order(s) you are asking for</i>
-                    <div v-if="ppmInfo.orderdesc" style="margin: 0rem 0.5rem 0.5rem 2rem;" class="answerbox">{{ppmInfo.orderdesc}}</div>
-                    <div v-else style="margin-bottom:3rem;"/>
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color:#626262">List the specific details of the order(s) you are asking for</i>
+                    <div v-if="ppmInfo.orderdesc" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;" class="answerbox">{{ppmInfo.orderdesc}}</div>
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/>
                 </div>
             </div>
 
@@ -621,19 +624,19 @@
 
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     8. The <b>facts</b> on which this application is based <b>are as follows:</b>
-                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color: #626262">
                         Provide a summary of the facts you want the court to consider. Include why you are
                         making the application and why the order you are requesting should be made.
                     </i>             
                     
-                    <div v-if="ppmInfo.facts" style="margin: 0rem 0.5rem 0.5rem 2rem;"
+                    <div v-if="ppmInfo.facts" style="margin: 0rem 0.5rem 0.5rem 2rem; background-color: #dedede; word-wrap: break-word;"
                         class="answerbox">{{ppmInfo.facts}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div> 
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"/> 
                     <i style="margin: 0rem 0.5rem 0.5rem 2rem;">To add more, select the box below and attach a page with the additional information</i>
                     
                     <i style="margin: 0rem 0.5rem 0.5rem 2rem; display:inline-block">
                         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;" :check="''" text=""/> 
-                        <b>Additional page(s) (see attached)</b>
+                        <b>Additional page(s) <span style="color: #626262">(see attached)</span></b>
                     </i>
                 </div>
             </div>
@@ -683,21 +686,21 @@
                     <check-box boxMargin="0" style="display:inline-block; width:200px" :check="ppmInfo.ExistingCase?'yes':''"  text="<b>Yes</b> (see attached copy)"/>                        
                     <check-box boxMargin="0" style="display:inline-block;" :check="!ppmInfo.ExistingCase?'yes':''" text="<b>No</b>"/> 
                 </div>
-                <div style="display:flex; margin: 1rem 0.5rem 0.5rem 0.75rem; font-size: 9pt;">
+                <div style="display:flex; margin: 1rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     10.
-                    <div style="padding-left: 0.5rem; display: inline;">
+                    <div style="padding-left: 0.75rem; display: inline;">
                         I know the following <b>information about any court proceeding</b> that is pending or that
                         has been initiated about parenting arrangements, contact with a child, guardianship of
                         a child, or protection of a child who is the subject of this application:
                     </div>
                 </div>
                 <div style="padding-left: 2.25rem;">
-                    <i style="display:inline-block; ">
+                    <i style="display:inline-block; color: #626262">
                         If there is no pending or ongoing court proceeding, that you know of, in this court or
                         another court or jurisdiction, you may leave this section blank
                     </i>
-                    <div v-if="ppmInfo.existingProceeding && ppmInfo.proceedingInfo" class="answerbox">{{ppmInfo.proceedingInfo}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div> 
+                    <div v-if="ppmInfo.existingProceeding && ppmInfo.proceedingInfo" style="background-color: #dedede; word-wrap: break-word;" class="answerbox">{{ppmInfo.proceedingInfo}}</div>
+                    <div v-else style="margin-bottom:3rem; margin-left: 1rem; min-height:35px; background-color: #dedede"></div> 
                 </div>
             </div>
 
@@ -734,19 +737,19 @@
                 </div>
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     11. I am filing this application <b>in the court registry:</b>
-                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">Select only one of the options below</i>
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color: #626262">Select only one of the options below</i>
 
-                    <div style="margin-left:3rem; text-indent: -16px;">
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
-                        text="Where my <b>existing case</b> with the same party/parties is located. I already have a court file number."/> 
-                    <check-box  
-                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
-                        text="Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue"/>          
-                    <check-box  
-                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
-                        text="Permitted by <b>court order</b>"/>                
-                </div>
+                    <div style="margin:0 0 0 3rem; text-indent: -16px; display: inline-block; width:95%; word-wrap: break-word;">
+                        <check-box  
+                            :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                            text="Where my <b>existing case</b> with the same party/parties is located. I already have a court file number."/> 
+                        <check-box  
+                            :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                            text="Closest to <b>where the child lives</b> most of the time, because my case involves a child-related issue"/>          
+                        <check-box  
+                            :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                            text="Permitted by <b>court order</b>"/>                
+                    </div>
                 </div>
             </div>
             <div style="width: 20%">
@@ -778,33 +781,38 @@
                 </div>
                 <div style=" text-indent: 0px; display:inline; margin: 0rem 0.5rem 0.5rem 1rem; font-size: 9pt;">
                     12. My <b>address for service</b> of court documents and contact information is:
-                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt;">
+                    <i style="margin:0 0 0 2rem; display: block;font-size: 9pt; color: #626262">
                         You must provide an address for service and contact number, but it does not have to be your own if you don’t want to
                     </i>
-                    <table class="compactfullsize" style="margin: 0.5rem 0.5rem 0.5rem 1rem; font-size: 9pt; width:95%">
-                        <tr style="border:1px solid #414142">
-                            <td colspan="3">Address: <div class="answer">{{ yourInfo.address.street }} </div>
+                    <table class="compactfullsize" style="margin-top:0.5 !important; margin-left: 42px; width:90%; font-size: 9pt; background-color: #dedede;">
+                        <tr style="border:2px solid #fff">
+                            <td colspan="6" style="border: 2px solid #fff; padding: 4px;">
+                                Address: 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ yourInfo.address.street }} 
+                                </div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #313132">
-                            <td>City: <div class="answer">{{ yourInfo.address.city }}</div>
+                        <tr style="border:2px solid #fff">
+                            <td colspan="2" style="border:2px solid #fff; padding: 4px;">City: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.city }}</div>
                             </td>
-                            <td style="padding-left:50px">Province: <div class="answer">{{ yourInfo.address.state }}</div>
+                            <td colspan="2" style="padding-left:50px; border:2px solid #fff; padding: 4px;">Province: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.state }}</div>
                             </td>
-                            <td>Postal Code: <div class="answer">{{ yourInfo.address.postcode }}</div>
-                            </td>
-                        </tr>
-                        <tr style="border:1px solid #313132">
-                            <td>Email: <div class="answer">{{ yourInfo.contact.email }}</div>
-                            </td>
-                            <td colspan="2" style="padding-left:50px">Telephone: <div class="answer">{{ yourInfo.contact.phone }}</div>
+                            <td colspan="2" style="border:2px solid #fff; padding: 4px;">Postal Code: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.address.postcode }}</div>
                             </td>
                         </tr>
-                        <tr style="border:1px solid #414142">
-                            <td v-if="yourInfo.lawyer" colspan="3">Lawyer’s name and firm name (if applicable): 
-                                <div class="answer"> {{ yourInfo.lawyerName | getFullName }}</div>
+                        <tr style="border:2px solid #fff">
+                            <td colspan="3" style="border:2px solid #fff; padding: 4px;">Email: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.email }}</div>
                             </td>
-                            <td v-else colspan="3">Lawyer’s name and firm name (if applicable): </td>
+                            <td colspan="3" style="border:2px solid #fff; padding: 4px;">Telephone: <div class="answer" style="background-color: #d6d6d6;">{{ yourInfo.contact.phone }}</div>
+                            </td>
+                        </tr>
+                        <tr style="border:2px solid #fff">
+                            <td colspan="6" style="border:2px solid #fff; padding: 4px;">Lawyer’s name and firm name (if applicable): 
+                                <div class="answer" style="background-color: #d6d6d6;">
+                                    {{ yourInfo.lawyerName | getFullName }}
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -836,6 +844,7 @@ const applicationState = namespace("Application");
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import GreyBoxForm  from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
@@ -846,7 +855,8 @@ import { getYourInformationResults, getLocationInfo } from '@/components/utils/P
     components:{
         UnderlineForm,
         GreyBoxForm,
-        CheckBox        
+        CheckBox,
+        NoteBox      
     }
 })
 
@@ -873,10 +883,10 @@ export default class Form15Layout extends Vue {
     childrenInfo: childrenInfoSurveyInfoType[] = [];
 
     childrenFields = [
-        {key:"fullName",               label:"Child's full name",                          tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",               tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"fullName",               label:"Child's full name",                          tdClass:" text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:30%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",        tdClass:" text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},
+        {key:"myRelationship",         label:"My relationship to the child",               tdClass:" text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:15%; font-weight: bold; border: none; border-bottom: 2px solid #333;"},        
+        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:" text-center align-middle", thClass:" text-center align-middle", thStyle:"font-size:8pt; width:21%; font-weight: bold; border: none; border-bottom: 2px solid #333;"}
     ]   
 
     mounted(){

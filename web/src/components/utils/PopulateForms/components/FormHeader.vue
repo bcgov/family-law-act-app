@@ -2,10 +2,10 @@
     <!-- <HEADER> -->
         <div  style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px; justify-content: space-between;">
             <div style="width: 30%">
-                <div style="font-size:14pt;"><b>{{formName}}</b></div>
-                <div style="font-size:10pt;"><b>{{formNumber}}</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>{{formRuleNumber}}</div>
+                <div style="font-size:14pt; padding-right: 10px;"><b>{{formName}}</b></div>
+                <div style="font-size:12pt;"><b>{{formNumber}}</b></div>
+                <div :style="{fontSize: ruleFontSize}">Provincial Court Family Rules</div>
+                <div :style="{fontSize: ruleFontSize}">{{formRuleNumber}}</div>
             </div>
             <div style="width:200px;margin-left:-70px;">
                 <CourtStamp></CourtStamp>
@@ -17,15 +17,15 @@
                 </div>
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;"> Court file number:&nbsp; </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{  headerTableData[1].value }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{  headerTableData[1].value ? headerTableData[1].value : '&nbsp;' }} </div>
                 </div>
-                <div style="width: 100%; display: inline-block;">
+                <div v-if="headerTableData[2]" style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;">Last names of parties:&nbsp;<br/><span style="color:#626262;font-style:italic">Party 1/ Party 2&nbsp;</span></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 35px;"> {{  headerTableData[2].value ?  headerTableData[2].value : '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 22px;"> {{  headerTableData[2].value ?  headerTableData[2].value : '&nbsp;' }} </div>
                 </div>
-                <div style="width: 100%; display: inline-block;">
+                <div v-if="headerTableData[3]" style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;"> Document number:&nbsp;<br/><span style="color:#626262;font-style:italic">For registry use only&nbsp; </span></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;line-height: 22px;"> {{ '&nbsp;' }} </div>
                 </div>
             </div>
              <!-- <div style="width: 38%; font-size: 7pt; font-weight: bold;">
@@ -73,6 +73,9 @@ export default class FormHeader extends Vue {
 
     @Prop({required: false, default: ''})
     formRuleNumber!: string;
+
+    @Prop({required: false, default: '12pt'})
+    ruleFontSize!: string;
 }
 </script>
 <style>

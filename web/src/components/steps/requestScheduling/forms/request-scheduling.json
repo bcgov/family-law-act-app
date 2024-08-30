@@ -55,6 +55,13 @@
                   "dateYearsAhead": "0"                  
                 },
                 {
+                  "type": "comment",
+                  "name": "DocumentNumber",
+                  "title": "What is the document number of the application you need to schedule?",
+                  "description": "The registry uses the date document number as an identifier for scheduling. The document number is found in the upper right-hand corner of the document under the court file number. This information will help make sure the correct application is scheduled",
+                  "isRequired": true                  
+                },
+                {
                   "type": "infotext",
                   "name": "ExplanationInvalidFiledDate",
                   "visible": false,

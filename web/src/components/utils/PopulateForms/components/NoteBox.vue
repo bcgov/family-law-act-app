@@ -1,6 +1,6 @@
 <template>
 
-    <div :style="{'background-color': '#d6d6d6', padding: '8px', 'font-size': fontSize, 'border-radius': borderRadius, border: border}">
+    <div :style="{'background-color': '#d6d6d6', padding: '8px', 'font-size': fontSize, 'border-radius': borderRadius, border: border, color: textColor}">
        <slot></slot> 
     </div>
 
@@ -19,5 +19,8 @@ export default class NoteBox extends Vue {
 
     @Prop({required: false, default: '0px'})
     border?: string;
+
+    @Prop({required: false, default: 'black'})
+    textColor?: string;
 }
 </script>

@@ -74,7 +74,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>2.</b><span style="margin-left:12px;">The <b>other party’s full name is:</b></span>
+                        <b>2.</b><span style="margin-left:12px;">The <b>other party’s full name</b> is:</span>
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="270px"
                         beforetext="" hint="Full name of party/parties" :italicHint="false" textBackgroundColor="#dedede" hintMargin="80px" :text="firstOtherParty.name | getFullName" />
@@ -99,7 +99,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                 <span style="text-indent: 5px;font-size: 11pt;"><b>3. </b></span><span style="margin-left:12px;"><span style="color:#626262;font-style:italic;">Select whichever option is correct</span></span>
                 <div style="margin-top: 0.3rem;"></div>
 
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.otherPartyNotice?'yes':''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.otherPartyNotice?'yes':''" text=""
                     />
                     <div style="margin-top: -22px;text-indent: 16px;margin-left: 30px;text-align: justify;">
                         This <b>application is about enforcement under Rule 135</b>. I understand</div>
@@ -109,7 +109,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                         to be made without notice or with less than 7 days’ notice.
                     </div>
                     <div style="margin-top: 0.5rem;"></div>
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.foreignNotice?'yes':''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left: 25px;" :check="form29Info.foreignNotice?'yes':''" text=""
                     />
                     <div style="margin-top: -22px;text-indent: 16px;margin-left: 30px;text-align: justify;">
                         This <b>application is to set aside the registration of a foreign support </b></div>
@@ -117,7 +117,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
                         <b>order </b>under the <i>Interjurisdictional Support Orders Act</i>. I understand <b>I must give
                         notice of this application to the designated authority.</b> To give notice, the
                         designated authority must be served with the application and supporting
-                        documents by registered mail <b>at least 30 days</b> before the application is to be
+                        documents by registered mail <b>at least 30 days before</b> the application is to be
                         heard by the court.
                     </div>
                 </div>
@@ -164,7 +164,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
             <div style="margin-left:230px !important;font-size:6pt;margin-top:-12px;"><i> time</i></div>
             </div>
               
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''" text=""
                     />
                     <ul style="margin-top: -20px;margin-left:-25px;">
                         <span style="margin-left:20px;">in person at</span><span style="margin-left:20px;background-color:#dedede;width:100px;min-width:100px;">______________________________________________</span>
@@ -173,7 +173,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
             </div>
                     </ul>
                     <div style="margin-top: 0.6rem;"></div>
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''" text=""
                     />                    
                     <ul style="margin-top: -20px;margin-left:-16px;">
                         <div>
@@ -370,7 +370,7 @@ support order under the <i>Interjurisdictional Support Orders</i> Act that a per
 
          <div style="text-indent: 20px;">
         <check-box  inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:22px" :check="form29Info.orderList.includes('expenses')?'yes':''" text="to have reasonable and necessarily incurred expenses set under the"/>
-        <div style="margin-left:50px;"> following sections of the <i>Family Law Act</i>:</div>
+        <div style="margin-left:50px;"> following section(s) of the <i>Family Law Act</i>:</div>
         <check-box style="margin-left:65px;text-indent: -17px;margin-left:87px" :check="form29Info.expenseList.includes('section61')?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
         <check-box style="margin-left:65px;text-indent: -17px;margin-left:87px" :check="form29Info.expenseList.includes('section63')?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
         <check-box style="margin-left:65px;text-indent: -17px;margin-left:87px" :check="form29Info.expenseList.includes('section212')?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
