@@ -169,8 +169,8 @@
                             </p>                    
                         </b-form-checkbox>
                         <b-form-checkbox-group
-                            :disabled="counterSSChecked = 'counterSpouseSupport'"
-                            v-model="selectedSpousalSupportForm" 
+                            :disabled="counterSSChecked != 'counterSpouseSupport'"
+                            v-model="selectedSpousalSupportFormOrder" 
                             stacked
                             >                                
                             <div class="checkbox-choices-header text-primary">Do you have a final order or written agreement about spousal support?</div>
@@ -275,6 +275,7 @@ export default class RflmQuestionnaire extends Vue {
     selectedContactWithChildForm = [];
     selectedGuardianshipForm = [];
     selectedSpousalSupportForm = [];
+    selectedSpousalSupportFormOrder = [];
     selectedCompanionAnimalForm = [];   
 
     currentStep = 0;
@@ -301,6 +302,7 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedContactWithChildForm = rflmData.selectedContactWithChildForm?rflmData.selectedContactWithChildForm:[];
             this.selectedGuardianshipForm = rflmData.selectedGuardianshipForm?rflmData.selectedGuardianshipForm:[];
             this.selectedSpousalSupportForm = rflmData.selectedSpousalSupportForm?rflmData.selectedSpousalSupportForm:[];
+            this.selectedSpousalSupportFormOrder = rflmData.selectedSpousalSupportFormOrder?rflmData.selectedSpousalSupportFormOrder:[];
             this.selectedCompanionAnimalForm = rflmData.selectedCompanionAnimalForm?rflmData.selectedCompanionAnimalForm:[];
             if(this.getSelected())
                 this.determineSteps();
@@ -320,6 +322,7 @@ export default class RflmQuestionnaire extends Vue {
                         this.selectedContactWithChildForm.length>0 ||
                         this.selectedGuardianshipForm.length>0 ||
                         this.selectedSpousalSupportForm.length>0 ||
+                        this.selectedSpousalSupportFormOrder.length>0 ||
                         this.selectedCompanionAnimalForm.length>0
 
         return selected;
@@ -348,7 +351,7 @@ export default class RflmQuestionnaire extends Vue {
             }
         } else if (category == 'spouseSupportFinalOrder'){
             if (list.length>0){
-                this.selectedSpousalSupportForm = [selection];
+                this.selectedSpousalSupportFormOrder = [selection];
             }
         } else if (category == 'companionAnimal'){
             if (list.length>0){
@@ -366,6 +369,7 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedContactWithChildForm = [];
             this.selectedGuardianshipForm = [];
             this.selectedSpousalSupportForm = [];
+            this.selectedSpousalSupportFormOrder = [];
             this.selectedCompanionAnimalForm = [];
         }
         Vue.filter('surveyChanged')('replyFlm'); 
@@ -449,6 +453,10 @@ export default class RflmQuestionnaire extends Vue {
         if (this.selectedSpousalSupportForm.includes('newSpouseSupport')) result+='New Spousal Support'+'\n';
         else if (this.selectedSpousalSupportForm.includes('existingSpouseSupport')) result+='Existing Spousal Support'+'\n';
         
+        if (this.selectedSpousalSupportForm.includes('agreeSpouseSupport')) result+='Agree Spousal Support'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('disagreeSpouseSupport')) result+='Disagree Spousal Support'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('counterSpouseSupport')) result+='Counter Spousal Support'+'\n';
+
         if (this.selectedCompanionAnimalForm.includes('newCompanionAnimal')) result+='New Companion Animal'+'\n';
         else if (this.selectedCompanionAnimalForm.includes('existingCompanionAnimal')) result+='Existing Companion Animal'+'\n';
 
@@ -462,6 +470,7 @@ export default class RflmQuestionnaire extends Vue {
         result.selectedContactWithChildForm = this.selectedContactWithChildForm;
         result.selectedGuardianshipForm = this.selectedGuardianshipForm;
         result.selectedSpousalSupportForm = this.selectedSpousalSupportForm;
+        result.selectedSpousalSupportFormOrder = this.selectedSpousalSupportFormOrder;
         result.selectedCompanionAnimalForm = this.selectedCompanionAnimalForm;        
         return result;
     }
@@ -486,13 +495,6 @@ export default class RflmQuestionnaire extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'RflmQuestionnaire',title:"Other Party's application:",value:this.getSelectedFormsNames()}]        
         this.UpdateStepResultData({step:this.step, data: {rflmQuestionnaireSurvey: {data: this.getData(), questions: questions, pageName:"Reply to Family Law Matter Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
-    }
-
-    isCounter() {
-        if(this.selectedSpousalSupportForm[0].counterSpouseSupport)
-            return true;
-        else
-            return false;
     }
 }
 </script>
