@@ -114,11 +114,11 @@
                             <span style="margin-left:1rem;font-size:7pt" >Full name of lawyer</span>
                     </div>
                     </div>
-                        </td>
-                        <td style="vertical-align: bottom;">
-                            <div style="display:block;">, of ,</div>
-                    <div style="width:220px;display:block;word-break: break-all;">
-                    <div style="margin-left:35px;margin-top:-20px;background-color: #dedede;padding:5px;min-height:10px;line-height:14px;">         
+                    </td>
+                    <td> <div style="margin-top:-25px;margin-left:5px;">, of ,</div></td>
+                    <td >
+                    <div style="width:230px;display:block;word-break: break-all;">
+                    <div style="margin-left:3px;margin-top:-20px;background-color: #dedede;padding:5px;min-height:10px;line-height:14px;">         
                             <span style="margin-left:1rem" >{{lawyerInformation.firmName}}</span>
                     </div>
                     <div style="width:220px;display:flex;text-align:center;margin-left:55px;margin-top:-10px;padding:5px;min-height:10px;">         
