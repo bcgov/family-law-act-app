@@ -25,7 +25,6 @@ the rules, including a time limit set by an order or direction, even after the t
 <!-- <1> : BEGIN-->
     <div >
         <div style="width: 80%; float: left; margin-right: 10px;">
-    <div style="margin-top: 1rem;"></div>
             <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;width: 80%; float: left; margin-right: 10px;">
                     <b>Part 1 |  Requirement I need to waive or modify </b>
             </div>
@@ -41,42 +40,40 @@ the rules, including a time limit set by an order or direction, even after the t
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Completing a parenting education program')?'yes':''" text="Completing a parenting education program"/>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Participating in consensual dispute resolution')?'yes':''" text="Participating in consensual dispute resolution"/>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Filing a completed financial statement with my application or reply')?'yes':''" text="Filing a completed financial statement Form 4 with my application, reply or counter application"/>
-                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Filing the required documents for an application about guardianship of a child')?'yes':''" text="filing the required documents for an application about guardianship of a child"/>
+                    <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Filing the required documents for an application about guardianship of a child')?'yes':''" text="Filing the required documents for an application about guardianship of a child"/>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time to file a reply, including permission to file a reply after the time to reply has passed')?'yes':''" text="Time to file a reply, including permission to file a reply after the time to reply has passed"/>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time to provide/exchange document(s)')?'yes':''" text="Time to provide/exchange document(s)"/>
 
                     <check-box marginLeft="1.65rem" style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('Time limit set by an order or direction of a judge')?'yes':''" text="Time limit set by an order or direction made"/>
                     
-                    <!-- <span style="margin-left:30px;">on</span>
-                    <underline-form style="text-indent:3px;display:inline-block;" textwidth="6rem" hintMargin="7px" beforetext="" hint="Date(dd/mmm/yyyy)" :text="modReqInfo.dateOfOrder"/>                     
-                    <underline-form style="text-indent:3px;display:inline-block;" textwidth="13rem" beforetext="by" hintMargin="20px" hint="Name of judge or family justice manager" :text="modReqInfo.judgeName"/>                     
-                     -->
-                     <div style="margin-left:35px;margin-top:0px;">                
-                <!-- <underline-form style="text-indent:1px;display:inline-block;background-color:#dedede;" textwidth="6rem" hintMargin="8px" beforetext="" hint="Date(dd/mmm/yyyy)" :text="scheduleInfo.eventDate | beautify-date-text"/>                 -->
+                <table style="margin-left:30px;">
+                <tr>
+                <td><div style="margin-top:-20px;padding-right:5px;">on</div></td>
+                <td><div style="width:200px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:25px;margin-bottom:10px;">{{ modReqInfo.dateOfOrder }}</div> <div><div style="margin-left:15px;text-align: center;font-size:7pt;margin-top:-12px;">Date (dd/mmm/yyyy)</div></div></td>
+                <td><div style="padding-left:0px;margin-top:-20px;margin-left:10px;">by</div> </td>
+                <td><div style="width:200px;background-color: #dedede;padding:2px;font-size: 11pt;margin-left:5px;min-height:25px;margin-bottom:10px;">{{ modReqInfo.judgeName }}</div> <div><div style="margin-left:10px;text-align:center;font-size:7pt;margin-top:-12px;">Name of judge or family justice manager</div> </div></td>
+                </tr>
+                </table>
+                <!-- <div style="margin-left:35px;margin-top:0px;">                  
                 
-                <!-- <underline-form style="text-indent:3px;display:inline-block;background-color:#dedede;" textwidth="4.5rem" hintMargin="20px" beforetext="" hint="Time" :text="scheduleInfo.eventTime"/>  -->
-                <!-- <underline-form style="text-indent:3px;display:inline-block;background-color:#dedede;" textwidth="10rem" hintMargin="40px" beforetext="" hint="Method of attendance" :text="scheduleInfo.attendanceMethod"/>  -->
-                <span>on</span>
-                <span style="margin-left:5px;min-width: 90px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.dateOfOrder }}</span>
-                <span style="padding-right:5px;padding-left:5px;">by</span> 
+                <span style="margin-left:5px;min-width: 90px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;"></span>
+                
                 <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{ modReqInfo.judgeName |truncate-word-after(30)}}</span> 
                 <div style="margin-top:-2px;font-size:6pt;">                
                 <span style="margin-left:25px;min-width:90px;text-align: center;display: inline-block;">Date (dd/mmm/yyyy)</span>
-                <span style="margin-left:130px;text-align:center;">Method of attendance</span> 
+                
                 </div> 
                 <div v-if="modReqInfo.judgeName.length >= 30" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{modReqInfo.judgeName|truncate-word-before(30)}}</div>    
 
-                </div> 
+                </div>  -->
                 
                     <div style="margin-top:0.2rem"></div>
                     <span>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('other')?'yes':''" text=""/>
-                    <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="24rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.appliedRequirementsListComment"/>                      -->
                     <div style="margin-top:-20px;margin-left:20px;">
-                        <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
-                        <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.appliedRequirementsListComment |truncate-word-after(70)}}</span>
-                        <div v-if="modReqInfo.appliedRequirementsListComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.appliedRequirementsListComment|truncate-word-before(70)}}</div>    
-                        
+                        <span style="margin-left:9px;">Other <span style="color:#747474;font-style:italic">(specify)</span>:</span>
+                        <div style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ modReqInfo.appliedRequirementsListComment |truncate-word-after(70)}}</div>
+                        <div v-if="modReqInfo.appliedRequirementsListComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;text-align:center;">{{modReqInfo.appliedRequirementsListComment|truncate-word-before(70)}}</div>    
                     </div>  
                     </span>
             </div>
@@ -108,16 +105,17 @@ the rules, including a time limit set by an order or direction, even after the t
                 <span style="font-size: 11pt;"><b>2. </b></span><span style="margin-left:12px;">The <b>details of the order</b> I am applying for are as follows:</span>
                 <br/>
                 <span style="margin-left:28px;font-size: 11pt;text-indent:47px;">
-                    <i>Include if you are asking to waive or modify the requirement. If you are </i>
+                    <span style="color:#747474;font-style:italic">Include if you are asking to waive or modify the requirement. If you are </span>
                 </span>
                 <span style="margin-left:28px;font-size: 11pt;text-indent:47px;">
-                    <i>applying to modify the requirement, you need to include how you want the </i>
+                    <span style="color:#747474;font-style:italic">applying to modify the requirement, you need to include how you want the </span>
                 </span>
                 <span style="margin-left:28px;font-size: 11pt;text-indent:47px;">
-                    <i>requirement changed. </i>
+                    <span style="color:#747474;font-style:italic">requirement changed. </span>
                 </span>
-                <div v-if="modReqInfo.orderDetail" style="min-height:150px;text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;">{{modReqInfo.orderDetail}}</div>
-                    <div v-else style="margin-bottom:3rem;min-height:150px;"></div> 
+                <div v-if="modReqInfo.orderDetail" style="min-height:150px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;">{{modReqInfo.orderDetail}}</div>
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:150px;margin-bottom:10px;"></div> 
+
             </div>
         </div>  
         <div style="float: right;width: 18%; margin-top: 20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
@@ -142,16 +140,16 @@ the rules, including a time limit set by an order or direction, even after the t
                 <span style="font-size: 11pt;"><b>3. </b></span><span style="margin-left:12px;">The <b>facts</b> on which this application is based <b>are as follows:</b></span>
                 <br/>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>Explain why you are making the application and why the order you</i>
+                    <span style="color:#747474;font-style:italic">Explain why you are making the application and why the order you</span>
                 </div>
                 <div style="margin-left:25px;font-size: 11pt;text-indent:5px;">
-                    <i>are requesting should be made</i>
+                    <span style="color:#747474;font-style:italic">are requesting should be made</span>
                 </div>
                 
-                <div v-if="modReqInfo.applicationFacts" style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:230px;">
+                <div v-if="modReqInfo.applicationFacts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:230px;">
                     {{modReqInfo.applicationFacts}}
                 </div>
-                <div v-else style="margin-bottom:3rem;"></div> 
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:150px;margin-bottom:10px;"></div> 
                 
             </div>
         </div>
