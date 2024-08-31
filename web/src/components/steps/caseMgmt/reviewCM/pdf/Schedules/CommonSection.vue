@@ -16,11 +16,11 @@
             <div style="width: 35%; float:right; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 50%; padding: 2px;text-align: right;padding-right:5px;"> Registry location: </div>
-                    <div style="margin-left:-3px;float: left; background-color: #d6d6d6; width: 115px; padding: 2px;"> {{ result.applicationLocation }} </div>
+                    <div style="margin-left:-3px;float: left; background-color: #d6d6d6; width: 115px; padding: 2px;text-align:left;"> {{ result.applicationLocation }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;text-align: right;padding-right:5px;">
                     <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 115px; padding: 2px;"> {{ locationInfo.existingFileNumber ? locationInfo.existingFileNumber : '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 115px; padding: 2px;text-align:left;"> {{ locationInfo.existingFileNumber ? locationInfo.existingFileNumber : '&nbsp;' }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;text-align: right;padding-right:5px;">
                     <div style="float: left; width: 50%; padding: 2px;"> Document number:<br/><span style="color:#747474;font-size:7pt">For registry use only </span></div>
@@ -76,7 +76,7 @@
                         <span style="margin-left:25px;">My <b>date of birth</b> is:</span>
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="350px"
-                        beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="145px" :text="yourInfo.dob | beautify-date-full" />
+                        beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="145px" :text="yourInfo.dob | beautify-date-mid" />
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">

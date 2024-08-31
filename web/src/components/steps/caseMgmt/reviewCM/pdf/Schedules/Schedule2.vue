@@ -107,9 +107,9 @@
                         <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:34px;" textwidth="23rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.waiveChangeRequirementComment|truncate-word-after(70)"/>                      -->
                         <!-- <div class="answer">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div> -->
                         <div style="margin-top:-20px;margin-left:27px;">
-                        <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
-                        <div style="margin-top:-25px;margin-left:105px;min-width: 200px;text-align:center;min-height:25px;background-color: #dedede;">{{ modReqInfo.waiveChangeRequirementComment |truncate-word-after(70)}}</div>
-                        <div v-if="modReqInfo.waiveChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div>    
+                        <span style="margin-left:9px;">Other <span style="color:#626262;font-style: italic">(specify)</span>:</span>
+                        <div  v-if="modReqInfo.waiveChangeRequirementComment" style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px">{{ modReqInfo.waiveChangeRequirementComment |truncate-word-after(55)}}</div>
+                        <div v-if="modReqInfo.waiveChangeRequirementComment && modReqInfo.waiveChangeRequirementComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:5px;">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(55)}}</div>    
                         </div> 
                         </span>
                     </div>   
@@ -133,10 +133,10 @@
                     <i><span style="color:#626262">are requesting should be made</span></i>
                 </div>
                 
-                <div v-if="modReqInfo.applicationFacts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;">
+                <div v-if="modReqInfo.applicationFacts" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:200px;">
                     {{modReqInfo.applicationFacts}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;margin-bottom:0rem;"></div> 
+                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:200px;margin-bottom:0rem;"></div> 
                 
             </div>                            
             </div>            
@@ -193,9 +193,9 @@
                         <!-- <div class="answer">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div> -->
                         <div style="margin-top:-20px;margin-left:27px;">
                         <span style="margin-left:9px;">Other <i><span style="color:#626262">(specify)</span></i>:</span>
-                        <div style="margin-top:-25px;margin-left:105px;min-width: 200px;text-align:center;min-height:25px;background-color: #dedede;">{{ modReqInfo.modifyChangeRequirementComment |truncate-word-after(70)}}</div>
+                        <div v-if="modReqInfo.modifyChangeRequirementComment" style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ modReqInfo.modifyChangeRequirementComment |truncate-word-after(55)}}</div>
 
-                        <div v-if="modReqInfo.modifyChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div>    
+                        <div v-if="modReqInfo.modifyChangeRequirementComment && modReqInfo.modifyChangeRequirementComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:5px;">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(55)}}</div>    
                         </div> 
                     </span>
                     </div>   
@@ -219,10 +219,10 @@
                     <span style="color:#626262;font-style: italic">to be modified</span>
                 </div>
                 
-                <div v-if="modReqInfo.orderChangesDetail" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;">
+                <div v-if="modReqInfo.orderChangesDetail" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:190px;">
                     {{modReqInfo.orderChangesDetail}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:10px;"></div> 
+                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:10px;"></div> 
                 
             </div>                            
             </div>            
@@ -240,10 +240,10 @@
                     <span style="color:#626262;font-style: italic">are requesting should be made</span>
                 </div>
                 
-                <div v-if="modReqInfo.modifyMethodApplicationFacts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;">
+                <div v-if="modReqInfo.modifyMethodApplicationFacts" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:190px;">
                     {{modReqInfo.modifyMethodApplicationFacts}}
                 </div>
-                <div v-else  style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:10px;"></div> 
+                <div v-else  style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:190px;margin-bottom:10px;"></div> 
             </div>                            
             </div>            
         </div>  
@@ -288,9 +288,9 @@
                     <div style="display: inline-block; font-size: 11pt;margin-left:-15px;">
                         <b>7.</b><span style="margin-left:12px;">I need <b>to serve</b></span>
                     </div>
-                    <div v-if="modReqInfo.nameOfPersonToBeServed.length>0" > 
+                    <div v-if="modReqInfo.nameOfPersonToBeServed && modReqInfo.nameOfPersonToBeServed.length > 0" > 
                     <div v-for="name,inx in modReqInfo.nameOfPersonToBeServed" :key="inx" style="display:inline;">
-                        <div style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ name }}</div>
+                        <div style="margin-left:5px;min-width: 200px;display: inline-block;background-color:#dedede;">{{ name }}</div>
                     </div>
                     </div>
                     <div v-else style="margin-top:-25px;width:398px;margin-left:130px;background-color: #dedede;padding:3px;font-size: 11pt;min-height:25px;"></div> 
@@ -304,9 +304,9 @@
                 <div style="margin-left:10px;font-size: 11pt;text-indent:5px;">
                     <span style="color:#626262;font-style: italic">alternative method</span>
                 </div>
-                <div v-if="modReqInfo.altMethodDocList"  style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:10px;min-height:190px;"
+                <div v-if="modReqInfo.altMethodDocList"  style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:10px;min-height:190px;"
                     v-html="modReqInfo.altMethodDocList" >{{modReqInfo.altMethodDocList}}</div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:10px;min-height:190px;margin-bottom:20px;"></div> 
+                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:10px;min-height:190px;margin-bottom:20px;"></div> 
             </div> 
             <div style="background: #a2a2a2; color: white; font-size: 10pt;padding:1px;">
                 Reason for application
@@ -339,10 +339,10 @@
                     <span style="color:#626262;font-style:italic;">who you have contacted</span>
                 </div>
                 
-                <div v-if="modReqInfo.isalternativeServiceReasonUnknown" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;">
+                <div v-if="modReqInfo.isalternativeServiceReasonUnknown" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:200px;">
                     {{modReqInfo.alternativeServiceReasonDetails}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
+                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
                 <div style="margin-top: 1rem;"></div>
 
 
@@ -381,10 +381,10 @@
                     <span style="color:#626262;font-style:italic;">when you tried</span>
                 </div>
                 
-                <div v-if="modReqInfo.isalternativeServiceReasonNotReachable" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:210px;">
+                <div v-if="modReqInfo.isalternativeServiceReasonNotReachable" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:210px;">
                     {{modReqInfo.alternativeServiceReasonDetails}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:210px;"></div>                
+                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:210px;"></div>                
             </div>                            
             </div>            
         </div> 
@@ -403,10 +403,10 @@
                     <span style="color:#626262;font-style:italic;">when it was last confirmed or became known to you</span>
                 </div>
                 
-                <div v-if="modReqInfo.personwhereabouts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:210px;">
+                <div v-if="modReqInfo.personwhereabouts" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:210px;">
                     {{modReqInfo.personwhereabouts}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:210px;"></div>                
+                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:210px;"></div>                
                 
             </div>                            
             </div>            
@@ -661,7 +661,7 @@
                 <div style="margin-top:-10px">
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('other')?'yes':''" text='Other method <span style="color:#626262;font-style:italic;">(specify)</span>:'/>             
                 </div> 
-                <div style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:65px;min-height:100px;">
+                <div style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:65px;min-height:100px;">
                     {{modReqInfo.alternativeOther}}
                 </div>
                 
@@ -695,10 +695,10 @@
                  </div>   
                          
                  
-                <div v-if="modReqInfo.altMethodApplicationFacts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:40px;min-height:200px;">
+                <div v-if="modReqInfo.altMethodApplicationFacts" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:40px;min-height:200px;">
                     {{modReqInfo.altMethodApplicationFacts}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:40px;min-height:200px;"></div>                
+                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:40px;min-height:200px;"></div>                
                 
             </div>                            
             </div>            
