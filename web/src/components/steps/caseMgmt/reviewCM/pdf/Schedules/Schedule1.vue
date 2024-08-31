@@ -79,15 +79,15 @@
             <table style="margin-top:7px">
                             <tr>
                             <td><div style="width:120px;margin-top:-15px;padding-right:5px;padding-left:5px;"><b>scheduled for:</b></div></td>
-                            <td><div style="text-align:center;width:100px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:25px;margin-bottom:10px;">{{ scheduleInfo.eventDate | beautify-date-text }}</div> <div><div style="margin-left:0px;text-align: center;font-size:7pt;margin-top:-12px;">Date (dd/mmm/yyyy)</div></div></td>
+                            <td><div style="text-align:center;width:100px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:25px;margin-bottom:10px;">{{ scheduleInfo.eventDate | beautify-date-mid }}</div> <div><div style="margin-left:0px;text-align: center;font-size:7pt;margin-top:-12px;">Date (dd/mmm/yyyy)</div></div></td>
                             <td><div style="margin-top:-15px;padding-right:5px;padding-left:5px;"><b>at</b></div></td>
 
                             <td><div style="text-align:center;width:80px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:25px;margin-bottom:10px;">{{ scheduleInfo.eventTime }}</div> <div><div style="margin-left:0px;text-align: center;font-size:7pt;margin-top:-12px;">Time</div></div></td>
                             <td><div style="margin-top:-15px;padding-right:5px;padding-left:5px;"><b>by</b></div></td>
-                            <td><div style="text-align:center;width:132px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:27px;margin-bottom:10px;">{{ scheduleInfo.attendanceMethod |truncate-word-after(20) }}</div> <div><div style="margin-left:0px;text-align: center;font-size:7pt;margin-top:-12px;">Method of attendance</div></div></td>
+                            <td><div v-if="scheduleInfo.attendanceMethod" style="text-align:left;width:132px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:27px;margin-bottom:10px;">{{ scheduleInfo.attendanceMethod |truncate-word-after(15) }}</div> <div><div style="margin-left:0px;text-align: center;font-size:7pt;margin-top:-12px;">Method of attendance</div></div></td>
                             </tr>
                 </table>  
-                <div v-if="scheduleInfo.attendanceMethod && scheduleInfo.attendanceMethod.length >= 20" style="margin-top:1px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{scheduleInfo.attendanceMethod|truncate-word-before(20)}}</div>        
+                <div v-if="scheduleInfo.attendanceMethod && scheduleInfo.attendanceMethod.length >= 15" style="padding:2px;margin-top:1px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;text-align:left;">{{scheduleInfo.attendanceMethod|truncate-word-before(15)}}</div>        
 
             
             <div style="margin-left:5px;margin-top:5px;display:inline-block;"><b>by another method of attendance as follows:</b></div>  
@@ -99,9 +99,9 @@
                     <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:28px;" textwidth="8.5rem" beforetext="other means of electronic communication <i>(specify):</i>" hintMargin="60px" hint="" :text="(scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:''"/>                      -->
                     <div style="margin-top:-20px;margin-left:30px;">
                     <span>Other means of electronic communication <span style="color:#747474;font-style:italic;">(specify):</span></span>
-                    <!-- <span style="margin-left:5px;min-width: 120px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ (scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:'' }}</span> -->
-                    <div style="margin-top:-25px;margin-left:325px;min-width:100px;min-height:25px;background-color: #dedede;padding:2px;">{{ scheduleInfo.attendanceTypeComment |truncate-word-after(15)}}</div>
-                    <div v-if="scheduleInfo.attendanceTypeComment.length >=  15" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{scheduleInfo.attendanceTypeComment|truncate-word-before(15)}}</div>    
+                    <!-- <span style="margin-left:5px;min-width: 120px;display: inline-block;background-color:#dedede;text-align:center;">{{ (scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:'' }}</span> -->
+                    <div v-if="scheduleInfo.attendanceTypeComment" style="margin-top:-25px;margin-left:325px;min-width:100px;min-height:25px;background-color: #dedede;padding:2px;">{{ scheduleInfo.attendanceTypeComment |truncate-word-after(15)}}</div>
+                    <div v-if="scheduleInfo.attendanceTypeComment && scheduleInfo.attendanceTypeComment.length >=  15" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{scheduleInfo.attendanceTypeComment|truncate-word-before(15)}}</div>    
                           
                 </div> 
                     </span>  
@@ -153,7 +153,7 @@
                     <span style="color:#747474;font-style:italic;"> and/or why you need to attend using the other method of attendance</span>
                 </div>
                 
-                <div v-if="scheduleInfo.virtualAttendanceReason" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:250px;">
+                <div v-if="scheduleInfo.virtualAttendanceReason" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:250px;">
                     {{scheduleInfo.virtualAttendanceReason}}
                 </div>
                 <div v-else style="margin-bottom:3rem;"></div> 
