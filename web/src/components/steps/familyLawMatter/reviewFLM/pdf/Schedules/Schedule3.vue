@@ -122,7 +122,7 @@
         </div>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">    
-                <p><b>5.</b><i> Select each applicable option and complete the requested information</i></p>
+                <p style="margin-bottom: 10px;"><b>5.</b><i> Select each applicable option and complete the requested information</i></p>
                 <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="display: inline;" :check="chSupInfo.desiredSup.payor?'yes':''" text="I am applying for an order for ongoing support to be paid by (<i>name of paying party</i>)"/>
                 <div class="answerbox" style="display:inline; padding: 2px 16px; background: #dedede;">{{chSupInfo.desiredSup.payor}}</div>
                 <div style="display:inline;text-indent:0px;"> in the monthly amount set out in the child support guidelines for <i>(number)</i> 
@@ -295,7 +295,7 @@
             <div style="width: 80%; padding-right: 4px;">
                 <div>
                     <i style="display:inline; margin-left:0.35rem"><b>9. </b>Select only one of the options below and provide the requested information</i>
-                    <div style="margin:0 0 0 1rem;">
+                    <div style="margin:1rem 0 0 1rem;">
         
                         <check-box boxMargin="0" shiftmark="0" textDisplay="inline-block" style="display:inline-block;" :check="chSupInfo.opInfo.income?'yes':''" text="I believe the <b>payor’s annual income</b> is "/>
                         <GreyBoxForm style="display:inline; margin-left:2px;" textwidth="10rem" beforetext=" $" hint="" :text="chSupInfo.opInfo.incomeAmt"/>  because: 
@@ -309,7 +309,7 @@
 
                 <div class="print-block" style="background: #eee; border: 2px dashed #333; padding: 4px;">
                     <p><b>IMPORTANT NOTE TO THE OTHER PARTY:</b></p>
-                    <p>You may also provide this financial information before receiving the other party’s replyto avoid delay, if you believe that the income of the other party is over $150,000 per year or that they will claim undue hardship, special or extraordinary expenses,or child support from you.</p>
+                    <p>This family law case includes an application about child support. You must provide your financial information with your reply to this application by completing and filing a Financial Statement in Form 4.</p>
                     <div style="margin-top:1rem;text-align:justify;">
                         If you do not give your complete, true, and up-to-date financial information when needed, the court can:
                         <ul>
