@@ -33,6 +33,9 @@ export interface agreeDisagreeInfoType {
     cancelGuardian: agreeDisagreeDataInfoType;
     newSpouseSupport: agreeDisagreeDataInfoType;
     existingSpouseSupport: agreeDisagreeDataInfoType;
+    agreeSpouseSupport: agreeDisagreeDataInfoType;
+    disagreeSpouseSupport: agreeDisagreeDataInfoType;
+    counterSpouseSupport: agreeDisagreeDataInfoType;
     newCompanionAnimal: agreeDisagreeDataInfoType;
     existingCompanionAnimal: agreeDisagreeDataInfoType;
 }   

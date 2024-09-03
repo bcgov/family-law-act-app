@@ -145,25 +145,50 @@
                         <div class="checkbox-choices-header text-primary">Spousal Support</div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('spouseSupport', 'newSpouseSupport', $event)" 
-                            value="newSpouseSupport">
-                            <div class="checkbox-choices">Spousal Support - new</div>
+                            v-on:change="changeSelection('spouseSupport', 'agreeSpouseSupport', $event)" 
+                            value="agreeSpouseSupport">
+                            <div class="checkbox-choices">I agree with the request of the other party</div>
                             <p>
-                                Schedule 9 of the application was completed by the other party. 
-                                They are asking for an order about spousal support because 
-                                there wasn’t already one in place.
                             </p>                    
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('spouseSupport', 'existingSpouseSupport', $event)" 
-                            value="existingSpouseSupport">
-                            <div class="checkbox-choices">Spousal Support order/agreement – existing </div>
+                            v-on:change="changeSelection('spouseSupport', 'disagreeSpouseSupport', $event)" 
+                            value="disagreeSpouseSupport">
+                            <div class="checkbox-choices">I disagree with the request of the other party</div>
                             <p>
-                                Schedule 10 of the application was completed by the other party. 
-                                They are asking for an order about a spousal support order or 
-                                agreement that already exists.
+                                A different order about spousal 
+                                support should be made. 🠆 Complete Schedule 5
                             </p>                    
                         </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('spouseSupport', 'counterSpouseSupport', $event)" 
+                            value="counterSpouseSupport" v-model="counterSSChecked">
+                            <div class="checkbox-choices">I am making a counter application for an order about spousal support</div>
+                            <p>
+                                No application about this family law matter was made by the other party.
+                            </p>                    
+                        </b-form-checkbox>
+                        <b-form-checkbox-group
+                            :disabled="counterSSChecked != 'counterSpouseSupport'"
+                            v-model="selectedSpousalSupportFormOrder" 
+                            stacked
+                            >                                
+                            <div class="checkbox-choices-header text-primary">Do you have a final order or written agreement about spousal support?</div>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('spouseSupportFinalOrder', 'noFinalOrderSpouseSupport', $event)" 
+                                value="noFinalOrderSpouseSupport">
+                                <div class="checkbox-choices">No 🠆 Complete Schedule 14</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('spouseSupportFinalOrder', 'yesFinalOrderSpouseSupport', $event)" 
+                                value="yesFinalOrderSpouseSupport">
+                                <div class="checkbox-choices">Yes 🠆 Complete Schedule 15</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                        </b-form-checkbox-group>
                     </div>
                     
                 </b-form-checkbox-group>
@@ -221,6 +246,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 import { rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
+import SpousalSupport from './counterFlm/spousalSupport/SpousalSupport.vue';
 
 @Component({
     components:{
@@ -249,10 +275,13 @@ export default class RflmQuestionnaire extends Vue {
     selectedContactWithChildForm = [];
     selectedGuardianshipForm = [];
     selectedSpousalSupportForm = [];
+    selectedSpousalSupportFormOrder = [];
     selectedCompanionAnimalForm = [];   
 
     currentStep = 0;
     currentPage = 0;
+
+    counterSSChecked = '';
 
     allPages = []; 
 
@@ -273,6 +302,7 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedContactWithChildForm = rflmData.selectedContactWithChildForm?rflmData.selectedContactWithChildForm:[];
             this.selectedGuardianshipForm = rflmData.selectedGuardianshipForm?rflmData.selectedGuardianshipForm:[];
             this.selectedSpousalSupportForm = rflmData.selectedSpousalSupportForm?rflmData.selectedSpousalSupportForm:[];
+            this.selectedSpousalSupportFormOrder = rflmData.selectedSpousalSupportFormOrder?rflmData.selectedSpousalSupportFormOrder:[];
             this.selectedCompanionAnimalForm = rflmData.selectedCompanionAnimalForm?rflmData.selectedCompanionAnimalForm:[];
             if(this.getSelected())
                 this.determineSteps();
@@ -292,6 +322,7 @@ export default class RflmQuestionnaire extends Vue {
                         this.selectedContactWithChildForm.length>0 ||
                         this.selectedGuardianshipForm.length>0 ||
                         this.selectedSpousalSupportForm.length>0 ||
+                        this.selectedSpousalSupportFormOrder.length>0 ||
                         this.selectedCompanionAnimalForm.length>0
 
         return selected;
@@ -318,6 +349,10 @@ export default class RflmQuestionnaire extends Vue {
             if (list.length>0){
                 this.selectedSpousalSupportForm = [selection];            
             }
+        } else if (category == 'spouseSupportFinalOrder'){
+            if (list.length>0){
+                this.selectedSpousalSupportFormOrder = [selection];
+            }
         } else if (category == 'companionAnimal'){
             if (list.length>0){
                 this.selectedCompanionAnimalForm = [selection];            
@@ -334,6 +369,7 @@ export default class RflmQuestionnaire extends Vue {
             this.selectedContactWithChildForm = [];
             this.selectedGuardianshipForm = [];
             this.selectedSpousalSupportForm = [];
+            this.selectedSpousalSupportFormOrder = [];
             this.selectedCompanionAnimalForm = [];
         }
         Vue.filter('surveyChanged')('replyFlm'); 
@@ -417,6 +453,10 @@ export default class RflmQuestionnaire extends Vue {
         if (this.selectedSpousalSupportForm.includes('newSpouseSupport')) result+='New Spousal Support'+'\n';
         else if (this.selectedSpousalSupportForm.includes('existingSpouseSupport')) result+='Existing Spousal Support'+'\n';
         
+        if (this.selectedSpousalSupportForm.includes('agreeSpouseSupport')) result+='Agree Spousal Support'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('disagreeSpouseSupport')) result+='Disagree Spousal Support'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('counterSpouseSupport')) result+='Counter Spousal Support'+'\n';
+
         if (this.selectedCompanionAnimalForm.includes('newCompanionAnimal')) result+='New Companion Animal'+'\n';
         else if (this.selectedCompanionAnimalForm.includes('existingCompanionAnimal')) result+='Existing Companion Animal'+'\n';
 
@@ -430,6 +470,7 @@ export default class RflmQuestionnaire extends Vue {
         result.selectedContactWithChildForm = this.selectedContactWithChildForm;
         result.selectedGuardianshipForm = this.selectedGuardianshipForm;
         result.selectedSpousalSupportForm = this.selectedSpousalSupportForm;
+        result.selectedSpousalSupportFormOrder = this.selectedSpousalSupportFormOrder;
         result.selectedCompanionAnimalForm = this.selectedCompanionAnimalForm;        
         return result;
     }
