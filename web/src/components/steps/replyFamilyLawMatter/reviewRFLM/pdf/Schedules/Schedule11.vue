@@ -28,7 +28,7 @@
             <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Guardian of the child"></FormPart>
                     <section> 
-                        <i>Select the option that applies to your situation</i>
+                        <i style="color: #999;">Select the option that applies to your situation</i>
                         <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="I am the <b>child’s guardian</b>"/>
                         <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''"  text="I am <b>applying to be appointed</b> as the child’s guardian <i>(I am also completing <b>Schedule 7</b>)</i>"/>
                     </section>
