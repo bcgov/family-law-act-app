@@ -95,7 +95,7 @@ export default class ReplyNewChildSupport extends Vue {
                     includesSpouseSupportPathway = ((selectedRepliesData.selectedSpousalSupportForm.includes("disagreeSpouseSupport") && 
                                                         this.step.result.replyNewSpouseSupportSurvey.data.agreeCourtOrder == 'n') ||
                                                     (selectedRepliesData.selectedSpousalSupportForm.includes("agreeSpouseSupport") && 
-                                                        this.step.result.replyExistingSpouseSupportSurvey.data.agreeCourtOrder == 'n')) ||
+                                                        this.step.result.replyExistingSpouseSupportSurvey.data.agreeCourtOrder == 'n') ||
                                                     (selectedRepliesData.selectedSpousalSupportForm.includes("counterSpouseSupport") && 
                                                         this.step.result.replyExistingSpouseSupportSurvey.data.agreeCourtOrder == 'n'));                
                 } 
