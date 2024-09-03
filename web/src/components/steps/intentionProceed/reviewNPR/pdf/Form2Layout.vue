@@ -5,8 +5,8 @@
 <!-- <HEADER> -->
         <FormHeader :headerTableData="[{value:result.applicationLocation}, {value: existingFileNumber}, null, {}]" formName="Notice of Intention to Proceed" formNumber="Form 2" formRuleNumber="Rules 15 and 42"></FormHeader>
 
-        <div style="margin-top: 1rem;"></div>
-
+    <div class="print-block">
+        <div style="margin-top: 0.5rem;"></div>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <div style="text-align: justify;">
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div style="margin-top: 1rem;"></div>    
+        <div style="margin-top: 0.5rem;"></div>    
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <div style="margin-top: 1rem;"></div>       
+                <div style="margin-top: 0.5rem;"></div>       
 
             </div>
             <div style="width: 20%;">
@@ -83,9 +83,6 @@
                 </NoteBox>
             </div>
         </div>
-
-        <div style="margin-bottom: 1rem;"></div>
-
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="2" title="Intention to proceed"></FormPart>
@@ -162,8 +159,12 @@
                 </NoteBox>
             </div>
         </div>
+    </div>
 
-        <div style="margin-bottom: 1rem;"></div>
+    <div style="margin-bottom: 0.5rem;"></div>
+
+    <div class="print-block">
+        <div style="margin-bottom: 0.5rem;"></div>
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
@@ -200,9 +201,7 @@
                 </NoteBox>
             </div>
         </div>
-
-        <div style="margin-bottom: 1rem;"></div>
-
+        <div style="margin-bottom: 0.5rem;"></div>
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="4" title="Latest step taken in case"></FormPart>
@@ -305,9 +304,6 @@
                                 :text="lastStepInfo.otherDescription"/>
                     </div>                                      
                 </div> 
-
-                    
-
             </div>
             <div style="width: 20%;">
                 <NoteBox>
@@ -321,9 +317,11 @@
             </div>
         </div>
 
-        <div style="margin-bottom: 1rem;"></div>
+    </div>
 
-        <div style="display: flex; flex-direction: row;">
+        <div style="margin-bottom: 0.5rem;"></div>
+        <div class="print-block">
+            <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="5" title="Current address for service"></FormPart>
 
@@ -394,9 +392,10 @@
                 </NoteBox>
             </div>
         </div>
+        </div>
+        <div style="margin-bottom: 0.5rem;"></div>
 
-        <div style="margin-bottom: 1rem;"></div>
-
+    <div class="print-block">
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <FormPart :part="6" title="What you must do to proceed with your family law matter" subtitle="">
@@ -423,6 +422,18 @@
                 <div style="margin-left: 20px;">
                     <b>Note:</b> If the Notice to Resolve or Application About a Family Law Matter has not been given to the other party, you must includ ea copy of it along with the Notice of Intention to Proceed.
                 </div>
+            </div>
+            <div style="width: 20%;">
+                <NoteBox>
+                    <b-icon-book /> <br>
+                    <span>
+                        For more information about how to serve or provide notice to  the other party, including proof of service,  see the guidebook.
+                    </span>
+                </NoteBox>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
 
                 <div style="background-color: #ddd; margin-top: 10px;"><b>Step 2:</b> </div>
                 <span>
@@ -455,7 +466,24 @@
                         check="" 
                         text="<b>Participate in a needs assessment</b>"/>
                 </div>
-
+            </div>
+            <div style="width: 20%;">
+                <NoteBox>
+                    <b-icon-info-circle-fill /> <br>
+                    <span>
+                        At the needs assessment, you will receive to help identify the next steps for you. You may be required to meet the other early resolution requirements, if applicable, including:
+                    </span>
+                    <span>
+                        <ul>
+                        <li>Completion of a parenting education program</li>
+                        <li>Participation in a consensual dispute resolution session</li>
+                    </ul>
+                    </span>  
+                </NoteBox>
+            </div>
+        </div>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 80%; padding-right: 4px;">
                 <div>
                     <b>If</b> your case is in an <b>early resolution registry and</b> an <b>Application</b> About a Family Law Matter has been <b>filed or</b> your case is in <b>any other registry</b>, you must attend a <b>family management conference</b>.
                 </div>
@@ -516,45 +544,27 @@
 
             </div>
             <div style="width: 20%;">
-                <NoteBox>
-                    <b-icon-book />
-                    <p>
-                        For more information about how to serve or provide notice to  the other party, including proof of service,  see the guidebook.
-                    </p>
-                </NoteBox>
-
-                <div style="margin-bottom: 1rem;"></div>
-
-                <NoteBox>
-                    <b-icon-info-circle-fill />
-                    <p>
-                        At the needs assessment, you will receive to help identify the next steps for you. You may be required to meet the other early resolution requirements, if applicable, including:
-                    </p>
-                    <ul>
-                        <li>Completion of a parenting education program</li>
-                        <li>Participation in a consensual dispute resolution session</li>
-                    </ul>
-                </NoteBox>
-
-                <div style="margin-bottom: 1rem;"></div>
-
-                <NoteBox>
-                    <b-icon-info-circle-fill />
-                    <p>
+                <div style="padding-top: 10px;">
+                    <NoteBox>
+                    <b-icon-info-circle-fill /> <br>
+                    <span>
                         The requirements for scheduling a family management conference a reset out in Rules 37 to 40, as applicable.
-                    </p>
+                    </span>
                 </NoteBox>
-
-                <div style="margin-bottom: 1rem;"></div>
-
-                <NoteBox>
-                    <b-icon-info-circle-fill />
-                    <p>
+                </div>
+              
+                 <div style="padding-top: 10px;">
+                    <NoteBox>
+                    <b-icon-info-circle-fill /> <br>
+                    <span>
                         At the family management conference, the judge will help to determine the next steps that are right for your case.
-                    </p>
+                    </span>
                 </NoteBox>
+                 </div>
+                
             </div>
         </div>
+    </div>
 
     </div>
 </template>
