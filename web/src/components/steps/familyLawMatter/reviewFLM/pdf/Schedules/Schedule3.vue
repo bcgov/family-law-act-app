@@ -129,7 +129,7 @@
                     <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p> child(ren). 
                 </div>
                 <div style="margin-left:3rem;">
-                        <check-box style="display: inline;" textDisplay="inline" boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child supportI expect the amount payable for monthly child support to be approximately $"/> 
+                        <check-box style="display: inline;" textDisplay="inline" boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child support I expect the amount payable for monthly child support to be approximately $"/> 
                         <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p>
                     
                         <br>
@@ -294,7 +294,7 @@
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%; padding-right: 4px;">
                 <div>
-                    <i style="display:inline; margin-left:0.35rem"><b>9. </b>Select only one of the options below and provide the requested information</i>
+                    <i style="display:inline; margin-left:0.35rem;"><b>9. </b>Select only one of the options below and provide the requested information</i>
                     <div style="margin:1rem 0 0 1rem;">
         
                         <check-box boxMargin="0" shiftmark="0" textDisplay="inline-block" style="display:inline-block;" :check="chSupInfo.opInfo.income?'yes':''" text="I believe the <b>payor’s annual income</b> is "/>
