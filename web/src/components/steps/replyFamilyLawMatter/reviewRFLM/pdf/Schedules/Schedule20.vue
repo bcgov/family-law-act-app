@@ -295,7 +295,8 @@ export default class Schedule20 extends Vue {
                 otherChange: (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('other')                  && changesSinceOrderList && changesSinceOrderList.otherComment)?                  changesSinceOrderList.otherComment:'',
                 
                 change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
-                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
+                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'cancelOrder',
+                suspend: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'suspendedOrder',             
                 
             }
         } else {
@@ -317,7 +318,8 @@ export default class Schedule20 extends Vue {
                 opEmp:       '',
                 otherChange: '',
                 change: false,
-                cancel: false
+                cancel: false,
+                suspend: false
             }
         }
 

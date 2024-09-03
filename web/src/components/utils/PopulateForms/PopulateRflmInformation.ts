@@ -36,6 +36,9 @@ export function getForm6PopulationInfo(result) {
         cancelGuardian: { opApplied: false, agree: false},
         newSpouseSupport: { opApplied: false, agree: false},
         existingSpouseSupport: { opApplied: false, agree: false},
+        disagreeSpouseSupport: { opApplied: false, agree: false},
+        agreeSpouseSupport: { opApplied: false, agree: false},
+        counterSpouseSupport: { opApplied: false, agree: false},
         newCompanionAnimal: { opApplied: false, agree: false},
         existingCompanionAnimal: { opApplied: false, agree: false}
     }    
@@ -143,12 +146,12 @@ export function getForm6PopulationInfo(result) {
         }
     }    
 
-    if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('newSpouseSupport')){
+    if (rflmQuestionnaireInfo.selectedSpousalSupportForm.includes('disagreeSpouseSupport')){
 
-        const newSpouseSupport: replyNewSpouseSupportDataInfoType = result.replyNewSpouseSupportSurvey;    
-        const agreed = newSpouseSupport.agreeCourtOrder == 'y';
+        const disagreeSpouseSupport: replyNewSpouseSupportDataInfoType = result.replyNewSpouseSupportSurvey;    
+        const agreed = disagreeSpouseSupport.agreeCourtOrder == 'y';
 
-        agreeDisagreeResults.newSpouseSupport = { opApplied: true, agree: agreed }
+        agreeDisagreeResults.disagreeSpouseSupport = { opApplied: true, agree: agreed }
         
         if (!agreed){
             schedules.push('schedule9')

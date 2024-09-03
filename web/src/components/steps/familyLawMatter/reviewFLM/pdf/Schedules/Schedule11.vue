@@ -1,6 +1,6 @@
 <template>
     <div v-if="dataReady"> 
-        
+
 <!-- <Page 4> --> 
 <!-- <Header> -->
         <div>
@@ -17,33 +17,32 @@
                     </div>    
                 </div>
 
-           
+
                 <div style="margin-top:1rem;"></div>
 <!-- <1> -->
     <div style="display: flex; flex-direction: row;">
         <div style="width:80%; padding-right:4px;">
             <FormPart :part="1" title="Order about property division in respect of a companion animal"></FormPart>
-           
+
             <section class="resetquestion"> 
                 <div style="display:inline; margin-left:0.25rem">
                     I am applying for a <b>property division order for sole ownership and 
                     possession of the companion animal(s)</b> as follows:<br>
                 </div>
-             
+
                 <b-table
                     :items="compInfo.compAnimalInfo"
                     :fields="compAnimalFields"
-                    class="mt-2"
-                    small
-                    bordered>                    
+                    class="mt-4"
+                    small>                    
                         <template v-slot:cell()="data">
-                            <div style="font-size:11pt;color:#000; background-color:#dedede">{{data.value}}</div>                                           
+                            <div style="background: #999;">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(animalOwnership)>
                             To [party] <i style="font-size:6pt; font-weight:normal;"> <br>Select only one option for each animal</i>                            
                         </template>
                         <template v-slot:cell(animalOwnership)="data">     
-                            <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value == 'Myself'?'yes':''" text="Myself"/>
+                            <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value == 'Myself'?'yes':''" text="Me"/>
                             <check-box inline="inline" style="display: inline; margin-left: 2px; font-size: 10pt;" boxMargin="0" shiftmark="0" marginLeft="15px" :check="data.value != 'Myself'?'yes':''" text="Other party"/>
                         </template>
                 </b-table>
@@ -60,12 +59,12 @@
             </div>      
         </div>
         </div>
-          
 
-            
-                
+
+
+
 <!-- <2> -->
- 
+
         <div style="display: flex; flex-direction: row;">
             <div style="width:80%; padding-right:4px;">
                 <FormPart :part="2" title="The facts"></FormPart>
@@ -78,7 +77,7 @@
                     <div v-if="compInfo.compAnimalFacts" 
                         class="answerbox" style="min-height: 120px; padding: 8px; background-color:#dedede">{{compInfo.compAnimalFacts}}</div>
                     <div v-else class="answerbox" style="min-height: 120px; padding: 8px; background-color:#dedede"></div>   
-                    
+
                 </section>
             </div>
             <div style="width: 20%;">
@@ -97,15 +96,15 @@
                             • any other circumstances the court considers relevant
 
                         </p>
-                       
-                        
+
+
                     </NoteBox>
                 </div>      
             </div>
         </div>
-             
+
         </div>
-        
+
     </div>
 </template>
 
@@ -134,20 +133,20 @@ export default class Schedule11 extends Vue {
 
     @Prop({required:true})
     result!: any;
-   
+
     dataReady = false;   
     compInfo = {} as schedule11DataInfoType;
-   
+
     mounted(){
         this.dataReady = false;
         this.extractInfo();       
         this.dataReady = true;
     }
-    
+
     compAnimalFields = [
-        {key:"animalName",      label:"Name of companion animal",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
-        {key:"animalType",      label:"Type of animal",                 tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"animalOwnership", label:"",                               tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"}
+        {key:"animalName", label:"Name of the companion animal" ,tdClass:"bg-grey  align-middle", thClass:" align-middle text-center align-middle", thStyle:"width:35%; font-size: 8pt; font-weight: bold; border: none; border-bottom: 2px solid #333; border-right: 1px solid #333; padding-left: 16px;"},
+        {key:"animalType",      label:"Type of animal",  tdClass:" align-middle", thClass:" align-middle text-center align-middle", thStyle:"width:30%; font-size: 8pt; font-weight: bold; border: none; border-bottom: 2px solid #333; border-right: 1px solid #333; padding-left: 16px;"},
+        {key:"animalOwnership", label:"", tdClass:" align-middle", thClass:" align-middle text-center align-middle", thStyle:"width:35%; font-size: 8pt; font-weight: bold; border: none; border-bottom: 2px solid #333; padding-left: 16px;"}
     ]   
 
     public extractInfo(){
@@ -155,7 +154,7 @@ export default class Schedule11 extends Vue {
     }
 
     public getCompanionAnimalInfo(){
-       
+
         let newCompInfo = {} as schedule11DataInfoType;
 
         newCompInfo = {

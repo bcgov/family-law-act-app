@@ -49,7 +49,7 @@ the rules, including a time limit set by an order or direction, even after the t
                 <table style="margin-left:30px;">
                 <tr>
                 <td><div style="margin-top:-20px;padding-right:5px;">on</div></td>
-                <td><div style="width:200px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:25px;margin-bottom:10px;">{{ modReqInfo.dateOfOrder }}</div> <div><div style="margin-left:15px;text-align: center;font-size:7pt;margin-top:-12px;">Date (dd/mmm/yyyy)</div></div></td>
+                <td><div style="width:200px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:25px;margin-bottom:10px;">{{ modReqInfo.dateOfOrder | beautify-date-mid }}</div> <div><div style="margin-left:15px;text-align: center;font-size:7pt;margin-top:-12px;">Date (dd/mmm/yyyy)</div></div></td>
                 <td><div style="padding-left:0px;margin-top:-20px;margin-left:10px;">by</div> </td>
                 <td><div style="width:200px;background-color: #dedede;padding:2px;font-size: 11pt;margin-left:5px;min-height:25px;margin-bottom:10px;">{{ modReqInfo.judgeName }}</div> <div><div style="margin-left:10px;text-align:center;font-size:7pt;margin-top:-12px;">Name of judge or family justice manager</div> </div></td>
                 </tr>
@@ -72,8 +72,8 @@ the rules, including a time limit set by an order or direction, even after the t
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="modReqInfo.appliedRequirementsList.includes('other')?'yes':''" text=""/>
                     <div style="margin-top:-20px;margin-left:20px;">
                         <span style="margin-left:9px;">Other <span style="color:#747474;font-style:italic">(specify)</span>:</span>
-                        <div style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ modReqInfo.appliedRequirementsListComment |truncate-word-after(70)}}</div>
-                        <div v-if="modReqInfo.appliedRequirementsListComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;text-align:center;">{{modReqInfo.appliedRequirementsListComment|truncate-word-before(70)}}</div>    
+                        <div v-if="modReqInfo.appliedRequirementsListComment" style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ modReqInfo.appliedRequirementsListComment |truncate-word-after(55)}}</div>
+                        <div v-if="modReqInfo.appliedRequirementsListComment && modReqInfo.appliedRequirementsListComment.length >=  55" style="margin-top:3px;margin-left:10px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{modReqInfo.appliedRequirementsListComment|truncate-word-before(55)}}</div>    
                     </div>  
                     </span>
             </div>
@@ -113,8 +113,8 @@ the rules, including a time limit set by an order or direction, even after the t
                 <span style="margin-left:28px;font-size: 11pt;text-indent:47px;">
                     <span style="color:#747474;font-style:italic">requirement changed. </span>
                 </span>
-                <div v-if="modReqInfo.orderDetail" style="min-height:150px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;">{{modReqInfo.orderDetail}}</div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:150px;margin-bottom:10px;"></div> 
+                <div v-if="modReqInfo.orderDetail" style="min-height:150px;background-color: #dedede;padding:2px;font-size: 11pt;margin-left:25px;">{{modReqInfo.orderDetail}}</div>
+                <div v-else style="background-color: #dedede;padding:2px;font-size: 11pt;margin-left:25px;min-height:150px;margin-bottom:10px;"></div> 
 
             </div>
         </div>  
@@ -146,10 +146,10 @@ the rules, including a time limit set by an order or direction, even after the t
                     <span style="color:#747474;font-style:italic">are requesting should be made</span>
                 </div>
                 
-                <div v-if="modReqInfo.applicationFacts" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:230px;">
+                <div v-if="modReqInfo.applicationFacts" style="background-color: #dedede;padding:2px;font-size: 11pt;margin-left:25px;min-height:230px;">
                     {{modReqInfo.applicationFacts}}
                 </div>
-                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:150px;margin-bottom:10px;"></div> 
+                <div v-else style="background-color: #dedede;padding:2px;font-size: 11pt;margin-left:25px;min-height:150px;margin-bottom:10px;"></div> 
                 
             </div>
         </div>

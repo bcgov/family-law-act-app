@@ -13,9 +13,11 @@
                     <div style="margin-bottom: 1rem;"></div>
                     
                     <NoteBox>
-                        <p>Complete this schedule only if you have an existing final order or written agreement about child
+                        <p> 
+                            Complete this schedule only if you have an existing final order or written agreement about child
                             support and you need a new court order made to change, suspend or cancel the final order, or to
-                            set aside or replace the written agreement.</p>
+                            set aside or replace the written agreement.
+                        </p>
                     </NoteBox>
                 </div>
 
@@ -29,7 +31,7 @@
                 <div style="width: 80%; padding-right: 4px;">
                     <FormPart :part="1" title="Final order or agreement"></FormPart>
                     <div style="margin-left:1rem;">
-                        <p><b>1. </b><i> Select only one of the options below and complete the requested information</i></p>
+                        <p style="color: #999;"><b>1. </b><i> Select only one of the options below and complete the requested information</i></p>
                         <div style="padding-left:24px">
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
@@ -37,7 +39,7 @@
                                     text="I have a <b>final court order</b> about child support made on <i>(date)</i>" />
                                 <GreyBoxForm style="margin-top:10px; text-indent:0rem" textwidth="10rem" beforetext="" text="" hint="">
                                 </GreyBoxForm>
-                                <span> that I want to change or cancel <b>(see attached copy of order)</b>.🠆 <i>Complete <b>Part 2</b></i></span>
+                                <span> that I want to change or cancel <b style="color: #999">(see attached copy of order)</b>.🠆 <i style="color: #999;">Complete <b>Part 2</b></i></span>
                             </div>
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
@@ -45,7 +47,7 @@
                                     text="I have a <b>written agreement</b> about child support made on <i>(date)</i>" />
                                 <GreyBoxForm style="margin-top:10px; text-indent:0rem" textwidth="10rem" beforetext="" text="" hint="">
                                 </GreyBoxForm>
-                                <span> that I want to repeal or replace <b>(see attached copy of agreement)</b>. 🠆 <i>Complete <b>Part 3</b></i></span>
+                                <span> that I want to repeal or replace <b style="color: #999;">(see attached copy of agreement)</b>. 🠆 <i style="color: #999;">Complete <b>Part 3</b></i></span>
                             </div>
 
                         </div>
@@ -74,7 +76,7 @@
                     </FormPart>
                     <div class="print-block">
                         <div><b>2. Since the final order was made, the following circumstances occurred:</b><br>
-                            <i style="display: inline-block; margin-left: 15px">Select all options that apply and complete the required information</i>
+                            <i style="display: inline-block; margin-left: 15px; color: #999;">Select all options that apply and complete the required information</i>
                         </div>
                         <div style="padding-left: 24px;">
                             <div style="display:block;">
@@ -89,7 +91,7 @@
                             </div>
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                    style="text-indent: 5px;" check="exChSupInfo.abtEx.changes.spcl ? 'yes' : ''"
+                                    style="text-indent: 5px;" :check="exChSupInfo.abtEx.changes.spcl ? 'yes' : ''"
                                     text="The special or extraordinary expenses for the child(ren) have changed as follows:" />
                             </div>
                             
@@ -135,7 +137,7 @@
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.changes.newInfo ? 'yes' : ''"
-                                    text="Information has become available that was not available when the order was made <i>(specify)</i>:" />
+                                    text="Information has become available that was not available when the order was made <i style='color: #999;'>(specify)</i>:" />
                             </div>
                             
                             <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
@@ -147,7 +149,7 @@
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.changes.other ? 'yes' : ''"
-                                    text="Other changes or circumstances <i>(specify)</i>:" />
+                                    text="Other changes or circumstances <i style='color: #999;'>(specify)</i>:" />
                             </div>
                             <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                                 <span v-if="exChSupInfo.abtEx.changes.other">
@@ -162,22 +164,22 @@
                             <p><b>3.</b> I am applying for the final order to be:</p>
                         </div>
                         <div style="margin:0 0 0 1rem;">
-                            <i>Select only one option</i>
+                            <i style="color: #999;">Select only one option</i>
 
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.changeOrdr ? 'yes' : ''"
-                                    text="<b>changed</b> - <i>Complete <b>Part 4</b></i>" />
+                                    text="<b>changed</b> -> <i style='color: #999;'>Complete <b>Part 4</b></i>" />
                             </div>
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.suspendOrdr ? 'yes' : ''"
-                                    text="<b>suspended</b> - <i>Skip ahead to <b>Part 5</b></i>" />
+                                    text="<b>suspended</b> -> <i style='color: #999;'>Skip ahead to <b>Part 5</b></i>" />
                             </div>
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.cancelOrdr ? 'yes' : ''"
-                                    text="<b>cancelled</b> - <i>Skip ahead to <b>Part 5</b></i>" />
+                                    text="<b>cancelled</b> -> <i style='color: #999;'>Skip ahead to <b>Part 5</b></i>" />
                             </div>
                         </div>
                     </div>
@@ -207,7 +209,7 @@
                         </div>
 
                         <div style="margin:0 0 0 1rem;">
-                            <i>Select only one option</i>
+                            <i  style="color: #999;">Select only one option</i>
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.abtEx.setAsideAgrmnt ? 'yes' : ''"
@@ -247,7 +249,7 @@
                         <div style="margin:0 0 -.25rem 0;">
                             <b>6.</b> I am applying for the final order or agreement  about child support, including section 7 special or extraordinary expenses, to be <b>changed or replaced as follows:</b>
                             <br>
-                            <i>List the details of the order you are asking for</i>
+                            <i style="color: #999;">List the details of the order you are asking for</i>
                         </div>
 
                         <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
@@ -259,24 +261,23 @@
 
                     <div>
                         <div style="margin:0 0 -.25rem 0;"><b>7.</b>
-                            <i> Select only one of the options below</i>
+                            <i style="color: #999;"> Select only one of the options below</i>
                         </div>
                         <div style="display:block;">
-                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                                text="Based on the information I know about the other party’s income and my application for child support I expect <b>the amount payable</b> for monthly child " /> 
-                            <GreyBoxForm style="text-indent:17px;" textwidth="9rem" beforetext="support to be approximately $"
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;" check="" text="Based on the information I know about the other party’s income and my application for child support I expect <b>the amount payable</b> for monthly child " /> 
+                            <GreyBoxForm style="text-indent:17px; margin-top: 10px;" textwidth="9rem" beforetext="support to be approximately $"
                                 hint="" text=""
                                 hintindent="30px" />
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                                text="I am <b> not able to estimate the amount payable</b> for monthly child support at this time" />
+                                check="" text="I am <b> not able to estimate the amount payable</b> for monthly child support at this time" />
                         </div>
                     </div>
                     <div>
                         <div style="margin:1rem 0 -.25rem 0;">
                             <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem"
-                                beforetext="<b>8. </b>Child support payments should start on"
+                                beforetext="<b>8. </b>Child support payments should <b>start on</b>"
                                 hint="Date (dd/mmm/yyyy) or event" :text="exChSupInfo.unpdChSup.crntDate | beautify-date-mid"
                                 hintindent="30px" />
                             because: 
@@ -328,22 +329,18 @@
                 </FormPart>
 
                 <div class="print-block">
-                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="<b>9. </b>As of "
-                        hint="mmm/dd/yyyy" :text="exChSupInfo.unpdChSup.crntDate" />
-                    <GreyBoxForm style="margin-left:0.1rem; text-indent:0px;" textwidth="8rem"
-                        beforetext=", the amount of <b>unpaid child support</b> (arrears) was $" hint=""
+                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="<b>9. </b>As of " aftertext=", the amount of <b>unpaid child support</b>" hint="mmm/dd/yyyy" :text="exChSupInfo.unpdChSup.crntDate" />
+                    <GreyBoxForm style="margin-left:0.1rem; margin-top: 10px; text-indent:10px;" textwidth="8rem"
+                        beforetext=" (arrears) was $" hint=""
                         :text="exChSupInfo.unpdChSup.amnt" />
                 </div>
 
                 <div style="margin-top:1rem;"></div>
                 <div>
-                    <i style="display:inline; margin-left:0.35rem"><b>10. </b>Complete only if there is unpaid child
-                        support. You
-                        may
-                        leave
-                        this section blank.</i>
+                    <i style="display:inline; margin-left:0.35rem; color: #999;"><b>10. </b>Complete only if there is unpaid child
+                        support. You may leave this question blank.</i>
                     <div style="margin:0 0 0 1.5rem;">
-                        <i>Select only one of the options below.</i>
+                        <i style="color: #999;">Select only one of the options below.</i>
 
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
@@ -355,9 +352,8 @@
                                 :check="exChSupInfo.unpdChSup.reduce ? 'yes' : ''"
                                 text="I am <b>applying to reduce</b> the amount of unpaid child support (arrears) to" />
                             <div style="margin-top:0.25rem;"/>
-                            <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint=""
+                            <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" aftertext="because:" hint=""
                                 :text="exChSupInfo.unpdChSup.reduceAmount" />
-                            <div style="margin:0 0 -0.25rem 0;">because:</div>
                             <div class="answerbox" style="min-height: 80px; padding: 8px; background-color:#dedede">
                                 <span v-if="exChSupInfo.unpdChSup.reduce">
                                     {{ exChSupInfo.unpdChSup.whyReduceAmount }}
@@ -367,24 +363,18 @@
 
                     </div>
 
-
                     <div style="margin-top:1rem;"></div>
-                    <!-- <10> -->
                     <div>
-                        <i style="display:inline; margin-left:0.35rem"><b>11.</b> Complete only if there is unpaid child
-                            support. You
-                            may
-                            leave
-                            this section blank.</i>
+                        <i style="display:inline; margin-left:0.35rem; color: #999;"><b>11.</b> Complete only if there is unpaid child support. You may leave this question blank.</i>
                         <div style="margin:0 0 0 1.5rem;">I am applying for an order that the remaining <b>unpaid child
                                 support
                                 (arrears) be paid</b> as follows:</div>
                         <div style="margin:0 0 0 1.5rem;">
-                            <i>Select all options that apply and complete the required information</i>
+                            <i style="color: #999;">Select all options that apply and complete the required information</i>
                         </div>
                         <div style="margin:0.25rem 0 0 1.5rem;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; display:inline;"
-                                :check="exChSupInfo.unpdChSup.paySchd == 'monthly' ? 'yes' : ''" text="at a rate of " />
+                                :check="exChSupInfo.unpdChSup.paySchd == 'monthly' ? 'yes' : ''" text="At a rate of " />
                             <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint=""
                                 aftertext="per month" :text="exChSupInfo.unpdChSup.monthlyAmount" />
                         </div>
@@ -393,13 +383,13 @@
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;"
-                                    :check="exChSupInfo.unpdChSup.paySchd == 'Lump Sum' ? 'yes' : ''" text="in a lump sum" />
+                                    :check="exChSupInfo.unpdChSup.paySchd == 'Lump Sum' ? 'yes' : ''" text="In a lump sum" />
                             </div>
 
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="exChSupInfo.unpdChSup.paySchd == 'other' ? 'yes' : ''"
-                                    text="other <i>(specify):</i>" />
+                                    text="Other <i style='color: #999;'>(specify):</i>" />
 
                             </div>
 
@@ -474,12 +464,12 @@
                     <div style="display:block;">
                         <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                             :check="exChSupInfo.applyForCaseManagement ? 'yes' : ''"
-                            text="<b>Yes</b> 🠆 <i>You <b>are required</b> to file a Financial Statement Form 4. Complete <b>Question 8</b>.</i>" />
+                            text="<b>Yes</b> -> <i>You <b>are required</b> to file a Financial Statement Form 4. Complete <b>Question 8</b>.</i>" />
                     </div>
                     <div style="display:block;">
                         <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                             :check="!exChSupInfo.applyForCaseManagement && exChSupInfo.abtOrg.situation.none ? 'yes' : ''"
-                            text="<b>No</b> 🠆 <i>You <b>are not required</b> to file a Financial Statement Form 4 at this time. <br>Skip to <b>Question 9</b>.</i>" />
+                            text="<b>No</b> -> <i>You <b>are not required</b> to file a Financial Statement Form 4 at this time. <br>Skip to <b>Question 9</b>.</i>" />
                     </div>
                 </div>
                 <div style="margin-top:1rem;"></div>
@@ -490,7 +480,7 @@
                         to the court.
                     </p>
                     <div>
-                        <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
+                        <i style="display:inline; margin-left:0.35rem; color: #999;">Select only one of the options below</i>
                         <div style="margin:0 0 0 1.5rem;">
 
                             <div style="display:block;">
@@ -502,7 +492,7 @@
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                     style="text-indent: 5px;" :check="!exChSupInfo.calc.attaching ? 'yes' : ''"
-                                    text="I <b>am  not able to file</b>  a Financial Statement in Form 4 with this application. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I still be required to file a Financial Statement in Form 4 at a later date." />
+                                    text="I <b>am  not able to file</b>  a Financial Statement in Form 4 with this application. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date." />
                             </div>
 
                         </div>
