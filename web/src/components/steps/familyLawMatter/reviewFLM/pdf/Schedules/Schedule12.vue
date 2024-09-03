@@ -4,10 +4,10 @@
 <!-- <Page 7> --> 
 <!-- <Header> -->
         <div>
-             <div class="new-page" />
+             <div class="new-page"></div>
              <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
                 <div style="flex: 1">
-                    <ScheduleHeader scheduleNumber="Schedule 11" scheduleTitle="Property division in respect of a companion animal" scheduleDescription="Disagree with order requested by other party"></ScheduleHeader>
+                    <ScheduleHeader scheduleNumber="Schedule 11" scheduleTitle="Property division in respect of a companion animal" scheduleDescription="Existing written agreement"></ScheduleHeader>
                     <div style="margin-bottom: 1rem;"></div>
                     <NoteBox fontSize="10pt">
                         <p>
@@ -26,35 +26,31 @@
                 <div style="display:block; margin-left: 1rem; margin-top: -1.25rem;">
                    <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                         style="text-indent: 5px;" :check="true?'yes':''" text="I have a <b>written agreement</b> about property division in respect of a" />
-                        <GreyBoxForm style="margin-left:2rem; text-indent:0px;" textwidth="10rem" beforetext=" companion animal made on <i>(date)</i>" aftertext=" that I want to repeal or replace <i><b>(see attached copy of agreement).</b></i>"  hint="" marginTop="-15px" :text="exCompInfo.agreementDate | beautify-date-mid"/>
+                        <GreyBoxForm style="margin-left:2rem; text-indent:0px;" textwidth="10rem" beforetext=" companion animal made on <i>(date)</i>" aftertext=" that I want to repeal or replace <i style='color:#ababab'>(see attached copy of agreement).</i>"  hint="" marginTop="-15px" :text="exCompInfo.agreementDate | beautify-date-mid"/>
                 </div>
-               
-               
+
+
             </div>
             <div>
                <b>2.</b> I believe the agreement about property division in respect of a companion animal should be set aside or replaced because:
-                <div>
-            <GreyBoxForm v-if="exCompInfo.reason" style="margin-top:10px; text-indent:0rem height:80px"
-                textwidth="35rem" :text="exCompInfo.reason" hint="" beforetext="">
-            </GreyBoxForm>
-            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem" hint="" beforetext=""></GreyBoxForm>     
-                </div>
-                              
+                <div v-if="exCompInfo.reason" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:100px;">{{ exCompInfo.reason }}</div>
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:100px;margin-bottom:1rem;"></div>
+
             </div>
             <div class="print-block">
                 <div>
                       <b>3.</b>  I am applying for the existing agreement to be: 
                     <div style="margin:0 0 2rem 1.5rem;">
-                        <i>Select only one option</i>
+                        <i style="color:#ababab">Select only one option</i>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                 style="text-indent: 5px;" :check="exCompInfo.setAside?'yes':''" text="<b>set aside</b>" />
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" :check="exCompInfo.replace?'yes':''" text="<b>replaced with an order</b> --> <i>Complete <b>Part 4</b></i>" />
+                                style="text-indent: 5px;" :check="exCompInfo.replace?'yes':''" text="<b>replaced with an order</b> ➜ <i>Complete <b>Part 4</b></i>" />
                         </div>
-     
+
                     </div>
                 </div>
             </div>
@@ -86,13 +82,12 @@
                     <div class="print-block">
                         <div>                         
                              <b>4.</b> I am applying for the agreement about a companion animal to be <b>replaced with an order</b> as follows: <br>
-                             <i>List the details of the order you want the court to make</i>
-                             <GreyBoxForm  v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails"  style="margin-top:10px; text-indent:0rem; min-height:80px; background-color:#dedede;"
-                             textwidth="35rem" :text="exCompInfo.agreementReplacementDetails">
-                         </GreyBoxForm>
-                         <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem; min-height:80px; background-color:#dedede;" textwidth="30rem"></GreyBoxForm> 
-                           
+                             <i style="color: #ababab;">List the details of the order you want the court to make</i>
+                         <div v-if="exCompInfo.replace && exCompInfo.agreementReplacementDetails" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:2px;min-height:100px;">{{exCompInfo.agreementReplacementDetails}}</div>
+                         <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:2px;min-height:100px;margin-bottom:1rem;"></div>
+
                         </div> 
+
                     </div>
                 </div>
                 <div style="width: 20%;">
@@ -137,10 +132,10 @@ export default class Schedule12 extends Vue {
 
     @Prop({required:true})
     result!: any; 
-   
+
     dataReady = false;
     exCompInfo = {} as schedule12DataInfoType;
-   
+
     mounted(){
         this.dataReady = false;      
         this.extractInfo();       
@@ -152,7 +147,7 @@ export default class Schedule12 extends Vue {
     }
 
     public getExCompanionAnimalInfo(){
-       
+
         let exCompInfo = {} as schedule12DataInfoType;
 
         exCompInfo = {
@@ -165,7 +160,7 @@ export default class Schedule12 extends Vue {
 
         if (this.result.companionAnimalExistingAgreementSurvey){
             const exCompData: companionAnimalExistingAgreementDataInfoType = this.result.companionAnimalExistingAgreementSurvey;
-            
+
             exCompInfo.agreementDate = Vue.filter('beautify-date')(exCompData.agreementDate);
             exCompInfo.reason = exCompData.setAsideReason;
             exCompInfo.replace = exCompData.existingAgreementDecision == 'Replaced';
@@ -183,4 +178,4 @@ export default class Schedule12 extends Vue {
 
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
-</style> 
+</style>

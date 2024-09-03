@@ -55,7 +55,7 @@
             <FormPart :part="2" title="Final order" subtitle="Complete this part only if you have a final order"></FormPart>
             <div class="print-block">
                 <div>
-                <div><b>2. Since the final order was made, the following circumstances occurred:</b><br>
+                <div><b>2. Since the final order</b> was made, the following circumstances occurred:<br>
                 
                 </div>
                        <div style="padding-left: 24px;">
@@ -107,23 +107,22 @@
                 <div>
                     <div>
                         <p><b>3.</b> I am applying for the final order to be:</p>
+                        
                     </div>
-                    <div style="margin:0 0 0 1rem;">
-
-                        <i>Select only one option</i>
-
+                    <div style="margin:-1rem 0 0 1rem;">
+                        <i style="color:#ababab">Select only one option</i>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                                 style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.change ? 'yes' : ''"
-                                text="<b>changed</b> -> <i>Complete Part 4 and 5</i>" />
+                                text="<b>changed</b>  ➜ <i style='color:#ababab'>Complete <b>Part 4 </b> and <b>5</b></i>" />
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.suspend?'yes':''" text="<b>suspended</b> -> <i>Complete Part 5</i>"/>
+                                style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.suspend?'yes':''" text="<b>suspended</b> ➜ <i style='color:#ababab'>Complete <b>Part 5</b></i>"/>
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="<b>cancelled</b> -> <i>Complete Part 5</i>"  />
+                                style="text-indent: 5px;" :check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="<b>cancelled</b> ➜ <i style='color:#ababab'>Complete <b>Part 5</b></i>"  />
                         </div>
                     </div>
                 </div>
@@ -146,34 +145,34 @@
     <!-- Part 3 -->
     <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
         <div style="flex: 1">
-            <FormPart :part="3" title="Agreement –Complete this part only if you have an existing agreement">
+            <FormPart :part="3" title="Agreement" subtitle="Complete this part only if you have an existing agreement">
             </FormPart>
             <div class="print-block">
                 
-<!-- <3> --><div>
-    <div style="margin:0 0 -0.25rem 0;"><b>4. </b>I believe the agreement about spousal support <b></b> should be set aside or replaced </b> because:
+<!-- <3> -->
+    <div>
+    <div style="margin:0 0 -0.25rem 0;"><b>4. </b>I believe the agreement about spousal support <b> should be set aside or replaced </b> because:
     </div>
-    <GreyBoxForm v-if="exSpsSupInfo.agreementInfo.reason" style="margin-top:10px; text-indent:0rem"
-        beforetext="" hint="" textwidth="35rem" :text="exSpsSupInfo.agreementInfo.reason">
-    </GreyBoxForm>
-    <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" beforetext="" hint="" text="" textwidth="30rem"></GreyBoxForm>
+
+    <div  v-if="exSpsSupInfo.agreementInfo.reason" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:100px;">{{ exSpsSupInfo.agreementInfo.reason}}</div>
+    <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:100px;margin-bottom:1rem;"></div>
     </div>
     <div>
         <div>
             <p><b>5.</b> I am applying for the existing agreement to be</p>
         </div>
 
-        <div style="margin:0 0 0 1rem;">
-            <i>Select only one option</i>
+        <div style="margin:-1rem 0 0 1rem;">
+            <i style="color:#ababab">Select only one option</i>
             <div style="display:block;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                     style="text-indent: 5px;" :check="exSpsSupInfo.agreementInfo.setAside?'yes':''" 
-                    text="<b>set aside </b>--> Skip ahead to Part 5" />
+                    text="<b>set aside </b>➜ <i style='color:#ababab'>Skip ahead to <b>Part 5</b></i>" />
             </div>
             <div style="display:block;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
                     style="text-indent: 5px;" :check="exSpsSupInfo.agreementInfo.replace?'yes':''"
-                    text="<b> replaced with an order</b> --> Complete Part 4" />
+                    text="<b> replaced with an order</b> ➜ <i style='color:#ababab'>Complete <b>Part 4</b> </i>" />
             </div>
 
         </div>
@@ -186,7 +185,7 @@
             <NoteBox>
                 <b-icon-info-circle-fill />
                 <p>
-                    The court must set aside or replace with an order, all or part of an agreement about spousal support if the court is satisfied one or more circumstances set out in s. 164 (3) of the Family Law Actexisted when the parties entered into the agreement, or the agreement is significantly unfair.
+                    The court must set aside or replace with an order, all or part of an agreement about spousal support if the court is satisfied one or more circumstances set out in s. 164 (3) of the <i>Family Law Act</i> existed when the parties entered into the agreement, or the agreement is significantly unfair.
                 </p>
             </NoteBox>
         </div>      
@@ -197,20 +196,16 @@
 <div style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px;">
     <div style="flex: 1">
         <FormPart :part="4"
-            title="About the new order - Complete this part only if you are asking to change or replace the existing order or agreement">
+            title="About the new order"
+            subtitle="Complete this part only if you are asking to change or replace the existing order or agreement">
         </FormPart>
         <div class="print-block">
-            <div style="margin-top:2rem;"><b>About the order</b></div>
-
             <div>
-                <div style="margin:0 0 -.25rem 0;"><b>6.</b> I am applying for the final order or agreement about spousal support to be <b></b>changed or replaced </b> as follows:
-                </div>   
-                <GreyBoxForm v-if="exSpsSupInfo.about.chSinceOrder" style="margin-top:10px; text-indent:0rem"
-                            textwidth="35rem" beforetext="" hint="" :text="exSpsSupInfo.about.chSinceOrder">
-                        </GreyBoxForm>
-
-                        <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" beforetext="" hint="" text="" textwidth="35rem"></GreyBoxForm>                 
-                
+                <div style="margin:0 0 -.25rem 0;"><b>6.</b> I am applying for the final order or agreement about spousal support to be <b>changed or replaced </b> as follows:
+                </div>  
+                <i style="color:#ababab; margin-left:5px;"> List the details of the order you are asking for</i> 
+                <div  v-if="exSpsSupInfo.about.chSinceOrder" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:100px;">{{ exSpsSupInfo.about.chSinceOrder}}</div>
+                <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:5px;min-height:100px;margin-bottom:1rem;"></div>
             </div>
             <div>
                 <div style="margin:0 0 -.25rem 0; line-height: 25px;"><b>7.</b>Based on the information I know about each party’s means, needs, and other circumstances <br>
@@ -218,16 +213,17 @@
                 </div>
                 <div style="display:block; line-height: 25px;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                        text="<b>I expect the range for the monthly amount payable</b>" check=""  />
+                        text="I expect the range for the<b> monthly amount payable</b> for spousal support to be"  check=""  />
                        
                 </div>
-                <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="for spousal support to be approximately $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                <GreyBoxForm style="display:inline; text-indent:0px; margin-left: 30px;" textwidth="6rem" beforetext=" approximately $"  marginTop="-15px" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                <GreyBoxForm style="display:inline; text-indent:0px; margin-left: 30px; line-height: 25px; " textwidth="6rem" beforetext="to $" marginTop="-15px" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                 <div style="display:block;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
                         text="I expect a <b>lump sum amount payable</b> for spousal support to be approximately" check="" />
                 </div>
-                <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
-                <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px;" textwidth="9rem" beforetext="to $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px; margin-left: 30px;" textwidth="9rem" marginTop="-15px" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
+                
                 <div style="display:block;">
                     <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                         text="I am <b>not able to estimate </b>the amount payable for spousal support at this time" check="" />
@@ -238,11 +234,22 @@
         <div style="width: 20%;">
             <div style="padding-top:30px; padding-bottom:20px">
                 <NoteBox>
+                    <b-icon-info-circle-fill />
+                    <p>
+                        The court may order a spouse to pay an amount the court considers appropriate as spousal support after taking into consideration section 160 [duty to provide support for entitled spouse] <i>[s. 165 Family Law Act]</i>. <br> 
+                        The order may include when and how payments are to be made <i>[s. 170 Family Law Act].</i> 
+
+                    </p>
+                </NoteBox>
+                <div style="padding-top: 15px;">
+                    <NoteBox>
                     <b-icon-book />
                     <p>
                         For more information about how to calculate the amount for spousal support, see the guidebook.
                     </p>
                 </NoteBox>
+                </div>
+               
             </div>      
         </div>
     </div>
@@ -255,16 +262,16 @@
             </FormPart>
             <div class="print-block">
                 <div>
-                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="As of " hint="mmm/dd/yyyy" hintindent="30px" :text="exSpsSupInfo.payDetails.currentDate"/>
-                    <GreyBoxForm style="margin-left:0.1rem; text-indent:0px;" textwidth="7rem" beforetext=", the amount of <b>unpaid spousal support</b> (arrears) was $" hint="" hintindent="30px" :text="exSpsSupInfo.payDetails.unPaidAmount"/>          
+                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="<b>8. </b> As of " aftertext=", the amount of <b>unpaid spousal support</b> (arrears)" hint="Date(dd/mmm/yyyy)" hintindent="30px" :text="exSpsSupInfo.payDetails.currentDate | beautify-date-mid"/>
+                    <GreyBoxForm style="margin-left:24px; text-indent:0px; " textwidth="7rem" beforetext="was $" hint="" marginTop="-8px" hintindent="30px" :text="exSpsSupInfo.payDetails.unPaidAmount"/>          
                 </div>
             </div>
 
             <div style="margin-top:1rem;"></div>
                 <div>
-                    <i style="display:inline; margin-left:0.35rem"><b>9.</b> Complete only if there is unpaid spousal support. You may leave this section blank.</i>
+                    <span style="display:inline; margin-left:0.35rem;"><b>9. </b> <i style="color: #ababab;">Complete only if there is unpaid spousal support. You may leave this question blank.</i> </span>
                     <div style="margin:0 0 0 1.5rem;">
-                        <i>Select only one of the options below.</i>
+                        <i style="color:#ababab">Select only one of the options below.</i>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                             :check="exSpsSupInfo.payDetails.unpaid && !exSpsSupInfo.payDetails.reduce?'yes':''" text="I am <b>not applying</b> to reduce the amount of unpaid spousal support (arrears)" />
@@ -275,32 +282,20 @@
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
                             :check="exSpsSupInfo.payDetails.reduce?'yes':''" text="I am <b>applying to reduce</b> the amount of unpaid spousal support (arrears) to" />
                         </div>   
-                       
-                        <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="8rem" beforetext=" $" aftertext="because:" hint="" :text="exSpsSupInfo.payDetails.reduceAmount"/>
-   
-                        <GreyBoxForm v-if="exSpsSupInfo.payDetails.reduce" style="margin-top:10px; text-indent:0rem"
-                                textwidth="35rem" beforetext="" hint="" :text="exSpsSupInfo.payDetails.reduceReason">
-
-                            </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" beforetext="" hint="" textwidth="35rem" text=""></GreyBoxForm>
-                       
-                        <div style="margin:0 0 0 1rem;" v-if="exSpsSupInfo.payDetails.reduce" 
-                            class="answerbox">{{exSpsSupInfo.payDetails.reduceReason}}</div>
-                        <div v-else style="margin-bottom:2rem;"></div>
+                        <GreyBoxForm style="display:inline; text-indent:0px; margin-left: 30px;" textwidth="8rem" beforetext=" $"  marginTop="-15px" aftertext="because:" hint="" :text="exSpsSupInfo.payDetails.reduceAmount"/>
+                        <div v-if="exSpsSupInfo.payDetails.reduce" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:32px;min-height:100px; margin-top: 10px;">{{exSpsSupInfo.payDetails.reduceReason}}</div>
+                       <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:32px;min-height:100px;margin-bottom:1rem; margin-top: 10px;"></div>
                     </div>
                 </div>
 
                 <div>
-                    <i style="display:inline; margin-left:0.35rem"><b>10.</b> Complete only if there is unpaid spousal support. You may leave this section blank.</i>
-                    <div style="margin:0 0 0 1.5rem;">I am applying for an <b>order that the remaining unpaid spousal support</b> be paid as follows:</div>
-                    <div style="margin:0 0 0 1.5rem;">
-                        <i>Select all options that apply and complete the required information</i>
-                    </div>
+                    <span style="display:inline; margin-left:0.35rem"><b>10.</b> <i style="color:#ababab">Complete only if there is unpaid spousal support. You may leave this question blank.</i></span>
+                    <div style="margin:0 0 0 1.7rem;">I am applying for an <b>order that the remaining unpaid spousal support</b> be paid as follows:</div>
                     <div style="margin:0.25rem 0 0 1.5rem;"> 
                         <div style="display:flex;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                            :check="exSpsSupInfo.payDetails.monthly?'yes':''" text="At a rate of &nbsp; " /><underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
-                            <div style="display:inline;margin:0 0 0 0.25rem;"><b>per month</b></div>                      
+                            :check="exSpsSupInfo.payDetails.monthly?'yes':''" text="At a rate of &nbsp; " />
+                            <GreyBoxForm style="display:inline; text-indent:0px;" textwidth="8rem" marginTop="-12px" beforetext=" $" aftertext="<b> per month</b>" hint="" :text="exSpsSupInfo.payDetails.rate"/>                     
                         </div> 
                     </div>
                     
@@ -314,9 +309,9 @@
                     <div style="margin:0.25rem 0 0 1.45rem;">
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
-                            :check="exSpsSupInfo.payDetails.other?'yes':''" text="<b>other</b> <i>(specify):</i>" />     
+                            :check="exSpsSupInfo.payDetails.other?'yes':''" text="<b>other</b> <i style='color:#ababab'>(specify):</i>" />     
                         </div>
-                        <GreyBoxForm style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" :text="exSpsSupInfo.payDetails.otherComm"/>
+                        <GreyBoxForm style="text-indent:1px;display:inline-block; padding-top: 10px;" textwidth="32rem" beforetext="" hint="" :text="exSpsSupInfo.payDetails.otherComm"/>
                      </div>
                     </div>
         </div>
@@ -334,30 +329,29 @@
                 <div style="margin:0 0 -.25rem 0;"><b>11. I am required to file </b>a Financial Statement Form 4 to provide my income information to the court <br>      
                 </div>
                 <div>               
-                    <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
-                    <div style="margin:0 0 1rem 1.25rem;">
+                    <i style="margin:0 0 0 0.5rem; color: #ababab;" >Select only one of the options below</i>
+                    <div style="margin:0 0 1rem 0.5rem;">
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;"  :check="!exSpsSupInfo.applyForCaseManagement?'yes':''" text="<b>I am filing a </b>Financial Statement in Form 4 with this application" />
+                                style="text-indent: 5px;"  :check="!exSpsSupInfo.applyForCaseManagement?'yes':''" text=" I <b> am filing </b> a Financial Statement in Form 4 with this application." />
 
                         </div>
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                style="text-indent: 5px;" :check="exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am <b>not able</b> to file a Financial Statement in Form 4 with this application" />
-                                <span >I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date</span>
+                                style="text-indent: 5px;" :check="exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am <b>not able</b> to file a Financial Statement in Form 4 with this application." />
+                                <span >I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date.</span>
 
                         </div>
                        
                     </div>
                 </div>
-                <div style="background: #eee; border: 2px dashed #333; padding: 4px;">
-                    
+                <div style="background: #eee; border: 2px dashed #333; padding: 10px;">   
                         <div class="print-block">
-                            <p><b>IMPORTANT NOTE TO THE OTHER PARTIES:</b></p>
-                            <p><b>This family law case includes an application about spousal support. You must provide your financial information with your application or reply to this application by completing and filing a Financial Statement in Form 4.
-                                </b></p>
-                            <div style="margin-top:1rem;text-align:justify;">
-                                f you do not give your complete, true, and up-to-date financial information when needed, the court can:
+                            <span><b>IMPORTANT NOTE TO THE OTHER PARTIES:</b></span>
+                            <span><b>This family law case includes an application about spousal support. You must provide your financial information with your application or reply to this application by completing and filing a Financial Statement in Form 4.
+                                </b></span>
+                            <div style="text-align:justify;">
+                                If you do not give your complete, true, and up-to-date financial information when needed, the court can:
                                 <ul>
                                     <li>order that the income information be provided</li>
                                     <li>assume a party’s income is a certain amount for support purposes and make an order based on it</li>
@@ -373,7 +367,7 @@
         <div style="width: 20%;">
             <div style="padding-top:30px; padding-bottom:20px">
                 <NoteBox>
-                    <b-icon-book />
+                    <b-icon-file-earmark-medical-fill />
                     <p>
                         You must file a Financial Statement Form 4 or an Application for Case Management Order Without Notice or Attendance Form 11.
                     </p>
@@ -590,4 +584,4 @@ export default class Schedule10 extends Vue {
 
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
-</style> 
+</style>
