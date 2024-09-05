@@ -107,9 +107,13 @@
                         <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:34px;" textwidth="23rem" beforetext="Other <i>(specify):</i>" hint="" :text="modReqInfo.waiveChangeRequirementComment|truncate-word-after(70)"/>                      -->
                         <!-- <div class="answer">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div> -->
                         <div style="margin-top:-20px;margin-left:27px;">
+                        
                         <span style="margin-left:9px;">Other <span style="color:#626262;font-style: italic">(specify)</span>:</span>
-                        <div  v-if="modReqInfo.waiveChangeRequirementComment" style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px">{{ modReqInfo.waiveChangeRequirementComment |truncate-word-after(55)}}</div>
-                        <div v-if="modReqInfo.waiveChangeRequirementComment && modReqInfo.waiveChangeRequirementComment && modReqInfo.waiveChangeRequirementComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:5px;">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(55)}}</div>    
+                        <div  v-if="modReqInfo.waiveChangeRequirementComment" >
+                        <div style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px">{{ modReqInfo.waiveChangeRequirementComment |truncate-word-after(55)}}</div>
+                        <div v-if="modReqInfo.waiveChangeRequirementComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:5px;">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(55)}}</div>    
+                        </div>
+                        <div v-else style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;margin-bottom:10px;"></div> 
                         </div> 
                         </span>
                     </div>   
@@ -193,10 +197,13 @@
                         <!-- <div class="answer">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div> -->
                         <div style="margin-top:-20px;margin-left:27px;">
                         <span style="margin-left:9px;">Other <i><span style="color:#626262">(specify)</span></i>:</span>
+                        <div  v-if="modReqInfo.modifyChangeRequirementComment" >
                         <div v-if="modReqInfo.modifyChangeRequirementComment" style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ modReqInfo.modifyChangeRequirementComment |truncate-word-after(55)}}</div>
-
-                        <div v-if="modReqInfo.modifyChangeRequirementComment && modReqInfo.modifyChangeRequirementComment && modReqInfo.modifyChangeRequirementComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:5px;">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(55)}}</div>    
-                        </div> 
+                        <div v-if="modReqInfo.modifyChangeRequirementComment && modReqInfo.modifyChangeRequirementComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:5px;">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(55)}}</div>    
+                        </div>
+                        <div v-else style="margin-top:-25px;margin-left:105px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;margin-bottom:10px;"></div> 
+    
+                    </div> 
                     </span>
                     </div>   
                                                
@@ -434,6 +441,9 @@
         </div>
                
     </div> 
+
+
+
     <div >
         <div style="width: 80%; float: left; margin-right: 10px;">
             <div style="margin-top: 1rem;"></div>
@@ -467,13 +477,13 @@
                         </tr>
                         <tr style="border:2px solid #fff">
                             <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
-                                <div style="font-size:8pt;text-align:center;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
                                     Address
                                 </div>
                             </td>
                             
                             <td colspan="1" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
-                                <div style="font-size:8pt;text-align:center;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
                                     City
                                 </div>
                             </td>
@@ -481,7 +491,15 @@
                         
                     </table>
                 </div>
-                <div style="margin-top:-10px;">
+
+            </div>                            
+            </div>            
+        </div>       
+                      
+    </div> 
+
+    <div style="width: 80%; float: left; margin-right: 10px;">
+    <div style="margin-top:-10px;">
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('relative')?'yes':''" text='Leaving the documents with a relative or other adult person to give to the person to be served:'/>             
                 </div> 
                 <div  style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
@@ -515,8 +533,11 @@
                         
                     </table>
                 </div>
-                
-                <div>
+    </div>
+
+            
+    <div style="width: 80%; float: left; margin-right: 10px;">
+        <div>
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice == 'mail' ?'yes':''" text='Mailing the documents by '/>             
                 </div> 
                 <div style="text-indent:15px;font-size: 11pt;margin-left:20px;">
@@ -540,21 +561,23 @@
                         </tr>
                         <tr style="border:2px solid #fff">
                             <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
-                                <div style="font-size:8pt;text-align:center;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
                                     Address
                                 </div>
                             </td>
                             
                             <td colspan="1" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
-                                <div style="font-size:8pt;text-align:center;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
                                     City
                                 </div>
                             </td>
                         </tr>
                         
                     </table>
-                </div>
-                <div>
+                </div>        
+    </div>
+    <div style="width: 80%; float: left; margin-right: 10px;">
+        <div>
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('email')?'yes':''" text='Sending the documents to the person’s email at:'/>             
                 </div> 
                 <div  style="text-indent:15px;font-size: 11pt;margin-left:5px;">
@@ -565,10 +588,19 @@
                                     {{ modReqInfo.alternativeEmail }} 
                                 </div>
                             </td>                            
-                        </tr>                    
+                        </tr>      
+                        <tr>
+                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
+                                    Email
+                                </div>
+                            </td>
+                        </tr>              
                     </table>
-                </div>
-                <div  style="margin-top:5px;">
+                </div>       
+    </div>
+    <div style="width: 80%; float: left; margin-right: 10px;">
+        <div  style="margin-top:5px;">
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('text')?'yes':''" text='Sending the documents by text message to the person’s '/>             
                 </div> 
                 <div style="text-indent:15px;font-size: 11pt;margin-left:45px;margin-top:5px;">
@@ -581,10 +613,19 @@
                                     {{ modReqInfo.alternativeText }} 
                                 </div>
                             </td>                            
-                        </tr>                    
+                        </tr> 
+                        <tr>
+                            <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
+                                    Cell number
+                                </div>
+                            </td>
+                        </tr>                       
                     </table>
-                </div>
-                <div  style="margin-top:5px;">
+                </div>        
+    </div>
+    <div style="width: 80%; float: left; margin-right: 10px;">
+        <div  style="margin-top:5px;">
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('instant')?'yes':''" text='Sending the documents by instant messaging to the person to be served through'/>             
                 </div> 
                 <div  style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
@@ -608,7 +649,7 @@
                         </tr>
                         <tr style="border:2px solid #fff">
                             <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
-                                <div style="font-size:8pt;text-align:center;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
                                     Social platform
                                 </div>
                             </td>
@@ -618,14 +659,16 @@
                                 </div>
                             </td>
                             <td colspan="5" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
-                                <div style="font-size:8pt;text-align:center;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
                                     Account identifier (handle, number, etc.)
                                 </div>
                             </td>
                         </tr>
                     </table>
-                </div>
-                <div style="margin-top:-10px">
+                </div>       
+    </div>
+    <div style="width: 80%; float: left; margin-right: 10px;">
+        <div style="margin-top:-10px">
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('knownaddress')?'yes':''" text='Leaving the documents at the person’s last known address at <i>(provide address):</i>'/>             
                 </div> 
                 <div  style="text-indent:15px;padding:10px;font-size: 11pt;margin-left:40px;">
@@ -644,20 +687,31 @@
                         </tr>
                         <tr style="border:2px solid #fff">
                             <td colspan="2" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
-                                <div style="font-size:8pt;text-align:center;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
                                     Address
                                 </div>
                             </td>
                             
                             <td colspan="1" style="border: 2px solid #fff; padding: 4px;background-color: #fff;">
-                                <div style="font-size:8pt;text-align:center;">
+                                <div style="font-size:8pt;text-align:center;margin-top:-10px;">
                                     City
                                 </div>
                             </td>
                         </tr>
                         
                     </table>
-                </div>              
+                </div>                     
+    </div>
+
+
+<!-- <4C> : END-->
+<!-- <4C-2> : BEGIN-->
+    <div style="width: 80%; float: left; margin-right: 10px;">
+        <div>
+            <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;margin-top:-10px;">
+                  
+                <div style="text-align: justify;text-justify: inter-word;font-size: 11pt;">
+                              
                 <div style="margin-top:-10px">
                     <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:50px;" :check="modReqInfo.alternativeorderservice.includes('other')?'yes':''" text='Other method <span style="color:#626262;font-style:italic;">(specify)</span>:'/>             
                 </div> 
@@ -667,11 +721,10 @@
                 
             </div>                            
             </div>            
-        </div> 
-        
+        </div>      
                       
     </div> 
-<!-- <4C> : END-->
+<!-- <4C-2> : END-->
 <!-- <4D> : BEGIN-->
     <div >
         <div style="width: 80%; float: left; margin-right: 10px;">
