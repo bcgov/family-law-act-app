@@ -109,7 +109,7 @@
                         <div style="margin-top:-20px;margin-left:27px;">
                         <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
                         <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.waiveChangeRequirementComment |truncate-word-after(70)}}</span>
-                        <div v-if="modReqInfo.waiveChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div>    
+                        <div v-if="modReqInfo.waiveChangeRequirementComment && modReqInfo.waiveChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div>    
                         </div> 
                         </span>
                     </div>   
@@ -194,7 +194,7 @@
                         <div style="margin-top:-20px;margin-left:27px;">
                         <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
                         <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.modifyChangeRequirementComment |truncate-word-after(70)}}</span>
-                        <div v-if="modReqInfo.modifyChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div>    
+                        <div v-if="modReqInfo.modifyChangeRequirementComment && modReqInfo.modifyChangeRequirementComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.modifyChangeRequirementComment|truncate-word-before(70)}}</div>    
                         </div> 
                     </span>
                     </div>   

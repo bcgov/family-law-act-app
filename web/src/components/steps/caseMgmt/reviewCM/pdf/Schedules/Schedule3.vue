@@ -64,7 +64,7 @@ the rules, including a time limit set by an order or direction, even after the t
                 <span style="margin-left:25px;min-width:90px;text-align: center;display: inline-block;">Date (dd/mmm/yyyy)</span>
                 <span style="margin-left:130px;text-align:center;">Method of attendance</span> 
                 </div> 
-                <div v-if="modReqInfo.judgeName.length >= 30" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{modReqInfo.judgeName|truncate-word-before(30)}}</div>    
+                <div v-if="modReqInfo.judgeName && modReqInfo.judgeName.length >= 30" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{modReqInfo.judgeName|truncate-word-before(30)}}</div>    
 
                 </div> 
                 
@@ -75,7 +75,7 @@ the rules, including a time limit set by an order or direction, even after the t
                     <div style="margin-top:-20px;margin-left:20px;">
                         <span style="margin-left:9px;">Other <i>(specify)</i>:</span>
                         <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ modReqInfo.appliedRequirementsListComment |truncate-word-after(70)}}</span>
-                        <div v-if="modReqInfo.appliedRequirementsListComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.appliedRequirementsListComment|truncate-word-before(70)}}</div>    
+                        <div v-if="modReqInfo.appliedRequirementsListComment && modReqInfo.appliedRequirementsListComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{modReqInfo.appliedRequirementsListComment|truncate-word-before(70)}}</div>    
                         
                     </div>  
                     </span>

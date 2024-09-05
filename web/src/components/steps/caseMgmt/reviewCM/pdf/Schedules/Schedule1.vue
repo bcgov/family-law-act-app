@@ -71,7 +71,7 @@
                     <div style="margin-top:-20px;margin-left:27px;">
                     <span>Other <i>(specify)</i>:</span>
                     <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.eventTypeComment |truncate-word-after(70)}}</span>
-                    <div v-if="scheduleInfo.eventTypeComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{scheduleInfo.eventTypeComment|truncate-word-before(70)}}</div>    
+                    <div v-if="scheduleInfo.eventTypeComment && scheduleInfo.eventTypeComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{scheduleInfo.eventTypeComment|truncate-word-before(70)}}</div>    
 
                     </div> 
                     </span> 
@@ -92,7 +92,7 @@
                 <span style="margin-left:60px;min-width:90px;text-align:center;">Time</span>  
                 <span style="margin-left:90px;min-width:90px;text-align:center;">Method of attendance</span> 
             </div> 
-                <div v-if="scheduleInfo.attendanceMethod.length >= 20" style="margin-top:1px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{scheduleInfo.attendanceMethod|truncate-word-before(20)}}</div>        
+                <div v-if="scheduleInfo.attendanceMethod && scheduleInfo.attendanceMethod.length >= 20" style="margin-top:1px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{scheduleInfo.attendanceMethod|truncate-word-before(20)}}</div>        
             </div> 
             
             <div style="margin-left:5px;margin-top:5px;display:inline-block;"><b>by another method of attendance as follows:</b></div>  
