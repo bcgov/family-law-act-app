@@ -13,8 +13,7 @@
         <schedule-8 v-bind:result="result" v-if="selectedSchedules.includes('schedule8')" />
         <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
         <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
-        <schedule-101 v-bind:result="result" v-if="selectedSchedules.includes('schedule101')" />
-        <schedule-102 v-bind:result="result" v-if="selectedSchedules.includes('schedule102')" />
+        <schedule-101 v-bind:result="result" v-if="selectedSchedules.includes('schedule101') || selectedSchedules.includes('schedule102')" />
         <schedule-11 v-bind:result="result"  v-if="selectedSchedules.includes('schedule11')" />
         <schedule-12 v-bind:result="result"  v-if="selectedSchedules.includes('schedule12')" />
         <schedule-13 v-bind:result="result"  v-if="selectedSchedules.includes('schedule13')" />
@@ -52,7 +51,6 @@ import Schedule8 from "./Schedules/Schedule8.vue"
 import Schedule9 from "./Schedules/Schedule9.vue"
 import Schedule10 from "./Schedules/Schedule10.vue"
 import Schedule101 from "./Schedules/Schedule10.1.vue"
-import Schedule102 from "./Schedules/Schedule10.2.vue"
 import Schedule11 from "./Schedules/Schedule11.vue"
 import Schedule12 from "./Schedules/Schedule12.vue"
 import Schedule13 from "./Schedules/Schedule13.vue"
@@ -86,8 +84,7 @@ import { getForm6PopulationInfo } from "@/components/utils/PopulateForms/Populat
         Schedule8,
         Schedule9,
         Schedule10, 
-        Schedule101, 
-        Schedule102, 
+        Schedule101,
         Schedule11,
         Schedule12,
         Schedule13,
