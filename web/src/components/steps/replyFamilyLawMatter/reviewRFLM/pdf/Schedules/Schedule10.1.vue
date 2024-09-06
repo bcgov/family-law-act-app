@@ -110,7 +110,6 @@
                             the companion animal(s)</b> as follows:
                         </div>
                     </div>
-                    <!-- Return to this -->
                     <div style="margin-left: 2rem;">
                         <b-table
                             :items="[{},{},{},{}]"
@@ -159,7 +158,6 @@
                             <i style="color: #626262">Provide the facts you want the court to consider and why the court should make the order you are applying for</i>
                         </div>
                     </div>
-                    <!-- Return to this -->
                     <div style="margin-left: 2rem;">
                         <div v-if="replyNewCompInfo.newOrderDetails" style="background-color: #dedede; word-wrap: break-word;" class="answerbox">{{ replyNewCompInfo.newOrderDetails }}</div>
                         <div v-else style="margin-bottom:3rem; min-height:150px; background-color: #dedede"/> 
@@ -167,56 +165,7 @@
                 </div>
                 <div style="width: 20%; margin-top: 120px" />
             </div>
-
-<!-- <1> -->
-            <!-- <section class="resetquestion">
-                <div style="display:inline;">
-                    Select only one of the options below                   
-                </div>
-                <div style="margin:0 0 2rem 1.25rem;">
-                    <check-box  :check="replyNewCompInfo.spouse?'yes':''" text="I am (or was) the other party’s spouse"/>
-                    <check-box  :check="!replyNewCompInfo.spouse?'yes':''" text="I have never been the other party’s spouse"/>
-                    <div style="margin:0 0 0rem 1.75rem;">Please describe your relationship to the other party:</div>                    
-                    <div v-if="!replyNewCompInfo.spouse && replyNewCompInfo.relationshipDetails" 
-                        class="answerbox">{{replyNewCompInfo.relationshipDetails}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                </div>
-            </section> -->
-
-            <!-- <div class="print-block"> -->
-<!-- <2> -->
-                <!-- <section>
-                    <div style="display:inline;">
-                        I do not agree with the order requested by the other party about 
-                        property division in respect of a companion animal because:
-                    </div>
-                    <div v-if="replyNewCompInfo.disagreeReason" 
-                        class="answerbox">{{replyNewCompInfo.disagreeReason}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>                   
-                </section> 
-            </div>
-
-            <div class="print-block"> -->
-<!-- <3> -->
-                <!-- <section>
-                    <div style="display:inline;">
-                        I believe the court should make the following order for property division in respect of a companion animal:
-                    </div>
-                    <div style="font-style: italic;display:block;margin:0 0 0 1rem;">                        
-                        Note: Under section 97 of the Family Law Act, the court may only make 
-                        an order for ownership and possession of a companion animal <b>by one spouse.</b>                                             
-                    </div>                   
-                    
-                    <div style="margin:1rem 3rem 2rem 0.25rem;">
-                        <div v-if="replyNewCompInfo.newOrderDetails" 
-                            class="answerbox">{{replyNewCompInfo.newOrderDetails}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
-                    </div>
-                </section>  -->
-            </div>
-
-        </div>           
-
+        </div>
     </div>
 </template>
 
