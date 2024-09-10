@@ -58,7 +58,7 @@
             </div>
         </div>
         <!-- <1> -->
-        <div style="margin-top: 1rem;"></div>
+        <div style="margin-top: 0.5rem;"></div>
         <div style="background: #626262; color: white; font-size: 11pt;">
             <b>Electronic Filing Statement</b>
         </div>
@@ -118,14 +118,14 @@
 
         </section>
 
-        <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 1rem;">
+        <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 0.5rem;">
             The original paper version of the document being submitted for filing electronically
             appears to bear an original signature of the person identified as the signatory and
             I have no reason to believe that the signature on the document is not the signature
             of the identified signatory.
         </div>
 
-        <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 1rem;">
+        <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 0.5rem;">
             The version of the document that is being submitted for filing electronically appears
             to be a true copy of the original paper version of the document and I have no reason
             to believe that it is not a true copy of the original paper version.
@@ -133,10 +133,10 @@
 
 
         <div
-            style="margin:2rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
-            <UnderlineForm style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
+            style="margin:1rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
+            <grey-box style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
                 hint="Date (dd/mmm/yyyy)" hintTextColor="hintTextColor" text="" hintindent="40px"/> 
-            <UnderlineForm style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
+            <grey-box style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
                 text=""/>
 
         </div>
