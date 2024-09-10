@@ -123,17 +123,17 @@
                             :text="firstOtherParty.dob | beautify-date-mid" />
                        
                         <div>
-
+                            
                         </div>
-                        <div>
+                        <div style="padding-top:5px">
+                            <div v-if="additionalOtherParties.length > 0" style="font-size: 9pt;">
+                                <div>
                             <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
                                 :check="true ? 'yes' : ''" />
                             <div style="margin-top: -18px;text-indent: 20px;">
                                 There is an additional party.
                             </div>
-                        </div>
-                        <div style="padding-top:5px">
-                            <div v-if="additionalOtherParties.length > 0" style="font-size: 9pt;">
+                            </div>
 
                                 <div v-for="(otherParty, inx) in additionalOtherParties" :key="inx"
                                     :style="inx == 0 ? 'display:inline;' : 'text-indent:-5px;margin-top:1rem;'">
@@ -153,6 +153,13 @@
                             </div>
 
                             <div v-else style="font-size: 9pt;">
+                            <div>
+                            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -16px;"
+                                :check="false ? 'yes' : ''" />
+                            <div style="margin-top: -18px;text-indent: 20px;">
+                                There is an additional party.
+                            </div>
+                        </div>
 
                             <div>
                                 <div style="display: inline-block;">
