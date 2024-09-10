@@ -42,9 +42,9 @@
         </div>
 
         <div>
-            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 1rem;" textwidth="22rem"
+            <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="22rem"
                 beforetext="<b>I,</b>" hint="Full name"  hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="true" :text="yourInfo.name | getFullName"
-                hintindent="40px" />
+                hintindent="130px" />
             <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="15rem" beforetext=" ,"
                 hint="Occupation" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" :italicHint="false" :text="yourInfo.occupation" hintindent="40px" />
                 <div style="margin: 1.5rem 0;">          
@@ -80,7 +80,7 @@
                 hint="Street address or location where service took place, city, province" hintFontSize="hintFontSize" hintTextColor="hintTextColor" hintmargintop="4px" hintindent="2px"  :italicHint="false"
                 :text="serviceAddress" />
         </div>
-        <div style="display:block; padding-left:12px;">
+        <div style="display:block; padding-left:10px;">
             <b>with a copy of the attached protection order</b> made under Part 9 of the <i>Family Law Act,</i> marked as Exhibit
             “A”.
         </div>
@@ -94,7 +94,7 @@
 
             <div v-if="exhibitList.length > 0" style="margin: 0 0 0 1rem;">
                 <div v-for="exhibit, inx in exhibitList" :key="inx">
-                    <grey-box style="display:inline-block; font-size: 9pt; margin-top: 1rem;"
+                    <grey-box style="display:inline-block; font-size: 9pt; margin-top: 0.5rem;"
                         textwidth="30rem" :beforetext="'<b>EXHIBIT &ldquo;</b>' + exhibit.exhibitName + '&rdquo; :'"
                         hint="" :italicHint="false" :text="exhibit.fileName" />
                 </div>
@@ -125,7 +125,7 @@
 
             <div style="display:block;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
-                    :check="idMethod == 'other' ? 'yes' : ''" text="Other<i>(specify):</i>" />
+                    :check="idMethod == 'other' ? 'yes' : ''" text="Other<i style='color:#ababab'>(specify):</i>" />
                     <div style="padding-left:8rem; margin-top:-1.5rem">
                         <grey-box v-if="idMethod == 'other'"  style="margin-top:10px; text-indent:0rem;"
                             textwidth="30rem" :text="idMethodComment">
