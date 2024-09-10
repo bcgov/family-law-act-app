@@ -127,36 +127,36 @@
                 <i>Select all options that apply</i>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box class="marginleft" checkbox="" shift="5" shiftmark="0" inline="inline" boxMargin="0" style="display:inline;"
-                        :check="listOfIssues.includes('Parenting Arrangements')?'yes':''" text="parenting arrangements"/>
+                        :check="listOfIssues.includes('Parenting Arrangements')?'yes':''" text="Parenting arrangements"/>
                 </div>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box class="marginleft" checkbox="" shift="5" shiftmark="0" inline="inline" boxMargin="0" style="display:inline;"
-                        :check="listOfIssues.includes('Child support')?'yes':''" text="child support"/>
+                        :check="listOfIssues.includes('Child support')?'yes':''" text="Child support"/>
                 </div>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box class="marginleft" checkbox="" shift="5" shiftmark="0" inline="inline" boxMargin="0" style="display:inline;"
-                        :check="listOfIssues.includes('Contact with a child')?'yes':''" text="contact with a child"/>
+                        :check="listOfIssues.includes('Contact with a child')?'yes':''" text="Contact with a child"/>
                 </div>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box class="marginleft" checkbox="" shift="5" shiftmark="0" inline="inline" boxMargin="0" style="display:inline;"
-                        :check="listOfIssues.includes('Guardianship of a child')?'yes':''" text="guardianship of a child"/>
+                        :check="listOfIssues.includes('Guardianship of a child')?'yes':''" text="Guardianship of a child"/>
                 </div>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box class="marginleft" checkbox="" shift="5" shiftmark="0" inline="inline" boxMargin="0" style="display:inline;"
-                        :check="listOfIssues.includes('Protection order')?'yes':''" text="protection order"/>
+                        :check="listOfIssues.includes('Protection order')?'yes':''" text="Protection order"/>
                 </div>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box class="marginleft" checkbox="" shift="5" shiftmark="0" inline="inline" boxMargin="0" style="display:inline;"
-                        :check="listOfIssues.includes('Priority Parenting Matter')?'yes':''" text="priority parenting matter"/>
+                        :check="listOfIssues.includes('Priority Parenting Matter')?'yes':''" text="Priority parenting matter"/>
                 </div>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box class="marginleft" checkbox="" shift="5" shiftmark="0" inline="inline" boxMargin="0" style="display:inline;"
-                        :check="listOfIssues.includes('Relocation')?'yes':''" text="relocation"/>
+                        :check="listOfIssues.includes('Relocation')?'yes':''" text="Relocation"/>
                 </div>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                     <check-box class="marginleft" checkbox="" shift="5" shiftmark="0" inline="inline" boxMargin="0" style="display:inline;" 
                         :check="listOfIssues.includes('other')?'yes':''" 
-                        text="other <i>(specify)</i>:"/>
+                        text="Other <i>(specify)</i>:"/>
                     <div style="margin-top: 0.5rem;"></div>
                     <div style="margin-left: 28px; background-color: #d6d6d6;" class="answerbox">{{otherIssue ? otherIssue : '&nbsp;'}}</div>
                 </div>
