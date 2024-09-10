@@ -4,6 +4,7 @@ export interface noticeDiscontinuanceDataInfoType {
     Filed?: string;
     ApplicantName?: nameInfoType;    
     otherPartyInfoDis?: noticeDiscontinuanceOtherPartyInfoType[];
+    ExplanationServe?: string;
     discontinuanceDocs?: string[];
 }  
 
