@@ -108,7 +108,7 @@
             </div>
         </section>
 
-        <div style="margin-top: 1rem;"></div>
+        <div style="page-break-after:always;">&nbsp;</div> 
 
         <!-- <Part 3> -->
         <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
@@ -361,6 +361,8 @@
             you require the permission of the court to discontinue it [Rule 191 (2)(b) & (3)(b)].</div>
         </div>
 
+        <div style="page-break-after:always;">&nbsp;</div> 
+
         <!-- <Part 5> -->
         <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
             <b>Part 5 | Consent of the parties–Complete this part only if consent is required based on your responses in Part 4.</b>
@@ -489,7 +491,6 @@ export default class Form50Layout extends Vue {
         this.getNoticeDiscontinuanceInfo();    
         this.getDiscontinuanceInfo();    
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        this.acknowledge = this.result.addressChangeNoticeSurvey?.acknowledgement?.length>0;
     } 
 
     public getNoticeDiscontinuanceInfo(){          
@@ -498,7 +499,8 @@ export default class Form50Layout extends Vue {
 
             let noticeDiscontinuance = {} as noticeDiscontinuanceDataInfoType;
 
-            noticeDiscontinuance = this.result.noticeDiscontinuanceSurvey;            
+            noticeDiscontinuance = this.result.noticeDiscontinuanceSurvey;    
+            this.acknowledge = noticeDiscontinuance.ExplanationServe == 'confirm';        
             this.listOfDiscontinuanceDocs = noticeDiscontinuance.discontinuanceDocs?noticeDiscontinuance.discontinuanceDocs:[];
 
             this.yourInfo = getYourInformationResults(noticeDiscontinuance);
