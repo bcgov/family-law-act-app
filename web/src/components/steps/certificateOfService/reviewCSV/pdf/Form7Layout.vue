@@ -96,9 +96,11 @@
             hint="Street address or location, city, province, or email address or other identifier where the documents were served" 
             textBackgroundColor="#dedede"
             hintMargin="22px"
-            :italicHint="false" :text="serviceDetails.substring(0,55)"/>
-            <div v-if="serviceDetails.length>55" style="width:480px;text-indent:2px;display:block;text-align:left ;margin-top: 0.4rem; margin-left:55px;background-color: #dedede;line-height:25px;">{{serviceDetails.substring(55)}}</div>
-            <div v-else style="margin-bottom:3rem;"></div> 
+            :italicHint="false" :text="serviceAddress.substring(0,55)"/>
+            <div v-if="serviceAddress && serviceAddress.length>55" style="width:480px;text-indent:2px;display:block;text-align:left ;margin-top: 0.4rem; margin-left:55px;background-color: #dedede;line-height:25px;">{{serviceAddress.substring(55)}}</div>
+            <div v-if="serviceContact" style="padding-left:4px;width:480px;text-indent:2px;display:block;text-align:left ;margin-top: 0.4rem; margin-left:55px;background-color: #dedede;line-height:25px;">{{serviceContact}}</div>
+            <div v-if="serviceEmail" style="padding-left:4px;width:480px;text-indent:2px;display:block;text-align:left ;margin-top: 0.4rem; margin-left:55px;background-color: #dedede;line-height:25px;">{{serviceEmail}}</div>
+            <div v-if="otherServiceLocation" style="padding-left:4px;width:480px;text-indent:2px;display:block;text-align:left ;margin-top: 0.4rem; margin-left:55px;background-color: #dedede;line-height:25px;">{{otherServiceLocation}}</div>
     </div>
     <div style="width: 18%;float: right; margin-top: 20px;">
                 <NoteBox style="color:#414142">
@@ -276,7 +278,7 @@
                 <div v-if="documentList.includes('other')" style="margin-top:3px;background-color: #dedede;padding:5px;margin-left:25px;min-height:50px;margin-left:60px;">
                     {{documentListComment}}
                     </div>                   
-                    <div v-else style="background-color: #dedede;padding:5px;margin-left:25px;min-height:50px;margin-bottom:0rem;margin-left:25px;"></div>   
+                    <div v-else style="background-color: #dedede;padding:5px;margin-left:25px;min-height:50px;margin-bottom:0rem;margin-left:60px;"></div>   
             </div> 
             
         </div>
@@ -440,7 +442,7 @@
                 style="display:block; margin-left: 1rem;" 
                 :check="ordinaryServiceMethod == 'other'?'yes':''" 
                 text="Alternative service method ordered by the court as follows:"/>           
-                <div v-if="ordinaryServiceMethodComment" style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:45px;min-height:70px;">{{ordinaryServiceMethodComment}}</div>
+                <div v-if="ordinaryServiceMethodComment" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:70px;">{{ordinaryServiceMethodComment}}</div>
                <div v-else style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:45px;margin-bottom:2.5rem;min-height:70px;"></div> 
                 
             </div>  
@@ -518,6 +520,12 @@ export default class Form7Layout extends Vue {
     documentList = [];
     documentListComment = '';
     serviceDetails = '';    
+    serviceAddress='';
+    serviceEmail = '';
+    serviceFax  = '';
+    servicePhone = '';
+    serviceContact='';
+    otherServiceLocation='';
     personalServiceMethod = '';
     personalServiceMethodComment = '';
     ordinaryServiceMethod = '';
@@ -558,11 +566,12 @@ export default class Form7Layout extends Vue {
         this.servedPersonName = '';
         this.serviceDate = '';
         this.serviceTime = '';      
-        let serviceAddress = '';
-        let otherServiceLocation = '';
-        let serviceEmail = '';
-        let serviceFax = '';
-        let servicePhone = '';
+        this.serviceAddress = '';
+        this.otherServiceLocation = '';
+        this.serviceEmail = '';
+        this.serviceFax = '';
+        this.servicePhone = '';
+        this.serviceContact = '';
         this.documentList = [];
         this.documentListComment = '';
         this.serviceDetails = '';    
@@ -591,15 +600,17 @@ export default class Form7Layout extends Vue {
                                     + addressInfo.state + ', ' 
                                     + addressInfo.country + ', ' 
                                     + addressInfo.postcode;
-                serviceAddress = addressText;
+                this.serviceAddress = addressText;
             } 
-            otherServiceLocation = serviceData.otherServiceLocation?.length>0? 'other: '+ serviceData.otherServiceLocation:'';
-            serviceEmail = serviceData.serviceContact?.email?.length>0? 'email: '+ serviceData.serviceContact?.email:'';
-            serviceFax = serviceData.serviceContact?.fax?.length>0? 'fax: '+ serviceData.serviceContact?.fax:'';
-            servicePhone = serviceData.serviceContact?.phone?.length>0? 'phone: '+ serviceData.serviceContact?.phone:'';
+            this.otherServiceLocation = serviceData.otherServiceLocation?.length>0? 'other: '+ serviceData.otherServiceLocation:'';
+            this.serviceEmail = serviceData.serviceContact?.email?.length>0? 'email: '+ serviceData.serviceContact?.email:'';
+            this.serviceFax = serviceData.serviceContact?.fax?.length>0? 'fax: '+ serviceData.serviceContact?.fax:'';
+            this.servicePhone = serviceData.serviceContact?.phone?.length>0? 'phone: '+ serviceData.serviceContact?.phone:'';
 
-            this.serviceDetails = serviceAddress + ' ' + serviceEmail + ' ' + serviceFax + ' ' + servicePhone + ' ' + otherServiceLocation;
+            this.serviceDetails = this.serviceAddress + ' ' + this.serviceEmail + ' ' + this.serviceFax + ' ' + this.servicePhone + ' ' + this.otherServiceLocation;
+            this.serviceContact = this.serviceFax + ' ' + this.servicePhone;
             
+
             this.documentList = serviceData.documentListCsv?serviceData.documentListCsv:[];
             this.documentListComment = (this.documentList.includes('other')&&serviceData.documentListCsvComment)?serviceData.documentListCsvComment:''; 
            
