@@ -57,7 +57,7 @@
                     textBackgroundColor="#dedede"
                     beforetext="" 
                     style="padding-left: 18px;"
-                    :text="applicantLawyer?'':applicantFullName"/>
+                    :text="applicantLawyer?otherOtherParties:applicantFullName"/>
                 <GreyBoxForm 
                     style="margin: 0.2rem 0 0.5rem 0rem; padding-left: 18px;" 
                     textwidth="32rem"
@@ -283,6 +283,7 @@ export default class Form43Layout extends Vue {
     contactInfoChanged = false; 
     contactInfo = {} as contactInformationDataInfoType;
     otherParties = '';   
+    otherOtherParties = '';
    
     headerTableData = [];
 
@@ -336,6 +337,12 @@ export default class Form43Layout extends Vue {
                     otherParties.push(Vue.filter('getFullName')(otherParty.name))
                 }
                 this.otherParties = otherParties.join(', ');
+
+                const otherOtherParties = [];
+                for (const otherOtherParty of noticeRemoveLawyerParty.OtherOtherPartyInfoNlpr){
+                    otherOtherParties.push(Vue.filter('getFullName')(otherOtherParty.name))
+                }
+                this.otherOtherParties = otherOtherParties.join(', ');
 
             } else {
                 this.lawyerName = noticeRemoveLawyerParty?.LawyerName?noticeRemoveLawyerParty.LawyerName:'';
