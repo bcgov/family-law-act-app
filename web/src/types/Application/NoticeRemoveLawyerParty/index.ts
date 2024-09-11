@@ -4,6 +4,7 @@ export interface noticeRemoveLawyerPartyDataInfoType {
     ApplicantName?: nameInfoType;
     ApplicantType?: string;
     OtherPartyInfoNlpr?: noticeRemoveLawyerPartyOtherPartyInfoType[];   
+    OtherOtherPartyInfoNlpr?: noticeRemoveLawyerPartyOtherPartyInfoType[];
     LawyerName?: string; 
     EffectiveDate?: string;
     AddressChanges?: string[];    
