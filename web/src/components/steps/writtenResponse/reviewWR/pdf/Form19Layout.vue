@@ -265,7 +265,7 @@
                 <div style="font-size: 11pt;"><b>8.</b> I <b>do not agree with the order requested</b> by the other party because:</div>
             </div>
             <!-- <div  style="margin-left:57px;"> -->
-            <div v-if="wrInfo.partialdisagree && wrInfo.disAgreeDetailsOtherParty" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.disAgreeDetailsOtherParty}}</div>
+            <div v-if="wrInfo.disAgreeDetailsOtherParty && wrInfo.disAgreeDetailsOtherParty" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">{{wrInfo.disAgreeDetailsOtherParty}}</div>
             <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:200px;"></div>                
 
         </div>  
