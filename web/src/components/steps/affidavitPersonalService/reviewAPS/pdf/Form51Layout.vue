@@ -58,7 +58,7 @@
             </div>
         </div>
         <!-- <1> -->
-        <div style="margin-top: 1rem;"></div>
+        <div style="margin-top: 0.5rem;"></div>
         <div style="background: #626262; color: white; font-size: 11pt;">
             <b>Electronic Filing Statement</b>
         </div>
@@ -77,7 +77,7 @@
                     :text="isLawyer ? parties : ''" />
             </div>
 
-            <div class="marginleft2p5vue" style="margin:3rem 0 0 1.5rem;">
+            <div class="marginleft2p5vue" style="margin:1rem 0 0 1.5rem;">
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
                     :check="!isLawyer ? 'yes' : ''" text="I, " />
                 <grey-box-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="15rem" beforetext=""
@@ -102,18 +102,13 @@
             <div style="text-indent:5px;display:inline; font-size: 9pt;">
                 I advise as follows:
             </div>
-            <div style="margin:0.25rem 0 0 1.5rem;">
-
-                <grey-box-form style="text-indent:2px;margin-left:0rem;display:inline-block;" textwidth="20rem" beforetext="The" hintTextColor="hintTextColor"
-                    hint="Name and identifying description of document" :text="documents" />
-                <div style="display:block;margin:0.5rem 0.25rem;">
-                    is being submitted for filing electronically <i style="color:#ababab">(add if applicable)</i>
-                    on behalf of
-                </div>
-
-                <grey-box-form style="text-indent:2px;margin: 0.5rem 0 0 -1rem;display:inline-block; font-size: 9pt;"
-                    textwidth="20rem" beforetext="" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
-                    :text="isLawyer ? parties : ''" />
+            <div style="margin:0.5rem 0 0 1.5rem;">
+            <grey-box-form style="text-indent:2px;margin-left:0rem;display:inline-block;" textwidth="21rem" beforetext="The" aftertext="is being submitted for filing electronically" hintTextColor="hintTextColor"
+                hint="Name and identifying description of document" :text="documents" />
+            <grey-box-form style="text-indent:2px;margin: 1rem 0 0 -1rem;display:inline-block; font-size: 9pt;"
+                textwidth="25rem"  beforetext=" <i style='color:#ababab'>(add if applicable)</i>
+                on behalf of" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
+                :text="isLawyer ? parties : ''" />
             </div>
 
         </section>
@@ -133,10 +128,10 @@
 
 
         <div
-            style="margin:2rem 0 0 1rem; width:96.37%; font-size: 16pt; padding:0.5rem;font-family:BCSans">
-            <UnderlineForm style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
+           style="margin:0.75rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
+            <GreyBoxForm style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
                 hint="Date (dd/mmm/yyyy)" hintTextColor="hintTextColor" text="" hintindent="40px"/> 
-            <UnderlineForm style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
+            <GreyBoxForm style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
                 text=""/>
 
         </div>
