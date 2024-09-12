@@ -54,11 +54,24 @@
                     <div style="display: inline-block;">
                         <b>1.</b><span style="margin-left:12px;">The <b>parties to this case</b> are:</span>
                     </div>
-                    <div style="margin-left:30px;background-color: #dedede;padding:5px;min-height:10px;display:block">         
+                    <!-- <div style="margin-left:30px;background-color: #dedede;padding:5px;min-height:10px;display:block">         
                             <span style="display:block;margin-left:1rem" >{{otherParties}}</span>
-                    </div>
+                    </div> -->
+                    <br/>
+                    <div v-for="otherparty,inx in OtherPartyInfoNlp" :key="inx" style="display:inline;">
+                    <underline-form 
+                        style="text-indent:4px;display:inline-block; font-size: 9pt;text-align:left;"
+                        textwidth="520px" 
+                        :beforetext="inx>0? '' : '' " 
+                        hint="" 
+                        :italicHint="false" 
+                        textBackgroundColor="#dedede"
+                        hintMargin="80px"
+                        :text="otherparty"/> 
+                        <div style="background-color: #fff;padding:3px;font-size: 11pt;margin-left:25px;"></div>
+                    </div>          
                     <div style="margin-left:30px;padding:5px;min-height:2px;display:block;text-align:center;">         
-                            <span style="display:block;margin-left:1rem;font-size:6pt;margin-top:-8px;" >Full name of each party</span>
+                            <span style="display:block;margin-left:1rem;font-size:7pt;margin-top:-18px;" >Full name of each party</span>
                     </div>
                     
 
