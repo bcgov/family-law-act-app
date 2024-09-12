@@ -95,7 +95,7 @@
                         boxMargin="0" 
                         shiftmark="0"
                         style="display:inline; margin-left: 10px;" 
-                        :check="''" 
+                        :check="lastStepInfo.resolveFlmDate || lastStepInfo.flmDate || lastStepInfo.otherDate ? 'yes' : ''" 
                         text="More than one year has passed since the parties have taken any step <br> in my case and <b>I want to proceed with the family law matter(s) as set out in the following document</b> filed with the court:" />           
                 </div>
 
@@ -128,7 +128,7 @@
                         boxMargin="0" 
                         shiftmark="0"
                         style="display: inline; margin:0 0 0 1rem;" 
-                        :check="!lastStepInfo.resolveFlmDate && !lastStepInfo.flmDate ?'yes':''" 
+                        :check="lastStepInfo.otherDate ?'yes':''" 
                         text="Other" /> 
 
                         <grey-box-form 
