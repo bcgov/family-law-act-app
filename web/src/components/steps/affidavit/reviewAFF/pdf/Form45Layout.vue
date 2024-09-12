@@ -6,7 +6,7 @@
         <FormHeader :headerTableData="[
             {value: result.applicationLocation}, 
             {value: existingFileNumber}, 
-            {value: ''}, 
+            {value: otherPartyNames}, 
             {value: ''}]"
             formName="Affidavit – General"
             formNumber="FORM 45"
@@ -258,11 +258,17 @@ export default class Form45Layout extends Vue {
 
     hintFontSize = "8pt"
     hintTextColor = "#333"
+
+    otherPartyNames = '';
    
     mounted(){
         this.dataReady = false;
         this.extractInfo();       
-        this.dataReady = true;        
+        this.dataReady = true;  
+
+        console.log(this.result);
+        
+        this.otherPartyNames = `${this.result.otherFormsLastNamesOfPartiesSurvey?.party1 ? this.result.otherFormsLastNamesOfPartiesSurvey?.party1 : ''}${this.result.otherFormsLastNamesOfPartiesSurvey?.party2 ? '/' + this.result.otherFormsLastNamesOfPartiesSurvey?.party2: ''}`;
     }
    
     public extractInfo(){        
