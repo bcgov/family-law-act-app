@@ -543,12 +543,13 @@ export default class Form19Layout extends Vue {
             wrInformation.disagree = agreeDisagreeData.agreeDisagree.includes('disagree');
             wrInformation.partialagreed = agreeDisagreeData.agreeDisagree.includes('partialagree');
             wrInformation.partialdisagree = agreeDisagreeData.agreeDisagree.includes('partialdisagree');
-            wrInformation.agreeAdditionalDetailsYesNo = agreeDisagreeData.agreeAdditionalDetailsYesNo.includes('y');
+            wrInformation.agreeAdditionalDetailsYesNo = agreeDisagreeData.agreeAdditionalDetailsYesNo && agreeDisagreeData.agreeAdditionalDetailsYesNo.includes('y');
+            
             if (wrInformation.agreed){
                 wrInformation.agreeDetails = agreeDisagreeData.agreeDetails;
                 if (wrInformation.agreeAdditionalDetailsYesNo){
-                wrInformation.agreeAdditionalDetails = agreeDisagreeData.agreeAdditionalDetails;
-            }
+                    wrInformation.agreeAdditionalDetails = agreeDisagreeData.agreeAdditionalDetails;
+                }
             }
             if (wrInformation.disagree){
                 wrInformation.disagreeDetails = agreeDisagreeData.disAgreeDetails;
