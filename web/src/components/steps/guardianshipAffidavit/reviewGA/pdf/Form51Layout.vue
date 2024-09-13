@@ -95,7 +95,6 @@ export default class Form51Layout extends Vue {
                 otherPartiesList.push(Vue.filter('getFullName')(otherParty.name))
             }
             this.otherParties = otherPartiesList.join(', ')
-            console.log(this.otherParties);
            
         }            
     }
