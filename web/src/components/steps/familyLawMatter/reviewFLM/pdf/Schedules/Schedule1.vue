@@ -72,7 +72,7 @@
                         <br>
                         <i>List the details of the order you are asking for. You may leave this question blank.</i>
                         
-                        <div class="answerbox" style="height: 100px; background-color:#dedede;">
+                        <div class="answerbox" style="min-height: 100px; background-color:#dedede;">
                             {{parentArrInfo.parentResp.expl}}
                         </div>
                     </div>
