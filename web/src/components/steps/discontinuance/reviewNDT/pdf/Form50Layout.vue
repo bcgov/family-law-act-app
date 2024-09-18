@@ -231,14 +231,14 @@
                     shift="10"
                     shiftmark="-10"
                     style="display:inline;" 
-                    :check="disPartialApp.includes('form6') || disWholeApp.includes('form8')?'yes':''" 
+                    :check="disPartialApp.includes('form6') || disPartialApp.includes('form8')?'yes':''" 
                     text="Reply to an Application About a Family Law Matter on "/>
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 5px;" 
                     textwidth="17rem" 
                     beforetext="" 
                     hint="Date (dd/mmm/yyyy)" 
-                    :italicHint="false" :text="(disPartialApp.includes('form6') || disWholeApp.includes('form8'))?reply.date:''"/>
+                    :italicHint="false" :text="(disPartialApp.includes('form6') || disPartialApp.includes('form8'))?reply.date:''"/>
             </div>
             <div style="margin-top: 0.5rem;"></div>
             <div style="display: inline-block; margin-left: 30px;">
@@ -322,7 +322,7 @@
                     style="display:inline;margin-left:0.35rem"
                     shift="10"
                     shiftmark="-10"
-                    :check="courtAppearanceScheduled == 'n'?'yes':''" 
+                    :check="discontinueOnlyReply?'yes':''" 
                     text="I am discontinuing only a reply"/>
             </div>
         </section>
@@ -480,6 +480,7 @@ export default class Form50Layout extends Vue {
     courtDate = '';
     trialPrepHappened = '';
     trialDateWithin30Days = '';
+    discontinueOnlyReply = false;
    
     mounted(){
         this.dataReady = false;
@@ -529,6 +530,7 @@ export default class Form50Layout extends Vue {
         this.courtDate = '';
         this.trialPrepHappened = '';
         this.trialDateWithin30Days = '';
+        this.discontinueOnlyReply = false;
 
         if(this.result?.discontinuanceInformationSurvey && this.result?.moreInformationSurvey){
 
@@ -557,6 +559,7 @@ export default class Form50Layout extends Vue {
 
             if (this.listOfDiscontinuanceDocs.includes('form6')){
 
+                this.discontinueOnlyReply = true;
                 this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
                 
                 if (moreInfo.ReplyType == 'form6'){
@@ -589,6 +592,7 @@ export default class Form50Layout extends Vue {
 
             if (this.listOfDiscontinuanceDocs.includes('form8')){
 
+                this.discontinueOnlyReply = true;
                 this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
                 
                 if (moreInfo.ReplyType == 'form8'){
