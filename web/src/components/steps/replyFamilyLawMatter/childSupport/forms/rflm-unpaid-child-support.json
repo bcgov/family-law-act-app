@@ -9,7 +9,7 @@
           "type": "yesno",
           "name": "agreeChildSupportAmount",
           "title": "Do you agree with the amount of unpaid child support the other party described in their application?",
-          "description": "Look at <b>Schedule 4 – Child Support Order or Written Agreement – Existing</b> of the other party’s Application About a Family Law Matter. In <b>Question 6</b>, the other party is asked to describe any amount of unpaid child support. Do you agree the amount they set out is the amount of unpaid child support that was owing on the date referenced? Note: It may be ‘0’. If you agree with the amount but not what the other party is asking to do about the arrears, select ‘YES’. You will need to explain why you don’t agree with the order they are asking for in the next section.",
+          "description": "Look at <b>Schedule 4 – Child Support Order or Written Agreement – Existing</b> of the other party’s Application About a Family Law Matter. In <b>Part 5</b>, the other party is asked to describe any amount of unpaid child support. Do you agree the amount they set out is the amount of unpaid child support that was owing on the date referenced? Note: It may be ‘0’. If you agree with the amount but not what the other party is asking to do about the arrears, select ‘YES’. You will need to explain why you don’t agree with the order they are asking for in the next section.",
           "isRequired": true
         },  
         {
@@ -22,7 +22,7 @@
               "type": "text",
               "name": "calculationDate",
               "title": "What date did the other party calculate unpaid child support to?",
-              "description": "Look at <b>Schedule 4 – Child Support Order or Written Agreement – Existing</b> of the other party’s Application About a Family Law Matter. Copy the date from <b>Question 6</b>.",
+              "description": "Look at <b>Schedule 4 – Child Support Order or Written Agreement – Existing</b> of the other party’s Application About a Family Law Matter. Copy the date from <b>Question 9</b>.",
               "isRequired": true,
               "inputType": "date",
               "visible": false,
