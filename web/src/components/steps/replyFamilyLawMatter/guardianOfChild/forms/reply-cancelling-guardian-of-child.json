@@ -33,7 +33,7 @@
               "type": "radiogroup",
               "name": "agreeCourtOrder",
               "title": "Do you agree the court should make the order?", 
-              "description": "Look at <b>Question 1</b> on <b>Schedule 8 – Cancelling Guardianship of a Child</b> of the other party’s Application About a Family Law Matter. The application may be about more than one guardian or more than one child.<br><br>Select the correct statement below:",           
+              "description": "Look at <b>Question 1</b> on <b>Schedule 7 – Cancelling Guardianship of a Child</b> of the other party’s Application About a Family Law Matter. The application may be about more than one guardian or more than one child.<br><br>Select the correct statement below:",           
               "isRequired": true,                         
               "choices": [
                 {"value": "agreeAll", "text": "I <b>agree</b> the court should make the order as requested by the other party"},

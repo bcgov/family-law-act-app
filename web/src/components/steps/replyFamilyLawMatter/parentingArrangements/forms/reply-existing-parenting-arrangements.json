@@ -19,7 +19,7 @@
               "type": "checkbox",
               "name": "listOfOpApplications",
               "title": "Has the other party applied to change or replace any of the following parenting arrangements?",
-              "description": "Refer to Schedule 2 of the other party’s application. See if Questions 5, 6, 7 or 8 on the Schedule have been completed. Select each option below that applies.",
+              "description": "Refer to Schedule 2, of the other party’s application. Select each option below that applies.",
               "isRequired": true,
               "choices": [
                 {

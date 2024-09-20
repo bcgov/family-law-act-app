@@ -2,12 +2,16 @@ import { nameInfoType, questionInfoType } from "../CommonInformation";
 
 export interface rflmQuestionnaireDataInfoType {    
     selectedParentingArrangementsForm?: string[];  
+    selectedParentingArrangementsFormOrder?: string[];  
     selectedChildSupportForm?: string[];
+    selectedChildSupportFormOrder?: string[];
     selectedContactWithChildForm?: string[];
+    selectedContactWithChildFormOrder?: string[];
     selectedGuardianshipForm?: string[];
     selectedSpousalSupportForm?: string[];
     selectedSpousalSupportFormOrder?: string[];
     selectedCompanionAnimalForm?: string[];
+    selectedCompanionAnimalFormOrder?: string[];
 }
 
 export interface rflmQuestionnaireSurveyInfoType {

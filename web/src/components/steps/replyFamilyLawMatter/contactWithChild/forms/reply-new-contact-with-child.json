@@ -20,7 +20,7 @@
               "type": "yesno",
               "name": "agreeCourtOrder",
               "title": "Do you agree the court should make the order?",
-              "description": "Look at the order the other party is applying for. Their order may be set out in their response to <b>Questions 2</b> and <b>3</b> on <b>Schedule 5 – Contact with a Child – New</b>. Should the court make the order?<br><br>If you agree to only part of the order, for example, you agree they can have contact with the child but not as they requested, select NO. This service will help you to explain why the order should be different.",
+              "description": "Look at the order the other party is applying for. Their order may be set out in their response to <b>Questions 3</b> and <b>4 – Contact with a Child</b>. Should the court make the order?<br><br>If you agree to only part of the order, for example, you agree they can have contact with the child but not as they requested, select NO. This service will help you to explain why the order should be different.",
               "isRequired": true
             }
           ]
