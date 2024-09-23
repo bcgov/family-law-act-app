@@ -1,55 +1,105 @@
 <template>
-    <div v-if="dataReady">  
+    <div v-if="dataReady">
         
-<!-- <Page 8> --> 
-<!-- <Header> -->
         <div>
             <div class="new-page" />
-            <div style="text-align:center;"><b>SCHEDULE 7 – REPLY TO AN APPLICATION ABOUT APPOINTING A GUARDIAN OF A CHILD OR CHILDREN</b></div>
-            <div style="text-align:center;"><b>This is Schedule 7 to the Reply to an Application About a Family Law Matter</b></div>
+            <!-- <Header> -->
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px; text-align: center;">
+                    <ScheduleHeader 
+                        scheduleNumber="Schedule 4" 
+                        scheduleTitle="Guardianship of a child" 
+                        scheduleDescription="Disagree with order requested by other party"/>
+                </div>
+                <div style="width: 20%;"/>
+            </div>
+            <div style="margin-bottom: 0.5rem;"/>
 
-            <div style="margin:1rem 0; text-align:justify">
-                <i>
-                    This schedule must be completed only if you are disagreeing with an application by the other party to be
-                    appointed as a guardian of a child or children. The order they applied for about guardianship of a child can be
-                    found in Schedule 7 of their Application About a Family Law Matter.                    
-                </i>
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 80%; padding-right: 4px;">
+                        <NoteBox>
+                            <p style="margin-bottom: 0rem; font-size: 10pt;">
+                                Complete this schedule only if you disagree with all or part of the order about guardianship of a 
+                                child applied for by the other party on Schedule 7 of their Application About a Family Law Matter.
+                            </p>
+                        </NoteBox>
+                </div>
+                <div style="width: 20%;">
+                    <NoteBox textColor="#626262">
+                        <b-icon-info-circle-fill />
+                        <p>
+                            A guardian is responsible for a 
+                            child. 
+                            Only guardians have parental 
+                            responsibilities and parenting 
+                            time with a child [s. 40 <i>Family Law Act</i>]. 
+                        </p>
+                    </NoteBox>
+                </div>
             </div>
 
-<!-- <1> -->
-            <section class="resetquestion">
-                <div style="display:inline; margin:0 0 3rem 0.35rem;">
-                    I do not believe it is in the best interests of the child(ren) for the other party to become a guardian of the
-                    child(ren) because:
-                </div> 
-                <i>Select all options that apply and explain why</i>
-                <check-box 
-                    style="margin-left: 1rem;" 
-                    :check="guardInfo.opNotGuardian?'yes':''" 
-                    text="the other party is not able to be a guardian because:"/>
-                <div v-if="guardInfo.opNotGuardian && guardInfo.opNotGuardianDesc" 
-                    class="answerbox">{{guardInfo.opNotGuardianDesc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-
-                <check-box 
-                    style="margin-left: 1rem;" 
-                    :check="guardInfo.opNotSuitable?'yes':''" 
-                    text="the other party is not suitable to be a guardian because:"/>
-                <div v-if="guardInfo.opNotSuitable && guardInfo.opNotSuitableDesc" 
-                    class="answerbox">{{guardInfo.opNotSuitableDesc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-
-                <check-box  
-                    style="margin-left: 1rem;"
-                    :check="guardInfo.other?'yes':''" 
-                    text="other reason(s) <i>(specify)</i>:"/>
-                <div v-if="guardInfo.other && guardInfo.otherDesc" 
-                    class="answerbox">{{guardInfo.otherDesc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-                
-            </section> 
-        </div> 
-
+            <!-- <1> -->
+            <div style="display: flex; flex-direction: row; margin-top: -90px">
+                <div style="width: 80% !important; padding-right: 4px;">
+                    <FormPart :part="1" title="Reason you disagree – Best interests of the child"/>
+                    <div style="margin-left: 1rem; text-indent: -10px; padding-left: 10px;">
+                        <b>1. </b> 
+                        <div style="text-indent:10px;display:inline;">
+                            <b>I do not agree with the order requested</b> by the other party about guardianship of a
+                            child. I believe the order they have requested is <b>not in the best interests of the
+                            child(ren)</b> because:
+                            </br>
+                            <i style="color: #626262">List your reasons</i>
+                            </div>
+                        <div v-if="guardInfo.opNotGuardianDesc || guardInfo.opNotSuitable || guardInfo.other" class="answerbox" style="width:98%; background-color: #dedede; word-wrap: break-word;">
+                            <p>
+                                {{ 
+                                    guardInfo.opNotGuardianDesc ? `The other party is not able to be a guardian because ${guardInfo.opNotGuardianDesc}` : ''
+                                }}
+                            </p>
+                            <p>
+                                {{
+                                    guardInfo.opNotSuitable ? `The other party is not suitable to be a guardian because ${guardInfo.opNotSuitableDesc}` : ''
+                                }}
+                            </p>
+                            <p>
+                                {{ 
+                                    guardInfo.other ? `Other reasons are ${guardInfo.otherDesc}` : ''
+                                }}
+                            </p>
+                        </div>
+                        <div v-else style="margin-bottom:3rem; min-height:550px; background-color: #dedede"/>
+                    </div>
+                </div>
+                <div style="width: 20%; margin-top: 120px">
+                    <NoteBox textColor="#626262">
+                        <b-icon-info-circle-fill/>
+                        <p>
+                            To determine what is in the best interests of a child, all of the child’s needs and circumstances 
+                            must be considered including the factors set out in s. 37 of the <i>Family Law Act</i>.
+                            <br/>
+                            The parties and the court must consider the best interests of a child when making a decision about parenting arrangements.
+                            <br/><br/>
+                            For more information, see the guidebook.
+                        </p>
+                    </NoteBox>
+                    <div style="margin-bottom: 0.5rem;"/>
+                    <NoteBox textColor="#626262">
+                        <b-icon-info-circle-fill/>
+                        <p>
+                            If a child is 12 or older, the 
+                            court must not appoint a 
+                            person other than a parent as 
+                            the child’s guardian without 
+                            the child’s written approval, 
+                            unless satisfied it is in the 
+                            child’s best interests [s. 51 
+                            <i>Family Law Act</i>]. 
+                        </p>
+                    </NoteBox>
+                </div>        
+            </div>
+        </div>
     </div>
 </template>
 
@@ -57,14 +107,19 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import ScheduleHeader from '@/components/utils/PopulateForms/components/ScheduleHeader.vue';
+import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
+import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-
 import { schedule7DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
 import { disagreeReasonListInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
 
 @Component({
     components:{
         UnderlineForm,
+        ScheduleHeader,
+        NoteBox,
+        FormPart,
         CheckBox
     }
 })
@@ -72,21 +127,19 @@ import { disagreeReasonListInfoType } from '@/types/Application/ReplyFamilyLawMa
 export default class Schedule7 extends Vue {
 
     @Prop({required:true})
-    result!: any;    
-    
-   
-    dataReady = false; 
-    guardInfo = {} as schedule7DataInfoType;
+    result!: any;
 
+    dataReady = false;
+    guardInfo = {} as schedule7DataInfoType;
+   
     mounted(){
-        this.dataReady = false;       
-        this.guardInfo = this.getGuardianshipOfChildInfo();       
-        this.dataReady = true;
-    }    
+        this.dataReady = false;
+        this.guardInfo = this.getGuardianshipOfChildInfo();  
+        this.dataReady = true;       
+    }
 
     public getGuardianshipOfChildInfo(){
         let guardianshipInfo = {} as schedule7DataInfoType;
-
         guardianshipInfo = {
             opNotGuardian: false,
             opNotGuardianDesc: '',
@@ -95,7 +148,6 @@ export default class Schedule7 extends Vue {
             other: false,
             otherDesc: ''
         }
-
         if (this.result.disagreeAppointingGuardianOfChildSurvey?.disagreeReasonList){
             const disagreeReasons: disagreeReasonListInfoType = this.result.disagreeAppointingGuardianOfChildSurvey.disagreeReasonList;           
             guardianshipInfo = {
@@ -107,14 +159,11 @@ export default class Schedule7 extends Vue {
                 otherDesc: (disagreeReasons.checked.includes('other') && disagreeReasons.otherComment)?disagreeReasons.otherComment:''
             }
         }
-        
         return guardianshipInfo;
-    }  
-
+    }
 }
 </script>
 
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
 </style> 
-
