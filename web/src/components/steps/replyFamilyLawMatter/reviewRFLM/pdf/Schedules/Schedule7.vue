@@ -51,7 +51,23 @@
                             </br>
                             <i style="color: #626262">List your reasons</i>
                             </div>
-                        <div v-if="exChSupInfo.disagreeReason" class="answerbox" style="width:98%; background-color: #dedede; word-wrap: break-word;">{{exChSupInfo.disagreeReason}}</div>
+                        <div v-if="guardInfo.opNotGuardianDesc || guardInfo.opNotSuitable || guardInfo.other" class="answerbox" style="width:98%; background-color: #dedede; word-wrap: break-word;">
+                            <p>
+                                {{ 
+                                    guardInfo.opNotGuardianDesc ? `The other party is not able to be a guardian because ${guardInfo.opNotGuardianDesc}` : ''
+                                }}
+                            </p>
+                            <p>
+                                {{
+                                    guardInfo.opNotSuitable ? `The other party is not suitable to be a guardian because ${guardInfo.opNotSuitableDesc}` : ''
+                                }}
+                            </p>
+                            <p>
+                                {{ 
+                                    guardInfo.other ? `Other reasons are ${guardInfo.otherDesc}` : ''
+                                }}
+                            </p>
+                        </div>
                         <div v-else style="margin-bottom:3rem; min-height:550px; background-color: #dedede"/>
                     </div>
                 </div>
@@ -95,8 +111,8 @@ import ScheduleHeader from '@/components/utils/PopulateForms/components/Schedule
 import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 import FormPart from '@/components/utils/PopulateForms/components/FormPart.vue';
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { schedule4DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
-import { disagreeExistingChildSupportDataInfoType } from "@/types/Application/ReplyFamilyLawMatter/ChildSupport"
+import { schedule7DataInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { disagreeReasonListInfoType } from '@/types/Application/ReplyFamilyLawMatter/GuardianShip';
 
 @Component({
     components:{
@@ -113,58 +129,38 @@ export default class Schedule7 extends Vue {
     @Prop({required:true})
     result!: any;
 
-    dataReady = false;   
-    exChSupInfo = {} as schedule4DataInfoType;
+    dataReady = false;
+    guardInfo = {} as schedule7DataInfoType;
    
     mounted(){
-        this.dataReady = false;      
-        this.extractInfo();       
+        this.dataReady = false;
+        this.guardInfo = this.getGuardianshipOfChildInfo();  
         this.dataReady = true;       
     }
 
-    public extractInfo(){         
-        this.exChSupInfo = this.getExistingChildSupportInfo();
-    }
-
-    public getExistingChildSupportInfo(){
-
-        let existingChildSupportInfo = {} as schedule4DataInfoType;       
-
-        if (this.result.replyExistingChildSupportSurvey && this.result.rflmUnpaidChildSupportSurvey 
-                && this.result.rflmCalculatingChildSupportSurvey && this.result.disagreeExistingChildSupportSurvey){
-                    
-            const disagreeExistingChildSupportInfo: disagreeExistingChildSupportDataInfoType = this.result.disagreeExistingChildSupportSurvey;
-
-            existingChildSupportInfo.disagreeReason = disagreeExistingChildSupportInfo.disagreeReason;
-
-        } else {
-            const calculationsInfo = {
-                attaching: false,
-                reason: ''
-            }
-            const childSupportUnpaid = {
-                agreeAmount: false,
-                crntDate: '',
-                unpaidAmnt: ''
-            }
-            existingChildSupportInfo = {
-            
-                agreeCircumstanceChanges: false,
-                disAgreeCircumstanceChanges: false,
-                agreeSetAside: false,
-                section150: false,
-                disagreeReason: '',
-                continue: false,  
-                change: false,
-                changeExpl: '',     
-                calc: calculationsInfo,
-                unpaidDetails: childSupportUnpaid
+    public getGuardianshipOfChildInfo(){
+        let guardianshipInfo = {} as schedule7DataInfoType;
+        guardianshipInfo = {
+            opNotGuardian: false,
+            opNotGuardianDesc: '',
+            opNotSuitable: false,
+            opNotSuitableDesc: '',
+            other: false,
+            otherDesc: ''
+        }
+        if (this.result.disagreeAppointingGuardianOfChildSurvey?.disagreeReasonList){
+            const disagreeReasons: disagreeReasonListInfoType = this.result.disagreeAppointingGuardianOfChildSurvey.disagreeReasonList;           
+            guardianshipInfo = {
+                opNotGuardian: disagreeReasons.checked.includes('unable'),
+                opNotGuardianDesc: (disagreeReasons.checked.includes('unable') && disagreeReasons.unableComment)?disagreeReasons.unableComment:'',
+                opNotSuitable: disagreeReasons.checked.includes('unsuitable'),
+                opNotSuitableDesc: (disagreeReasons.checked.includes('unsuitable') && disagreeReasons.unsuitableComment)?disagreeReasons.unsuitableComment:'',
+                other: disagreeReasons.checked.includes('other'),
+                otherDesc: (disagreeReasons.checked.includes('other') && disagreeReasons.otherComment)?disagreeReasons.otherComment:''
             }
         }
-          
-        return existingChildSupportInfo;
-    } 
-
+        return guardianshipInfo;
+    }
 }
 </script>
 
