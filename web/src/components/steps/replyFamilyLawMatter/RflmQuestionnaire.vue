@@ -312,7 +312,7 @@
                         </b-form-checkbox>
                         <b-form-checkbox 
                             v-on:change="changeSelection('companionAnimal', 'counterCompanionAnimal', $event)" 
-                            value="counterCompanionAnimal" v-model="counterSSChecked">
+                            value="counterCompanionAnimal" v-model="counterPDChecked">
                             <div class="checkbox-choices">I am making a counter application for an order about property division in respect of
                                 a companion animal. No application about this family law matter was made by the other party</div>                   
                         </b-form-checkbox>
@@ -425,6 +425,7 @@ export default class RflmQuestionnaire extends Vue {
     counterCSChecked='';
     counterCCChecked='';
     counterSSChecked = '';
+    counterPDChecked = '';
 
     allPages = []; 
 
@@ -625,39 +626,37 @@ export default class RflmQuestionnaire extends Vue {
 
     public getSelectedFormsNames(){
         let result = '';
-        // if (this.selectedParentingArrangementsForm.includes('newParentingArrangements')) result+='New Parenting Arrangements'+'\n';
-        // else if (this.selectedParentingArrangementsForm.includes('existingParentingArrangements')) result+='Existing Parenting Arrangements'+'\n';
         if (this.selectedParentingArrangementsForm.includes('naParentingArrangements')) result+='Not Applicable'+'\n';
         else if (this.selectedParentingArrangementsForm.includes('agreeParentingArrangements')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedParentingArrangementsForm.includes('disagreeParentingArrangements')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedParentingArrangementsForm.includes('counterParentingArrangements')) result+='I am making a counter application for an order. No application about this family law matter was made by the other party'+'\n';
 
-        // if (this.selectedChildSupportForm.includes('newChildSupport')) result+='New Child Support'+'\n';
-        // else if (this.selectedChildSupportForm.includes('existingChildSupport')) result+='Existing Child Support'+'\n';
         if (this.selectedChildSupportForm.includes('naChildSupport')) result+='Not Applicable'+'\n';
         else if (this.selectedChildSupportForm.includes('agreeChildSupport')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedChildSupportForm.includes('disagreeChildSupport')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedChildSupportForm.includes('counterChildSupport')) result+='I am making a counter application for an order about child support. No application about this family law matter was made by the other party.'+'\n';
 
-        // if (this.selectedContactWithChildForm.includes('newContact')) result+='New Contact With a Child'+'\n';
-        // else if (this.selectedContactWithChildForm.includes('existingContact')) result+='Existing Contact With a Child'+'\n';
         if (this.selectedContactWithChildForm.includes('naContact')) result+='Not Applicable'+'\n';
         else if (this.selectedContactWithChildForm.includes('agreeContact')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedContactWithChildForm.includes('disagreeContact')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedContactWithChildForm.includes('counterContact')) result+='I am making a counter application for an order about contact with a child. No application about this family law matter was made by the other party.'+'\n';
 
-        // if (this.selectedGuardianshipForm.includes('appointing')) result+='Appointing a Guardian of a Child'+'\n';
-        // if (this.selectedGuardianshipForm.includes('cancelling')) result+='Cancelling Guardianship of a Child'+'\n';
-
-        if (this.selectedSpousalSupportForm.includes('newSpouseSupport')) result+='New Spousal Support'+'\n';
-        else if (this.selectedSpousalSupportForm.includes('existingSpouseSupport')) result+='Existing Spousal Support'+'\n';
+        if (this.selectedGuardianshipForm.includes('naguardianship')) result+='Not Applicable'+'\n';
+        else if (this.selectedGuardianshipForm.includes('agreeGuardianship')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedGuardianshipForm.includes('disagreeGuardianship')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedGuardianshipForm.includes('counterGuardianship')) result+='I am making a counter application for an order to appoint a new guardian or to cancel the guardianship of a child.'+'\n';
         
-        if (this.selectedSpousalSupportForm.includes('agreeSpouseSupport')) result+='Agree Spousal Support'+'\n';
-        else if (this.selectedSpousalSupportForm.includes('disagreeSpouseSupport')) result+='Disagree Spousal Support'+'\n';
-        else if (this.selectedSpousalSupportForm.includes('counterSpouseSupport')) result+='Counter Spousal Support'+'\n';
+        if (this.selectedSpousalSupportForm.includes('naSpouseSupport')) result+='Not Applicable'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('agreeSpouseSupport')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('disagreeSpouseSupport')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('counterSpouseSupport')) result+='I am making a counter application for an order about spousal support.'+'\n';
 
-        if (this.selectedCompanionAnimalForm.includes('newCompanionAnimal')) result+='New Companion Animal'+'\n';
-        else if (this.selectedCompanionAnimalForm.includes('existingCompanionAnimal')) result+='Existing Companion Animal'+'\n';
+        if (this.selectedCompanionAnimalForm.includes('naCompanionAnimal')) result+='Not Applicable'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('agreeCompanionAnimal')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('disagreeCompanionAnimal')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('counterCompanionAnimal')) result+='I am making a counter application for an order about property division in respect of a companion animal. No application about this family law matter was made by the other party.'+'\n';
+
+        
         console.log(result);
         return result;
     }
