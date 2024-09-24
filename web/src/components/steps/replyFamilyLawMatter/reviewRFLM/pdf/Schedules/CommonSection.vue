@@ -125,15 +125,15 @@ court, of a party’s reply to an application about a family law matter and a co
                     </div>     
                     <div>
                     <div >
-                        <check-box  style="display: block; text-indent: -17px;margin-left:45px"  :check="''" text="The <b>information</b> set out in Part 4 of the Application About a Family Law Matter <b>about the relationship between the parties is correct</b>."/>               
+                        <check-box  style="display: block; text-indent: -17px;margin-left:45px"  :check="replyNewCompInfo.spouse?'yes':''" text="The <b>information</b> set out in Part 4 of the Application About a Family Law Matter <b>about the relationship between the parties is correct</b>."/>               
                     </div>
                     <div>
-                        <check-box style="display: block; text-indent: -17px;margin-left:45px"  :check="''" text="The <b>information</b> set out in Part 4 of the Application About a Family Law Matter
+                        <check-box style="display: block; text-indent: -17px;margin-left:45px"  :check="!replyNewCompInfo.spouse?'yes':''" text="The <b>information</b> set out in Part 4 of the Application About a Family Law Matter
                         <b>about the relationship between the parties is not correct</b> as follows:"/>               
                     </div>
                     <div style="font-size: 11pt;margin-left:55px;"><span style="color:#747474;font-style: italic;">Identify the information you say is not correct and set out the correct information</span></div>
-                    <!-- <div v-if="form10Info.otherPersonsList" style="margin-left:55px;background-color:#dedede;min-height:125px;"></div> -->
-                    <div style="background-color: #dedede;font-size: 11pt;margin-left:55px;min-height:125px;"></div>   
+                    <div v-if="!replyNewCompInfo.spouse && replyNewCompInfo.relationshipDetails" style="margin-left:55px;background-color:#dedede;min-height:125px;">{{ replyNewCompInfo.relationshipDetails }}</div>
+                    <div v-else style="background-color: #dedede;font-size: 11pt;margin-left:55px;min-height:125px;"></div>   
                 </div>                                 
             </div>            
         </div>
@@ -802,6 +802,9 @@ import { locationInfoDataInfoType, existingOrdersInfoType } from '@/types/Applic
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { rflmBackgroundSurveyDataInfoType, rflmQuestionnaireDataInfoType } from '@/types/Application/ReplyFamilyLawMatter';
 import { agreeDisagreeInfoType } from '@/types/Application/ReplyFamilyLawMatter/Pdf';
+import { schedule101DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+
+import { animalRelationshipToOtherPartyDataInfoType } from '@/types/Application/ReplyFamilyLawMatter/CompanionAnimal';
 
 @Component({
     components:{
@@ -831,7 +834,7 @@ export default class CommonSection extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
     
     existingOrders = {} as existingOrdersInfoType;    
-   
+    replyNewCompInfo = {} as schedule101DataInfoType;
     childrenInfo = []
     counterChildrenInfo = []
     childBestInterestAcknowledmentCheck = false;
@@ -928,6 +931,23 @@ export default class CommonSection extends Vue {
         this.yourInfo = this.getYourInfo();     
         this.locationInfo = this.getLocationInfo();  
         this.isAdditionalInfo = this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs;
+
+        let replyNewCompanionInfo = {} as schedule101DataInfoType;
+
+        replyNewCompanionInfo = {
+            newOrderDetails: '',
+            disagreeReason: '',
+            spouse: false,
+            relationshipDetails: '' 
+        }
+
+        if (this.result.animalRelationshipToOtherPartySurvey){
+            const animalRelationshipToOtherPartyData: animalRelationshipToOtherPartyDataInfoType = this.result.animalRelationshipToOtherPartySurvey;
+            replyNewCompanionInfo.spouse = animalRelationshipToOtherPartyData.otherPartyIsSpouse == 'y';
+            if (!replyNewCompanionInfo.spouse){
+                replyNewCompanionInfo.relationshipDetails = animalRelationshipToOtherPartyData.otherPartyRelationshipDesc?animalRelationshipToOtherPartyData.otherPartyRelationshipDesc:'';
+            }
+        }
     }
 
     public getLocationInfo(){
