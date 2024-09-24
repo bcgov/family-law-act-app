@@ -58,13 +58,7 @@ court, of a party’s reply to an application about a family law matter and a co
             
         </ul>
     </div> 
-    <div style="float: right;width: 18%; margin-top: -65px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
-                <p>
-                    <b-icon-book />
-                    <br />
-                    For more information about case management orders, see the guidebook. 
-                </p>
-        </div>   
+    
     </div>
     <div class="print-block">
         <div style="border-style: dashed; border-color: black; float: left; margin-top: 10px;width: 80%;padding:0.5rem; background: #d6d6d6; ">
@@ -138,12 +132,13 @@ court, of a party’s reply to an application about a family law matter and a co
                         <b>about the relationship between the parties is not correct</b> as follows:"/>               
                     </div>
                     <div style="font-size: 11pt;margin-left:55px;"><span style="color:#747474;font-style: italic;">Identify the information you say is not correct and set out the correct information</span></div>
-               
+                    <!-- <div v-if="form10Info.otherPersonsList" style="margin-left:55px;background-color:#dedede;min-height:125px;"></div> -->
+                    <div style="background-color: #dedede;font-size: 11pt;margin-left:55px;min-height:125px;"></div>   
                 </div>                                 
             </div>            
         </div>
     </div>
-<!-- <2> : END--> 
+<!-- <2> : END-->   
 <!-- <3> : BEGIN--> 
 <!-- <3A : BEGIN-->
     <div >
@@ -182,26 +177,26 @@ application and/or counter application is as follows:"/>
                     <td style="text-align: center;width:10%"><b>Child currently living with</b><div style="font-size:6pt; font-weight:normal;font-style: italic;margin-top:-15px;text-align: center"><br/>(name of person)</div></td>
                 </tr>
                     </table>
-                    <table v-if="counterChildrenInfo && counterChildrenInfo.length >=1" style="width:85%;margin-left:52px; border-collapse: collapse;">
+                    <table v-if="counterChildrenInfo && counterChildrenInfo.length >=1 && counterChildrenInfo[0].fullName" style="width:85%;margin-left:52px; border-collapse: collapse;">
                     <tbody>
                     <tr 
                     v-for="data in counterChildrenInfo">
-                    <td style="border-right: 2px solid #fff;width:30%"><div style="background-color: #d6d6d6">{{ data.fullName }}</div></td>
-                    <td style="border-right: 2px solid #fff;text-align: center;width:20%"><div style="background-color: #d6d6d6">{{ data.dob }}</div></td>
-                    <td style="border-right: 2px solid #fff;text-align: center;width:20%"><div style="background-color: #d6d6d6">{{ data.myRelationship }}</div></td>
-                    <td style="border-right: 2px solid #fff;text-align: center;width:20%"><div style="background-color: #d6d6d6">{{ data.otherPartyRelationship }}</div></td>
-                    <td style="border-right: 2px solid #fff;text-align: center;width:10%"><div style="background-color: #d6d6d6">{{ data.currentSituation }}</div></td>
+                    <td style="border-right: 1px solid #fff;width:30%"><div style="background-color: #d6d6d6">{{ data.fullName }}</div></td>
+                    <td style="border-right: 1px solid #fff;text-align: center;width:20%"><div style="background-color: #d6d6d6">{{ data.dob }}</div></td>
+                    <td style="border-right: 1px solid #fff;text-align: center;width:20%"><div style="background-color: #d6d6d6">{{ data.myRelationship }}</div></td>
+                    <td style="border-right: 1px solid #fff;text-align: center;width:20%"><div style="background-color: #d6d6d6">{{ data.otherPartyRelationship }}</div></td>
+                    <td style="border-right: 1px solid #fff;text-align: center;width:10%"><div style="background-color: #d6d6d6">{{ data.currentSituation }}</div></td>
                     </tr>
                     </tbody>    
                     </table>    
                     <table v-else style="width:85%;margin-left:52px; border-collapse: collapse;">
                     <tbody>
                     <tr>
-                    <td style="border-right: 2px solid #fff;width:30%"><div style="background-color: #d6d6d6;margin-bottom:20px;"></div></td>
-                    <td style="border-right: 2px solid #fff;width:20%"><div style="background-color: #d6d6d6;margin-bottom:20px;"></div></td>
-                    <td style="border-right: 2px solid #fff;width:20%"><div style="background-color: #d6d6d6;margin-bottom:20px;"></div></td>
-                    <td style="border-right: 2px solid #fff;width:20%"><div style="background-color: #d6d6d6;margin-bottom:20px;"></div></td>
-                    <td style="border-right: 2px solid #fff;width:10%"><div style="background-color: #d6d6d6;margin-bottom:20px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:30%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:10%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
                     </tr>
                     </tbody>    
                     </table>                           
@@ -222,8 +217,11 @@ application and/or counter application is as follows:"/>
         <div style="width: 80%; float: left; margin-right: 10px;">
             
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
+                <div style="display: inline-block; font-size: 11pt;margin-left:8px;">
+                       <b>5.</b>
+                </div> 
             <div>
-                    <div >
+                    <div style="margin-top:-23px;">
                         <check-box  style="display: block; text-indent: -17px;margin-left:45px"  :check="aboutChildren && childBestInterestAcknowledmentCheck?'yes':''" text="I understand that I must consider the <b>best interests of the child</b> with respect to
 each order I am asking the court to make about the child. The “best interests of the
 child” is a legal test used to decide what would best protect the child’s physical,
@@ -398,7 +396,19 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
                 <p>
                     <b-icon-info-circle-fill />
                     <br />
-                    Copy the other party’s name from their application.. 
+                    This part will help you identify 
+                    which family law matter you 
+                    and the other party may agree 
+                    or disagree about, and if there 
+                    is another family law matter 
+                    you want to add an 
+                    application for an order about. 
+                    Based on how you reply, it will 
+                    help identify the additional 
+                    schedule(s) you must 
+                    complete to provide more 
+                    information to the court and 
+                    the other party.
                 </p>
         </div>   
     </div>
@@ -426,8 +436,8 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
         <div style="margin-left:33px;color:#747474;padding-right:5px;">Do you have a final order or written agreement about parenting arrangements,
             including parental responsibilities and parenting time?</div>
         <div style="margin-left:30px">
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 7</b></span>'/> <br/>
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 8</b></span>'/> 
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedParentingArrangementsForm.includes('noFinalOrderParentingArrangements')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 7</b></span>'/> <br/>
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedParentingArrangementsForm.includes('yesFinalOrderParentingArrangements')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 8</b></span>'/> 
         </div>
     </tr>            
 </table>
@@ -436,35 +446,51 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
 </div>
 <!-- <6A> : END-->
 <!-- <6B> : BEGIN-->
+<div>
     <div style="width: 80%; float: left; margin-right: 10px;">
     <div style="text-indent: -0px;margin-left:20px;">
 <div style="border-style: solid; border-color: black; float: left; margin-top: 10px;width: 95%;padding:0.5rem; border-width:1px;">       
     <div><b>Child Support</b></div>
     <table>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="Not applicable"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedChildSupportForm.includes('naChildSupport')?'yes':''" text="Not applicable"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I agree with the request of the other party"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedChildSupportForm.includes('agreeChildSupport')?'yes':''" text="I agree with the request of the other party"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I disagree with the request of the other party. A different order "/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedChildSupportForm.includes('disagreeChildSupport')?'yes':''" text="I disagree with the request of the other party. A different order "/>               
         <div style="margin-left:33px">about child support should be made. <span style="font-style:italic;color:#747474;"><b>-></b> Complete</span></div>
         <div style="margin-left:33px;font-style:italic;color:#747474;"><b>Schedule 2</b></div>
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I am making a counter application for an order about child "/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedChildSupportForm.includes('counterChildSupport')?'yes':''" text="I am making a counter application for an order about child "/>               
         <div style="margin-left:33px">support. No application about this family law matter was made by the other party.</div>
         <div style="margin-left:33px;color:#747474;padding-right:5px;">Do you have a final order or written agreement about child support?</div>
         <div style="margin-left:30px">
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 9</b></span>'/> <br/>
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 10</b></span>'/> 
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedChildSupportForm.includes('noFinalOrderChildSupport')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 9</b></span>'/> <br/>
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedChildSupportForm.includes('yesFinalOrderChildSupport')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 10</b></span>'/> 
         </div>
     </tr>            
 </table>
 </div>
 </div>
 </div>
+<div style="float: right;width: 18%; margin-top:20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
+                <p>
+                    <b-icon-file-text />
+                    <br />
+                    If this family law case includes
+                    an application about child
+                    support, you must provide
+                    your financial information with
+                    your reply to the application
+                    by completing and filing a
+                    Financial Statement in Form 4
+                    [Rule 28].                 
+</p>
+</div>  
+    </div>
 <!-- <6B> : END-->
 <!-- <6C> : BEGIN-->
     <div style="width: 80%; float: left; margin-right: 10px;">
@@ -473,23 +499,23 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
     <div><b>Contact with a child</b></div>
     <table>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="Not applicable"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedContactWithChildForm.includes('naContact')?'yes':''" text="Not applicable"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I agree with the request of the other party"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedContactWithChildForm.includes('agreeContact')?'yes':''" text="I agree with the request of the other party"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I disagree with the request of the other party. A different order "/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedContactWithChildForm.includes('disagreeContact')?'yes':''" text="I disagree with the request of the other party. A different order "/>               
         <div style="margin-left:33px">about contact with a child should be made. <span style="font-style:italic;color:#747474;"><b>-></b> Complete</span></div>
         <div style="margin-left:33px;font-style:italic;color:#747474;"><b>Schedule 3</b></div>
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I am making a counter application for an order about contact "/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedContactWithChildForm.includes('counterContact')?'yes':''" text="I am making a counter application for an order about contact "/>               
         <div style="margin-left:33px">with a child. No application about this family law matter was made by the other party.</div>
         <div style="margin-left:33px;color:#747474;padding-right:5px;">Do you have a final order or written agreement about contact with a child?</div>
         <div style="margin-left:30px">
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 11</b></span>'/> <br/>
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 12</b></span>'/> 
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedContactWithChildForm.includes('noFinalOrderContact')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 11</b></span>'/> <br/>
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedContactWithChildForm.includes('yesFinalOrderContact')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 12</b></span>'/> 
         </div>
     </tr>            
 </table>
@@ -504,17 +530,17 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
     <div><b>Guardianship of a child</b> - appointing a new guardian or cancelling guardianship</div>
     <table>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="Not applicable"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedGuardianshipForm.includes('naguardianship')?'yes':''" text="Not applicable"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I agree with the request of the other party"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedGuardianshipForm.includes('agreeGuardianship')?'yes':''" text="I agree with the request of the other party"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='I disagree with the request of the other party. <span style="font-style:italic;color:#747474;"><b>-></b> Complete</span>'/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedGuardianshipForm.includes('disagreeGuardianship')?'yes':''" text='I disagree with the request of the other party. <span style="font-style:italic;color:#747474;"><b>-></b> Complete</span>'/>               
         <div style="margin-left:33px;font-style:italic;color:#747474;"><b>Schedule 4</b></div>
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I am making a counter application for an order to appoint"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedGuardianshipForm.includes('counterGuardianship')?'yes':''" text="I am making a counter application for an order to appoint"/>               
         <div style="margin-left:33px">a new guardian or to cancel the guardianship of a child. <span style="font-style:italic;color:#747474;"><br/><b>-> </b>Complete <b>Schedule 13</b></span></div>
     </tr>            
 </table>
@@ -523,35 +549,51 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
 </div>
 <!-- <6D> : END-->
 <!-- <6E> : BEGIN-->
+<div>
     <div style="width: 80%; float: left; margin-right: 10px;">
     <div style="text-indent: -0px;margin-left:20px;">
 <div style="border-style: solid; border-color: black; float: left; margin-top: 10px;width: 95%;padding:0.5rem; border-width:1px;">       
     <div><b>Spousal support</b></div>
     <table>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="Not applicable"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSpousalSupportForm.includes('naSpouseSupport')?'yes':''" text="Not applicable"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I agree with the request of the other party"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSpousalSupportForm.includes('agreeSpouseSupport')?'yes':''" text="I agree with the request of the other party"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I disagree with the request of the other party. A different order "/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSpousalSupportForm.includes('disagreeSpouseSupport')?'yes':''" text="I disagree with the request of the other party. A different order "/>               
         <div style="margin-left:33px">about spousal support should be made. <span style="font-style:italic;color:#747474;"><b>-></b> Complete</span></div>
         <div style="margin-left:33px;font-style:italic;color:#747474;"><b>Schedule 5</b></div>
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I am making a counter application for an order about spousal "/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSpousalSupportForm.includes('counterSpouseSupport')?'yes':''" text="I am making a counter application for an order about spousal "/>               
         <div style="margin-left:33px">support. No application about this family law matter was made by the other party.</div>
         <div style="margin-left:33px;color:#747474;padding-right:5px;">Do you have a final order or written agreement about spousal support?</div>
         <div style="margin-left:30px">
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 14</b></span>'/> <br/>
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 15</b></span>'/> 
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSpousalSupportForm.includes('noFinalOrderSpouseSupport')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 14</b></span>'/> <br/>
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSpousalSupportForm.includes('yesFinalOrderSpouseSupport')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 15</b></span>'/> 
         </div>
     </tr>            
 </table>
 </div>
 </div>
 </div>
+<div style="float: right;width: 18%; margin-top:20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
+                <p>
+                    <b-icon-file-text />
+                    <br />
+                    If this family law case includes
+                    an application about spousal
+                    support, you must provide
+                    your financial information with
+                    your reply to the application
+                    by completing and filing a
+                    Financial Statement in Form 4
+                    [Rule 28].                 
+</p>
+</div>  
+    </div>
 <!-- <6E> : END-->
 <!-- <6F> : BEGIN-->
     <div style="width: 80%; float: left; margin-right: 10px;">
@@ -560,23 +602,23 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
     <div><b>Property division in respect of a companion animal</b></div>
     <table>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="Not applicable"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedCompanionAnimalForm.includes('naCompanionAnimal')?'yes':''" text="Not applicable"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I agree with the request of the other party"/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedCompanionAnimalForm.includes('agreeCompanionAnimal')?'yes':''" text="I agree with the request of the other party"/>               
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I disagree with the request of the other party. A different order "/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedCompanionAnimalForm.includes('disagreeCompanionAnimal')?'yes':''" text="I disagree with the request of the other party. A different order "/>               
         <div style="margin-left:33px">about companion animal should be made. <span style="font-style:italic;color:#747474;"><b>-></b> Complete</span></div>
         <div style="margin-left:33px;font-style:italic;color:#747474;"><b>Schedule 6</b></div>
     </tr>
     <tr>
-        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text="I am making a counter application for an order about property "/>               
+        <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedCompanionAnimalForm.includes('counterCompanionAnimal')?'yes':''" text="I am making a counter application for an order about property "/>               
         <div style="margin-left:33px">division in respect of a companion animal. No application about this family law matter was made by the other party.</div>
         <div style="margin-left:33px;color:#747474;padding-right:5px;">Do you have a written agreement about property division in respect of a companion animal?</div>
         <div style="margin-left:30px">
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 16</b></span>'/> <br/>
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedSchedules.includes('schedule11')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 17</b></span>'/> 
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedCompanionAnimalForm.includes('noFinalOrderCompanionAnimal')?'yes':''" text='No <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 16</b></span>'/> <br/>
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="selectedCompanionAnimalForm.includes('yesFinalOrderCompanionAnimal')?'yes':''" text='Yes <span style="font-style:italic;color:#747474;"><b>-> </b>Complete <b>Schedule 17</b></span>'/> 
         </div>
     </tr>            
 </table>
@@ -593,7 +635,7 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
             </div>
             <div style="margin-top: 1rem;"></div>
             <span style="font-size: 11pt;margin-left:20px"><b>10. </b></span>
-                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="''" text=""/> 
+                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="isAdditionalInfo?'yes':''" text=""/> 
                  <div style="margin-top:-23px;text-indent:47px;margin-left:20px">I understand that I may be required to <b>complete additional requirements</b></div> 
                 <div style="text-indent:47px;margin-left:22px"> before filing my application or scheduling a family management </div> 
                 <div style="text-indent:47px;margin-left:22px"> conference depending on the court registry where my case is filed, </div> 
@@ -603,18 +645,27 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
                 <p>
                     <b-icon-info-circle-fill />
                     <br />
-                    To apply with notice, you can file an Application for Case Management Order Form 10.
+                    If the application is in an early resolution registry, you must have already met the early
+                    resolution requirements to file your reply [Rule 28].
                 </p>
-        </div>      
+        </div>  
+         
     </div>    
     <div>
-        <div style="width: 80%; float: left; margin-right: 10px;margin-left:55px;margin-top:-10px;">
+        <div style="width: 80%; float: left; margin-right: 10px;margin-left:55px;margin-top:-50px;">
             <ul>
                     <li>an online <b>parenting education program</b> (Parenting After Separation)</li>
                     <li>an individual <b>needs assessment</b> with a family justice counsellor</li>
                     <li>at least one <b>consensual dispute resolution session</b>, if applicable</li>
             </ul>
-        </div>       
+        </div>   
+        <div style="float: right;width: 18%; margin-top:-20px;background: #d6d6d6;color: #747474;padding: 4px;line-height: 14px;font-size:9pt;">
+                <p>
+                    <b-icon-book />
+                    <br />
+                    For more information about the different registry types and how to meet the requirements, see the guidebook.
+                </p>
+        </div>        
     </div>    
 <!-- <7> : END-->
 <!-- <8> : BEGIN-->
@@ -631,12 +682,31 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
                     </div>     
                     <div>
                     <div style="display:inline-flex;">
-                        <check-box  style="display: block; text-indent: -17px;margin-left:45px"  :check="''" text=""/>     
-                        <span>I,</span>   
-                        <table><tr><td><div style="margin-left:5px;min-width: 160x;min-height:25px;background-color: #dedede;padding:2px;margin-bottom:10px;"></div> </td></tr><tr><td><div style="text-align:center;margin-top:-15px;font-size:7pt;">Full name of lawyer</div></td></tr></table>       
-                        <span style="margin-left:5px;">, the lawyer for</span>  
-                        <table><tr><td><div style="margin-left:5px;min-width: 160px;min-height:25px;background-color: #dedede;padding:2px;margin-bottom:10px;"></div> </td></tr><tr><td><div style="text-align:center;margin-top:-15px;font-size:7pt;">Full name of party</div></td></tr></table>       
-                        <span style="margin-left:5px;">, </span>  
+                          
+                        <table>
+                        <tr>
+                        <td><check-box style="display: block; text-indent: -17px;margin-left:45px;margin-top:-5px;"  :check="yourInfo.lawyerFiling?'yes':''" text=""/></td>
+                        <td><div style="margin-left:1px">I,</div></td>
+                        <td><div style="margin-left:5px;min-width:150px;min-height:25px;background-color: #dedede;padding:2px;margin-bottom:10px;">{{ yourInfo.lawyerStatement.lawyerName }}</div></td>
+                        <td><div style="margin-left:5px;width:95px;">, the lawyer for</div></td>
+                        <td><div style="margin-left:5px;min-width:155px;min-height:25px;background-color: #dedede;padding:2px;margin-bottom:10px;">{{ yourInfo.lawyerStatement.clientName }}</div></td>
+                        <td><span style="margin-left:5px;">, </span></td>
+                        </tr>
+                        <tr>
+                        <td colspan="2"></td>    
+                        <td><div style="text-align:center;margin-top:-15px;font-size:7pt;">Full name of lawyer</div></td>    
+                        <td></td>    
+                        <td><div style="text-align:center;margin-top:-15px;font-size:7pt;">Full name of party</div></td>   
+                        <td></td>   
+                        </tr>
+                        </table> 
+                        <!-- <span style="margin-left:2px">I,</span>   
+                        <table style="margin-left:5px;width:80%;">
+                            <tr><td><div style="margin-left:5px;width:150px;min-height:25px;background-color: #dedede;padding:2px;margin-bottom:10px;">{{ yourInfo.lawyerStatement.lawyerName }}</div> </td></tr>
+                        <tr><td><div style="text-align:center;margin-top:-15px;font-size:7pt;">Full name of lawyer</div></td></tr></table>       
+                        <span style="margin-left:5px;width:95px;">, the lawyer for</span>  
+                        <table><tr><td><div style="margin-left:5px;min-width:155px;min-height:25px;background-color: #dedede;padding:2px;margin-bottom:10px;">{{ yourInfo.lawyerStatement.clientName }}</div> </td></tr><tr><td><div style="text-align:center;margin-top:-15px;font-size:7pt;">Full name of party</div></td></tr></table>       
+                        <span style="margin-left:5px;">, </span>   -->
                     </div>                    
                     <div style="font-size: 11pt;margin-left:55px;">acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act</i>.</div>
                
@@ -715,484 +785,6 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
         
     </div>
 <!-- <9> : END-->
-<!-- <3> : END--> 
-<!-- <Page 1> -->
-<!-- <HEADER> -->
-<!-- <1> -->
-        <!-- <section>
-            <underline-form 
-                style="text-indent:2px;display:inline-block;" 
-                textwidth="16rem" 
-                beforetext="The Application About a Family Law Matter was filed by" 
-                hint="full name of the other party" :italicHint="false" :text="otherPartyInfo"/>
-            <div style="text-indent:5px;display:inline;">
-                 . They are the other party in this case.
-            </div>
-            
-        </section> -->
-<!-- <2> -->
-        <!-- <section>
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
-            <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
-            <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents are:</div>
-            <table class="fullsize">
-                <tr style="border:1px solid #414142" >
-                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
-                    <td v-else  colspan="3">Lawyer (if applicable): </td>
-                </tr>
-                <tr style="border:1px solid #414142">          
-                    <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
-                </tr>
-                <tr style="border:1px solid #313132">
-                    <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
-                <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
-                    <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
-                </tr>
-                <tr style="border:1px solid #313132">
-                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
-                </tr>
-            </table>
-        </section> -->
-
-        <!-- <div class="print-block">
-            <div style="margin-top:1rem;"><b>Lawyer’s statement</b></div>
-            <section>
-                <div style="display:inline; margin-left:0.25rem">Complete this section only if you are a lawyer for the party. You may leave this section blank.</div>
-                <div>
-                    <check-box  inline="inline" boxMargin="0" style="margin:0 0 0 1rem;display:inline" :check="yourInfo.lawyerFiling?'yes':''" text=""/>
-                    <underline-form style="text-indent:0px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" :text="yourInfo.lawyerStatement.lawyerName"/>
-                    <underline-form style="text-indent:2px;display:inline;" textwidth="16.25rem" beforetext=", the lawyer for" hint="full name of party" :text="yourInfo.lawyerStatement.clientName"/>
-                    <div style="display:inline;">, acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act</i>. </div>
-                </div>           
-            </section>
-        </div>       -->
-         
-        <!-- <div class="print-block">
-            <div style="margin-top:1rem;"><b>Identification of child(ren)</b></div>
-            <section>
-                <i style="display:inline; margin-left:0.25rem">Select only one of the options below</i>          
-                <div style="margin-left:1.5rem">
-                    <check-box  :check="!aboutChildren?'yes':''" text="The application does not ask for any order(s) about a child or children <i>(skip ahead to section 6)</i>"/>
-                    <check-box  :check="aboutChildren && !incorrectChildInfo?'yes':''" text="The other party correctly provided the name and date of birth of each child involved in the application"/>
-                    <check-box  :check="aboutChildren && incorrectChildInfo?'yes':''" text="The following is the correct name and date of birth of each child involved in the application:"/>
-                    <i>If you have selected this option, please provide the name and date of birth of ALL the children</i>
-                </div>
-                <b-table
-                    :items="childrenInfo"
-                    :fields="childrenCorrectionFields"
-                    class="mt-2"
-                    small
-                    bordered>                    
-                        <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                        </template>
-                </b-table> 
-            </section>
-        </div> -->
-
-<!-- <5> -->
-        <!-- <section>
-            <div style="margin:0 0 0 .5rem;display:inline;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="aboutChildren && childBestInterestAcknowledmentCheck?'yes':''" text=""/>
-                <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
-                <div style="margin:0 0 0 1.75rem;display:inline-block;">asking the court to make about the child.</div>
-            </div>
-        </section> -->
-       
-        <!-- <div class="print-block">
-            <div style="margin-top:1rem;"><b>About us</b></div>
-            <section>
-                <i style="display:inline; margin-left:0.25rem">You may choose to complete this section or leave this section blank</i>
-                <div style="margin-left:.5rem; text-indent:0rem;">
-                    I would like to share the following information with the court about the cultural, linguistic, religious and spiritual 
-                    upbringing and heritage of my family, including, if the child is an Indigenous child, the child’s Indigenous identity:</div>
-                <div style="margin-left:.5rem; text-indent:0rem;"></div>
-                <div v-if="culturalInfo.length > 0" class="answerbox">{{culturalInfo}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-            </section>  
-        </div>  -->
-
-        <!-- <div class="print-block">
-            <div style="margin-top:1rem;"><b>Existing written agreements or court orders</b></div>
-            <section>
-                <div style="display:inline; margin-left:0.25rem">
-                    There is an existing agreement or court order about parenting arrangements, 
-                    child support, contact with a child, guardianship of a child, spousal support, 
-                    and/or property division in respect of a companion animal that was not provided 
-                    by the other party with their application.
-                </div>          
-                <div style="margin-left:1rem">
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
-                    <i style="display:block">If yes, attach a copy of the agreement(s) or order(s) to your reply</i>
-                </div>
-            </section>
-        </div> -->
-
- <!-- <8> -->
-        <!-- <section> 
-            <div style="display:inline; margin-left:0.25rem">
-                There is an existing court order, agreement or plan protecting one of the parties or the child(ren), or
-                restraining contact between the parties, including a protection order, an order, agreement or plan involving
-                child protection services, or a peace bond, restraining order, bail condition or other criminal order that 
-                was not provided by the other party with their application
-            </div>            
-            <div style="margin-left:1rem">
-                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>
-                <i style="display:block">If yes, attach a copy of the order(s), agreement(s) or plan(s) to your reply</i>
-            </div>
-        </section>    -->
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>Initial requirements</b></div>
-            <section> 
-                I am filing my application in:
-                <check-box 
-                    style="margin:0 0 0 1rem;" 
-                    :check="locationInfo.earlyResolutionRegistry?'yes':''" 
-                    text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you <span style='text-decoration: underline;'>completed or participated in</span>, or if <span style='text-decoration: underline;'>you were granted an exemption</span> from completing or participating in, the following: <br/>Select all options that apply.</i>"/>
-                <div style="margin:0 0 0 2.75rem;">
-                    <check-box  :check="locationInfo.earlyResolutionRegistry?'yes':''" text="needs assessment"/>
-                    <check-box  :check="locationInfo.earlyResolutionRegistry?'yes':''" text="parenting education program"/>
-                    <check-box  :check="locationInfo.earlyResolutionRegistry?'yes':''" text="consensual dispute resolution"/>
-                </div>
-                <check-box 
-                    style="margin:0.25rem 0 0 1rem;" 
-                    :check="locationInfo.familyJusticeRegistry?'yes':''" 
-                    text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box 
-                    style="margin:0.25rem 0 0 1rem;" 
-                    :check="locationInfo.educationRegistry?'yes':''" 
-                    text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-            </section>
-        </div>
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>Replying to the other party</b></div>
-            <div style="margin-top:1rem;"><b>Agreement with order(s)</b></div>
-<!-- <10> -->
-            <section>
-                <b style="margin-left:0.25rem">I agree with the following order(s) applied for by the other party:</b><br>
-                <i>
-                    Refer to the Application About a Family Law Matter schedules as referenced below to assist in completing
-                    this section.
-                </i><br>
-                <i>Select all options that apply</i>
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.5rem;"><b>Parenting arrangements</b></div>
-                    <div style="margin-top:0.25rem;">Parenting arrangements – new <i>[see Schedule 1 of Application About a Family Law Matter]</i></div>
-                    <check-box 
-                        :check="agreeDisagreeResults.newParentResp.opApplied && agreeDisagreeResults.newParentResp.agree?'yes':''" 
-                        text="parental responsibilities"/>
-                    <check-box 
-                        :check="agreeDisagreeResults.newParentTime.opApplied && agreeDisagreeResults.newParentTime.agree?'yes':''" 
-                        text="parenting time"/>
-                    <check-box 
-                        :check="agreeDisagreeResults.newParentTimeConditions.opApplied && agreeDisagreeResults.newParentTimeConditions.agree?'yes':''" 
-                        text="conditions on parenting time"/>
-                    
-                    <div style="margin-top:0.25rem;">Parenting arrangements order/agreement – existing <i>[see Schedule 2 of Application About a Family Law Matter]</i></div>
-                    <check-box 
-                        :check="agreeDisagreeResults.existingParentResp.opApplied && agreeDisagreeResults.existingParentResp.agree?'yes':''" 
-                        text="change to parental responsibilities"/>
-                    <check-box 
-                        :check="agreeDisagreeResults.existingParentTime.opApplied && agreeDisagreeResults.existingParentTime.agree?'yes':''" 
-                        text="change to parenting time"/>
-                    <check-box 
-                        :check="agreeDisagreeResults.existingParentTimeConditions.opApplied && agreeDisagreeResults.existingParentTimeConditions.agree?'yes':''" 
-                        text="change to conditions on parenting time"/>
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Child support</b></div>
-                    <check-box  
-                        :check="agreeDisagreeResults.newChildSupport.opApplied && agreeDisagreeResults.newChildSupport.agree?'yes':''" 
-                        text="child support – new <i>[see Schedule 3 of Application About a Family Law Matter]</i>"/>
-                    <check-box  
-                        :check="agreeDisagreeResults.existingChildSupport.opApplied && agreeDisagreeResults.existingChildSupport.agree?'yes':''" 
-                        text="child support order/agreement – existing <i>[see Schedule 4 of Application About a Family Law Matter]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
-                    <check-box  
-                        :check="agreeDisagreeResults.newChildContact.opApplied && agreeDisagreeResults.newChildContact.agree?'yes':''" 
-                        text="contact with a child – new <i>[see Schedule 5 of Application About a Family Law Matter]</i>"/>
-                    <check-box  
-                        :check="agreeDisagreeResults.existingChildContact.opApplied && agreeDisagreeResults.existingChildContact.agree?'yes':''" 
-                        text="contact order/agreement – existing <i>[see Schedule 6 of Application About a Family Law Matter]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
-                    <check-box  
-                        :check="agreeDisagreeResults.appointGuardian.opApplied && agreeDisagreeResults.appointGuardian.agree?'yes':''" 
-                        text="appointing a guardian of a child <i>[see Schedule 7 of Application About a Family Law Matter]</i>"/>
-                    <check-box  
-                        :check="agreeDisagreeResults.cancelGuardian.opApplied && agreeDisagreeResults.appointGuardian.agree?'yes':''" 
-                        text="cancelling guardianship of a child <i>[see Schedule 8 of Application About a Family Law Matter]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
-                    <check-box  
-                        :check="agreeDisagreeResults.newSpouseSupport.opApplied && agreeDisagreeResults.newSpouseSupport.agree?'yes':''" 
-                        text="spousal support – new <i>[see Schedule 9 of Application About a Family Law Matter]</i>"/>
-                    <check-box  
-                        :check="agreeDisagreeResults.existingSpouseSupport.opApplied && agreeDisagreeResults.existingSpouseSupport.agree?'yes':''" 
-                        text="spousal support order/agreement – existing <i>[see Schedule 10 of Application About a Family Law Matter]</i>"/>                    
-                </div>  
-                
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Property division</b></div>
-                    <check-box  
-                        :check="agreeDisagreeResults.newCompanionAnimal.opApplied && agreeDisagreeResults.newCompanionAnimal.agree?'yes':''" 
-                        text="in respect of a companion animal – new <i>[see Schedule 11 of Application About a Family Law Matter]</i>"/>
-                    <check-box  
-                        :check="agreeDisagreeResults.existingCompanionAnimal.opApplied && agreeDisagreeResults.existingCompanionAnimal.agree?'yes':''" 
-                        text="companion animal agreement – existing <i>[see Schedule 12 of Application About a Family Law Matter]</i>"/>                    
-                </div>
-              
-            </section>
-        </div>
-
-          <div class="print-block">            
-            <div style="margin-top:1rem;"><b>Disagreement with order(s)</b></div>
-<!-- <11> -->
-            <section>
-                <b style="margin-left:0.25rem">I do not agree to all or part of the following order(s) applied for by the other party:</b><br>
-                <i>
-                    Refer to the Application About a Family Law Matter schedules to assist in completing this section.
-                </i>
-                <i>Select all options that apply, complete and attach the required schedule(s).</i>
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Parenting arrangements</b></div>
-                    <div style="margin-top:0.25rem;">Parenting arrangements – new <i>[complete and attach Schedule 1]</i></div>
-                    <check-box 
-                        :check="!agreeDisagreeResults.newParentResp.agree && agreeDisagreeResults.newParentResp.opApplied?'yes':''" 
-                        text="parental responsibilities"/>
-                    <check-box 
-                        :check="!agreeDisagreeResults.newParentTime.agree && agreeDisagreeResults.newParentTime.opApplied?'yes':''" 
-                        text="parenting time"/>
-                    <check-box 
-                        :check="!agreeDisagreeResults.newParentTimeConditions.agree && agreeDisagreeResults.newParentTimeConditions.opApplied?'yes':''" 
-                        text="conditions on parenting time"/>
-                    
-                    <div style="margin-top:0.25rem;">Parenting arrangements order/agreement – existing <i>[complete and attach Schedule 2]</i></div>
-                    <check-box 
-                        :check="!agreeDisagreeResults.existingParentResp.agree && agreeDisagreeResults.existingParentResp.opApplied?'yes':''" 
-                        text="change to parental responsibilities"/>
-                    <check-box 
-                        :check="!agreeDisagreeResults.existingParentTime.agree && agreeDisagreeResults.existingParentTime.opApplied?'yes':''" 
-                        text="change to parenting time"/>
-                    <check-box 
-                        :check="!agreeDisagreeResults.existingParentTimeConditions.agree && agreeDisagreeResults.existingParentTimeConditions.opApplied?'yes':''" 
-                        text="change to conditions on parenting time"/>
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Child support</b></div>
-                    <check-box  
-                        :check="!agreeDisagreeResults.newChildSupport.agree && agreeDisagreeResults.newChildSupport.opApplied?'yes':''" 
-                        text="child support – new <i>[complete and attach Schedule 3]</i>"/>
-                    <check-box  
-                        :check="!agreeDisagreeResults.existingChildSupport.agree && agreeDisagreeResults.existingChildSupport.opApplied?'yes':''" 
-                        text="child support order/agreement – existing <i>[complete and attach Schedule 4]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
-                    <check-box  
-                        :check="!agreeDisagreeResults.newChildContact.agree && agreeDisagreeResults.newChildContact.opApplied?'yes':''" 
-                        text="contact with a child – new <i>[complete and attach Schedule 5]</i>"/>
-                    <check-box  
-                        :check="!agreeDisagreeResults.existingChildContact.agree && agreeDisagreeResults.existingChildContact.opApplied?'yes':''" 
-                        text="contact order/agreement – existing <i>[complete and attach Schedule 6]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
-                    <check-box  
-                        :check="!agreeDisagreeResults.appointGuardian.agree && agreeDisagreeResults.appointGuardian.opApplied?'yes':''" 
-                        text="appointing a guardian of a child <i>[complete and attach Schedule 7]</i>"/>
-                    <check-box  
-                        :check="!agreeDisagreeResults.cancelGuardian.agree && agreeDisagreeResults.cancelGuardian.opApplied?'yes':''" 
-                        text="cancelling guardianship of a child <i>[complete and attach Schedule 8]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
-                    <check-box  
-                        :check="!agreeDisagreeResults.newSpouseSupport.agree && agreeDisagreeResults.newSpouseSupport.opApplied?'yes':''" 
-                        text="spousal support – new <i>[complete and attach Schedule 9]</i>"/>
-                    <check-box  
-                        :check="!agreeDisagreeResults.existingSpouseSupport.agree && agreeDisagreeResults.existingSpouseSupport.opApplied?'yes':''" 
-                        text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>                    
-                </div> 
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Property division</b></div>
-                    <check-box  
-                        :check="!agreeDisagreeResults.newCompanionAnimal.agree && agreeDisagreeResults.newCompanionAnimal.opApplied?'yes':''" 
-                        text="in respect of a companion animal – new <i>[complete and attach Schedule 10.1]</i>"/>
-                    <check-box  
-                        :check="!agreeDisagreeResults.existingCompanionAnimal.agree && agreeDisagreeResults.existingCompanionAnimal.opApplied?'yes':''" 
-                        text="companion animal agreement – existing <i>[complete and attach Schedule 10.2]</i>"/>                    
-                </div>
-              
-            </section>
-        </div>
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>IMPORTANT NOTE:</b></div>
-            <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;">
-                <b>If this family law case includes an application about support, you must provide your financial information with
-                    your reply to the application by completing and filing a Financial Statement in Form 4. 
-                </b>
-            </div>
-            <div style="margin-top:1rem;text-align:justify;">
-                If you do not give your complete, true, and up-to-date financial information when needed, the court can:
-                <ul>
-                    <li>order that the income information be provided</li>
-                    <li>assume a party’s income is a certain amount for support purposes and make an order based on it</li>
-                    <li>require a party to give security</li>
-                    <li>require a party to pay the other party’s expenses, an amount to the other party up to $5,000, or a fine up to $5,000</li>
-                    <li>make any other order the court considers appropriate</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>Making a counter application</b></div>
-            <div style="margin-top:1rem;">
-                <i>
-                    Complete this section only if, in addition to replying to the other party’s application, you want to apply for an
-                    order about a family law matter that the other party did not make an application about in section 6 of their
-                    Application About a Family Law Matter                    
-                </i>
-            </div>
-
-            <section>
-                <b style="margin-left:0.25rem">I am applying for a court order about the following family law matter(s):</b><br>                
-                <i>Select all options that apply, complete and attach the required schedule(s)</i>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Parenting arrangements</b></div>
-                    <div style="margin-top:0.25rem;"></div>
-                    <check-box 
-                        :check="selectedSchedules.includes('schedule11')?'yes':''" 
-                        text="Parenting arrangements – new <i>[complete and attach Schedule 11]</i> including parental responsibilities and parenting time"/>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule12')?'yes':''" 
-                        text="Parenting arrangements order/agreement – existing <i>[complete and attach Schedule 12]</i> including parental responsibilities and parenting time"/>
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Child support</b></div>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule13')?'yes':''" 
-                        text="child support – new <i>[complete and attach Schedule 13]</i>"/>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule14')?'yes':''" 
-                        text="child support order/agreement – existing <i>[complete and attach Schedule 14]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule15')?'yes':''" 
-                        text="contact with a child – new <i>[complete and attach Schedule 15]</i>"/>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule16')?'yes':''" 
-                        text="contact order/agreement – existing <i>[complete and attach Schedule 16]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule17')?'yes':''" 
-                        text="appointing a guardian of a child <i>[complete and attach Schedule 17]</i>"/>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule18')?'yes':''" 
-                        text="cancelling guardianship of a child <i>[complete and attach Schedule 18]</i>"/>                    
-                </div>
-
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule19')?'yes':''" 
-                        text="spousal support – new <i>[complete and attach Schedule 19]</i>"/>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule20')?'yes':''" 
-                        text="spousal support order/agreement – existing <i>[complete and attach Schedule 20]</i>"/>                    
-                </div>  
-                
-                <div style="margin-left:1rem;">                    
-                    <div style="margin-top:0.25rem;"><b>Property division</b></div>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule21')?'yes':''" 
-                        text="in respect of a companion animal – new <i>[complete and attach Schedule 21]</i>"/>
-                    <check-box  
-                        :check="selectedSchedules.includes('schedule22')?'yes':''" 
-                        text="companion animal agreement – existing <i>[complete and attach Schedule 22]</i>"/>                    
-                </div>
-              
-            </section>
-        </div>
-
-        <!-- <div class="print-block">
-            <div style="margin-top:1rem;"><b>Identification of child(ren)</b></div>
-
-            <section>
-                <i style="display:inline; margin-left:0.25rem">Select only one of the options below and complete the required information</i>          
-                <div style="margin-left:1.5rem">
-                    <check-box  
-                        :check="includesCounter && !counterAboutChildren?'yes':''" 
-                        text="My counter application does not ask for any order(s) about a child or children <i>(skip section 14)</i>"/>
-                    <check-box  
-                        :check="includesCounter && counterAboutChildren?'yes':''" 
-                        text="My counter application is asking for an order(s) about the following child or children:"/>                   
-                </div>
-                <b-table
-                    :items="counterChildrenInfo"
-                    :fields="childrenFields"
-                    class="mt-2"
-                    small
-                    bordered>                    
-                        <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
-                        </template>
-                </b-table> 
-            </section>
-        </div> -->
-
-<!-- <14> -->
-        <!-- <section>
-            <div style="margin:0 0 0 .5rem;display:inline;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="counterAboutChildren && childBestInterestAcknowledmentCheckCounter?'yes':''" text=""/>
-                <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
-                <div style="margin:0 0 0 1.75rem;display:inline-block;">asking the court to make about the child.</div>
-            </div>
-        </section> -->
-
-        <!-- <div class="print-block">
-            <div style="margin-top:1rem;"><b>Note to the other party:</b></div>
-            <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;">
-                <b>
-                    If the reply includes a counter application, you may reply to the counter application by filing a Reply to a
-                    Counter Application in Form 8, and any additional documents that may be required to be filed, within 30 days
-                    after the date you receive the reply with counter application.
-                </b>
-            </div>
-        </div> -->
-
 
     </div>
 </template>
@@ -1247,7 +839,13 @@ export default class CommonSection extends Vue {
     incorrectChildInfo = false;
     culturalInfo = '';
     selectedParentingArrangementsForm = [];
-   
+    selectedChildSupportForm = [];
+    selectedContactWithChildForm = [];
+    selectedGuardianshipForm = [];
+    selectedSpousalSupportForm = [];
+    selectedCompanionAnimalForm = [];
+    isAdditionalInfo = false;
+
     mounted(){
         this.dataReady = false;
         this.extractInfo();       
@@ -1282,7 +880,11 @@ export default class CommonSection extends Vue {
             rflmQuestionnaireInfo.selectedGuardianshipForm.length > 0 
         )
         this.selectedParentingArrangementsForm = rflmQuestionnaireInfo.selectedParentingArrangementsForm.length > 0 ? rflmQuestionnaireInfo.selectedParentingArrangementsForm : [];
-        console.log(this.selectedParentingArrangementsForm);
+        this.selectedChildSupportForm = rflmQuestionnaireInfo.selectedChildSupportForm.length > 0 ? rflmQuestionnaireInfo.selectedChildSupportForm : [];
+        this.selectedContactWithChildForm = rflmQuestionnaireInfo.selectedContactWithChildForm.length > 0 ? rflmQuestionnaireInfo.selectedContactWithChildForm : [];
+        this.selectedGuardianshipForm = rflmQuestionnaireInfo.selectedGuardianshipForm.length > 0 ? rflmQuestionnaireInfo.selectedGuardianshipForm : [];
+        this.selectedSpousalSupportForm = rflmQuestionnaireInfo.selectedSpousalSupportForm.length > 0 ? rflmQuestionnaireInfo.selectedSpousalSupportForm : [];
+        this.selectedCompanionAnimalForm = rflmQuestionnaireInfo.selectedCompanionAnimalForm.length > 0 ? rflmQuestionnaireInfo.selectedCompanionAnimalForm : [];
         if (childRelatedApplication){
             this.aboutChildren = true;
             this.incorrectChildInfo = this.result.correctChildInfo == 'No';
@@ -1325,6 +927,7 @@ export default class CommonSection extends Vue {
         this.otherPartyInfo = this.getOtherPartyInfo();
         this.yourInfo = this.getYourInfo();     
         this.locationInfo = this.getLocationInfo();  
+        this.isAdditionalInfo = this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs;
     }
 
     public getLocationInfo(){
