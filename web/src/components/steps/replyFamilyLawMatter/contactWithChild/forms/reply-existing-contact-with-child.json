@@ -19,7 +19,7 @@
               "type": "yesno",
               "name": "agreeCourtOrder",
               "title": "Do you agree the court should make the order?",
-              "description": "Look at the order the other party is applying for. Their order may be set out in their response to <b>Question 5</b> on <b>Schedule 6 – Contact order or written agreement - existing</b> Should the court make the order?<br><br>If you agree to only part of the order, for example, you agree they can have contact with the child but not as they requested, select NO. This service will help you to explain why the order should be different.",
+              "description": "Look at the order the other party is applying for. Their order may be set out in their response to <b>Question </b> on <b>Schedule 6 – Contact order or written agreement - existing</b> Should the court make the order?<br><br>If you agree to only part of the order, for example, you agree they can have contact with the child but not as they requested, select NO. This service will help you to explain why the order should be different.",
               "isRequired": true
             }
           ]
@@ -37,7 +37,7 @@
               "visible": false,
               "visibleIf": "{agreeCourtOrder} = 'n'",
               "title": "Is the other party’s application about an existing final order or an existing agreement?",  
-              "description": "Check the other party’s application. On <b>Schedule 6 – Contact order or written agreement - existing, Question 3</b> would be completed for a final order, <b>Question 4</b> would be completed for an agreement.<br>Select the correct option.",            
+              "description": "Check the other party’s application. On <b>Schedule 6 – Contact order or written agreement - existing, Question 2</b> would be completed for a final order, <b>Question 4</b> would be completed for an agreement.<br>Select the correct option.",            
               "choices": [
                 {
                   "value": "finalOrder",

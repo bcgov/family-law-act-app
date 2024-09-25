@@ -38,9 +38,14 @@
                     stacked
                     >                                
                     <div class="checkbox-border">
-                        <div><span class="checkbox-choices-header text-primary">Parenting Arrangements </span> including parental responsibilities and parenting time</div>
+                        <div><span class="checkbox-choices-header text-primary">Parenting Arrangements </span>, including parental responsibilities and parenting time</div>
                         <b-form-checkbox 
                             class="mt-3"
+                            v-on:change="changeSelection('parentingArrangements', 'naParentingArrangements', $event)" 
+                            value="naParentingArrangements">
+                            <div class="checkbox-choices" >Not Applicable</div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
                             v-on:change="changeSelection('parentingArrangements', 'agreeParentingArrangements', $event)" 
                             value="agreeParentingArrangements">
                             <div class="checkbox-choices">I agree with the request of the other party</div>
@@ -48,13 +53,35 @@
                         <b-form-checkbox 
                             v-on:change="changeSelection('parentingArrangements', 'disagreeParentingArrangements', $event)" 
                             value="disagreeParentingArrangements">
-                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about parenting arrangements should be made. 🠆 Complete Schedule 1</div>
+                            <div class="checkbox-choices">I disagree with the request of the other party. </div>
+                            <p> A different order about parenting arrangements should be made. <span style="color:#6c757d;"><b>🠆 Complete Schedule 1</b></span></p>
                         </b-form-checkbox>
                         <b-form-checkbox 
                             v-on:change="changeSelection('parentingArrangements', 'counterParentingArrangements', $event)" 
-                            value="counterParentingArrangements">
+                            value="counterParentingArrangements" v-model="counterPAChecked">
                             <div class="checkbox-choices">I am making a counter application for an order. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
+                        <!-- <b-form-checkbox-group
+                            :disabled="counterPAChecked != 'counterParentingArrangements'"
+                            stacked
+                            >                                 -->
+                            <div class="checkbox-choices-header text-primary">Do you have a final order or written agreement about parenting arrangements,
+                                including parental responsibilities and parenting time?</div>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('parentingArrangementsFinalOrder', 'noFinalOrderParentingArrangements', $event)" 
+                                value="noFinalOrderParentingArrangements" :disabled="!selectedParentingArrangementsForm.includes('counterParentingArrangements')">
+                                <div class="checkbox-choices">No 🠆 Complete Schedule 7</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('parentingArrangementsFinalOrder', 'yesFinalOrderParentingArrangements', $event)" 
+                                value="yesFinalOrderParentingArrangements" :disabled="!selectedParentingArrangementsForm.includes('counterParentingArrangements')">
+                                <div class="checkbox-choices">Yes 🠆 Complete Schedule 8</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                        <!-- </b-form-checkbox-group> -->
                     </div>
                     
                 </b-form-checkbox-group>
@@ -68,6 +95,11 @@
                         <div class="checkbox-choices-header text-primary">Child Support</div>
                         <b-form-checkbox 
                             class="mt-3"
+                            v-on:change="changeSelection('childSupport', 'naChildSupport', $event)" 
+                            value="naChildSupport">
+                            <div class="checkbox-choices">Not Applicable</div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
                             v-on:change="changeSelection('childSupport', 'agreeChildSupport', $event)" 
                             value="agreeChildSupport">
                             <div class="checkbox-choices">I agree with the request of the other party </div>
@@ -75,13 +107,34 @@
                         <b-form-checkbox 
                             v-on:change="changeSelection('childSupport', 'disagreeChildSupport', $event)" 
                             value="disagreeChildSupport">
-                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about child support should be made. 🠆 Complete Schedule 2 </div>
+                            <div class="checkbox-choices">I disagree with the request of the other party.</div>
+                        <p> A different order about child support should be made. <span style="color:#6c757d"><b>🠆 Complete Schedule 2</b></span></p>
                         </b-form-checkbox>
                         <b-form-checkbox 
                             v-on:change="changeSelection('childSupport', 'counterChildSupport', $event)" 
-                            value="counterChildSupport">
+                            value="counterChildSupport" v-model="counterCSChecked">
                             <div class="checkbox-choices">I am making a counter application for an order about child support. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
+                        <!-- <b-form-checkbox-group
+                            :disabled="counterCSChecked != 'counterChildSupport'"
+                            stacked
+                            >                                 -->
+                            <div class="checkbox-choices-header text-primary">Do you have a final order or written agreement about child support?</div>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('childSupportFinalOrder', 'noFinalOrderChildSupport', $event)" 
+                                value="noFinalOrderChildSupport" :disabled="!selectedChildSupportForm.includes('counterChildSupport')">
+                                <div class="checkbox-choices">No 🠆 Complete Schedule 9</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('childSupportFinalOrder', 'yesFinalOrderChildSupport', $event)" 
+                                value="yesFinalOrderChildSupport" :disabled="!selectedChildSupportForm.includes('counterChildSupport')">
+                                <div class="checkbox-choices">Yes 🠆 Complete Schedule 10</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                        <!-- </b-form-checkbox-group> -->
                     </div>
                     
                 </b-form-checkbox-group>
@@ -95,6 +148,11 @@
                         <div class="checkbox-choices-header text-primary">Contact with a child</div>
                         <b-form-checkbox 
                             class="mt-3"
+                            v-on:change="changeSelection('contact', 'naContact', $event)" 
+                            value="naContact">
+                            <div class="checkbox-choices">Not Applicable</div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
                             v-on:change="changeSelection('contact', 'agreeContact', $event)" 
                             value="agreeContact">
                             <div class="checkbox-choices">I agree with the request of the other party</div>
@@ -102,14 +160,34 @@
                         <b-form-checkbox 
                             v-on:change="changeSelection('contact', 'disagreeContact', $event)" 
                             value="disagreeContact">
-                            <div class="checkbox-choices">I disagree with the request of the other party. A different order about contact with a  child should be made. 🠆 Complete Schedule 3 </div>
+                            <div class="checkbox-choices">I disagree with the request of the other party.</div>
+                            <p> A different order about contact with a child should be made. <span style="color:#6c757d"><b>🠆 Complete Schedule 4</b></span></p>
                         </b-form-checkbox>
                         <b-form-checkbox 
                             v-on:change="changeSelection('contact', 'counterContact', $event)" 
-                            value="counterContact">
+                            value="counterContact"  v-model="counterCCChecked">
                             <div class="checkbox-choices"> I am making a counter application for an order about contact with a child. No application about this family law matter was made by the other party. </div>
                         </b-form-checkbox>
-                        
+                        <!-- <b-form-checkbox-group
+                            :disabled="counterCCChecked != 'counterContact'"
+                            stacked
+                            >                                 -->
+                            <div class="checkbox-choices-header text-primary">Do you have a final order or written agreement about contact with a child?</div>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('ContactFinalOrder', 'noFinalOrderContact', $event)" 
+                                value="noFinalOrderContact" :disabled="!selectedContactWithChildForm.includes('counterContact')">
+                                <div class="checkbox-choices">No 🠆 Complete Schedule 11</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('ContactFinalOrder', 'yesFinalOrderContact', $event)" 
+                                value="yesFinalOrderContact" :disabled="!selectedContactWithChildForm.includes('counterContact')">
+                                <div class="checkbox-choices">Yes 🠆 Complete Schedule 12</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                        <!-- </b-form-checkbox-group> -->
                     </div>
                     
                 </b-form-checkbox-group>
@@ -120,17 +198,28 @@
                     stacked
                     >                                
                     <div class="checkbox-border">
-                        <div class="checkbox-choices-header text-primary">Guardianship of a child</div>
+                        <div><span class="checkbox-choices-header text-primary"> Guardianship of a child </span>- appointing a new guardian or cancelling guardianship </div>
                         <b-form-checkbox 
                             class="mt-3"
-                            v-on:change="changeSelection('guardianship', 'appointing', $event)" 
-                            value="appointing">
-                            <div class="checkbox-choices">Appointing a guardian of a child</div>
+                            v-on:change="changeSelection('guardianship', 'naguardianship', $event)" 
+                            value="naguardianship">
+                            <div class="checkbox-choices">Not applicable</div>
                         </b-form-checkbox>
                         <b-form-checkbox 
-                            v-on:change="changeSelection('guardianship', 'cancelling', $event)" 
-                            value="cancelling">
-                            <div class="checkbox-choices">Cancelling guardianship of a child </div>
+                            v-on:change="changeSelection('guardianship', 'agreeGuardianship', $event)" 
+                            value="agreeGuardianship">
+                            <div class="checkbox-choices">I agree with the request of the other party</div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('guardianship', 'disagreeGuardianship', $event)" 
+                            value="disagreeGuardianship">
+                            <div class="checkbox-choices">I disagree with the request of the other party <span style="color:#6c757d">🠆 Complete Schedule 4</span></div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('guardianship', 'counterGuardianship', $event)" 
+                            value="counterGuardianship">
+                            <div class="checkbox-choices">I am making a counter application for an order to appoint a new guardian or to
+                                cancel the guardianship of a child. <span style="color:#6c757d">🠆 Complete Schedule 13</span></div>
                         </b-form-checkbox>
                     </div>
                     
@@ -145,11 +234,14 @@
                         <div class="checkbox-choices-header text-primary">Spousal Support</div>
                         <b-form-checkbox 
                             class="mt-3"
+                            v-on:change="changeSelection('spouseSupport', 'naSpouseSupport', $event)" 
+                            value="naSpouseSupport">
+                            <div class="checkbox-choices">Not applicable</div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
                             v-on:change="changeSelection('spouseSupport', 'agreeSpouseSupport', $event)" 
                             value="agreeSpouseSupport">
-                            <div class="checkbox-choices">I agree with the request of the other party</div>
-                            <p>
-                            </p>                    
+                            <div class="checkbox-choices">I agree with the request of the other party</div>                
                         </b-form-checkbox>
                         <b-form-checkbox 
                             v-on:change="changeSelection('spouseSupport', 'disagreeSpouseSupport', $event)" 
@@ -157,7 +249,7 @@
                             <div class="checkbox-choices">I disagree with the request of the other party</div>
                             <p>
                                 A different order about spousal 
-                                support should be made. 🠆 Complete Schedule 5
+                                support should be made. <span style="color:#6c757d"><b>🠆 Complete Schedule 5</b></span>
                             </p>                    
                         </b-form-checkbox>
                         <b-form-checkbox 
@@ -168,27 +260,26 @@
                                 No application about this family law matter was made by the other party.
                             </p>                    
                         </b-form-checkbox>
-                        <b-form-checkbox-group
+                        <!-- <b-form-checkbox-group
                             :disabled="counterSSChecked != 'counterSpouseSupport'"
-                            v-model="selectedSpousalSupportFormOrder" 
                             stacked
-                            >                                
+                            >                                 -->
                             <div class="checkbox-choices-header text-primary">Do you have a final order or written agreement about spousal support?</div>
                             <b-form-checkbox 
                                 v-on:change="changeSelection('spouseSupportFinalOrder', 'noFinalOrderSpouseSupport', $event)" 
-                                value="noFinalOrderSpouseSupport">
+                                value="noFinalOrderSpouseSupport" :disabled="!selectedSpousalSupportForm.includes('counterSpouseSupport')">
                                 <div class="checkbox-choices">No 🠆 Complete Schedule 14</div>
                                 <p>
                                 </p>                    
                             </b-form-checkbox>
                             <b-form-checkbox 
                                 v-on:change="changeSelection('spouseSupportFinalOrder', 'yesFinalOrderSpouseSupport', $event)" 
-                                value="yesFinalOrderSpouseSupport">
+                                value="yesFinalOrderSpouseSupport" :disabled="!selectedSpousalSupportForm.includes('counterSpouseSupport')">
                                 <div class="checkbox-choices">Yes 🠆 Complete Schedule 15</div>
                                 <p>
                                 </p>                    
                             </b-form-checkbox>
-                        </b-form-checkbox-group>
+                        <!-- </b-form-checkbox-group> -->
                     </div>
                     
                 </b-form-checkbox-group>
@@ -201,6 +292,51 @@
                     <div class="checkbox-border">
                         <div class="checkbox-choices-header text-primary">Property Division</div>
                         <b-form-checkbox 
+                            class="mt-3"
+                            v-on:change="changeSelection('companionAnimal', 'naCompanionAnimal', $event)" 
+                            value="naCompanionAnimal">
+                            <div class="checkbox-choices">Not applicable</div>
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('companionAnimal', 'agreeCompanionAnimal', $event)" 
+                            value="agreeCompanionAnimal">
+                            <div class="checkbox-choices">I agree with the request of the other party</div>                
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('companionAnimal', 'disagreeCompanionAnimal', $event)" 
+                            value="disagreeCompanionAnimal">
+                            <div class="checkbox-choices">I disagree with the request of the other party</div>
+                            <p>
+                                A different order about companion animal should be made. <span style="color:#6c757d"><b>🠆 Complete Schedule 6</b></span>
+                            </p>                    
+                        </b-form-checkbox>
+                        <b-form-checkbox 
+                            v-on:change="changeSelection('companionAnimal', 'counterCompanionAnimal', $event)" 
+                            value="counterCompanionAnimal" v-model="counterPDChecked">
+                            <div class="checkbox-choices">I am making a counter application for an order about property division in respect of
+                                a companion animal. No application about this family law matter was made by the other party</div>                   
+                        </b-form-checkbox>
+                        <!-- <b-form-checkbox-group
+                            :disabled="counterSSChecked != 'counterCompanionAnimal'"
+                            stacked
+                            >                                 -->
+                            <div class="checkbox-choices-header text-primary">Do you have a written agreement about property division in respect of a companion animal?</div>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('companionAnimalFinalOrder', 'noFinalOrderCompanionAnimal', $event)" 
+                                value="noFinalOrderCompanionAnimal" :disabled="!selectedCompanionAnimalForm.includes('counterCompanionAnimal')">
+                                <div class="checkbox-choices">No 🠆 Complete Schedule 16</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                            <b-form-checkbox 
+                                v-on:change="changeSelection('companionAnimalFinalOrder', 'yesFinalOrderCompanionAnimal', $event)" 
+                                value="yesFinalOrderCompanionAnimal" :disabled="!selectedCompanionAnimalForm.includes('counterCompanionAnimal')">
+                                <div class="checkbox-choices">Yes 🠆 Complete Schedule 17</div>
+                                <p>
+                                </p>                    
+                            </b-form-checkbox>
+                        <!-- </b-form-checkbox-group> -->
+                        <!-- <b-form-checkbox 
                             class="mt-3"
                             v-on:change="changeSelection('companionAnimal', 'newCompanionAnimal', $event)" 
                             value="newCompanionAnimal">
@@ -220,7 +356,7 @@
                                 They are asking for an order about a property division agreement 
                                 in respect of a companion animal that already exists.
                             </p>                    
-                        </b-form-checkbox>
+                        </b-form-checkbox> -->
                     </div>
                     
                 </b-form-checkbox-group>
@@ -271,17 +407,25 @@ export default class RflmQuestionnaire extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void    
    
     selectedParentingArrangementsForm = [];
+    selectedParentingArrangementsFormOrder = [];
     selectedChildSupportForm = [];
+    selectedChildSupportFormOrder = [];
     selectedContactWithChildForm = [];
+    selectedContactWithChildFormOrder = [];
     selectedGuardianshipForm = [];
     selectedSpousalSupportForm = [];
     selectedSpousalSupportFormOrder = [];
     selectedCompanionAnimalForm = [];   
+    selectedCompanionAnimalFormOrder = [];  
 
     currentStep = 0;
     currentPage = 0;
 
+    counterPAChecked = '';
+    counterCSChecked='';
+    counterCCChecked='';
     counterSSChecked = '';
+    counterPDChecked = '';
 
     allPages = []; 
 
@@ -298,12 +442,16 @@ export default class RflmQuestionnaire extends Vue {
         if (this.step.result?.rflmQuestionnaireSurvey) {
             const rflmData = this.step.result.rflmQuestionnaireSurvey.data;
             this.selectedParentingArrangementsForm = rflmData.selectedParentingArrangementsForm?rflmData.selectedParentingArrangementsForm:[];
+            //this.selectedParentingArrangementsFormOrder = rflmData.selectedParentingArrangementsFormOrder?rflmData.selectedParentingArrangementsFormOrder:[];
             this.selectedChildSupportForm = rflmData.selectedChildSupportForm?rflmData.selectedChildSupportForm:[];
+            //this.selectedChildSupportFormOrder = rflmData.selectedChildSupportFormOrder?rflmData.selectedChildSupportFormOrder:[];
             this.selectedContactWithChildForm = rflmData.selectedContactWithChildForm?rflmData.selectedContactWithChildForm:[];
+            //this.selectedContactWithChildFormOrder = rflmData.selectedContactWithChildFormOrder?rflmData.selectedContactWithChildFormOrder:[];
             this.selectedGuardianshipForm = rflmData.selectedGuardianshipForm?rflmData.selectedGuardianshipForm:[];
             this.selectedSpousalSupportForm = rflmData.selectedSpousalSupportForm?rflmData.selectedSpousalSupportForm:[];
-            this.selectedSpousalSupportFormOrder = rflmData.selectedSpousalSupportFormOrder?rflmData.selectedSpousalSupportFormOrder:[];
+            //this.selectedSpousalSupportFormOrder = rflmData.selectedSpousalSupportFormOrder?rflmData.selectedSpousalSupportFormOrder:[];
             this.selectedCompanionAnimalForm = rflmData.selectedCompanionAnimalForm?rflmData.selectedCompanionAnimalForm:[];
+           //this.selectedCompanionAnimalFormOrder = rflmData.selectedCompanionAnimalFormOrder?rflmData.selectedCompanionAnimalFormOrder:[];
             if(this.getSelected())
                 this.determineSteps();
         }
@@ -318,12 +466,16 @@ export default class RflmQuestionnaire extends Vue {
     public getSelected(){
 
         const selected = this.selectedParentingArrangementsForm.length>0 || 
+                        this.selectedParentingArrangementsFormOrder.length>0 || 
                         this.selectedChildSupportForm.length>0 ||
+                        this.selectedChildSupportFormOrder.length>0 ||
                         this.selectedContactWithChildForm.length>0 ||
+                        this.selectedContactWithChildFormOrder.length>0 ||
                         this.selectedGuardianshipForm.length>0 ||
                         this.selectedSpousalSupportForm.length>0 ||
                         this.selectedSpousalSupportFormOrder.length>0 ||
-                        this.selectedCompanionAnimalForm.length>0
+                        this.selectedCompanionAnimalForm.length>0 ||
+                        this.selectedCompanionAnimalFormOrder.length>0
 
         return selected;
 
@@ -349,15 +501,47 @@ export default class RflmQuestionnaire extends Vue {
             if (list.length>0){
                 this.selectedSpousalSupportForm = [selection];            
             }
-        } else if (category == 'spouseSupportFinalOrder'){
-            if (list.length>0){
-                this.selectedSpousalSupportFormOrder = [selection];
-            }
         } else if (category == 'companionAnimal'){
             if (list.length>0){
                 this.selectedCompanionAnimalForm = [selection];            
             }
+        } else if (category == 'parentingArrangementsFinalOrder'){
+            const itemtoremove = selection === 'noFinalOrderParentingArrangements' ? 'yesFinalOrderParentingArrangements' : 'noFinalOrderParentingArrangements';
+            const index =  list.indexOf(itemtoremove);
+               if (index > -1) {
+                     list.splice(index, 1); 
+                }
+            this.selectedParentingArrangementsFormOrder = [selection];
+        } else if (category == 'childSupportFinalOrder'){
+            const itemtoremove = selection === 'noFinalOrderChildSupport' ? 'yesFinalOrderChildSupport' : 'noFinalOrderChildSupport';
+            const index =  list.indexOf(itemtoremove);
+               if (index > -1) {
+                     list.splice(index, 1); 
+                }
+            this.selectedChildSupportFormOrder = [selection];
+        } else if (category == 'ContactFinalOrder'){
+            const itemtoremove = selection === 'noFinalOrderContact' ? 'yesFinalOrderContact' : 'noFinalOrderContact';
+            const index =  list.indexOf(itemtoremove);
+               if (index > -1) {
+                     list.splice(index, 1); 
+                }
+            this.selectedContactWithChildFormOrder = [selection];
+        } else if (category == 'spouseSupportFinalOrder'){
+            const itemtoremove = selection === 'noFinalOrderSpouseSupport' ? 'yesFinalOrderSpouseSupport' : 'noFinalOrderSpouseSupport';
+            const index =  list.indexOf(itemtoremove);
+               if (index > -1) {
+                     list.splice(index, 1); 
+                }
+            this.selectedSpousalSupportFormOrder = [selection];
+        } else if (category == 'companionAnimalFinalOrder'){
+            const itemtoremove = selection === 'noFinalOrderCompanionAnimal' ? 'yesFinalOrderCompanionAnimal' : 'noFinalOrderCompanionAnimal';
+            const index =  list.indexOf(itemtoremove);
+               if (index > -1) {
+                     list.splice(index, 1); 
+                }
+            this.selectedCompanionAnimalFormOrder = [selection];
         }
+        
 
         this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:false})        
 
@@ -365,12 +549,16 @@ export default class RflmQuestionnaire extends Vue {
             this.setSteps();
         } else { 
             this.selectedParentingArrangementsForm = [];
+            this.selectedParentingArrangementsFormOrder = [];
             this.selectedChildSupportForm = [];
+            this.selectedChildSupportFormOrder = [];
             this.selectedContactWithChildForm = [];
+            this.selectedContactWithChildFormOrder = [];
             this.selectedGuardianshipForm = [];
             this.selectedSpousalSupportForm = [];
             this.selectedSpousalSupportFormOrder = [];
             this.selectedCompanionAnimalForm = [];
+            this.selectedCompanionAnimalFormOrder = [];
         }
         Vue.filter('surveyChanged')('replyFlm'); 
     }    
@@ -438,27 +626,45 @@ export default class RflmQuestionnaire extends Vue {
 
     public getSelectedFormsNames(){
         let result = '';
-        if (this.selectedParentingArrangementsForm.includes('newParentingArrangements')) result+='New Parenting Arrangements'+'\n';
-        else if (this.selectedParentingArrangementsForm.includes('existingParentingArrangements')) result+='Existing Parenting Arrangements'+'\n';
+        if (this.selectedParentingArrangementsForm.includes('naParentingArrangements')) result+='Not Applicable'+'\n';
+        else if (this.selectedParentingArrangementsForm.includes('agreeParentingArrangements')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedParentingArrangementsForm.includes('disagreeParentingArrangements')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedParentingArrangementsForm.includes('counterParentingArrangements')) result+='I am making a counter application for an order. No application about this family law matter was made by the other party'+'\n';
+        if (this.selectedParentingArrangementsForm.includes('yesFinalOrderParentingArrangements')) result+='Yes 🠆 Complete Schedule 8'+'\n';
+        else if (this.selectedParentingArrangementsForm.includes('noFinalOrderParentingArrangements')) result+='No 🠆 Complete Schedule 7'+'\n';
 
-        if (this.selectedChildSupportForm.includes('newChildSupport')) result+='New Child Support'+'\n';
-        else if (this.selectedChildSupportForm.includes('existingChildSupport')) result+='Existing Child Support'+'\n';
+        if (this.selectedChildSupportForm.includes('naChildSupport')) result+='Not Applicable'+'\n';
+        else if (this.selectedChildSupportForm.includes('agreeChildSupport')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedChildSupportForm.includes('disagreeChildSupport')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedChildSupportForm.includes('counterChildSupport')) result+='I am making a counter application for an order about child support. No application about this family law matter was made by the other party.'+'\n';
+        if (this.selectedChildSupportForm.includes('yesFinalOrderChildSupport')) result+='Yes 🠆 Complete Schedule 10'+'\n';
+        else if (this.selectedChildSupportForm.includes('noFinalOrderChildSupport')) result+='No 🠆 Complete Schedule 9'+'\n';
 
-        if (this.selectedContactWithChildForm.includes('newContact')) result+='New Contact With a Child'+'\n';
-        else if (this.selectedContactWithChildForm.includes('existingContact')) result+='Existing Contact With a Child'+'\n';
+        if (this.selectedContactWithChildForm.includes('naContact')) result+='Not Applicable'+'\n';
+        else if (this.selectedContactWithChildForm.includes('agreeContact')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedContactWithChildForm.includes('disagreeContact')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedContactWithChildForm.includes('counterContact')) result+='I am making a counter application for an order about contact with a child. No application about this family law matter was made by the other party.'+'\n';
+        if (this.selectedContactWithChildForm.includes('yesFinalOrderContact')) result+='Yes 🠆 Complete Schedule 12'+'\n';
+        else if (this.selectedContactWithChildForm.includes('noFinalOrderContact')) result+='No 🠆 Complete Schedule 11'+'\n';
 
-        if (this.selectedGuardianshipForm.includes('appointing')) result+='Appointing a Guardian of a Child'+'\n';
-        if (this.selectedGuardianshipForm.includes('cancelling')) result+='Cancelling Guardianship of a Child'+'\n';
+        if (this.selectedGuardianshipForm.includes('naguardianship')) result+='Not Applicable'+'\n';
+        else if (this.selectedGuardianshipForm.includes('agreeGuardianship')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedGuardianshipForm.includes('disagreeGuardianship')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedGuardianshipForm.includes('counterGuardianship')) result+='I am making a counter application for an order to appoint a new guardian or to cancel the guardianship of a child.'+'\n';
 
-        if (this.selectedSpousalSupportForm.includes('newSpouseSupport')) result+='New Spousal Support'+'\n';
-        else if (this.selectedSpousalSupportForm.includes('existingSpouseSupport')) result+='Existing Spousal Support'+'\n';
-        
-        if (this.selectedSpousalSupportForm.includes('agreeSpouseSupport')) result+='Agree Spousal Support'+'\n';
-        else if (this.selectedSpousalSupportForm.includes('disagreeSpouseSupport')) result+='Disagree Spousal Support'+'\n';
-        else if (this.selectedSpousalSupportForm.includes('counterSpouseSupport')) result+='Counter Spousal Support'+'\n';
+        if (this.selectedSpousalSupportForm.includes('naSpouseSupport')) result+='Not Applicable'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('agreeSpouseSupport')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('disagreeSpouseSupport')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('counterSpouseSupport')) result+='I am making a counter application for an order about spousal support.'+'\n';
+        if (this.selectedSpousalSupportForm.includes('yesFinalOrderSpouseSupport')) result+='Yes 🠆 Complete Schedule 15'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('noFinalOrderSpouseSupport')) result+='No 🠆 Complete Schedule 14'+'\n';
 
-        if (this.selectedCompanionAnimalForm.includes('newCompanionAnimal')) result+='New Companion Animal'+'\n';
-        else if (this.selectedCompanionAnimalForm.includes('existingCompanionAnimal')) result+='Existing Companion Animal'+'\n';
+        if (this.selectedCompanionAnimalForm.includes('naCompanionAnimal')) result+='Not Applicable'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('agreeCompanionAnimal')) result+='I agree with the request of the other party'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('disagreeCompanionAnimal')) result+='I disagree with the request of the other party'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('counterCompanionAnimal')) result+='I am making a counter application for an order about property division in respect of a companion animal. No application about this family law matter was made by the other party.'+'\n';
+        if (this.selectedCompanionAnimalForm.includes('yesFinalOrderCompanionAnimal')) result+='Yes 🠆 Complete Schedule 17'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('noFinalOrderCompanionAnimal')) result+='No 🠆 Complete Schedule 16'+'\n';
 
         return result;
     }
@@ -466,12 +672,16 @@ export default class RflmQuestionnaire extends Vue {
     public getData(){
         let result = {} as rflmQuestionnaireDataInfoType;
         result.selectedParentingArrangementsForm = this.selectedParentingArrangementsForm;
+        //result.selectedParentingArrangementsFormOrder = this.selectedParentingArrangementsFormOrder;
         result.selectedChildSupportForm = this.selectedChildSupportForm;
+        //result.selectedChildSupportFormOrder = this.selectedChildSupportFormOrder;
         result.selectedContactWithChildForm = this.selectedContactWithChildForm;
+        //result.selectedContactWithChildFormOrder = this.selectedContactWithChildFormOrder;
         result.selectedGuardianshipForm = this.selectedGuardianshipForm;
         result.selectedSpousalSupportForm = this.selectedSpousalSupportForm;
-        result.selectedSpousalSupportFormOrder = this.selectedSpousalSupportFormOrder;
+        //result.selectedSpousalSupportFormOrder = this.selectedSpousalSupportFormOrder;
         result.selectedCompanionAnimalForm = this.selectedCompanionAnimalForm;        
+        //result.selectedCompanionAnimalFormOrder = this.selectedCompanionAnimalFormOrder;  
         return result;
     }
 

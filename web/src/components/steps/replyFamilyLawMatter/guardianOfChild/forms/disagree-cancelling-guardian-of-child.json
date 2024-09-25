@@ -13,7 +13,7 @@
               "name": "disagreeReasonList",
               "isRequired": true,
               "title": "Explain why you do not agree with the other party’s request to cancel guardianship of a child using the options provided.",
-              "description": "Look at <b>Question 1</b> on <b>Schedule 8 – Cancelling Guardianship of a Child</b> of the other party’s Application About a Family Law Matter. The guardian is the person listed in the first column of the table. This is the person the statements below are about. If there is more than one guardian listed, answer this question for any of those guardians. In your explanation be sure to specify if it applies to one or all guardians.<br><br>Select each option that applies and explain why. You do not need to use any special wording. The key is to be clear about what you mean. ",
+              "description": "Look at <b>Question 1</b> on <b>Schedule 7 – Cancelling Guardianship of a Child</b> of the other party’s Application About a Family Law Matter. The guardian is the person listed in the first column of the table. This is the person the statements below are about. If there is more than one guardian listed, answer this question for any of those guardians. In your explanation be sure to specify if it applies to one or all guardians.<br><br>Select each option that applies and explain why. You do not need to use any special wording. The key is to be clear about what you mean. ",
               "choices": [
                 {
                   "value": "able",

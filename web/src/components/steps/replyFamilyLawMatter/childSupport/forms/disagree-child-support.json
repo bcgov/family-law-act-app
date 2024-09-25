@@ -32,7 +32,7 @@
               "type": "radiogroup",
               "name": "incorrectIncome",
               "title": "My income is not what the other party claimed it is.",
-              "description": "It could be that the other party made a guess about your income to calculate child support or was relying on dated information. Any information they provided about your income can be found in their response to <b>Question 5</b> and <b>Question 6</b> on <b>Schedule 3 – Child Support – New</b>. Did they get it wrong?",
+              "description": "It could be that the other party made a guess about your income to calculate child support or was relying on dated information. Any information they provided about your income can be found in their response to <b>Question 5</b> on <b>Schedule 2 – Child Support</b>. Did they get it wrong?",
               "isRequired": true,
               "choices": [
                 {
@@ -98,7 +98,7 @@
               "type": "radiogroup",
               "name": "incorrectSpecialAndExtraordinaryExpenses",
               "title": "I believe the special and extraordinary expenses are not what the other party claims they are.",
-              "description": "The other party’s claim for special and extraordinary expenses is set out in their response to <b>Question 12</b> on <b>Schedule 3 – Child Support – New</b>. If you don’t agree with the claimed special and extraordinary expense or the amount, or you believe something is missing, select “True”.",
+              "description": "The other party’s claim for special and extraordinary expenses is set out in their response to <b>Question 12</b> on <b>Schedule 3 – Child Support</b>. If you don’t agree with the claimed special and extraordinary expense or the amount, or you believe something is missing, select “True”.",
               "isRequired": true,
               "choices": [
                 {
@@ -143,7 +143,7 @@
               "type": "radiogroup",
               "name": "incorrectTimeWithChild",
               "title": "I believe the living arrangements are not how the other party described them.",
-              "description": "The other party would have calculated child support using the living arrangements for the child(ren) that are already in place as described in <b>Question 3</b> on <b>Schedule 3 – Child Support – New</b>, or that they are asking for in their application in <b>Schedule 1 or Schedule 2</b>. You may be asking for something different or not agree with what the other party described.",
+              "description": "The other party would have calculated child support using the living arrangements for the child(ren) that are already in place as described in <b>Question 3</b> on <b>Schedule 3 – Child Support</b>, or that they are asking for in their application in <b>Schedule 1 or Schedule 2</b>. You may be asking for something different or not agree with what the other party described.",
               "isRequired": true,
               "choices": [
                 {

@@ -78,7 +78,7 @@
               "name": "orderDifferenceType",
               "visible": false,
               "visibleIf": "{existingType} = 'ExistingOrder'",
-              "title": "Do you want the existing order changed or cancelled?",
+              "title": "Do you want the existing order changed, suspended or cancelled?",
               "description": "You can apply to change the existing order if you still need an order about child support, but you want something different. Or you can apply to cancel the existing order.<br>Select the option that fits your situation.",
               "choices": [
                 {
