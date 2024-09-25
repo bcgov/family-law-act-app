@@ -630,34 +630,42 @@ export default class RflmQuestionnaire extends Vue {
         else if (this.selectedParentingArrangementsForm.includes('agreeParentingArrangements')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedParentingArrangementsForm.includes('disagreeParentingArrangements')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedParentingArrangementsForm.includes('counterParentingArrangements')) result+='I am making a counter application for an order. No application about this family law matter was made by the other party'+'\n';
+        if (this.selectedParentingArrangementsForm.includes('yesFinalOrderParentingArrangements')) result+='Yes 🠆 Complete Schedule 8'+'\n';
+        else if (this.selectedParentingArrangementsForm.includes('noFinalOrderParentingArrangements')) result+='No 🠆 Complete Schedule 7'+'\n';
 
         if (this.selectedChildSupportForm.includes('naChildSupport')) result+='Not Applicable'+'\n';
         else if (this.selectedChildSupportForm.includes('agreeChildSupport')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedChildSupportForm.includes('disagreeChildSupport')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedChildSupportForm.includes('counterChildSupport')) result+='I am making a counter application for an order about child support. No application about this family law matter was made by the other party.'+'\n';
+        if (this.selectedChildSupportForm.includes('yesFinalOrderChildSupport')) result+='Yes 🠆 Complete Schedule 10'+'\n';
+        else if (this.selectedChildSupportForm.includes('noFinalOrderChildSupport')) result+='No 🠆 Complete Schedule 9'+'\n';
 
         if (this.selectedContactWithChildForm.includes('naContact')) result+='Not Applicable'+'\n';
         else if (this.selectedContactWithChildForm.includes('agreeContact')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedContactWithChildForm.includes('disagreeContact')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedContactWithChildForm.includes('counterContact')) result+='I am making a counter application for an order about contact with a child. No application about this family law matter was made by the other party.'+'\n';
+        if (this.selectedContactWithChildForm.includes('yesFinalOrderContact')) result+='Yes 🠆 Complete Schedule 12'+'\n';
+        else if (this.selectedContactWithChildForm.includes('noFinalOrderContact')) result+='No 🠆 Complete Schedule 11'+'\n';
 
         if (this.selectedGuardianshipForm.includes('naguardianship')) result+='Not Applicable'+'\n';
         else if (this.selectedGuardianshipForm.includes('agreeGuardianship')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedGuardianshipForm.includes('disagreeGuardianship')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedGuardianshipForm.includes('counterGuardianship')) result+='I am making a counter application for an order to appoint a new guardian or to cancel the guardianship of a child.'+'\n';
-        
+
         if (this.selectedSpousalSupportForm.includes('naSpouseSupport')) result+='Not Applicable'+'\n';
         else if (this.selectedSpousalSupportForm.includes('agreeSpouseSupport')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedSpousalSupportForm.includes('disagreeSpouseSupport')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedSpousalSupportForm.includes('counterSpouseSupport')) result+='I am making a counter application for an order about spousal support.'+'\n';
+        if (this.selectedSpousalSupportForm.includes('yesFinalOrderSpouseSupport')) result+='Yes 🠆 Complete Schedule 15'+'\n';
+        else if (this.selectedSpousalSupportForm.includes('noFinalOrderSpouseSupport')) result+='No 🠆 Complete Schedule 14'+'\n';
 
         if (this.selectedCompanionAnimalForm.includes('naCompanionAnimal')) result+='Not Applicable'+'\n';
         else if (this.selectedCompanionAnimalForm.includes('agreeCompanionAnimal')) result+='I agree with the request of the other party'+'\n';
         else if (this.selectedCompanionAnimalForm.includes('disagreeCompanionAnimal')) result+='I disagree with the request of the other party'+'\n';
         else if (this.selectedCompanionAnimalForm.includes('counterCompanionAnimal')) result+='I am making a counter application for an order about property division in respect of a companion animal. No application about this family law matter was made by the other party.'+'\n';
+        if (this.selectedCompanionAnimalForm.includes('yesFinalOrderCompanionAnimal')) result+='Yes 🠆 Complete Schedule 17'+'\n';
+        else if (this.selectedCompanionAnimalForm.includes('noFinalOrderCompanionAnimal')) result+='No 🠆 Complete Schedule 16'+'\n';
 
-        
-        console.log(result);
         return result;
     }
 

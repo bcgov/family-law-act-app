@@ -15,7 +15,7 @@
                 <div>Rule 28</div> 
             </div>
             <div style="float: left; width: 25%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
-                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
+                <p style="display: block;margin-top: 85pt;margin-left: 30pt;">COURT STAMP</p>
             </div>
             <div style="width: 35%; float:right; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
@@ -125,15 +125,15 @@ court, of a party’s reply to an application about a family law matter and a co
                     </div>     
                     <div>
                     <div >
-                        <check-box  style="display: block; text-indent: -17px;margin-left:45px"  :check="replyNewCompInfo.spouse?'yes':''" text="The <b>information</b> set out in Part 4 of the Application About a Family Law Matter <b>about the relationship between the parties is correct</b>."/>               
+                        <check-box  style="display: block; text-indent: -17px;margin-left:45px"  :check="isRelationshipCorrect?'yes':''" text="The <b>information</b> set out in Part 4 of the Application About a Family Law Matter <b>about the relationship between the parties is correct</b>."/>               
                     </div>
                     <div>
-                        <check-box style="display: block; text-indent: -17px;margin-left:45px"  :check="!replyNewCompInfo.spouse?'yes':''" text="The <b>information</b> set out in Part 4 of the Application About a Family Law Matter
+                        <check-box style="display: block; text-indent: -17px;margin-left:45px"  :check="!isRelationshipCorrect?'yes':''" text="The <b>information</b> set out in Part 4 of the Application About a Family Law Matter
                         <b>about the relationship between the parties is not correct</b> as follows:"/>               
                     </div>
                     <div style="font-size: 11pt;margin-left:55px;"><span style="color:#747474;font-style: italic;">Identify the information you say is not correct and set out the correct information</span></div>
-                    <div v-if="!replyNewCompInfo.spouse && replyNewCompInfo.relationshipDetails" style="margin-left:55px;background-color:#dedede;min-height:125px;">{{ replyNewCompInfo.relationshipDetails }}</div>
-                    <div v-else style="background-color: #dedede;font-size: 11pt;margin-left:55px;min-height:125px;"></div>   
+                    <div v-if="!isRelationshipCorrect && relationshipDetails" style="margin-left:55px;background-color:#dedede;min-height:180px;">{{ relationshipDetails }}</div>
+                    <div v-else style="background-color: #dedede;font-size: 11pt;margin-left:55px;min-height:180px;"></div>   
                 </div>                                 
             </div>            
         </div>
@@ -142,6 +142,7 @@ court, of a party’s reply to an application about a family law matter and a co
 <!-- <3> : BEGIN--> 
 <!-- <3A : BEGIN-->
     <div >
+        
         <div style="width: 80%; float: left; margin-right: 10px;">
             <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
                     <b>Part 3 |  Identification of children  </b> - <span style="margin-left:2px;margin-top:-40px;font-size:8pt;">You do not need to complete this part if the application or
@@ -192,11 +193,11 @@ application and/or counter application is as follows:"/>
                     <table v-else style="width:85%;margin-left:52px; border-collapse: collapse;">
                     <tbody>
                     <tr>
-                    <td style="border-right: 1px solid #fff;width:30%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
-                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
-                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
-                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
-                    <td style="border-right: 1px solid #fff;width:10%"><div style="background-color: #d6d6d6;min-height:15px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:30%"><div style="background-color: #d6d6d6;min-height:20px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:20px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:20px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:20%"><div style="background-color: #d6d6d6;min-height:20px;"></div></td>
+                    <td style="border-right: 1px solid #fff;width:10%"><div style="background-color: #d6d6d6;min-height:20px;"></div></td>
                     </tr>
                     </tbody>    
                     </table>                           
@@ -217,7 +218,7 @@ application and/or counter application is as follows:"/>
         <div style="width: 80%; float: left; margin-right: 10px;">
             
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
-                <div style="display: inline-block; font-size: 11pt;margin-left:8px;">
+                <div style="display: inline-block; font-size: 11pt;margin-left:6px;">
                        <b>5.</b>
                 </div> 
             <div>
@@ -240,34 +241,33 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
         </div>
               
     </div> 
+      
 <!-- <3B> : END-->
 <!-- <4> : BEGIN-->
-    <div >
-        <div style="width: 80%; float: left; margin-right: 10px;">
-            <div style="margin-top: 1rem;"></div>
-            
+    <div>
+        <div style="width: 80%; float: left; margin-right: 10px;">          
+            <div style="margin-top: 1.5rem;"></div>
             <div style="background: #626262; color: white; font-size: 10.5pt;padding:2px;">
                     <b>Part 4 |  About us  </b>                    
             </div>     
-        </div>
+        </div> 
                
- 
+        <div style="margin-top: 2rem;"></div>
         <div style="width: 80%; float: left; margin-right: 10px;">
-            <div style="margin-top: 1rem;"></div>
-            <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;margin-top:-10px;">
+          <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;">
                   
                 <div style="text-align: justify;text-justify: inter-word;font-size: 11pt;">
-                <span style="font-size: 11pt;"><b>6. </b></span><span style="margin-left:12px;">I would like to share the following information with the court about the
+                <span style="font-size: 11pt;margin-left:15px;"><b>6. </b></span><span style="margin-left:12px;">I would like to share the following information with the court about the
                  </span>   
-                 <div style="margin-left:30px;"><b>cultural, linguistic, religious and spiritual upbringing and heritage of my family</b> including,
+                 <div style="margin-left:45px;"><b>cultural, linguistic, religious and spiritual upbringing and heritage of my family</b> including,
                     if the child is an Indigenous child, the child’s Indigenous identity:
                  </div>   
-                 <div style="margin-left:30px;color:#747474;font-style: italic;">You may choose to leave this question blank</div>        
+                 <div style="margin-left:45px;color:#747474;font-style: italic;">You may choose to leave this question blank</div>        
                  
-                <div v-if="culturalInfo && culturalInfo.length > 0" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:30px;min-height:200px;">
+                <div v-if="culturalInfo && culturalInfo.length > 0" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;">
                     {{culturalInfo}} 
                 </div>
-                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:30px;min-height:200px;"></div>                
+                <div v-else style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:45px;min-height:200px;"></div>                
                 
             </div>                            
             </div>            
@@ -291,18 +291,18 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;margin-top:-10px;">
                   
                 <div style="text-align: justify;text-justify: inter-word;font-size: 11pt;">
-                <span style="font-size: 11pt;"><b>7. </b></span><span style="margin-left:12px;">There is an <b>existing court order or written agreement</b> about parenting
+                <span style="font-size: 11pt;margin-left:15px;"><b>7. </b></span><span style="margin-left:2px;">There is an <b>existing court order or written agreement</b> about parenting
                  </span>   
-                 <div style="margin-left:30px;">arrangements, child support, contact with a child, guardianship of a child, spousal support, and/or property division in respect of a 
+                 <div style="margin-left:35px;">arrangements, child support, contact with a child, guardianship of a child, spousal support, and/or property division in respect of a 
                     companion animal that was <b>not provided by the other party</b> with their application.
                  </div>   
                  <table style="margin-left:25px;">
                 <tr>
                 <td style="width:400px;">
-                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="existingOrders.existingFlm?'yes':''" text='<b>Yes <span style="color:#747474;"></check-box>(see attached copy)</span></b>'/>
+                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:16px;" :check="existingOrders.existingFlm?'yes':''" text='<b>Yes <span style="color:#747474;"></check-box>(see attached copy)</span></b>'/>
                 </td>
                 <td style="width:40%">
-                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="!existingOrders.existingFlm?'yes':''" text="<b>No</b>"/> 
+                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:16px;" :check="!existingOrders.existingFlm?'yes':''" text="<b>No</b>"/> 
                 </td>
                 </tr>
                  </table>
@@ -326,9 +326,9 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;margin-top:-10px;">
                   
                 <div style="font-size: 11pt;">
-                <span style="font-size: 11pt;"><b>8. </b></span><span style="margin-left:12px;">There is an <b>existing court order, agreement or plan protecting</b> 
+                <span style="font-size: 11pt;margin-left:15px;"><b>8. </b></span><span style="margin-left:2px;">There is an <b>existing court order, agreement or plan protecting</b> 
                  </span>   
-                 <div style="margin-left:30px;">one of the parties or the child(ren), or restraining contact between the parties, that was <b>not provided by the other party with their application</b>, including:
+                 <div style="margin-left:35px;">one of the parties or the child(ren), or restraining contact between the parties, that was <b>not provided by the other party with their application</b>, including:
                  </div>
                  <ul style="margin-left:20px;">
                     <li>a protection order,</li>
@@ -338,10 +338,10 @@ psychological, and emotional safety, security and well-being [<i>Family Law Act<
                  <table style="margin-left:25px;margin-top:-10px;">
                 <tr>
                 <td style="width:400px;">
-                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="existingOrders.existingPO?'yes':''" text='<b>Yes <span style="color:#747474;"></check-box>(see attached copy)</span></b>'/>
+                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:16px;" :check="existingOrders.existingPO?'yes':''" text='<b>Yes <span style="color:#747474;"></check-box>(see attached copy)</span></b>'/>
                 </td>
                 <td style="width:40%">
-                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="!existingOrders.existingPO?'yes':''" text="<b>No</b>"/> 
+                <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:16px;" :check="!existingOrders.existingPO?'yes':''" text="<b>No</b>"/> 
                 </td>
                 </tr>
                  </table>
@@ -848,6 +848,9 @@ export default class CommonSection extends Vue {
     selectedSpousalSupportForm = [];
     selectedCompanionAnimalForm = [];
     isAdditionalInfo = false;
+    isRelationshipCorrect = false;
+    relationshipDetails = ''
+
 
     mounted(){
         this.dataReady = false;
@@ -934,18 +937,12 @@ export default class CommonSection extends Vue {
 
         let replyNewCompanionInfo = {} as schedule101DataInfoType;
 
-        replyNewCompanionInfo = {
-            newOrderDetails: '',
-            disagreeReason: '',
-            spouse: false,
-            relationshipDetails: '' 
-        }
 
         if (this.result.animalRelationshipToOtherPartySurvey){
             const animalRelationshipToOtherPartyData: animalRelationshipToOtherPartyDataInfoType = this.result.animalRelationshipToOtherPartySurvey;
-            replyNewCompanionInfo.spouse = animalRelationshipToOtherPartyData.otherPartyIsSpouse == 'y';
-            if (!replyNewCompanionInfo.spouse){
-                replyNewCompanionInfo.relationshipDetails = animalRelationshipToOtherPartyData.otherPartyRelationshipDesc?animalRelationshipToOtherPartyData.otherPartyRelationshipDesc:'';
+            this.isRelationshipCorrect = animalRelationshipToOtherPartyData.otherPartyIsSpouse == 'y';
+            if (!this.isRelationshipCorrect){
+                this.relationshipDetails = animalRelationshipToOtherPartyData.otherPartyRelationshipDesc?animalRelationshipToOtherPartyData.otherPartyRelationshipDesc:'';
             }
         }
     }
