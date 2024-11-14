@@ -6,10 +6,10 @@
                 <div style="font-size:10pt;"><b>FORM 3</b></div>
                 <div>Provincial Court Family Rules (Rule 24)</div>
             </div>
-            <div style="width:200px;margin-left:-70px;">
+            <div style="width:200px;">
                 <CourtStamp></CourtStamp>
             </div>
-            <div style="width: 40%; float:right; font-size: 8pt;margin-left:-50px;">
+            <div style="width: 40%; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
                     <div style="float: left; width: 45%; padding: 2px;text-align:right;"> Registry location:&nbsp; </div>
                     <div style="float: left; background-color: #d6d6d6; width: 55%; padding: 2px;"> {{ tableItems[0].value }} </div>
