@@ -629,7 +629,7 @@
                         <b>12. </b>
                         <!-- <check-box inline="inline"  boxMargin="0" shiftmark="0" :check="''" text="    or "/> -->
                         
-                        <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:2px;" :check="locationInfo.earlyResolutionRegistry || locationInfo.familyJusticeRegistry?'yes':''" text=""/>
+                        <check-box inline="inline" boxMargin="0" shiftmark="0" style="display:inline;margin-left:2px;" :check="locationInfo.earlyResolutionRegistry || locationInfo.familyJusticeRegistry || locationInfo.educationRegistry?'yes':''" text=""/>
                             <div style="margin-top:-20px;">
                             <div style="margin-left:45px;">I understand that I may be required to complete additional requirements </div>
                             <div style="margin-left:45px;">before filing my application or scheduling a family management conference</div>
