@@ -195,7 +195,7 @@ export default class ChildrenInfo extends Vue {
 
         if( stepCOM.result?.filingLocationSurvey?.data){
             const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-            this.formOneRequired = this.determineRequiredForm(filingLocationData);            
+            this.formOneRequired = this.determineFormOneRequired(filingLocationData);            
         }
     }
 
@@ -205,12 +205,12 @@ export default class ChildrenInfo extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
     }
 
-    public determineRequiredForm(filingLocationData){
+    public determineFormOneRequired(filingLocationData){
         
         let location = ''
         location = filingLocationData?.ExistingCourt;                
         
-        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && (filingLocationData?.MetEarlyResolutionRequirements == 'n' || filingLocationData?.courtLocationVictoriaSurrey == true)){
             return true;
         } else {
             return false;

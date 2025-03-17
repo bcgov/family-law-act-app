@@ -221,7 +221,7 @@ export default class FilingLocation extends Vue {
         } else if (Vue.filter('includedInRegistries')(location, 'early-resolutions')) {
             this.survey.setValue("familyJusticeRegistry",   false);            
             this.survey.setValue("familyEducationProgram",  false);
-            if(this.survey.data?.MetEarlyResolutionRequirements == 'n'){
+            if(this.survey.data?.MetEarlyResolutionRequirements == 'n' || this.survey.getVariable("victoriaSurrey") == true){
                 togglePages(this.allPages, false, this.stPgNo.FLM._StepNo);
                 this.form1Enabled = true;
             }          
@@ -385,11 +385,13 @@ export default class FilingLocation extends Vue {
         this.survey.setVariable("registryLocation", location);
         if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && (this.types?.includes('Family Law Matter') || this.types?.includes('Reply to Application About a Family Law Matter'))){
             this.survey.setVariable("victoriaSurrey", true);
+            this.survey.setValue("courtLocationVictoriaSurrey", true);
             this.survey.setValue("familyJusticeRegistry", false);
             this.survey.setValue("familyEducationProgram", false);
             this.survey.setValue("earlyResolutionRegistry", true);
         } else {
             this.survey.setVariable("victoriaSurrey", false);
+            this.survey.setValue("courtLocationVictoriaSurrey", false);
             this.survey.setValue("earlyResolutionRegistry", false);
         }        
     }  
