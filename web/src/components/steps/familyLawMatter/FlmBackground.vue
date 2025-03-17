@@ -259,7 +259,7 @@ export default class FlmBackground extends Vue {
         let location = ''
         location = filingLocationData?.ExistingCourt;                
         
-        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && (filingLocationData?.MetEarlyResolutionRequirements == 'n' || filingLocationData?.courtLocationVictoriaSurrey == true)){
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && (filingLocationData?.MetEarlyResolutionRequirements == 'n' || filingLocationData?.courtLocationVictoriaSurrey)){
             return true;
         } else {
             return false;

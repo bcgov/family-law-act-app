@@ -135,7 +135,7 @@ export default class FormList extends Vue {
         if(locationSurvey?.filingLocationSurvey?.data){
             
             const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
-            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && (locationSurvey?.MetEarlyResolutionRequirements == 'n' || locationSurvey?.courtLocationVictoriaSurrey == true))                    
+            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && (locationSurvey?.MetEarlyResolutionRequirements == 'n' || locationSurvey?.courtLocationVictoriaSurrey))                    
                 return true
             else 
                 return false
