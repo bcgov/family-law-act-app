@@ -499,13 +499,13 @@
             <b>Please do not forward or share</b> the MS Teams link or dial up information to any unauthorized parties.
         </div>
         <div style="justify-content: left;font-size:12pt;margin-top:10px;">
-            <b>Preparing for your Family Management Conference</b>
+            <b>Preparing for your Family Court Appearance</b>
         </div>
         <div style="justify-content: left;font-size:11pt;margin-top:10px;">
             <b>Legal Aid BC - Family Law Legal Advice</b>
         </div>    
         <div style="margin-top:10px;font-size:11pt;">
-            If you do not have a lawyer for your family law matter, visit <a href="https://family.legalaid.bc.ca/court-notices">legalaid.bc.ca/family-court-notices</a> to find out about 
+            If you do not have a lawyer for your family law matter, visit <a href="https://www.familylawinbc.ca/court-notices">https://www.familylawinbc.ca/court-notices</a> to find out about 
             <b>free in person and remote legal advice services</b> that you may be eligible for that can help you prepare for your court date.
             Contact the advice services at least three weeks before your court date or as soon as you receive this notice.
             If you are unable to access the internet, contact the Family LawLINE at 604-408-2172 in Greater Vancouver or
@@ -532,7 +532,7 @@
             youth who want legal assistance, are able to express their views and preferences, and who can instruct a lawyer.
         </div>   
         <div style="margin-top:5px;font-size:11pt;">
-            For more information: <a href="https://www.scyofbc.org/child-youth-legal-centre/">https://www.scyofbc.org/child-youth-legal-centre/</a>
+            For more information: <a href="https://scyofbc.org/child-youth-legal-centre/">https://scyofbc.org/child-youth-legal-centre/</a>
             Contact the Child and Youth Legal Centre <a href="cylc@scyofbc.org">cylc@scyofbc.org</a> - (778)-657-5544.
         </div>   
         <div style="justify-content: left;font-size:11pt;margin-top:10px;">
