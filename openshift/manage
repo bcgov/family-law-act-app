@@ -11,7 +11,7 @@ usage () {
 
   Allows you to manage certain aspects of the application environment.
 
-  Usage: 
+  Usage:
     $0 [options] [commands]
 
     buildandtag <tag/>
@@ -28,7 +28,6 @@ usage () {
       - Build the web-runtime image only:
         $0 -e tools build web-runtime
       Images:
-      - web-artifacts
       - web-runtime
       - web
       - api
@@ -172,7 +171,7 @@ function functionExists() {
 function build-and-tag() {
   (
     _tag=${1}
-    
+
     if [ -z "${_tag}" ]; then
       echoError "\ntag; You MUST supply a tag.\n"
       exit 1
@@ -184,46 +183,41 @@ function build-and-tag() {
 }
 
 function build-all() {
- build-web-artifacts
  build-web-runtime
  build-web
  build-api
 }
 
-function build-web-artifacts() {
+function getGitTag() {
+  _branch=$(git branch --show-current | sed -e 's~/\|\\~-~')
+  _version=$(git rev-parse --short HEAD)
+  echo "${_branch}-${_version}"
+}
+
+function doBinaryBuild() {
+  _artifact=${1}
+  shift
+
   _namespace=$(getProjectName)
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the 'web-artifacts' image via binary build ..."
+  echo -e "Building the '${_artifact}' image via binary build ..."
   echo -e "----------------------------------------------------------------------------------------------------"
-  oc -n ${_namespace} start-build web-artifacts --follow=true --from-dir=.. --no-cache
+  oc -n ${_namespace} start-build ${_artifact} $@
+  tag-image "${_artifact}" "latest" "$(getGitTag)"
   echo -e "===================================================================================================="
 }
 
 function build-web-runtime() {
-  _namespace=$(getProjectName)
-  echo -e "\n\n===================================================================================================="
-  echo -e "Building the 'web-runtime' image via binary build ..."
-  echo -e "----------------------------------------------------------------------------------------------------"
-  oc -n ${_namespace} start-build web-runtime --follow=true --from-dir=.. --no-cache
-  echo -e "===================================================================================================="
+  doBinaryBuild web-runtime --follow=true --from-dir=.. --no-cache
 }
 
 function build-web() {
-  _namespace=$(getProjectName)
-  echo -e "\n\n===================================================================================================="
-  echo -e "Building the 'web' image via binary build ..."
-  echo -e "----------------------------------------------------------------------------------------------------"
-  oc -n ${_namespace} start-build web --follow=true --no-cache
-  echo -e "===================================================================================================="
+  doBinaryBuild web-artifacts --follow=true --from-dir=.. --no-cache
+  doBinaryBuild web --follow=true --no-cache
 }
 
 function build-api() {
-  _namespace=$(getProjectName)
-  echo -e "\n\n===================================================================================================="
-  echo -e "Building the 'api' image via binary build ..."
-  echo -e "----------------------------------------------------------------------------------------------------"
-  oc -n ${_namespace} start-build api --follow=true --from-dir=.. --no-cache
-  echo -e "===================================================================================================="
+  doBinaryBuild api --follow=true --from-dir=.. --no-cache
 }
 
 function tag()
@@ -231,7 +225,7 @@ function tag()
   (
     _sourceTag=${1}
     _destTag=${2}
-    
+
     if [ -z "${_sourceTag}" ] || [ -z "${_destTag}" ]; then
       echoError "\ntag; You MUST supply both 'source' and 'destination' tag.\n"
       exit 1
@@ -240,10 +234,52 @@ function tag()
     images="db schema-spy pdf api web"
     for image in ${images}; do
       # Tag images ...
-      echo -e "\nTagging ${image}:${_sourceTag} as ${image}:${_destTag} ..."
-      oc -n ${TOOLS} tag ${image}:${_sourceTag} ${image}:${_destTag}
+      tag-image "${image}" "${_sourceTag}" "${_destTag}"
     done
   )
+}
+
+function untag()
+{
+  (
+    _tag=${1}
+
+    if [ -z "${_tag}" ]; then
+      echoError "\nuntag; You MUST supply a tag.\n"
+      exit 1
+    fi
+
+    images="db schema-spy pdf api web"
+    for image in ${images}; do
+      # Untag images ...
+      untag-image "${image}" "${_tag}"
+    done
+  )
+}
+
+function tag-image() {
+  _image=${1}
+  _sourceTag=${2}
+  _destTag=${3}
+
+  # Ensure we have backups when manually tagging images to dev, test, or prod.
+  if [[ "${_destTag,,}" == "dev" ]] || [[ "${_destTag,,}" == "test" ]] || [[ "${_destTag,,}" == "prod" ]]; then
+    # Make a backup of the existing image ...
+    echo -e "\nMaking a backup of ${_image}:${_destTag} ..."
+    _backupTag="${_destTag}-backup-$(date +%Y%m%d-%H%M%S)"
+    oc -n ${TOOLS} tag ${_image}:${_destTag} ${_image}:${_backupTag}
+  fi
+
+  echo -e "\nTagging ${_image}:${_sourceTag} as ${_image}:${_destTag} ..."
+  oc -n ${TOOLS} tag ${_image}:${_sourceTag} ${_image}:${_destTag}
+}
+
+function untag-image() {
+  _image=${1}
+  _tag=${2}
+
+  echo -e "\nUntagging ${_image}:${_tag} ..."
+  oc -n ${TOOLS} tag ${_image}:${_tag} -d
 }
 # =================================================================================================================
 
@@ -293,6 +329,9 @@ case "${_cmd}" in
     ;;
   tag)
     tag "${1}" "${2}"
+    ;;
+  untag)
+    untag "${1}" "${2}"
     ;;
   buildandtag)
     build-and-tag "${@}"
