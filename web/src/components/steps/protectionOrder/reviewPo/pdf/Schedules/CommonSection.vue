@@ -246,7 +246,117 @@
                 access to it, see the guidebook.</div>
         </p>
     </div>
+
+    <!--Appearance Notice: Begin -->
+<div style="page-break-after:always;">&nbsp;</div> 
+<div >
+    <div style="width: 100%; ">                    
+        <div style="width: 100%;float: left; margin-top: 0px;padding:0.5rem;font-size:12pt;">
+            <div style="text-align: center;font-size:13pt;">
+            <div style="margin-top: 1rem;"></div>
+            <b>IMPORTANT INFORMATION ABOUT YOUR APPEARANCE</b>
+            <div style="margin-top: 1rem;"></div>
+        </div> 
+        <b>What do parties need to know about attending by another method other than in person?</b>
+        <div style="margin-top:5px;font-size:11pt;">
+            If your notice indicates that you are to attend by another method of attendance, parties, including the judge, will attend 
+            using the Microsoft Teams audio- and video-conferencing (video) platform. Do not attend the courthouse in person. 
+            Parties will receive remote MS Teams appearance details within 24 hours prior to the appearance, this notification is
+            sent to you by email.
+        </div>
+        <div style="margin-top:5px;font-size:11pt;">
+            Microsoft Teams allows participants to join the conference using video or audio from a desktop, laptop, tablet, or
+            smartphone, or to dial-in to a proceeding from a telephone. If you are appearing by video, please ensure that you 
+            have downloaded Microsoft Teams or have the latest version of Google Chrome or Microsoft Edge.
+        </div>
+        <div style="margin-top:5px;font-size:11pt;">
+            <b>If you received this Notice by mail</b> and intend to appear using video or audio from a desktop, laptop, tablet, or
+            smartphone, and you did not provide an email address for service, please file an Notice of Address Change (PCFR
+            Form 46), with the court registry that includes your email address and the court registry will send you the MS Teams
+            meeting invite within 24 hours prior to your appearance.
+        </div>
+        <div style="margin-top:5px;font-size:11pt;">
+            The link and dial up information may be shared with your lawyer if you have retained counsel; and with your client if
+            you are counsel.
+        </div>
+        <div style="margin-top:15px;font-size:11pt;">
+            <b>Please do not forward or share</b> the MS Teams link or dial up information to any unauthorized parties.
+        </div>
+        <div style="justify-content: left;font-size:12pt;margin-top:10px;">
+            <b>Preparing for your Family Court Appearance</b>
+        </div>
+        <div style="justify-content: left;font-size:11pt;margin-top:10px;">
+            <b>Legal Aid BC - Family Law Legal Advice</b>
+        </div>    
+        <div style="margin-top:10px;font-size:11pt;">
+            If you do not have a lawyer for your family law matter, visit <a href="https://www.familylawinbc.ca/court-notices">https://www.familylawinbc.ca/court-notices</a> to find out about 
+            <b>free in person and remote legal advice services</b> that you may be eligible for that can help you prepare for your court date.
+            Contact the advice services at least three weeks before your court date or as soon as you receive this notice.
+            If you are unable to access the internet, contact the Family LawLINE at 604-408-2172 in Greater Vancouver or
+            1-866-577-2525 elsewhere in BC.
+        </div>  
+        <div style="justify-content: left;font-size:11pt;margin-top:10px;">
+            <b>Family Justice Services</b>
+        </div>    
+        <div style="margin-top:10px;font-size:11pt;">
+            Family justice counsellors provide services to British Columbians going through separation and divorce and are 
+            specially trained to help families resolve their issues about guardianship, parenting arrangements, contact and 
+            support. There is no charge for their services.
+        </div> 
+        <div style="margin-top:5px;font-size:11pt;">
+            At this time all services are available in-person as well as virtually (through telephone and videoconference) across 
+            the province. For more information, parties can call [1-844-747-3963] or contact their closest <a href="https://www.clicklaw.bc.ca/helpmap/service/1019">Family Justice Centre</a>.
+        </div>  
+        <div style="justify-content: left;font-size:11pt;margin-top:10px;">
+            <b>Society for Children and Youth of BC Child and Youth Legal Centre</b>
+        </div>    
+        <div style="margin-top:10px;font-size:11pt;">
+            Free legal assistance directly for children and youth. Services may include legal advice and information, referral, or 
+            full representation, depending on circumstances. Availability and wait times may vary. Services are for children and 
+            youth who want legal assistance, are able to express their views and preferences, and who can instruct a lawyer.
+        </div>   
+        <div style="margin-top:5px;font-size:11pt;">
+            For more information: <a href="https://scyofbc.org/child-youth-legal-centre/">https://scyofbc.org/child-youth-legal-centre/</a>
+            Contact the Child and Youth Legal Centre <a href="cylc@scyofbc.org">cylc@scyofbc.org</a> - (778)-657-5544.
+        </div>   
+        <div style="justify-content: left;font-size:11pt;margin-top:10px;">
+            <b>Interpreter</b>
+        </div>    
+        <div style="margin-top:10px;font-size:11pt;">
+            The court provides interpreters for family proceedings in provincial court. If you require an interpreter, please advise 
+            the registry as soon as possible. This link includes all court locations (address and phone numbers): <a href="www.gov.bc.ca/
+            courthouselocations">www.gov.bc.ca/courthouselocations</a>
+        </div>    
+        <div style="margin-top:10px;font-size:11pt;">
+            <b>Before the scheduled hearing date</b>, please visit the Provincial Court website at <a href="https://www.provincialcourt.bc.ca">https://www.provincialcourt.bc.ca</a>
+            and review:
+            <ul>
+            <li><i>Policy on Use of Electronic Devices in Courtrooms and Access to Court Proceedings Policy</i> (there is a general
+                prohibition on the recording or broadcasting of court proceedings unless authorized by the Court and there are
+                penalties for breach)
+            </li>
+            <li><i>NP 21 Remote Attendance in the Provincial Court</i> (for etiquette and directions on connecting by another method
+                of attendance) (counsel attendance requirements when attending Family matters remotely)
+            </li>
+            <li><i>NP 24 Form of Address for Parties and Lawyers</i> (provide the judge or justice with each person’s name, title (e.g.
+                “Mr./ Ms./Mx./Counsel Jones”) and pronouns to be used in the proceeding)
+            </li>
+            <li><i>NP 24 Form of Address for Parties and Lawyers</i> (provide the judge or justice with each person’s name, title (e.g.
+                “Mr./ Ms./Mx./Counsel Jones”) and pronouns to be used in the proceeding)
+            </li>
+            <li><i>Guide for Appearing in the Provincial Court using MS Teams</i>
+            </li>
+            <li><i>eNews</i> - What to expect at a family management conference?
+            </li>
+            </ul>
+        </div>   
+        <div style="justify-content: left;font-size:11pt;margin-top:25px;">
+            <b>If you are unable to dial-in or are dropped from the appearance</b> immediately call the court registry.
+        </div>  
     </div>
+    </div>
+</div>
+    <!--Appearance Notice: End -->
 </template>
 
 <script lang="ts">

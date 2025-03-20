@@ -280,7 +280,7 @@
                 <b>4. </b>The protected party may <b>need to communicate</b> with the other party for the following reason(s):
                 <div style="margin:0.25rem 0 0 1rem;" >
                     <i>Select all options that apply</i>                
-                    <check-box shift="10" shiftmark="0" :check="noContact.reasonForComm.includes('Not applicable')?'yes':''" text="Not applicable"/>
+                    <check-box shift="10" shiftmark="0" :check="!noContact.reasonForComm.length?'yes':''" text="Not applicable"/>
                     <check-box shift="10" shiftmark="0" :check="noContact.reasonForComm.includes('Consensual dispute resolution')?'yes':''" text="Consensual dispute resolution"/>
                     <check-box shift="10" shiftmark="0" :check="noContact.reasonForComm.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
                     <check-box shift="10" shiftmark="0" :check="noContact.reasonForComm.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
