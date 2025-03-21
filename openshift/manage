@@ -194,9 +194,20 @@ function getGitTag() {
   echo "${_branch}-${_version}"
 }
 
+imageExists() {
+  _image=${1}
+  oc -n ${TOOLS} get istag ${1} &> /dev/null
+  return $?
+}
+
 function doBinaryBuild() {
   _artifact=${1}
   shift
+
+  if imageExists "${_artifact}:$(getGitTag)"; then
+    echoWarning "\nSkipping binary build for '${_artifact}'.  The image already exists; ${_artifact}:$(getGitTag)"
+    return 0
+  fi
 
   _namespace=$(getProjectName)
   echo -e "\n\n===================================================================================================="
@@ -331,7 +342,7 @@ case "${_cmd}" in
     tag "${1}" "${2}"
     ;;
   untag)
-    untag "${1}" "${2}"
+    untag "${1}"
     ;;
   buildandtag)
     build-and-tag "${@}"
