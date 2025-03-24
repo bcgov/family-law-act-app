@@ -5,6 +5,7 @@ export const FamilyJusticeRegistries = [
 ];
 
 export const EarlyResolutionsRegistries = [
-    "1201",//"Victoria Law Courts",
-    "3585"//"Surrey Provincial Court"
+    "1201", // "Victoria Law Courts",
+    "3585", // "Surrey Provincial Court"
+    "3531" // "Port Coquitlam Court"
 ]; 

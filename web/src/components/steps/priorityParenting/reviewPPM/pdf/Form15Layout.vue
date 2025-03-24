@@ -500,12 +500,12 @@
                         parties
                     </p>
                     <div>
-                        <p style=" font-size: 13px;"> <b>Preparing for your Family Management Conference</b></p>
+                        <p style=" font-size: 13px;"> <b>Preparing for your Family Court Appearance</b></p>
                         <p><b>Legal Aid BC - Family Law Legal Advice</b> </p>
                         <p>
                             If you do not have a lawyer for your family law matter, visit <a
-                                href="https://family.legalaid.bc.ca/court-notices"
-                                target="_blank">legalaid.bc.ca/family-court-notices</a> to
+                                href="https://www.familylawinbc.ca/court-notices"
+                                target="_blank">https://www.familylawinbc.ca/court-notices</a> to
                             find out about <b>free in person and remote legal advice services </b> that you may be eligible
                             for
                             that can help you prepare for your court date.Contact the advice services at least three weeks
@@ -539,8 +539,8 @@
                             express
                             their views and preferences,and who caninstruct a lawyer.
                         </p>
-                        <p>For more information: <a href="https://www.scyofbc.org/child-youth-legal-centre/"
-                                target="_blank">https://www.scyofbc.org/child-youth-legal-centre/</a> </p>
+                        <p>For more information: <a href="https://scyofbc.org/child-youth-legal-centre/"
+                                target="_blank">https://scyofbc.org/child-youth-legal-centre/</a> </p>
                         <p> Contact the Child and Youth Legal Centre <a href="" target="_blank">cylc@scyofbc.org</a>-
                             (778)-657-5544</p>
                     </div>

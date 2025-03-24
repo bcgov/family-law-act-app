@@ -70,7 +70,7 @@
                     <div style="margin-top:-20px;margin-left:27px;">
                     <span>Other <span style="color:#747474;font-style:italic;">(specify)</span>:</span>
                     <div style="margin-top:-25px;margin-left:95px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ scheduleInfo.eventTypeComment |truncate-word-after(55)}}</div>
-                    <div v-if="scheduleInfo.eventTypeComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{scheduleInfo.eventTypeComment|truncate-word-before(55)}}</div>    
+                    <div v-if="scheduleInfo.eventTypeComment && scheduleInfo.eventTypeComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{scheduleInfo.eventTypeComment|truncate-word-before(55)}}</div>    
                       
                     </div> 
                     </span> 

@@ -63,7 +63,7 @@ the rules, including a time limit set by an order or direction, even after the t
                 <span style="margin-left:25px;min-width:90px;text-align: center;display: inline-block;">Date (dd/mmm/yyyy)</span>
                 
                 </div> 
-                <div v-if="modReqInfo.judgeName.length >= 30" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{modReqInfo.judgeName|truncate-word-before(30)}}</div>    
+                <div v-if="modReqInfo.judgeName && modReqInfo.judgeName.length >= 30" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{modReqInfo.judgeName|truncate-word-before(30)}}</div>    
 
                 </div>  -->
                 
