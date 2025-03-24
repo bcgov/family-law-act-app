@@ -138,9 +138,10 @@ export default class About extends Vue {
     }
 
     public setExistingFileNumber(){
+        console.log('setExistingFileNumber')
         const fileType = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
-
+        console.log("existingOrders: ", fileType, existingOrders)
         if(existingOrders){
             const index = existingOrders.findIndex(order=>{return(order.type == fileType)})
             if(index >= 0 ){                

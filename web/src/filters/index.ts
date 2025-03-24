@@ -373,7 +373,7 @@ Vue.filter('isRFLM',function(){
 })
 
 Vue.filter('getPathwayPdfType',function(pathwayname){
-
+	console.trace('getPathwayPdfType')
 	const pathwayInfo = FLA_Types.filter(type => type.pathway == pathwayname);
 	if (pathwayInfo.length == 1) return pathwayInfo[0].pdfType;
 	else return ''

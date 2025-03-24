@@ -89,7 +89,10 @@ export default class FormList extends Vue {
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.initFormsTitle();
-        Vue.nextTick(()=> this.setProgress());        
+        Vue.nextTick(()=> this.setProgress());  
+        
+        console.log('FormList mounted')
+        console.log("formList:", this.formsList)
     } 
     
     public initFormsTitle(){

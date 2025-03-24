@@ -258,6 +258,7 @@ export default class OtherFormFilingLocation extends Vue {
     }     
 
     public setExistingFileNumber(){
+        console.log('setExistingFileNumber')
         const newExistingOrders = []; 
         
         if(this.step?.result?.completeOtherFormsSurvey?.data?.selectedFormInfoList?.length>0){
@@ -273,7 +274,7 @@ export default class OtherFormFilingLocation extends Vue {
                 const pdfType = 'EFSP';
                 newExistingOrders.push({type: pdfType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber, doNotIncludePdf: true});
             }
-            
+            console.log('newExistingOrders: ', newExistingOrders)
             this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
         }
     }

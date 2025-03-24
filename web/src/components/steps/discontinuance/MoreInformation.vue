@@ -215,9 +215,9 @@ export default class MoreInformation extends Vue {
     }
 
     public determineFilingRequirements(){
-
+        console.log('determineFilingRequirements')
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
-
+        console.log("existingOrders: ", existingOrders)
 
         this.trialPrep = this.survey.data?.TrialPrep == 'y';
         this.trialDateScheduled = this.survey.data?.TrialDateScheduled == 'y';

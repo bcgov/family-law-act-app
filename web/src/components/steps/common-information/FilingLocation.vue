@@ -237,7 +237,7 @@ export default class FilingLocation extends Vue {
     }
 
     public adjustSurveyForLocations(){
-
+        console.log('adjustSurveyForLocations')
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
         
         this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"] = [];
@@ -247,12 +247,14 @@ export default class FilingLocation extends Vue {
             this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push(location["name"])
             this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"].push(location["name"])
         }
-
+        console.log("steps:", this.steps)
+        console.log('stPgNo:', this.stPgNo)
         const includesOrderActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity?.includes('applyForOrder');
         const includesReplyActivities = this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedActivity?.includes('replyToApplication');
+        console.log('order activities:', this.steps[this.stPgNo.GETSTART._StepNo]);
 
         this.selectedForms = (includesOrderActivities && this.steps[this.stPgNo.GETSTART._StepNo].result?.selectedForms?.length > 0)?this.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms:[];
-        
+        console.log('selectedForms:', this.selectedForms)
         this.poIncluded = this.selectedForms.includes("protectionOrder");
 
         if(this.poIncluded){
@@ -395,9 +397,9 @@ export default class FilingLocation extends Vue {
     }  
 
     public setExistingFileNumber(){
-       
+       console.log('setExistingFileNumber')
         let newExistingOrders = [];
-        
+        console.log("selectedFormds: ", this.selectedForms)
         for(const selectedForm of this.selectedForms){
         
             let fileType = Vue.filter('getPathwayPdfType')(selectedForm)
@@ -419,7 +421,9 @@ export default class FilingLocation extends Vue {
                 newExistingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});
             }                                
         }
-        
+
+        newExistingOrders.push({type: "RDET", filingLocation: this.survey.data.ExistingCourt, fileNumber: ''});
+        console.log("newExistingOrders: ", newExistingOrders)
         this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
     }
 

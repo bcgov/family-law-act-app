@@ -152,9 +152,10 @@ export default class PoFilingLocation extends Vue {
     }  
 
     public setExistingFileNumber(){
+        console.log('setExistingFileNumber')
         const fileType = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'
         const existingOrders = this.$store.state.Application.steps[0]['result']? this.$store.state.Application.steps[0]['result']['existingOrders']:''
-        
+        console.log("existingOrders: ", fileType, existingOrders)
         const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"
         const fileNumber = existingOrdersCondition? this.survey.data.ExistingFileNumber: ''
         

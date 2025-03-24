@@ -157,6 +157,8 @@ class EFilingSubmitView(generics.GenericAPIView):
     def _process_incoming_files_and_documents(
         self, standalone, application, application_steps, incoming_documents, incoming_files
     ):
+        logger.info("Processing incoming files and documents.")
+        logger.debug(f"Incoming documents: {json.dumps(incoming_documents, indent=4)}")
         outgoing_documents = []
 
         if standalone==False:
@@ -222,66 +224,87 @@ class EFilingSubmitView(generics.GenericAPIView):
         return HttpResponse(status=204)
 
     def post(self, request, application_id):
+        try:
+            serializable_request = {key: value for key, value in request.items() if isinstance(value, (str, int, float, list, dict, bool, type(None)))}
+            logger.debug(f"Serializable request body: {json.dumps(serializable_request, indent=4)}")
+        except Exception as e:
+            logger.error(f"Failed to dump JSON request: {str(e)}")
         documents_string = request.POST.get("documents")
+        logger.debug(f"Documents string: {documents_string}")
         request_files = request.FILES.getlist("files")
+        logger.debug(f"Request files: {[file.name for file in request_files]}")
 
         standalone = bool(request.query_params.get("standalone"))
+        logger.debug(f"Standalone flag: {standalone}")
 
         # Validations.
         validations_errors = self._get_validation_errors(
             request_files, documents_string
         )
         if validations_errors:
+            logger.debug(f"Validation errors: {validations_errors}")
             return validations_errors
 
         # Unique names.
         request_files = self._unique_file_names(request_files)
+        logger.debug(f"Unique file names: {[file.name for file in request_files]}")
 
         application = get_application_for_user(application_id, request.user.id)
+        # logger.debug(f"Application: {application}")
         application_steps = json.loads(
             settings.ENCRYPTOR.decrypt(application.key_id, application.steps).decode(
-                "utf-8"
+            "utf-8"
             )
         )
+        # logger.debug(f"Application steps: {json.dumps(application_steps, indent=4)}")
 
         # Data conversion.
         incoming_documents = json.loads(documents_string)
+        logger.debug(f"Incoming documents: {json.dumps(incoming_documents, indent=4)}")
 
         outgoing_documents = self._process_incoming_files_and_documents(
             standalone, application, application_steps, incoming_documents, request_files
         )
+        # logger.debug(f"Outgoing documents: {outgoing_documents}")
         del request_files
 
         data = self.efiling_parsing.convert_data_for_efiling(
             request, application, application_steps, outgoing_documents
         )
+        # logger.debug(f"Converted data for eFiling: {data}")
 
         # EFiling upload document.
         transaction_id = str(uuid.uuid4())
+        logger.debug(f"Transaction ID: {transaction_id}")
         efiling_submission = EFilingSubmissionModel(
             transaction_id=transaction_id,
             application_id=application.id,
         )
         efiling_submission.save()
         outgoing_files = convert_document_to_multi_part(outgoing_documents)
+        logger.debug(f"Outgoing files prepared for upload.")
         del outgoing_documents
         upload_result = self.efiling_submission.upload_documents(
             request.user.universal_id, transaction_id, outgoing_files
         )
+        # logger.debug(f"Upload result: {upload_result}")
 
         if upload_result is None or "submissionId" not in upload_result:
             message = (
-                upload_result["message"]
-                if upload_result and "message" in upload_result
-                else "Document Upload Failed."
+            upload_result["message"]
+            if upload_result and "message" in upload_result
+            else "Document Upload Failed."
             )
+            logger.error(f"Upload failed with message: {message}")
             return JsonMessageResponse(message, status=500)
 
         # EFiling package submission.
         submission_id = upload_result["submissionId"]
+        logger.debug(f"Submission ID: {submission_id}")
         redirect_url, message = self.efiling_submission.generate_efiling_url(
             request.user.universal_id, transaction_id, submission_id, data
         )
+        logger.debug(f"Redirect URL: {redirect_url}, Message: {message}")
 
         if redirect_url is not None:
             efiling_submission.submission_id = submission_id
@@ -292,4 +315,5 @@ class EFilingSubmitView(generics.GenericAPIView):
             application.save()
             return JsonResponse({"redirectUrl": redirect_url, "message": message})
 
+        logger.error(f"eFiling submission failed with message: {message}")
         return JsonMessageResponse(message, status=500)

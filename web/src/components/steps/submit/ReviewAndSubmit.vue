@@ -319,7 +319,8 @@
             dropArea.addEventListener('drop', this.handleFileDrop, false);
             dropArea.addEventListener('dragenter', this.dragPreventDefaults, false);
             dropArea.addEventListener('dragleave', this.dragPreventDefaults, false);
-            dropArea.addEventListener('dragover', this.dragPreventDefaults, false);            
+            dropArea.addEventListener('dragover', this.dragPreventDefaults, false);    
+            console.log("mounted:", this.requiredDocuments, this.supportingDocuments, this.types, this.ppmSchedule1FileType);        
         }
 
         public dragPreventDefaults (e) {
@@ -368,7 +369,7 @@
         }        
 
         public onSubmit() {                     
-            
+            console.log("onsubmit:", this.requiredDocuments, this.supportingDocuments, this.types, this.ppmSchedule1FileType);
             if (this.types.includes("Priority Parenting Matter") && this.requiredDocuments?.priorityParenting?.required?.includes(this.scheduleOneText)){
 
                 const index = this.supportingDocuments.findIndex(doc => doc.documentType == this.ppmSchedule1FileType.type);
@@ -376,22 +377,24 @@
                 if (index == -1){
                     this.error = 'You should include: Completed Schedule 1 (to be completed by a director under the Child, Family and Community Service Act)'
                 } else {
+                    console.log('1');
                     this.eFile();
                 }
 
             } else {
+                console.log("2");
                 this.eFile();
             }
                        
         }
 
         public eFile() {
-            
+            console.log("eFile:", this.supportingDocuments);
             this.error = "";
             const bodyFormData = new FormData();
             const docType = []
             const lastFileTypes = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
-          
+          console.log("lastFileTypes:", lastFileTypes);
             let fileIndex = 0;
             for(const filetype of lastFileTypes){
             
@@ -428,7 +431,7 @@
             
             this.$http.post(url, bodyFormData, header)
             .then(res => {
-
+                console.log("res:", res);
                 if(res?.data?.message=="success")
                 {
                     this.generateUrl(res.data.redirectUrl)                   

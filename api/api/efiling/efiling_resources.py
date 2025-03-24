@@ -27,9 +27,9 @@ class EFilingResources(EFilingHubCallerBase):
                 self._get_token()
             headers = self._set_headers(headers)
             response = requests.get(url, headers=headers)
-            logger.debug(
-                "EFHResources - Get API %d %s", response.status_code, response.text
-            )
+            # logger.debug(
+            #     "EFHResources - Get API %d %s", response.status_code, response.text
+            # )
             if response.status_code != 401:
                 break
         return response
