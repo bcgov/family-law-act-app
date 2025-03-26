@@ -135,9 +135,6 @@ export default class FormList extends Vue {
         const filingLocationSurvey = locationSurvey.filingLocationSurvey;
         const fileNumber = filingLocationSurvey.data?.ExistingFamilyCase == "y"? filingLocationSurvey.data.ExistingFileNumber: '';
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders'];
-        console.log('-----check for missing orders-----');
-        console.log("existingOrders");
-        console.log(existingOrders);
         
         let newExistingOrders = existingOrders;
         for(const form of this.formsList){
@@ -145,8 +142,6 @@ export default class FormList extends Vue {
             let alreadyAdded = newExistingOrders.filter(o => o.type == form.pdfType).length > 0;
             if (!alreadyAdded)
             {
-                console.log("adding missing order:");
-                console.log(fileType);
                 newExistingOrders.push({type: fileType, filingLocation: filingLocationSurvey.data.ExistingCourt, fileNumber: fileNumber});
             }
         }
