@@ -15,16 +15,16 @@
             </div>
             <div style="width: 35%; float:right; font-size: 8pt;">
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Registry location: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ result.applicationLocation }} </div>
+                    <div style="float: left; width: 50%; padding: 2px;text-align: right;padding-right:5px;"> Registry location: </div>
+                    <div style="margin-left:-3px;float: left; background-color: #d6d6d6; width: 115px; padding: 2px;text-align:left;"> {{ result.applicationLocation }} </div>
                 </div>
-                <div style="width: 100%; display: inline-block;">
+                <div style="width: 100%; display: inline-block;text-align: right;padding-right:5px;">
                     <div style="float: left; width: 50%; padding: 2px;"> Court file number: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ locationInfo.existingFileNumber ? locationInfo.existingFileNumber : '&nbsp;' }} </div>
+                    <div style="float: left; background-color: #d6d6d6; width: 115px; padding: 2px;text-align:left;"> {{ locationInfo.existingFileNumber ? locationInfo.existingFileNumber : '&nbsp;' }} </div>
                 </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;"> Document number:<br/><i>For registry use only </i></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
+                <div style="width: 100%; display: inline-block;text-align: right;padding-right:5px;">
+                    <div style="float: left; width: 50%; padding: 2px;"> Document number:<br/><span style="color:#747474;font-size:7pt">For registry use only </span></div>
+                    <div style="float: left; background-color: #d6d6d6; width: 115px; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
                         <span style="margin-left:25px;">My <b>date of birth</b> is:</span>
                     </div>
                     <underline-form style="text-indent:4px;display:inline-block; font-size: 9pt;" textwidth="350px"
-                        beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="145px" :text="yourInfo.dob | beautify-date-full" />
+                        beforetext="" hint="(dd/mmm/yyyy)" :italicHint="false" textBackgroundColor="#dedede" hintMargin="145px" :text="yourInfo.dob | beautify-date-mid" />
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
@@ -107,7 +107,7 @@
                     <b>Part 2 |  Application without notice </b>
             </div>
             <div style="margin-top: 1rem;"></div>
-        <span style="font-size: 11pt;margin-left:20px"><b>3. </b></span>
+            <span style="font-size: 11pt;margin-left:20px"><b>3. </b></span>
                 <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:6px;" :check="understandWithoutNotice?'yes':''" text=""/> 
                  <div style="margin-top:-23px;text-indent:47px;margin-left:20px">I am <b>applying</b> for a case management order <b>without notice</b> to any other</div> 
                 <div style="text-indent:47px;margin-left:22px"> party. I understand that <b>I will be required to serve a copy of any order</b></div> 
@@ -139,19 +139,19 @@
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word;margin-top:-10px;">
                 <div style="display: inline-block; font-size: 11pt;">
                         <b>4.</b><span style="margin-left:12px;">I am applying for the following case management order(s):</span>
-                        <div style="font-size: 11pt;margin-left:30px;"><i>Select all options that apply and complete the required schedule(s)</i></div>
+                        <div style="font-size: 11pt;margin-left:30px;"><span style="color:#747474;font-style: italic;">Select all options that apply and complete the required schedule(s)</span></div>
                     </div>   
                     <div>
-                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule1')?'yes':''" text='Allowing a person to <b>attend a court appearance</b> using another method of attendance -> <i>Complete <span style="color:#626262"><b>Schedule 1</b></span></i>'/>
-                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule2')?'yes':''" text='<b>Waiving or modifying</b> any requirement related to <b>service or giving notice</b> to a person, including allowing an alternative method for the service of a document -> <i>Complete <span style="color:#626262"><b>Schedule 2</b></span></i>'/>
-                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule3')?'yes':''" text='<b>Waiving or modifying any other requirement</b> under the rules -> <i>Complete <span style="color:#626262"><b>Schedule 3</b></span></i>'/>
-                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule4')?'yes':''" text='Requiring <b>access to information</b> in accordance with <b>section 242</b> <i>[orders respecting searchable information]</i> of the <i> Family Law Act</i> -> <i>Complete <span style="color:#626262"><b>Schedule 4</b></span></i>'/>
+                    <check-box   style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule1')?'yes':''" text='Allowing a person to <b>attend a court appearance</b> using another method of attendance <i><span style="color:#747474;font-style: italic;"> <b>-></b> Complete </span><span style="color:#626262"><b>Schedule 1</b></span></i>'/>
+                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule2')?'yes':''" text='<b>Waiving or modifying</b> any requirement related to <b>service or giving notice</b> to a person, including allowing an alternative method for the service of a document<i><span style="color:#747474;font-style: italic;"> <b>-></b> Complete </span><span style="color:#626262"><b>Schedule 2</b></span></i>'/>
+                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule3')?'yes':''" text='<b>Waiving or modifying any other requirement</b> under the rules <br/><i><span style="color:#747474;font-style: italic;"><b> -> </b>Complete </span><span style="color:#626262"><b>Schedule 3</b></span></i>'/>
+                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule4')?'yes':''" text='Requiring <b>access to information</b> in accordance with <b>section 242</b> <i>[orders respecting searchable information]</i> of the <i> Family Law Act</i> <i><span style="color:#747474;font-style: italic;"><b> -> </b>Complete </span><span style="color:#626262"><b>Schedule 4</b></span></i>'/>
                     
                     <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="(caseList.includes('section12') && understandWithoutNotice)?'yes':''" 
                                 text='Authorizing an official of the court, in accordance with section 10 of the <i>Family Orders and Agreements Enforcement Assistance Act (Canada)</i>, to make an application under section 12 of that Act for the <b>release of information</b><br/><i><span style="color:#626262"><b>File a criminal
-                                record check and completed affidavit</b></span> that meets the requirements of sections 8 and 9 of the Family Orders and Agreements Enforcement Assistance Act (Canada)</i>'/>
+                                record check and completed affidavit</b></span> <span style="color:#747474;font-style: italic;">that meets the requirements of sections 8 and 9 of the Family Orders and Agreements Enforcement Assistance Act (Canada)</span></i>'/>
                     <br/>
-                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule5')?'yes':''" text='<b>Recognizing an extraprovincial order</b> other than a support order -> <i>Complete <span style="color:#626262"><b>Schedule 5</b></span></i>'/> 
+                    <check-box  style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:40px;" :check="selectedSchedules.includes('schedule5')?'yes':''" text='<b>Recognizing an extraprovincial order</b> other than a support order <i><span style="color:#747474;font-style: italic;"><b> -> </b>Complete </span><span style="color:#626262"><b>Schedule 5</b></span></i>'/> 
                                  
                 </div>                                 
             </div>            
@@ -188,8 +188,8 @@
             </div>
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
-                        <b>5.</b><span style="margin-left:12px;"><i>Select the correct option below and provide the additional information</i></span>
-                        <div style="margin-left:25px;"><i>if applicable</i></div>
+                        <b>5.</b><span style="margin-left:12px;"><span style="color:#747474;font-style: italic;">Select the correct option below and provide the additional information</span></span>
+                        <div style="margin-left:25px;"><span style="color:#747474;font-style: italic;">if applicable</span></div>
                     </div>     
                     <div>
                     <div style="text-indent: 20px;">
@@ -210,21 +210,25 @@
                         <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: -17px;margin-left:5px"  :check="childRelatedType == 'A party to the case and the case involves a child-related issue'?'yes':''" text="I am a party to the case and the case <b>involves a child</b>-related issue"/>               
                         <div  style="display: inline; margin-left:52px">about the following child or children:</div>
                     </div>
-                    <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin-left:50px;"><i>Provide the requested information below for each child</i></div>
-                    <b-table
-                    :items="childrenInfo"
-                    :fields="childrenFields"
-                    class="mt-2"
-                    small
-                    bordered
-                    style="width:480px;margin-left:50px;background-color:#dedede;">                    
-                        <template v-slot:cell()="data">
-                            <div style="height:1rem; font-size:8pt;color:#000;background-color:#dedede;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:head(dob)>
-                            Child's date of birth <i style="font-size:6pt; font-weight:normal;"><br/>(dd/mmm/yyyy)</i>
-                        </template>
-                </b-table>
+                    <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin-left:50px;"><span style="color:#747474;font-style: italic;">Provide the requested information below for each child</span></div>
+                    <table style="width:80%;margin-left:52px; border-collapse: collapse;">
+                    <tr style="border-bottom: 2px solid black;">
+                    <td style="width:60%"><b>Child's full name</b></td>
+                    <td style="text-align: center"><b>Child's date of birth</b><div style="font-size:6pt; font-weight:normal;font-style: italic;margin-top:-15px;text-align: center"><br/>(dd/mmm/yyyy)</div></td></tr>
+                    </table>
+                    <table style="width:80%;margin-left:52px; border-collapse: collapse;">
+                    <tbody >
+                    <tr v-if="childrenInfo.length > 0"
+                    v-for="data in childrenInfo">
+                    <td style="border-right: 2px solid #fff;"><div style="background-color: #d6d6d6">{{ data.fullName }}</div></td>
+                    <td style="text-align: center"><div style="background-color: #d6d6d6">{{ data.dob }}</div></td>
+                    </tr>
+                    <tr v-if="childrenInfo.length == 0" >
+                    <td style="border-right: 2px solid #fff;"><div style="background-color: #d6d6d6">&nbsp;</div></td>
+                    <td style="text-align: center"><div style="background-color: #d6d6d6">&nbsp;</div></td>
+                    </tr>
+                    </tbody>    
+                    </table>
             </div>            
         </div>               
     </div>    
@@ -239,7 +243,7 @@
             <div style="text-indent: -0px;text-align: justify;text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;">
                     <div style="display: inline-block; font-size: 11pt;">
                         <b>6.</b><span style="margin-left:12px;">I am filing this application <b>in the court registry</b>:</span>
-                        <div style="font-size: 11pt;margin-left:30px;"><i>Select only one of the options below</i></div>
+                        <div style="font-size: 11pt;margin-left:30px;"><span style="color:#747474;font-style: italic;">Select only one of the options below</span></div>
                     </div>     
                     <div>
                     <div >
@@ -270,10 +274,10 @@
                 <span style="font-size: 11pt;margin-left:15px"><b>7. </b></span><span style="margin-left:12px">My <b>address for service</b> of court documents and contact </span>
                 <div style="margin-left:12px;margin-left:45px;">information is:</div>
                 <div style="margin-left:40px;font-size: 11pt;text-indent:5px;">
-                    <i>You must provide an address for service and contact number, but it does </i>
+                    <span style="color:#747474;font-style: italic;">You must provide an address for service and contact number, but it does </span>
                 </div>
                 <div style="margin-left:40px;font-size: 11pt;text-indent:5px;">
-                    <i>not have to be your own if you don’t want to</i>
+                    <span style="color:#747474;font-style: italic;">not have to be your own if you don’t want to</span>
                 </div>
                 
                 

@@ -4,7 +4,7 @@
         <other-forms v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.OtherForms" />
         <complete-other-forms v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.CompleteOtherForms" />
         <other-form-filing-location v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.OtherFormsFilingLocation" />
-  
+        <last-names-of-parties v-bind:step="step" v-if="step.currentPage == stPgNo.OTHER.LastNamesOfParties" />
     </step-base>
 </template>
 
@@ -16,6 +16,7 @@ import StepBase from "../StepBase.vue";
 import OtherFormFilingLocation from "./OtherFormFilingLocation.vue";
 import OtherForms from "./OtherForms.vue";
 import CompleteOtherForms from "./CompleteOtherForms.vue";
+import LastNamesOfParties from './LastNamesOfParties.vue';
 
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -28,7 +29,8 @@ import { stepInfoType } from "@/types/Application";
         StepBase,
         OtherFormFilingLocation,
         OtherForms,
-        CompleteOtherForms
+        CompleteOtherForms,
+        LastNamesOfParties
     }
 })
 

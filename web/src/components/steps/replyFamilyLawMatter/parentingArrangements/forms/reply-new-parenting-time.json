@@ -13,7 +13,7 @@
               "type": "yesno",
               "name": "otherPartyParentalTimeOrder",
               "title": "Did the other party apply for an order about parenting time?",   
-              "description": "To ask for an order about parenting time, the other party would have completed Part 2, Question 3 on Schedule 1 – Parenting Arrangements.",
+              "description": "To ask for an order about parenting time, the other party would have completed Part 2, Question 3 on Schedule 1  – Parenting Arrangements.",
               "isRequired": true
             }
           ]

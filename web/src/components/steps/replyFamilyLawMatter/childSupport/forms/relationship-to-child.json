@@ -12,7 +12,7 @@
               "type": "checkbox",
               "name": "listOfRelationshipTypes",
               "title": "How would you describe your relationship to the child the application for child support is about?",
-              "description": "Select each option that applies. If there is more than one child that the child support application is about, select each option that applies to any child. The other party described your relationship to the child in their response to <b>Question 2</b> on <b>Schedule 3 – Child Support – New</b>.",
+              "description": "Select each option that applies. If there is more than one child that the child support application is about, select each option that applies to any child. The other party described your relationship to the child in their response to <b>Question 1</b> on <b>Schedule 3 – Child Support</b>.",
               "isRequired": true,
               "choices": [
                 {

@@ -51,7 +51,29 @@
                           ]
                         }
                       ]
-                  }                            
+                  },
+                  {
+                    "type": "paneldynamic",
+                    "name": "otherPartyNamesDynamicPanel",
+                    "title": "<div style='margin: 0'> <div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' >What is the name of the party/parties on this court file?</div></b>",
+                    "description": "Copy the name from any filed court document.",
+                    "isRequired": true,
+                    "templateElements": [
+                        {
+                            "type": "personname",
+                            "name": "name",
+                            "title": "Full Name",
+                            "isRequired": true,
+                            "defaultSubstitution": "(Applicant Name)",
+                            "descFirstName": "First Name is also known as Given Name",
+                            "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                            "descLastName": "Last Name is also known as Family Name or Surname"
+                        }
+                    ],
+                    "panelCount": 1,
+                    "panelAddText": "Add new",
+                    "panelRemoveText": "Remove"
+                  }                           
                 ]
               } 
             ]

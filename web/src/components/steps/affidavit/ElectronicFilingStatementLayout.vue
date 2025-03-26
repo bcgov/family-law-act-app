@@ -1,8 +1,7 @@
 <template>
-    <div v-if="dataReady">
-
-        <!-- <Page 1> -->
-        <!-- <HEADER> -->
+    <!-- <Page 1> -->
+    <!-- <HEADER> -->
+    <div>
         <div class="form-header-reloc">
             <div style="height: 100px;">
                 <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
@@ -19,14 +18,13 @@
                 <div style="width: 35%; float:right; font-size: 8pt;">
                     <div style="width: 100%; display: inline-block;">
                         <div style="float: left; width: 50%; padding-left: 24px; padding-top: 6px;"> Registry location: </div>
-                        <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
-                            result.applicationLocation }} </div>
+                        <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ location }} </div>
                     </div>
                     <div style="width: 100%; display: inline-block;">
                         <div style="float: left; width: 50%; padding-left: 20px;"> Court file number: </div>
                         <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
-                            existingFileNumber ?
-                            existingFileNumber : '&nbsp;' }} </div>
+                            filingNumber ?
+                            filingNumber : '&nbsp;' }} </div>
                     </div>
                 </div>
             </div>
@@ -58,12 +56,11 @@
             </div>
         </div>
         <!-- <1> -->
-        <div style="margin-top: 0.5rem;"></div>
+        <div style="margin-top: 0.5rem;"/>
         <div style="background: #626262; color: white; font-size: 11pt;">
             <b>Electronic Filing Statement</b>
         </div>
         <section>
-
             <div style="text-indent:5px;display:inline; font-size: 9pt; color:#ababab">
                 <i> Select the applicable option and complete the required information</i>
             </div>
@@ -71,8 +68,8 @@
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
                     :check="isLawyer ? 'yes' : ''" text="I," />
                 <grey-box style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="15rem" beforetext=""
-                    hint="Full name of lawyer" hintTextColor="hintTextColor" hintindent="40px" :text="isLawyer ? lawyerName : ''" />
-                <grey-box style="text-indent:2px;display:inline-block;" textwidth="15rem"
+                    hint="Full name of lawyer" hintTextColor="hintTextColor" hintindent="80px" :text="isLawyer ? lawyerName : ''" />
+                <grey-box style="text-indent:2px;display:inline-block;" textwidth="15rem" hintindent="80px"
                     beforetext=",am the lawyer for" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
                     :text="isLawyer ? parties : ''" />
             </div>
@@ -86,16 +83,15 @@
             </div>
         </section>
 
-        <div style="margin-top: 1rem;"></div>
-
+        <div style="margin-top: 1rem;" />
         <!-- <2> -->
         <section>
-            <grey-box style="margin-top:0.5rem; text-indent:2px;display:inline-block;" textwidth="32.5rem"
+            <grey-box style="margin-top:0.5rem; text-indent:2px;display:inline-block;" textwidth="32.5rem" hintindent="200px"
                 beforetext="The other party is" hintTextColor="hintTextColor" hint="Full name of the other party/parties" :italicHint="false"
                 :text="otherParties" />
         </section>
 
-        <div style="margin-top: 1rem;"></div>
+        <div style="margin-top: 1rem;"/>
         <!-- <3> -->
 
         <section>
@@ -104,7 +100,7 @@
             </div>
             <div style="margin:0.25rem 0 0 1.5rem;">
 
-                <grey-box style="text-indent:2px;margin-left:0rem;display:inline-block;" textwidth="20rem" beforetext="The" hintTextColor="hintTextColor"
+                <grey-box style="text-indent:2px;margin-left:0rem;display:inline-block;" textwidth="20rem" beforetext="The" hintTextColor="hintTextColor" hintindent="80px"
                     hint="Name and identifying description of document" :text="documents" />
                 <div style="display:block;margin:0.5rem 0.25rem;">
                     is being submitted for filing electronically <i style="color:#ababab">(add if applicable)</i>
@@ -115,7 +111,6 @@
                     textwidth="20rem" beforetext="" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
                     :text="isLawyer ? parties : ''" />
             </div>
-
         </section>
 
         <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 0.5rem;">
@@ -131,31 +126,22 @@
             to believe that it is not a true copy of the original paper version.
         </div>
 
-
-        <div
-            style="margin:1rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
+        <div style="margin:1rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
             <grey-box style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
                 hint="Date (dd/mmm/yyyy)" hintTextColor="hintTextColor" text="" hintindent="40px"/> 
-            <grey-box style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
+            <grey-box style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor" hintindent="140px"
                 text=""/>
-
         </div>
-
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import { namespace } from "vuex-class";
 import "@/store/modules/application";
-const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import { nameInfoType } from "@/types/Application/CommonInformation";
-import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { electronicFilingStatementDataInfoType } from '@/types/Application/Affidavit';
 import GreyBox from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 
 @Component({
@@ -165,91 +151,30 @@ import GreyBox from "@/components/utils/PopulateForms/components/GreyBoxForm.vue
         GreyBox
     }
 })
-
 export default class Form51Layout extends Vue {
+    @Prop({required: false, default: false})
+    isLawyer!: boolean;
 
-    @Prop({ required: true })
-    result!: any;
+    @Prop({required: false, default: ''})
+    lawyerName!: string;
 
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    @Prop({required: false, default: ''})
+    parties!: string;
 
-    dataReady = false;
+    @Prop({required: false, default: ''})
+    otherParties!: string;
 
-    isLawyer = false;
-    lawyerName = '';
-    parties = '';
-    otherParties = '';
-    applicant = '';
-    documents = '';
+    @Prop({required: false, default: ''})
+    applicant!: string;
 
-    existingFileNumber = '';
+    @Prop({required: false, default: ''})
+    documents!: string;
 
-    hintFontSize = "8pt"
-    hintTextColor = "#333"
-
-    mounted() {
-        this.dataReady = false;
-        this.extractInfo();
-        this.dataReady = true;
-    }
-
-    public extractInfo() {
-        console.log(this.result)
-        this.getDocumentInfo();
-        this.getFilingInfo();
-        this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-    }
-
-    public getFilingInfo() {
-
-        this.isLawyer = false;
-        this.lawyerName = '';
-        this.parties = '';
-        this.otherParties = '';
-        this.applicant = '';
-
-        if (this.result?.electronicFilingStatementApspSurvey) {
-
-            let electronicFilingStatement = {} as electronicFilingStatementDataInfoType;
-
-            electronicFilingStatement = this.result.electronicFilingStatementApspSurvey;
-
-            this.isLawyer = electronicFilingStatement.Lawyer == 'y';
-
-            if (this.isLawyer) {
-
-                this.lawyerName = electronicFilingStatement.ApplicantName ? Vue.filter('getFullName')(electronicFilingStatement.ApplicantName) : '';
-                const partiesList = [];
-                for (const party of electronicFilingStatement.PartyInfoEfsp) {
-                    partiesList.push(Vue.filter('getFullName')(party.name))
-                }
-                this.parties = partiesList.join(', ')
-            } else {
-                this.applicant = electronicFilingStatement.ApplicantName ? Vue.filter('getFullName')(electronicFilingStatement.ApplicantName) : '';
-            }
-
-            const otherPartiesList = [];
-            for (const otherParty of electronicFilingStatement.OtherPartyInfoEfsp) {
-                otherPartiesList.push(Vue.filter('getFullName')(otherParty.name))
-            }
-            this.otherParties = otherPartiesList.join(', ')
-
-        }
-    }
-
-    public getDocumentInfo() {
-
-        this.documents = '';
-
-        if (this.result?.apspEfsDocuments?.length > 0) {
-            const documentName = this.result.apspEfsDocuments[0].documentName;
-            const applicant = Vue.filter('getFullName')(this.result.apspEfsDocuments[0].efsApplicantName);
-            this.documents = documentName + ' of ' + applicant;
-        }
-
-    }
-
+    @Prop({required: false, default: '&nbsp;'})
+    filingNumber!: string;
+    
+    @Prop({required: true})
+    location!: string;
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss"></style>

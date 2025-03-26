@@ -3,151 +3,137 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-reloc">
-            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-            <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Electronic Filing Statement</b></div>               
-                <div style="font-size:10pt;"><b>FORM 51</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rule 193</div>
+        <div class="form-header-reloc">
+            <div style="height: 60px;">
+                <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
+                <div style="float:left; width:33%">
+                    <div style="font-size:13pt;"><b>Electronic Filing Statement</b></div>
+                    <div style="font-size:10pt;"><b>FORM 51</b></div>
+                    <div>Provincial Court Family Rules</div>
+                    <div>Rule 193</div>
+                </div>
+                <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
+                    <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
+                </div>
+
+                <div style="width: 35%; float:right; font-size: 8pt;">
+                    <div style="width: 100%; display: inline-block;">
+                        <div style="float: left; width: 50%; padding-left: 24px; padding-top: 6px;"> Registry location: </div>
+                        <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
+                            result.applicationLocation }} </div>
+                    </div>
+                    <div style="width: 100%; display: inline-block;">
+                        <div style="float: left; width: 50%; padding-left: 20px;"> Court file number: </div>
+                        <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
+                            existingFileNumber ?
+                            existingFileNumber : '&nbsp;' }} </div>
+                    </div>
+                </div>
             </div>
-            <div style="float:right;">
-                <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
-                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
-                    small
-                    bordered
-                    thead-class="d-none">
-                        <template v-slot:cell(name)="data">
-                            <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(value)="data">
-                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>                
+        </div>
+        <div style="font-size:9pt">
+            <p>
+                This Electronic Filing Statement advises the court that the document that is being filed electronically
+                shows an original
+                signature of the person identified and that the electronic version appears to be a true copy of the original
+                paper version.
+
+            </p>
+            <div style="border-style: dashed; border-color: black; padding:0.5rem; background: #909090;">
+                <b>Please read before completing the form:</b>
+                <ul>
+                    <li>
+                        This form is required only if you are electronically filing an affidavit or other signed document
+                        for evidentiary purposes [Rule 193].
+                    </li>
+                    <li>
+                        You must keep the original paper version of the document until the earliest of
+                    </li>
+                </ul>
+                <div style="padding-left: 42px; margin-top: -16px;">
+                    <span>i.the date the proceeding, including any appeals, is completed</span> <br>
+                    <span>ii.the date the appeal period has expired, if no appeal is filed </span> <br>
+                    <span> iii.the date on which a judge orders the paper version be filed</span>
+                </div>
             </div>
-        </div> 
-        
-<!-- <1> -->
+        </div>
+        <!-- <1> -->
+        <div style="margin-top: 0.5rem;"></div>
+        <div style="background: #626262; color: white; font-size: 11pt;">
+            <b>Electronic Filing Statement</b>
+        </div>
         <section>
 
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                <i>Select the applicable option and complete the required information</i>
-            </div> 
-            <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;" 
-                    :check="isLawyer?'yes':''" 
-                    text="I"/>
-                <underline-form 
-                    style="text-indent:0;margin-left:.25rem;display:inline-block;" 
-                    textwidth="10rem" 
-                    beforetext="" 
-                    hint="(full name of person)" 
-                    :text="isLawyer?lawyerName:''"/>   
-                <underline-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                    textwidth="20rem" 
-                    beforetext="am the lawyer for" 
-                    hint="(full name of party/parties)" 
-                    :italicHint="false" :text="isLawyer?parties:''"/>                
+            <div style="text-indent:5px;display:inline; font-size: 9pt; color:#ababab">
+                <i> Select the applicable option and complete the required information</i>
+            </div>
+            <div class="marginleft2p5vue" style="margin:1rem 0 0 1.5rem;">
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
+                    :check="isLawyer ? 'yes' : ''" text="I," />
+                <grey-box-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="15rem" beforetext=""
+                    hint="Full name of lawyer" hintTextColor="hintTextColor" hintindent="40px" :text="isLawyer ? lawyerName : ''" />
+                <grey-box-form style="text-indent:2px;display:inline-block;" textwidth="15rem"
+                    beforetext=",am the lawyer for" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
+                    :text="isLawyer ? parties : ''" />
             </div>
 
-            <div class="marginleft2p5vue" style="margin:0.5rem 0 0 1.5rem;">
-                <check-box 
-                    class="marginleft" 
-                    checkbox="" 
-                    inline="inline" 
-                    boxMargin="0" 
-                    style="display:inline;" 
-                    :check="!isLawyer?'yes':''" 
-                    text="I"/>
-                <underline-form 
-                    style="text-indent:0;margin-left:.25rem;display:inline-block;" 
-                    textwidth="15rem" 
-                    beforetext="" 
-                    hint="(full name of party)" 
-                    :text="!isLawyer?applicant:''"/>   
+            <div class="marginleft2p5vue" style="margin:1rem 0 0 1.5rem;">
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;"
+                    :check="!isLawyer ? 'yes' : ''" text="I, " />
+                <grey-box-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="15rem" beforetext=""
+                    hint="Full name of party" hintTextColor="hintTextColor" :text="!isLawyer ? applicant : ''" />
                 <div style="display:inline-block;margin-left:1.25rem;">, am not represented by a lawyer</div>
             </div>
         </section>
-           
-        <div style="margin-top: 1rem;"></div>  
 
-<!-- <2> -->   
-        <section > 
-            <underline-form 
-                style="margin-top:0.5rem; text-indent:2px;display:inline-block;" 
-                textwidth="32.5rem" 
-                beforetext="The other party is" 
-                hint="full name of the other party/parties" 
-                :italicHint="false" 
-                :text="otherParties"/> 
-        </section>
-        
-
-           
         <div style="margin-top: 1rem;"></div>
-    <!-- <3> -->
-    
+
+        <!-- <2> -->
         <section>
-
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                I advise as follows:
-            </div> 
-            <div style="margin:0.25rem 0 0 1.5rem;">
-                
-                <underline-form 
-                    style="text-indent:2px;margin-left:0rem;display:inline-block;" 
-                    textwidth="22rem" 
-                    beforetext="The" 
-                    hint="name and identifying description of document" 
-                    :text="documents"/>   
-                <div style="text-indent:5px;display:inline; font-size: 9pt;"> 
-                    is being submitted for filing electronically
-                </div>                
-
-                <underline-form 
-                    style="text-indent:2px;margin: 0.5rem 0 0 -1rem;display:block; font-size: 9pt;" 
-                    textwidth="20rem" 
-                    beforetext="<i>(add if applicable)</i> on behalf of" 
-                    hint="(full name of party/parties)" 
-                    :italicHint="false" :text="isLawyer?parties:''"/>                
-            </div>
-            
+            <grey-box-form style="margin-top:0.5rem; text-indent:2px;display:inline-block;" textwidth="32.5rem"
+                beforetext="The other party is" hintTextColor="hintTextColor" hint="Full name of the other party/parties" :italicHint="false"
+                :text="otherParties" />
         </section>
 
-        <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 1rem;"> 
-            The original paper version of the document being submitted for filing electronically 
-            appears to bear an original signature of the person identified as the signatory and 
-            I have no reason to believe that the signature on the document is not the signature 
+        <div style="margin-top: 1rem;"></div>
+        <!-- <3> -->
+
+        <section>
+            <div style="text-indent:5px;display:inline; font-size: 9pt;">
+                I advise as follows:
+            </div>
+            <div style="margin:0.5rem 0 0 1.5rem;">
+            <grey-box-form style="text-indent:2px;margin-left:0rem;display:inline-block;" textwidth="21rem" beforetext="The" aftertext="is being submitted for filing electronically" hintTextColor="hintTextColor"
+                hint="Name and identifying description of document" :text="documents" />
+            <grey-box-form style="text-indent:2px;margin: 1rem 0 0 -1rem;display:inline-block; font-size: 9pt;"
+                textwidth="25rem"  beforetext=" <i style='color:#ababab'>(add if applicable)</i>
+                on behalf of" hint="Full name of party/parties" hintTextColor="hintTextColor" :italicHint="false"
+                :text="isLawyer ? parties : ''" />
+            </div>
+
+        </section>
+
+        <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 1rem;">
+            The original paper version of the document being submitted for filing electronically
+            appears to bear an original signature of the person identified as the signatory and
+            I have no reason to believe that the signature on the document is not the signature
             of the identified signatory.
         </div>
 
-        <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 1rem;"> 
-            The version of the document that is being submitted for filing electronically appears 
-            to be a true copy of the original paper version of the document and I have no reason 
+        <div style="margin-left: 1.5rem; display:inline-block; font-size: 9pt; margin-top: 1rem;">
+            The version of the document that is being submitted for filing electronically appears
+            to be a true copy of the original paper version of the document and I have no reason
             to believe that it is not a true copy of the original paper version.
         </div>
 
 
-        <div style="margin:2rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
-            <underline-form 
-                style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" 
-                textwidth="12rem" 
-                beforetext="" 
-                hint="Date (mmm/dd/yyyy)" text=""/>
-            <underline-form 
-                style="text-indent:2px;display:inline-block;" 
-                textwidth="20rem" 
-                beforetext="" 
-                hint="Signature" 
-                text=""/>               
-            
+        <div
+           style="margin:0.75rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
+            <GreyBoxForm style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" textwidth="12rem" beforetext=""
+                hint="Date (dd/mmm/yyyy)" hintTextColor="hintTextColor" text="" hintindent="40px"/> 
+            <GreyBoxForm style="text-indent:2px;display:inline-block; " textwidth="20rem" beforetext="" hint="Signature" hintTextColor="hintTextColor"
+                text=""/>
+
         </div>
 
     </div>
@@ -165,11 +151,13 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 import { electronicFilingStatementDataInfoType } from '@/types/Application/Affidavit';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox       
+        CheckBox,
+        GreyBoxForm       
     }
 })
 

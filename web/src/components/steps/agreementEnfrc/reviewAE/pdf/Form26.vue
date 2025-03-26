@@ -46,8 +46,8 @@ export default class Form26 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA736    `+moment().format("MMMM D, YYYY")+` \\a           Form 26";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 736    `+moment().format("MM/YYYY")+` \\a           Form 26";`;
+        const bottomRightText = `"Request to File an Agreement | "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 

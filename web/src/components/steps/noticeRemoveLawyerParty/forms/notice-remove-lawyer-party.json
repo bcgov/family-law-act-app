@@ -73,6 +73,28 @@
                         ]
                     }
                 ]
+            },               
+            {
+                "type": "panel",
+                "name": "ContactInformationOtherOtherPartyPanel",             
+                "elements": [
+                    {
+                        "isRequired": true,  
+                        "type": "paneldynamic",
+                        "name": "OtherOtherPartyInfoNlpr",
+                        "visible": false,
+                        "visibleIf": "{ApplicantType} = 'Lawyer'",
+                        "title": "<div style = 'color: #556077; font-size: 1.25em; line-height: 1.2;' > What is the name of the other party? </b>",
+                        "templateElements": [
+                            {
+                                "type": "personname",
+                                "name": "name",
+                                "title": " ",
+                                "titleLocation": "hidden"
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 "type": "comment",

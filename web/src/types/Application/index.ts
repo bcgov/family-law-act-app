@@ -19,8 +19,8 @@ import { disagreeChildSupportSurveyInfoType, disagreeExistingChildSupportSurveyI
 import { replyNewContactWithChildSurveyInfoType, disagreeContactWithChildSurveyInfoType, replyExistingContactWithChildSurveyInfoType } from "./ReplyFamilyLawMatter/ContactWithChild";
 import { replyAppointingGuardianOfChildSurveyInfoType, disagreeAppointingGuardianOfChildSurveyInfoType, disagreeCancellingGuardianOfChildSurveyInfoType, replyCancellingGuardianOfChildSurveyInfoType } from "./ReplyFamilyLawMatter/GuardianShip";
 import { disagreeExistingSpouseSupportSurveyInfoType, disagreeSpouseSupportSurveyInfoType, relationshipToOtherPartySurveyInfoType, replyExistingSpouseSupportSurveyInfoType, replyNewSpouseSupportSurveyInfoType, rflmCalculatingSpouseSupportSurveyInfoType, rflmSpouseSupportOrderSurveyInfoType, rflmUnpaidSpouseSupportSurveyInfoType } from "./ReplyFamilyLawMatter/SpousalSupport";
-import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoType, otherFormsSurveyInfoType } from "./OtherFamilyForm";
-import { addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "./AddressChange";
+import { completeOtherFormsSurveyInfoType, otherFormsFilingLocationSurveyInfoType, otherFormsLastNamesOfThePartiesSurveyInfoType, otherFormsSurveyInfoType } from "./OtherFamilyForm";
+import { addessChangeOtherPartySurveyInfoType, addressChangeNoticeSurveyInfoType, addressChangeSurveyInfoType } from "./AddressChange";
 import { noticeDiscontinuanceSurveyInfoType, discontinuanceInformationSurveyInfoType, moreInformationSurveyInfoType } from "./Discontinuance";
 import { noticeIntentionProceedSurveyInfoType, otherPartyNprConfirmationSurveyInfoType } from "./IntentionProceed";
 import { interimOrderSurveyInfoType, nextAppearanceSurveyInfoType, otherPartyRQSConfirmationSurveyInfoType, partyInformationRQSSurveyInfoType, reasonForSchedulingSurveyInfoType, requestForSchedulingSurveyInfoType } from "./RequestScheduling";
@@ -296,10 +296,12 @@ export interface stepInfoType {
     otherFormsSurvey?: otherFormsSurveyInfoType;
     completeOtherFormsSurvey?: completeOtherFormsSurveyInfoType;
     otherFormsFilingLocationSurvey?: otherFormsFilingLocationSurveyInfoType;
+    otherFormsLastNamesOfPartiesSurvey?: otherFormsLastNamesOfThePartiesSurveyInfoType;
 
     //_____Step 11 ADDRESS CHANGE_____________    
     addressChangeSurvey?: addressChangeSurveyInfoType;    
     addressChangeNoticeSurvey?: addressChangeNoticeSurveyInfoType;
+    addressChangeOtherPartySurvey?: addessChangeOtherPartySurveyInfoType;
 
     //_____Step 12 NOTICE OF DISCONTINUANCE_____________    
     noticeDiscontinuanceSurvey?: noticeDiscontinuanceSurveyInfoType;    
@@ -425,7 +427,6 @@ export interface stepInfoType {
   export interface pathwayCompletedInfoType { 
     protectionOrder?: boolean;
     replyFlm?: boolean;
-    replyFamilyLawManual?: boolean;
     writtenResponse?: boolean;
     replyCounterApplication?: boolean;    
     familyLawMatter?: boolean;

@@ -25,7 +25,7 @@
               "type": "yesno",
               "name": "agreeCourtMakeOrder",
               "title": "Do you agree the court should make the order?",   
-              "description": "Look at the order the other party is applying for. The order they are asking for is set out in their response to <b>Question 1</b> on <b>Schedule 11 – Property Division in Respect of a Companion Animal – New</b>. Should the court make the order? <br><br>If you agree to only part of the order, for example, there is more than one companion animal the order is about and you want something different for one animal, select NO. This service will help you to explain why the order should be different.",
+              "description": "Look at the order the other party is applying for. <br><br>If you agree to only part of the order, for example, there is more than one companion animal the order is about and you want something different for one animal, select NO. This service will help you to explain why the order should be different.",
               "isRequired": true              
             }
           ]

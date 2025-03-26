@@ -40,6 +40,11 @@
                   "comment": false
                 },     
                 {
+                  "value": "DivisionCompanionAnimal",
+                  "text": "Property division in respect of a companion animal",
+                  "comment": false
+                },
+                {
                   "value": "SpousalSupport",
                   "text": "Spousal support",
                   "comment": false

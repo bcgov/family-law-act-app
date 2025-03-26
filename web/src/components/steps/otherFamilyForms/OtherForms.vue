@@ -193,8 +193,10 @@ export default class OtherForms extends Vue {
         this.disableNextButton = true;       
     }   
 
-    mounted(){            
+    mounted(){          
+        console.log("OtherForms:Mounted", this.selectedForms);  
         this.reloadPageInformation();
+        
     }
 
     public reloadPageInformation(){ 
@@ -256,10 +258,16 @@ export default class OtherForms extends Vue {
 
     public determineSteps(){
         const p = this.stPgNo.OTHER;
+       
         togglePages([p.CompleteOtherForms], this.allRequiredInfoExists(), this.currentStep);
+       
+        // LastNamesOfParties
+        const IncludeLastNamesOfPartiesFor = ['Form 45', 'Form 5', 'Form 7']
+        togglePages([p.LastNamesOfParties], this.selectedForms.length > 0 && this.selectedForms.every((s) => IncludeLastNamesOfPartiesFor.includes(s.formNumber)), this.currentStep);
     }
 
     public onFormSelected(forms: otherFormInfoType[]){
+        console.log('onFormSelected:', forms);
 
         if(this.rejectedPathway){
             Vue.nextTick().then(()=>{this.selectForms(this.selectedForms)});

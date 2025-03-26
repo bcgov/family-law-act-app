@@ -12,9 +12,7 @@
                         <b>Schedule 4 | Access to Information
                             Section 242 <i>Family Law Act</i></b>
                     </div>
-                    <div style="background: #626262; color: white; font-size: 12pt;margin-top:-10px;">
-                        <span style="margin-left:105px;margin-top:-40px;"><b>under the rules</b></span>
-                    </div>
+                    
                     <div
                         style="text-align:justify;width:100%; margin-top: 10px;background: #d6d6d6;line-height: 14px;font-size:9pt;">
                         <p>
@@ -31,15 +29,12 @@
                         <div style="background: #626262; color: white; font-size: 11pt;">
                             <b>Part 1 | About the order</b>
                         </div>
-                        <div style="margin-top: 1rem;">
-                            <div style="display:inline; margin-left:0.15rem">
-                                <b>1.</b> The <b>details of the order</b> I am applying for are as follows:
+                        <div style="margin-top: 5px;">
+                            <div style="display:inline; margin: 0.5rem 0.5rem 0.5rem 1rem;">
+                                <span style="font-size: 11pt;"><b>1. </b></span>The <b>details of the order</b> I am applying for are as follows:
                             </div>
-                            <GreyBoxForm v-if="accessInfo.orderDetail" style="margin-top:10px; text-indent:0rem"
-                                textwidth="35rem" :text="accessInfo.orderDetail">
-
-                            </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                            <div v-if="accessInfo.orderDetail" style="min-height:150px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:34px;">{{accessInfo.orderDetail}}</div>
+                            <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:34px;min-height:150px;margin-bottom:10px;"></div> 
                         </div>
                     </div>
 
@@ -49,15 +44,14 @@
                         <div style="background: #626262; color: white; font-size: 11pt;">
                             <b>Part 2 The Facts</b>
                         </div>
-                        <div style="margin-top: 1rem;">
-                            <div style=" display:inline; margin-left:0.15rem">
-                                The facts <b>>on which</b> this application is based <b>are as follows:</b>
+                        <div style="margin-top: 5px;">
+                            <div style=" display:inline; margin: 0.5rem 0.5rem 0.5rem 1rem;">
+                                <span style="font-size: 11pt;"><b>2. </b></span>
+                                The <b>facts</b> on which this application is based <b>are as follows:</b>
                             </div>
-                            <GreyBoxForm v-if="accessInfo.applicationFacts" style="margin-top:10px; text-indent:0rem"
-                                textwidth="35rem" :text="accessInfo.applicationFacts">
-
-                            </GreyBoxForm>
-                            <GreyBoxForm v-else style="margin-top:10px; text-indent:0rem" textwidth="30rem"></GreyBoxForm>
+                            <div v-if="accessInfo.applicationFacts" style="min-height:150px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:34px;">{{accessInfo.applicationFacts}}</div>
+                            <div v-else style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:34px;min-height:150px;margin-bottom:10px;"></div> 
+                       
                         </div>
                     </div>
                 </div>

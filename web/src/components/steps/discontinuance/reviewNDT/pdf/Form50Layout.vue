@@ -6,7 +6,7 @@
         <div style="height: 160px;">
             <div style="float:left; width: 33%;">
                 <div style="font-size: 14pt;"><b>Notice of Discontinuance</b></div>
-                <div style="font-size:12pt;"><b>Form </b></div>
+                <div style="font-size:12pt;"><b>Form 50</b></div>
                 <div>Provincial Court Family Rules</div>
                 <div>Rule 191</div>
             </div>
@@ -27,7 +27,7 @@
                     <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ '&nbsp;' }} </div>
                 </div>
                 <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px; opacity: 0.3;"> For registry use only </div>
+                    <div style="float: left; width: 50%; margin-top: -10px;padding: 2px; opacity: 0.3;"> For registry use only </div>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
             on the application, reply or counter application.
         </div>
 
-        <div class="fla-col-left-80 fla-medium-grey" style="border-style: dashed; border-color: black; width: 80%">
+        <div class="fla-col-left-80 fla-medium-grey" style="border-style: dashed; padding: 6px; background: #909090; border-color: black; width: 80%">
             <b>Please read before completing this form:</b>
             <ul>
                 <li>This form can be filed at any time, but sometimes you need the consent of the other parties 
@@ -94,19 +94,21 @@
 
         <!-- 3 -->
         <section style="text-indent: 8px; width: 80%;" resetquestion="3">
-            <check-box inline="inline" boxMargin="0" style="margin-left: 4px; display: inline; text-indent: -16px;" :check="acknowledge ? 'yes' : ''"
-            text="I understand <b>I must give notice</b> of this notice of discontinuance to each other 
+            <check-box inline="inline" boxMargin="0" style="margin-left: 4px; margin-top: -20px; display: inline; text-indent: -16px;" :check="acknowledge ? 'yes' : ''"
+            text="I understand <b>I must give notice</b> of this notice of discontinuance to each" />
+            <div style="margin-left: 42px;">other 
             party. To give notice, they <b>must be served</b> with a copy of the 
-            notice of discontinuance <b>before the earlier of the following</b> dates:" />
-            <div style="text-indent: 16px;">
+            notice</div><div style="margin-left: 42px;"> of discontinuance <b>before the earlier of the following</b> dates:</div>
+
+            <div style="text-indent: 50px;">
                 (i) <b>14 days after you filed</b> the notice of discontinuance
             </div>
-            <div style="text-indent: 16px;">
+            <div style="text-indent: 50px;">
                 (ii) the <b>date of the next scheduled court appearance</b>
             </div>
         </section>
 
-        <div style="margin-top: 1rem;"></div>
+        <div style="page-break-after:always;">&nbsp;</div> 
 
         <!-- <Part 3> -->
         <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
@@ -118,7 +120,7 @@
             <div style="display: inline-block;">
                 I am <b>discontinuing</b>
             </div>
-            <div style="display: inline-block; margin-left: 10px;">
+            <div style="display: inline-block; margin-left: 10px; color: grey;">
                 <i>Select the correct option(s) and complete any required information</i>
             </div>
             <div style="display: inline-block;">
@@ -129,8 +131,9 @@
                     shiftmark="-10"
                     style="display:inline; font-weight: bold;" 
                     :check="disWholeApp.length>0?'yes':''" 
-                    text="the whole of my"/>
+                    text="the whole of my:"/>
             </div>
+            <div style="margin-top: 0.5rem;"></div>
             <div style="display: inline-block; margin-left: 30px;">
                 <check-box 
                     class="marginleft" 
@@ -141,16 +144,16 @@
                     shiftmark="-10"
                     style="display:inline;" 
                     :check="disWholeApp.includes('form3')?'yes':''" 
-                    text="Application about a family law matter on "/>
+                    text="Application About a Family Law Matter on"/>
                 <grey-box-form 
                     style="text-indent:2px;display:inline-block; font-size: 9pt;" 
                     textwidth="12rem" 
                     hintindent="4rem"
                     beforetext="" 
-                    hint="Date (dd/mm/yyyy)" 
+                    hint="Date (dd/mmm/yyyy)" 
                     :italicHint="false" :text="disWholeApp.includes('form3')?application.date:''"/>
             </div>
-            <div style="height: 3px;">&nbsp;</div>
+            <div style="margin-top: 0.5rem;"></div>
             <div style="display: inline-block; margin-left: 30px;">
                 <check-box 
                     class="marginleft" 
@@ -161,15 +164,15 @@
                     shiftmark="-10"
                     style="display:inline;" 
                     :check="disWholeApp.includes('form6') || disWholeApp.includes('form8')?'yes':''" 
-                    text="Reply to an Application about a family law matter on "/>
+                    text="Reply to an Application About a Family Law Matter on "/>
                 <grey-box-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 5px;" 
                     textwidth="17rem" 
                     beforetext="" 
-                    hint="Date (dd/mm/yyyy)" 
+                    hint="Date (dd/mmm/yyyy)" 
                     :italicHint="false" :text="(disWholeApp.includes('form6') || disWholeApp.includes('form8'))?reply.date:''"/>
             </div>
-            <div style="height: 3px;">&nbsp;</div>
+            <div style="margin-top: 0.5rem;"></div>
             <div style="display: inline-block; margin-left: 30px;">
                 <check-box 
                     class="marginleft" 
@@ -185,9 +188,10 @@
                     style="text-indent:2px;display:inline-block; font-size: 9pt;" 
                     textwidth="17rem" 
                     beforetext="" 
-                    hint="Date (dd/mm/yyyy)" 
+                    hint="Date (dd/mmm/yyyy)" 
                     :italicHint="false" :text="disWholeApp.includes('form6Counter')?counterDate:''"/>
             </div>
+            <div style="margin-top: 0.5rem; border-bottom: 1px solid black; width: 91%; margin-left: 32px;"></div>
             <div style="display: inline-block">
                 <check-box 
                     inline="inline" 
@@ -198,6 +202,7 @@
                     :check="disPartialApp.length>0?'yes':''" 
                     text="the following schedule(s)/part(s) of my:"/>
             </div>
+            <div style="margin-top: 0.5rem;"></div>
             <div style="display: inline-block; margin-left: 30px;">
                 <check-box 
                     class="marginleft" 
@@ -208,15 +213,15 @@
                     shiftmark="-10"
                     style="display:inline;" 
                     :check="disPartialApp.includes('form3')?'yes':''" 
-                    text="Application about a family law matter on "/>
+                    text="Application About a Family Law Matter on "/>
                 <grey-box-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 5px;" 
                     textwidth="17rem" 
                     beforetext="" 
-                    hint="Date (dd/mm/yyyy)" 
+                    hint="Date (dd/mmm/yyyy)" 
                     :italicHint="false" :text="disPartialApp.includes('form3')?application.date:''"/>
             </div>
-            <div style="height: 3px;">&nbsp;</div>
+            <div style="margin-top: 0.5rem;"></div>
             <div style="display: inline-block; margin-left: 30px;">
                 <check-box 
                     class="marginleft" 
@@ -226,16 +231,16 @@
                     shift="10"
                     shiftmark="-10"
                     style="display:inline;" 
-                    :check="disPartialApp.includes('form6') || disWholeApp.includes('form8')?'yes':''" 
-                    text="Reply to an Application about a family law matter on "/>
+                    :check="disPartialApp.includes('form6') || disPartialApp.includes('form8')?'yes':''" 
+                    text="Reply to an Application About a Family Law Matter on "/>
                 <grey-box-form 
-                    style="text-indent:2px;display:inline-block; font-size: 9pt;" 
+                    style="text-indent:2px;display:inline-block; font-size: 9pt; margin-top: 5px;" 
                     textwidth="17rem" 
                     beforetext="" 
-                    hint="Date (dd/mm/yyyy)" 
-                    :italicHint="false" :text="(disPartialApp.includes('form6') || disWholeApp.includes('form8'))?reply.date:''"/>
+                    hint="Date (dd/mmm/yyyy)" 
+                    :italicHint="false" :text="(disPartialApp.includes('form6') || disPartialApp.includes('form8'))?reply.date:''"/>
             </div>
-            <div style="height: 3px;">&nbsp;</div>
+            <div style="margin-top: 0.5rem;"></div>
             <div style="display: inline-block; margin-left: 30px;">
                 <check-box 
                     class="marginleft" 
@@ -254,36 +259,16 @@
                     hint="Date (dd/mm/yyyy)" 
                     :italicHint="false" :text="disPartialApp.includes('form6Counter')?counterDate:''"/>
             </div>
-            <div style="display: inline-block">
+            <div style="display: inline-block; color: grey;">
                 <i>List the schedule(s) or part(s) you are discontinuing</i>
             </div>
-            <div style="height: 9px;">&nbsp;</div>
-            <div style="display: inline-block">
-                <div v-if="partialInfo" 
-                    class="answerbox" style="background: #C0C0C0">{{ partialInfo }}</div>
-                <div v-else style="margin-bottom:4rem;">
-                    <grey-box-form 
-                        style="text-indent:2px;display:inline-block; font-size: 9pt;" 
-                        textwidth="30.5rem" 
-                        beforetext="" 
-                        :italicHint="false"/>
-                    <div style="height: 3px;">&nbsp;</div>
-                    <grey-box-form 
-                        style="text-indent:10px;display:inline-block; font-size: 9pt;" 
-                        textwidth="30.5rem" 
-                        beforetext="" 
-                        :italicHint="false"/>
-                    <div style="height: 3px;">&nbsp;</div>
-                    <grey-box-form 
-                        style="text-indent:10px;display:inline-block; font-size: 9pt;" 
-                        textwidth="30.5rem" 
-                        beforetext="" 
-                        :italicHint="false"/>
-                </div>            
+            <div style="margin-top: 0.5rem;"></div>
+            <div style="display: inline-block; width: 97%;">
+                <div class="answerbox" style="background: #C0C0C0;">{{ partialInfo ? partialInfo : '&nbsp;' }}</div>
             </div>
         </section>
 
-        <div style="float: right;width: 18%; margin-top: -470px;background: #d6d6d6;color: #747474;padding: 3px;line-height: 11px;">
+        <div style="float: right;width: 18%; margin-top: -420px;background: #d6d6d6;color: #747474;padding: 3px;line-height: 11px;">
             <b-icon-info-circle-fill />
             <div style="font-size: 9px">You can only discontinue your own 
             Application About a Family Law Matter, Reply to an Application About a Family Law Matter or Counter Application [Rule 
@@ -298,7 +283,7 @@
 
         <!-- <5> -->
         <section style="text-indent: 8px; width: 80%;">
-            <div style="display: inline-block;">
+            <div style="display: inline-block; color: grey;">
                 <i>Please select the correct option and complete any required information</i>
             </div>
             <div style="display: inline-block; text-indent: 10px;">
@@ -309,7 +294,7 @@
                     :shift="10"
                     shiftmark="-10"
                     :check="courtAppearanceScheduled == 'n'?'yes':''" 
-                    text="the application has no date scheduled for a court appearance"/>
+                    text="The application has no date scheduled for a court appearance"/>
             </div>
             <div style="display: inline-block; text-indent: 10px;">
                 <check-box
@@ -318,15 +303,16 @@
                     boxMargin="0" 
                     shift="10"
                     shiftmark="-10"
-                    style="display:inline;margin-left:0.35rem" 
+                    style="display:inline;margin-left:0.35rem;" 
                     :check="courtAppearanceScheduled == 'y'?'yes':''" 
-                    text="the application is scheduled for a court appearance on "/>
+                    text="The application is scheduled for a court appearance on "/>
                 <grey-box-form 
-                    style="text-indent:1px;display:inline-block;" 
+                    style="text-indent:5px;display:inline-block;" 
                     textwidth="6rem" 
+                    marginTop="-19px"
                     hintindent="1rem"
                     beforetext="" 
-                    hint="mmm/dd/yyyy" 
+                    hint="dd/mmm/yyyy" 
                     :text="courtAppearanceScheduled == 'y'?courtDate:''"/>            
             </div>
             <div style="display: inline-block; text-indent: 10px;">
@@ -336,27 +322,27 @@
                     style="display:inline;margin-left:0.35rem"
                     shift="10"
                     shiftmark="-10"
-                    :check="courtAppearanceScheduled == 'n'?'yes':''" 
+                    :check="discontinueOnlyReply?'yes':''" 
                     text="I am discontinuing only a reply"/>
             </div>
         </section>
         <!-- <6> -->
         <section style="text-indent: 8px; width: 80%;">
             <div style="display: inline-block;">
-                <i>Has a trial preparation conference already happened?</i>
+                Has a trial preparation conference already happened?
             </div>
             <div style="display: inline-block; text-indent: 10px;">
-                <check-box inline="inline" boxMargin="0" shift="10" shiftmark="-10" style="display:inline;margin-left:0.35rem;" :check="trialPrepHappened == 'y'?'yes':''" text="Yes➜<b>Complete Part 5</b> Consent"/>
+                <check-box inline="inline" boxMargin="0" shift="10" shiftmark="-10" style="display:inline;margin-left:0.35rem;" :check="trialPrepHappened == 'y'?'yes':''" text="Yes➜<b><i>Complete Part 5</b> Consent</i>"/>
                 <check-box inline="inline" boxMargin="0" shift="10" shiftmark="-10" style="display:inline;margin-left:0.35rem;" :check="trialPrepHappened == 'n'?'yes':''" text="No"/>
             </div>
         </section>
         <!-- <7> -->
         <section style="text-indent: 8px; width: 80%;">
             <div style="display: inline-block;">
-                <i>Is a trial date scheduled within 30 days of the date this notice is being filed?</i>
+                Is a trial date scheduled within 30 days of the date this notice is being filed?
             </div>
             <div style="display: inline-block; text-indent: 10px;">
-                <check-box inline="inline" boxMargin="0" shift="10" shiftmark="-10" style="display:inline;margin-left:0.35rem;" :check="trialDateWithin30Days == 'y'?'yes':''" text="Yes➜<b>Complete Part 5</b> Consent"/>
+                <check-box inline="inline" boxMargin="0" shift="10" shiftmark="-10" style="display:inline;margin-left:0.35rem;" :check="trialDateWithin30Days == 'y'?'yes':''" text="Yes➜<i><b>Complete Part 5</b> Consent</i>"/>
                 <check-box inline="inline" boxMargin="0" shift="10" shiftmark="-10" style="display:inline;margin-left:0.35rem;" :check="trialDateWithin30Days == 'n'?'yes':''" text="No"/>
             </div>
         </section>  
@@ -367,18 +353,19 @@
             <div style="font-size: 9px">When you file this 
             notice, the appearance for your document, if applicable, will be cancelled.Remember you must serve the other 
             party with a copy of this filed notice before the scheduled date.</div>
-        </div>
-
-        <div style="float: right;width: 18%; margin-top: -90px;background: #d6d6d6;color: #747474;padding: 3px;line-height: 11px;">
+            <div style="background: #FFF; line-height: 11px; margin-left: -3px; margin-right: -6px;">&nbsp;</div>
             <b-icon-info-circle-fill />
+            <br />
             <div style="font-size: 9px">If yes, each other 
             party is required to provide their consent to discontinue your application, reply or counter application or 
             you require the permission of the court to discontinue it [Rule 191 (2)(b) & (3)(b)].</div>
         </div>
 
+        <div style="page-break-after:always;">&nbsp;</div> 
+
         <!-- <Part 5> -->
         <div style="background: #626262; color: white; font-size: 13pt; width: 80%;">
-            <b>Part 5 | Consent of the parties–Complete this part only if consent is required based onyour responses in Part 4.</b>
+            <b>Part 5 | Consent of the parties–Complete this part only if consent is required based on your responses in Part 4.</b>
         </div>
 
         <div style="height: 9px;">&nbsp;</div>
@@ -387,19 +374,22 @@
             <grey-box-form 
                 style="text-indent:0px;display:inline-block;" 
                 textwidth="17rem" 
-                beforetext="The parties' consent to" 
+                beforetext="<b>The parties' consent</b> to" 
                 hint="Full name of party"
                 :italicHint="false" 
                 :text="''"/>
-                <div style="display: inline;">discontinuing their Full name of party application, reply or counter application as described in Part 3 of this form.</div>           
+                <div style="display: inline;">discontinuing their application, reply or counter application as described in Part 3 of this form.</div>           
         </div>
         <div style="height: 30px;">&nbsp;</div>
+        <div style="margin-top: 0.5rem; border-top: 1px solid black; width: 78%;"></div>
+        <div style="margin-top: 1rem;"></div>
         <div style="display: inline-block;">
             <underline-form 
                 style="text-indent:0px;display:inline-block;" 
                 textwidth="17rem" 
                 beforetext="Signature of" 
                 hint="type or print name"
+                hintMargin="100px"
                 :italicHint="false" 
                 :text="''"/>
                 <div style="display: inline;"></div>           
@@ -411,12 +401,15 @@
             <underline-form style="text-indent:1px;display:inline-block;" textwidth="16rem" beforetext="" hint="name of party/parties" :text="''"/>            
         </div>  
         <div style="height: 30px;">&nbsp;</div>
+        <div style="margin-top: 0.5rem; border-top: 1px solid black; width: 78%;"></div>
+        <div style="margin-top: 1rem;"></div>
         <div style="display: inline-block;">
             <underline-form 
                 style="text-indent:0px;display:inline-block;" 
                 textwidth="17rem" 
                 beforetext="Signature of" 
                 hint="type or print name"
+                hintMargin="100px"
                 :italicHint="false" 
                 :text="''"/>
                 <div style="display: inline;"></div>           
@@ -425,10 +418,10 @@
         <div style="display: inline-block;">
             <check-box inline="inline" :shiftmark="0" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="false?'yes':''" text="party"/>
             <check-box inline="inline" :shiftmark="0" boxMargin="0" shift="10" style="display:inline;margin-left:0.35rem;" :check="false?'yes':''" text="lawyer for"/>
-            <underline-form style="text-indent:1px;display:inline-block;" textwidth="16rem" beforetext="" hint="name of party/parties" :text="''"/>            
+            <underline-form style="text-indent:1px;display:inline-block;" textwidth="16rem" beforetext="" hint="name of party/parties" hintMargin="100px" :text="''"/>            
         </div>  
 
-        <div style="float: right;width: 18%; margin-top: -160px;background: #d6d6d6;color: #747474;padding: 3px;line-height: 11px;">
+        <div style="float: right;width: 18%; margin-top: -250px;background: #d6d6d6;color: #747474;padding: 3px;line-height: 11px;">
             <b-icon-info-circle-fill />
             <div style="font-size: 9px">If you cannot obtain the consent of each 
             party, you can apply to the court for permission using the Application for Case Management Order Form 10.</div>
@@ -487,6 +480,7 @@ export default class Form50Layout extends Vue {
     courtDate = '';
     trialPrepHappened = '';
     trialDateWithin30Days = '';
+    discontinueOnlyReply = false;
    
     mounted(){
         this.dataReady = false;
@@ -498,7 +492,6 @@ export default class Form50Layout extends Vue {
         this.getNoticeDiscontinuanceInfo();    
         this.getDiscontinuanceInfo();    
         this.existingFileNumber = getLocationInfo(this.result.otherFormsFilingLocationSurvey);
-        this.acknowledge = this.result.addressChangeNoticeSurvey?.acknowledgement?.length>0;
     } 
 
     public getNoticeDiscontinuanceInfo(){          
@@ -507,7 +500,8 @@ export default class Form50Layout extends Vue {
 
             let noticeDiscontinuance = {} as noticeDiscontinuanceDataInfoType;
 
-            noticeDiscontinuance = this.result.noticeDiscontinuanceSurvey;            
+            noticeDiscontinuance = this.result.noticeDiscontinuanceSurvey;    
+            this.acknowledge = noticeDiscontinuance.ExplanationServe == 'confirm';        
             this.listOfDiscontinuanceDocs = noticeDiscontinuance.discontinuanceDocs?noticeDiscontinuance.discontinuanceDocs:[];
 
             this.yourInfo = getYourInformationResults(noticeDiscontinuance);
@@ -536,6 +530,7 @@ export default class Form50Layout extends Vue {
         this.courtDate = '';
         this.trialPrepHappened = '';
         this.trialDateWithin30Days = '';
+        this.discontinueOnlyReply = false;
 
         if(this.result?.discontinuanceInformationSurvey && this.result?.moreInformationSurvey){
 
@@ -564,6 +559,7 @@ export default class Form50Layout extends Vue {
 
             if (this.listOfDiscontinuanceDocs.includes('form6')){
 
+                this.discontinueOnlyReply = true;
                 this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
                 
                 if (moreInfo.ReplyType == 'form6'){
@@ -596,6 +592,7 @@ export default class Form50Layout extends Vue {
 
             if (this.listOfDiscontinuanceDocs.includes('form8')){
 
+                this.discontinueOnlyReply = true;
                 this.reply.date = Vue.filter('beautify-date')(moreInfo.ReplyFiledDate);
                 
                 if (moreInfo.ReplyType == 'form8'){

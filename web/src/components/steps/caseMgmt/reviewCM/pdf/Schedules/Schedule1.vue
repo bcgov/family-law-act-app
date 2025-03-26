@@ -41,71 +41,69 @@
                 <div style="margin-top:-20px;margin-left:27px;">
                     <span>Me</span>
                 </div>
-                <!-- <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;"  :check="scheduleInfo.attendees.includes('lawyer')?'yes':''" text="My lawyer <i>(provide full name of lawyer)</i>:"/>
-                <underline-form style="margin-left:0.25rem; text-indent:3px;display:inline-block;" textwidth="16rem" beforetext="" hint="full name of lawyer" :text="scheduleInfo.lawyerName"/> -->
                 <span>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendees.includes('lawyer')?'yes':''" text=""/>
-                    <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="13rem" beforetext="" hintMargin="60px" hint="" :text="scheduleInfo.lawyerName"/>                      -->
                     <div style="margin-top:-22px;margin-left:27px;">
-                    <span>My lawyer <i>(provide full name of lawyer)</i>:</span>
-                    <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.lawyerName }}</span>
+                    <span>My lawyer <span style="color:#747474;font-style:italic;">(provide full name of lawyer)</span>:</span>
+                    <div style="margin-top:-25px;margin-left:245px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ scheduleInfo.lawyerName |truncate-word-after(35)}}</div>
+                    <div v-if="scheduleInfo.lawyerName.length >=  35" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{scheduleInfo.lawyerName|truncate-word-before(35)}}</div>    
+                    
                     </div>
                 </span>  
                 <span>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;margin-top:4px" :check="scheduleInfo.attendees.includes('other')?'yes':''" text=""/>
-                    <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="16.6rem" beforetext="Other <i>(specify name and role)</i>:" hintMargin="60px" hint="" :text="scheduleInfo.lawyerName"/>                      -->
                     <div style="margin-top:-20px;margin-left:27px;">
-                    <span>Other <i>(specify name and role)</i>:</span>
-                    <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.otherName }}</span>
-                    </div>        
+                    <span>Other <span style="color:#747474;font-style:italic;">(specify name and role)</span>:</span>
+                    <div style="margin-top:-25px;margin-left:185px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ scheduleInfo.otherName |truncate-word-after(35)}}</div>
+                    <div v-if="scheduleInfo.otherName.length >=  35" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{scheduleInfo.otherName|truncate-word-before(35)}}</div>    
+                        
+                </div>        
                 </span>   
                 <div style="margin-left:5px;"><b>to attend</b> at the</div>                      
                 <div>
-                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'familyManagementConference'?'yes':''" text="family management conference"/>
-                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'familySettlementConference'?'yes':''" text="family settlement conference"/>
-                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'trialPreparationConference'?'yes':''" text="trial preparation conference"/>
-                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'hearing'?'yes':''" text="hearing"/>
+                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'familyManagementConference'?'yes':''" text="Family management conference"/>
+                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'familySettlementConference'?'yes':''" text="Family settlement conference"/>
+                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'trialPreparationConference'?'yes':''" text="Trial preparation conference"/>
+                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'hearing'?'yes':''" text="Hearing"/>
                 <span>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.eventType == 'other'?'yes':''" text=""/>
-                    <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:25px;" textwidth="16.6rem" beforetext="Other <i>(specify):</i>" hintMargin="60px" hint="" :text="scheduleInfo.eventTypeComment"/>                      -->
                     <div style="margin-top:-20px;margin-left:27px;">
-                    <span>Other <i>(specify)</i>:</span>
-                    <span style="margin-left:5px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.eventTypeComment |truncate-word-after(70)}}</span>
-                    <div v-if="scheduleInfo.eventTypeComment && scheduleInfo.eventTypeComment.length >=  70" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{scheduleInfo.eventTypeComment|truncate-word-before(70)}}</div>    
-
+                    <span>Other <span style="color:#747474;font-style:italic;">(specify)</span>:</span>
+                    <div style="margin-top:-25px;margin-left:95px;min-width: 200px;min-height:25px;background-color: #dedede;padding:2px;">{{ scheduleInfo.eventTypeComment |truncate-word-after(55)}}</div>
+                    <div v-if="scheduleInfo.eventTypeComment && scheduleInfo.eventTypeComment.length >=  55" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{scheduleInfo.eventTypeComment|truncate-word-before(55)}}</div>    
+                      
                     </div> 
                     </span> 
             </div>   
-            <div style="margin-left:5px;margin-top:5px;">                
-                <!-- <underline-form style="text-indent:1px;display:inline-block;background-color:#dedede;" textwidth="6rem" hintMargin="8px" beforetext="" hint="Date(dd/mmm/yyyy)" :text="scheduleInfo.eventDate | beautify-date-text"/>                 -->
-                
-                <!-- <underline-form style="text-indent:3px;display:inline-block;background-color:#dedede;" textwidth="4.5rem" hintMargin="20px" beforetext="" hint="Time" :text="scheduleInfo.eventTime"/>  -->
-                <!-- <underline-form style="text-indent:3px;display:inline-block;background-color:#dedede;" textwidth="10rem" hintMargin="40px" beforetext="" hint="Method of attendance" :text="scheduleInfo.attendanceMethod"/>  -->
-                <span><b>scheduled for:</b></span>
-                <span style="margin-left:5px;min-width: 90px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.eventDate | beautify-date-text }}</span>
-                <span style="padding-right:5px;padding-left:5px;"><b>at</b></span>  
-                <span style="margin-left:5px;min-width: 80px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ scheduleInfo.eventTime }}</span>
-                <span style="padding-right:5px;padding-left:5px;"><b>by</b></span> 
-                <span style="margin-left:5px;min-width: 80px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{ scheduleInfo.attendanceMethod |truncate-word-after(20)}}</span> 
-                <div style="margin-top:-1px;font-size:6pt;">                
-                <span style="margin-left:100px;min-width:90px;text-align: center;display: inline-block;">Date (dd/mmm/yyyy)</span>
-                <span style="margin-left:60px;min-width:90px;text-align:center;">Time</span>  
-                <span style="margin-left:90px;min-width:90px;text-align:center;">Method of attendance</span> 
-            </div> 
-                <div v-if="scheduleInfo.attendanceMethod && scheduleInfo.attendanceMethod.length >= 20" style="margin-top:1px;margin-left:0px;min-width: 200px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:left;">{{scheduleInfo.attendanceMethod|truncate-word-before(20)}}</div>        
-            </div> 
+            
+            <table style="margin-top:7px">
+                            <tr>
+                            <td><div style="width:120px;margin-top:-15px;padding-right:5px;padding-left:5px;"><b>scheduled for:</b></div></td>
+                            <td><div style="text-align:center;width:100px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:25px;margin-bottom:10px;">{{ scheduleInfo.eventDate | beautify-date-mid }}</div> <div><div style="margin-left:0px;text-align: center;font-size:7pt;margin-top:-12px;">Date (dd/mmm/yyyy)</div></div></td>
+                            <td><div style="margin-top:-15px;padding-right:5px;padding-left:5px;"><b>at</b></div></td>
+
+                            <td><div style="text-align:center;width:80px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:25px;margin-bottom:10px;">{{ scheduleInfo.eventTime }}</div> <div><div style="margin-left:0px;text-align: center;font-size:7pt;margin-top:-12px;">Time</div></div></td>
+                            <td><div style="margin-top:-15px;padding-right:5px;padding-left:5px;"><b>by</b></div></td>
+                            <td><div v-if="scheduleInfo.attendanceMethod" style="text-align:left;width:132px;background-color: #dedede;padding:2px;font-size: 11pt;min-height:27px;margin-bottom:10px;">{{ scheduleInfo.attendanceMethod |truncate-word-after(15) }}</div> <div><div style="margin-left:0px;text-align: center;font-size:7pt;margin-top:-12px;">Method of attendance</div></div></td>
+                            </tr>
+                </table>  
+                <div v-if="scheduleInfo.attendanceMethod && scheduleInfo.attendanceMethod.length >= 15" style="padding:2px;margin-top:1px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;text-align:left;">{{scheduleInfo.attendanceMethod|truncate-word-before(15)}}</div>        
+
             
             <div style="margin-left:5px;margin-top:5px;display:inline-block;"><b>by another method of attendance as follows:</b></div>  
-                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'inPerson'?'yes':''" text="in person"/>
-                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'byTelephone'?'yes':''" text="telephone"/>
-                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'byVideo'?'yes':''" text="video conference"/>
+                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'inPerson'?'yes':''" text="In person"/>
+                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'byTelephone'?'yes':''" text="Telephone"/>
+                <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:20px;" :check="scheduleInfo.attendanceType == 'byVideo'?'yes':''" text="Video conference"/>
                 <span>
                     <check-box style="text-indent: -17px;width: 80%; margin-right: 10px;margin-left:21px;" :check="scheduleInfo.attendanceType == 'other'?'yes':''" text=""/>
                     <!-- <underline-form style="text-indent:1px;display:block;margin-top:-22px;margin-left:28px;" textwidth="8.5rem" beforetext="other means of electronic communication <i>(specify):</i>" hintMargin="60px" hint="" :text="(scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:''"/>                      -->
                     <div style="margin-top:-20px;margin-left:30px;">
-                    <span>other means of electronic communication <i>(specify):</i></span>
-                    <span style="margin-left:5px;min-width: 120px;display: inline-block;border-bottom: 3px solid grey;border-width:1.2px;background-color:#dedede;border-color:black;text-align:center;">{{ (scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:'' }}</span>
-                    </div> 
+                    <span>Other means of electronic communication <span style="color:#747474;font-style:italic;">(specify):</span></span>
+                    <!-- <span style="margin-left:5px;min-width: 120px;display: inline-block;background-color:#dedede;text-align:center;">{{ (scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:'' }}</span> -->
+                    <div v-if="scheduleInfo.attendanceTypeComment" style="margin-top:-25px;margin-left:325px;min-width:100px;min-height:25px;background-color: #dedede;padding:2px;">{{ scheduleInfo.attendanceTypeComment |truncate-word-after(15)}}</div>
+                    <div v-if="scheduleInfo.attendanceTypeComment && scheduleInfo.attendanceTypeComment.length >=  15" style="margin-top:3px;margin-left:0px;min-width: 200px;display: inline-block;background-color:#dedede;padding:2px;">{{scheduleInfo.attendanceTypeComment|truncate-word-before(15)}}</div>    
+                          
+                </div> 
                     </span>  
             </div>
         </div>        
@@ -124,8 +122,8 @@
             <div style="margin-top:-25px;text-indent:47px;margin-left:0px">The documents I may want to refer to in court have been submitted</div> 
             <div style="text-indent:47px;margin-left:0px">to the court registry and received by the other party</div> 
             <div style="display:inline-block;margin-left:35px;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="10"  marginLeft="1.75rem" :check="scheduleInfo.documentsSubmitted?'yes':''"  text="Yes"/>                                  
-                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="-8" marginLeft="0.5rem" :check="!scheduleInfo.documentsSubmitted?'yes':''" text="No"/> 
+                    <check-box inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="10"  marginLeft="1.75rem" :check="scheduleInfo.documentsSubmitted?'yes':''"  text="<b>Yes</b>"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;text-indent: -17px;" shift="-8" marginLeft="0.5rem" :check="!scheduleInfo.documentsSubmitted?'yes':''" text="<b>No</b>"/> 
                 </div>                             
               
         </div>   
@@ -149,13 +147,13 @@
                 <span style="font-size: 11pt;"><b>3. </b></span><span style="margin-left:12px;">The <b>request</b> to attend by another method of attendance <b>is being</b></span>
                 <div style="margin-left:27px;"><b>made because:</b></div>
                 <div style="margin-left:25px;font-size: 9pt;text-indent:5px;">
-                    <i>List the reasons for not being able to attend by the default method of attendance</i>
+                    <span style="color:#747474;font-style:italic;">List the reasons for not being able to attend by the default method of attendance</span>
                 </div>
                 <div style="margin-left:25px;font-size: 9pt;text-indent:5px;">
-                    <i> and/or why you need to attend using the other method of attendance</i>
+                    <span style="color:#747474;font-style:italic;"> and/or why you need to attend using the other method of attendance</span>
                 </div>
                 
-                <div v-if="scheduleInfo.virtualAttendanceReason" style="text-indent:15px;background-color: #dedede;padding:10px;font-size: 11pt;margin-left:25px;min-height:250px;">
+                <div v-if="scheduleInfo.virtualAttendanceReason" style="background-color: #dedede;padding:5px;font-size: 11pt;margin-left:25px;min-height:250px;">
                     {{scheduleInfo.virtualAttendanceReason}}
                 </div>
                 <div v-else style="margin-bottom:3rem;"></div> 

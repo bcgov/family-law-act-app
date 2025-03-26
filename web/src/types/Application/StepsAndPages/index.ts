@@ -309,6 +309,7 @@ export interface OTHERstPgTypes{
     OtherForms: number; 
     CompleteOtherForms: number;   
     OtherFormsFilingLocation: number;
+    LastNamesOfParties: number;
 }
 
 export interface NCDstPgTypes{

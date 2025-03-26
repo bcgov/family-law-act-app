@@ -48,8 +48,8 @@ export default class Form22 extends Vue {
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA735    `+moment().format("MMMM D, YYYY")+` \\a           Form 22";`;
-        const bottomRightText = `" "`
+        const bottomLeftText = `"PFA 735  `+moment().format("MM/YYYY")+` \\a           Form 22";`;
+        const bottomRightText = `"Trial Readiness Statement"`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
