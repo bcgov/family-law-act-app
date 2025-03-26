@@ -126,7 +126,33 @@ export default class FormList extends Vue {
             }                           
         }
         this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});
+        this.addMissingOrders();
         Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
+    }
+
+    public addMissingOrders() {
+        const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
+        const filingLocationSurvey = locationSurvey.filingLocationSurvey;
+        const fileNumber = filingLocationSurvey.data?.ExistingFamilyCase == "y"? filingLocationSurvey.data.ExistingFileNumber: '';
+        const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders'];
+        console.log('-----check for missing orders-----');
+        console.log("existingOrders");
+        console.log(existingOrders);
+        
+        let newExistingOrders = existingOrders;
+        for(const form of this.formsList){
+            let fileType = form.pdfType;
+            let alreadyAdded = newExistingOrders.filter(o => o.type == form.pdfType).length > 0;
+            if (!alreadyAdded)
+            {
+                console.log("adding missing order:");
+                console.log(fileType);
+                newExistingOrders.push({type: fileType, filingLocation: filingLocationSurvey.data.ExistingCourt, fileNumber: fileNumber});
+            }
+        }
+
+        console.log("newExistingOrders: ", newExistingOrders);
+        this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
     }
 
     public isForm1(){
