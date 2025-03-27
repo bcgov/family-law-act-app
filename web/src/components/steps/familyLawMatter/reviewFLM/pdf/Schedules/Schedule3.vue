@@ -129,7 +129,8 @@
                     <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p> child(ren). 
                 </div>
                 <div style="margin-left:3rem;">
-                        <check-box style="display: inline;" textDisplay="inline" boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child support I expect the amount payable for monthly child support to be approximately $"/> 
+                    <!-- style="display: inline;" textDisplay="inline" -->
+                        <check-box boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child support I expect the amount payable for monthly child support to be approximately $"/> 
                         <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p>
                     
                         <br>
