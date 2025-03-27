@@ -146,7 +146,6 @@ export default class FormList extends Vue {
             }
         }
 
-        console.log("newExistingOrders: ", newExistingOrders);
         this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
     }
 
