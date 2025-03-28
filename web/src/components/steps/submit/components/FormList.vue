@@ -153,9 +153,15 @@ export default class FormList extends Vue {
         const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
        
         if(locationSurvey?.filingLocationSurvey?.data){
-            
             const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
-            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && (locationSurvey?.MetEarlyResolutionRequirements == 'n' || locationSurvey?.courtLocationVictoriaSurrey))                    
+            
+            let MetEarlyResolutionRequirements = locationSurvey.MetEarlyResolutionRequirements;
+            
+            if (typeof MetEarlyResolutionRequirements == 'undefined' || MetEarlyResolutionRequirements == null) {
+                MetEarlyResolutionRequirements = locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements;
+            }
+ 
+            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && (MetEarlyResolutionRequirements == 'n' || locationSurvey?.courtLocationVictoriaSurrey))                    
                 return true
             else 
                 return false
