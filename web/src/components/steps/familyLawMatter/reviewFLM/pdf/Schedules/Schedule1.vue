@@ -91,7 +91,7 @@
                                 {{parentArrInfo.parentTime.desired}}
                             </div>
                             
-                            <br>
+                            <!-- <br> -->
 
                             <!-- <div v-if="parentArrInfo.parentTime.myConditions" style="font-size: 10px; ">
                                 <b>I am willing to have the following conditions placed on my time with the child(ren):</b>
@@ -100,7 +100,7 @@
                                 {{parentArrInfo.parentTime.myConditions}}
                             </div>
                             
-                            <br>
+                            <!-- <br> -->
 
                             <!-- <div v-if="parentArrInfo.parentTime.opDesired" style="font-size: 10px;">
                                 <b>I am asking for the child(ren) to spend time with the other guardian(s) as follows:</b>
@@ -109,7 +109,7 @@
                                 {{parentArrInfo.parentTime.opDesired}}
                             </div>
                             
-                            <br>
+                            <!-- <br> -->
 
                             <!-- <div v-if="parentArrInfo.parentTime.opConditions" style="font-size: 10px;">
                                 <b>I am asking to have the following conditions placed on the other guardian’s time with the child(ren):</b>

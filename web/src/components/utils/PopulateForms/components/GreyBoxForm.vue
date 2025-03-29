@@ -1,6 +1,6 @@
 <template>
     <div style="display:inline-block;">
-        <div v-if="beforetext" style="display:inline-block; margin-right:.25rem;" v-html="beforetext"> {{beforetext}} </div>
+        <div v-if="beforetext" :style="{display: 'inline-block', marginBottom:beforeMarginBottom}" v-html="beforetext"> {{beforetext}} </div>
         <div style="display:inline-block">
             <div :style="{position: 'absolute', marginTop:marginTop, fontSize: entryFontSize, background: '#d6d6d6', color:'#000000', minWidth: textwidth, textAlign: 'center'}">{{text ? text : '&nbsp;'}}</div> 
             <div :style="{borderBottom: '0.7px solid #d6d6d6', minWidth: textwidth, background: '#d6d6d6', marginTop: '1px'}"></div>            
@@ -21,6 +21,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 export default class GreyBoxForm extends Vue {
     @Prop({required: true})
     beforetext!: string;
+
+    @Prop({ required: false, default: '.25rem' })
+    beforeMarginBottom!: string;
 
     @Prop({ required: false, default: '' })
     aftertext!: string;

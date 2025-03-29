@@ -249,8 +249,8 @@
                     </ul>
                     <div>        
                         
-                        <check-box boxMargin="0" shiftmark="0" :check="false"  text="<b>Yes</b> - <i>You are required to file a Financial Statement Form 4. Complete <b>Question 8</b>.</i>"/>
-                        <check-box boxMargin="0" shiftmark="0" :check="false" text="<b>No</b> - <i>You are not required to file a Financial Statement Form 4 at this time. Skip to <b>Question 9</b>.</i>"/>
+                        <check-box boxMargin="0" shiftmark="0" :check="false"  text="<b>Yes</b> - <i>You <b>are required</b> to file a Financial Statement Form 4. Complete <b>Question 8</b>.</i>"/>
+                        <check-box boxMargin="0" shiftmark="0" :check="false" text="<b>No</b> - <i>You <b>are not required</b> to file a Financial Statement Form 4 at this time. Skip to <b>Question 9</b>.</i>"/>
                         
                     </div>
                 </div>

@@ -280,7 +280,7 @@
                     <div style="margin:0 0 0 1.5rem;"> 
                         <div style="display:block;">
                             <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
-                            :check="exSpsSupInfo.payDetails.reduce?'yes':''" text="I am <b>applying to reduce</b> the amount of unpaid spousal support (arrears) to" />
+                            :check="exSpsSupInfo.payDetails.reduce?'yes':''" text="I am <b>applying to reduce the amount</b> of unpaid spousal support (arrears) to" />
                         </div>   
                         <GreyBoxForm style="display:inline; text-indent:0px; margin-left: 30px;" textwidth="8rem" beforetext=" $"  marginTop="-15px" aftertext="because:" hint="" :text="exSpsSupInfo.payDetails.reduceAmount"/>
                         <div v-if="exSpsSupInfo.payDetails.reduce" style="background-color: #dedede;padding:10px;font-size: 11pt;margin-left:32px;min-height:100px; margin-top: 10px;">{{exSpsSupInfo.payDetails.reduceReason}}</div>
@@ -483,8 +483,8 @@ export default class Schedule10 extends Vue {
                 otherChange: (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('other')                  && changesSinceOrderList && changesSinceOrderList.otherComment)?                  changesSinceOrderList.otherComment:'',
                 
                 change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
-                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'cancelOrder' ,
-                suspend: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'suspendedOrder'
+                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'cancelOrder' ,
+                suspend: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'suspendedOrder'
                 
             }
         } else {

@@ -87,9 +87,7 @@
                     <FormPart :part="3" title="Order about spousal support"></FormPart>
                     
                     <div>
-                        <div style="display:inline; margin:0 0 1rem 0.25rem; line-height: 32px;"><b>3. </b> I am applying for an <b>order for spousal support</b> to be paid by <i>(name of paying party)</i></div>                   
-                        <grey-box-form v-for="payor,inx in spsSupInfo.current.payors" :key="inx" style="text-indent:0px;display:inline; margin:1rem 0 0 0.5rem;" textwidth="11.5rem" :beforetext="inx>0?', ':''" hint="" :text="payor"/>          
-                        <div style="display:inline; margin:0 0 0 0.5rem;">as follows:</div>
+                        <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforeMarginBottom="6px" beforetext="<b>3. </b>I am applying for an <b>order for spousal support</b> to be paid by <i>(name of paying party)" aftertext="as follows:" :text="spsSupInfo.current.payors.join(', ')" />
                         
                         <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
                             <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.monthly?'yes':''" text=""/>
@@ -118,13 +116,19 @@
                             <i>Select only one of the options below</i>
                         </div>
                         <div style="margin-left: 2rem;">
-                            <check-box shift="10" shiftmark="0" textDisplay="inline" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; line-height: 16px;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect the range for the <b>monthly amount payable</b> for spousal support to be "/>
-                            <GreyBoxForm style="text-indent:1px;display:inline-block;margin-top: 10px;" textwidth="10rem" beforetext=" approximately $" hint="" text=""/>  
-                            <GreyBoxForm style="text-indent:1px;display:inline;" textwidth="10rem" beforetext="to $" hint="" text=""/>  
-                                <br>
-                            <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I expect a <b>lump sum amount payable</b> for spousal support to be approximately $"/>
-                                <br>
-                            <check-box shift="10" shiftmark="0" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="I am <b>not able to estimate</b> the amount payable for spousal support at this time"/>
+                            <check-box shift="10" shiftmark="0" textDisplay="inline" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; line-height: 16px; margin-left: 0px !important;" check="" text="I expect the range for the <b>monthly amount payable</b> for spousal support to be "/>
+                            <GreyBoxForm style="text-indent:1px;display:inline-block;margin-top: 10px;" textwidth="10rem" beforetext=" approximately $" hint="" :text="spsSupInfo.payDetails.rate"/>  
+                            <GreyBoxForm style="text-indent:1px;display:inline;" textwidth="10rem" beforetext="to $" hint="" :text="spsSupInfo.payDetails.rate"/>  
+                            <div style="display:block;">
+                            <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px; line-height: 25px;"
+                                text="I expect a <b>lump sum amount payable</b> for spousal support to be approximately" check="" />
+                            </div>
+                            <GreyBoxForm style="display:inline; text-indent:0px; line-height: 25px; margin-left: 30px;" textwidth="9rem" marginTop="-15px" beforetext=" $" hint="" :text="spsSupInfo.payDetails.rate"/>
+                            
+                            <div style="display:block;">
+                                <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
+                                    text="I am <b>not able to estimate </b>the amount payable for spousal support at this time" check="" />
+                            </div>
 
                         </div>
                     </div>

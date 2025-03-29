@@ -329,8 +329,8 @@
                 </FormPart>
 
                 <div class="print-block">
-                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="<b>9. </b>As of " aftertext=", the amount of <b>unpaid child support</b>" hint="mmm/dd/yyyy" :text="exChSupInfo.unpdChSup.crntDate" />
-                    <GreyBoxForm style="margin-left:0.1rem; margin-top: 10px; text-indent:10px;" textwidth="8rem"
+                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="<b>9. </b>As of " hintindent="10px" hintmargintop="0px" aftertext=", the amount of <b>unpaid child support</b>" hint="mmm/dd/yyyy" :text="exChSupInfo.unpdChSup.crntDate" />
+                    <GreyBoxForm style="margin-left:0.1rem; margin-top: 13px; text-indent:10px;" textwidth="8rem"
                         beforetext=" (arrears) was $" hint=""
                         :text="exChSupInfo.unpdChSup.amnt" />
                 </div>
