@@ -3,43 +3,19 @@
 
         <!-- <Page 1> -->
         <!-- <HEADER> -->
-        <div class="form-header-reloc">
-            <div style="height: 100px;">
-                <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-                <div style="float:left; width:33%">
-                    <div style="font-size:12pt;"><b>Affidavit of Personal Service</b></div>
-                    <div style="font-size:12pt;"><b>of Protection Order</b></div>
-                    <div style="font-size:10pt;"><b>FORM 49</b></div>
-                    <div>Provincial Court Family Rules</div>
-                    <div>Rules 183</div>
-                </div>
-                <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
-                    <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
-                </div>
-                <div style="width: 35%; float:right; font-size: 8pt;">
-                    <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding-left:24px"> Registry location: </div>
-                        <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
-                            result.applicationLocation }} </div>
-                    </div>
-                    <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding-left:20px;"> Court file number: </div>
-                        <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{
-                            existingFileNumber ?
-                            existingFileNumber : '&nbsp;' }} </div>
-                    </div>
-                    <div style="width: 100%; display: inline-block;">
-                        <div style="float: left; width: 50%; padding-left:6px;"> Last Name of parties:<br/><i style="color:#ababab; padding-left:30px;">Party 1/ party 2 </i></div>
-                        <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ '&nbsp;' }} </div>
-                    </div>
-                    <div style="width: 100%; display: inline-block;">
-           
-                        <div style="float: left; width: 50%; padding-left:14px;"> Document number:<br/><i style="color:#ababab">For registry use only </i></div>
-                        <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;">{{ '&nbsp;' }} </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <FormHeader :headerTableData="[
+            {value: result.applicationLocation}, 
+            {value: existingFileNumber}, 
+            {value: 'otherPartyNames'}, 
+            {value: ''}]"
+            formName="Affidavit of Personal Service of Protection Order"
+            formNumber="FORM 49"
+            formRuleNumber="Rules 183"
+            ruleFontSize="10pt"
+        ></FormHeader>
+
+        <div style="margin-bottom: 1em;"></div>
 
         <div>
             <grey-box style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="22rem"
@@ -103,11 +79,10 @@
 
 
         <!-- <3> -->
-        <div style="padding-top: 12px;">
-            <div style="display:inline; font-size: 9pt;">
-                <b>3.  </b> The party served was identified to me in this manner:
-            </div>
-
+        <div style="display:inline; font-size: 12pt;">
+            <b>3.  </b> The party served was identified to me in this manner:
+        </div>
+        <div style="padding-top: 12px; margin-left: 10px;">
             <div style="display:block; font-style: italic; color:#ababab">
                 Select only one of the options below
             </div>
@@ -123,20 +98,22 @@
                     text="the person served admitted to being this person" />
             </div>
 
+            <div style="page-break-after: always"></div>
+
             <div style="display:block;">
                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3" style="text-indent: 5px;"
                     :check="idMethod == 'other' ? 'yes' : ''" text="Other<i style='color:#ababab'>(specify):</i>" />
                     <div style="padding-left:8rem; margin-top:-1.5rem">
                         <grey-box v-if="idMethod == 'other'"  style="margin-top:10px; text-indent:0rem;"
-                            textwidth="30rem" :text="idMethodComment">
+                            textwidth="30rem" :text="idMethodComment" hint="" beforetext="">
                         </grey-box>
-                        <grey-box v-else style="margin-top:10px; text-indent:0rem;" textwidth="30rem"></grey-box>
+                        <grey-box v-else style="margin-top:10px; text-indent:0rem;" textwidth="30rem" text="" hint="" beforetext=""></grey-box>
                     </div>                
             </div>
-
-
         </div>
         <!-- <SWEAR > -->
+
+        <div style="margin-top: 2em;"></div>
     
         <FormFooterSignature></FormFooterSignature>
 
@@ -158,13 +135,15 @@ import { getLocationInfo, getYourInformationResults } from '@/components/utils/P
 import { aboutAffiantApspDataInfoType, aboutServiceApspDataInfoType } from '@/types/Application/AffidavitPersonalServicePO';
 import GreyBox from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
 import FormFooterSignature from '@/components/utils/PopulateForms/components/FormFooterSignature.vue';
+import FormHeader from '@/components/utils/PopulateForms/components/FormHeader.vue';
 
 @Component({
     components: {
         UnderlineForm,
         CheckBox,
         GreyBox,
-        FormFooterSignature
+        FormFooterSignature,
+        FormHeader
     }
 })
 export default class Form49Layout extends Vue {
