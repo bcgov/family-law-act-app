@@ -159,7 +159,7 @@ export default class ReviewYourAnswersPage extends Vue {
 
         if(!value || this.errorQuestionNames.includes(inputName)){
             this.pageHasError = true;
-            return "REQUIRED";
+                        return "REQUIRED";
         }        
         else if(value?.['selected']){
             return this.getAdvancedRadioGroupResults(value)
@@ -169,6 +169,12 @@ export default class ReviewYourAnswersPage extends Vue {
         }    
         else if(Array.isArray(value))
         {   
+            if (dataItem.name == 'listOfSupportPayors') {
+                return this.getOtherPartyInfo(value);
+            } else if (['childrenList', 'listOfChildren'].includes(dataItem.name)) {
+                return this.getChildrenNames(value);
+            }
+
             if(value[0]?.date && value[0]?.name && value[0]?.nameOther && value[0]?.relationship) return this.getGuardianOfChildTable(value)    
             if(value[0] && value[0] instanceof String && value[0]?.substring(0,5)=='child') return this.getChildrenNames(value)  
             if(value[0]?.childName)return this.getChildInfo(value) 
@@ -182,6 +188,7 @@ export default class ReviewYourAnswersPage extends Vue {
                 }
                                     
             }
+            
             if (dataItem.name == 'otherPartyInfoDis'){
                 return this.getOtherPartyInfo(value);
             } else if (dataItem.name == 'otherPartyInfoRqs'){
@@ -308,7 +315,12 @@ export default class ReviewYourAnswersPage extends Vue {
 
         if(childData.length>0){
             for(const selectedChild of selectedChildren ){
-                if(!isNaN(Number(selectedChild.substring(6,7)))){
+                if (Number.isInteger(selectedChild)) {
+                    const child = childData.find(c => c.id === selectedChild);   
+                    if(child) {
+                        result += Vue.filter('getFullName')(child.name)+'\n'
+                    } 
+                } else if(!isNaN(Number(selectedChild.substring(6,7)))){
                     const child = childData[Number(selectedChild.substring(6,7))]
                     result += Vue.filter('getFullName')(child.name)+'\n'
                 }
@@ -318,14 +330,26 @@ export default class ReviewYourAnswersPage extends Vue {
     }
 
     public getOtherPartyInfo(otherPartyList){
-
+        
         let result = '';
 
+        let otherPartyCommonSurvey;
+        
+        if (this.step.result?.otherPartyCommonSurvey) otherPartyCommonSurvey = this.step.result.otherPartyCommonSurvey;
+        else  otherPartyCommonSurvey = this.questionResults.find(c => c.pageName == 'Other Party Information');
+
         if(otherPartyList.length>0){
-            for(const otherParty of otherPartyList ){
-                result += Vue.filter('getFullName')(otherParty.name)+'\n'                
+            for(const otherParty of otherPartyList ) {
+                if (Number.isInteger(otherParty)) {
+                    const otherPartyData = otherPartyCommonSurvey?.data?.find(c => c.id === otherParty); 
+                      
+                    if(otherPartyData && otherPartyData.name) {
+                        result += Vue.filter('getFullName')(otherPartyData.name)+'\n'
+                    } else result += otherParty +'\n'
+                } else result += otherParty +'\n'                
             }
         }
+        
         return result;
     }
 

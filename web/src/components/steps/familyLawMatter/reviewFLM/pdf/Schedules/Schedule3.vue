@@ -445,7 +445,13 @@ export default class Schedule3 extends Vue {
         if (this.result.aboutChildSupportOrderSurvey){
             const aboutChildSupport = this.result.aboutChildSupportOrderSurvey;
             newChildSupportInfo.desiredSup = {  
-                payor: aboutChildSupport.listOfSupportPayors.toString(),
+                payor: aboutChildSupport.listOfSupportPayors.map(payor => {
+                    if (Number.isInteger(payor)) {
+                        const payorDetails = this.result.otherPartyCommonSurvey.find(p => p.id == payor);
+                        return payorDetails.name ? Vue.filter('getFullName')(payorDetails.name) : '';
+                    }  
+                    else return payor;
+                }).join(", "),
                 applicantPayor: (aboutChildSupport.listOfSupportPayors)?aboutChildSupport.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):false,
                 payees: aboutChildSupport.listOfChildren,              
                 over19: (aboutChildSupport.numberOf19yrsChild>0 && aboutChildSupport.supportChildOver19 == 'y'),

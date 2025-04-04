@@ -209,7 +209,10 @@ export default class GuardianOfChild extends Vue {
             for (const child of childData){
                 const childName = Vue.filter('getFullName')(child.name);
                 this.childrenNames.push(childName)
-                this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push(childName);                
+                this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push({
+                    value: child.id,
+                    text: childName
+                });                
             }
         }
     }

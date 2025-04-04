@@ -485,13 +485,13 @@
 
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                    style="text-indent: 5px;" :check="exChSupInfo.calc.attaching ? 'yes' : ''"
+                                    style="text-indent: 5px;" :check="result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'y' ? 'yes' : ''"
                                     text="I <b>am filing</b> a Financial Statement in Form 4 with this application." />
                             </div>
 
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                    style="text-indent: 5px;" :check="!exChSupInfo.calc.attaching ? 'yes' : ''"
+                                    style="text-indent: 5px;" :check="result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'n' ? 'yes' : ''"
                                     text="I <b>am  not able to file</b>  a Financial Statement in Form 4 with this application. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date." />
                             </div>
 

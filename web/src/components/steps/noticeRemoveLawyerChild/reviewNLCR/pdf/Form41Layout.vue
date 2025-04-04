@@ -20,6 +20,7 @@
                     
                     <grey-box-form 
                         v-for="(otherPartyPanel, idx) of otherPartyDetails" 
+                        :key="idx"
                         style="text-indent:2px;display:inline-block; font-size: 12pt;" 
                         textwidth="33rem" 
                         beforetext="" 

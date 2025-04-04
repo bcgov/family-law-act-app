@@ -96,7 +96,10 @@ export default class AboutContactWithChildOrder extends Vue {
         if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data;            
             for (const child of childData){
-                this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
+                this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push({
+                    value: child.id,
+                    text: Vue.filter('getFullName')(child.name)
+                });
             }                       
         }        
     }
