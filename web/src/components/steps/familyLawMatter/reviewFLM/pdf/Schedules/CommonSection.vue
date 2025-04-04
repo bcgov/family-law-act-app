@@ -181,7 +181,7 @@
                             <div style="margin-left:30px;"><b>together</b> in a marriage-like relationship.</div>
                             </div>
                             <p>
-                                <i><span style="color:#626262; margin-left:30px;">Complete the information below about your relationship, as applicable. You may leave a field blank if it does not apply.</span></i>
+                                <i><span style="color:#626262; margin-left:30px; display: inline-block;">Complete the information below about your relationship, as applicable. You may leave a field blank if it does not apply.</span></i>
                             </p>
 
                             <span style="margin-left:78px;">Date on which the parties began to live together in a </span>
@@ -446,13 +446,49 @@
         <div style="margin-top:1rem;"></div>
 
         <!-- Part 7B -->
-        <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px; position: relative;">
+        <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px;">
                                 <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule1') || selectedSchedules.includes('schedule2')?'yes':''" text="<b>Parenting arrangements</b>, including parental responsibilities and parenting time"/>
                                 
-                                <div style="margin-top:0.25rem;"></div>
-                                <div class="l-arrow parenting-arrow"></div>
+                                 <!-- Vertical Line -->
+                                <div style="position: relative;">
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 1px !important;
+                                    height: 75pt !important;
+                                    background-color: black !important;
+                                    transform: translate(5px, 2px);
+                                "
+                                ></div>
+
+                                <!-- Horizontal Line -->
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 10pt;
+                                    height: 1px;
+                                    background-color: black;
+                                    transform: translate(5.4px, 102px);
+                                "
+                                ></div>
+
+                                <!-- Arrowhead -->
+                                <div 
+                                style="
+                                    position: absolute;
+                                    width: 0;
+                                    height: 0;
+                                    border-top: 6px solid transparent;
+                                    border-bottom: 6px solid transparent;
+                                    border-left: 10px solid black;
+                                    transform: translate(17px, 96px);
+                                "
+                                ></div>
+                            </div>
                                 
-                                <NoteBox borderRadius="8px" border="1px solid #333" style="padding: 20px;margin-left:30px;">
+                                <NoteBox borderRadius="8px" border="1px solid #333" style="padding: 15pt;margin-left:30px;">
                                     <b>Parenting arrangements</b> include how each guardian will parent their child(ren), including each guardian’s responsibilities for decision making about a child and the time each guardian spends with a child. Parental responsibilities can be shared by one or more guardians exclusively, separately, or jointly
                                 </NoteBox>
                                 <p style="margin-left:30px;">Do you have a final order or written agreement about parenting arrangements, including parental responsibilities and parenting time?</p>
@@ -470,10 +506,46 @@
         <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px; position: relative;"> 
                                 <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule3') || selectedSchedules.includes('schedule4')?'yes':''" text="<b>Child support</b>"/>
                                 
-                                <div style="margin-top:0.25rem;"></div>
-                                <div class="l-arrow child-support-arrow"></div>
+                                <!-- Vertical Line -->
+                                <div style="position: relative;">
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 1px !important;
+                                    height: 62pt !important;
+                                    background-color: black !important;
+                                    transform: translate(5px, 2px);
+                                "
+                                ></div>
 
-                                <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 20px;margin-left:30px;">
+                                <!-- Horizontal Line -->
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 10pt;
+                                    height: 1px;
+                                    background-color: black;
+                                    transform: translate(5.4px, 85px);
+                                "
+                                ></div>
+
+                                <!-- Arrowhead -->
+                                <div 
+                                style="
+                                    position: absolute;
+                                    width: 0;
+                                    height: 0;
+                                    border-top: 6px solid transparent;
+                                    border-bottom: 6px solid transparent;
+                                    border-left: 10px solid black;
+                                    transform: translate(17px, 80px);
+                                "
+                                ></div>
+                                </div>
+
+                                <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 15pt;margin-left:30px;">
                                     <b>Child support</b> is the amount of money a parent or guardian pays to another parent or guardian to help care for the child.
                                 </NoteBox>
                                 <p style="margin-left:30px;">Do you have a final order or written agreement about child support?</p>
@@ -490,10 +562,46 @@
         <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px; position: relative;">
                                 <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule5') || selectedSchedules.includes('schedule6')?'yes':''" text="<b>Contact with a child</b>"/>
                                 
-                                <div style="margin-top:0.25rem;"></div>
-                                <div class="l-arrow contact-arrow"></div>
+                                 <!-- Vertical Line -->
+                                 <div style="position: relative;">
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 1px !important;
+                                    height: 50pt !important;
+                                    background-color: black !important;
+                                    transform: translate(5px, 2px);
+                                "
+                                ></div>
 
-                                <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 20px;margin-left:30px;">
+                                <!-- Horizontal Line -->
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 10pt;
+                                    height: 1px;
+                                    background-color: black;
+                                    transform: translate(5.4px, 68px);
+                                "
+                                ></div>
+
+                                <!-- Arrowhead -->
+                                <div 
+                                style="
+                                    position: absolute;
+                                    width: 0;
+                                    height: 0;
+                                    border-top: 6px solid transparent;
+                                    border-bottom: 6px solid transparent;
+                                    border-left: 10px solid black;
+                                    transform: translate(17px, 62px);
+                                "
+                                ></div>
+                                </div>
+
+                                <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 15pt;margin-left:30px;">
                                     <b>Contact with a child</b> is the time a child spends with someone who is not their guardian.
                                 </NoteBox>
                                 <p style="margin-left:30px;">Do you have a final order or written agreement about contact with the child?</p>
@@ -511,10 +619,46 @@
         <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px; position: relative;">
                                 <check-box boxMargin="0" shiftmark="0" :check="result.guardianOfChildSurvey && result.guardianOfChildSurvey.applicationType && (result.guardianOfChildSurvey.applicationType.includes('cancelGuardian') || result.guardianOfChildSurvey.applicationType.includes('becomeGuardian'))  ?'yes':''" text="<b>Guardianship of a child</b> - Appointing a <b>new guardian</b> or <b>cancelling guardianship</b> of a child"/>
 
-                                <div style="margin-top:0.25rem;"></div>
-                                <div class="l-arrow guardianship-arrow"></div>
+                                 <!-- Vertical Line -->
+                                 <div style="position: relative;">
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 1px !important;
+                                    height: 64pt !important;
+                                    background-color: black !important;
+                                    transform: translate(5px, 2px);
+                                "
+                                ></div>
+
+                                <!-- Horizontal Line -->
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 10pt;
+                                    height: 1px;
+                                    background-color: black;
+                                    transform: translate(5.4px, 87px);
+                                "
+                                ></div>
+
+                                <!-- Arrowhead -->
+                                <div 
+                                style="
+                                    position: absolute;
+                                    width: 0;
+                                    height: 0;
+                                    border-top: 6px solid transparent;
+                                    border-bottom: 6px solid transparent;
+                                    border-left: 10px solid black;
+                                    transform: translate(17px, 81px);
+                                "
+                                ></div>
+                                </div>
                                 
-                                <NoteBox borderRadius="8px" border="1px solid #333" style="padding: 20px;margin-left:30px;">
+                                <NoteBox borderRadius="8px" border="1px solid #333" style="padding: 15pt;margin-left:30px;">
                                     <b>Guardianship</b> is who is responsible for a child. Only guardians have parental responsibilities and parenting time with a child.
                                 </NoteBox>
                                 <p style="margin-left:30px;"> - <span style="color:#626262;font-style:italic">Complete <b>Schedule 7</b></span></p>
@@ -524,10 +668,46 @@
         <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px; position: relative;">
                                 <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule9') || selectedSchedules.includes('schedule10')?'yes':''" text="<b>Spousal support</b>"/>
                                 
-                                <div style="margin-top:0.25rem;"></div>
-                                <div class="l-arrow spousal-arrow"></div>
+                                 <!-- Vertical Line -->
+                                 <div style="position: relative;">
+                                 <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 1px !important;
+                                    height: 50pt !important;
+                                    background-color: black !important;
+                                    transform: translate(5px, 2px);
+                                "
+                                ></div>
 
-                                <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 20px;margin-left:30px;">
+                                <!-- Horizontal Line -->
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 10pt;
+                                    height: 1px;
+                                    background-color: black;
+                                    transform: translate(5.4px, 68px);
+                                "
+                                ></div>
+
+                                <!-- Arrowhead -->
+                                <div 
+                                style="
+                                    position: absolute;
+                                    width: 0;
+                                    height: 0;
+                                    border-top: 6px solid transparent;
+                                    border-bottom: 6px solid transparent;
+                                    border-left: 10px solid black;
+                                    transform: translate(17px, 62px);
+                                "
+                                ></div>
+                                </div>
+
+                                <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 15pt;margin-left:30px;">
                                     <b>Spousal support</b> is money that one spouse pays to another spouse for their financial support after separation.
                                 </NoteBox>
                                 <p style="margin-left:30px;">Do you have a final order or written agreement about spousal support?</p>
@@ -546,10 +726,46 @@
         <div style="border: 1px solid #333; margin-bottom: 8px; padding: 20px; position: relative;">
                                 <check-box boxMargin="0" shiftmark="0" :check="selectedSchedules.includes('schedule11') || selectedSchedules.includes('schedule12')?'yes':''" text="<b>Property division in respect of a companion animal</b>"/>
                                     
-                                <div style="margin-top:0.25rem;"></div>
-                                <div class="l-arrow property-arrow"></div>
+                                 <!-- Vertical Line -->
+                                 <div style="position: relative;">
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 1px !important;
+                                    height: 75pt !important;
+                                    background-color: black !important;
+                                    transform: translate(5px, 2px);
+                                "
+                                ></div>
 
-                                <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 20px;margin-left:30px;">
+                                <!-- Horizontal Line -->
+                                <div 
+                                style="
+                                    content: '';
+                                    position: absolute;
+                                    width: 10pt;
+                                    height: 1px;
+                                    background-color: black;
+                                    transform: translate(5.4px, 102px);
+                                "
+                                ></div>
+
+                                <!-- Arrowhead -->
+                                <div 
+                                style="
+                                    position: absolute;
+                                    width: 0;
+                                    height: 0;
+                                    border-top: 6px solid transparent;
+                                    border-bottom: 6px solid transparent;
+                                    border-left: 10px solid black;
+                                    transform: translate(17px, 96px);
+                                "
+                                ></div>
+                                </div>
+
+                                <NoteBox borderRadius="8px" border="1px solid #333"  style="padding: 15pt;margin-left:30px;">
                                     <b>Property division in respect of a companion animal</b> is who will have ownership and possession of a companion animalwhen spouses separate.The court may only make an order for ownership and possession by one spouse.
                                 </NoteBox>
                                 <p style="margin-left:30px;">Do you have a written agreement about property division in respect of the companion animal?</p>
