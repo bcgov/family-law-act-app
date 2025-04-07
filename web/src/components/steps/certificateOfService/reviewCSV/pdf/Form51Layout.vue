@@ -43,17 +43,19 @@
                     style="display:inline;" 
                     :check="isLawyer?'yes':''" 
                     text="I"/>
-                <underline-form 
+                <GreyBoxForm 
                     style="text-indent:0;margin-left:.25rem;display:inline-block;" 
                     textwidth="10rem" 
                     beforetext="" 
                     hint="(full name of person)" 
+                    hintindent="0rem"
                     :text="isLawyer?lawyerName:''"/>   
-                <underline-form 
+                <GreyBoxForm 
                     style="text-indent:2px;display:inline-block; font-size: 9pt;" 
                     textwidth="20rem" 
                     beforetext="am the lawyer for" 
                     hint="(full name of party/parties)" 
+                    hintindent="0rem"
                     :italicHint="false" :text="isLawyer?parties:''"/>                
             </div>
 
@@ -66,11 +68,12 @@
                     style="display:inline;" 
                     :check="!isLawyer?'yes':''" 
                     text="I"/>
-                <underline-form 
+                <GreyBoxForm 
                     style="text-indent:0;margin-left:.25rem;display:inline-block;" 
                     textwidth="15rem" 
                     beforetext="" 
-                    hint="(full name of party)" 
+                    hint="(full name of party)"
+                    hintindent="0rem" 
                     :text="!isLawyer?applicant:''"/>   
                 <div style="display:inline-block;margin-left:1.25rem;">, am not represented by a lawyer</div>
             </div>
@@ -80,11 +83,12 @@
 
 <!-- <2> -->   
         <section > 
-            <underline-form 
+            <GreyBoxForm 
                 style="margin-top:0.5rem; text-indent:2px;display:inline-block;" 
                 textwidth="32.5rem" 
                 beforetext="The other party is" 
                 hint="full name of the other party/parties" 
+                hintindent="0rem"
                 :italicHint="false" 
                 :text="otherParties"/> 
         </section>
@@ -99,22 +103,24 @@
             </div> 
             <div style="margin:0.25rem 0 0 1.5rem;">
                 
-                <underline-form 
+                <GreyBoxForm 
                     style="text-indent:2px;margin-left:0rem;display:inline-block;" 
                     textwidth="37rem" 
                     beforetext="The" 
                     hint="name and identifying description of document" 
+                    hintindent="0rem"
                     :text="documents"/> 
                 <div style="display:block;margin:0.5rem 0.25rem;"> 
                     is being submitted for filing electronically <i>(add if applicable)</i>
                     on behalf of
                 </div>
 
-                <underline-form 
+                <GreyBoxForm 
                     style="text-indent:2px;margin: 0.5rem 0 0 -1rem;display:inline-block; font-size: 9pt;" 
                     textwidth="38.5rem" 
                     beforetext="" 
                     hint="(full name of party/parties)" 
+                    hintindent="0rem"
                     :italicHint="false" :text="isLawyer?parties:''"/>             
             </div>
             
@@ -135,17 +141,19 @@
 
 
         <div style="margin:2rem 0 0 1rem; width:96.37%; font-weight:bold; font-size: 16pt; padding:0.5rem;font-family:BCSans">
-            <underline-form 
+            <GreyBoxForm 
                 style="text-indent:2px;display:inline-block;margin:0 5rem 0.5rem 0;" 
                 textwidth="12rem" 
                 beforetext="" 
-                hint="Date (mmm/dd/yyyy)" text=""/>
-            <underline-form 
+                hint="Date (mmm/dd/yyyy)" text=""
+                hintindent="0rem" />
+            <GreyBoxForm 
                 style="text-indent:2px;display:inline-block;" 
                 textwidth="20rem" 
                 beforetext="" 
                 hint="Signature" 
-                text=""/>               
+                hintindent="0rem"
+                text="" />               
             
         </div>
 
@@ -164,11 +172,13 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 import { electronicFilingStatementDataInfoType } from '@/types/Application/Affidavit';
+import GreyBoxForm from '@/components/utils/PopulateForms/components/GreyBoxForm.vue';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox       
+        CheckBox,
+        GreyBoxForm     
     }
 })
 

@@ -2,7 +2,7 @@
     <!-- <HEADER> -->
         <div  style="display: flex; flex-direction: row; flex-wrap: no-wrap; gap: 4px; justify-content: space-between;">
             <div style="width: 30%">
-                <div style="font-size:14pt; padding-right: 10px;"><b>{{formName}}</b></div>
+                <div :style="{fontSize: formNameFontSize, paddingRight: '10px'}"><b>{{formName}}</b></div>
                 <div style="font-size:12pt;"><b>{{formNumber}}</b></div>
                 <div :style="{fontSize: ruleFontSize}">Provincial Court Family Rules</div>
                 <div :style="{fontSize: ruleFontSize}">{{formRuleNumber}}</div>
@@ -67,6 +67,9 @@ export default class FormHeader extends Vue {
 
     @Prop({required: true})
     formName!: string;
+
+    @Prop({required: false, default: '14pt'})
+    formNameFontSize!: string;
 
     @Prop({required: true})
     formNumber!: string;
