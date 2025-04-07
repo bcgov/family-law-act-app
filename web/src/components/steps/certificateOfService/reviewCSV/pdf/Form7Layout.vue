@@ -1,49 +1,18 @@
 <template>
     <div v-if="dataReady" style="font-size:10pt;">
+<!-- <Page 1> -->
         <FormHeader :headerTableData="[
             {value: result.applicationLocation}, 
             {value: existingFileNumber}, 
-            {value: ''}, 
+            {value: party1lastName +' / '+party2lastName}, 
             {value: ''}]"
             formName="Certificate of Service"
+            formNameFontSize="13pt"
             formNumber="FORM 7"
             formRuleNumber="Rules 2, 27, 68, 77, 136 and 183"
+            ruleFontSize="10pt"
         ></FormHeader>
-<!-- <Page 1> -->
-<!-- <HEADER> : BEGIN -->
-    <div style="height: 160px;">
-            <div style="float:left; width: 33%;">
-                <div style="font-size: 14pt !important;"><b>Certificate of Service</b></div>
-                <div style="font-size:12pt !important;"><b>Form 7</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rules 2, 27, 68, 77, 136 and 183</div> 
-            </div>
-            <div style="float: left; width: 30%; border:1px solid #414142; height: 100pt; opacity: 0.3;">
-                <p style="display: block;margin-top: 85pt;margin-left: 40pt;">COURT STAMP</p>
-            </div>
-            <div style="width: 35%; float:right; font-size: 8pt;">
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Registry location: </div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height:15px;"> {{ result.applicationLocation }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Court file number:</div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;"> {{ existingFileNumber ? existingFileNumber : '&nbsp;' }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Last names of parties:<br/><span style="color:#747474;font-size:7pt">Party 1/Party 2 </span></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;min-height: 35px;"> {{ party1lastName +' / '+party2lastName }} </div>
-                </div>
-                <div style="width: 100%; display: inline-block;">
-                    <div style="float: left; width: 50%; padding: 2px;text-align:right;padding-right:5px;"> Document number:<br/><span style="color:#747474;font-size:7pt">For registry use only </span></div>
-                    <div style="float: left; background-color: #d6d6d6; width: 50%; padding: 2px;line-height: 35px;"> {{ '&nbsp;' }} </div>
-                </div>
-            </div>
-        </div>    
-        <div style="width: 80%;float: left; padding:0.3rem;margin-top:-15px;">
-            This Certificate of Service provides proof of service of court documents.
-        </div>        
-<!-- <HEADER> : END -->
+
 <!-- <1A> : BEGIN -->
     <div>
         <div style="width: 80%; float: left; margin-right: 10px;">
@@ -490,13 +459,15 @@ import { getLocationInfo, getYourInformationResults } from '@/components/utils/P
 import { aboutAffiantCsvDataInfoType, aboutServiceCsvDataInfoType } from '@/types/Application/CertificateOfService';
 import NoteBox from '@/components/utils/PopulateForms/components/NoteBox.vue';
 import GreyBoxForm from "@/components/utils/PopulateForms/components/GreyBoxForm.vue";
+import FormHeader from "@/components/utils/PopulateForms/components/FormHeader.vue";
 
 @Component({
     components:{
         UnderlineForm,
         CheckBox,
         NoteBox,
-        GreyBoxForm       
+        GreyBoxForm,
+        FormHeader       
     }
 })
 export default class Form7Layout extends Vue {
