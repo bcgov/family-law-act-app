@@ -129,7 +129,8 @@
                     <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p> child(ren). 
                 </div>
                 <div style="margin-left:3rem;">
-                        <check-box style="display: inline;" textDisplay="inline" boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child support I expect the amount payable for monthly child support to be approximately $"/> 
+                    <!-- style="display: inline;" textDisplay="inline" -->
+                        <check-box boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child support I expect the amount payable for monthly child support to be approximately $"/> 
                         <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p>
                     
                         <br>
@@ -248,8 +249,8 @@
                     </ul>
                     <div>        
                         
-                        <check-box boxMargin="0" shiftmark="0" :check="false"  text="<b>Yes</b> - <i>You are required to file a Financial Statement Form 4. Complete <b>Question 8</b>.</i>"/>
-                        <check-box boxMargin="0" shiftmark="0" :check="false" text="<b>No</b> - <i>You are not required to file a Financial Statement Form 4 at this time. Skip to <b>Question 9</b>.</i>"/>
+                        <check-box boxMargin="0" shiftmark="0" :check="false"  text="<b>Yes</b> - <i>You <b>are required</b> to file a Financial Statement Form 4. Complete <b>Question 8</b>.</i>"/>
+                        <check-box boxMargin="0" shiftmark="0" :check="false" text="<b>No</b> - <i>You <b>are not required</b> to file a Financial Statement Form 4 at this time. Skip to <b>Question 9</b>.</i>"/>
                         
                     </div>
                 </div>
@@ -444,7 +445,13 @@ export default class Schedule3 extends Vue {
         if (this.result.aboutChildSupportOrderSurvey){
             const aboutChildSupport = this.result.aboutChildSupportOrderSurvey;
             newChildSupportInfo.desiredSup = {  
-                payor: aboutChildSupport.listOfSupportPayors.toString(),
+                payor: aboutChildSupport.listOfSupportPayors.map(payor => {
+                    if (Number.isInteger(payor)) {
+                        const payorDetails = this.result.otherPartyCommonSurvey.find(p => p.id == payor);
+                        return payorDetails.name ? Vue.filter('getFullName')(payorDetails.name) : '';
+                    }  
+                    else return payor;
+                }).join(", "),
                 applicantPayor: (aboutChildSupport.listOfSupportPayors)?aboutChildSupport.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):false,
                 payees: aboutChildSupport.listOfChildren,              
                 over19: (aboutChildSupport.numberOf19yrsChild>0 && aboutChildSupport.supportChildOver19 == 'y'),

@@ -85,9 +85,12 @@ export default class ParentalResponsibilities extends Vue {
 
         if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data;            
-            for (const child of childData){                
+            for (const child of childData){            
                 this.childData.push(child);                
-                this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"].push(Vue.filter('getFullName')(child.name));
+                this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"].push({
+                    value: child.id,
+                    text: Vue.filter('getFullName')(child.name)
+                });
             }                       
         }
     }

@@ -329,8 +329,8 @@
                 </FormPart>
 
                 <div class="print-block">
-                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="<b>9. </b>As of " aftertext=", the amount of <b>unpaid child support</b>" hint="mmm/dd/yyyy" :text="exChSupInfo.unpdChSup.crntDate" />
-                    <GreyBoxForm style="margin-left:0.1rem; margin-top: 10px; text-indent:10px;" textwidth="8rem"
+                    <GreyBoxForm style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="<b>9. </b>As of " hintindent="10px" hintmargintop="0px" aftertext=", the amount of <b>unpaid child support</b>" hint="mmm/dd/yyyy" :text="exChSupInfo.unpdChSup.crntDate" />
+                    <GreyBoxForm style="margin-left:0.1rem; margin-top: 13px; text-indent:10px;" textwidth="8rem"
                         beforetext=" (arrears) was $" hint=""
                         :text="exChSupInfo.unpdChSup.amnt" />
                 </div>
@@ -485,13 +485,13 @@
 
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                    style="text-indent: 5px;" :check="exChSupInfo.calc.attaching ? 'yes' : ''"
+                                    style="text-indent: 5px;" :check="result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'y' ? 'yes' : ''"
                                     text="I <b>am filing</b> a Financial Statement in Form 4 with this application." />
                             </div>
 
                             <div style="display:block;">
                                 <check-box checkbox="" inline="inline" boxMargin="0" shiftmark="-3"
-                                    style="text-indent: 5px;" :check="!exChSupInfo.calc.attaching ? 'yes' : ''"
+                                    style="text-indent: 5px;" :check="result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs == 'n' ? 'yes' : ''"
                                     text="I <b>am  not able to file</b>  a Financial Statement in Form 4 with this application. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive or modify the requirement that my income information in Form 4 be provided with this application. I understand I will still be required to file a Financial Statement in Form 4 at a later date." />
                             </div>
 

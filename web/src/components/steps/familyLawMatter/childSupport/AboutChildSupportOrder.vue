@@ -99,7 +99,10 @@ export default class AboutChildSupportOrder extends Vue {
                 const child = this.childData[childInx];
                 const childName = Vue.filter('getFullName')(child.name)
                 
-                this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push(childName);
+                this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({
+                    value: child.id,
+                    text: childName
+                });
 
                 if ((moment(child.dob).isBefore(_19yearsBefore))){
                     const temp =JSON.parse(JSON.stringify(whysupport19childTemplate))
@@ -124,7 +127,10 @@ export default class AboutChildSupportOrder extends Vue {
         if (stepCOM.result?.otherPartyCommonSurvey?.data) {
             const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
-               this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
+               this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push({
+                    value: otherParty.id,
+                    text: Vue.filter('getFullName')(otherParty.name)
+                });
             }
         }
     }
@@ -190,14 +196,13 @@ export default class AboutChildSupportOrder extends Vue {
     }
 
     public setSelectedChildNames(selectedChildren: string[]){
-       
         const selectedChildNames = []
-        for (const selectedChild of selectedChildren){            
-            const index = selectedChild.charAt(6)   
-            if(this.childData?.[index])         
-                selectedChildNames.push(Vue.filter('getFullName')(this.childData[index].name))
+        for (const selectedChildIndex of selectedChildren){            
+            const selectedChild = this.childData.find(c => c.id === selectedChildIndex);   
+            if(selectedChild)         
+                selectedChildNames.push(Vue.filter('getFullName')(selectedChild.name))
         }
-        
+
         this.survey.setValue("selectedChildrenNames", selectedChildNames);
     }
 
