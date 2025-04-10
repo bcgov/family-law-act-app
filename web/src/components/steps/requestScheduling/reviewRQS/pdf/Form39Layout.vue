@@ -295,6 +295,7 @@
                 If you do not have a lawyer for your family law matter, visit <a href="https://family.legalaid.bc.ca/court-notices">legalaid.bc.ca/family-court-notices</a> to find out about 
                 <b>free in person and remote legal advice services</b> that you may be eligible for that can help you prepare for your court date.
                 Contact the advice services at least three weeks before your court date or as soon as you receive this notice.
+                <br>
                 If you are unable to access the internet, contact the Family LawLINE at 604-408-2172 in Greater Vancouver or
                 1-866-577-2525 elsewhere in BC.
             </div>  
@@ -340,9 +341,6 @@
                 </li>
                 <li><i>NP 21 Remote Attendance in the Provincial Court</i> (for etiquette and directions on connecting by another method
                     of attendance) (counsel attendance requirements when attending Family matters remotely)
-                </li>
-                <li><i>NP 24 Form of Address for Parties and Lawyers</i> (provide the judge or justice with each person’s name, title (e.g.
-                    “Mr./ Ms./Mx./Counsel Jones”) and pronouns to be used in the proceeding)
                 </li>
                 <li><i>NP 24 Form of Address for Parties and Lawyers</i> (provide the judge or justice with each person’s name, title (e.g.
                     “Mr./ Ms./Mx./Counsel Jones”) and pronouns to be used in the proceeding)
