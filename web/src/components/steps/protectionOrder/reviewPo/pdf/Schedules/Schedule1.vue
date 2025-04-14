@@ -39,10 +39,11 @@
 
         <div style="display: flex; flex-direction: row;">
             <div style="width: 80%">
-                <grey-box-form marginTop="-17px" style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="yourInfo.name | getFullName"/>
-                <grey-box-form marginTop="-17px" style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hintindent="1rem" hint="occupation" :text="yourInfo.occupation"/>
-                <div style="margin-top: 0.1rem;"></div>
-                <grey-box-form marginTop="-17px" style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="serviceAddress | getFullAddress"/>
+                <grey-box-form style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="yourInfo.name | getFullName"/>
+                <grey-box-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hintindent="1rem" hint="occupation" :text="yourInfo.occupation"/>
+                <div style="margin-top: 0.8rem;"></div>
+                
+                <grey-box-form style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="serviceAddress | getFullAddress"/>
                 <div style="text-indent:1px;display:inline;"> ,</div>
             </div>
             <div style="width: 20%;">
@@ -457,7 +458,7 @@
                                     Date on which the parties began to live together in<br/> a marriage-like relationship (dd/mmm/yyyy):    
                                 </td>
                                 <td>
-                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.liveTogetherDate | beautify-date-mid" />
+                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.liveTogetherDate | beautify-date-mid" hint="" beforetext="" />
                                 </td>
                             </tr>
                             <tr>
@@ -465,7 +466,7 @@
                                     Date of marriage (dd/mmm/yyyy):
                                 </td>
                                 <td>
-                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.marriageDate | beautify-date-mid" />
+                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.marriageDate | beautify-date-mid" hint="" beforetext="" />
                                 </td>
                             </tr>
                             <tr>
@@ -473,7 +474,7 @@
                                     Date of separation (dd/mmm/yyyy)
                                 </td>
                                 <td>
-                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.separationDate | beautify-date-mid" />
+                                    <grey-box-form marginTop="-22px" style="margin-top:0.2rem; text-indent:0px;display:block;" textwidth="7.75rem" :text="backgroundSurvey.separationDate | beautify-date-mid" hint="" beforetext="" />
                                 </td>
                             </tr>
                         </table>
