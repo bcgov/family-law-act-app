@@ -40,7 +40,7 @@
             member from another family member if there is a risk of family violence.
         </div>
 
-        <div class="fla-col-left-80 fla-medium-grey" style="border: 1px dashed black; width: 80%">
+        <div class="fla-col-left-80 fla-medium-grey" style="border: 1px dashed black; width: 80%; background-color: #d6d6d6;">
             <b>Please read before completing this form:</b>
             <ul>
                 <li>You must complete the main application and any applicable schedule for your
@@ -177,7 +177,7 @@
                 </div>
                 <div style="display: inline-block; width:58%">
                     <grey-box-form marginTop="-22px" style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0; line-height: 28px;" textwidth="19.5rem" beforetext="" hint="court location" text=""/>
-                    <div style="line-height: 14px; border: 1px solid black;">
+                    <div style="line-height: 14px; border: 1px solid black; background-color: #d6d6d6;">
                         <b>Do not attend the courthouse in person</b>. The registry will send within 24 hours before the hearing
                             date noted above the link to connect by MS Teams, including a dial-in conferencing number to be used by
                             any party that is unable to use MS Teams or has problems with their video connection. If you have not
@@ -248,7 +248,7 @@
         </div>
 
         <!--Appearance Notice: Begin -->
-        <div style="page-break-after:always;">&nbsp;</div> 
+        <div style="margin-top: .1rem;"></div> 
         
         <div>
             <div style="width: 100%; ">                    
@@ -300,7 +300,7 @@
                         <b>Family Justice Services</b>
                     </div>    
                     <div style="margin-top:10px;font-size:11pt;">
-                        Family justice counsellors provide services to British Columbians going through separation and divorce and are 
+                        <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-counsellors" target="_blank">Family justice counsellors</a> provide services to British Columbians going through separation and divorce and are 
                         specially trained to help families resolve their issues about guardianship, parenting arrangements, contact and 
                         support. There is no charge for their services.
                     </div> 

@@ -3,8 +3,7 @@
 <!-- <Page 2> --> 
 <!-- <Header> -->
     <div v-if="dataReady">
-        <div class="new-page" />
-
+        
         <div style="display: flex; flex-direction: row;">
             <div style="background: #626262; color: white; font-size: 17pt; width: 80%;">
                 <b><span style="font-size: 34pt;">Schedule 1</span> | Protection Order</b>
