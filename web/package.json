@@ -33,7 +33,7 @@
     "popper.js": "^1.16.1",
     "sass-loader": "^8.0.2",
     "showdown": "~1.9.1",
-    "survey-creator": "^1.5.5",
+    "survey-creator": "^1.9.133",
     "survey-vue": "^1.5.5",
     "surveyjs-widgets": "^1.5.5",
     "ts-loader": "^6.2.2",
