@@ -410,7 +410,7 @@
             <div style="margin-left:70px !important;font-size:6pt;"><i> date</i></div>
             <div style="margin-left:230px !important;font-size:6pt;margin-top:-12px;"><i> time</i></div>
             </div>
-            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
+            <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''" text=""
                     />
                     <ul style="margin-top: -20px;margin-left:-25px;">
                         <!-- <underline-form style="text-indent:4px;display:inline-block;margin-left:10px; " textwidth="350px" beforetext="in person at" hintMargin="120px"  hint="court location" text=""/>  -->
@@ -420,7 +420,7 @@
             </div>
                     </ul>
                     <div style="margin-top: 1rem;"></div>
-                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''"
+                    <check-box inline="inline" boxMargin="0" style="display: inline; text-indent: 17px;margin-left:10px;" :check="''" text=""
                     />                    
                     <ul style="margin-top: -20px;margin-left:-16px;">
                         <div>

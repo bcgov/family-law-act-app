@@ -178,15 +178,12 @@ export default class FlmBackground extends Vue {
 
         this.survey.setVariable("formOneRequired", this.formOneRequired);
         
-        if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){
-            this.setPages()
-        }
-
+        this.setPages()
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
     public setPages() {
-
         if (this.selectedForms) {
                         
             togglePages(this.allPages, false, this.currentStep);
@@ -259,7 +256,7 @@ export default class FlmBackground extends Vue {
         let location = ''
         location = filingLocationData?.ExistingCourt;                
         
-        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && (filingLocationData?.MetEarlyResolutionRequirements == 'n' || filingLocationData?.courtLocationVictoriaSurrey)){
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && (filingLocationData?.MetEarlyResolutionRequirements == 'n' && filingLocationData?.courtLocationVictoriaSurrey)){
             return true;
         } else {
             return false;
