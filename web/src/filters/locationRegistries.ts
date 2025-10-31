@@ -11,4 +11,9 @@ export const EarlyResolutionsRegistries = [
     "3561", // "Abbotsford Law Courts"
     "3521", // "Chilliwack Law Courts"
     "3581", // "New Westminster Law Courts"
+    "2011", // "North Vancouver Courts",
+    "2021", // "Pemberton Provincial Court"
+    "2025", // "Richmond Provincial Court"
+    "2031", // "Sechelt Provincial Court"
+    "2045", // "Robson Square Provincial Court"
 ]; 
