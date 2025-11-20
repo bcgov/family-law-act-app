@@ -126,7 +126,7 @@
                 <check-box inline="inline" textDisplay="inline" boxMargin="0" shiftmark="0" style="display: inline;" :check="chSupInfo.desiredSup.payor?'yes':''" text="I am applying for an order for ongoing support to be paid by (<i>name of paying party</i>)"/>
                 <div class="answerbox" style="display:inline; padding: 2px 16px; background: #dedede;">{{chSupInfo.desiredSup.payor}}</div>
                 <div style="display:inline;text-indent:0px;"> in the monthly amount set out in the child support guidelines for <i>(number)</i> 
-                    <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.calculatingChildSupportSurvey.amountOfChildSupportPerMonth}}</p> child(ren). 
+                    <p class="answerbox" style="display: inline; padding: 2px 16px; background: #dedede;">{{result.aboutChildSupportOrderSurvey.listOfChildren.length}}</p> child(ren). 
                 </div>
                 <div style="margin-left:3rem;">
                         <check-box style="display: inline;" textDisplay="inline" boxMargin="0" shiftmark="0" :check="result.calculatingChildSupportSurvey.ableToProvideAmountOfChildSupportPerMonth =='y'?'yes': ''"  text="Based on the information I know about the other party’s income and my application for child supportI expect the amount payable for monthly child support to be approximately $"/> 
