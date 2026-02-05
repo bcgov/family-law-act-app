@@ -221,7 +221,9 @@ export default class FilingLocation extends Vue {
         } else if (Vue.filter('includedInRegistries')(location, 'early-resolutions')) {
             this.survey.setValue("familyJusticeRegistry",   false);            
             this.survey.setValue("familyEducationProgram",  false);
-            if(this.survey.data?.MetEarlyResolutionRequirements == 'n' && this.survey.getVariable("victoriaSurrey")){
+            this.survey.setValue("earlyResolutionRegistry", true);
+
+            if(this.survey.data?.MetEarlyResolutionRequirements == 'n'){
                 togglePages(this.allPages, false, this.stPgNo.FLM._StepNo);
                 this.form1Enabled = true;
             }          
