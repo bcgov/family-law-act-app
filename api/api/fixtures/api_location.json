@@ -881,7 +881,7 @@
     "fields": {
         "location_code": "3585",
         "name": "Surrey",
-        "email": "CSBSurreyProvincialCourt.CriminalRegistry@gov.bc.ca",
+        "email": "CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca",
         "created_date": "2021-05-18T21:48:02.579Z",
         "last_updated": "2021-05-18T21:48:02.579Z",
         "in_person_filing_location_code": ""
